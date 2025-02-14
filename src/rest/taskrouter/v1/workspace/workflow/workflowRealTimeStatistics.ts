@@ -91,7 +91,7 @@ export class WorkflowRealTimeStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkflowRealTimeStatisticsContextFetchOptions
       | ((
@@ -127,21 +127,26 @@ export class WorkflowRealTimeStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkflowRealTimeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkflowRealTimeStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workflowSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

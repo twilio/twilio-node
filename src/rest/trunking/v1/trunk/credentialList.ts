@@ -138,7 +138,7 @@ export class CredentialListContextImpl implements CredentialListContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CredentialListInstance) => any
   ): Promise<CredentialListInstance> {
     const headers: any = {};
@@ -152,21 +152,26 @@ export class CredentialListContextImpl implements CredentialListContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CredentialListInstance(
-          operationVersion,
-          payload,
-          instance._solution.trunkSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CredentialListInstance(
+        operationVersion,
+        payload,
+        instance._solution.trunkSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

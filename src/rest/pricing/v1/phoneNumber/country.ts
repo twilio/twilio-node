@@ -98,7 +98,7 @@ export class CountryContextImpl implements CountryContext {
     this._uri = `/PhoneNumbers/Countries/${isoCountry}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
   ): Promise<CountryInstance> {
     const headers: any = {};
@@ -112,20 +112,25 @@ export class CountryContextImpl implements CountryContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CountryInstance(
-          operationVersion,
-          payload,
-          instance._solution.isoCountry
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CountryInstance(
+        operationVersion,
+        payload,
+        instance._solution.isoCountry
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

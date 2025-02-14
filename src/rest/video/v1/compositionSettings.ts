@@ -81,7 +81,7 @@ export class CompositionSettingsContextImpl
     this._uri = `/CompositionSettings/Default`;
   }
 
-  create(
+  async create(
     params: CompositionSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
@@ -122,18 +122,27 @@ export class CompositionSettingsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CompositionSettingsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CompositionSettingsInstance(
+        operationVersion,
+        payload
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
     const headers: any = {};
@@ -147,15 +156,24 @@ export class CompositionSettingsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CompositionSettingsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CompositionSettingsInstance(
+        operationVersion,
+        payload
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

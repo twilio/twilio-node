@@ -202,7 +202,7 @@ export class SyncMapContextImpl implements SyncMapContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
     const headers: any = {};
@@ -216,24 +216,29 @@ export class SyncMapContextImpl implements SyncMapContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncMapInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SyncMapContextUpdateOptions
       | ((error: Error | null, item?: SyncMapInstance) => any),
@@ -265,21 +270,26 @@ export class SyncMapContextImpl implements SyncMapContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncMapInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

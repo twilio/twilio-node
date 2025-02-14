@@ -97,7 +97,7 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
     this._uri = `/Schemas/${id}/Versions/${schemaVersion}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SchemaVersionInstance) => any
   ): Promise<SchemaVersionInstance> {
     const headers: any = {};
@@ -111,21 +111,26 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SchemaVersionInstance(
-          operationVersion,
-          payload,
-          instance._solution.id,
-          instance._solution.schemaVersion
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SchemaVersionInstance(
+        operationVersion,
+        payload,
+        instance._solution.id,
+        instance._solution.schemaVersion
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

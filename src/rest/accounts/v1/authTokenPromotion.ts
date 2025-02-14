@@ -50,7 +50,7 @@ export class AuthTokenPromotionContextImpl
     this._uri = `/AuthTokens/Promote`;
   }
 
-  update(
+  async update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
   ): Promise<AuthTokenPromotionInstance> {
     const headers: any = {};
@@ -64,15 +64,21 @@ export class AuthTokenPromotionContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AuthTokenPromotionInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AuthTokenPromotionInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

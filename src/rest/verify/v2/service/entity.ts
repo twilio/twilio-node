@@ -179,7 +179,7 @@ export class EntityContextImpl implements EntityContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EntityInstance) => any
   ): Promise<EntityInstance> {
     const headers: any = {};
@@ -193,21 +193,26 @@ export class EntityContextImpl implements EntityContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EntityInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EntityInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.identity
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -108,7 +108,7 @@ export class AuthorizedConnectAppContextImpl
     this._uri = `/Accounts/${accountSid}/AuthorizedConnectApps/${connectAppSid}.json`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any
   ): Promise<AuthorizedConnectAppInstance> {
     const headers: any = {};
@@ -122,21 +122,26 @@ export class AuthorizedConnectAppContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AuthorizedConnectAppInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.connectAppSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AuthorizedConnectAppInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.connectAppSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

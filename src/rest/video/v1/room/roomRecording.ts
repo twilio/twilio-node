@@ -164,7 +164,7 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RoomRecordingInstance) => any
   ): Promise<RoomRecordingInstance> {
     const headers: any = {};
@@ -178,21 +178,26 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoomRecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RoomRecordingInstance(
+        operationVersion,
+        payload,
+        instance._solution.roomSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

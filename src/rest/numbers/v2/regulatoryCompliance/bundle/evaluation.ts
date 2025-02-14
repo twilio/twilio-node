@@ -99,7 +99,7 @@ export class EvaluationContextImpl implements EvaluationContext {
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Evaluations/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EvaluationInstance) => any
   ): Promise<EvaluationInstance> {
     const headers: any = {};
@@ -113,21 +113,26 @@ export class EvaluationContextImpl implements EvaluationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EvaluationInstance(
-          operationVersion,
-          payload,
-          instance._solution.bundleSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EvaluationInstance(
+        operationVersion,
+        payload,
+        instance._solution.bundleSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

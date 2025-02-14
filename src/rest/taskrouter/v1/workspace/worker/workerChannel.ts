@@ -139,7 +139,7 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
     const headers: any = {};
@@ -153,25 +153,30 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkerChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workerSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | WorkerChannelContextUpdateOptions
       | ((error: Error | null, item?: WorkerChannelInstance) => any),
@@ -203,22 +208,27 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkerChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workerSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

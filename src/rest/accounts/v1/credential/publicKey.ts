@@ -165,7 +165,7 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance> {
     const headers: any = {};
@@ -179,19 +179,28 @@ export class PublicKeyContextImpl implements PublicKeyContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PublicKeyInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PublicKeyInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | PublicKeyContextUpdateOptions
       | ((error: Error | null, item?: PublicKeyInstance) => any),
@@ -222,16 +231,25 @@ export class PublicKeyContextImpl implements PublicKeyContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PublicKeyInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PublicKeyInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

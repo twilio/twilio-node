@@ -118,7 +118,7 @@ export class BrandVettingContextImpl implements BrandVettingContext {
     this._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings/${brandVettingSid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: BrandVettingInstance) => any
   ): Promise<BrandVettingInstance> {
     const headers: any = {};
@@ -132,21 +132,26 @@ export class BrandVettingContextImpl implements BrandVettingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BrandVettingInstance(
-          operationVersion,
-          payload,
-          instance._solution.brandSid,
-          instance._solution.brandVettingSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new BrandVettingInstance(
+        operationVersion,
+        payload,
+        instance._solution.brandSid,
+        instance._solution.brandVettingSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

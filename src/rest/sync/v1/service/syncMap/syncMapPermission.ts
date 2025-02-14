@@ -165,7 +165,7 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
   ): Promise<SyncMapPermissionInstance> {
     const headers: any = {};
@@ -179,25 +179,30 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapPermissionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.mapSid,
-          instance._solution.identity
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncMapPermissionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.mapSid,
+        instance._solution.identity
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: SyncMapPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
   ): Promise<SyncMapPermissionInstance> {
@@ -238,22 +243,27 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapPermissionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.mapSid,
-          instance._solution.identity
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncMapPermissionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.mapSid,
+        instance._solution.identity
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -76,7 +76,7 @@ export class UsageContextImpl implements UsageContext {
     this._uri = `/Sims/${simSid}/Usage`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | UsageContextFetchOptions
       | ((error: Error | null, item?: UsageInstance) => any),
@@ -106,16 +106,25 @@ export class UsageContextImpl implements UsageContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UsageInstance(operationVersion, payload, instance._solution.simSid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UsageInstance(
+        operationVersion,
+        payload,
+        instance._solution.simSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

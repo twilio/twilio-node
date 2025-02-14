@@ -179,7 +179,7 @@ export class CommandContextImpl implements CommandContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
   ): Promise<CommandInstance> {
     const headers: any = {};
@@ -193,16 +193,25 @@ export class CommandContextImpl implements CommandContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CommandInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CommandInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

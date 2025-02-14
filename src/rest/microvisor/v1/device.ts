@@ -150,7 +150,7 @@ export class DeviceContextImpl implements DeviceContext {
     return this._deviceSecrets;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance> {
     const headers: any = {};
@@ -164,19 +164,28 @@ export class DeviceContextImpl implements DeviceContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeviceInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | DeviceContextUpdateOptions
       | ((error: Error | null, item?: DeviceInstance) => any),
@@ -213,16 +222,25 @@ export class DeviceContextImpl implements DeviceContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeviceInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

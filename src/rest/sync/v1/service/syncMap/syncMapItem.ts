@@ -249,7 +249,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance> {
     const headers: any = {};
@@ -263,25 +263,30 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapItemInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.mapSid,
-          instance._solution.key
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncMapItemInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.mapSid,
+        instance._solution.key
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SyncMapItemContextUpdateOptions
       | ((error: Error | null, item?: SyncMapItemInstance) => any),
@@ -318,22 +323,27 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapItemInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.mapSid,
-          instance._solution.key
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncMapItemInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.mapSid,
+        instance._solution.key
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

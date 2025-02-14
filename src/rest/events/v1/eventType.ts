@@ -98,7 +98,7 @@ export class EventTypeContextImpl implements EventTypeContext {
     this._uri = `/Types/${type}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EventTypeInstance) => any
   ): Promise<EventTypeInstance> {
     const headers: any = {};
@@ -112,20 +112,25 @@ export class EventTypeContextImpl implements EventTypeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EventTypeInstance(
-          operationVersion,
-          payload,
-          instance._solution.type
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EventTypeInstance(
+        operationVersion,
+        payload,
+        instance._solution.type
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

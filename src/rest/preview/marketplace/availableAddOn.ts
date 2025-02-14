@@ -107,7 +107,7 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
     return this._extensions;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
   ): Promise<AvailableAddOnInstance> {
     const headers: any = {};
@@ -121,20 +121,25 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AvailableAddOnInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AvailableAddOnInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -225,7 +225,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     const headers: any = {};
@@ -239,25 +239,30 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncListItemInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.listSid,
-          instance._solution.index
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncListItemInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.listSid,
+        instance._solution.index
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: SyncListItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
@@ -288,22 +293,27 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncListItemInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.listSid,
-          instance._solution.index
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncListItemInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.listSid,
+        instance._solution.index
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

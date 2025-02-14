@@ -129,7 +129,7 @@ export class MemberContextImpl implements MemberContext {
     this._uri = `/Accounts/${accountSid}/Queues/${queueSid}/Members/${callSid}.json`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     const headers: any = {};
@@ -143,25 +143,30 @@ export class MemberContextImpl implements MemberContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MemberInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.queueSid,
-          instance._solution.callSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MemberInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.queueSid,
+        instance._solution.callSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
@@ -191,22 +196,27 @@ export class MemberContextImpl implements MemberContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MemberInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.queueSid,
-          instance._solution.callSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MemberInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.queueSid,
+        instance._solution.callSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

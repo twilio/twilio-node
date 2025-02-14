@@ -122,7 +122,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Transcriptions/${sid}.json`;
   }
 
-  update(
+  async update(
     params: TranscriptionContextUpdateOptions,
     callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
@@ -151,22 +151,27 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TranscriptionInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.callSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

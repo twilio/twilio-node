@@ -216,7 +216,7 @@ export class UserChannelContextImpl implements UserChannelContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
     const headers: any = {};
@@ -230,25 +230,30 @@ export class UserChannelContextImpl implements UserChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.userSid,
-          instance._solution.channelSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.userSid,
+        instance._solution.channelSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | UserChannelContextUpdateOptions
       | ((error: Error | null, item?: UserChannelInstance) => any),
@@ -285,22 +290,27 @@ export class UserChannelContextImpl implements UserChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.userSid,
-          instance._solution.channelSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.userSid,
+        instance._solution.channelSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

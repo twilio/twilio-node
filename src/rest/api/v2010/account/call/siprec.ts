@@ -497,7 +497,7 @@ export class SiprecContextImpl implements SiprecContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
   }
 
-  update(
+  async update(
     params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance> {
@@ -526,22 +526,27 @@ export class SiprecContextImpl implements SiprecContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SiprecInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SiprecInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.callSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

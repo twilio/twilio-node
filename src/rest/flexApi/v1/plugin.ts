@@ -178,7 +178,7 @@ export class PluginContextImpl implements PluginContext {
     return this._pluginVersions;
   }
 
-  fetch(
+  async fetch(
     params?:
       | PluginContextFetchOptions
       | ((error: Error | null, item?: PluginInstance) => any),
@@ -207,19 +207,28 @@ export class PluginContextImpl implements PluginContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PluginInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | PluginContextUpdateOptions
       | ((error: Error | null, item?: PluginInstance) => any),
@@ -254,16 +263,25 @@ export class PluginContextImpl implements PluginContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PluginInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

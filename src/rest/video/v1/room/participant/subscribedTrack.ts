@@ -112,7 +112,7 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SubscribedTrackInstance) => any
   ): Promise<SubscribedTrackInstance> {
     const headers: any = {};
@@ -126,22 +126,27 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribedTrackInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SubscribedTrackInstance(
+        operationVersion,
+        payload,
+        instance._solution.roomSid,
+        instance._solution.participantSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

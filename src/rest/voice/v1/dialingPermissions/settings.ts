@@ -79,7 +79,7 @@ export class SettingsContextImpl implements SettingsContext {
     this._uri = `/Settings`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance> {
     const headers: any = {};
@@ -93,18 +93,24 @@ export class SettingsContextImpl implements SettingsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SettingsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SettingsInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SettingsContextUpdateOptions
       | ((error: Error | null, item?: SettingsInstance) => any),
@@ -137,15 +143,21 @@ export class SettingsContextImpl implements SettingsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SettingsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SettingsInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

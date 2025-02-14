@@ -153,7 +153,7 @@ export class AuthCallsIpAccessControlListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: AuthCallsIpAccessControlListMappingInstance
@@ -170,22 +170,27 @@ export class AuthCallsIpAccessControlListMappingContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AuthCallsIpAccessControlListMappingInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.domainSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AuthCallsIpAccessControlListMappingInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.domainSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

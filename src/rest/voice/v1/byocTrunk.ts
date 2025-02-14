@@ -197,7 +197,7 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
     const headers: any = {};
@@ -211,19 +211,28 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ByocTrunkInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ByocTrunkInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ByocTrunkContextUpdateOptions
       | ((error: Error | null, item?: ByocTrunkInstance) => any),
@@ -271,16 +280,25 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ByocTrunkInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ByocTrunkInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

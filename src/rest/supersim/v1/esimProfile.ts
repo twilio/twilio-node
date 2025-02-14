@@ -131,7 +131,7 @@ export class EsimProfileContextImpl implements EsimProfileContext {
     this._uri = `/ESimProfiles/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EsimProfileInstance) => any
   ): Promise<EsimProfileInstance> {
     const headers: any = {};
@@ -145,20 +145,25 @@ export class EsimProfileContextImpl implements EsimProfileContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EsimProfileInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EsimProfileInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

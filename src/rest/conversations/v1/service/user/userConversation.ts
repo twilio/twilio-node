@@ -179,7 +179,7 @@ export class UserConversationContextImpl implements UserConversationContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: UserConversationInstance) => any
   ): Promise<UserConversationInstance> {
     const headers: any = {};
@@ -193,25 +193,30 @@ export class UserConversationContextImpl implements UserConversationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserConversationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.userSid,
-          instance._solution.conversationSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserConversationInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.userSid,
+        instance._solution.conversationSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | UserConversationContextUpdateOptions
       | ((error: Error | null, item?: UserConversationInstance) => any),
@@ -248,22 +253,27 @@ export class UserConversationContextImpl implements UserConversationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserConversationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.userSid,
-          instance._solution.conversationSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserConversationInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.userSid,
+        instance._solution.conversationSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

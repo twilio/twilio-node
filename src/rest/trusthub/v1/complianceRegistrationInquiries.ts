@@ -190,7 +190,7 @@ export class ComplianceRegistrationInquiriesContextImpl
     this._uri = `/ComplianceInquiries/Registration/${registrationId}/RegulatoryCompliance/GB/Initialize`;
   }
 
-  update(
+  async update(
     params?:
       | ComplianceRegistrationInquiriesContextUpdateOptions
       | ((
@@ -229,20 +229,25 @@ export class ComplianceRegistrationInquiriesContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ComplianceRegistrationInquiriesInstance(
-          operationVersion,
-          payload,
-          instance._solution.registrationId
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ComplianceRegistrationInquiriesInstance(
+        operationVersion,
+        payload,
+        instance._solution.registrationId
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

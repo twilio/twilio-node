@@ -91,7 +91,7 @@ export class TaskQueueRealTimeStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | TaskQueueRealTimeStatisticsContextFetchOptions
       | ((
@@ -127,21 +127,26 @@ export class TaskQueueRealTimeStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskQueueRealTimeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.taskQueueSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskQueueRealTimeStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.taskQueueSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

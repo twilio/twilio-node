@@ -87,7 +87,7 @@ export class SipDomainContextImpl implements SipDomainContext {
     this._uri = `/SipDomains/${sipDomain}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     const headers: any = {};
@@ -101,23 +101,28 @@ export class SipDomainContextImpl implements SipDomainContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SipDomainInstance(
-          operationVersion,
-          payload,
-          instance._solution.sipDomain
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SipDomainInstance(
+        operationVersion,
+        payload,
+        instance._solution.sipDomain
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SipDomainContextUpdateOptions
       | ((error: Error | null, item?: SipDomainInstance) => any),
@@ -150,20 +155,25 @@ export class SipDomainContextImpl implements SipDomainContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SipDomainInstance(
-          operationVersion,
-          payload,
-          instance._solution.sipDomain
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SipDomainInstance(
+        operationVersion,
+        payload,
+        instance._solution.sipDomain
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

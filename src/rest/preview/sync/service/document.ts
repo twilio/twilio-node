@@ -176,7 +176,7 @@ export class DocumentContextImpl implements DocumentContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     const headers: any = {};
@@ -190,24 +190,29 @@ export class DocumentContextImpl implements DocumentContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DocumentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DocumentInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
@@ -238,21 +243,26 @@ export class DocumentContextImpl implements DocumentContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DocumentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DocumentInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

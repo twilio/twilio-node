@@ -109,7 +109,7 @@ export class NotificationContextImpl implements NotificationContext {
     this._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     const headers: any = {};
@@ -123,23 +123,28 @@ export class NotificationContextImpl implements NotificationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NotificationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new NotificationInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | NotificationContextUpdateOptions
       | ((error: Error | null, item?: NotificationInstance) => any),
@@ -206,20 +211,25 @@ export class NotificationContextImpl implements NotificationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NotificationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new NotificationInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

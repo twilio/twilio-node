@@ -216,7 +216,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance> {
     const headers: any = {};
@@ -230,23 +230,28 @@ export class CompositionHookContextImpl implements CompositionHookContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CompositionHookInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CompositionHookInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: CompositionHookContextUpdateOptions,
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance> {
@@ -301,20 +306,25 @@ export class CompositionHookContextImpl implements CompositionHookContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CompositionHookInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CompositionHookInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -152,7 +152,7 @@ export class MessageInteractionContextImpl
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${participantSid}/MessageInteractions/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance> {
     const headers: any = {};
@@ -166,23 +166,28 @@ export class MessageInteractionContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessageInteractionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MessageInteractionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sessionSid,
+        instance._solution.participantSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -96,7 +96,7 @@ export class RecordingContextImpl implements RecordingContext {
     this._uri = `/Trunks/${trunkSid}/Recording`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     const headers: any = {};
@@ -110,23 +110,28 @@ export class RecordingContextImpl implements RecordingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.trunkSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RecordingInstance(
+        operationVersion,
+        payload,
+        instance._solution.trunkSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | RecordingContextUpdateOptions
       | ((error: Error | null, item?: RecordingInstance) => any),
@@ -157,20 +162,25 @@ export class RecordingContextImpl implements RecordingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.trunkSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RecordingInstance(
+        operationVersion,
+        payload,
+        instance._solution.trunkSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

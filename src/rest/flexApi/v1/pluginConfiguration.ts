@@ -148,7 +148,7 @@ export class PluginConfigurationContextImpl
     return this._plugins;
   }
 
-  fetch(
+  async fetch(
     params?:
       | PluginConfigurationContextFetchOptions
       | ((error: Error | null, item?: PluginConfigurationInstance) => any),
@@ -177,20 +177,25 @@ export class PluginConfigurationContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PluginConfigurationInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

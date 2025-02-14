@@ -72,7 +72,7 @@ export class OperatorAttachmentContextImpl
     this._uri = `/Services/${serviceSid}/Operators/${operatorSid}`;
   }
 
-  create(
+  async create(
     callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any
   ): Promise<OperatorAttachmentInstance> {
     const headers: any = {};
@@ -86,21 +86,26 @@ export class OperatorAttachmentContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OperatorAttachmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.operatorSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new OperatorAttachmentInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.operatorSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   remove(

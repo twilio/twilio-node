@@ -61,7 +61,7 @@ export class AnonymizeContextImpl implements AnonymizeContext {
     this._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
   }
 
-  update(
+  async update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance> {
     const headers: any = {};
@@ -75,21 +75,26 @@ export class AnonymizeContextImpl implements AnonymizeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AnonymizeInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AnonymizeInstance(
+        operationVersion,
+        payload,
+        instance._solution.roomSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

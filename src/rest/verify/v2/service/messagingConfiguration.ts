@@ -169,7 +169,7 @@ export class MessagingConfigurationContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: MessagingConfigurationInstance
@@ -186,24 +186,29 @@ export class MessagingConfigurationContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessagingConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.country
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MessagingConfigurationInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.country
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: MessagingConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
@@ -240,21 +245,26 @@ export class MessagingConfigurationContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessagingConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.country
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MessagingConfigurationInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.country
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -92,7 +92,7 @@ export class PoliciesContextImpl implements PoliciesContext {
     this._uri = `/Policies/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: PoliciesInstance) => any
   ): Promise<PoliciesInstance> {
     const headers: any = {};
@@ -106,16 +106,25 @@ export class PoliciesContextImpl implements PoliciesContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PoliciesInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PoliciesInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

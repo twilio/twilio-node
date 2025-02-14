@@ -127,7 +127,7 @@ export class LogContextImpl implements LogContext {
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: LogInstance) => any
   ): Promise<LogInstance> {
     const headers: any = {};
@@ -141,22 +141,27 @@ export class LogContextImpl implements LogContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new LogInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.environmentSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new LogInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.environmentSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

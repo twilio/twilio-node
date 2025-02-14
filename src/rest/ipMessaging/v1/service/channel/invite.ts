@@ -153,7 +153,7 @@ export class InviteContextImpl implements InviteContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: InviteInstance) => any
   ): Promise<InviteInstance> {
     const headers: any = {};
@@ -167,22 +167,27 @@ export class InviteContextImpl implements InviteContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InviteInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InviteInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.channelSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

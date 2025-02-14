@@ -110,7 +110,7 @@ export class NetworkContextImpl implements NetworkContext {
     this._uri = `/Networks/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: NetworkInstance) => any
   ): Promise<NetworkInstance> {
     const headers: any = {};
@@ -124,16 +124,25 @@ export class NetworkContextImpl implements NetworkContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NetworkInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new NetworkInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

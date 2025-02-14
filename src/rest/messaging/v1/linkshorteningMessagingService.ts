@@ -79,7 +79,7 @@ export class LinkshorteningMessagingServiceContextImpl
     this._uri = `/LinkShortening/Domains/${domainSid}/MessagingServices/${messagingServiceSid}`;
   }
 
-  create(
+  async create(
     callback?: (
       error: Error | null,
       item?: LinkshorteningMessagingServiceInstance
@@ -96,21 +96,26 @@ export class LinkshorteningMessagingServiceContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new LinkshorteningMessagingServiceInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid,
-          instance._solution.messagingServiceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new LinkshorteningMessagingServiceInstance(
+        operationVersion,
+        payload,
+        instance._solution.domainSid,
+        instance._solution.messagingServiceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   remove(

@@ -82,7 +82,7 @@ export class WorkersRealTimeStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Workers/RealTimeStatistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkersRealTimeStatisticsContextFetchOptions
       | ((
@@ -118,20 +118,25 @@ export class WorkersRealTimeStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkersRealTimeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkersRealTimeStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

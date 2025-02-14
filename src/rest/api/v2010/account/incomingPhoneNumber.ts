@@ -323,7 +323,7 @@ export class IncomingPhoneNumberContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     const headers: any = {};
@@ -337,24 +337,29 @@ export class IncomingPhoneNumberContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new IncomingPhoneNumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new IncomingPhoneNumberInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | IncomingPhoneNumberContextUpdateOptions
       | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
@@ -428,21 +433,26 @@ export class IncomingPhoneNumberContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new IncomingPhoneNumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new IncomingPhoneNumberInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

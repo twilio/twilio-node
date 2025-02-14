@@ -149,7 +149,7 @@ export class VerificationAttemptContextImpl
     this._uri = `/Attempts/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
   ): Promise<VerificationAttemptInstance> {
     const headers: any = {};
@@ -163,20 +163,25 @@ export class VerificationAttemptContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new VerificationAttemptInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new VerificationAttemptInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

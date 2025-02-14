@@ -180,7 +180,7 @@ export class BucketContextImpl implements BucketContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance> {
     const headers: any = {};
@@ -194,25 +194,30 @@ export class BucketContextImpl implements BucketContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BucketInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new BucketInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.rateLimitSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | BucketContextUpdateOptions
       | ((error: Error | null, item?: BucketInstance) => any),
@@ -243,22 +248,27 @@ export class BucketContextImpl implements BucketContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BucketInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new BucketInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.rateLimitSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

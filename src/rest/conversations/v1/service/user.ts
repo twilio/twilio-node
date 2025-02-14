@@ -233,7 +233,7 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     const headers: any = {};
@@ -247,24 +247,29 @@ export class UserContextImpl implements UserContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | UserContextUpdateOptions
       | ((error: Error | null, item?: UserInstance) => any),
@@ -300,21 +305,26 @@ export class UserContextImpl implements UserContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

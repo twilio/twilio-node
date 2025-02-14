@@ -106,7 +106,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     const headers: any = {};
@@ -120,23 +120,28 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainCertsInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainCertsInstance(
+        operationVersion,
+        payload,
+        instance._solution.domainSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
@@ -165,20 +170,25 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainCertsInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainCertsInstance(
+        operationVersion,
+        payload,
+        instance._solution.domainSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

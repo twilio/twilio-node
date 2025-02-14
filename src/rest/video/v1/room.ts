@@ -210,7 +210,7 @@ export class RoomContextImpl implements RoomContext {
     return this._recordings;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
     const headers: any = {};
@@ -224,19 +224,28 @@ export class RoomContextImpl implements RoomContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoomInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RoomInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: RoomContextUpdateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
@@ -265,16 +274,25 @@ export class RoomContextImpl implements RoomContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoomInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RoomInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

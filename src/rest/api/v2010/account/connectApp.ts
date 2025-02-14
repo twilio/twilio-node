@@ -174,7 +174,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
     const headers: any = {};
@@ -188,24 +188,29 @@ export class ConnectAppContextImpl implements ConnectAppContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConnectAppInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConnectAppInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ConnectAppContextUpdateOptions
       | ((error: Error | null, item?: ConnectAppInstance) => any),
@@ -253,21 +258,26 @@ export class ConnectAppContextImpl implements ConnectAppContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConnectAppInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConnectAppInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

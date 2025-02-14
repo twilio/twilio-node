@@ -200,7 +200,7 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     const headers: any = {};
@@ -214,25 +214,30 @@ export class WebhookContextImpl implements WebhookContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WebhookInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WebhookInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.conversationSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | WebhookContextUpdateOptions
       | ((error: Error | null, item?: WebhookInstance) => any),
@@ -277,22 +282,27 @@ export class WebhookContextImpl implements WebhookContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WebhookInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WebhookInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.conversationSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

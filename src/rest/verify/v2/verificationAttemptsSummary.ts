@@ -92,7 +92,7 @@ export class VerificationAttemptsSummaryContextImpl
     this._uri = `/Attempts/Summary`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | VerificationAttemptsSummaryContextFetchOptions
       | ((
@@ -140,16 +140,24 @@ export class VerificationAttemptsSummaryContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new VerificationAttemptsSummaryInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new VerificationAttemptsSummaryInstance(
+        operationVersion,
+        payload
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

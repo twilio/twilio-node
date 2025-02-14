@@ -172,7 +172,7 @@ export class AssetContextImpl implements AssetContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance> {
     const headers: any = {};
@@ -186,24 +186,29 @@ export class AssetContextImpl implements AssetContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssetInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssetInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: AssetContextUpdateOptions,
     callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance> {
@@ -235,21 +240,26 @@ export class AssetContextImpl implements AssetContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssetInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssetInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

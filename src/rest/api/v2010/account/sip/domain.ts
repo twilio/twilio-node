@@ -258,7 +258,7 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     const headers: any = {};
@@ -272,24 +272,29 @@ export class DomainContextImpl implements DomainContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | DomainContextUpdateOptions
       | ((error: Error | null, item?: DomainInstance) => any),
@@ -345,21 +350,26 @@ export class DomainContextImpl implements DomainContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

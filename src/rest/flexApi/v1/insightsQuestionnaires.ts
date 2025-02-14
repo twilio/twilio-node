@@ -248,7 +248,7 @@ export class InsightsQuestionnairesContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     params?:
       | InsightsQuestionnairesContextFetchOptions
       | ((error: Error | null, item?: InsightsQuestionnairesInstance) => any),
@@ -280,23 +280,28 @@ export class InsightsQuestionnairesContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesInstance(
-          operationVersion,
-          payload,
-          instance._solution.questionnaireSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InsightsQuestionnairesInstance(
+        operationVersion,
+        payload,
+        instance._solution.questionnaireSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: InsightsQuestionnairesContextUpdateOptions,
     callback?: (
       error: Error | null,
@@ -338,20 +343,25 @@ export class InsightsQuestionnairesContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesInstance(
-          operationVersion,
-          payload,
-          instance._solution.questionnaireSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InsightsQuestionnairesInstance(
+        operationVersion,
+        payload,
+        instance._solution.questionnaireSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

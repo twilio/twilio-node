@@ -86,7 +86,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     this._uri = `/Configuration`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     const headers: any = {};
@@ -100,18 +100,24 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConfigurationInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ConfigurationContextUpdateOptions
       | ((error: Error | null, item?: ConfigurationInstance) => any),
@@ -148,15 +154,21 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConfigurationInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

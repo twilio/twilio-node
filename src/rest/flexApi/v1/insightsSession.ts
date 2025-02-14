@@ -68,7 +68,7 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
     this._uri = `/Insights/Session`;
   }
 
-  create(
+  async create(
     params?:
       | InsightsSessionContextCreateOptions
       | ((error: Error | null, item?: InsightsSessionInstance) => any),
@@ -97,15 +97,21 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new InsightsSessionInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InsightsSessionInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

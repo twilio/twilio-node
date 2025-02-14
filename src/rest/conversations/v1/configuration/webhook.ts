@@ -91,7 +91,7 @@ export class WebhookContextImpl implements WebhookContext {
     this._uri = `/Configuration/Webhooks`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     const headers: any = {};
@@ -105,18 +105,24 @@ export class WebhookContextImpl implements WebhookContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebhookInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WebhookInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | WebhookContextUpdateOptions
       | ((error: Error | null, item?: WebhookInstance) => any),
@@ -153,15 +159,21 @@ export class WebhookContextImpl implements WebhookContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebhookInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WebhookInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

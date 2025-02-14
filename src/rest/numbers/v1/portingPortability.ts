@@ -84,7 +84,7 @@ export class PortingPortabilityContextImpl
     this._uri = `/Porting/Portability/PhoneNumber/${phoneNumber}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | PortingPortabilityContextFetchOptions
       | ((error: Error | null, item?: PortingPortabilityInstance) => any),
@@ -116,20 +116,25 @@ export class PortingPortabilityContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingPortabilityInstance(
-          operationVersion,
-          payload,
-          instance._solution.phoneNumber
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PortingPortabilityInstance(
+        operationVersion,
+        payload,
+        instance._solution.phoneNumber
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

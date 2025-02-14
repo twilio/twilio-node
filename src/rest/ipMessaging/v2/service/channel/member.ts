@@ -245,7 +245,7 @@ export class MemberContextImpl implements MemberContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     const headers: any = {};
@@ -259,25 +259,30 @@ export class MemberContextImpl implements MemberContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MemberInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MemberInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.channelSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | MemberContextUpdateOptions
       | ((error: Error | null, item?: MemberInstance) => any),
@@ -321,22 +326,27 @@ export class MemberContextImpl implements MemberContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MemberInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MemberInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.channelSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

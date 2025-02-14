@@ -97,7 +97,7 @@ export class DayContextImpl implements DayContext {
     this._uri = `/Exports/${resourceType}/Days/${day}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DayInstance) => any
   ): Promise<DayInstance> {
     const headers: any = {};
@@ -111,21 +111,26 @@ export class DayContextImpl implements DayContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DayInstance(
-          operationVersion,
-          payload,
-          instance._solution.resourceType,
-          instance._solution.day
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DayInstance(
+        operationVersion,
+        payload,
+        instance._solution.resourceType,
+        instance._solution.day
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

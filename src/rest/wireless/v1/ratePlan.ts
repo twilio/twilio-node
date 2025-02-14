@@ -183,7 +183,7 @@ export class RatePlanContextImpl implements RatePlanContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     const headers: any = {};
@@ -197,19 +197,28 @@ export class RatePlanContextImpl implements RatePlanContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RatePlanInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RatePlanInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | RatePlanContextUpdateOptions
       | ((error: Error | null, item?: RatePlanInstance) => any),
@@ -242,16 +251,25 @@ export class RatePlanContextImpl implements RatePlanContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RatePlanInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RatePlanInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

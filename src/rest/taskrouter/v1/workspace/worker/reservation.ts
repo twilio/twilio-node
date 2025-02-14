@@ -272,7 +272,7 @@ export class ReservationContextImpl implements ReservationContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Reservations/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
     const headers: any = {};
@@ -286,25 +286,30 @@ export class ReservationContextImpl implements ReservationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ReservationInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ReservationInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workerSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ReservationContextUpdateOptions
       | ((error: Error | null, item?: ReservationInstance) => any),
@@ -451,22 +456,27 @@ export class ReservationContextImpl implements ReservationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ReservationInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ReservationInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workerSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

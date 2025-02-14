@@ -76,7 +76,7 @@ export class ExportContextImpl implements ExportContext {
     return this._exportCustomJobs;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ExportInstance) => any
   ): Promise<ExportInstance> {
     const headers: any = {};
@@ -90,20 +90,25 @@ export class ExportContextImpl implements ExportContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExportInstance(
-          operationVersion,
-          payload,
-          instance._solution.resourceType
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ExportInstance(
+        operationVersion,
+        payload,
+        instance._solution.resourceType
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -245,7 +245,7 @@ export class TrunkContextImpl implements TrunkContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     const headers: any = {};
@@ -259,19 +259,28 @@ export class TrunkContextImpl implements TrunkContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrunkInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TrunkInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | TrunkContextUpdateOptions
       | ((error: Error | null, item?: TrunkInstance) => any),
@@ -316,16 +325,25 @@ export class TrunkContextImpl implements TrunkContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrunkInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TrunkInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

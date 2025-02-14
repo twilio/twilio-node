@@ -85,7 +85,7 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Statistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkerStatisticsContextFetchOptions
       | ((error: Error | null, item?: WorkerStatisticsInstance) => any),
@@ -120,21 +120,26 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkerStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workerSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

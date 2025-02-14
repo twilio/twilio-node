@@ -123,7 +123,7 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
     this._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages/${messageSid}/Receipts/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any
   ): Promise<DeliveryReceiptInstance> {
     const headers: any = {};
@@ -137,23 +137,28 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeliveryReceiptInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.conversationSid,
-          instance._solution.messageSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeliveryReceiptInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.conversationSid,
+        instance._solution.messageSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

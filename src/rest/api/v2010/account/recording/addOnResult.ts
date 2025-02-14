@@ -165,7 +165,7 @@ export class AddOnResultContextImpl implements AddOnResultContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AddOnResultInstance) => any
   ): Promise<AddOnResultInstance> {
     const headers: any = {};
@@ -179,22 +179,27 @@ export class AddOnResultContextImpl implements AddOnResultContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddOnResultInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.referenceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AddOnResultInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.referenceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

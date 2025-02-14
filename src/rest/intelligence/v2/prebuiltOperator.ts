@@ -113,7 +113,7 @@ export class PrebuiltOperatorContextImpl implements PrebuiltOperatorContext {
     this._uri = `/Operators/PreBuilt/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any
   ): Promise<PrebuiltOperatorInstance> {
     const headers: any = {};
@@ -127,20 +127,25 @@ export class PrebuiltOperatorContextImpl implements PrebuiltOperatorContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PrebuiltOperatorInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PrebuiltOperatorInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

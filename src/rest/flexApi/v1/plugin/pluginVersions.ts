@@ -145,7 +145,7 @@ export class PluginVersionsContextImpl implements PluginVersionsContext {
     this._uri = `/PluginService/Plugins/${pluginSid}/Versions/${sid}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | PluginVersionsContextFetchOptions
       | ((error: Error | null, item?: PluginVersionsInstance) => any),
@@ -174,21 +174,26 @@ export class PluginVersionsContextImpl implements PluginVersionsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginVersionsInstance(
-          operationVersion,
-          payload,
-          instance._solution.pluginSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PluginVersionsInstance(
+        operationVersion,
+        payload,
+        instance._solution.pluginSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

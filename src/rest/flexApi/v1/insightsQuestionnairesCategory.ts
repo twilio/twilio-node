@@ -193,7 +193,7 @@ export class InsightsQuestionnairesCategoryContextImpl
     return operationPromise;
   }
 
-  update(
+  async update(
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
@@ -227,20 +227,25 @@ export class InsightsQuestionnairesCategoryContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesCategoryInstance(
-          operationVersion,
-          payload,
-          instance._solution.categorySid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InsightsQuestionnairesCategoryInstance(
+        operationVersion,
+        payload,
+        instance._solution.categorySid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

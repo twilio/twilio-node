@@ -103,7 +103,7 @@ export class SettingContextImpl implements SettingContext {
     this._uri = `/Voice/Settings`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | SettingContextFetchOptions
       | ((error: Error | null, item?: SettingInstance) => any),
@@ -133,18 +133,24 @@ export class SettingContextImpl implements SettingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SettingInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SettingInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SettingContextUpdateOptions
       | ((error: Error | null, item?: SettingInstance) => any),
@@ -179,15 +185,21 @@ export class SettingContextImpl implements SettingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SettingInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SettingInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

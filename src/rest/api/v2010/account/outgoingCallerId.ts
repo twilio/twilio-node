@@ -173,7 +173,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     const headers: any = {};
@@ -187,24 +187,29 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OutgoingCallerIdInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new OutgoingCallerIdInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | OutgoingCallerIdContextUpdateOptions
       | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
@@ -235,21 +240,26 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OutgoingCallerIdInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new OutgoingCallerIdInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

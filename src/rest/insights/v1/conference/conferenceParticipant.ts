@@ -185,7 +185,7 @@ export class ConferenceParticipantContextImpl
     this._uri = `/Conferences/${conferenceSid}/Participants/${participantSid}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | ConferenceParticipantContextFetchOptions
       | ((error: Error | null, item?: ConferenceParticipantInstance) => any),
@@ -218,21 +218,26 @@ export class ConferenceParticipantContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConferenceParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.conferenceSid,
-          instance._solution.participantSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConferenceParticipantInstance(
+        operationVersion,
+        payload,
+        instance._solution.conferenceSid,
+        instance._solution.participantSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

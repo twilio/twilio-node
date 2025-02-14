@@ -129,7 +129,7 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
     this._uri = `/PluginService/Configurations/${configurationSid}/Plugins/${pluginSid}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | ConfiguredPluginContextFetchOptions
       | ((error: Error | null, item?: ConfiguredPluginInstance) => any),
@@ -158,21 +158,26 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfiguredPluginInstance(
-          operationVersion,
-          payload,
-          instance._solution.configurationSid,
-          instance._solution.pluginSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConfiguredPluginInstance(
+        operationVersion,
+        payload,
+        instance._solution.configurationSid,
+        instance._solution.pluginSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

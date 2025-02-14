@@ -149,7 +149,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     this._uri = `/Accounts/${accountSid}/SMS/ShortCodes/${sid}.json`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance> {
     const headers: any = {};
@@ -163,24 +163,29 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ShortCodeInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ShortCodeInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ShortCodeContextUpdateOptions
       | ((error: Error | null, item?: ShortCodeInstance) => any),
@@ -220,21 +225,26 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ShortCodeInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ShortCodeInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

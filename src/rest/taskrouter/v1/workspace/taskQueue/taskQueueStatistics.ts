@@ -93,7 +93,7 @@ export class TaskQueueStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | TaskQueueStatisticsContextFetchOptions
       | ((error: Error | null, item?: TaskQueueStatisticsInstance) => any),
@@ -130,21 +130,26 @@ export class TaskQueueStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskQueueStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.taskQueueSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskQueueStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.taskQueueSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

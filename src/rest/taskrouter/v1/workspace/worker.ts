@@ -308,7 +308,7 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     const headers: any = {};
@@ -322,24 +322,29 @@ export class WorkerContextImpl implements WorkerContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkerInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | WorkerContextUpdateOptions
       | ((error: Error | null, item?: WorkerInstance) => any),
@@ -380,21 +385,26 @@ export class WorkerContextImpl implements WorkerContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkerInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

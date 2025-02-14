@@ -59,7 +59,7 @@ export class DomainConfigMessagingServiceContextImpl
     this._uri = `/LinkShortening/MessagingService/${messagingServiceSid}/DomainConfig`;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: DomainConfigMessagingServiceInstance
@@ -76,20 +76,25 @@ export class DomainConfigMessagingServiceContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainConfigMessagingServiceInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainConfigMessagingServiceInstance(
+        operationVersion,
+        payload,
+        instance._solution.messagingServiceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

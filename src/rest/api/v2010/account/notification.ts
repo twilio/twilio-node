@@ -121,7 +121,7 @@ export class NotificationContextImpl implements NotificationContext {
     this._uri = `/Accounts/${accountSid}/Notifications/${sid}.json`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     const headers: any = {};
@@ -135,21 +135,26 @@ export class NotificationContextImpl implements NotificationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NotificationInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new NotificationInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

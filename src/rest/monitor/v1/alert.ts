@@ -110,7 +110,7 @@ export class AlertContextImpl implements AlertContext {
     this._uri = `/Alerts/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AlertInstance) => any
   ): Promise<AlertInstance> {
     const headers: any = {};
@@ -124,16 +124,25 @@ export class AlertContextImpl implements AlertContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AlertInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AlertInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -138,7 +138,7 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
   ): Promise<ItemAssignmentInstance> {
     const headers: any = {};
@@ -152,21 +152,26 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ItemAssignmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.bundleSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ItemAssignmentInstance(
+        operationVersion,
+        payload,
+        instance._solution.bundleSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

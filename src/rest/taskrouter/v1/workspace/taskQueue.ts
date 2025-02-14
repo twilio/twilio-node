@@ -258,7 +258,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
     const headers: any = {};
@@ -272,24 +272,29 @@ export class TaskQueueContextImpl implements TaskQueueContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskQueueInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskQueueInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | TaskQueueContextUpdateOptions
       | ((error: Error | null, item?: TaskQueueInstance) => any),
@@ -330,21 +335,26 @@ export class TaskQueueContextImpl implements TaskQueueContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskQueueInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskQueueInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**
