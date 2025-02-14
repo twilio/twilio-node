@@ -21,6 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { AlphaSenderListInstance } from "./service/alphaSender";
 import { ChannelSenderListInstance } from "./service/channelSender";
+import { DestinationAlphaSenderListInstance } from "./service/destinationAlphaSender";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { ShortCodeListInstance } from "./service/shortCode";
 import { UsAppToPersonListInstance } from "./service/usAppToPerson";
@@ -142,6 +143,7 @@ export interface ServiceListInstancePageOptions {
 export interface ServiceContext {
   alphaSenders: AlphaSenderListInstance;
   channelSenders: ChannelSenderListInstance;
+  destinationAlphaSenders: DestinationAlphaSenderListInstance;
   phoneNumbers: PhoneNumberListInstance;
   shortCodes: ShortCodeListInstance;
   usAppToPerson: UsAppToPersonListInstance;
@@ -209,6 +211,7 @@ export class ServiceContextImpl implements ServiceContext {
 
   protected _alphaSenders?: AlphaSenderListInstance;
   protected _channelSenders?: ChannelSenderListInstance;
+  protected _destinationAlphaSenders?: DestinationAlphaSenderListInstance;
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _shortCodes?: ShortCodeListInstance;
   protected _usAppToPerson?: UsAppToPersonListInstance;
@@ -235,6 +238,13 @@ export class ServiceContextImpl implements ServiceContext {
       this._channelSenders ||
       ChannelSenderListInstance(this._version, this._solution.sid);
     return this._channelSenders;
+  }
+
+  get destinationAlphaSenders(): DestinationAlphaSenderListInstance {
+    this._destinationAlphaSenders =
+      this._destinationAlphaSenders ||
+      DestinationAlphaSenderListInstance(this._version, this._solution.sid);
+    return this._destinationAlphaSenders;
   }
 
   get phoneNumbers(): PhoneNumberListInstance {
@@ -646,6 +656,13 @@ export class ServiceInstance {
    */
   channelSenders(): ChannelSenderListInstance {
     return this._proxy.channelSenders;
+  }
+
+  /**
+   * Access the destinationAlphaSenders.
+   */
+  destinationAlphaSenders(): DestinationAlphaSenderListInstance {
+    return this._proxy.destinationAlphaSenders;
   }
 
   /**

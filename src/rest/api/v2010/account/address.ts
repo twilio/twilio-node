@@ -25,7 +25,7 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
  * Options to pass to update a AddressInstance
  */
 export interface AddressContextUpdateOptions {
-  /** A descriptive string that you create to describe the address. It can be up to 64 characters long. */
+  /** A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses. */
   friendlyName?: string;
   /** The name to associate with the address. */
   customerName?: string;

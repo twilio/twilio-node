@@ -25,7 +25,9 @@ export type OperatorResultOperatorType =
   | "utterance_classify"
   | "extract"
   | "extract_normalize"
-  | "pii_extract";
+  | "pii_extract"
+  | "text_generation"
+  | "json";
 
 /**
  * Options to pass to fetch a OperatorResultInstance
@@ -220,6 +222,7 @@ interface OperatorResultResource {
   label_probabilities: any;
   extract_results: any;
   text_generation_results: any;
+  json_results: any;
   transcript_sid: string;
   url: string;
 }
@@ -247,6 +250,7 @@ export class OperatorResultInstance {
     this.labelProbabilities = payload.label_probabilities;
     this.extractResults = payload.extract_results;
     this.textGenerationResults = payload.text_generation_results;
+    this.jsonResults = payload.json_results;
     this.transcriptSid = payload.transcript_sid;
     this.url = payload.url;
 
@@ -305,6 +309,7 @@ export class OperatorResultInstance {
    * Output of a text generation operator for example Conversation Sumamary.
    */
   textGenerationResults: any;
+  jsonResults: any;
   /**
    * A 34 character string that uniquely identifies this Transcript.
    */
@@ -375,6 +380,7 @@ export class OperatorResultInstance {
       labelProbabilities: this.labelProbabilities,
       extractResults: this.extractResults,
       textGenerationResults: this.textGenerationResults,
+      jsonResults: this.jsonResults,
       transcriptSid: this.transcriptSid,
       url: this.url,
     };
