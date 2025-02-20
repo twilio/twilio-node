@@ -1,6 +1,18 @@
 twilio-node changelog
 =====================
 
+[2025-02-20] Version 5.4.5
+--------------------------
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
 [2025-02-11] Version 5.4.4
 --------------------------
 **Library - Chore**

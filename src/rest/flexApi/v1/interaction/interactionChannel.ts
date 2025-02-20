@@ -21,6 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
+import { InteractionTransferListInstance } from "./interactionChannel/interactionTransfer";
 
 export type InteractionChannelChannelStatus =
   | "setup"
@@ -92,6 +93,7 @@ export interface InteractionChannelListInstancePageOptions {
 export interface InteractionChannelContext {
   invites: InteractionChannelInviteListInstance;
   participants: InteractionChannelParticipantListInstance;
+  transfers: InteractionTransferListInstance;
 
   /**
    * Fetch a InteractionChannelInstance
@@ -137,6 +139,7 @@ export class InteractionChannelContextImpl
 
   protected _invites?: InteractionChannelInviteListInstance;
   protected _participants?: InteractionChannelParticipantListInstance;
+  protected _transfers?: InteractionTransferListInstance;
 
   constructor(protected _version: V1, interactionSid: string, sid: string) {
     if (!isValidPathParam(interactionSid)) {
@@ -171,6 +174,17 @@ export class InteractionChannelContextImpl
         this._solution.sid
       );
     return this._participants;
+  }
+
+  get transfers(): InteractionTransferListInstance {
+    this._transfers =
+      this._transfers ||
+      InteractionTransferListInstance(
+        this._version,
+        this._solution.interactionSid,
+        this._solution.sid
+      );
+    return this._transfers;
   }
 
   fetch(
@@ -380,6 +394,13 @@ export class InteractionChannelInstance {
    */
   participants(): InteractionChannelParticipantListInstance {
     return this._proxy.participants;
+  }
+
+  /**
+   * Access the transfers.
+   */
+  transfers(): InteractionTransferListInstance {
+    return this._proxy.transfers;
   }
 
   /**

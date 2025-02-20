@@ -21,12 +21,12 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export type SupportingDocumentStatus =
-  | "draft"
-  | "pending-review"
-  | "rejected"
-  | "approved"
-  | "expired"
-  | "provisionally-approved";
+  | "DRAFT"
+  | "PENDING_REVIEW"
+  | "REJECTED"
+  | "APPROVED"
+  | "EXPIRED"
+  | "PROVISIONALLY_APPROVED";
 
 /**
  * Options to pass to update a SupportingDocumentInstance
