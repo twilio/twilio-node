@@ -24,7 +24,7 @@
     "dayjs": "^1.11.9",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "qs": "6.9.4",
+    "qs": "^6.9.4",
     "scmp": "^2.1.0",
     "xmlbuilder": "^13.0.2"
   },
@@ -45,8 +45,8 @@
     "node-mocks-http": "^1.8.1",
     "prettier": "^2.7.1",
     "ts-jest": "^29.1.1",
-    "typescript": "5.7.3",
-    "typedoc": "0.27.9"
+    "typescript": "^5.7.3",
+    "typedoc": "^0.27.9"
   },
   "scripts": {
     "test": "npm run test:javascript && npm run test:typescript",
@@ -71,7 +71,7 @@
   "main": "./lib",
   "types": "./index.d.ts",
   "engines": {
-    "node": ">=18.0"
+    "node": ">=14.0"
   },
   "license": "MIT"
 }

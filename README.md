@@ -322,8 +322,6 @@ To run just one specific test file instead of the whole suite, provide a JavaScr
 npm run test:javascript -- -m .\*client.\*
 ```
 
-
-
 [apidocs]: https://www.twilio.com/docs/api
 [libdocs]: https://twilio.github.io/twilio-node
 
