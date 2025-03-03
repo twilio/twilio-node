@@ -44,9 +44,9 @@
     "nock": "^13.2.9",
     "node-mocks-http": "^1.8.1",
     "prettier": "^2.7.1",
-    "ts-jest": "^29.1.1",
+    "ts-jest": "29.1.1",
     "typescript": "5.0.7",
-    "typedoc": "0.27.9"
+    "typedoc": "0.23.21"
   },
   "scripts": {
     "test": "npm run test:javascript && npm run test:typescript",
