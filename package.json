@@ -24,7 +24,7 @@
     "dayjs": "^1.11.9",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "qs": "6.9.4",
+    "qs": "^6.9.4",
     "scmp": "^2.1.0",
     "xmlbuilder": "^13.0.2"
   },
