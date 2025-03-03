@@ -34,7 +34,7 @@
     "@types/jest": "^29.5.5",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "22.9.0",
-    "@types/qs": "6.9.7",
+    "@types/qs": "^6.9.7",
     "babel-plugin-replace-ts-export-assignment": "^0.0.2",
     "eslint": "^8.31.0",
     "express": "^4.17.1",
@@ -46,7 +46,7 @@
     "prettier": "^2.7.1",
     "ts-jest": "^29.1.1",
     "typescript": "5.7.3",
-    "typedoc": "0.23.21"
+    "typedoc": "^0.23.21"
   },
   "scripts": {
     "test": "npm run test:javascript && npm run test:typescript",
