@@ -24,7 +24,7 @@
     "dayjs": "^1.11.9",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "qs": "^6.9.4",
+    "qs": "6.9.4",
     "scmp": "^2.1.0",
     "xmlbuilder": "^13.0.2"
   },
@@ -34,7 +34,7 @@
     "@types/jest": "^29.5.5",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "22.9.0",
-    "@types/qs": "^6.9.7",
+    "@types/qs": "6.9.7",
     "babel-plugin-replace-ts-export-assignment": "^0.0.2",
     "eslint": "^8.31.0",
     "express": "^4.17.1",
