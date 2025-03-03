@@ -71,7 +71,7 @@
   "main": "./lib",
   "types": "./index.d.ts",
   "engines": {
-    "node": ">=14.0"
+    "node": ">=18.0"
   },
   "license": "MIT"
 }
