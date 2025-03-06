@@ -2,6 +2,18 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
+## [2024-03-07] 5.x.x to 6.x.x
+
+---
+### Overview
+
+#### Twilio Node Helper Library’s major version 6.0.0 is now available. We ensured that you can upgrade to Node helper Library 6.0.0 version without any breaking changes of existing apis
+
+Behind the scenes Node Helper is now auto-generated via OpenAPI with this release. This enables us to rapidly add new features and enhance consistency across versions and languages.
+
+Twiml Attribute speechModel is now of type string.
+
+
 ## [2024-03-07] 4.x.x to 5.x.x
 
 ---
