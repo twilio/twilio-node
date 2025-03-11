@@ -166,7 +166,7 @@ interface OperatorTypeResource {
   provider: OperatorTypeProvider;
   availability: OperatorTypeAvailability;
   configurable: boolean;
-  config_schema: any;
+  config_schema: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -233,7 +233,7 @@ export class OperatorTypeInstance {
   /**
    * JSON Schema for configuring an Operator with this Operator Type. Following https://json-schema.org/
    */
-  configSchema: any;
+  configSchema: Record<string, object>;
   /**
    * The date that this Operator Type was created, given in ISO 8601 format.
    */

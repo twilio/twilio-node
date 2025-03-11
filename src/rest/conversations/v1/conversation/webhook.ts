@@ -307,7 +307,7 @@ interface WebhookResource {
   conversation_sid: string;
   target: string;
   url: string;
-  configuration: any;
+  configuration: Record<string, object>;
   date_created: Date;
   date_updated: Date;
 }
@@ -357,7 +357,7 @@ export class WebhookInstance {
   /**
    * The configuration of this webhook. Is defined based on target.
    */
-  configuration: any;
+  configuration: Record<string, object>;
   /**
    * The date that this resource was created.
    */

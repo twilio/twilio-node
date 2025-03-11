@@ -310,7 +310,7 @@ interface RecordingResource {
   channels: number;
   source: RecordingSource;
   error_code: number;
-  encryption_details: any;
+  encryption_details: Record<string, object>;
   uri: string;
 }
 
@@ -403,7 +403,7 @@ export class RecordingInstance {
   /**
    * How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
    */
-  encryptionDetails: any;
+  encryptionDetails: Record<string, object>;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`.
    */

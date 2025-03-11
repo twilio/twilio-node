@@ -42,7 +42,7 @@ export interface SubscriptionListInstanceCreateOptions {
   /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
   sinkSid: string;
   /** An array of objects containing the subscribed Event Types */
-  types: Array<any>;
+  types: Array<object>;
   /** Receive events from all children accounts in the parent account subscription. */
   receiveEventsFromSubaccounts?: boolean;
 }
@@ -592,9 +592,7 @@ export function SubscriptionListInstance(
 
     data["SinkSid"] = params["sinkSid"];
 
-    data["Types"] = serialize.map(params["types"], (e: any) =>
-      serialize.object(e)
-    );
+    data["Types"] = serialize.map(params["types"], (e: object) => e);
     if (params["receiveEventsFromSubaccounts"] !== undefined)
       data["ReceiveEventsFromSubaccounts"] = serialize.bool(
         params["receiveEventsFromSubaccounts"]

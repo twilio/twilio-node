@@ -40,7 +40,9 @@ export type BrandRegistrationStatus =
   | "APPROVED"
   | "FAILED"
   | "IN_REVIEW"
-  | "DELETED";
+  | "DELETION_PENDING"
+  | "DELETION_FAILED"
+  | "SUSPENDED";
 
 /**
  * Options to pass to create a BrandRegistrationInstance
@@ -252,7 +254,7 @@ interface BrandRegistrationResource {
   status: BrandRegistrationStatus;
   tcr_id: string;
   failure_reason: string;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   url: string;
   brand_score: number;
   brand_feedback: Array<BrandRegistrationBrandFeedback>;
@@ -339,7 +341,7 @@ export class BrandRegistrationInstance {
   /**
    * A list of errors that occurred during the brand registration process.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   /**
    * The absolute URL of the Brand Registration resource.
    */

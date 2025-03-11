@@ -58,7 +58,7 @@ export interface SessionListInstanceCreateOptions {
   /**  */
   status?: SessionStatus;
   /** The Participant objects to include in the new session. */
-  participants?: Array<any>;
+  participants?: Array<object>;
 }
 /**
  * Options to pass to each
@@ -692,8 +692,9 @@ export function SessionListInstance(
     if (params["mode"] !== undefined) data["Mode"] = params["mode"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["participants"] !== undefined)
-      data["Participants"] = serialize.map(params["participants"], (e: any) =>
-        serialize.object(e)
+      data["Participants"] = serialize.map(
+        params["participants"],
+        (e: object) => e
       );
 
     const headers: any = {};

@@ -155,7 +155,7 @@ interface WorkerStatisticsPayload extends WorkerStatisticsResource {}
 
 interface WorkerStatisticsResource {
   account_sid: string;
-  cumulative: any;
+  cumulative: Record<string, object>;
   worker_sid: string;
   workspace_sid: string;
   url: string;
@@ -187,7 +187,7 @@ export class WorkerStatisticsInstance {
   /**
    * An object that contains the cumulative statistics for the Worker.
    */
-  cumulative: any;
+  cumulative: Record<string, object>;
   /**
    * The SID of the Worker that contains the WorkerChannel.
    */

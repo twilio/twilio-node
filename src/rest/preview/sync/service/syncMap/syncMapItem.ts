@@ -37,7 +37,7 @@ export interface SyncMapItemContextRemoveOptions {
  */
 export interface SyncMapItemContextUpdateOptions {
   /**  */
-  data: any;
+  data: object;
   /** The If-Match HTTP request header */
   ifMatch?: string;
 }
@@ -49,7 +49,7 @@ export interface SyncMapItemListInstanceCreateOptions {
   /**  */
   key: string;
   /**  */
-  data: any;
+  data: object;
 }
 /**
  * Options to pass to each
@@ -333,7 +333,7 @@ interface SyncMapItemResource {
   map_sid: string;
   url: string;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   created_by: string;
@@ -370,7 +370,7 @@ export class SyncMapItemInstance {
   mapSid: string;
   url: string;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   dateCreated: Date;
   dateUpdated: Date;
   createdBy: string;

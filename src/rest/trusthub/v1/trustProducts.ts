@@ -348,7 +348,7 @@ interface TrustProductsResource {
   date_updated: Date;
   url: string;
   links: Record<string, string>;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 }
 
 export class TrustProductsInstance {
@@ -425,7 +425,7 @@ export class TrustProductsInstance {
   /**
    * The error codes associated with the rejection of the Trust Product.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 
   private get _proxy(): TrustProductsContext {
     this._context =

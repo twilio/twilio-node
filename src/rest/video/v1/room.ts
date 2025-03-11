@@ -60,7 +60,7 @@ export interface RoomListInstanceCreateOptions {
   /** The region for the Room\\\'s media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). */
   mediaRegion?: string;
   /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
-  recordingRules?: any;
+  recordingRules?: object;
   /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. */
   audioOnly?: boolean;
   /** The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours). */

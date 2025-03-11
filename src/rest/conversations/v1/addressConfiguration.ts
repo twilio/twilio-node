@@ -34,7 +34,8 @@ export type AddressConfigurationType =
   | "gbm"
   | "email"
   | "rcs"
-  | "apple";
+  | "apple"
+  | "chat";
 
 /**
  * Options to pass to update a AddressConfigurationInstance
@@ -350,7 +351,7 @@ interface AddressConfigurationResource {
   type: string;
   address: string;
   friendly_name: string;
-  auto_creation: any;
+  auto_creation: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -403,7 +404,7 @@ export class AddressConfigurationInstance {
   /**
    * Auto Creation configuration for the address.
    */
-  autoCreation: any;
+  autoCreation: Record<string, object>;
   /**
    * The date that this resource was created.
    */

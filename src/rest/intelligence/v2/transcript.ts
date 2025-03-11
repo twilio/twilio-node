@@ -37,7 +37,7 @@ export interface TranscriptListInstanceCreateOptions {
   /** The unique SID identifier of the Service. */
   serviceSid: string;
   /** JSON object describing Media Channel including Source and Participants */
-  channel: any;
+  channel: object;
   /** Used to store client provided metadata. Maximum of 64 double-byte UTF8 characters. */
   customerKey?: string;
   /** The date that this Transcript\\\'s media was started, given in ISO 8601 format. */
@@ -277,7 +277,7 @@ interface TranscriptResource {
   date_created: Date;
   date_updated: Date;
   status: TranscriptStatus;
-  channel: any;
+  channel: Record<string, object>;
   data_logging: boolean;
   language_code: string;
   customer_key: string;
@@ -340,7 +340,7 @@ export class TranscriptInstance {
   /**
    * Media Channel describing Transcript Source and Participant Mapping
    */
-  channel: any;
+  channel: Record<string, object>;
   /**
    * Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
    */

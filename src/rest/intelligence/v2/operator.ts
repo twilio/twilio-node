@@ -159,7 +159,7 @@ interface OperatorResource {
   operator_type: string;
   version: number;
   availability: OperatorAvailability;
-  config: any;
+  config: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -218,7 +218,7 @@ export class OperatorInstance {
   /**
    * Operator configuration, following the schema defined by the Operator Type. Only available on Custom Operators created by the Account.
    */
-  config: any;
+  config: Record<string, object>;
   /**
    * The date that this Operator was created, given in ISO 8601 format.
    */

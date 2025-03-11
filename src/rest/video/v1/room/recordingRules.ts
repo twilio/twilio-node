@@ -31,7 +31,7 @@ export class VideoV1RoomRoomRecordingRuleRules {
  */
 export interface RecordingRulesListInstanceUpdateOptions {
   /** A JSON-encoded array of recording rules. */
-  rules?: any;
+  rules?: object;
 }
 
 export interface RecordingRulesSolution {

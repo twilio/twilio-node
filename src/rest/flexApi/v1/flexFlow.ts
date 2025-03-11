@@ -373,7 +373,7 @@ interface FlexFlowResource {
   contact_identity: string;
   enabled: boolean;
   integration_type: FlexFlowIntegrationType;
-  integration: any;
+  integration: Record<string, object>;
   long_lived: boolean;
   janitor_enabled: boolean;
   url: string;
@@ -439,7 +439,7 @@ export class FlexFlowInstance {
   /**
    * An object that contains specific parameters for the integration.
    */
-  integration: any;
+  integration: Record<string, object>;
   /**
    * When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
    */

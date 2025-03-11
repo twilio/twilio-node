@@ -22,11 +22,13 @@ import { isValidPathParam } from "../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../interfaces";
 
 export type HostedNumberOrderStatus =
+  | "twilio-processing"
   | "received"
   | "pending-verification"
   | "verified"
   | "pending-loa"
   | "carrier-processing"
+  | "testing"
   | "completed"
   | "failed"
   | "action-required";

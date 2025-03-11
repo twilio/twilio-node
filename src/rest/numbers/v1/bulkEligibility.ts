@@ -111,7 +111,7 @@ interface BulkEligibilityPayload extends BulkEligibilityResource {}
 interface BulkEligibilityResource {
   request_id: string;
   url: string;
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   friendly_name: string;
   status: string;
   date_created: Date;
@@ -149,7 +149,7 @@ export class BulkEligibilityInstance {
   /**
    * The result set that contains the eligibility check response for each requested number, each result has at least the following attributes:  phone_number: The requested phone number ,hosting_account_sid: The account sid where the phone number will be hosted, country: Phone number’s country, eligibility_status: Indicates the eligibility status of the PN (Eligible/Ineligible), eligibility_sub_status: Indicates the sub status of the eligibility , ineligibility_reason: Reason for number\'s ineligibility (if applicable), next_step: Suggested next step in the hosting process based on the eligibility status.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   /**
    * This is the string that you assigned as a friendly name for describing the eligibility check request.
    */

@@ -165,8 +165,8 @@ interface WorkflowStatisticsPayload extends WorkflowStatisticsResource {}
 
 interface WorkflowStatisticsResource {
   account_sid: string;
-  cumulative: any;
-  realtime: any;
+  cumulative: Record<string, object>;
+  realtime: Record<string, object>;
   workflow_sid: string;
   workspace_sid: string;
   url: string;
@@ -199,11 +199,11 @@ export class WorkflowStatisticsInstance {
   /**
    * An object that contains the cumulative statistics for the Workflow.
    */
-  cumulative: any;
+  cumulative: Record<string, object>;
   /**
    * An object that contains the real-time statistics for the Workflow.
    */
-  realtime: any;
+  realtime: Record<string, object>;
   /**
    * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
    */

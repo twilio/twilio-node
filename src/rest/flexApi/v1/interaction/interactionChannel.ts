@@ -49,7 +49,7 @@ export interface InteractionChannelContextUpdateOptions {
   /**  */
   status: InteractionChannelUpdateChannelStatus;
   /** It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`. */
-  routing?: any;
+  routing?: object;
 }
 /**
  * Options to pass to each

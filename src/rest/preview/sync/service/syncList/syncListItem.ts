@@ -37,7 +37,7 @@ export interface SyncListItemContextRemoveOptions {
  */
 export interface SyncListItemContextUpdateOptions {
   /**  */
-  data: any;
+  data: object;
   /** The If-Match HTTP request header */
   ifMatch?: string;
 }
@@ -47,7 +47,7 @@ export interface SyncListItemContextUpdateOptions {
  */
 export interface SyncListItemListInstanceCreateOptions {
   /**  */
-  data: any;
+  data: object;
 }
 /**
  * Options to pass to each
@@ -331,7 +331,7 @@ interface SyncListItemResource {
   list_sid: string;
   url: string;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   created_by: string;
@@ -368,7 +368,7 @@ export class SyncListItemInstance {
   listSid: string;
   url: string;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   dateCreated: Date;
   dateUpdated: Date;
   createdBy: string;

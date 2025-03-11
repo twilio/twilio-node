@@ -358,7 +358,7 @@ interface ParticipantResource {
   sid: string;
   identity: string;
   attributes: string;
-  messaging_binding: any;
+  messaging_binding: Record<string, object>;
   role_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -418,7 +418,7 @@ export class ParticipantInstance {
   /**
    * Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
    */
-  messagingBinding: any;
+  messagingBinding: Record<string, object>;
   /**
    * The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
    */

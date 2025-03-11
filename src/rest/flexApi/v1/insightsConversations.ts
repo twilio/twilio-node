@@ -271,7 +271,7 @@ interface InsightsConversationsResource {
   account_id: string;
   conversation_id: string;
   segment_count: number;
-  segments: Array<any>;
+  segments: Array<Record<string, object>>;
 }
 
 export class InsightsConversationsInstance {
@@ -297,7 +297,7 @@ export class InsightsConversationsInstance {
   /**
    * The Segments of a conversation
    */
-  segments: Array<any>;
+  segments: Array<Record<string, object>>;
 
   /**
    * Provide a user-friendly representation

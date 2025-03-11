@@ -209,15 +209,15 @@ interface ConfigurationResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  attributes: any;
+  attributes: Record<string, object>;
   status: ConfigurationStatus;
   taskrouter_workspace_sid: string;
   taskrouter_target_workflow_sid: string;
   taskrouter_target_taskqueue_sid: string;
-  taskrouter_taskqueues: Array<any>;
-  taskrouter_skills: Array<any>;
-  taskrouter_worker_channels: any;
-  taskrouter_worker_attributes: any;
+  taskrouter_taskqueues: Array<Record<string, object>>;
+  taskrouter_skills: Array<Record<string, object>>;
+  taskrouter_worker_channels: Record<string, object>;
+  taskrouter_worker_attributes: Record<string, object>;
   taskrouter_offline_activity_sid: string;
   runtime_domain: string;
   messaging_service_instance_sid: string;
@@ -225,8 +225,8 @@ interface ConfigurationResource {
   flex_service_instance_sid: string;
   flex_instance_sid: string;
   ui_language: string;
-  ui_attributes: any;
-  ui_dependencies: any;
+  ui_attributes: Record<string, object>;
+  ui_dependencies: Record<string, object>;
   ui_version: string;
   service_version: string;
   call_recording_enabled: boolean;
@@ -235,26 +235,26 @@ interface ConfigurationResource {
   crm_type: string;
   crm_callback_url: string;
   crm_fallback_url: string;
-  crm_attributes: any;
-  public_attributes: any;
+  crm_attributes: Record<string, object>;
+  public_attributes: Record<string, object>;
   plugin_service_enabled: boolean;
-  plugin_service_attributes: any;
-  integrations: Array<any>;
-  outbound_call_flows: any;
+  plugin_service_attributes: Record<string, object>;
+  integrations: Array<Record<string, object>>;
+  outbound_call_flows: Record<string, object>;
   serverless_service_sids: Array<string>;
-  queue_stats_configuration: any;
-  notifications: any;
-  markdown: any;
+  queue_stats_configuration: Record<string, object>;
+  notifications: Record<string, object>;
+  markdown: Record<string, object>;
   url: string;
-  flex_insights_hr: any;
+  flex_insights_hr: Record<string, object>;
   flex_insights_drilldown: boolean;
   flex_url: string;
-  channel_configs: Array<any>;
-  debugger_integration: any;
-  flex_ui_status_report: any;
-  agent_conv_end_methods: any;
-  citrix_voice_vdi: any;
-  offline_config: any;
+  channel_configs: Array<Record<string, object>>;
+  debugger_integration: Record<string, object>;
+  flex_ui_status_report: Record<string, object>;
+  agent_conv_end_methods: Record<string, object>;
+  citrix_voice_vdi: Record<string, object>;
+  offline_config: Record<string, object>;
 }
 
 export class ConfigurationInstance {
@@ -330,7 +330,7 @@ export class ConfigurationInstance {
   /**
    * An object that contains application-specific data.
    */
-  attributes: any;
+  attributes: Record<string, object>;
   status: ConfigurationStatus;
   /**
    * The SID of the TaskRouter Workspace.
@@ -347,19 +347,19 @@ export class ConfigurationInstance {
   /**
    * The list of TaskRouter TaskQueues.
    */
-  taskrouterTaskqueues: Array<any>;
+  taskrouterTaskqueues: Array<Record<string, object>>;
   /**
    * The Skill description for TaskRouter workers.
    */
-  taskrouterSkills: Array<any>;
+  taskrouterSkills: Array<Record<string, object>>;
   /**
    * The TaskRouter default channel capacities and availability for workers.
    */
-  taskrouterWorkerChannels: any;
+  taskrouterWorkerChannels: Record<string, object>;
   /**
    * The TaskRouter Worker attributes.
    */
-  taskrouterWorkerAttributes: any;
+  taskrouterWorkerAttributes: Record<string, object>;
   /**
    * The TaskRouter SID of the offline activity.
    */
@@ -391,11 +391,11 @@ export class ConfigurationInstance {
   /**
    * The object that describes Flex UI characteristics and settings.
    */
-  uiAttributes: any;
+  uiAttributes: Record<string, object>;
   /**
    * The object that defines the NPM packages and versions to be used in Hosted Flex.
    */
-  uiDependencies: any;
+  uiDependencies: Record<string, object>;
   /**
    * The Pinned UI version.
    */
@@ -431,11 +431,11 @@ export class ConfigurationInstance {
   /**
    * An object that contains the CRM attributes.
    */
-  crmAttributes: any;
+  crmAttributes: Record<string, object>;
   /**
    * The list of public attributes, which are visible to unauthenticated clients.
    */
-  publicAttributes: any;
+  publicAttributes: Record<string, object>;
   /**
    * Whether the plugin service enabled.
    */
@@ -443,15 +443,15 @@ export class ConfigurationInstance {
   /**
    * The plugin service attributes.
    */
-  pluginServiceAttributes: any;
+  pluginServiceAttributes: Record<string, object>;
   /**
    * A list of objects that contain the configurations for the Integrations supported in this configuration.
    */
-  integrations: Array<any>;
+  integrations: Array<Record<string, object>>;
   /**
    * The list of outbound call flows.
    */
-  outboundCallFlows: any;
+  outboundCallFlows: Record<string, object>;
   /**
    * The list of serverless service SIDs.
    */
@@ -459,15 +459,15 @@ export class ConfigurationInstance {
   /**
    * Configurable parameters for Queues Statistics.
    */
-  queueStatsConfiguration: any;
+  queueStatsConfiguration: Record<string, object>;
   /**
    * Configurable parameters for Notifications.
    */
-  notifications: any;
+  notifications: Record<string, object>;
   /**
    * Configurable parameters for Markdown.
    */
-  markdown: any;
+  markdown: Record<string, object>;
   /**
    * The absolute URL of the Configuration resource.
    */
@@ -475,7 +475,7 @@ export class ConfigurationInstance {
   /**
    * Object with enabled/disabled flag with list of workspaces.
    */
-  flexInsightsHr: any;
+  flexInsightsHr: Record<string, object>;
   /**
    * Setting this to true will redirect Flex UI to the URL set in flex_url
    */
@@ -487,27 +487,27 @@ export class ConfigurationInstance {
   /**
    * Settings for different limits for Flex Conversations channels attachments.
    */
-  channelConfigs: Array<any>;
+  channelConfigs: Array<Record<string, object>>;
   /**
    * Configurable parameters for Debugger Integration.
    */
-  debuggerIntegration: any;
+  debuggerIntegration: Record<string, object>;
   /**
    * Configurable parameters for Flex UI Status report.
    */
-  flexUiStatusReport: any;
+  flexUiStatusReport: Record<string, object>;
   /**
    * Agent conversation end methods.
    */
-  agentConvEndMethods: any;
+  agentConvEndMethods: Record<string, object>;
   /**
    * Citrix voice vdi configuration and settings.
    */
-  citrixVoiceVdi: any;
+  citrixVoiceVdi: Record<string, object>;
   /**
    * Presence and presence ttl configuration
    */
-  offlineConfig: any;
+  offlineConfig: Record<string, object>;
 
   private get _proxy(): ConfigurationContext {
     this._context =

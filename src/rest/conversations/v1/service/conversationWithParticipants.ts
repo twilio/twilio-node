@@ -222,9 +222,9 @@ interface ConversationWithParticipantsResource {
   state: ConversationWithParticipantsState;
   date_created: Date;
   date_updated: Date;
-  timers: any;
+  timers: Record<string, object>;
   links: Record<string, string>;
-  bindings: any;
+  bindings: Record<string, object>;
   url: string;
 }
 
@@ -290,12 +290,12 @@ export class ConversationWithParticipantsInstance {
   /**
    * Timer date values representing state update for this conversation.
    */
-  timers: any;
+  timers: Record<string, object>;
   /**
    * Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
    */
   links: Record<string, string>;
-  bindings: any;
+  bindings: Record<string, object>;
   /**
    * An absolute API resource URL for this conversation.
    */

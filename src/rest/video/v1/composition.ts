@@ -36,7 +36,7 @@ export interface CompositionListInstanceCreateOptions {
   /** The SID of the Group Room with the media tracks to be used as composition sources. */
   roomSid: string;
   /** An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request */
-  videoLayout?: any;
+  videoLayout?: object;
   /** An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request */
   audioSources?: Array<string>;
   /** An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty. */
@@ -237,7 +237,7 @@ interface CompositionResource {
   room_sid: string;
   audio_sources: Array<string>;
   audio_sources_excluded: Array<string>;
-  video_layout: any;
+  video_layout: Record<string, object>;
   resolution: string;
   trim: boolean;
   format: CompositionFormat;
@@ -321,7 +321,7 @@ export class CompositionInstance {
   /**
    * An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
    */
-  videoLayout: any;
+  videoLayout: Record<string, object>;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string\'s format is `{width}x{height}`, such as `640x480`.
    */

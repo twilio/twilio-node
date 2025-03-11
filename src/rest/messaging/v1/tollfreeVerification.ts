@@ -26,7 +26,8 @@ export type TollfreeVerificationOptInType =
   | "PAPER_FORM"
   | "VIA_TEXT"
   | "MOBILE_QR_CODE"
-  | "IMPORT";
+  | "IMPORT"
+  | "IMPORT_PLEASE_REPLACE";
 
 export type TollfreeVerificationStatus =
   | "PENDING_REVIEW"
@@ -465,8 +466,8 @@ interface TollfreeVerificationResource {
   error_code: number;
   edit_expiration: Date;
   edit_allowed: boolean;
-  rejection_reasons: Array<any>;
-  resource_links: any;
+  rejection_reasons: Array<Record<string, object>>;
+  resource_links: Record<string, object>;
   external_reference_id: string;
 }
 
@@ -653,11 +654,11 @@ export class TollfreeVerificationInstance {
   /**
    * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
    */
-  rejectionReasons: Array<any>;
+  rejectionReasons: Array<Record<string, object>>;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
-  resourceLinks: any;
+  resourceLinks: Record<string, object>;
   /**
    * An optional external reference ID supplied by customer and echoed back on status retrieval.
    */

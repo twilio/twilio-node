@@ -257,10 +257,10 @@ interface EventResource {
   group: string;
   level: EventLevel;
   name: string;
-  carrier_edge: any;
-  sip_edge: any;
-  sdk_edge: any;
-  client_edge: any;
+  carrier_edge: Record<string, object>;
+  sip_edge: Record<string, object>;
+  sdk_edge: Record<string, object>;
+  client_edge: Record<string, object>;
 }
 
 export class EventInstance {
@@ -303,19 +303,19 @@ export class EventInstance {
   /**
    * Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio\'s carrier media gateways.
    */
-  carrierEdge: any;
+  carrierEdge: Record<string, object>;
   /**
    * Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio\'s public media gateways.
    */
-  sipEdge: any;
+  sipEdge: Record<string, object>;
   /**
    * Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions.
    */
-  sdkEdge: any;
+  sdkEdge: Record<string, object>;
   /**
    * Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio\'s Voice SDK media gateways.
    */
-  clientEdge: any;
+  clientEdge: Record<string, object>;
 
   /**
    * Provide a user-friendly representation

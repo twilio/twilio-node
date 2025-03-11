@@ -24,9 +24,9 @@ import { InteractionChannelListInstance } from "./interaction/interactionChannel
  */
 export interface InteractionListInstanceCreateOptions {
   /** The Interaction\\\'s channel. */
-  channel: any;
+  channel: object;
   /** The Interaction\\\'s routing logic. */
-  routing?: any;
+  routing?: object;
   /** The Interaction context sid is used for adding a context lookup sid */
   interactionContextSid?: string;
 }
@@ -126,8 +126,8 @@ interface InteractionPayload extends InteractionResource {}
 
 interface InteractionResource {
   sid: string;
-  channel: any;
-  routing: any;
+  channel: Record<string, object>;
+  routing: Record<string, object>;
   url: string;
   links: Record<string, string>;
   interaction_context_sid: string;
@@ -159,11 +159,11 @@ export class InteractionInstance {
   /**
    * A JSON object that defines the Interaction’s communication channel and includes details about the channel. See the [Outbound SMS](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) and [inbound (API-initiated)](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#api-initiated-contact) Channel object examples.
    */
-  channel: any;
+  channel: Record<string, object>;
   /**
    * A JSON Object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
    */
-  routing: any;
+  routing: Record<string, object>;
   url: string;
   links: Record<string, string>;
   interactionContextSid: string;

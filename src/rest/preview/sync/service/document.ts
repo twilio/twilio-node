@@ -26,7 +26,7 @@ import { DocumentPermissionListInstance } from "./document/documentPermission";
  */
 export interface DocumentContextUpdateOptions {
   /**  */
-  data: any;
+  data: object;
   /** The If-Match HTTP request header */
   ifMatch?: string;
 }
@@ -38,7 +38,7 @@ export interface DocumentListInstanceCreateOptions {
   /**  */
   uniqueName?: string;
   /**  */
-  data?: any;
+  data?: object;
 }
 /**
  * Options to pass to each
@@ -281,7 +281,7 @@ interface DocumentResource {
   url: string;
   links: Record<string, string>;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   created_by: string;
@@ -319,7 +319,7 @@ export class DocumentInstance {
   url: string;
   links: Record<string, string>;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   dateCreated: Date;
   dateUpdated: Date;
   createdBy: string;

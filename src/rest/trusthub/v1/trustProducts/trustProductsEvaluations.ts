@@ -172,7 +172,7 @@ interface TrustProductsEvaluationsResource {
   policy_sid: string;
   trust_product_sid: string;
   status: TrustProductsEvaluationsStatus;
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   date_created: Date;
   url: string;
 }
@@ -219,7 +219,7 @@ export class TrustProductsEvaluationsInstance {
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   dateCreated: Date;
   url: string;
 

@@ -210,7 +210,7 @@ interface ApiKeyResource {
   friendly_name: string;
   date_created: Date;
   date_updated: Date;
-  policy: any;
+  policy: Record<string, object>;
 }
 
 export class ApiKeyInstance {
@@ -246,7 +246,7 @@ export class ApiKeyInstance {
   /**
    * The \\`Policy\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
    */
-  policy: any;
+  policy: Record<string, object>;
 
   private get _proxy(): ApiKeyContext {
     this._context =
