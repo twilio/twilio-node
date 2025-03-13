@@ -19,7 +19,10 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../interfaces";
 
 export type HostedNumberOrderStatus =
   | "twilio-processing"
@@ -337,7 +340,7 @@ interface HostedNumberOrderResource {
   address_sid: string;
   signing_document_sid: string;
   phone_number: string;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   friendly_name: string;
   status: HostedNumberOrderStatus;
   failure_reason: string;
@@ -373,7 +376,12 @@ export class HostedNumberOrderInstance {
     this.addressSid = payload.address_sid;
     this.signingDocumentSid = payload.signing_document_sid;
     this.phoneNumber = payload.phone_number;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.friendlyName = payload.friendly_name;
     this.status = payload.status;
     this.failureReason = payload.failure_reason;
