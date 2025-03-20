@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The status of the transcription. Can be: `in-progress`, `completed`, `failed`.
+ */
 export type TranscriptionStatus = "in-progress" | "completed" | "failed";
 
 /**

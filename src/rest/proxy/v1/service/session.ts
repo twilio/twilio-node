@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../../base/utility";
 import { InteractionListInstance } from "./session/interaction";
 import { ParticipantListInstance } from "./session/participant";
 
+/**
+ * The Mode of the Session. Can be: `message-only`, `voice-only`, or `voice-and-message`.
+ */
 export type SessionMode = "message-only" | "voice-only" | "voice-and-message";
 
+/**
+ * The status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`.
+ */
 export type SessionStatus =
   | "open"
   | "in-progress"

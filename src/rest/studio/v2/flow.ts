@@ -23,6 +23,9 @@ import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowStatus = "draft" | "published";
 
 /**

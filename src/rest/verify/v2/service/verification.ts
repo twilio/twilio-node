@@ -18,10 +18,16 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The verification method used. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna`, or `rcs`.
+ */
 export type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
 export type VerificationRiskCheck = "enable" | "disable";
 
+/**
+ * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
+ */
 export type VerificationStatus = "canceled" | "approved";
 
 /**

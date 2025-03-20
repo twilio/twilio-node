@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * A string that shows the status of the current Bulk Hosting request, it can vary between these values: \'QUEUED\',\'IN_PROGRESS\',\'PROCESSED\'
+ */
 export type BulkHostedNumberOrderRequestStatus =
   | "QUEUED"
   | "IN_PROGRESS"

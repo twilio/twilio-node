@@ -20,6 +20,9 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
+/**
+ * The category of usage. For more information, see [Usage Categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ */
 export type TodayCategory =
   | "a2p-registration-fees"
   | "agent-conference"

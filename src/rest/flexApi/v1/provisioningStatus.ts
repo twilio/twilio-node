@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Email Provisioning Status
+ */
 export type ProvisioningStatusStatus =
   | "active"
   | "in-progress"

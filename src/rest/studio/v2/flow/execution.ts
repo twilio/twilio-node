@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 import { ExecutionStepListInstance } from "./execution/executionStep";
 
+/**
+ * The status of the Execution. Can be: `active` or `ended`.
+ */
 export type ExecutionStatus = "active" | "ended";
 
 /**

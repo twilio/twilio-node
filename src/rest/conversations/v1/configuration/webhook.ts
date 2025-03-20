@@ -18,8 +18,14 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The HTTP method to be used when sending a webhook request.
+ */
 export type WebhookMethod = "GET" | "POST";
 
+/**
+ * The routing target of the webhook. Can be ordinary or route internally to Flex
+ */
 export type WebhookTarget = "webhook" | "flex";
 
 /**

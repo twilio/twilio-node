@@ -30,6 +30,9 @@ export type BundleSortBy = "valid-until" | "date-updated";
 
 export type BundleSortDirection = "ASC" | "DESC";
 
+/**
+ * The verification status of the Bundle resource.
+ */
 export type BundleStatus =
   | "draft"
   | "pending-review"

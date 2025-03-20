@@ -27,6 +27,9 @@ export type AddressConfigurationAutoCreationType =
 
 export type AddressConfigurationMethod = "GET" | "POST";
 
+/**
+ * Type of Address, value can be `whatsapp` or `sms`.
+ */
 export type AddressConfigurationType =
   | "sms"
   | "whatsapp"

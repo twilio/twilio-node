@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The access control that determines how the Asset Version resource can be accessed. Can be:  `public`, `protected`, or `private`.
+ */
 export type AssetVersionVisibility = "public" | "private" | "protected";
 
 /**

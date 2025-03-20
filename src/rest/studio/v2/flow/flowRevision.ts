@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowRevisionStatus = "draft" | "published";
 
 /**

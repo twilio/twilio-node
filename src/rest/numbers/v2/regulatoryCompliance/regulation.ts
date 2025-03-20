@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The type of End User the regulation requires - can be `individual` or `business`.
+ */
 export type RegulationEndUserType = "individual" | "business";
 
 /**

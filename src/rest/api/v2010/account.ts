@@ -44,8 +44,14 @@ import { TranscriptionListInstance } from "./account/transcription";
 import { UsageListInstance } from "./account/usage";
 import { ValidationRequestListInstance } from "./account/validationRequest";
 
+/**
+ * The status of this account. Usually `active`, but can be `suspended` or `closed`.
+ */
 export type AccountStatus = "active" | "suspended" | "closed";
 
+/**
+ * The type of this account. Either `Trial` or `Full` if it\'s been upgraded
+ */
 export type AccountType = "Trial" | "Full";
 
 /**

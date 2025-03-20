@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { BrandRegistrationOtpListInstance } from "./brandRegistration/brandRegistrationOtp";
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
+/**
+ * DEPRECATED. Feedback on how to improve brand score
+ */
 export type BrandRegistrationBrandFeedback =
   | "TAX_ID"
   | "STOCK_SYMBOL"
@@ -29,12 +32,18 @@ export type BrandRegistrationBrandFeedback =
   | "GOVERNMENT_ENTITY"
   | "OTHERS";
 
+/**
+ * When a brand is registered, TCR will attempt to verify the identity of the brand based on the supplied information.
+ */
 export type BrandRegistrationIdentityStatus =
   | "SELF_DECLARED"
   | "UNVERIFIED"
   | "VERIFIED"
   | "VETTED_VERIFIED";
 
+/**
+ * Brand Registration status. One of \"PENDING\", \"APPROVED\", \"FAILED\", \"IN_REVIEW\", \"DELETION_PENDING\", \"DELETION_FAILED\", \"SUSPENDED\".
+ */
 export type BrandRegistrationStatus =
   | "PENDING"
   | "APPROVED"

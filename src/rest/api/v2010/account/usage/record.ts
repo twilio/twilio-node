@@ -28,6 +28,9 @@ import { TodayListInstance } from "./record/today";
 import { YearlyListInstance } from "./record/yearly";
 import { YesterdayListInstance } from "./record/yesterday";
 
+/**
+ * The category of usage. For more information, see [Usage Categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ */
 export type RecordCategory =
   | "a2p-registration-fees"
   | "agent-conference"

@@ -21,6 +21,9 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { BuildStatusListInstance } from "./build/buildStatus";
 
+/**
+ * The Runtime version that will be used to run the Build resource when it is deployed.
+ */
 export type BuildRuntime =
   | "node8"
   | "node10"
@@ -29,6 +32,9 @@ export type BuildRuntime =
   | "node16"
   | "node18";
 
+/**
+ * The status of the Build. Can be: `building`, `completed`, or `failed`.
+ */
 export type BuildStatus = "building" | "completed" | "failed";
 
 /**

@@ -26,6 +26,9 @@ export type MessageAddressRetention = "retain" | "obfuscate";
 
 export type MessageContentRetention = "retain" | "discard";
 
+/**
+ * The direction of the message. Can be: `inbound` for incoming messages, `outbound-api` for messages created by the REST API, `outbound-call` for messages created during a call, or `outbound-reply` for messages created in response to an incoming message.
+ */
 export type MessageDirection =
   | "inbound"
   | "outbound-api"
@@ -36,6 +39,9 @@ export type MessageRiskCheck = "enable" | "disable";
 
 export type MessageScheduleType = "fixed";
 
+/**
+ * The status of the Message. Possible values: `accepted`, `scheduled`, `canceled`, `queued`, `sending`, `sent`, `failed`, `delivered`, `undelivered`, `receiving`, `received`, or `read` (WhatsApp only). For more information, See [detailed descriptions](https://www.twilio.com/docs/sms/api/message-resource#message-status-values).
+ */
 export type MessageStatus =
   | "queued"
   | "sending"
@@ -50,6 +56,8 @@ export type MessageStatus =
   | "read"
   | "partially_delivered"
   | "canceled";
+
+export type MessageTrafficType = "free";
 
 export type MessageUpdateStatus = "canceled";
 
@@ -91,6 +99,8 @@ export interface MessageListInstanceCreateOptions {
   smartEncoded?: boolean;
   /** Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp). */
   persistentAction?: Array<string>;
+  /**  */
+  trafficType?: MessageTrafficType;
   /** For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided. */
   shortenUrls?: boolean;
   /**  */
@@ -805,6 +815,8 @@ export function MessageListInstance(
         params["persistentAction"],
         (e: string) => e
       );
+    if (params["trafficType"] !== undefined)
+      data["TrafficType"] = params["trafficType"];
     if (params["shortenUrls"] !== undefined)
       data["ShortenUrls"] = serialize.bool(params["shortenUrls"]);
     if (params["scheduleType"] !== undefined)

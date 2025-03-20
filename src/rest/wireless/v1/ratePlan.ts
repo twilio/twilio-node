@@ -21,6 +21,11 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
+ * The way the home network (T-Mobile USA) will behave after a SIM\'s usage exceeds its `data_limit`. Can be either `block` or `throttle`. Default is `block`.
+ */
+export type RatePlanDataLimitStrategy = "block" | "throttle";
+
+/**
  * Options to pass to update a RatePlanInstance
  */
 export interface RatePlanContextUpdateOptions {
@@ -56,6 +61,8 @@ export interface RatePlanListInstanceCreateOptions {
   nationalRoamingDataLimit?: number;
   /** The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB. */
   internationalRoamingDataLimit?: number;
+  /**  */
+  dataLimitStrategy?: RatePlanDataLimitStrategy;
 }
 /**
  * Options to pass to each
@@ -642,6 +649,8 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
     if (params["internationalRoamingDataLimit"] !== undefined)
       data["InternationalRoamingDataLimit"] =
         params["internationalRoamingDataLimit"];
+    if (params["dataLimitStrategy"] !== undefined)
+      data["DataLimitStrategy"] = params["dataLimitStrategy"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

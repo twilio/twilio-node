@@ -24,6 +24,9 @@ import { RegulationListInstance } from "./regulatoryCompliance/regulation";
 import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
 import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
 
+/**
+ * The type of End User the regulation requires - can be `individual` or `business`.
+ */
 export type RegulatoryComplianceEndUserType = "individual" | "business";
 
 export interface RegulatoryComplianceSolution {}

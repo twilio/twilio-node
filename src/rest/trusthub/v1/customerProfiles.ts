@@ -23,6 +23,9 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
+/**
+ * The verification status of the Customer-Profile resource.
+ */
 export type CustomerProfilesStatus =
   | "draft"
   | "pending-review"

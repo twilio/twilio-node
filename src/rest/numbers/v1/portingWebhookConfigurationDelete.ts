@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The of the webhook type of the configuration to be deleted
+ */
 export type PortingWebhookConfigurationDeleteWebhookType =
   | "PORT_IN"
   | "PORT_OUT";

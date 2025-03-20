@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The type of end user of the Bundle resource - can be `individual` or `business`.
+ */
 export type EndUserType = "individual" | "business";
 
 /**

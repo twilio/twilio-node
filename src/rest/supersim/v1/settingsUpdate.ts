@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The Status of this Settings Update. One of `scheduled`, `in-progress`, `successful` or `failed`.
+ */
 export type SettingsUpdateStatus =
   | "scheduled"
   | "in-progress"

@@ -23,6 +23,9 @@ import { MediaListInstance } from "./transcript/media";
 import { OperatorResultListInstance } from "./transcript/operatorResult";
 import { SentenceListInstance } from "./transcript/sentence";
 
+/**
+ * The Status of this Transcript. One of `queued`, `in-progress`, `completed`, `failed` or `canceled`.
+ */
 export type TranscriptStatus =
   | "queued"
   | "in-progress"
