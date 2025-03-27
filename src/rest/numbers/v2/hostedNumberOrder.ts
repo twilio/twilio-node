@@ -19,7 +19,10 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../interfaces";
 
 /**
  * Status of this resource. It can hold one of the values: 1. Twilio Processing 2. Received, 3. Pending LOA, 4. Carrier Processing, 5. Completed, 6. Action Required, 7. Failed. See the [HostedNumberOrders Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values) section for more information on each of these statuses.
@@ -343,7 +346,7 @@ interface HostedNumberOrderResource {
   address_sid: string;
   signing_document_sid: string;
   phone_number: string;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   friendly_name: string;
   status: HostedNumberOrderStatus;
   failure_reason: string;
@@ -379,7 +382,12 @@ export class HostedNumberOrderInstance {
     this.addressSid = payload.address_sid;
     this.signingDocumentSid = payload.signing_document_sid;
     this.phoneNumber = payload.phone_number;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.friendlyName = payload.friendly_name;
     this.status = payload.status;
     this.failureReason = payload.failure_reason;
