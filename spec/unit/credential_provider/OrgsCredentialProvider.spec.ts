@@ -12,7 +12,7 @@ describe("OrgsCredentialProvider Constructor", () => {
     expect(orgsCredentialProvider.getAuthType()).toEqual("client-credentials");
   });
 
-  it("Should return NoAuthStrategy as its auth strategy", () => {
+    it("Should return TokenAuthStrategy as its auth strategy", () => {
     expect(orgsCredentialProvider.toAuthStrategy()).toBeInstanceOf(
       TokenAuthStrategy
     );
