@@ -1,5 +1,9 @@
 twilio-node changelog
 =====================
+[2025-04-09] Version 4.0.0-rc.6
+--------------------------
+**Library - Chore**
+- Test Release must not be used
 
 [2025-04-07] Version 5.5.2
 --------------------------
