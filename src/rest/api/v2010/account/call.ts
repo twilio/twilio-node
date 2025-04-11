@@ -30,6 +30,9 @@ import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
 import TwiML from "../../../../twiml/TwiML";
 
+/**
+ * The status of this call. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy` or `no-answer`. See [Call Status Values](https://www.twilio.com/docs/voice/api/call-resource#call-status-values) below for more information.
+ */
 export type CallStatus =
   | "queued"
   | "ringing"

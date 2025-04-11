@@ -43,6 +43,9 @@ export type MessageInteractionResourceStatus =
   | "undelivered"
   | "unknown";
 
+/**
+ * The Type of Message Interaction. This value is always `message`.
+ */
 export type MessageInteractionType = "message" | "voice" | "unknown";
 
 /**

@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 export type InteractionChannelParticipantStatus = "closed" | "wrapup";
 
+/**
+ * Participant type. Can be: `agent`, `customer`, `supervisor`, `external`, `unknown`
+ */
 export type InteractionChannelParticipantType =
   | "supervisor"
   | "customer"

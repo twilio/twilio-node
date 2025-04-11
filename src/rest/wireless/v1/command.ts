@@ -20,10 +20,19 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The mode used to send the SMS message. Can be: `text` or `binary`. The default SMS mode is `text`.
+ */
 export type CommandCommandMode = "text" | "binary";
 
+/**
+ * The direction of the Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+ */
 export type CommandDirection = "from_sim" | "to_sim";
 
+/**
+ * The status of the Command. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. See [Status Values](https://www.twilio.com/docs/iot/wireless/api/command-resource#status-values) for a description of each state.
+ */
 export type CommandStatus =
   | "queued"
   | "sent"
@@ -31,6 +40,9 @@ export type CommandStatus =
   | "received"
   | "failed";
 
+/**
+ * The type of transport used. Can be: `sms` or `ip`.
+ */
 export type CommandTransport = "sms" | "ip";
 
 /**

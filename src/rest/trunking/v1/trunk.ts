@@ -25,6 +25,9 @@ import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
+/**
+ * Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.
+ */
 export type TrunkTransferCallerId = "from-transferee" | "from-transferor";
 
 export type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";

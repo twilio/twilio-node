@@ -25,6 +25,9 @@ export type UserChannelChannelStatus =
   | "invited"
   | "not_participating";
 
+/**
+ * The push notification level of the User for the Channel. Can be: `default` or `muted`.
+ */
 export type UserChannelNotificationLevel = "default" | "muted";
 
 export type UserChannelWebhookEnabledType = "true" | "false";

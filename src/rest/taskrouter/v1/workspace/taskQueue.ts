@@ -25,6 +25,9 @@ import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRe
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
+/**
+ * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or `FIFO` to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
+ */
 export type TaskQueueTaskOrder = "FIFO" | "LIFO";
 
 /**

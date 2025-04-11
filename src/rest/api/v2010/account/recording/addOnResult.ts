@@ -21,6 +21,9 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PayloadListInstance } from "./addOnResult/payload";
 
+/**
+ * The status of the result. Can be: `canceled`, `completed`, `deleted`, `failed`, `in-progress`, `init`, `processing`, `queued`.
+ */
 export type AddOnResultStatus =
   | "canceled"
   | "completed"

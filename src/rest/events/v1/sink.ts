@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../base/utility";
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
+/**
+ * The Sink type. Can only be \"kinesis\" or \"webhook\" currently.
+ */
 export type SinkSinkType = "kinesis" | "webhook" | "segment" | "email";
 
+/**
+ * The Status of this Sink. One of `initialized`, `validating`, `active` or `failed`.
+ */
 export type SinkStatus = "initialized" | "validating" | "active" | "failed";
 
 /**

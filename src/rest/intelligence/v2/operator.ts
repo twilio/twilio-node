@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Operator availability status. Possible values: internal, beta, public, retired.
+ */
 export type OperatorAvailability = "internal" | "beta" | "public" | "retired";
 
 /**

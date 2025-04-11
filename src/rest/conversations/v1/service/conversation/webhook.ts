@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 export type WebhookMethod = "GET" | "POST";
 
+/**
+ * The target of this webhook: `webhook`, `studio`, `trigger`
+ */
 export type WebhookTarget = "webhook" | "trigger" | "studio";
 
 /**

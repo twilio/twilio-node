@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the Participant. Can be: `connected` or `disconnected`.
+ */
 export type AnonymizeStatus = "connected" | "disconnected";
 
 export interface AnonymizeContext {

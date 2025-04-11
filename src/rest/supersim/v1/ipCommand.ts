@@ -20,10 +20,19 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Either `to_sim` or `from_sim`. Indicates whether the IP Command resource was sent from or to the Super SIM.
+ */
 export type IpCommandDirection = "to_sim" | "from_sim";
 
+/**
+ * Either “text” or “binary”. For an IP Command sent to a Super SIM, `payload_type` is configurable. For an IP Command sent from a Super SIM, `payload_type` is always “binary”.
+ */
 export type IpCommandPayloadType = "text" | "binary";
 
+/**
+ * The delivery status of the IP Command. This is one of the following: “queued”, “sent”, “failed” or “received”.
+ */
 export type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 
 /**

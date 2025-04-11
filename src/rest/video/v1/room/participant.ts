@@ -24,7 +24,10 @@ import { PublishedTrackListInstance } from "./participant/publishedTrack";
 import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
 
-export type ParticipantStatus = "connected" | "disconnected";
+/**
+ * The status of the Participant. Can be: `connected` or `disconnected`.
+ */
+export type ParticipantStatus = "connected" | "disconnected" | "reconnecting";
 
 /**
  * Options to pass to update a ParticipantInstance

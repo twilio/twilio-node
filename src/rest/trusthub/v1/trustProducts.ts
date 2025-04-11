@@ -23,6 +23,9 @@ import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProdu
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
 import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 
+/**
+ * The verification status of the Trust Product resource.
+ */
 export type TrustProductsStatus =
   | "draft"
   | "pending-review"

@@ -26,6 +26,9 @@ export type DependentPhoneNumberAddressRequirement =
   | "local"
   | "foreign";
 
+/**
+ * Whether the phone number is enabled for emergency calling.
+ */
 export type DependentPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
 /**

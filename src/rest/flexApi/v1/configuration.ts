@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The status of the Flex onboarding. Can be: `ok`, `inprogress`,`notstarted`.
+ */
 export type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
 
 /**

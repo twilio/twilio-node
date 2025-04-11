@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { EngagementListInstance } from "./flow/engagement";
 import { ExecutionListInstance } from "./flow/execution";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowStatus = "draft" | "published";
 
 /**

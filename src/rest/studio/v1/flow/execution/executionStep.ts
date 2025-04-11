@@ -179,6 +179,7 @@ interface ExecutionStepResource {
   account_sid: string;
   flow_sid: string;
   execution_sid: string;
+  parent_step_sid: string;
   name: string;
   context: Record<string, object>;
   transitioned_from: string;
@@ -204,6 +205,7 @@ export class ExecutionStepInstance {
     this.accountSid = payload.account_sid;
     this.flowSid = payload.flow_sid;
     this.executionSid = payload.execution_sid;
+    this.parentStepSid = payload.parent_step_sid;
     this.name = payload.name;
     this.context = payload.context;
     this.transitionedFrom = payload.transitioned_from;
@@ -232,6 +234,10 @@ export class ExecutionStepInstance {
    * The SID of the Step\'s Execution resource.
    */
   executionSid: string;
+  /**
+   * This field shows the Step SID of the Widget in the parent Flow that started the Subflow. If this Step is not part of a Subflow execution, the value is null.
+   */
+  parentStepSid: string;
   /**
    * The event that caused the Flow to transition to the Step.
    */
@@ -308,6 +314,7 @@ export class ExecutionStepInstance {
       accountSid: this.accountSid,
       flowSid: this.flowSid,
       executionSid: this.executionSid,
+      parentStepSid: this.parentStepSid,
       name: this.name,
       context: this.context,
       transitionedFrom: this.transitionedFrom,

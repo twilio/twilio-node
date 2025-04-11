@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
 import { StepListInstance } from "./engagement/step";
 
+/**
+ * The status of the Engagement. Can be: `active` or `ended`.
+ */
 export type EngagementStatus = "active" | "ended";
 
 /**

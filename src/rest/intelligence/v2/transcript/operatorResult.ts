@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The type of the applied Language Understanding Operator. One of conversation-classify, utterance-classify, extract, extract-normalize, or pii-extract
+ */
 export type OperatorResultOperatorType =
   | "conversation_classify"
   | "utterance_classify"

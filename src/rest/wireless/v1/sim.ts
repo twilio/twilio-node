@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../base/utility";
 import { DataSessionListInstance } from "./sim/dataSession";
 import { UsageRecordListInstance } from "./sim/usageRecord";
 
+/**
+ * The connectivity reset status of the SIM. Can be: null or `resetting`. When a connectivity reset is initiated on a SIM, this property is `resetting`. After the reset completes, it is null.
+ */
 export type SimResetStatus = "resetting";
 
+/**
+ * The status of the Sim resource. Can be: `new`, `ready`, `active`, `deactivated`, `canceled`, `deleted`, `scheduled`, or `updating`. See [Status Values](https://www.twilio.com/docs/iot/wireless/api/sim-resource#status-values) for the description of each status.
+ */
 export type SimStatus =
   | "new"
   | "ready"

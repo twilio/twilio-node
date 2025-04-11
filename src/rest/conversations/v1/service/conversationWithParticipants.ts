@@ -18,6 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
+ */
 export type ConversationWithParticipantsState =
   | "inactive"
   | "active"

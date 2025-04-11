@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the Stream. Possible values are `stopped` and `in-progress`.
+ */
 export type StreamStatus = "in-progress" | "stopped";
 
 export type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";

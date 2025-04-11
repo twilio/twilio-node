@@ -22,14 +22,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to update a FlexUserInstance
  */
 export interface FlexUserContextUpdateOptions {
-  /** First name of the User. */
-  firstName?: string;
-  /** Last name of the User. */
-  lastName?: string;
   /** Email of the User. */
   email?: string;
-  /** Friendly name of the User. */
-  friendlyName?: string;
   /** The unique SID identifier of the Twilio Unified User. */
   userSid?: string;
   /** The locale preference of the user. */
@@ -150,12 +144,7 @@ export class FlexUserContextImpl implements FlexUserContext {
 
     let data: any = {};
 
-    if (params["firstName"] !== undefined)
-      data["FirstName"] = params["firstName"];
-    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
     if (params["email"] !== undefined) data["Email"] = params["email"];
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
     if (params["userSid"] !== undefined) data["UserSid"] = params["userSid"];
     if (params["locale"] !== undefined) data["Locale"] = params["locale"];
 
@@ -213,11 +202,8 @@ interface FlexUserResource {
   worker_sid: string;
   workspace_sid: string;
   flex_team_sid: string;
-  first_name: string;
-  last_name: string;
   username: string;
   email: string;
-  friendly_name: string;
   locale: string;
   roles: Array<string>;
   created_date: Date;
@@ -243,11 +229,8 @@ export class FlexUserInstance {
     this.workerSid = payload.worker_sid;
     this.workspaceSid = payload.workspace_sid;
     this.flexTeamSid = payload.flex_team_sid;
-    this.firstName = payload.first_name;
-    this.lastName = payload.last_name;
     this.username = payload.username;
     this.email = payload.email;
-    this.friendlyName = payload.friendly_name;
     this.locale = payload.locale;
     this.roles = payload.roles;
     this.createdDate = deserialize.iso8601DateTime(payload.created_date);
@@ -290,14 +273,6 @@ export class FlexUserInstance {
    */
   flexTeamSid: string;
   /**
-   * First name of the User.
-   */
-  firstName: string;
-  /**
-   * Last name of the User.
-   */
-  lastName: string;
-  /**
    * Username of the User.
    */
   username: string;
@@ -305,10 +280,6 @@ export class FlexUserInstance {
    * Email of the User.
    */
   email: string;
-  /**
-   * Friendly name of the User.
-   */
-  friendlyName: string;
   /**
    * The locale preference of the user.
    */
@@ -399,11 +370,8 @@ export class FlexUserInstance {
       workerSid: this.workerSid,
       workspaceSid: this.workspaceSid,
       flexTeamSid: this.flexTeamSid,
-      firstName: this.firstName,
-      lastName: this.lastName,
       username: this.username,
       email: this.email,
-      friendlyName: this.friendlyName,
       locale: this.locale,
       roles: this.roles,
       createdDate: this.createdDate,

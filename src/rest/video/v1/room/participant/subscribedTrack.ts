@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The track type. Can be: `audio`, `video` or `data`.
+ */
 export type SubscribedTrackKind = "audio" | "video" | "data";
 
 /**

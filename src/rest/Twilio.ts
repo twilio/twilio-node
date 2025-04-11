@@ -25,6 +25,7 @@ import Iam from "./Iam";
 import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
+import Knowledge from "./Knowledge";
 import Lookups from "./Lookups";
 import Marketplace from "./Marketplace";
 import Messaging from "./Messaging";
@@ -110,6 +111,8 @@ class Twilio extends Client {
   _intelligence?: Intelligence;
   /** (Twilio.IpMessaging) - ipMessaging domain */
   _ipMessaging?: IpMessaging;
+  /** (Twilio.Knowledge) - knowledge domain */
+  _knowledge?: Knowledge;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
   /** (Twilio.Marketplace) - marketplace domain */
@@ -189,6 +192,7 @@ class Twilio extends Client {
       this.insights;
       this.intelligence;
       this.ipMessaging;
+      this.knowledge;
       this.lookups;
       this.marketplace;
       this.messaging;
@@ -299,6 +303,12 @@ class Twilio extends Client {
     return (
       this._ipMessaging ??
       (this._ipMessaging = new (require("./IpMessaging"))(this))
+    );
+  }
+  /** Getter for (Twilio.Knowledge) domain */
+  get knowledge(): Knowledge {
+    return (
+      this._knowledge ?? (this._knowledge = new (require("./Knowledge"))(this))
     );
   }
   /** Getter for (Twilio.Lookups) domain */

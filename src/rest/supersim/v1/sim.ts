@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { BillingPeriodListInstance } from "./sim/billingPeriod";
 import { SimIpAddressListInstance } from "./sim/simIpAddress";
 
+/**
+ * The status of the Super SIM. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. See the [Super SIM Status Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for a description of each.
+ */
 export type SimStatus = "new" | "ready" | "active" | "inactive" | "scheduled";
 
 export type SimStatusUpdate = "ready" | "active" | "inactive";

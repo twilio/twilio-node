@@ -1,6 +1,27 @@
 twilio-node changelog
 =====================
 
+[2025-04-07] Version 5.5.2
+--------------------------
+**Library - Chore**
+- [PR #1083](https://github.com/twilio/twilio-node/pull/1083): fix message on unit tests. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Studio**
+- Add documentation for parent_step_sid field in Step resource
+
+
+[2025-03-20] Version 5.5.1
+--------------------------
+**Accounts**
+- Update Safelist API docs as part of prefix supoort
+
+**Flex**
+- Removing `first_name`, `last_name`, and `friendly_name` from the Flex User API
+
+**Messaging**
+- Add missing tests under transaction/phone_numbers and transaction/short_code
+
+
 [2025-03-11] Version 5.5.0
 --------------------------
 **Library - Feature**

@@ -20,10 +20,16 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or `yearly` for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT.
+ */
 export type TriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
 
 export type TriggerTriggerField = "count" | "usage" | "price";
 
+/**
+ * The usage category the trigger watches. Must be one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ */
 export type TriggerUsageCategory =
   | "a2p-registration-fees"
   | "agent-conference"

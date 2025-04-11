@@ -33,7 +33,11 @@ export type ParticipantEdgeLocation =
   | "umatilla"
   | "tokyo";
 
-export type ParticipantRoomStatus = "in_progress" | "completed";
+export type ParticipantRoomStatus =
+  | "in_progress"
+  | "connected"
+  | "completed"
+  | "disconnected";
 
 export type ParticipantTwilioRealm =
   | "us1"
@@ -47,7 +51,17 @@ export type ParticipantTwilioRealm =
   | "de1"
   | "gll"
   | "stage_us1"
-  | "dev_us1";
+  | "dev_us1"
+  | "stage_au1"
+  | "stage_sg1"
+  | "stage_br1"
+  | "stage_in1"
+  | "stage_jp1"
+  | "stage_de1"
+  | "stage_ie1"
+  | "stage_us2"
+  | "dev_us2"
+  | "outside";
 
 /**
  * Options to pass to each

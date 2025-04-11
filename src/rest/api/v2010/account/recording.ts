@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { AddOnResultListInstance } from "./recording/addOnResult";
 import { TranscriptionListInstance } from "./recording/transcription";
 
+/**
+ * How the recording was created. Can be: `DialVerb`, `Conference`, `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`, and `StartConferenceRecordingAPI`.
+ */
 export type RecordingSource =
   | "DialVerb"
   | "Conference"
@@ -31,6 +34,9 @@ export type RecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
+/**
+ * The status of the recording. Can be: `processing`, `completed`, `absent` or `deleted`. For information about more detailed statuses on in-progress recordings, check out how to [Update a Recording Resource](https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource).
+ */
 export type RecordingStatus =
   | "in-progress"
   | "paused"

@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status - one of `stopped`, `in-flight`
+ */
 export type TranscriptionStatus = "in-progress" | "stopped";
 
 export type TranscriptionTrack =
