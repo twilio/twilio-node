@@ -23,6 +23,9 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
+/**
+ * The verification status of the Customer-Profile resource.
+ */
 export type CustomerProfilesStatus =
   | "draft"
   | "pending-review"
@@ -354,7 +357,7 @@ interface CustomerProfilesResource {
   date_updated: Date;
   url: string;
   links: Record<string, string>;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 }
 
 export class CustomerProfilesInstance {
@@ -431,7 +434,7 @@ export class CustomerProfilesInstance {
   /**
    * The error codes associated with the rejection of the Customer-Profile.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 
   private get _proxy(): CustomerProfilesContext {
     this._context =

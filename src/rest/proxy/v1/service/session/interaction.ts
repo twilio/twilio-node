@@ -43,6 +43,9 @@ export type InteractionResourceStatus =
   | "undelivered"
   | "unknown";
 
+/**
+ * The Type of the Interaction. Can be: `message`, `voice` or `unknown`.
+ */
 export type InteractionType = "message" | "voice" | "unknown";
 
 /**

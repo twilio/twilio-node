@@ -144,7 +144,7 @@ interface EndUserTypeResource {
   sid: string;
   friendly_name: string;
   machine_name: string;
-  fields: Array<any>;
+  fields: Array<Record<string, object>>;
   url: string;
 }
 
@@ -181,7 +181,7 @@ export class EndUserTypeInstance {
   /**
    * The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
    */
-  fields: Array<any>;
+  fields: Array<Record<string, object>>;
   /**
    * The absolute URL of the End-User Type resource.
    */

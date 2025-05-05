@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Operator availability status. Possible values: internal, beta, public, retired.
+ */
 export type PrebuiltOperatorAvailability =
   | "internal"
   | "beta"
@@ -170,7 +173,7 @@ interface PrebuiltOperatorResource {
   operator_type: string;
   version: number;
   availability: PrebuiltOperatorAvailability;
-  config: any;
+  config: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -233,7 +236,7 @@ export class PrebuiltOperatorInstance {
   /**
    * Operator configuration, following the schema defined by the Operator Type. Only available on Custom Operators created by the Account, will be empty for Pre-Built Operators.
    */
-  config: any;
+  config: Record<string, object>;
   /**
    * The date that this Pre-built Operator was created, given in ISO 8601 format.
    */

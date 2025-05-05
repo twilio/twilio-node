@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowRevisionStatus = "draft" | "published";
 
 /**
@@ -152,12 +155,12 @@ interface FlowRevisionResource {
   sid: string;
   account_sid: string;
   friendly_name: string;
-  definition: any;
+  definition: Record<string, object>;
   status: FlowRevisionStatus;
   revision: number;
   commit_message: string;
   valid: boolean;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -204,7 +207,7 @@ export class FlowRevisionInstance {
   /**
    * JSON representation of flow definition.
    */
-  definition: any;
+  definition: Record<string, object>;
   status: FlowRevisionStatus;
   /**
    * The latest revision number of the Flow\'s definition.
@@ -221,7 +224,7 @@ export class FlowRevisionInstance {
   /**
    * List of error in the flow definition.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

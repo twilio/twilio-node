@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../base/utility";
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
-export type SinkSinkType = "kinesis" | "webhook" | "segment";
+/**
+ * The Sink type. Can only be \"kinesis\" or \"webhook\" currently.
+ */
+export type SinkSinkType = "kinesis" | "webhook" | "segment" | "email";
 
+/**
+ * The Status of this Sink. One of `initialized`, `validating`, `active` or `failed`.
+ */
 export type SinkStatus = "initialized" | "validating" | "active" | "failed";
 
 /**
@@ -41,7 +47,7 @@ export interface SinkListInstanceCreateOptions {
   /** A human readable description for the Sink **This value should not contain PII.** */
   description: string;
   /** The information required for Twilio to connect to the provided Sink encoded as JSON. */
-  sinkConfiguration: any;
+  sinkConfiguration: object;
   /**  */
   sinkType: SinkSinkType;
 }
@@ -282,7 +288,7 @@ interface SinkResource {
   date_updated: Date;
   description: string;
   sid: string;
-  sink_configuration: any;
+  sink_configuration: Record<string, object>;
   sink_type: SinkSinkType;
   status: SinkStatus;
   url: string;
@@ -326,7 +332,7 @@ export class SinkInstance {
   /**
    * The information required for Twilio to connect to the provided Sink encoded as JSON.
    */
-  sinkConfiguration: any;
+  sinkConfiguration: Record<string, object>;
   sinkType: SinkSinkType;
   status: SinkStatus;
   /**

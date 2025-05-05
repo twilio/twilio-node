@@ -119,7 +119,7 @@ interface StepContextPayload extends StepContextResource {}
 
 interface StepContextResource {
   account_sid: string;
-  context: any;
+  context: Record<string, object>;
   engagement_sid: string;
   flow_sid: string;
   step_sid: string;
@@ -154,7 +154,7 @@ export class StepContextInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
   /**
    * The SID of the Engagement.
    */

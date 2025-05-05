@@ -295,11 +295,11 @@ interface InsightsQuestionnairesQuestionResource {
   question_sid: string;
   question: string;
   description: string;
-  category: any;
+  category: Record<string, object>;
   answer_set_id: string;
   allow_na: boolean;
   usage: number;
-  answer_set: any;
+  answer_set: Record<string, object>;
   url: string;
 }
 
@@ -345,7 +345,7 @@ export class InsightsQuestionnairesQuestionInstance {
   /**
    * The Category for the question.
    */
-  category: any;
+  category: Record<string, object>;
   /**
    * The answer_set for the question.
    */
@@ -361,7 +361,7 @@ export class InsightsQuestionnairesQuestionInstance {
   /**
    * Set of answers for the question
    */
-  answerSet: any;
+  answerSet: Record<string, object>;
   url: string;
 
   private get _proxy(): InsightsQuestionnairesQuestionContext {

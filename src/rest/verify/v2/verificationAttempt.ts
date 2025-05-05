@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 export type VerificationAttemptChannels = "sms" | "call" | "email" | "whatsapp";
 
+/**
+ * A string specifying the conversion status of the verification. A conversion happens when the user is able to provide the correct code. Possible values are `CONVERTED` and `UNCONVERTED`.
+ */
 export type VerificationAttemptConversionStatus = "converted" | "unconverted";
 
 /**
@@ -206,8 +209,8 @@ interface VerificationAttemptResource {
   date_updated: Date;
   conversion_status: VerificationAttemptConversionStatus;
   channel: VerificationAttemptChannels;
-  price: any;
-  channel_data: any;
+  price: Record<string, object>;
+  channel_data: Record<string, object>;
   url: string;
 }
 
@@ -264,11 +267,11 @@ export class VerificationAttemptInstance {
   /**
    * An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
    */
-  price: any;
+  price: Record<string, object>;
   /**
    * An object containing the channel specific information for an attempt.
    */
-  channelData: any;
+  channelData: Record<string, object>;
   url: string;
 
   private get _proxy(): VerificationAttemptContext {

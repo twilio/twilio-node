@@ -241,9 +241,9 @@ interface NotificationPayload extends NotificationResource {}
 interface NotificationResource {
   account_sid: string;
   chat_service_sid: string;
-  new_message: any;
-  added_to_conversation: any;
-  removed_from_conversation: any;
+  new_message: Record<string, object>;
+  added_to_conversation: Record<string, object>;
+  removed_from_conversation: Record<string, object>;
   log_enabled: boolean;
   url: string;
 }
@@ -279,15 +279,15 @@ export class NotificationInstance {
   /**
    * The Push Notification configuration for New Messages.
    */
-  newMessage: any;
+  newMessage: Record<string, object>;
   /**
    * The Push Notification configuration for being added to a Conversation.
    */
-  addedToConversation: any;
+  addedToConversation: Record<string, object>;
   /**
    * The Push Notification configuration for being removed from a Conversation.
    */
-  removedFromConversation: any;
+  removedFromConversation: Record<string, object>;
   /**
    * Weather the notification logging is enabled.
    */

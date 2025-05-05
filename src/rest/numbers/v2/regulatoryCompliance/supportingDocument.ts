@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The verification status of the Supporting Document resource.
+ */
 export type SupportingDocumentStatus =
   | "draft"
   | "pending-review"
@@ -35,7 +38,7 @@ export interface SupportingDocumentContextUpdateOptions {
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. */
-  attributes?: any;
+  attributes?: object;
 }
 
 /**
@@ -47,7 +50,7 @@ export interface SupportingDocumentListInstanceCreateOptions {
   /** The type of the Supporting Document. */
   type: string;
   /** The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. */
-  attributes?: any;
+  attributes?: object;
 }
 /**
  * Options to pass to each
@@ -284,9 +287,9 @@ interface SupportingDocumentResource {
   mime_type: string;
   status: SupportingDocumentStatus;
   failure_reason: string;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   type: string;
-  attributes: any;
+  attributes: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -341,7 +344,7 @@ export class SupportingDocumentInstance {
   /**
    * A list of errors that occurred during the registering RC Bundle
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   /**
    * The type of the Supporting Document.
    */
@@ -349,7 +352,7 @@ export class SupportingDocumentInstance {
   /**
    * The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
    */
-  attributes: any;
+  attributes: Record<string, object>;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

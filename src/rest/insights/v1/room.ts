@@ -38,7 +38,11 @@ export type RoomEdgeLocation =
 
 export type RoomEndReason = "room_ended_via_api" | "timeout";
 
-export type RoomProcessingState = "complete" | "in_progress";
+export type RoomProcessingState =
+  | "complete"
+  | "in_progress"
+  | "timeout"
+  | "not_started";
 
 export type RoomRoomStatus = "in_progress" | "completed";
 
@@ -56,7 +60,17 @@ export type RoomTwilioRealm =
   | "de1"
   | "gll"
   | "stage_us1"
-  | "dev_us1";
+  | "stage_us2"
+  | "dev_us1"
+  | "dev_us2"
+  | "stage_de1"
+  | "stage_in1"
+  | "stage_ie1"
+  | "stage_br1"
+  | "stage_au1"
+  | "stage_sg1"
+  | "stage_jp1"
+  | "outside";
 
 /**
  * Options to pass to each

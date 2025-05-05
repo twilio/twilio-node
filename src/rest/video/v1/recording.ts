@@ -20,12 +20,21 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The codec used to encode the track. Can be: `VP8`, `H264`, `OPUS`, and `PCMU`.
+ */
 export type RecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
 
 export type RecordingFormat = "mka" | "mkv";
 
+/**
+ * The status of the recording. Can be: `processing`, `completed`, or `deleted`. `processing` indicates the recording is still being captured; `completed` indicates the recording has been captured and is now available for download. `deleted` means the recording media has been deleted from the system, but its metadata is still available.
+ */
 export type RecordingStatus = "processing" | "completed" | "deleted" | "failed";
 
+/**
+ * The recording\'s media type. Can be: `audio` or `video`.
+ */
 export type RecordingType = "audio" | "video" | "data";
 
 /**
@@ -223,7 +232,7 @@ interface RecordingResource {
   duration: number;
   container_format: RecordingFormat;
   codec: RecordingCodec;
-  grouping_sids: any;
+  grouping_sids: Record<string, object>;
   track_name: string;
   offset: number;
   media_external_location: string;
@@ -298,7 +307,7 @@ export class RecordingInstance {
   /**
    * A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
    */
-  groupingSids: any;
+  groupingSids: Record<string, object>;
   /**
    * The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
    */

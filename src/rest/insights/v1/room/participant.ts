@@ -33,7 +33,11 @@ export type ParticipantEdgeLocation =
   | "umatilla"
   | "tokyo";
 
-export type ParticipantRoomStatus = "in_progress" | "completed";
+export type ParticipantRoomStatus =
+  | "in_progress"
+  | "connected"
+  | "completed"
+  | "disconnected";
 
 export type ParticipantTwilioRealm =
   | "us1"
@@ -47,7 +51,17 @@ export type ParticipantTwilioRealm =
   | "de1"
   | "gll"
   | "stage_us1"
-  | "dev_us1";
+  | "dev_us1"
+  | "stage_au1"
+  | "stage_sg1"
+  | "stage_br1"
+  | "stage_in1"
+  | "stage_jp1"
+  | "stage_de1"
+  | "stage_ie1"
+  | "stage_us2"
+  | "dev_us2"
+  | "outside";
 
 /**
  * Options to pass to each
@@ -189,9 +203,9 @@ interface ParticipantResource {
   error_code: number;
   error_code_url: string;
   media_region: ParticipantTwilioRealm;
-  properties: any;
+  properties: Record<string, object>;
   edge_location: ParticipantEdgeLocation;
-  publisher_info: any;
+  publisher_info: Record<string, object>;
   url: string;
 }
 
@@ -278,12 +292,12 @@ export class ParticipantInstance {
   /**
    * Object containing information about the participant\'s data from the room. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#properties) for more information.
    */
-  properties: any;
+  properties: Record<string, object>;
   edgeLocation: ParticipantEdgeLocation;
   /**
    * Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#publisher_info) for more information.
    */
-  publisherInfo: any;
+  publisherInfo: Record<string, object>;
   /**
    * URL of the participant resource.
    */

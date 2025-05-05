@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to create a SafelistInstance
  */
 export interface SafelistListInstanceCreateOptions {
-  /** The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
+  /** The phone number or phone number 1k prefix to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   phoneNumber: string;
 }
 
@@ -30,7 +30,7 @@ export interface SafelistListInstanceCreateOptions {
  * Options to pass to remove a SafelistInstance
  */
 export interface SafelistListInstanceRemoveOptions {
-  /** The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
+  /** The phone number or phone number 1k prefix to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   phoneNumber?: string;
 }
 
@@ -38,7 +38,7 @@ export interface SafelistListInstanceRemoveOptions {
  * Options to pass to fetch a SafelistInstance
  */
 export interface SafelistListInstanceFetchOptions {
-  /** The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
+  /** The phone number or phone number 1k prefix to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   phoneNumber?: string;
 }
 
@@ -268,7 +268,7 @@ export class SafelistInstance {
    */
   sid: string;
   /**
-   * The phone number in SafeList.
+   * The phone number or phone number 1k prefix in SafeList.
    */
   phoneNumber: string;
 

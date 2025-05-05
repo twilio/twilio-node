@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The container format of the media files used by the compositions created by the composition hook. If `mp4` or `webm`, `audio_sources` must have one or more tracks and/or a `video_layout` element must contain a valid `video_sources` list, otherwise an error occurs.
+ */
 export type CompositionHookFormat = "mp4" | "webm";
 
 /**
@@ -31,7 +34,7 @@ export interface CompositionHookContextUpdateOptions {
   /** Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers. */
   enabled?: boolean;
   /** A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. */
-  videoLayout?: any;
+  videoLayout?: object;
   /** An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`. */
   audioSources?: Array<string>;
   /** An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty. */
@@ -57,7 +60,7 @@ export interface CompositionHookListInstanceCreateOptions {
   /** Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered. */
   enabled?: boolean;
   /** An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. */
-  videoLayout?: any;
+  videoLayout?: object;
   /** An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`. */
   audioSources?: Array<string>;
   /** An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty. */
@@ -344,7 +347,7 @@ interface CompositionHookResource {
   sid: string;
   audio_sources: Array<string>;
   audio_sources_excluded: Array<string>;
-  video_layout: any;
+  video_layout: Record<string, object>;
   resolution: string;
   trim: boolean;
   format: CompositionHookFormat;
@@ -416,7 +419,7 @@ export class CompositionHookInstance {
   /**
    * A JSON object that describes the video layout of the composition in terms of regions as specified in the HTTP POST request that created the CompositionHook resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
    */
-  videoLayout: any;
+  videoLayout: Record<string, object>;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string\'s format is `{width}x{height}`, such as `640x480`.
    */

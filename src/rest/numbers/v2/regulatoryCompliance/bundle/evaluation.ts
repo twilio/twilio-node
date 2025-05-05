@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The compliance status of the Evaluation resource.
+ */
 export type EvaluationStatus = "compliant" | "noncompliant";
 
 /**
@@ -154,7 +157,7 @@ interface EvaluationResource {
   regulation_sid: string;
   bundle_sid: string;
   status: EvaluationStatus;
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   date_created: Date;
   url: string;
 }
@@ -201,7 +204,7 @@ export class EvaluationInstance {
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   dateCreated: Date;
   url: string;
 

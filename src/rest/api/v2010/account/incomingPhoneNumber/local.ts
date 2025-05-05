@@ -23,6 +23,9 @@ import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 export type LocalAddressRequirement = "none" | "any" | "local" | "foreign";
 
+/**
+ * The status of address registration with emergency services. A registered emergency address will be used during handling of emergency calls from this number.
+ */
 export type LocalEmergencyAddressStatus =
   | "registered"
   | "unregistered"
@@ -31,6 +34,9 @@ export type LocalEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
+/**
+ * The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
+ */
 export type LocalEmergencyStatus = "Active" | "Inactive";
 
 export type LocalVoiceReceiveMode = "voice" | "fax";

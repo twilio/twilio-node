@@ -405,7 +405,7 @@ interface InsightsAssessmentsCommentPayload extends TwilioResponsePayload {
 interface InsightsAssessmentsCommentResource {
   account_sid: string;
   assessment_sid: string;
-  comment: any;
+  comment: Record<string, object>;
   offset: number;
   report: boolean;
   weight: number;
@@ -447,7 +447,7 @@ export class InsightsAssessmentsCommentInstance {
   /**
    * The comment added for assessment.
    */
-  comment: any;
+  comment: Record<string, object>;
   /**
    * The offset
    */

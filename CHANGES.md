@@ -1,6 +1,124 @@
 twilio-node changelog
 =====================
 
+[2025-05-05] Version 5.6.0
+--------------------------
+**Library - Chore**
+- [PR #1078](https://github.com/twilio/twilio-node/pull/1078): fixed axios vulnerability by upgrading 1.7.4 to 1.8.3. Thanks to [@sujay-neglur](https://github.com/sujay-neglur)!
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
+[2025-04-07] Version 5.5.2
+--------------------------
+**Library - Chore**
+- [PR #1083](https://github.com/twilio/twilio-node/pull/1083): fix message on unit tests. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Studio**
+- Add documentation for parent_step_sid field in Step resource
+
+
+[2025-03-20] Version 5.5.1
+--------------------------
+**Accounts**
+- Update Safelist API docs as part of prefix supoort
+
+**Flex**
+- Removing `first_name`, `last_name`, and `friendly_name` from the Flex User API
+
+**Messaging**
+- Add missing tests under transaction/phone_numbers and transaction/short_code
+
+
+[2025-03-11] Version 5.5.0
+--------------------------
+**Library - Feature**
+- [PR #1075](https://github.com/twilio/twilio-node/pull/1075): MVR release preparations. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Chore**
+- [PR #1074](https://github.com/twilio/twilio-node/pull/1074): fix typescript version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
+[2025-02-20] Version 5.4.5
+--------------------------
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
+[2025-02-11] Version 5.4.4
+--------------------------
+**Library - Chore**
+- [PR #1070](https://github.com/twilio/twilio-node/pull/1070): update axios version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #1071](https://github.com/twilio/twilio-node/pull/1071): update readme to include node 22 in supported versions. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Change downstream url and change media type for file `base/api/v2010/validation_request.json`.
+
+**Intelligence**
+- Add json_results for Generative JSON operator results
+
+**Messaging**
+- Add DestinationAlphaSender API to support Country-Specific Alpha Senders
+
+**Video**
+- Change codec type from enum to case-insensitive enum in recording and room_recording apis
+
+
+[2025-01-28] Version 5.4.3
+--------------------------
+**Library - Fix**
+- [PR #1061](https://github.com/twilio/twilio-node/pull/1061): validate Twilio signatures with escaped and unescaped query string values fixes #1059. Thanks to [@leon19](https://github.com/leon19)!
+
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+
+[2025-01-13] Version 5.4.2
+--------------------------
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+
 [2025-01-09] Version 5.4.1
 --------------------------
 **Numbers**

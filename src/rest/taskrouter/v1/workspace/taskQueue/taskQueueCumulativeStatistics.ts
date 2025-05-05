@@ -187,11 +187,11 @@ interface TaskQueueCumulativeStatisticsResource {
   reservations_timed_out: number;
   reservations_canceled: number;
   reservations_rescinded: number;
-  split_by_wait_time: any;
+  split_by_wait_time: Record<string, object>;
   task_queue_sid: string;
-  wait_duration_until_accepted: any;
-  wait_duration_until_canceled: any;
-  wait_duration_in_queue_until_accepted: any;
+  wait_duration_until_accepted: Record<string, object>;
+  wait_duration_until_canceled: Record<string, object>;
+  wait_duration_in_queue_until_accepted: Record<string, object>;
   tasks_canceled: number;
   tasks_completed: number;
   tasks_deleted: number;
@@ -295,7 +295,7 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
    */
-  splitByWaitTime: any;
+  splitByWaitTime: Record<string, object>;
   /**
    * The SID of the TaskQueue from which these statistics were calculated.
    */
@@ -303,15 +303,15 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks were created. For transfers, the wait duration is counted from the moment ***the Task was created***, and not from when the transfer was initiated.
    */
-  waitDurationUntilAccepted: any;
+  waitDurationUntilAccepted: Record<string, object>;
   /**
    * The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks canceled while in the TaskQueue.
    */
-  waitDurationUntilCanceled: any;
+  waitDurationUntilCanceled: Record<string, object>;
   /**
    * The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue.
    */
-  waitDurationInQueueUntilAccepted: any;
+  waitDurationInQueueUntilAccepted: Record<string, object>;
   /**
    * The total number of Tasks canceled in the TaskQueue.
    */

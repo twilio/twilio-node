@@ -21,6 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
+import { InteractionTransferListInstance } from "./interactionChannel/interactionTransfer";
 
 export type InteractionChannelChannelStatus =
   | "setup"
@@ -29,6 +30,9 @@ export type InteractionChannelChannelStatus =
   | "closed"
   | "inactive";
 
+/**
+ * The Interaction Channel\'s type. Can be: `sms`, `email`, `chat`, `whatsapp`, `web`, `messenger`, or `gbm`.   **Note:** These can be different from the task channel type specified in the Routing attributes. Task channel type corresponds to channel capacity while this channel type is the actual media type
+ */
 export type InteractionChannelType =
   | "voice"
   | "sms"
@@ -48,7 +52,7 @@ export interface InteractionChannelContextUpdateOptions {
   /**  */
   status: InteractionChannelUpdateChannelStatus;
   /** It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`. */
-  routing?: any;
+  routing?: object;
 }
 /**
  * Options to pass to each
@@ -92,6 +96,7 @@ export interface InteractionChannelListInstancePageOptions {
 export interface InteractionChannelContext {
   invites: InteractionChannelInviteListInstance;
   participants: InteractionChannelParticipantListInstance;
+  transfers: InteractionTransferListInstance;
 
   /**
    * Fetch a InteractionChannelInstance
@@ -137,6 +142,7 @@ export class InteractionChannelContextImpl
 
   protected _invites?: InteractionChannelInviteListInstance;
   protected _participants?: InteractionChannelParticipantListInstance;
+  protected _transfers?: InteractionTransferListInstance;
 
   constructor(protected _version: V1, interactionSid: string, sid: string) {
     if (!isValidPathParam(interactionSid)) {
@@ -171,6 +177,17 @@ export class InteractionChannelContextImpl
         this._solution.sid
       );
     return this._participants;
+  }
+
+  get transfers(): InteractionTransferListInstance {
+    this._transfers =
+      this._transfers ||
+      InteractionTransferListInstance(
+        this._version,
+        this._solution.interactionSid,
+        this._solution.sid
+      );
+    return this._transfers;
   }
 
   fetch(
@@ -380,6 +397,13 @@ export class InteractionChannelInstance {
    */
   participants(): InteractionChannelParticipantListInstance {
     return this._proxy.participants;
+  }
+
+  /**
+   * Access the transfers.
+   */
+  transfers(): InteractionTransferListInstance {
+    return this._proxy.transfers;
   }
 
   /**

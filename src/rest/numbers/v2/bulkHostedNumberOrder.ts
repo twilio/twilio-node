@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * A string that shows the status of the current Bulk Hosting request, it can vary between these values: \'QUEUED\',\'IN_PROGRESS\',\'PROCESSED\'
+ */
 export type BulkHostedNumberOrderRequestStatus =
   | "QUEUED"
   | "IN_PROGRESS"
@@ -169,7 +172,7 @@ interface BulkHostedNumberOrderResource {
   date_completed: Date;
   url: string;
   total_count: number;
-  results: Array<any>;
+  results: Array<Record<string, object>>;
 }
 
 export class BulkHostedNumberOrderInstance {
@@ -226,7 +229,7 @@ export class BulkHostedNumberOrderInstance {
   /**
    * Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check \'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values\'.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
 
   private get _proxy(): BulkHostedNumberOrderContext {
     this._context =

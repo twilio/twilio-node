@@ -159,7 +159,7 @@ interface NetworkResource {
   friendly_name: string;
   url: string;
   iso_country: string;
-  identifiers: Array<any>;
+  identifiers: Array<Record<string, object>>;
 }
 
 export class NetworkInstance {
@@ -195,7 +195,7 @@ export class NetworkInstance {
   /**
    * Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
    */
-  identifiers: Array<any>;
+  identifiers: Array<Record<string, object>>;
 
   private get _proxy(): NetworkContext {
     this._context =

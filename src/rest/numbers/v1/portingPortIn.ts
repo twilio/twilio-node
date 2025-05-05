@@ -148,8 +148,8 @@ interface PortingPortInResource {
   target_port_in_time_range_start: string;
   target_port_in_time_range_end: string;
   port_in_request_status: string;
-  losing_carrier_information: any;
-  phone_numbers: Array<any>;
+  losing_carrier_information: Record<string, object>;
+  phone_numbers: Array<Record<string, object>>;
   documents: Array<string>;
   date_created: Date;
 }
@@ -218,8 +218,8 @@ export class PortingPortInInstance {
   /**
    * Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
    */
-  losingCarrierInformation: any;
-  phoneNumbers: Array<any>;
+  losingCarrierInformation: Record<string, object>;
+  phoneNumbers: Array<Record<string, object>>;
   /**
    * List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
    */

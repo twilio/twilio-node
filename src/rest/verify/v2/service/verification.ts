@@ -18,10 +18,16 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The verification method used. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna`, or `rcs`.
+ */
 export type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
 export type VerificationRiskCheck = "enable" | "disable";
 
+/**
+ * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
+ */
 export type VerificationStatus = "canceled" | "approved";
 
 /**
@@ -55,9 +61,9 @@ export interface VerificationListInstanceCreateOptions {
   /** The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   payee?: string;
   /** The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request. */
-  rateLimits?: any;
+  rateLimits?: object;
   /** [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields \\\'from\\\' and \\\'from_name\\\' are optional but if included the \\\'from\\\' field must have a valid email address. */
-  channelConfiguration?: any;
+  channelConfiguration?: object;
   /** Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`. */
   appHash?: string;
   /** The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. */
@@ -229,13 +235,13 @@ interface VerificationResource {
   channel: VerificationChannel;
   status: string;
   valid: boolean;
-  lookup: any;
+  lookup: Record<string, object>;
   amount: string;
   payee: string;
-  send_code_attempts: Array<any>;
+  send_code_attempts: Array<Record<string, object>>;
   date_created: Date;
   date_updated: Date;
-  sna: any;
+  sna: Record<string, object>;
   url: string;
 }
 
@@ -296,7 +302,7 @@ export class VerificationInstance {
   /**
    * Information about the phone number being verified.
    */
-  lookup: any;
+  lookup: Record<string, object>;
   /**
    * The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
    */
@@ -308,7 +314,7 @@ export class VerificationInstance {
   /**
    * An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
    */
-  sendCodeAttempts: Array<any>;
+  sendCodeAttempts: Array<Record<string, object>>;
   /**
    * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
@@ -320,7 +326,7 @@ export class VerificationInstance {
   /**
    * The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
    */
-  sna: any;
+  sna: Record<string, object>;
   /**
    * The absolute URL of the Verification resource.
    */

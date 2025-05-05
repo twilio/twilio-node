@@ -31,6 +31,9 @@ export type IncomingPhoneNumberAddressRequirement =
   | "local"
   | "foreign";
 
+/**
+ * The status of address registration with emergency services. A registered emergency address will be used during handling of emergency calls from this number.
+ */
 export type IncomingPhoneNumberEmergencyAddressStatus =
   | "registered"
   | "unregistered"
@@ -39,6 +42,9 @@ export type IncomingPhoneNumberEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
+/**
+ * The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
+ */
 export type IncomingPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
 export type IncomingPhoneNumberVoiceReceiveMode = "voice" | "fax";

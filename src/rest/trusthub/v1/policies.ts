@@ -139,7 +139,7 @@ interface PoliciesPayload extends TwilioResponsePayload {
 interface PoliciesResource {
   sid: string;
   friendly_name: string;
-  requirements: any;
+  requirements: Record<string, object>;
   url: string;
 }
 
@@ -167,7 +167,7 @@ export class PoliciesInstance {
   /**
    * The SID of an object that holds the policy information
    */
-  requirements: any;
+  requirements: Record<string, object>;
   /**
    * The absolute URL of the Policy resource.
    */

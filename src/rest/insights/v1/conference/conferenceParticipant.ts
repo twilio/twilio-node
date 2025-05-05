@@ -52,7 +52,8 @@ export type ConferenceParticipantRegion =
   | "ie1"
   | "jp1"
   | "sg1"
-  | "de1";
+  | "de1"
+  | "in1";
 
 /**
  * Options to pass to fetch a ConferenceParticipantInstance
@@ -277,9 +278,9 @@ interface ConferenceParticipantResource {
   conference_region: ConferenceParticipantRegion;
   call_type: ConferenceParticipantCallType;
   processing_state: ConferenceParticipantProcessingState;
-  properties: any;
-  events: any;
-  metrics: any;
+  properties: Record<string, object>;
+  events: Record<string, object>;
+  metrics: Record<string, object>;
   url: string;
 }
 
@@ -405,15 +406,15 @@ export class ConferenceParticipantInstance {
   /**
    * Participant properties and metadata.
    */
-  properties: any;
+  properties: Record<string, object>;
   /**
    * Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
    */
-  events: any;
+  events: Record<string, object>;
   /**
    * Object. Contains participant call quality metrics.
    */
-  metrics: any;
+  metrics: Record<string, object>;
   /**
    * The URL of this resource.
    */

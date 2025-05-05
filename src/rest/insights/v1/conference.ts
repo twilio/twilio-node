@@ -38,12 +38,14 @@ export type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
 
 export type ConferenceRegion =
   | "us1"
+  | "us2"
   | "au1"
   | "br1"
   | "ie1"
   | "jp1"
   | "sg1"
-  | "de1";
+  | "de1"
+  | "in1";
 
 export type ConferenceTag =
   | "invalid_requested_region"
@@ -271,9 +273,9 @@ interface ConferenceResource {
   mixer_region: ConferenceRegion;
   mixer_region_requested: ConferenceRegion;
   recording_enabled: boolean;
-  detected_issues: any;
+  detected_issues: Record<string, object>;
   tags: Array<ConferenceTag>;
-  tag_info: any;
+  tag_info: Record<string, object>;
   processing_state: ConferenceProcessingState;
   url: string;
   links: Record<string, string>;
@@ -378,7 +380,7 @@ export class ConferenceInstance {
   /**
    * Potential issues detected by Twilio during the conference.
    */
-  detectedIssues: any;
+  detectedIssues: Record<string, object>;
   /**
    * Tags for detected conference conditions and participant behaviors which may be of interest.
    */
@@ -386,7 +388,7 @@ export class ConferenceInstance {
   /**
    * Object. Contains details about conference tags including severity.
    */
-  tagInfo: any;
+  tagInfo: Record<string, object>;
   processingState: ConferenceProcessingState;
   /**
    * The URL of this resource.

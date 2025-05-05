@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * How the recording was created. Can be: `DialVerb`, `Conference`, `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`, and `StartConferenceRecordingAPI`.
+ */
 export type RecordingSource =
   | "DialVerb"
   | "Conference"
@@ -29,6 +32,9 @@ export type RecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
+/**
+ * The status of the recording. Can be: `processing`, `completed` and `absent`. For more detailed statuses on in-progress recordings, check out how to [Update a Recording Resource](https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource).
+ */
 export type RecordingStatus =
   | "in-progress"
   | "paused"
@@ -324,7 +330,7 @@ interface RecordingResource {
   sid: string;
   price: number;
   uri: string;
-  encryption_details: any;
+  encryption_details: Record<string, object>;
   price_unit: string;
   status: RecordingStatus;
   channels: number;
@@ -413,7 +419,7 @@ export class RecordingInstance {
   /**
    * How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
    */
-  encryptionDetails: any;
+  encryptionDetails: Record<string, object>;
   /**
    * The currency used in the `price` property. Example: `USD`.
    */

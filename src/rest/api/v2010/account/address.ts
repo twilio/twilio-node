@@ -25,7 +25,7 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
  * Options to pass to update a AddressInstance
  */
 export interface AddressContextUpdateOptions {
-  /** A descriptive string that you create to describe the address. It can be up to 64 characters long. */
+  /** A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses. */
   friendlyName?: string;
   /** The name to associate with the address. */
   customerName?: string;
@@ -78,6 +78,8 @@ export interface AddressListInstanceEachOptions {
   customerName?: string;
   /** The string that identifies the Address resources to read. */
   friendlyName?: string;
+  /** Whether the address can be associated to a number for emergency calling. */
+  emergencyEnabled?: boolean;
   /** The ISO country code of the Address resources to read. */
   isoCountry?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -98,6 +100,8 @@ export interface AddressListInstanceOptions {
   customerName?: string;
   /** The string that identifies the Address resources to read. */
   friendlyName?: string;
+  /** Whether the address can be associated to a number for emergency calling. */
+  emergencyEnabled?: boolean;
   /** The ISO country code of the Address resources to read. */
   isoCountry?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -114,6 +118,8 @@ export interface AddressListInstancePageOptions {
   customerName?: string;
   /** The string that identifies the Address resources to read. */
   friendlyName?: string;
+  /** Whether the address can be associated to a number for emergency calling. */
+  emergencyEnabled?: boolean;
   /** The ISO country code of the Address resources to read. */
   isoCountry?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -786,6 +792,8 @@ export function AddressListInstance(
       data["CustomerName"] = params["customerName"];
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
+    if (params["emergencyEnabled"] !== undefined)
+      data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["isoCountry"] !== undefined)
       data["IsoCountry"] = params["isoCountry"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];

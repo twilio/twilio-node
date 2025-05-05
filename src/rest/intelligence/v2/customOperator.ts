@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Custom Operator availability status. Possible values: internal, beta, public, retired.
+ */
 export type CustomOperatorAvailability =
   | "internal"
   | "beta"
@@ -33,7 +36,7 @@ export interface CustomOperatorContextUpdateOptions {
   /** A human-readable name of this resource, up to 64 characters. */
   friendlyName: string;
   /** Operator configuration, following the schema defined by the Operator Type. */
-  config: any;
+  config: object;
   /** The If-Match HTTP request header */
   ifMatch?: string;
 }
@@ -47,7 +50,7 @@ export interface CustomOperatorListInstanceCreateOptions {
   /** Operator Type for this Operator. References an existing Operator Type resource. */
   operatorType: string;
   /** Operator configuration, following the schema defined by the Operator Type. */
-  config: any;
+  config: object;
 }
 /**
  * Options to pass to each
@@ -293,7 +296,7 @@ interface CustomOperatorResource {
   operator_type: string;
   version: number;
   availability: CustomOperatorAvailability;
-  config: any;
+  config: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -356,7 +359,7 @@ export class CustomOperatorInstance {
   /**
    * Operator configuration, following the schema defined by the Operator Type. Only available on Operators created by the Account.
    */
-  config: any;
+  config: Record<string, object>;
   /**
    * The date that this Custom Operator was created, given in ISO 8601 format.
    */

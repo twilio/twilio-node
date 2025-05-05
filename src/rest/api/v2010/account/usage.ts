@@ -20,6 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { RecordListInstance } from "./usage/record";
 import { TriggerListInstance } from "./usage/trigger";
 
+/**
+ * The category of usage. For more information, see [Usage Categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ */
 export type UsageCategory =
   | "a2p-registration-fees"
   | "agent-conference"

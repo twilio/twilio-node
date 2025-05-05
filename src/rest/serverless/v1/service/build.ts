@@ -21,14 +21,22 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { BuildStatusListInstance } from "./build/buildStatus";
 
+/**
+ * The Runtime version that will be used to run the Build resource when it is deployed.
+ */
 export type BuildRuntime =
   | "node8"
   | "node10"
   | "node12"
   | "node14"
   | "node16"
-  | "node18";
+  | "node18"
+  | "node20"
+  | "node22";
 
+/**
+ * The status of the Build. Can be: `building`, `completed`, or `failed`.
+ */
 export type BuildStatus = "building" | "completed" | "failed";
 
 /**
@@ -221,9 +229,9 @@ interface BuildResource {
   account_sid: string;
   service_sid: string;
   status: BuildStatus;
-  asset_versions: Array<any>;
-  function_versions: Array<any>;
-  dependencies: Array<any>;
+  asset_versions: Array<Record<string, object>>;
+  function_versions: Array<Record<string, object>>;
+  dependencies: Array<Record<string, object>>;
   runtime: BuildRuntime;
   date_created: Date;
   date_updated: Date;
@@ -273,15 +281,15 @@ export class BuildInstance {
   /**
    * The list of Asset Version resource SIDs that are included in the Build.
    */
-  assetVersions: Array<any>;
+  assetVersions: Array<Record<string, object>>;
   /**
    * The list of Function Version resource SIDs that are included in the Build.
    */
-  functionVersions: Array<any>;
+  functionVersions: Array<Record<string, object>>;
   /**
    * A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
    */
-  dependencies: Array<any>;
+  dependencies: Array<Record<string, object>>;
   runtime: BuildRuntime;
   /**
    * The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

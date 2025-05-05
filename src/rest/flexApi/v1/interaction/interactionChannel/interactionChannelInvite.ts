@@ -25,7 +25,7 @@ import { isValidPathParam } from "../../../../../base/utility";
  */
 export interface InteractionChannelInviteListInstanceCreateOptions {
   /** The Interaction\\\'s routing logic. */
-  routing: any;
+  routing: object;
 }
 /**
  * Options to pass to each
@@ -339,7 +339,7 @@ interface InteractionChannelInviteResource {
   sid: string;
   interaction_sid: string;
   channel_sid: string;
-  routing: any;
+  routing: Record<string, object>;
   url: string;
 }
 
@@ -372,7 +372,7 @@ export class InteractionChannelInviteInstance {
   /**
    * A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
    */
-  routing: any;
+  routing: Record<string, object>;
   url: string;
 
   /**

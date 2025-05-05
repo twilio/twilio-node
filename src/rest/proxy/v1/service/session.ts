@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../../base/utility";
 import { InteractionListInstance } from "./session/interaction";
 import { ParticipantListInstance } from "./session/participant";
 
+/**
+ * The Mode of the Session. Can be: `message-only`, `voice-only`, or `voice-and-message`.
+ */
 export type SessionMode = "message-only" | "voice-only" | "voice-and-message";
 
+/**
+ * The status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`.
+ */
 export type SessionStatus =
   | "open"
   | "in-progress"
@@ -58,7 +64,7 @@ export interface SessionListInstanceCreateOptions {
   /**  */
   status?: SessionStatus;
   /** The Participant objects to include in the new session. */
-  participants?: Array<any>;
+  participants?: Array<object>;
 }
 /**
  * Options to pass to each
@@ -692,8 +698,9 @@ export function SessionListInstance(
     if (params["mode"] !== undefined) data["Mode"] = params["mode"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["participants"] !== undefined)
-      data["Participants"] = serialize.map(params["participants"], (e: any) =>
-        serialize.object(e)
+      data["Participants"] = serialize.map(
+        params["participants"],
+        (e: object) => e
       );
 
     const headers: any = {};

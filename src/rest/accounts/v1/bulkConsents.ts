@@ -23,7 +23,7 @@ import { isValidPathParam } from "../../../base/utility";
  */
 export interface BulkConsentsListInstanceCreateOptions {
   /** This is a list of objects that describes a contact\\\'s opt-in status. Each object contains the following fields: `contact_id`, which must be a string representing phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164); `correlation_id`, a unique 32-character UUID used to uniquely map the request item with the response item; `sender_id`, which can be either a valid messaging service SID or a from phone number; `status`, a string representing the consent status. Can be one of [`opt-in`, `opt-out`]; and `source`, a string indicating the medium through which the consent was collected. Can be one of [`website`, `offline`, `opt-in-message`, `opt-out-message`, `others`]. */
-  items: Array<any>;
+  items: Array<object>;
 }
 
 export interface BulkConsentsSolution {}
@@ -76,9 +76,7 @@ export function BulkConsentsListInstance(
 
     let data: any = {};
 
-    data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
-    );
+    data["Items"] = serialize.map(params["items"], (e: object) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -120,7 +118,7 @@ export function BulkConsentsListInstance(
 interface BulkConsentsPayload extends BulkConsentsResource {}
 
 interface BulkConsentsResource {
-  items: any;
+  items: Record<string, object>;
 }
 
 export class BulkConsentsInstance {
@@ -131,7 +129,7 @@ export class BulkConsentsInstance {
   /**
    * A list of objects where each object represents the result of processing a `correlation_id`. Each object contains the following fields: `correlation_id`, a unique 32-character UUID that maps the response to the original request; `error_code`, an integer where 0 indicates success and any non-zero value represents an error; and `error_messages`, an array of strings describing specific validation errors encountered. If the request is successful, the error_messages array will be empty.
    */
-  items: any;
+  items: Record<string, object>;
 
   /**
    * Provide a user-friendly representation

@@ -324,7 +324,7 @@ interface WebhookResource {
   channel_sid: string;
   type: string;
   url: string;
-  configuration: any;
+  configuration: Record<string, object>;
   date_created: Date;
   date_updated: Date;
 }
@@ -359,7 +359,7 @@ export class WebhookInstance {
   channelSid: string;
   type: string;
   url: string;
-  configuration: any;
+  configuration: Record<string, object>;
   dateCreated: Date;
   dateUpdated: Date;
 

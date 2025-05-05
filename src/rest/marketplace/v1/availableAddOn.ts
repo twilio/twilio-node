@@ -160,7 +160,7 @@ interface AvailableAddOnResource {
   friendly_name: string;
   description: string;
   pricing_type: string;
-  configuration_schema: any;
+  configuration_schema: Record<string, object>;
   url: string;
   links: Record<string, string>;
 }
@@ -204,7 +204,7 @@ export class AvailableAddOnInstance {
   /**
    * The JSON object with the configuration that must be provided when installing a given Add-on.
    */
-  configurationSchema: any;
+  configurationSchema: Record<string, object>;
   /**
    * The absolute URL of the resource.
    */

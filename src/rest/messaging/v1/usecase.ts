@@ -91,7 +91,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 interface UsecasePayload extends UsecaseResource {}
 
 interface UsecaseResource {
-  usecases: Array<any>;
+  usecases: Array<Record<string, object>>;
 }
 
 export class UsecaseInstance {
@@ -102,7 +102,7 @@ export class UsecaseInstance {
   /**
    * Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
    */
-  usecases: Array<any>;
+  usecases: Array<Record<string, object>>;
 
   /**
    * Provide a user-friendly representation

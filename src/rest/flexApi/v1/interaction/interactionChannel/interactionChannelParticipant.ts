@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 export type InteractionChannelParticipantStatus = "closed" | "wrapup";
 
+/**
+ * Participant type. Can be: `agent`, `customer`, `supervisor`, `external`, `unknown`
+ */
 export type InteractionChannelParticipantType =
   | "supervisor"
   | "customer"
@@ -44,9 +47,9 @@ export interface InteractionChannelParticipantListInstanceCreateOptions {
   /**  */
   type: InteractionChannelParticipantType;
   /** JSON representing the Media Properties for the new Participant. */
-  mediaProperties: any;
+  mediaProperties: object;
   /** Object representing the Routing Properties for the new Participant. */
-  routingProperties?: any;
+  routingProperties?: object;
 }
 /**
  * Options to pass to each
@@ -219,7 +222,7 @@ interface InteractionChannelParticipantResource {
   interaction_sid: string;
   channel_sid: string;
   url: string;
-  routing_properties: any;
+  routing_properties: Record<string, object>;
 }
 
 export class InteractionChannelParticipantInstance {
@@ -260,7 +263,7 @@ export class InteractionChannelParticipantInstance {
   /**
    * The Participant\'s routing properties.
    */
-  routingProperties: any;
+  routingProperties: Record<string, object>;
 
   private get _proxy(): InteractionChannelParticipantContext {
     this._context =

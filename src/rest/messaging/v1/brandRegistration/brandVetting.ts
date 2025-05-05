@@ -20,7 +20,10 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type BrandVettingVettingProvider = "campaign-verify";
+/**
+ * The third-party provider that has conducted the vetting. One of “CampaignVerify” (Campaign Verify tokens) or “AEGIS” (Secondary Vetting).
+ */
+export type BrandVettingVettingProvider = "campaign-verify" | "aegis";
 
 /**
  * Options to pass to create a BrandVettingInstance

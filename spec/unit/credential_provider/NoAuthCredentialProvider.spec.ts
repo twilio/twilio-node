@@ -6,7 +6,7 @@ describe("NoAuthCredentialProvider Constructor", () => {
   const noAuthCredentialProvider =
     new NoAuthCredentialProvider.NoAuthCredentialProvider();
 
-  it("Should have client-credentials as its authType", () => {
+  it("Should have noauth as its authType", () => {
     expect(noAuthCredentialProvider.getAuthType()).toEqual("noauth");
   });
 

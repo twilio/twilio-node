@@ -21,6 +21,9 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { FunctionVersionContentListInstance } from "./functionVersion/functionVersionContent";
 
+/**
+ * The access control that determines how the Function Version resource can be accessed. Can be: `public`, `protected`, or `private`.
+ */
 export type FunctionVersionVisibility = "public" | "private" | "protected";
 
 /**
