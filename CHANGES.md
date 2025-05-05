@@ -1,6 +1,27 @@
 twilio-node changelog
 =====================
 
+[2025-05-05] Version 5.6.0
+--------------------------
+**Library - Chore**
+- [PR #1078](https://github.com/twilio/twilio-node/pull/1078): fixed axios vulnerability by upgrading 1.7.4 to 1.8.3. Thanks to [@sujay-neglur](https://github.com/sujay-neglur)!
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
 [2025-04-07] Version 5.5.2
 --------------------------
 **Library - Chore**
