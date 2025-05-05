@@ -19,7 +19,10 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../../interfaces";
 
 /**
  * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
@@ -326,7 +329,7 @@ interface DependentHostedNumberOrderResource {
   address_sid: string;
   signing_document_sid: string;
   phone_number: string;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   friendly_name: string;
   status: DependentHostedNumberOrderStatus;
   failure_reason: string;
@@ -352,7 +355,12 @@ export class DependentHostedNumberOrderInstance {
     this.addressSid = payload.address_sid;
     this.signingDocumentSid = payload.signing_document_sid;
     this.phoneNumber = payload.phone_number;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.friendlyName = payload.friendly_name;
     this.status = payload.status;
     this.failureReason = payload.failure_reason;

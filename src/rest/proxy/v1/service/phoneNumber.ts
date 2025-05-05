@@ -19,7 +19,10 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../../interfaces";
 
 /**
  * Options to pass to update a PhoneNumberInstance
@@ -277,7 +280,7 @@ interface PhoneNumberResource {
   phone_number: string;
   friendly_name: string;
   iso_country: string;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   url: string;
   is_reserved: boolean;
   in_use: number;
@@ -301,7 +304,12 @@ export class PhoneNumberInstance {
     this.phoneNumber = payload.phone_number;
     this.friendlyName = payload.friendly_name;
     this.isoCountry = payload.iso_country;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.url = payload.url;
     this.isReserved = payload.is_reserved;
     this.inUse = deserialize.integer(payload.in_use);
