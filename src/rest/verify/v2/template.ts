@@ -175,6 +175,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -238,7 +239,7 @@ interface TemplateResource {
   account_sid: string;
   friendly_name: string;
   channels: Array<string>;
-  translations: any;
+  translations: Record<string, object>;
 }
 
 export class TemplateInstance {
@@ -269,7 +270,7 @@ export class TemplateInstance {
   /**
    * An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
    */
-  translations: any;
+  translations: Record<string, object>;
 
   /**
    * Provide a user-friendly representation

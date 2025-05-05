@@ -127,11 +127,15 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepInstance) => any
   ): Promise<ExecutionStepInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -175,8 +179,9 @@ interface ExecutionStepResource {
   account_sid: string;
   flow_sid: string;
   execution_sid: string;
+  parent_step_sid: string;
   name: string;
-  context: any;
+  context: Record<string, object>;
   transitioned_from: string;
   transitioned_to: string;
   date_created: Date;
@@ -200,6 +205,7 @@ export class ExecutionStepInstance {
     this.accountSid = payload.account_sid;
     this.flowSid = payload.flow_sid;
     this.executionSid = payload.execution_sid;
+    this.parentStepSid = payload.parent_step_sid;
     this.name = payload.name;
     this.context = payload.context;
     this.transitionedFrom = payload.transitioned_from;
@@ -229,13 +235,17 @@ export class ExecutionStepInstance {
    */
   executionSid: string;
   /**
+   * This field shows the Step SID of the Widget in the parent Flow that started the Subflow. If this Step is not part of a Subflow execution, the value is null.
+   */
+  parentStepSid: string;
+  /**
    * The event that caused the Flow to transition to the Step.
    */
   name: string;
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
   /**
    * The Widget that preceded the Widget for the Step.
    */
@@ -304,6 +314,7 @@ export class ExecutionStepInstance {
       accountSid: this.accountSid,
       flowSid: this.flowSid,
       executionSid: this.executionSid,
+      parentStepSid: this.parentStepSid,
       name: this.name,
       context: this.context,
       transitionedFrom: this.transitionedFrom,
@@ -459,6 +470,7 @@ export function ExecutionStepListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

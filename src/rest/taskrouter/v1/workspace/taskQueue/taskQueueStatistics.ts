@@ -119,6 +119,7 @@ export class TaskQueueStatisticsContextImpl
       data["SplitByWaitTime"] = params["splitByWaitTime"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -164,8 +165,8 @@ interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource {}
 
 interface TaskQueueStatisticsResource {
   account_sid: string;
-  cumulative: any;
-  realtime: any;
+  cumulative: Record<string, object>;
+  realtime: Record<string, object>;
   task_queue_sid: string;
   workspace_sid: string;
   url: string;
@@ -198,11 +199,11 @@ export class TaskQueueStatisticsInstance {
   /**
    * An object that contains the cumulative statistics for the TaskQueue.
    */
-  cumulative: any;
+  cumulative: Record<string, object>;
   /**
    * An object that contains the real-time statistics for the TaskQueue.
    */
-  realtime: any;
+  realtime: Record<string, object>;
   /**
    * The SID of the TaskQueue from which these statistics were calculated.
    */

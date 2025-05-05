@@ -21,6 +21,11 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
+ * The way the home network (T-Mobile USA) will behave after a SIM\'s usage exceeds its `data_limit`. Can be either `block` or `throttle`. Default is `block`.
+ */
+export type RatePlanDataLimitStrategy = "block" | "throttle";
+
+/**
  * Options to pass to update a RatePlanInstance
  */
 export interface RatePlanContextUpdateOptions {
@@ -56,6 +61,8 @@ export interface RatePlanListInstanceCreateOptions {
   nationalRoamingDataLimit?: number;
   /** The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB. */
   internationalRoamingDataLimit?: number;
+  /**  */
+  dataLimitStrategy?: RatePlanDataLimitStrategy;
 }
 /**
  * Options to pass to each
@@ -166,11 +173,14 @@ export class RatePlanContextImpl implements RatePlanContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -183,11 +193,15 @@ export class RatePlanContextImpl implements RatePlanContext {
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -224,6 +238,7 @@ export class RatePlanContextImpl implements RatePlanContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -634,9 +649,12 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
     if (params["internationalRoamingDataLimit"] !== undefined)
       data["InternationalRoamingDataLimit"] =
         params["internationalRoamingDataLimit"];
+    if (params["dataLimitStrategy"] !== undefined)
+      data["DataLimitStrategy"] = params["dataLimitStrategy"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -678,6 +696,7 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

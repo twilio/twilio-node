@@ -23,6 +23,9 @@ import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProdu
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
 import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 
+/**
+ * The verification status of the Trust Product resource.
+ */
 export type TrustProductsStatus =
   | "draft"
   | "pending-review"
@@ -219,11 +222,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -236,11 +242,15 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   fetch(
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -283,6 +293,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -340,7 +351,7 @@ interface TrustProductsResource {
   date_updated: Date;
   url: string;
   links: Record<string, string>;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 }
 
 export class TrustProductsInstance {
@@ -417,7 +428,7 @@ export class TrustProductsInstance {
   /**
    * The error codes associated with the rejection of the Trust Product.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 
   private get _proxy(): TrustProductsContext {
     this._context =
@@ -684,6 +695,7 @@ export function TrustProductsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -730,6 +742,7 @@ export function TrustProductsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

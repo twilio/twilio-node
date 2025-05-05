@@ -173,11 +173,14 @@ export class FactorContextImpl implements FactorContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -190,11 +193,15 @@ export class FactorContextImpl implements FactorContext {
   fetch(
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -252,6 +259,7 @@ export class FactorContextImpl implements FactorContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -309,8 +317,8 @@ interface FactorResource {
   friendly_name: string;
   status: FactorFactorStatuses;
   factor_type: FactorFactorTypes;
-  config: any;
-  metadata: any;
+  config: Record<string, object>;
+  metadata: Record<string, object>;
   url: string;
 }
 
@@ -379,11 +387,11 @@ export class FactorInstance {
   /**
    * An object that contains configurations specific to a `factor_type`.
    */
-  config: any;
+  config: Record<string, object>;
   /**
    * Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
    */
-  metadata: any;
+  metadata: Record<string, object>;
   /**
    * The URL of this resource.
    */
@@ -618,6 +626,7 @@ export function FactorListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

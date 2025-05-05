@@ -177,6 +177,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -235,7 +236,7 @@ interface AssessmentsResource {
   user_email: string;
   answer_text: string;
   answer_id: string;
-  assessment: any;
+  assessment: Record<string, object>;
   timestamp: number;
   url: string;
 }
@@ -314,7 +315,7 @@ export class AssessmentsInstance {
   /**
    * Assessment Details associated with an assessment
    */
-  assessment: any;
+  assessment: Record<string, object>;
   timestamp: number;
   url: string;
 
@@ -565,6 +566,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -610,6 +612,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 

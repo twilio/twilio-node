@@ -238,6 +238,7 @@ export function TaskQueuesStatisticsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -306,8 +307,8 @@ interface TaskQueuesStatisticsPayload extends TwilioResponsePayload {
 
 interface TaskQueuesStatisticsResource {
   account_sid: string;
-  cumulative: any;
-  realtime: any;
+  cumulative: Record<string, object>;
+  realtime: Record<string, object>;
   task_queue_sid: string;
   workspace_sid: string;
 }
@@ -332,11 +333,11 @@ export class TaskQueuesStatisticsInstance {
   /**
    * An object that contains the cumulative statistics for the TaskQueues.
    */
-  cumulative: any;
+  cumulative: Record<string, object>;
   /**
    * An object that contains the real-time statistics for the TaskQueues.
    */
-  realtime: any;
+  realtime: Record<string, object>;
   /**
    * The SID of the TaskQueue from which these statistics were calculated.
    */

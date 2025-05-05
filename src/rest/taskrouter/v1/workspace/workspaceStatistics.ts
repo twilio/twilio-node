@@ -110,6 +110,7 @@ export class WorkspaceStatisticsContextImpl
       data["SplitByWaitTime"] = params["splitByWaitTime"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -153,8 +154,8 @@ export class WorkspaceStatisticsContextImpl
 interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource {}
 
 interface WorkspaceStatisticsResource {
-  realtime: any;
-  cumulative: any;
+  realtime: Record<string, object>;
+  cumulative: Record<string, object>;
   account_sid: string;
   workspace_sid: string;
   url: string;
@@ -181,11 +182,11 @@ export class WorkspaceStatisticsInstance {
   /**
    * An object that contains the real-time statistics for the Workspace.
    */
-  realtime: any;
+  realtime: Record<string, object>;
   /**
    * An object that contains the cumulative statistics for the Workspace.
    */
-  cumulative: any;
+  cumulative: Record<string, object>;
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
    */

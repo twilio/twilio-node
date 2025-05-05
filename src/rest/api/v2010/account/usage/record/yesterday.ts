@@ -20,6 +20,9 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
+/**
+ * The category of usage. For more information, see [Usage Categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ */
 export type YesterdayCategory =
   | "a2p-registration-fees"
   | "agent-conference"
@@ -460,6 +463,7 @@ export function YesterdayListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

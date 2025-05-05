@@ -20,10 +20,16 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or `yearly` for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT.
+ */
 export type TriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
 
 export type TriggerTriggerField = "count" | "usage" | "price";
 
+/**
+ * The usage category the trigger watches. Must be one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ */
 export type TriggerUsageCategory =
   | "a2p-registration-fees"
   | "agent-conference"
@@ -440,11 +446,14 @@ export class TriggerContextImpl implements TriggerContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -457,11 +466,15 @@ export class TriggerContextImpl implements TriggerContext {
   fetch(
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -505,6 +518,7 @@ export class TriggerContextImpl implements TriggerContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -918,6 +932,7 @@ export function TriggerListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -970,6 +985,7 @@ export function TriggerListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

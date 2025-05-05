@@ -44,8 +44,14 @@ import { TranscriptionListInstance } from "./account/transcription";
 import { UsageListInstance } from "./account/usage";
 import { ValidationRequestListInstance } from "./account/validationRequest";
 
+/**
+ * The status of this account. Usually `active`, but can be `suspended` or `closed`.
+ */
 export type AccountStatus = "active" | "suspended" | "closed";
 
+/**
+ * The type of this account. Either `Trial` or `Full` if it\'s been upgraded
+ */
 export type AccountType = "Trial" | "Full";
 
 /**
@@ -385,11 +391,15 @@ export class AccountContextImpl implements AccountContext {
   fetch(
     callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -425,6 +435,7 @@ export class AccountContextImpl implements AccountContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -919,6 +930,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -963,6 +975,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

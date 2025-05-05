@@ -28,7 +28,7 @@ export interface DocumentContextUpdateOptions {
   /** The If-Match HTTP request header */
   ifMatch?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
-  data?: any;
+  data?: object;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live). */
   ttl?: number;
 }
@@ -40,7 +40,7 @@ export interface DocumentListInstanceCreateOptions {
   /** An application-defined string that uniquely identifies the Sync Document */
   uniqueName?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
-  data?: any;
+  data?: object;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\'s time-to-live). */
   ttl?: number;
 }
@@ -173,11 +173,14 @@ export class DocumentContextImpl implements DocumentContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -190,11 +193,15 @@ export class DocumentContextImpl implements DocumentContext {
   fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -235,6 +242,7 @@ export class DocumentContextImpl implements DocumentContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -290,7 +298,7 @@ interface DocumentResource {
   url: string;
   links: Record<string, string>;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   date_expires: Date;
   date_created: Date;
   date_updated: Date;
@@ -354,7 +362,7 @@ export class DocumentInstance {
   /**
    * An arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
    */
-  data: any;
+  data: Record<string, object>;
   /**
    * The date and time in GMT when the Sync Document expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Sync Document does not expire, this value is `null`. The Document resource might not be deleted immediately after it expires.
    */
@@ -625,6 +633,7 @@ export function DocumentListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -671,6 +680,7 @@ export function DocumentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

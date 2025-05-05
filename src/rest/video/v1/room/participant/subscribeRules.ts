@@ -32,7 +32,7 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
   /** A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information. */
-  rules?: any;
+  rules?: object;
 }
 
 export interface SubscribeRulesSolution {
@@ -108,10 +108,14 @@ export function SubscribeRulesListInstance(
   instance.fetch = function fetch(
     callback?: (error: Error | null, items: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -151,6 +155,7 @@ export function SubscribeRulesListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.update({

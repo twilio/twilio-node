@@ -279,11 +279,14 @@ export class ServiceContextImpl implements ServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -296,11 +299,15 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -486,6 +493,7 @@ export class ServiceContextImpl implements ServiceContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -539,13 +547,13 @@ interface ServiceResource {
   reachability_enabled: boolean;
   typing_indicator_timeout: number;
   consumption_report_interval: number;
-  limits: any;
-  webhooks: any;
+  limits: Record<string, object>;
+  webhooks: Record<string, object>;
   pre_webhook_url: string;
   post_webhook_url: string;
   webhook_method: string;
   webhook_filters: Array<string>;
-  notifications: any;
+  notifications: Record<string, object>;
   url: string;
   links: Record<string, string>;
 }
@@ -597,13 +605,13 @@ export class ServiceInstance {
   reachabilityEnabled: boolean;
   typingIndicatorTimeout: number;
   consumptionReportInterval: number;
-  limits: any;
-  webhooks: any;
+  limits: Record<string, object>;
+  webhooks: Record<string, object>;
   preWebhookUrl: string;
   postWebhookUrl: string;
   webhookMethod: string;
   webhookFilters: Array<string>;
-  notifications: any;
+  notifications: Record<string, object>;
   url: string;
   links: Record<string, string>;
 
@@ -858,6 +866,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -899,6 +908,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

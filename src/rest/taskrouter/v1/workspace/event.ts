@@ -166,11 +166,15 @@ export class EventContextImpl implements EventContext {
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
   ): Promise<EventInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -214,7 +218,7 @@ interface EventResource {
   actor_type: string;
   actor_url: string;
   description: string;
-  event_data: any;
+  event_data: Record<string, object>;
   event_date: Date;
   event_date_ms: number;
   event_type: string;
@@ -282,7 +286,7 @@ export class EventInstance {
   /**
    * Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types).
    */
-  eventData: any;
+  eventData: Record<string, object>;
   /**
    * The time the event was sent, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -530,6 +534,7 @@ export function EventListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

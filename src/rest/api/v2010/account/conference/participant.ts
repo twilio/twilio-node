@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the participant\'s call in a session. Can be: `queued`, `connecting`, `ringing`, `connected`, `complete`, or `failed`.
+ */
 export type ParticipantStatus =
   | "queued"
   | "connecting"
@@ -44,7 +47,7 @@ export interface ParticipantContextUpdateOptions {
   announceUrl?: string;
   /** The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   announceMethod?: string;
-  /** The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). */
+  /** The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `\\\'\\\'`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl). */
   waitUrl?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
   waitMethod?: string;
@@ -86,7 +89,7 @@ export interface ParticipantListInstanceCreateOptions {
   startConferenceOnEnter?: boolean;
   /** Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`. */
   endConferenceOnExit?: boolean;
-  /** The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). */
+  /** The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `\\\'\\\'`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl). */
   waitUrl?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
   waitMethod?: string;
@@ -114,7 +117,7 @@ export interface ParticipantListInstanceCreateOptions {
   sipAuthUsername?: string;
   /** The SIP password for authentication. */
   sipAuthPassword?: string;
-  /** The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`. */
+  /** The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`. */
   region?: string;
   /** The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available. */
   conferenceRecordingStatusCallback?: string;
@@ -301,11 +304,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -318,11 +324,15 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -385,6 +395,7 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -901,6 +912,7 @@ export function ParticipantListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -954,6 +966,7 @@ export function ParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

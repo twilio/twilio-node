@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { BillingPeriodListInstance } from "./sim/billingPeriod";
 import { SimIpAddressListInstance } from "./sim/simIpAddress";
 
+/**
+ * The status of the Super SIM. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. See the [Super SIM Status Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for a description of each.
+ */
 export type SimStatus = "new" | "ready" | "active" | "inactive" | "scheduled";
 
 export type SimStatusUpdate = "ready" | "active" | "inactive";
@@ -189,11 +192,15 @@ export class SimContextImpl implements SimContext {
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -236,6 +243,7 @@ export class SimContextImpl implements SimContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -570,6 +578,7 @@ export function SimListInstance(version: V1): SimListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -614,6 +623,7 @@ export function SimListInstance(version: V1): SimListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

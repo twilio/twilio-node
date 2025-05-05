@@ -20,10 +20,19 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The mode used to send the SMS message. Can be: `text` or `binary`. The default SMS mode is `text`.
+ */
 export type CommandCommandMode = "text" | "binary";
 
+/**
+ * The direction of the Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+ */
 export type CommandDirection = "from_sim" | "to_sim";
 
+/**
+ * The status of the Command. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. See [Status Values](https://www.twilio.com/docs/iot/wireless/api/command-resource#status-values) for a description of each state.
+ */
 export type CommandStatus =
   | "queued"
   | "sent"
@@ -31,6 +40,9 @@ export type CommandStatus =
   | "received"
   | "failed";
 
+/**
+ * The type of transport used. Can be: `sms` or `ip`.
+ */
 export type CommandTransport = "sms" | "ip";
 
 /**
@@ -162,11 +174,14 @@ export class CommandContextImpl implements CommandContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -179,11 +194,15 @@ export class CommandContextImpl implements CommandContext {
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
   ): Promise<CommandInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -490,6 +509,7 @@ export function CommandListInstance(version: V1): CommandListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -537,6 +557,7 @@ export function CommandListInstance(version: V1): CommandListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

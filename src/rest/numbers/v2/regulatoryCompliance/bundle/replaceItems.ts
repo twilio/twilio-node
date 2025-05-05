@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The verification status of the Bundle resource.
+ */
 export type ReplaceItemsStatus =
   | "draft"
   | "pending-review"
@@ -100,6 +103,7 @@ export function ReplaceItemsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

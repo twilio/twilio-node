@@ -107,6 +107,7 @@ export class WorkersRealTimeStatisticsContextImpl
       data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -152,7 +153,7 @@ interface WorkersRealTimeStatisticsPayload
 
 interface WorkersRealTimeStatisticsResource {
   account_sid: string;
-  activity_statistics: Array<any>;
+  activity_statistics: Array<Record<string, object>>;
   total_workers: number;
   workspace_sid: string;
   url: string;
@@ -183,7 +184,7 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * The number of current Workers by Activity.
    */
-  activityStatistics: Array<any>;
+  activityStatistics: Array<Record<string, object>>;
   /**
    * The total number of Workers.
    */

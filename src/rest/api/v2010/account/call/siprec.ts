@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status - one of `stopped`, `in-progress`
+ */
 export type SiprecStatus = "in-progress" | "stopped";
 
 export type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
@@ -515,6 +518,7 @@ export class SiprecContextImpl implements SiprecContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -1159,6 +1163,7 @@ export function SiprecListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

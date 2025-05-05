@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { BrandRegistrationOtpListInstance } from "./brandRegistration/brandRegistrationOtp";
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
+/**
+ * DEPRECATED. Feedback on how to improve brand score
+ */
 export type BrandRegistrationBrandFeedback =
   | "TAX_ID"
   | "STOCK_SYMBOL"
@@ -29,18 +32,26 @@ export type BrandRegistrationBrandFeedback =
   | "GOVERNMENT_ENTITY"
   | "OTHERS";
 
+/**
+ * When a brand is registered, TCR will attempt to verify the identity of the brand based on the supplied information.
+ */
 export type BrandRegistrationIdentityStatus =
   | "SELF_DECLARED"
   | "UNVERIFIED"
   | "VERIFIED"
   | "VETTED_VERIFIED";
 
+/**
+ * Brand Registration status. One of \"PENDING\", \"APPROVED\", \"FAILED\", \"IN_REVIEW\", \"DELETION_PENDING\", \"DELETION_FAILED\", \"SUSPENDED\".
+ */
 export type BrandRegistrationStatus =
   | "PENDING"
   | "APPROVED"
   | "FAILED"
   | "IN_REVIEW"
-  | "DELETED";
+  | "DELETION_PENDING"
+  | "DELETION_FAILED"
+  | "SUSPENDED";
 
 /**
  * Options to pass to create a BrandRegistrationInstance
@@ -166,11 +177,15 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   fetch(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -192,11 +207,15 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   update(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.update({
         uri: instance._uri,
         method: "post",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -244,7 +263,7 @@ interface BrandRegistrationResource {
   status: BrandRegistrationStatus;
   tcr_id: string;
   failure_reason: string;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   url: string;
   brand_score: number;
   brand_feedback: Array<BrandRegistrationBrandFeedback>;
@@ -331,7 +350,7 @@ export class BrandRegistrationInstance {
   /**
    * A list of errors that occurred during the brand registration process.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
   /**
    * The absolute URL of the Brand Registration resource.
    */
@@ -611,6 +630,7 @@ export function BrandRegistrationListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -652,6 +672,7 @@ export function BrandRegistrationListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

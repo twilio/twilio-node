@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * How the recording was created. Can be: `DialVerb`, `Conference`, `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`, `StartConferenceRecordingAPI`.
+ */
 export type RecordingSource =
   | "DialVerb"
   | "Conference"
@@ -29,6 +32,9 @@ export type RecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
+/**
+ * The status of the recording. Can be: `processing`, `completed` and `absent`. For more detailed statuses on in-progress recordings, check out how to [Update a Recording Resource](https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource).
+ */
 export type RecordingStatus =
   | "in-progress"
   | "paused"
@@ -178,11 +184,14 @@ export class RecordingContextImpl implements RecordingContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -195,11 +204,15 @@ export class RecordingContextImpl implements RecordingContext {
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -240,6 +253,7 @@ export class RecordingContextImpl implements RecordingContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -302,7 +316,7 @@ interface RecordingResource {
   channels: number;
   source: RecordingSource;
   error_code: number;
-  encryption_details: any;
+  encryption_details: Record<string, object>;
   uri: string;
 }
 
@@ -395,7 +409,7 @@ export class RecordingInstance {
   /**
    * How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
    */
-  encryptionDetails: any;
+  encryptionDetails: Record<string, object>;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
@@ -630,6 +644,7 @@ export function RecordingListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

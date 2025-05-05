@@ -93,6 +93,7 @@ export class MediaContextImpl implements MediaContext {
       data["Redacted"] = serialize.bool(params["redacted"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

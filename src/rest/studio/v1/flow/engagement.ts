@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
 import { StepListInstance } from "./engagement/step";
 
+/**
+ * The status of the Engagement. Can be: `active` or `ended`.
+ */
 export type EngagementStatus = "active" | "ended";
 
 /**
@@ -33,7 +36,7 @@ export interface EngagementListInstanceCreateOptions {
   /** The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}` */
   from: string;
   /** A JSON string we will add to your flow\\\'s context and that you can access as variables inside your flow. For example, if you pass in `Parameters={\\\'name\\\':\\\'Zeke\\\'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string \\\'Zeke\\\'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. */
-  parameters?: any;
+  parameters?: object;
 }
 /**
  * Options to pass to each
@@ -154,11 +157,14 @@ export class EngagementContextImpl implements EngagementContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -171,11 +177,15 @@ export class EngagementContextImpl implements EngagementContext {
   fetch(
     callback?: (error: Error | null, item?: EngagementInstance) => any
   ): Promise<EngagementInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -219,7 +229,7 @@ interface EngagementResource {
   flow_sid: string;
   contact_sid: string;
   contact_channel_address: string;
-  context: any;
+  context: Record<string, object>;
   status: EngagementStatus;
   date_created: Date;
   date_updated: Date;
@@ -275,7 +285,7 @@ export class EngagementInstance {
   /**
    * The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
   status: EngagementStatus;
   /**
    * The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -516,6 +526,7 @@ export function EngagementListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -562,6 +573,7 @@ export function EngagementListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

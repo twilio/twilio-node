@@ -250,11 +250,15 @@ export class MessageContextImpl implements MessageContext {
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -303,6 +307,7 @@ export class MessageContextImpl implements MessageContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -366,7 +371,7 @@ interface MessageResource {
   body: string;
   index: number;
   type: string;
-  media: any;
+  media: Record<string, object>;
   url: string;
 }
 
@@ -460,7 +465,7 @@ export class MessageInstance {
   /**
    * An object that describes the Message\'s media, if the message contains media. The object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object\'s file size in bytes. If the Message has no media, this value is `null`.
    */
-  media: any;
+  media: Record<string, object>;
   /**
    * The absolute URL of the Message resource.
    */
@@ -746,6 +751,7 @@ export function MessageListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -796,6 +802,7 @@ export function MessageListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

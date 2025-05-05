@@ -89,11 +89,14 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -106,11 +109,15 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -147,6 +154,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -197,7 +205,7 @@ interface DomainCertsResource {
   domain_name: string;
   certificate_sid: string;
   url: string;
-  cert_in_validation: any;
+  cert_in_validation: Record<string, object>;
 }
 
 export class DomainCertsInstance {
@@ -249,7 +257,7 @@ export class DomainCertsInstance {
   /**
    * Optional JSON field describing the status and upload date of a new certificate in the process of validation
    */
-  certInValidation: any;
+  certInValidation: Record<string, object>;
 
   private get _proxy(): DomainCertsContext {
     this._context =

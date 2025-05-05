@@ -116,11 +116,14 @@ export class AssistantsKnowledgeContextImpl
   create(
     callback?: (error: Error | null, item?: AssistantsKnowledgeInstance) => any
   ): Promise<AssistantsKnowledgeInstance> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -143,11 +146,14 @@ export class AssistantsKnowledgeContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -184,6 +190,7 @@ interface AssistantsKnowledgeResource {
   status: string;
   type: string;
   url: string;
+  embedding_model: string;
   date_created: Date;
   date_updated: Date;
 }
@@ -206,6 +213,7 @@ export class AssistantsKnowledgeInstance {
     this.status = payload.status;
     this.type = payload.type;
     this.url = payload.url;
+    this.embeddingModel = payload.embedding_model;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
@@ -244,6 +252,10 @@ export class AssistantsKnowledgeInstance {
    * The url of the knowledge resource.
    */
   url: string;
+  /**
+   * The embedding model to be used for the knowledge source.
+   */
+  embeddingModel: string;
   /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -305,6 +317,7 @@ export class AssistantsKnowledgeInstance {
       status: this.status,
       type: this.type,
       url: this.url,
+      embeddingModel: this.embeddingModel,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
     };
@@ -455,6 +468,7 @@ export function AssistantsKnowledgeListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -20,15 +20,25 @@ import { isValidPathParam } from "../../../base/utility";
 import { InteractionChannelListInstance } from "./interaction/interactionChannel";
 
 /**
+ * Options to pass to update a InteractionInstance
+ */
+export interface InteractionContextUpdateOptions {
+  /** The unique identifier for Interaction level webhook */
+  webhookTtid?: string;
+}
+
+/**
  * Options to pass to create a InteractionInstance
  */
 export interface InteractionListInstanceCreateOptions {
   /** The Interaction\\\'s channel. */
-  channel: any;
+  channel: object;
   /** The Interaction\\\'s routing logic. */
-  routing?: any;
+  routing?: object;
   /** The Interaction context sid is used for adding a context lookup sid */
   interactionContextSid?: string;
+  /** The unique identifier for Interaction level webhook */
+  webhookTtid?: string;
 }
 
 export interface InteractionContext {
@@ -42,6 +52,29 @@ export interface InteractionContext {
    * @returns Resolves to processed InteractionInstance
    */
   fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance>;
+
+  /**
+   * Update a InteractionInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance>;
+  /**
+   * Update a InteractionInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionInstance
+   */
+  update(
+    params: InteractionContextUpdateOptions,
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance>;
 
@@ -81,11 +114,62 @@ export class InteractionContextImpl implements InteractionContext {
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InteractionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params?:
+      | InteractionContextUpdateOptions
+      | ((error: Error | null, item?: InteractionInstance) => any),
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["webhookTtid"] !== undefined)
+      data["WebhookTtid"] = params["webhookTtid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -122,11 +206,12 @@ interface InteractionPayload extends InteractionResource {}
 
 interface InteractionResource {
   sid: string;
-  channel: any;
-  routing: any;
+  channel: Record<string, object>;
+  routing: Record<string, object>;
   url: string;
   links: Record<string, string>;
   interaction_context_sid: string;
+  webhook_ttid: string;
 }
 
 export class InteractionInstance {
@@ -144,6 +229,7 @@ export class InteractionInstance {
     this.url = payload.url;
     this.links = payload.links;
     this.interactionContextSid = payload.interaction_context_sid;
+    this.webhookTtid = payload.webhook_ttid;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -155,14 +241,15 @@ export class InteractionInstance {
   /**
    * A JSON object that defines the Interaction’s communication channel and includes details about the channel. See the [Outbound SMS](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) and [inbound (API-initiated)](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#api-initiated-contact) Channel object examples.
    */
-  channel: any;
+  channel: Record<string, object>;
   /**
    * A JSON Object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
    */
-  routing: any;
+  routing: Record<string, object>;
   url: string;
   links: Record<string, string>;
   interactionContextSid: string;
+  webhookTtid: string;
 
   private get _proxy(): InteractionContext {
     this._context =
@@ -185,6 +272,36 @@ export class InteractionInstance {
   }
 
   /**
+   * Update a InteractionInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance>;
+  /**
+   * Update a InteractionInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionInstance
+   */
+  update(
+    params: InteractionContextUpdateOptions,
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance> {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
    * Access the channels.
    */
   channels(): InteractionChannelListInstance {
@@ -204,6 +321,7 @@ export class InteractionInstance {
       url: this.url,
       links: this.links,
       interactionContextSid: this.interactionContextSid,
+      webhookTtid: this.webhookTtid,
     };
   }
 
@@ -272,9 +390,12 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
       data["Routing"] = serialize.object(params["routing"]);
     if (params["interactionContextSid"] !== undefined)
       data["InteractionContextSid"] = params["interactionContextSid"];
+    if (params["webhookTtid"] !== undefined)
+      data["WebhookTtid"] = params["webhookTtid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

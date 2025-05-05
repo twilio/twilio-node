@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The compliance status of the Evaluation resource.
+ */
 export type CustomerProfilesEvaluationsStatus = "compliant" | "noncompliant";
 
 /**
@@ -120,11 +123,15 @@ export class CustomerProfilesEvaluationsContextImpl
       item?: CustomerProfilesEvaluationsInstance
     ) => any
   ): Promise<CustomerProfilesEvaluationsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -168,7 +175,7 @@ interface CustomerProfilesEvaluationsResource {
   policy_sid: string;
   customer_profile_sid: string;
   status: CustomerProfilesEvaluationsStatus;
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   date_created: Date;
   url: string;
 }
@@ -215,7 +222,7 @@ export class CustomerProfilesEvaluationsInstance {
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
   dateCreated: Date;
   url: string;
 
@@ -438,6 +445,7 @@ export function CustomerProfilesEvaluationsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -487,6 +495,7 @@ export function CustomerProfilesEvaluationsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

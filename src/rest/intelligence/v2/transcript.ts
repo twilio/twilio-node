@@ -23,6 +23,9 @@ import { MediaListInstance } from "./transcript/media";
 import { OperatorResultListInstance } from "./transcript/operatorResult";
 import { SentenceListInstance } from "./transcript/sentence";
 
+/**
+ * The Status of this Transcript. One of `queued`, `in-progress`, `completed`, `failed` or `canceled`.
+ */
 export type TranscriptStatus =
   | "queued"
   | "in-progress"
@@ -37,7 +40,7 @@ export interface TranscriptListInstanceCreateOptions {
   /** The unique SID identifier of the Service. */
   serviceSid: string;
   /** JSON object describing Media Channel including Source and Participants */
-  channel: any;
+  channel: object;
   /** Used to store client provided metadata. Maximum of 64 double-byte UTF8 characters. */
   customerKey?: string;
   /** The date that this Transcript\\\'s media was started, given in ISO 8601 format. */
@@ -205,11 +208,14 @@ export class TranscriptContextImpl implements TranscriptContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -222,11 +228,15 @@ export class TranscriptContextImpl implements TranscriptContext {
   fetch(
     callback?: (error: Error | null, item?: TranscriptInstance) => any
   ): Promise<TranscriptInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -270,7 +280,7 @@ interface TranscriptResource {
   date_created: Date;
   date_updated: Date;
   status: TranscriptStatus;
-  channel: any;
+  channel: Record<string, object>;
   data_logging: boolean;
   language_code: string;
   customer_key: string;
@@ -333,7 +343,7 @@ export class TranscriptInstance {
   /**
    * Media Channel describing Transcript Source and Participant Mapping
    */
-  channel: any;
+  channel: Record<string, object>;
   /**
    * Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
    */
@@ -585,6 +595,7 @@ export function TranscriptListInstance(version: V2): TranscriptListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -641,6 +652,7 @@ export function TranscriptListInstance(version: V2): TranscriptListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -25,6 +25,9 @@ import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
+/**
+ * Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.
+ */
 export type TrunkTransferCallerId = "from-transferee" | "from-transferor";
 
 export type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
@@ -228,11 +231,14 @@ export class TrunkContextImpl implements TrunkContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -245,11 +251,15 @@ export class TrunkContextImpl implements TrunkContext {
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -298,6 +308,7 @@ export class TrunkContextImpl implements TrunkContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -345,7 +356,7 @@ interface TrunkResource {
   disaster_recovery_url: string;
   friendly_name: string;
   secure: boolean;
-  recording: any;
+  recording: Record<string, object>;
   transfer_mode: TrunkTransferSetting;
   transfer_caller_id: TrunkTransferCallerId;
   cnam_lookup_enabled: boolean;
@@ -411,7 +422,7 @@ export class TrunkInstance {
   /**
    * The recording settings for the trunk. Can be: `do-not-record`, `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing` or `record-from-answer`, all calls going through the trunk will be recorded. The only way to change recording parameters is on a sub-resource of a Trunk after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST -d\'Mode=record-from-answer\'`. See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more information.
    */
-  recording: any;
+  recording: Record<string, object>;
   transferMode: TrunkTransferSetting;
   transferCallerId: TrunkTransferCallerId;
   /**
@@ -730,6 +741,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -771,6 +783,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

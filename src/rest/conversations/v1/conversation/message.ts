@@ -260,11 +260,15 @@ export class MessageContextImpl implements MessageContext {
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -311,6 +315,7 @@ export class MessageContextImpl implements MessageContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -365,13 +370,13 @@ interface MessageResource {
   index: number;
   author: string;
   body: string;
-  media: Array<any>;
+  media: Array<Record<string, object>>;
   attributes: string;
   participant_sid: string;
   date_created: Date;
   date_updated: Date;
   url: string;
-  delivery: any;
+  delivery: Record<string, object>;
   links: Record<string, string>;
   content_sid: string;
 }
@@ -432,7 +437,7 @@ export class MessageInstance {
   /**
    * An array of objects that describe the Message\'s media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object\'s file size in bytes. If the Message has no media, this value is `null`.
    */
-  media: Array<any>;
+  media: Array<Record<string, object>>;
   /**
    * A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
    */
@@ -456,7 +461,7 @@ export class MessageInstance {
   /**
    * An object that contains the summary of delivery statuses for the message to non-chat participants.
    */
-  delivery: any;
+  delivery: Record<string, object>;
   /**
    * Contains an absolute API resource URL to access the delivery & read receipts of this message.
    */
@@ -748,6 +753,7 @@ export function MessageListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -797,6 +803,7 @@ export function MessageListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

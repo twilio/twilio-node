@@ -23,6 +23,9 @@ import { MessageListInstance } from "./conversation/message";
 import { ParticipantListInstance } from "./conversation/participant";
 import { WebhookListInstance } from "./conversation/webhook";
 
+/**
+ * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
+ */
 export type ConversationState = "inactive" | "active" | "closed";
 
 export type ConversationWebhookEnabledType = "true" | "false";
@@ -314,11 +317,15 @@ export class ConversationContextImpl implements ConversationContext {
   fetch(
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -377,6 +384,7 @@ export class ConversationContextImpl implements ConversationContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -435,10 +443,10 @@ interface ConversationResource {
   state: ConversationState;
   date_created: Date;
   date_updated: Date;
-  timers: any;
+  timers: Record<string, object>;
   url: string;
   links: Record<string, string>;
-  bindings: any;
+  bindings: Record<string, object>;
 }
 
 export class ConversationInstance {
@@ -509,7 +517,7 @@ export class ConversationInstance {
   /**
    * Timer date values representing state update for this conversation.
    */
-  timers: any;
+  timers: Record<string, object>;
   /**
    * An absolute API resource URL for this conversation.
    */
@@ -518,7 +526,7 @@ export class ConversationInstance {
    * Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
    */
   links: Record<string, string>;
-  bindings: any;
+  bindings: Record<string, object>;
 
   private get _proxy(): ConversationContext {
     this._context =
@@ -822,6 +830,7 @@ export function ConversationListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -874,6 +883,7 @@ export function ConversationListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

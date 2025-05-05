@@ -279,6 +279,7 @@ export function InsightsAssessmentsCommentListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -329,6 +330,7 @@ export function InsightsAssessmentsCommentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -403,7 +405,7 @@ interface InsightsAssessmentsCommentPayload extends TwilioResponsePayload {
 interface InsightsAssessmentsCommentResource {
   account_sid: string;
   assessment_sid: string;
-  comment: any;
+  comment: Record<string, object>;
   offset: number;
   report: boolean;
   weight: number;
@@ -445,7 +447,7 @@ export class InsightsAssessmentsCommentInstance {
   /**
    * The comment added for assessment.
    */
-  comment: any;
+  comment: Record<string, object>;
   /**
    * The offset
    */

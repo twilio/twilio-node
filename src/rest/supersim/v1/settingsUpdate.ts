@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The Status of this Settings Update. One of `scheduled`, `in-progress`, `successful` or `failed`.
+ */
 export type SettingsUpdateStatus =
   | "scheduled"
   | "in-progress"
@@ -198,6 +201,7 @@ export function SettingsUpdateListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -261,7 +265,7 @@ interface SettingsUpdateResource {
   iccid: string;
   sim_sid: string;
   status: SettingsUpdateStatus;
-  packages: Array<any>;
+  packages: Array<Record<string, object>>;
   date_completed: Date;
   date_created: Date;
   date_updated: Date;
@@ -295,7 +299,7 @@ export class SettingsUpdateInstance {
   /**
    * Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
    */
-  packages: Array<any>;
+  packages: Array<Record<string, object>>;
   /**
    * The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
    */

@@ -39,7 +39,7 @@ export interface SyncMapItemContextUpdateOptions {
   /** If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. */
-  data?: any;
+  data?: object;
   /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted. */
@@ -55,7 +55,7 @@ export interface SyncMapItemListInstanceCreateOptions {
   /** The unique, user-defined key for the Map Item. Can be up to 320 characters long. */
   key: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. */
-  data: any;
+  data: object;
   /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted. */
@@ -252,11 +252,15 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   fetch(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -301,6 +305,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -356,7 +361,7 @@ interface SyncMapItemResource {
   map_sid: string;
   url: string;
   revision: string;
-  data: any;
+  data: Record<string, object>;
   date_expires: Date;
   date_created: Date;
   date_updated: Date;
@@ -416,7 +421,7 @@ export class SyncMapItemInstance {
   /**
    * An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
    */
-  data: any;
+  data: Record<string, object>;
   /**
    * The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
    */
@@ -698,6 +703,7 @@ export function SyncMapItemListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -748,6 +754,7 @@ export function SyncMapItemListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

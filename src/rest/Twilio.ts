@@ -20,10 +20,12 @@ import Conversations from "./Conversations";
 import Events from "./Events";
 import FlexApi from "./FlexApi";
 import FrontlineApi from "./FrontlineApi";
+import PreviewIam from "./PreviewIam";
 import Iam from "./Iam";
 import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
+import Knowledge from "./Knowledge";
 import Lookups from "./Lookups";
 import Marketplace from "./Marketplace";
 import Messaging from "./Messaging";
@@ -99,6 +101,8 @@ class Twilio extends Client {
   _flexApi?: FlexApi;
   /** (Twilio.FrontlineApi) - frontlineApi domain */
   _frontlineApi?: FrontlineApi;
+  /** (Twilio.PreviewIam) - previewIam domain */
+  _previewIam?: PreviewIam;
   /** (Twilio.Iam) - iam domain */
   _iam?: Iam;
   /** (Twilio.Insights) - insights domain */
@@ -107,6 +111,8 @@ class Twilio extends Client {
   _intelligence?: Intelligence;
   /** (Twilio.IpMessaging) - ipMessaging domain */
   _ipMessaging?: IpMessaging;
+  /** (Twilio.Knowledge) - knowledge domain */
+  _knowledge?: Knowledge;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
   /** (Twilio.Marketplace) - marketplace domain */
@@ -181,10 +187,12 @@ class Twilio extends Client {
       this.events;
       this.flexApi;
       this.frontlineApi;
+      this.previewIam;
       this.iam;
       this.insights;
       this.intelligence;
       this.ipMessaging;
+      this.knowledge;
       this.lookups;
       this.marketplace;
       this.messaging;
@@ -266,6 +274,13 @@ class Twilio extends Client {
       (this._frontlineApi = new (require("./FrontlineApi"))(this))
     );
   }
+  /** Getter for (Twilio.PreviewIam) domain */
+  get previewIam(): PreviewIam {
+    return (
+      this._previewIam ??
+      (this._previewIam = new (require("./PreviewIam"))(this))
+    );
+  }
   /** Getter for (Twilio.Iam) domain */
   get iam(): Iam {
     return this._iam ?? (this._iam = new (require("./Iam"))(this));
@@ -288,6 +303,12 @@ class Twilio extends Client {
     return (
       this._ipMessaging ??
       (this._ipMessaging = new (require("./IpMessaging"))(this))
+    );
+  }
+  /** Getter for (Twilio.Knowledge) domain */
+  get knowledge(): Knowledge {
+    return (
+      this._knowledge ?? (this._knowledge = new (require("./Knowledge"))(this))
     );
   }
   /** Getter for (Twilio.Lookups) domain */

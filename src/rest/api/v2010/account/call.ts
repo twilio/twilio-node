@@ -30,6 +30,9 @@ import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
 import TwiML from "../../../../twiml/TwiML";
 
+/**
+ * The status of this call. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy` or `no-answer`. See [Call Status Values](https://www.twilio.com/docs/voice/api/call-resource#call-status-values) below for more information.
+ */
 export type CallStatus =
   | "queued"
   | "ringing"
@@ -86,7 +89,7 @@ export interface CallListInstanceCreateOptions {
   statusCallbackEvent?: Array<string>;
   /** The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
   statusCallbackMethod?: string;
-  /** A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), \\\'`#`\\\', \\\'`*`\\\' and \\\'`w`\\\', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the \\\'`#`\\\' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored. */
+  /** The string of keys to dial after connecting to the number, with a maximum length of 32 digits. Valid digits in the string include any digit (`0`-`9`), \\\'`A`\\\', \\\'`B`\\\', \\\'`C`\\\', \\\'`D`\\\', \\\'`#`\\\', and \\\'`*`\\\'. You can also use \\\'`w`\\\' to insert a half-second pause and \\\'`W`\\\' to insert a one-second pause. For example, to pause for one second after connecting and then dial extension 1234 followed by the # key, set this parameter to `W1234#`. Be sure to URL-encode this string because the \\\'`#`\\\' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored. */
   sendDigits?: string;
   /** The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail. */
   timeout?: number;
@@ -434,11 +437,14 @@ export class CallContextImpl implements CallContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -451,11 +457,15 @@ export class CallContextImpl implements CallContext {
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -508,6 +518,7 @@ export class CallContextImpl implements CallContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -1108,6 +1119,7 @@ export function CallListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -1171,6 +1183,7 @@ export function CallListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

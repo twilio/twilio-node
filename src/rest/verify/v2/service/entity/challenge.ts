@@ -40,7 +40,7 @@ export interface ChallengeContextUpdateOptions {
   /** The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length */
   authPayload?: string;
   /** Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length. */
-  metadata?: any;
+  metadata?: object;
 }
 
 /**
@@ -54,9 +54,9 @@ export interface ChallengeListInstanceCreateOptions {
   /** Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length */
   "details.message"?: string;
   /** A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields. */
-  "details.fields"?: Array<any>;
+  "details.fields"?: Array<object>;
   /** Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length */
-  hiddenDetails?: any;
+  hiddenDetails?: object;
   /** Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long. */
   authPayload?: string;
 }
@@ -207,11 +207,15 @@ export class ChallengeContextImpl implements ChallengeContext {
   fetch(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -254,6 +258,7 @@ export class ChallengeContextImpl implements ChallengeContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -313,9 +318,9 @@ interface ChallengeResource {
   expiration_date: Date;
   status: ChallengeChallengeStatuses;
   responded_reason: ChallengeChallengeReasons;
-  details: any;
-  hidden_details: any;
-  metadata: any;
+  details: Record<string, object>;
+  hidden_details: Record<string, object>;
+  metadata: Record<string, object>;
   factor_type: ChallengeFactorTypes;
   url: string;
   links: Record<string, string>;
@@ -399,15 +404,15 @@ export class ChallengeInstance {
   /**
    * Details provided to give context about the Challenge. Intended to be shown to the end user.
    */
-  details: any;
+  details: Record<string, object>;
   /**
    * Details provided to give context about the Challenge. Intended to be hidden from the end user. It must be a stringified JSON with only strings values eg. `{\"ip\": \"172.168.1.234\"}`
    */
-  hiddenDetails: any;
+  hiddenDetails: Record<string, object>;
   /**
    * Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
    */
-  metadata: any;
+  metadata: Record<string, object>;
   factorType: ChallengeFactorTypes;
   /**
    * The URL of this resource.
@@ -662,7 +667,7 @@ export function ChallengeListInstance(
     if (params["details.fields"] !== undefined)
       data["Details.Fields"] = serialize.map(
         params["details.fields"],
-        (e: any) => serialize.object(e)
+        (e: object) => e
       );
     if (params["hiddenDetails"] !== undefined)
       data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
@@ -671,6 +676,7 @@ export function ChallengeListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -722,6 +728,7 @@ export function ChallengeListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

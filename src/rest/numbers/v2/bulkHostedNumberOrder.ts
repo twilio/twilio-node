@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * A string that shows the status of the current Bulk Hosting request, it can vary between these values: \'QUEUED\',\'IN_PROGRESS\',\'PROCESSED\'
+ */
 export type BulkHostedNumberOrderRequestStatus =
   | "QUEUED"
   | "IN_PROGRESS"
@@ -117,6 +120,7 @@ export class BulkHostedNumberOrderContextImpl
       data["OrderStatus"] = params["orderStatus"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -168,7 +172,7 @@ interface BulkHostedNumberOrderResource {
   date_completed: Date;
   url: string;
   total_count: number;
-  results: Array<any>;
+  results: Array<Record<string, object>>;
 }
 
 export class BulkHostedNumberOrderInstance {
@@ -225,7 +229,7 @@ export class BulkHostedNumberOrderInstance {
   /**
    * Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check \'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values\'.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
 
   private get _proxy(): BulkHostedNumberOrderContext {
     this._context =
@@ -327,12 +331,14 @@ export interface BulkHostedNumberOrderListInstance {
    * Create a BulkHostedNumberOrderInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: BulkHostedNumberOrderInstance
@@ -364,6 +370,7 @@ export function BulkHostedNumberOrderListInstance(
     params?:
       | object
       | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any),
+    headers?: any,
     callback?: (
       error: Error | null,
       items: BulkHostedNumberOrderInstance
@@ -380,8 +387,12 @@ export function BulkHostedNumberOrderListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

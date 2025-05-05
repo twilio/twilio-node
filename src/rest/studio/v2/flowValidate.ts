@@ -29,7 +29,7 @@ export interface FlowValidateListInstanceUpdateOptions {
   /**  */
   status: FlowValidateStatus;
   /** JSON representation of flow definition. */
-  definition: any;
+  definition: object;
   /** Description of change made in the revision. */
   commitMessage?: string;
 }
@@ -105,6 +105,7 @@ export function FlowValidateListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.update({

@@ -198,6 +198,7 @@ export function InsightsConversationsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -270,7 +271,7 @@ interface InsightsConversationsResource {
   account_id: string;
   conversation_id: string;
   segment_count: number;
-  segments: Array<any>;
+  segments: Array<Record<string, object>>;
 }
 
 export class InsightsConversationsInstance {
@@ -296,7 +297,7 @@ export class InsightsConversationsInstance {
   /**
    * The Segments of a conversation
    */
-  segments: Array<any>;
+  segments: Array<Record<string, object>>;
 
   /**
    * Provide a user-friendly representation

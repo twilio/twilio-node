@@ -25,6 +25,9 @@ import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRe
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
+/**
+ * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or `FIFO` to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
+ */
 export type TaskQueueTaskOrder = "FIFO" | "LIFO";
 
 /**
@@ -241,11 +244,14 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -258,11 +264,15 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   fetch(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -312,6 +322,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -760,6 +771,7 @@ export function TaskQueueListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -813,6 +825,7 @@ export function TaskQueueListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

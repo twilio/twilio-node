@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The log level. Can be: `info`, `warn`, or `error`.
+ */
 export type LogLevel = "info" | "warn" | "error";
 
 /**
@@ -130,11 +133,15 @@ export class LogContextImpl implements LogContext {
   fetch(
     callback?: (error: Error | null, item?: LogInstance) => any
   ): Promise<LogInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -452,6 +459,7 @@ export function LogListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -127,11 +127,15 @@ export class StepContextImpl implements StepContext {
   fetch(
     callback?: (error: Error | null, item?: StepInstance) => any
   ): Promise<StepInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -176,7 +180,8 @@ interface StepResource {
   flow_sid: string;
   engagement_sid: string;
   name: string;
-  context: any;
+  context: Record<string, object>;
+  parent_step_sid: string;
   transitioned_from: string;
   transitioned_to: string;
   date_created: Date;
@@ -202,6 +207,7 @@ export class StepInstance {
     this.engagementSid = payload.engagement_sid;
     this.name = payload.name;
     this.context = payload.context;
+    this.parentStepSid = payload.parent_step_sid;
     this.transitionedFrom = payload.transitioned_from;
     this.transitionedTo = payload.transitioned_to;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -235,7 +241,11 @@ export class StepInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
+  /**
+   * The SID of the parent Step.
+   */
+  parentStepSid: string;
   /**
    * The Widget that preceded the Widget for the Step.
    */
@@ -306,6 +316,7 @@ export class StepInstance {
       engagementSid: this.engagementSid,
       name: this.name,
       context: this.context,
+      parentStepSid: this.parentStepSid,
       transitionedFrom: this.transitionedFrom,
       transitionedTo: this.transitionedTo,
       dateCreated: this.dateCreated,
@@ -453,6 +464,7 @@ export function StepListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

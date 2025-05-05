@@ -21,6 +21,9 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { DependentHostedNumberOrderListInstance } from "./authorizationDocument/dependentHostedNumberOrder";
 
+/**
+ * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+ */
 export type AuthorizationDocumentStatus =
   | "opened"
   | "signing"
@@ -203,11 +206,15 @@ export class AuthorizationDocumentContextImpl
       item?: AuthorizationDocumentInstance
     ) => any
   ): Promise<AuthorizationDocumentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -262,6 +269,7 @@ export class AuthorizationDocumentContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -652,6 +660,7 @@ export function AuthorizationDocumentListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -695,6 +704,7 @@ export function AuthorizationDocumentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

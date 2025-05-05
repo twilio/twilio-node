@@ -29,6 +29,8 @@ export interface SubscriptionContextUpdateOptions {
   description?: string;
   /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
   sinkSid?: string;
+  /** Receive events from all children accounts in the parent account subscription. */
+  receiveEventsFromSubaccounts?: boolean;
 }
 
 /**
@@ -40,7 +42,9 @@ export interface SubscriptionListInstanceCreateOptions {
   /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
   sinkSid: string;
   /** An array of objects containing the subscribed Event Types */
-  types: Array<any>;
+  types: Array<object>;
+  /** Receive events from all children accounts in the parent account subscription. */
+  receiveEventsFromSubaccounts?: boolean;
 }
 /**
  * Options to pass to each
@@ -168,11 +172,14 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -185,11 +192,15 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   fetch(
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -226,9 +237,14 @@ export class SubscriptionContextImpl implements SubscriptionContext {
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
     if (params["sinkSid"] !== undefined) data["SinkSid"] = params["sinkSid"];
+    if (params["receiveEventsFromSubaccounts"] !== undefined)
+      data["ReceiveEventsFromSubaccounts"] = serialize.bool(
+        params["receiveEventsFromSubaccounts"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -282,6 +298,7 @@ interface SubscriptionResource {
   sink_sid: string;
   url: string;
   links: Record<string, string>;
+  receive_events_from_subaccounts: boolean;
 }
 
 export class SubscriptionInstance {
@@ -301,6 +318,7 @@ export class SubscriptionInstance {
     this.sinkSid = payload.sink_sid;
     this.url = payload.url;
     this.links = payload.links;
+    this.receiveEventsFromSubaccounts = payload.receive_events_from_subaccounts;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -337,6 +355,10 @@ export class SubscriptionInstance {
    * Contains a dictionary of URL links to nested resources of this Subscription.
    */
   links: Record<string, string>;
+  /**
+   * Receive events from all children accounts in the parent account subscription.
+   */
+  receiveEventsFromSubaccounts: boolean;
 
   private get _proxy(): SubscriptionContext {
     this._context =
@@ -423,6 +445,7 @@ export class SubscriptionInstance {
       sinkSid: this.sinkSid,
       url: this.url,
       links: this.links,
+      receiveEventsFromSubaccounts: this.receiveEventsFromSubaccounts,
     };
   }
 
@@ -569,12 +592,15 @@ export function SubscriptionListInstance(
 
     data["SinkSid"] = params["sinkSid"];
 
-    data["Types"] = serialize.map(params["types"], (e: any) =>
-      serialize.object(e)
-    );
+    data["Types"] = serialize.map(params["types"], (e: object) => e);
+    if (params["receiveEventsFromSubaccounts"] !== undefined)
+      data["ReceiveEventsFromSubaccounts"] = serialize.bool(
+        params["receiveEventsFromSubaccounts"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -617,6 +643,7 @@ export function SubscriptionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

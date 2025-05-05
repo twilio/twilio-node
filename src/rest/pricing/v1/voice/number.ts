@@ -22,17 +22,17 @@ import { isValidPathParam } from "../../../../base/utility";
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.
  */
 export class PricingV1VoiceVoiceNumberInboundCallPrice {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "numberType"?: string;
+  "base_price"?: number;
+  "current_price"?: number;
+  "number_type"?: string;
 }
 
 /**
  * The OutboundCallPrice record, which includes a list of `origination_prefixes` and the `base_price` and `current_price` for those prefixes.
  */
 export class PricingV1VoiceVoiceNumberOutboundCallPrice {
-  "basePrice"?: number;
-  "currentPrice"?: number;
+  "base_price"?: number;
+  "current_price"?: number;
 }
 
 export interface NumberContext {
@@ -74,11 +74,15 @@ export class NumberContextImpl implements NumberContext {
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

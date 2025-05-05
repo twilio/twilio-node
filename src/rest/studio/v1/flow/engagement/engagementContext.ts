@@ -62,11 +62,15 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   fetch(
     callback?: (error: Error | null, item?: EngagementContextInstance) => any
   ): Promise<EngagementContextInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -104,7 +108,7 @@ interface EngagementContextPayload extends EngagementContextResource {}
 
 interface EngagementContextResource {
   account_sid: string;
-  context: any;
+  context: Record<string, object>;
   engagement_sid: string;
   flow_sid: string;
   url: string;
@@ -136,7 +140,7 @@ export class EngagementContextInstance {
   /**
    * As your flow executes, we save the state in what\'s called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
   /**
    * The SID of the Engagement.
    */

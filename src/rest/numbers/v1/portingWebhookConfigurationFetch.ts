@@ -61,10 +61,14 @@ export function PortingWebhookConfigurationFetchListInstance(
       items: PortingWebhookConfigurationFetchInstance
     ) => any
   ): Promise<PortingWebhookConfigurationFetchInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

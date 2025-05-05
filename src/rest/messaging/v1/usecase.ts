@@ -53,10 +53,14 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance.fetch = function fetch(
     callback?: (error: Error | null, items: UsecaseInstance) => any
   ): Promise<UsecaseInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -87,7 +91,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 interface UsecasePayload extends UsecaseResource {}
 
 interface UsecaseResource {
-  usecases: Array<any>;
+  usecases: Array<Record<string, object>>;
 }
 
 export class UsecaseInstance {
@@ -98,7 +102,7 @@ export class UsecaseInstance {
   /**
    * Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
    */
-  usecases: Array<any>;
+  usecases: Array<Record<string, object>>;
 
   /**
    * Provide a user-friendly representation

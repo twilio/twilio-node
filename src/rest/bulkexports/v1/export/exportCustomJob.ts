@@ -232,6 +232,7 @@ export function ExportCustomJobListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -278,6 +279,7 @@ export function ExportCustomJobListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -345,7 +347,7 @@ interface ExportCustomJobResource {
   webhook_method: string;
   email: string;
   job_sid: string;
-  details: any;
+  details: Record<string, object>;
   job_queue_position: string;
   estimated_completion_time: string;
 }
@@ -404,7 +406,7 @@ export class ExportCustomJobInstance {
   /**
    * The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
    */
-  details: any;
+  details: Record<string, object>;
   /**
    * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
    */

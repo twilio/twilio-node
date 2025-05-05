@@ -57,11 +57,15 @@ export class AppManifestContextImpl implements AppManifestContext {
   fetch(
     callback?: (error: Error | null, item?: AppManifestInstance) => any
   ): Promise<AppManifestInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

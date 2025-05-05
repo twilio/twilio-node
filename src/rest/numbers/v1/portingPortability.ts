@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The type of the requested phone number. One of `LOCAL`, `UNKNOWN`, `MOBILE`, `TOLL-FREE`.
+ */
 export type PortingPortabilityNumberType =
   | "LOCAL"
   | "UNKNOWN"
@@ -105,6 +108,7 @@ export class PortingPortabilityContextImpl
       data["AddressSid"] = params["addressSid"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

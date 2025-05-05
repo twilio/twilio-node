@@ -23,7 +23,7 @@ import { isValidPathParam } from "../../../../../base/utility";
  */
 export interface StreamMessageListInstanceCreateOptions {
   /** A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length. */
-  data: any;
+  data: object;
 }
 
 export interface StreamMessageSolution {
@@ -93,6 +93,7 @@ export function StreamMessageListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -137,7 +138,7 @@ interface StreamMessagePayload extends StreamMessageResource {}
 
 interface StreamMessageResource {
   sid: string;
-  data: any;
+  data: Record<string, object>;
 }
 
 export class StreamMessageInstance {
@@ -158,7 +159,7 @@ export class StreamMessageInstance {
   /**
    * An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
    */
-  data: any;
+  data: Record<string, object>;
 
   /**
    * Provide a user-friendly representation

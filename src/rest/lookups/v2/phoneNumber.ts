@@ -58,6 +58,8 @@ export interface PhoneNumberContextFetchOptions {
   lastVerifiedDate?: string;
   /** The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests. */
   verificationSid?: string;
+  /** The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis. */
+  partnerSubId?: string;
 }
 
 export interface PhoneNumberContext {
@@ -147,8 +149,11 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       data["LastVerifiedDate"] = params["lastVerifiedDate"];
     if (params["verificationSid"] !== undefined)
       data["VerificationSid"] = params["verificationSid"];
+    if (params["partnerSubId"] !== undefined)
+      data["PartnerSubId"] = params["partnerSubId"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -198,16 +203,16 @@ interface PhoneNumberResource {
   national_format: string;
   valid: boolean;
   validation_errors: Array<PhoneNumberValidationError>;
-  caller_name: any;
-  sim_swap: any;
-  call_forwarding: any;
-  line_status: any;
-  line_type_intelligence: any;
-  identity_match: any;
-  reassigned_number: any;
-  sms_pumping_risk: any;
-  phone_number_quality_score: any;
-  pre_fill: any;
+  caller_name: Record<string, object>;
+  sim_swap: Record<string, object>;
+  call_forwarding: Record<string, object>;
+  line_status: Record<string, object>;
+  line_type_intelligence: Record<string, object>;
+  identity_match: Record<string, object>;
+  reassigned_number: Record<string, object>;
+  sms_pumping_risk: Record<string, object>;
+  phone_number_quality_score: Record<string, object>;
+  pre_fill: Record<string, object>;
   url: string;
 }
 
@@ -268,43 +273,43 @@ export class PhoneNumberInstance {
   /**
    * An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
    */
-  callerName: any;
+  callerName: Record<string, object>;
   /**
    * An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
    */
-  simSwap: any;
+  simSwap: Record<string, object>;
   /**
    * An object that contains information on the unconditional call forwarding status of mobile phone number.
    */
-  callForwarding: any;
+  callForwarding: Record<string, object>;
   /**
    * An object that contains line status information for a mobile phone number.
    */
-  lineStatus: any;
+  lineStatus: Record<string, object>;
   /**
    * An object that contains line type information including the carrier name, mobile country code, and mobile network code.
    */
-  lineTypeIntelligence: any;
+  lineTypeIntelligence: Record<string, object>;
   /**
    * An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
    */
-  identityMatch: any;
+  identityMatch: Record<string, object>;
   /**
    * An object that contains reassigned number information. Reassigned Numbers will return a phone number\'s reassignment status given a phone number and date
    */
-  reassignedNumber: any;
+  reassignedNumber: Record<string, object>;
   /**
    * An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
    */
-  smsPumpingRisk: any;
+  smsPumpingRisk: Record<string, object>;
   /**
    * An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
    */
-  phoneNumberQualityScore: any;
+  phoneNumberQualityScore: Record<string, object>;
   /**
    * An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
    */
-  preFill: any;
+  preFill: Record<string, object>;
   /**
    * The absolute URL of the resource.
    */

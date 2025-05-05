@@ -240,11 +240,15 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -300,6 +304,7 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -353,7 +358,7 @@ interface ParticipantResource {
   sid: string;
   identity: string;
   attributes: string;
-  messaging_binding: any;
+  messaging_binding: Record<string, object>;
   role_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -413,7 +418,7 @@ export class ParticipantInstance {
   /**
    * Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
    */
-  messagingBinding: any;
+  messagingBinding: Record<string, object>;
   /**
    * The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
    */
@@ -713,6 +718,7 @@ export function ParticipantListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -761,6 +767,7 @@ export function ParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -185,11 +185,14 @@ export class WebhookContextImpl implements WebhookContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -202,11 +205,15 @@ export class WebhookContextImpl implements WebhookContext {
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -263,6 +270,7 @@ export class WebhookContextImpl implements WebhookContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -316,7 +324,7 @@ interface WebhookResource {
   channel_sid: string;
   type: string;
   url: string;
-  configuration: any;
+  configuration: Record<string, object>;
   date_created: Date;
   date_updated: Date;
 }
@@ -351,7 +359,7 @@ export class WebhookInstance {
   channelSid: string;
   type: string;
   url: string;
-  configuration: any;
+  configuration: Record<string, object>;
   dateCreated: Date;
   dateUpdated: Date;
 
@@ -608,6 +616,7 @@ export function WebhookListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -655,6 +664,7 @@ export function WebhookListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

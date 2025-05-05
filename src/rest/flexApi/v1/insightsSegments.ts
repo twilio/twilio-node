@@ -203,6 +203,7 @@ export function InsightsSegmentsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -282,9 +283,9 @@ interface InsightsSegmentsResource {
   customer_name: string;
   customer_link: string;
   segment_recording_offset: string;
-  media: any;
-  assessment_type: any;
-  assessment_percentage: any;
+  media: Record<string, object>;
+  assessment_type: Record<string, object>;
+  assessment_percentage: Record<string, object>;
   url: string;
 }
 
@@ -383,15 +384,15 @@ export class InsightsSegmentsInstance {
   /**
    * The media identifiers of the conversation.
    */
-  media: any;
+  media: Record<string, object>;
   /**
    * The type of the assessment.
    */
-  assessmentType: any;
+  assessmentType: Record<string, object>;
   /**
    * The percentage scored on the Assessments.
    */
-  assessmentPercentage: any;
+  assessmentPercentage: Record<string, object>;
   url: string;
 
   /**

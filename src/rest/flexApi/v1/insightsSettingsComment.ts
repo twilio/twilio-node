@@ -97,6 +97,7 @@ export function InsightsSettingsCommentListInstance(
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -139,7 +140,7 @@ interface InsightsSettingsCommentPayload
 
 interface InsightsSettingsCommentResource {
   account_sid: string;
-  comments: any;
+  comments: Record<string, object>;
   url: string;
 }
 
@@ -157,7 +158,7 @@ export class InsightsSettingsCommentInstance {
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
    */
   accountSid: string;
-  comments: any;
+  comments: Record<string, object>;
   url: string;
 
   /**

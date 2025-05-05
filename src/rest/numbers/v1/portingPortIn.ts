@@ -76,11 +76,14 @@ export class PortingPortInContextImpl implements PortingPortInContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -93,11 +96,15 @@ export class PortingPortInContextImpl implements PortingPortInContext {
   fetch(
     callback?: (error: Error | null, item?: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -141,8 +148,8 @@ interface PortingPortInResource {
   target_port_in_time_range_start: string;
   target_port_in_time_range_end: string;
   port_in_request_status: string;
-  losing_carrier_information: any;
-  phone_numbers: Array<any>;
+  losing_carrier_information: Record<string, object>;
+  phone_numbers: Array<Record<string, object>>;
   documents: Array<string>;
   date_created: Date;
 }
@@ -211,8 +218,8 @@ export class PortingPortInInstance {
   /**
    * Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
    */
-  losingCarrierInformation: any;
-  phoneNumbers: Array<any>;
+  losingCarrierInformation: Record<string, object>;
+  phoneNumbers: Array<Record<string, object>>;
   /**
    * List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
    */
@@ -306,12 +313,14 @@ export interface PortingPortInListInstance {
    * Create a PortingPortInInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed PortingPortInInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (error: Error | null, item?: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance>;
 
@@ -340,6 +349,7 @@ export function PortingPortInListInstance(
     params?:
       | object
       | ((error: Error | null, items: PortingPortInInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, items: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance> {
     if (params instanceof Function) {
@@ -353,8 +363,12 @@ export function PortingPortInListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

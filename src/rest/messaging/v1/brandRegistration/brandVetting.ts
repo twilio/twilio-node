@@ -20,7 +20,10 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type BrandVettingVettingProvider = "campaign-verify";
+/**
+ * The third-party provider that has conducted the vetting. One of “CampaignVerify” (Campaign Verify tokens) or “AEGIS” (Secondary Vetting).
+ */
+export type BrandVettingVettingProvider = "campaign-verify" | "aegis";
 
 /**
  * Options to pass to create a BrandVettingInstance
@@ -121,11 +124,15 @@ export class BrandVettingContextImpl implements BrandVettingContext {
   fetch(
     callback?: (error: Error | null, item?: BrandVettingInstance) => any
   ): Promise<BrandVettingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -435,6 +442,7 @@ export function BrandVettingListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -483,6 +491,7 @@ export function BrandVettingListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

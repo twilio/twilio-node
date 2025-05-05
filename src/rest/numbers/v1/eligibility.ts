@@ -47,12 +47,14 @@ export interface EligibilityListInstance {
    * Create a EligibilityInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed EligibilityInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (error: Error | null, item?: EligibilityInstance) => any
   ): Promise<EligibilityInstance>;
 
@@ -74,6 +76,7 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
     params?:
       | object
       | ((error: Error | null, items: EligibilityInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, items: EligibilityInstance) => any
   ): Promise<EligibilityInstance> {
     if (params instanceof Function) {
@@ -87,8 +90,12 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -126,7 +133,7 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
 interface EligibilityPayload extends EligibilityResource {}
 
 interface EligibilityResource {
-  results: Array<any>;
+  results: Array<Record<string, object>>;
 }
 
 export class EligibilityInstance {
@@ -137,7 +144,7 @@ export class EligibilityInstance {
   /**
    * The result set that contains the eligibility check response for the requested number, each result has at least the following attributes:  phone_number: The requested phone number ,hosting_account_sid: The account sid where the phone number will be hosted, date_last_checked: Datetime (ISO 8601) when the PN was last checked for eligibility, country: Phone number’s country, eligibility_status: Indicates the eligibility status of the PN (Eligible/Ineligible), eligibility_sub_status: Indicates the sub status of the eligibility , ineligibility_reason: Reason for number\'s ineligibility (if applicable), next_step: Suggested next step in the hosting process based on the eligibility status.
    */
-  results: Array<any>;
+  results: Array<Record<string, object>>;
 
   /**
    * Provide a user-friendly representation

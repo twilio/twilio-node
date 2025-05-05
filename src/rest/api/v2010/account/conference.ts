@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ParticipantListInstance } from "./conference/participant";
 import { RecordingListInstance } from "./conference/recording";
 
+/**
+ * The reason why a conference ended. When a conference is in progress, will be `null`. When conference is completed, can be: `conference-ended-via-api`, `participant-with-end-conference-on-exit-left`, `participant-with-end-conference-on-exit-kicked`, `last-participant-kicked`, or `last-participant-left`.
+ */
 export type ConferenceReasonConferenceEnded =
   | "conference-ended-via-api"
   | "participant-with-end-conference-on-exit-left"
@@ -29,6 +32,9 @@ export type ConferenceReasonConferenceEnded =
   | "last-participant-kicked"
   | "last-participant-left";
 
+/**
+ * The status of this conference. Can be: `init`, `in-progress`, or `completed`.
+ */
 export type ConferenceStatus = "init" | "in-progress" | "completed";
 
 export type ConferenceUpdateStatus = "completed";
@@ -223,11 +229,15 @@ export class ConferenceContextImpl implements ConferenceContext {
   fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -270,6 +280,7 @@ export class ConferenceContextImpl implements ConferenceContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -377,7 +388,7 @@ export class ConferenceInstance {
    */
   friendlyName: string;
   /**
-   * A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
+   * A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `us2`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
    */
   region: string;
   /**
@@ -636,6 +647,7 @@ export function ConferenceListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

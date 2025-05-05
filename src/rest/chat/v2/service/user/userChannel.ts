@@ -25,6 +25,9 @@ export type UserChannelChannelStatus =
   | "invited"
   | "not_participating";
 
+/**
+ * The push notification level of the User for the Channel. Can be: `default` or `muted`.
+ */
 export type UserChannelNotificationLevel = "default" | "muted";
 
 export type UserChannelWebhookEnabledType = "true" | "false";
@@ -219,11 +222,15 @@ export class UserChannelContextImpl implements UserChannelContext {
   fetch(
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -270,6 +277,7 @@ export class UserChannelContextImpl implements UserChannelContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -648,6 +656,7 @@ export function UserChannelListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

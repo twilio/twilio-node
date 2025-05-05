@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The verification status of the Bundle resource.
+ */
 export type BundleCloneStatus =
   | "draft"
   | "pending-review"
@@ -103,6 +106,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 import { ExecutionStepListInstance } from "./execution/executionStep";
 
+/**
+ * The status of the Execution. Can be: `active` or `ended`.
+ */
 export type ExecutionStatus = "active" | "ended";
 
 /**
@@ -41,7 +44,7 @@ export interface ExecutionListInstanceCreateOptions {
   /** The Twilio phone number to send messages or initiate calls from during the Flow\\\'s Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID. */
   from: string;
   /** JSON data that will be added to the Flow\\\'s context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. */
-  parameters?: any;
+  parameters?: object;
 }
 /**
  * Options to pass to each
@@ -187,11 +190,14 @@ export class ExecutionContextImpl implements ExecutionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -204,11 +210,15 @@ export class ExecutionContextImpl implements ExecutionContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -246,6 +256,7 @@ export class ExecutionContextImpl implements ExecutionContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -296,7 +307,7 @@ interface ExecutionResource {
   account_sid: string;
   flow_sid: string;
   contact_channel_address: string;
-  context: any;
+  context: Record<string, object>;
   status: ExecutionStatus;
   date_created: Date;
   date_updated: Date;
@@ -347,7 +358,7 @@ export class ExecutionInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
   status: ExecutionStatus;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -607,6 +618,7 @@ export function ExecutionListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -661,6 +673,7 @@ export function ExecutionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

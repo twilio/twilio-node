@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the Participant. Can be: `connected` or `disconnected`.
+ */
 export type AnonymizeStatus = "connected" | "disconnected";
 
 export interface AnonymizeContext {
@@ -64,11 +67,15 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.update({
         uri: instance._uri,
         method: "post",
+        headers,
       });
 
     operationPromise = operationPromise.then(

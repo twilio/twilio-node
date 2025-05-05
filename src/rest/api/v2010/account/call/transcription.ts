@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status - one of `stopped`, `in-flight`
+ */
 export type TranscriptionStatus = "in-progress" | "stopped";
 
 export type TranscriptionTrack =
@@ -65,7 +68,7 @@ export interface TranscriptionListInstanceCreateOptions {
   hints?: string;
   /** The provider will add punctuation to recognition result */
   enableAutomaticPunctuation?: boolean;
-  /** The SID or the unique name of the [IntelligentService](https://www.twilio.com/docs/voice/intelligence/api/service-resource) to process the transcription. */
+  /** The SID or unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators . */
   intelligenceService?: string;
 }
 
@@ -140,6 +143,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -404,6 +408,7 @@ export function TranscriptionListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

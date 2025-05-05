@@ -192,6 +192,7 @@ export function SentenceListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -258,7 +259,7 @@ interface SentenceResource {
   transcript: string;
   sid: string;
   confidence: number;
-  words: Array<any>;
+  words: Array<Record<string, object>>;
 }
 
 export class SentenceInstance {
@@ -305,7 +306,7 @@ export class SentenceInstance {
   /**
    * Detailed information for each of the words of the given Sentence.
    */
-  words: Array<any>;
+  words: Array<Record<string, object>>;
 
   /**
    * Provide a user-friendly representation

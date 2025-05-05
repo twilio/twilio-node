@@ -113,11 +113,15 @@ export class NetworkContextImpl implements NetworkContext {
   fetch(
     callback?: (error: Error | null, item?: NetworkInstance) => any
   ): Promise<NetworkInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -155,7 +159,7 @@ interface NetworkResource {
   friendly_name: string;
   url: string;
   iso_country: string;
-  identifiers: Array<any>;
+  identifiers: Array<Record<string, object>>;
 }
 
 export class NetworkInstance {
@@ -191,7 +195,7 @@ export class NetworkInstance {
   /**
    * Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
    */
-  identifiers: Array<any>;
+  identifiers: Array<Record<string, object>>;
 
   private get _proxy(): NetworkContext {
     this._context =
@@ -355,6 +359,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

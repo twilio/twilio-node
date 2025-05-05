@@ -20,10 +20,19 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Either `to_sim` or `from_sim`. Indicates whether the IP Command resource was sent from or to the Super SIM.
+ */
 export type IpCommandDirection = "to_sim" | "from_sim";
 
+/**
+ * Either “text” or “binary”. For an IP Command sent to a Super SIM, `payload_type` is configurable. For an IP Command sent from a Super SIM, `payload_type` is always “binary”.
+ */
 export type IpCommandPayloadType = "text" | "binary";
 
+/**
+ * The delivery status of the IP Command. This is one of the following: “queued”, “sent”, “failed” or “received”.
+ */
 export type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 
 /**
@@ -142,11 +151,15 @@ export class IpCommandContextImpl implements IpCommandContext {
   fetch(
     callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -459,6 +472,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -505,6 +519,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

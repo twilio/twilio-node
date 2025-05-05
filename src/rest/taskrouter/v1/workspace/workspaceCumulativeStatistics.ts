@@ -122,6 +122,7 @@ export class WorkspaceCumulativeStatisticsContextImpl
       data["SplitByWaitTime"] = params["splitByWaitTime"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -176,9 +177,9 @@ interface WorkspaceCumulativeStatisticsResource {
   reservations_timed_out: number;
   reservations_canceled: number;
   reservations_rescinded: number;
-  split_by_wait_time: any;
-  wait_duration_until_accepted: any;
-  wait_duration_until_canceled: any;
+  split_by_wait_time: Record<string, object>;
+  wait_duration_until_accepted: Record<string, object>;
+  wait_duration_until_canceled: Record<string, object>;
   tasks_canceled: number;
   tasks_completed: number;
   tasks_created: number;
@@ -282,15 +283,15 @@ export class WorkspaceCumulativeStatisticsInstance {
   /**
    * A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
    */
-  splitByWaitTime: any;
+  splitByWaitTime: Record<string, object>;
   /**
    * The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were accepted.
    */
-  waitDurationUntilAccepted: any;
+  waitDurationUntilAccepted: Record<string, object>;
   /**
    * The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were canceled.
    */
-  waitDurationUntilCanceled: any;
+  waitDurationUntilCanceled: Record<string, object>;
   /**
    * The total number of Tasks that were canceled.
    */

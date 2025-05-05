@@ -55,12 +55,16 @@ export interface RoomListInstanceCreateOptions {
   maxParticipants?: number;
   /** Whether to start recording when Participants connect. */
   recordParticipantsOnConnect?: boolean;
+  /** Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used. */
+  transcribeParticipantsOnConnect?: boolean;
   /** An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`. */
   videoCodecs?: Array<RoomVideoCodec>;
   /** The region for the Room\\\'s media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). */
   mediaRegion?: string;
   /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
-  recordingRules?: any;
+  recordingRules?: object;
+  /** A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used. */
+  transcriptionsConfiguration?: object;
   /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. */
   audioOnly?: boolean;
   /** The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours). */
@@ -213,11 +217,15 @@ export class RoomContextImpl implements RoomContext {
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -250,6 +258,7 @@ export class RoomContextImpl implements RoomContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -694,6 +703,10 @@ export function RoomListInstance(version: V1): RoomListInstance {
       data["RecordParticipantsOnConnect"] = serialize.bool(
         params["recordParticipantsOnConnect"]
       );
+    if (params["transcribeParticipantsOnConnect"] !== undefined)
+      data["TranscribeParticipantsOnConnect"] = serialize.bool(
+        params["transcribeParticipantsOnConnect"]
+      );
     if (params["videoCodecs"] !== undefined)
       data["VideoCodecs"] = serialize.map(
         params["videoCodecs"],
@@ -703,6 +716,10 @@ export function RoomListInstance(version: V1): RoomListInstance {
       data["MediaRegion"] = params["mediaRegion"];
     if (params["recordingRules"] !== undefined)
       data["RecordingRules"] = serialize.object(params["recordingRules"]);
+    if (params["transcriptionsConfiguration"] !== undefined)
+      data["TranscriptionsConfiguration"] = serialize.object(
+        params["transcriptionsConfiguration"]
+      );
     if (params["audioOnly"] !== undefined)
       data["AudioOnly"] = serialize.bool(params["audioOnly"]);
     if (params["maxParticipantDuration"] !== undefined)
@@ -716,6 +733,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -768,6 +786,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -62,11 +62,15 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionContextInstance) => any
   ): Promise<ExecutionContextInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -104,7 +108,7 @@ interface ExecutionContextPayload extends ExecutionContextResource {}
 
 interface ExecutionContextResource {
   account_sid: string;
-  context: any;
+  context: Record<string, object>;
   flow_sid: string;
   execution_sid: string;
   url: string;
@@ -136,7 +140,7 @@ export class ExecutionContextInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: any;
+  context: Record<string, object>;
   /**
    * The SID of the Flow.
    */

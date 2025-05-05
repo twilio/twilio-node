@@ -200,6 +200,7 @@ export function MetricListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -263,10 +264,10 @@ interface MetricResource {
   account_sid: string;
   edge: MetricTwilioEdge;
   direction: MetricStreamDirection;
-  carrier_edge: any;
-  sip_edge: any;
-  sdk_edge: any;
-  client_edge: any;
+  carrier_edge: Record<string, object>;
+  sip_edge: Record<string, object>;
+  sdk_edge: Record<string, object>;
+  client_edge: Record<string, object>;
 }
 
 export class MetricInstance {
@@ -303,19 +304,19 @@ export class MetricInstance {
   /**
    * Contains metrics and properties for the Twilio media gateway of a PSTN call.
    */
-  carrierEdge: any;
+  carrierEdge: Record<string, object>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
    */
-  sipEdge: any;
+  sipEdge: Record<string, object>;
   /**
    * Contains metrics and properties for the SDK sensor library for Client calls.
    */
-  sdkEdge: any;
+  sdkEdge: Record<string, object>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a Client call.
    */
-  clientEdge: any;
+  clientEdge: Record<string, object>;
 
   /**
    * Provide a user-friendly representation

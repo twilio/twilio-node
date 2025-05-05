@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Operator availability status. Possible values: internal, beta, public, retired.
+ */
 export type OperatorAvailability = "internal" | "beta" | "public" | "retired";
 
 /**
@@ -109,11 +112,15 @@ export class OperatorContextImpl implements OperatorContext {
   fetch(
     callback?: (error: Error | null, item?: OperatorInstance) => any
   ): Promise<OperatorInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -155,7 +162,7 @@ interface OperatorResource {
   operator_type: string;
   version: number;
   availability: OperatorAvailability;
-  config: any;
+  config: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -214,7 +221,7 @@ export class OperatorInstance {
   /**
    * Operator configuration, following the schema defined by the Operator Type. Only available on Custom Operators created by the Account.
    */
-  config: any;
+  config: Record<string, object>;
   /**
    * The date that this Operator was created, given in ISO 8601 format.
    */
@@ -397,6 +404,7 @@ export function OperatorListInstance(version: V2): OperatorListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

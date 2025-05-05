@@ -185,11 +185,14 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -202,11 +205,15 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -303,6 +310,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -364,7 +372,7 @@ interface UsAppToPersonResource {
   campaign_status: string;
   campaign_id: string;
   is_externally_registered: boolean;
-  rate_limits: any;
+  rate_limits: Record<string, object>;
   message_flow: string;
   opt_in_message: string;
   opt_out_message: string;
@@ -376,7 +384,7 @@ interface UsAppToPersonResource {
   date_updated: Date;
   url: string;
   mock: boolean;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 }
 
 export class UsAppToPersonInstance {
@@ -484,7 +492,7 @@ export class UsAppToPersonInstance {
   /**
    * Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
    */
-  rateLimits: any;
+  rateLimits: Record<string, object>;
   /**
    * Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
    */
@@ -532,7 +540,7 @@ export class UsAppToPersonInstance {
   /**
    * Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =
@@ -868,6 +876,7 @@ export function UsAppToPersonListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -914,6 +923,7 @@ export function UsAppToPersonListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

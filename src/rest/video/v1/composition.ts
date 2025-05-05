@@ -20,8 +20,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The container format of the composition\'s media files as specified in the POST request that created the Composition resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information.
+ */
 export type CompositionFormat = "mp4" | "webm";
 
+/**
+ * The status of the composition. Can be: `enqueued`, `processing`, `completed`, `deleted` or `failed`. `enqueued` is the initial state and indicates that the composition request has been received and is scheduled for processing; `processing` indicates the composition is being processed; `completed` indicates the composition has been completed and is available for download; `deleted` means the composition media has been deleted from the system, but its metadata is still available for 30 days; `failed` indicates the composition failed to execute the media processing task.
+ */
 export type CompositionStatus =
   | "enqueued"
   | "processing"
@@ -36,7 +42,7 @@ export interface CompositionListInstanceCreateOptions {
   /** The SID of the Group Room with the media tracks to be used as composition sources. */
   roomSid: string;
   /** An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request */
-  videoLayout?: any;
+  videoLayout?: object;
   /** An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request */
   audioSources?: Array<string>;
   /** An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty. */
@@ -162,11 +168,14 @@ export class CompositionContextImpl implements CompositionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -179,11 +188,15 @@ export class CompositionContextImpl implements CompositionContext {
   fetch(
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -230,7 +243,7 @@ interface CompositionResource {
   room_sid: string;
   audio_sources: Array<string>;
   audio_sources_excluded: Array<string>;
-  video_layout: any;
+  video_layout: Record<string, object>;
   resolution: string;
   trim: boolean;
   format: CompositionFormat;
@@ -314,7 +327,7 @@ export class CompositionInstance {
   /**
    * An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
    */
-  videoLayout: any;
+  videoLayout: Record<string, object>;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string\'s format is `{width}x{height}`, such as `640x480`.
    */
@@ -575,6 +588,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -626,6 +640,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

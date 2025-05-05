@@ -95,6 +95,7 @@ export class UsageContextImpl implements UsageContext {
     if (params["start"] !== undefined) data["Start"] = params["start"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -137,11 +138,11 @@ interface UsageResource {
   sim_sid: string;
   sim_unique_name: string;
   account_sid: string;
-  period: any;
-  commands_usage: any;
-  commands_costs: any;
-  data_usage: any;
-  data_costs: any;
+  period: Record<string, object>;
+  commands_usage: Record<string, object>;
+  commands_costs: Record<string, object>;
+  data_usage: Record<string, object>;
+  data_costs: Record<string, object>;
   url: string;
 }
 
@@ -170,11 +171,11 @@ export class UsageInstance {
   simSid: string;
   simUniqueName: string;
   accountSid: string;
-  period: any;
-  commandsUsage: any;
-  commandsCosts: any;
-  dataUsage: any;
-  dataCosts: any;
+  period: Record<string, object>;
+  commandsUsage: Record<string, object>;
+  commandsCosts: Record<string, object>;
+  dataUsage: Record<string, object>;
+  dataCosts: Record<string, object>;
   url: string;
 
   private get _proxy(): UsageContext {

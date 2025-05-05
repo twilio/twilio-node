@@ -24,16 +24,24 @@ import {
   PhoneNumberCapabilitiesResource,
 } from "../../../interfaces";
 
+/**
+ * Status of this resource. It can hold one of the values: 1. Twilio Processing 2. Received, 3. Pending LOA, 4. Carrier Processing, 5. Completed, 6. Action Required, 7. Failed. See the [HostedNumberOrders Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values) section for more information on each of these statuses.
+ */
 export type HostedNumberOrderStatus =
+  | "twilio-processing"
   | "received"
   | "pending-verification"
   | "verified"
   | "pending-loa"
   | "carrier-processing"
+  | "testing"
   | "completed"
   | "failed"
   | "action-required";
 
+/**
+ * The method used to verify ownership of the number to be hosted. Can be: `phone-call` or `phone-bill` and the default is `phone-call`.
+ */
 export type HostedNumberOrderVerificationType = "phone-call";
 
 /**
@@ -217,11 +225,14 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -234,11 +245,15 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -279,6 +294,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -766,6 +782,7 @@ export function HostedNumberOrderListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -816,6 +833,7 @@ export function HostedNumberOrderListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

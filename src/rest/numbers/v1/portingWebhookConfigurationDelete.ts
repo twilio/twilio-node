@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The of the webhook type of the configuration to be deleted
+ */
 export type PortingWebhookConfigurationDeleteWebhookType =
   | "PORT_IN"
   | "PORT_OUT";
@@ -66,11 +69,14 @@ export class PortingWebhookConfigurationDeleteContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(

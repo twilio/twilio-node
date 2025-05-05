@@ -116,6 +116,7 @@ export class WorkflowRealTimeStatisticsContextImpl
       data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -164,8 +165,8 @@ interface WorkflowRealTimeStatisticsResource {
   account_sid: string;
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
-  tasks_by_priority: any;
-  tasks_by_status: any;
+  tasks_by_priority: Record<string, object>;
+  tasks_by_status: Record<string, object>;
   total_tasks: number;
   workflow_sid: string;
   workspace_sid: string;
@@ -212,11 +213,11 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
    */
-  tasksByPriority: any;
+  tasksByPriority: Record<string, object>;
   /**
    * The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
    */
-  tasksByStatus: any;
+  tasksByStatus: Record<string, object>;
   /**
    * The total number of Tasks.
    */

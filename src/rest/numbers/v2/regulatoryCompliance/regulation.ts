@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The type of End User the regulation requires - can be `individual` or `business`.
+ */
 export type RegulationEndUserType = "individual" | "business";
 
 /**
@@ -156,6 +159,7 @@ export class RegulationContextImpl implements RegulationContext {
       data["IncludeConstraints"] = serialize.bool(params["includeConstraints"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -206,7 +210,7 @@ interface RegulationResource {
   iso_country: string;
   number_type: string;
   end_user_type: RegulationEndUserType;
-  requirements: any;
+  requirements: Record<string, object>;
   url: string;
 }
 
@@ -250,7 +254,7 @@ export class RegulationInstance {
   /**
    * The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
    */
-  requirements: any;
+  requirements: Record<string, object>;
   /**
    * The absolute URL of the Regulation resource.
    */
@@ -441,6 +445,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

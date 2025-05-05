@@ -242,11 +242,14 @@ export class ServiceContextImpl implements ServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -259,11 +262,15 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -384,6 +391,7 @@ export class ServiceContextImpl implements ServiceContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -437,15 +445,15 @@ interface ServiceResource {
   reachability_enabled: boolean;
   typing_indicator_timeout: number;
   consumption_report_interval: number;
-  limits: any;
+  limits: Record<string, object>;
   pre_webhook_url: string;
   post_webhook_url: string;
   webhook_method: string;
   webhook_filters: Array<string>;
   pre_webhook_retry_count: number;
   post_webhook_retry_count: number;
-  notifications: any;
-  media: any;
+  notifications: Record<string, object>;
+  media: Record<string, object>;
   url: string;
   links: Record<string, string>;
 }
@@ -542,7 +550,7 @@ export class ServiceInstance {
   /**
    * An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
    */
-  limits: any;
+  limits: Record<string, object>;
   /**
    * The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
    */
@@ -570,11 +578,11 @@ export class ServiceInstance {
   /**
    * The notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
    */
-  notifications: any;
+  notifications: Record<string, object>;
   /**
    * An object that describes the properties of media that the service supports. The object contains the `size_limit_mb` property, which describes the size of the largest media file in MB; and the `compatibility_message` property, which contains the message text to send when a media message does not have any text.
    */
-  media: any;
+  media: Record<string, object>;
   /**
    * The absolute URL of the Service resource.
    */
@@ -844,6 +852,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -885,6 +894,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -38,7 +38,11 @@ export type RoomEdgeLocation =
 
 export type RoomEndReason = "room_ended_via_api" | "timeout";
 
-export type RoomProcessingState = "complete" | "in_progress";
+export type RoomProcessingState =
+  | "complete"
+  | "in_progress"
+  | "timeout"
+  | "not_started";
 
 export type RoomRoomStatus = "in_progress" | "completed";
 
@@ -56,7 +60,17 @@ export type RoomTwilioRealm =
   | "de1"
   | "gll"
   | "stage_us1"
-  | "dev_us1";
+  | "stage_us2"
+  | "dev_us1"
+  | "dev_us2"
+  | "stage_de1"
+  | "stage_in1"
+  | "stage_ie1"
+  | "stage_br1"
+  | "stage_au1"
+  | "stage_sg1"
+  | "stage_jp1"
+  | "outside";
 
 /**
  * Options to pass to each
@@ -174,11 +188,15 @@ export class RoomContextImpl implements RoomContext {
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -565,6 +583,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

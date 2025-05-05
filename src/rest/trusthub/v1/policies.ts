@@ -95,11 +95,15 @@ export class PoliciesContextImpl implements PoliciesContext {
   fetch(
     callback?: (error: Error | null, item?: PoliciesInstance) => any
   ): Promise<PoliciesInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -135,7 +139,7 @@ interface PoliciesPayload extends TwilioResponsePayload {
 interface PoliciesResource {
   sid: string;
   friendly_name: string;
-  requirements: any;
+  requirements: Record<string, object>;
   url: string;
 }
 
@@ -163,7 +167,7 @@ export class PoliciesInstance {
   /**
    * The SID of an object that holds the policy information
    */
-  requirements: any;
+  requirements: Record<string, object>;
   /**
    * The absolute URL of the Policy resource.
    */
@@ -326,6 +330,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

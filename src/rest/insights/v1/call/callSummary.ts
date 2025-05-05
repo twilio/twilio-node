@@ -37,7 +37,12 @@ export type CallSummaryCallState =
   | "answered"
   | "undialed";
 
-export type CallSummaryCallType = "carrier" | "sip" | "trunking" | "client";
+export type CallSummaryCallType =
+  | "carrier"
+  | "sip"
+  | "trunking"
+  | "client"
+  | "whatsapp";
 
 export type CallSummaryProcessingState = "complete" | "partial";
 
@@ -116,6 +121,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
       data["ProcessingState"] = params["processingState"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -170,18 +176,18 @@ interface CallSummaryResource {
   end_time: Date;
   duration: number;
   connect_duration: number;
-  from: any;
-  to: any;
-  carrier_edge: any;
-  client_edge: any;
-  sdk_edge: any;
-  sip_edge: any;
+  from: Record<string, object>;
+  to: Record<string, object>;
+  carrier_edge: Record<string, object>;
+  client_edge: Record<string, object>;
+  sdk_edge: Record<string, object>;
+  sip_edge: Record<string, object>;
   tags: Array<string>;
   url: string;
-  attributes: any;
-  properties: any;
-  trust: any;
-  annotation: any;
+  attributes: Record<string, object>;
+  properties: Record<string, object>;
+  trust: Record<string, object>;
+  annotation: Record<string, object>;
 }
 
 export class CallSummaryInstance {
@@ -255,27 +261,27 @@ export class CallSummaryInstance {
   /**
    * The calling party.
    */
-  from: any;
+  from: Record<string, object>;
   /**
    * The called party.
    */
-  to: any;
+  to: Record<string, object>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a PSTN call.
    */
-  carrierEdge: any;
+  carrierEdge: Record<string, object>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a Client call.
    */
-  clientEdge: any;
+  clientEdge: Record<string, object>;
   /**
    * Contains metrics and properties for the SDK sensor library for Client calls.
    */
-  sdkEdge: any;
+  sdkEdge: Record<string, object>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
    */
-  sipEdge: any;
+  sipEdge: Record<string, object>;
   /**
    * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
    */
@@ -287,19 +293,19 @@ export class CallSummaryInstance {
   /**
    * Attributes capturing call-flow-specific details.
    */
-  attributes: any;
+  attributes: Record<string, object>;
   /**
    * Contains edge-agnostic call-level details.
    */
-  properties: any;
+  properties: Record<string, object>;
   /**
    * Contains trusted communications details including Branded Call and verified caller ID.
    */
-  trust: any;
+  trust: Record<string, object>;
   /**
    * Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API.
    */
-  annotation: any;
+  annotation: Record<string, object>;
 
   private get _proxy(): CallSummaryContext {
     this._context =

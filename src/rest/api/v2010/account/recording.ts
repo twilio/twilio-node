@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../base/utility";
 import { AddOnResultListInstance } from "./recording/addOnResult";
 import { TranscriptionListInstance } from "./recording/transcription";
 
+/**
+ * How the recording was created. Can be: `DialVerb`, `Conference`, `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`, and `StartConferenceRecordingAPI`.
+ */
 export type RecordingSource =
   | "DialVerb"
   | "Conference"
@@ -31,6 +34,9 @@ export type RecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
+/**
+ * The status of the recording. Can be: `processing`, `completed`, `absent` or `deleted`. For information about more detailed statuses on in-progress recordings, check out how to [Update a Recording Resource](https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource).
+ */
 export type RecordingStatus =
   | "in-progress"
   | "paused"
@@ -214,11 +220,14 @@ export class RecordingContextImpl implements RecordingContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -247,6 +256,7 @@ export class RecordingContextImpl implements RecordingContext {
       data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -309,7 +319,7 @@ interface RecordingResource {
   source: RecordingSource;
   error_code: number;
   uri: string;
-  encryption_details: any;
+  encryption_details: Record<string, object>;
   subresource_uris: Record<string, string>;
   media_url: string;
 }
@@ -408,7 +418,7 @@ export class RecordingInstance {
   /**
    * How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
    */
-  encryptionDetails: any;
+  encryptionDetails: Record<string, object>;
   /**
    * A list of related resources identified by their relative URIs.
    */
@@ -662,6 +672,7 @@ export function RecordingListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

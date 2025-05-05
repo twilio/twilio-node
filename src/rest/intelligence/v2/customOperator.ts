@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Custom Operator availability status. Possible values: internal, beta, public, retired.
+ */
 export type CustomOperatorAvailability =
   | "internal"
   | "beta"
@@ -33,7 +36,7 @@ export interface CustomOperatorContextUpdateOptions {
   /** A human-readable name of this resource, up to 64 characters. */
   friendlyName: string;
   /** Operator configuration, following the schema defined by the Operator Type. */
-  config: any;
+  config: object;
   /** The If-Match HTTP request header */
   ifMatch?: string;
 }
@@ -47,7 +50,7 @@ export interface CustomOperatorListInstanceCreateOptions {
   /** Operator Type for this Operator. References an existing Operator Type resource. */
   operatorType: string;
   /** Operator configuration, following the schema defined by the Operator Type. */
-  config: any;
+  config: object;
 }
 /**
  * Options to pass to each
@@ -163,11 +166,14 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -180,11 +186,15 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
   fetch(
     callback?: (error: Error | null, item?: CustomOperatorInstance) => any
   ): Promise<CustomOperatorInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -230,6 +240,7 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -285,7 +296,7 @@ interface CustomOperatorResource {
   operator_type: string;
   version: number;
   availability: CustomOperatorAvailability;
-  config: any;
+  config: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -348,7 +359,7 @@ export class CustomOperatorInstance {
   /**
    * Operator configuration, following the schema defined by the Operator Type. Only available on Operators created by the Account.
    */
-  config: any;
+  config: Record<string, object>;
   /**
    * The date that this Custom Operator was created, given in ISO 8601 format.
    */
@@ -596,6 +607,7 @@ export function CustomOperatorListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -641,6 +653,7 @@ export function CustomOperatorListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

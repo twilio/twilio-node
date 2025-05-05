@@ -20,12 +20,17 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The type of the applied Language Understanding Operator. One of conversation-classify, utterance-classify, extract, extract-normalize, or pii-extract
+ */
 export type OperatorResultOperatorType =
   | "conversation_classify"
   | "utterance_classify"
   | "extract"
   | "extract_normalize"
-  | "pii_extract";
+  | "pii_extract"
+  | "text_generation"
+  | "json";
 
 /**
  * Options to pass to fetch a OperatorResultInstance
@@ -155,6 +160,7 @@ export class OperatorResultContextImpl implements OperatorResultContext {
       data["Redacted"] = serialize.bool(params["redacted"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -207,13 +213,14 @@ interface OperatorResultResource {
   extract_match: boolean;
   match_probability: number;
   normalized_result: string;
-  utterance_results: Array<any>;
+  utterance_results: Array<Record<string, object>>;
   utterance_match: boolean;
   predicted_label: string;
   predicted_probability: number;
-  label_probabilities: any;
-  extract_results: any;
-  text_generation_results: any;
+  label_probabilities: Record<string, object>;
+  extract_results: Record<string, object>;
+  text_generation_results: Record<string, object>;
+  json_results: Record<string, object>;
   transcript_sid: string;
   url: string;
 }
@@ -241,6 +248,7 @@ export class OperatorResultInstance {
     this.labelProbabilities = payload.label_probabilities;
     this.extractResults = payload.extract_results;
     this.textGenerationResults = payload.text_generation_results;
+    this.jsonResults = payload.json_results;
     this.transcriptSid = payload.transcript_sid;
     this.url = payload.url;
 
@@ -274,7 +282,7 @@ export class OperatorResultInstance {
   /**
    * List of mapped utterance object which matches sentences.
    */
-  utteranceResults: Array<any>;
+  utteranceResults: Array<Record<string, object>>;
   /**
    * Boolean to tell if Utterance matches results.
    */
@@ -290,15 +298,16 @@ export class OperatorResultInstance {
   /**
    * The labels probabilities. This might be available on conversation classify model outputs.
    */
-  labelProbabilities: any;
+  labelProbabilities: Record<string, object>;
   /**
    * List of text extraction results. This might be available on classify-extract model outputs.
    */
-  extractResults: any;
+  extractResults: Record<string, object>;
   /**
    * Output of a text generation operator for example Conversation Sumamary.
    */
-  textGenerationResults: any;
+  textGenerationResults: Record<string, object>;
+  jsonResults: Record<string, object>;
   /**
    * A 34 character string that uniquely identifies this Transcript.
    */
@@ -369,6 +378,7 @@ export class OperatorResultInstance {
       labelProbabilities: this.labelProbabilities,
       extractResults: this.extractResults,
       textGenerationResults: this.textGenerationResults,
+      jsonResults: this.jsonResults,
       transcriptSid: this.transcriptSid,
       url: this.url,
     };
@@ -515,6 +525,7 @@ export function OperatorResultListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

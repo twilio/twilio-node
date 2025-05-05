@@ -110,11 +110,15 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
   fetch(
     callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
   ): Promise<AvailableAddOnInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -156,7 +160,7 @@ interface AvailableAddOnResource {
   friendly_name: string;
   description: string;
   pricing_type: string;
-  configuration_schema: any;
+  configuration_schema: Record<string, object>;
   url: string;
   links: Record<string, string>;
 }
@@ -200,7 +204,7 @@ export class AvailableAddOnInstance {
   /**
    * The JSON object with the configuration that must be provided when installing a given Add-on.
    */
-  configurationSchema: any;
+  configurationSchema: Record<string, object>;
   /**
    * The absolute URL of the resource.
    */
@@ -385,6 +389,7 @@ export function AvailableAddOnListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

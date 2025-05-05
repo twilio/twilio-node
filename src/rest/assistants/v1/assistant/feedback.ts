@@ -24,7 +24,7 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
   /**
    * The message ID.
    */
-  "messageId"?: string;
+  "message_id"?: string;
   /**
    * The score to be given(0-1).
    */
@@ -32,7 +32,7 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
   /**
    * The Session ID.
    */
-  "sessionId": string;
+  "session_id": string;
   /**
    * The text to be given as feedback.
    */
@@ -95,12 +95,14 @@ export interface FeedbackListInstance {
    * Create a FeedbackInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed FeedbackInstance
    */
   create(
     params: AssistantsV1ServiceCreateFeedbackRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
 
@@ -196,6 +198,7 @@ export function FeedbackListInstance(
 
   instance.create = function create(
     params: AssistantsV1ServiceCreateFeedbackRequest,
+    headers?: any,
     callback?: (error: Error | null, items: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
     if (params === null || params === undefined) {
@@ -206,8 +209,12 @@ export function FeedbackListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -250,6 +257,7 @@ export function FeedbackListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

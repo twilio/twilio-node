@@ -145,11 +145,14 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -162,11 +165,15 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   fetch(
     callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -211,7 +218,7 @@ interface AssignedAddOnResource {
   resource_sid: string;
   friendly_name: string;
   description: string;
-  configuration: any;
+  configuration: Record<string, object>;
   unique_name: string;
   date_created: Date;
   date_updated: Date;
@@ -268,7 +275,7 @@ export class AssignedAddOnInstance {
   /**
    * A JSON string that represents the current configuration of this Add-on installation.
    */
-  configuration: any;
+  configuration: Record<string, object>;
   /**
    * An application-defined string that uniquely identifies the resource. It can be used in place of the resource\'s `sid` in the URL to address the resource.
    */
@@ -515,6 +522,7 @@ export function AssignedAddOnListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -562,6 +570,7 @@ export function AssignedAddOnListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

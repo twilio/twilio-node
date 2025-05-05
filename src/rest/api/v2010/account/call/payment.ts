@@ -72,7 +72,7 @@ export interface PaymentListInstanceCreateOptions {
   /** A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits. */
   minPostalCodeLength?: number;
   /** A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors). */
-  parameter?: any;
+  parameter?: object;
   /** This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`. */
   paymentConnector?: string;
   /**  */
@@ -178,6 +178,7 @@ export class PaymentContextImpl implements PaymentContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -445,6 +446,7 @@ export function PaymentListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

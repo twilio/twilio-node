@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        node: [ 14, 16, 18, lts/* ]
+        node: [ 14, 16, 18, 20, 22, lts/* ]
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v3
@@ -41,6 +41,13 @@ jobs:
           TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_ORGS_CLIENT_ID: ${{ secrets.TWILIO_ORGS_CLIENT_ID }}
+          TWILIO_ORGS_CLIENT_SECRET: ${{ secrets.TWILIO_ORGS_CLIENT_SECRET }}
+          TWILIO_ORGS_USER_ID: ${{ secrets.TWILIO_ORGS_USER_ID }}
+          TWILIO_ORG_SID: ${{ secrets.TWILIO_ORG_SID }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_MESSAGE_SID: ${{ secrets.TWILIO_MESSAGE_SID }}
         run: |
           npm pack
           tar -xzf twilio*.tgz

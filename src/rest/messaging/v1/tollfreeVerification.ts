@@ -20,14 +20,21 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Describe how a user opts-in to text messages.
+ */
 export type TollfreeVerificationOptInType =
   | "VERBAL"
   | "WEB_FORM"
   | "PAPER_FORM"
   | "VIA_TEXT"
   | "MOBILE_QR_CODE"
-  | "IMPORT";
+  | "IMPORT"
+  | "IMPORT_PLEASE_REPLACE";
 
+/**
+ * The compliance status of the Tollfree Verification record.
+ */
 export type TollfreeVerificationStatus =
   | "PENDING_REVIEW"
   | "IN_REVIEW"
@@ -271,11 +278,14 @@ export class TollfreeVerificationContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -288,11 +298,15 @@ export class TollfreeVerificationContextImpl
   fetch(
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -378,6 +392,7 @@ export class TollfreeVerificationContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -457,8 +472,8 @@ interface TollfreeVerificationResource {
   error_code: number;
   edit_expiration: Date;
   edit_allowed: boolean;
-  rejection_reasons: Array<any>;
-  resource_links: any;
+  rejection_reasons: Array<Record<string, object>>;
+  resource_links: Record<string, object>;
   external_reference_id: string;
 }
 
@@ -645,11 +660,11 @@ export class TollfreeVerificationInstance {
   /**
    * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
    */
-  rejectionReasons: Array<any>;
+  rejectionReasons: Array<Record<string, object>>;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
-  resourceLinks: any;
+  resourceLinks: Record<string, object>;
   /**
    * An optional external reference ID supplied by customer and echoed back on status retrieval.
    */
@@ -1043,6 +1058,7 @@ export function TollfreeVerificationListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -1091,6 +1107,7 @@ export function TollfreeVerificationListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

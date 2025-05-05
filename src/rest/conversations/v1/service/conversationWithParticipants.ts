@@ -18,6 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
+ */
 export type ConversationWithParticipantsState =
   | "inactive"
   | "active"
@@ -166,6 +169,7 @@ export function ConversationWithParticipantsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -221,9 +225,9 @@ interface ConversationWithParticipantsResource {
   state: ConversationWithParticipantsState;
   date_created: Date;
   date_updated: Date;
-  timers: any;
+  timers: Record<string, object>;
   links: Record<string, string>;
-  bindings: any;
+  bindings: Record<string, object>;
   url: string;
 }
 
@@ -289,12 +293,12 @@ export class ConversationWithParticipantsInstance {
   /**
    * Timer date values representing state update for this conversation.
    */
-  timers: any;
+  timers: Record<string, object>;
   /**
    * Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
    */
   links: Record<string, string>;
-  bindings: any;
+  bindings: Record<string, object>;
   /**
    * An absolute API resource URL for this conversation.
    */

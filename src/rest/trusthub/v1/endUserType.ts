@@ -95,11 +95,15 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   fetch(
     callback?: (error: Error | null, item?: EndUserTypeInstance) => any
   ): Promise<EndUserTypeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -140,7 +144,7 @@ interface EndUserTypeResource {
   sid: string;
   friendly_name: string;
   machine_name: string;
-  fields: Array<any>;
+  fields: Array<Record<string, object>>;
   url: string;
 }
 
@@ -177,7 +181,7 @@ export class EndUserTypeInstance {
   /**
    * The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
    */
-  fields: Array<any>;
+  fields: Array<Record<string, object>>;
   /**
    * The absolute URL of the End-User Type resource.
    */
@@ -341,6 +345,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -26,6 +26,9 @@ export type DependentPhoneNumberAddressRequirement =
   | "local"
   | "foreign";
 
+/**
+ * Whether the phone number is enabled for emergency calling.
+ */
 export type DependentPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
 /**
@@ -205,6 +208,7 @@ export function DependentPhoneNumberListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -288,7 +292,7 @@ interface DependentPhoneNumberResource {
   sms_method: string;
   sms_url: string;
   address_requirements: DependentPhoneNumberAddressRequirement;
-  capabilities: any;
+  capabilities: Record<string, object>;
   status_callback: string;
   status_callback_method: string;
   api_version: string;
@@ -399,7 +403,7 @@ export class DependentPhoneNumberInstance {
   /**
    * The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
    */
-  capabilities: any;
+  capabilities: Record<string, object>;
   /**
    * The URL we call using the `status_callback_method` to send status information to your application.
    */

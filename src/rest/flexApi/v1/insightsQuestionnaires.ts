@@ -267,6 +267,7 @@ export class InsightsQuestionnairesContextImpl
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -324,6 +325,7 @@ export class InsightsQuestionnairesContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -376,7 +378,7 @@ interface InsightsQuestionnairesResource {
   name: string;
   description: string;
   active: boolean;
-  questions: Array<any>;
+  questions: Array<Record<string, object>>;
   url: string;
 }
 
@@ -425,7 +427,7 @@ export class InsightsQuestionnairesInstance {
   /**
    * The list of questions with category for a questionnaire
    */
-  questions: Array<any>;
+  questions: Array<Record<string, object>>;
   url: string;
 
   private get _proxy(): InsightsQuestionnairesContext {
@@ -713,6 +715,7 @@ export function InsightsQuestionnairesListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -758,6 +761,7 @@ export function InsightsQuestionnairesListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
