@@ -1,5 +1,5 @@
 import { HttpMethod } from "../interfaces";
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
@@ -10,6 +10,7 @@ import Request, {
   RequestOptions as LastRequestOptions,
 } from "../http/request";
 import AuthStrategy from "../auth_strategy/AuthStrategy";
+import ValidationToken from "../jwt/validation/ValidationToken";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
@@ -69,6 +70,14 @@ function getExponentialBackoffResponseHandler(
   };
 }
 
+function ValidationInterceptor(validationClient: RequestClient.ValidationClient) {
+  return function (config: InternalAxiosRequestConfig) {
+    config.headers = config.headers || {};
+    config.headers["Twilio-Client-Validation"] = new ValidationToken(validationClient).fromHttpRequest(config)
+    return config;
+  };
+}
+
 class RequestClient {
   defaultTimeout: number;
   axios: AxiosInstance;
@@ -92,6 +101,7 @@ class RequestClient {
    * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses. Defaults to false.
    * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
    * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
+   * @param opts.validationClient - Validation client for PKCV
    */
   constructor(opts?: RequestClient.RequestClientOptions) {
     opts = opts || {};
@@ -140,6 +150,12 @@ class RequestClient {
           maxRetries: this.maxRetries,
         })
       );
+    }
+
+    if(opts.validationClient) {
+      this.axios.interceptors.request.use(
+          ValidationInterceptor(opts.validationClient)
+      )
     }
   }
 
@@ -382,6 +398,18 @@ namespace RequestClient {
      * Maximum number of request retries for 429 Error responses. Defaults to 3.
      */
     maxRetries?: number;
+    /**
+     * Validation client for PKCV
+     */
+    validationClient?: ValidationClient;
+  }
+
+  export interface ValidationClient {
+    accountSid: string;
+    credentialSid: string;
+    signingKey: string;
+    privateKey: string;
+    algorithm?: string;
   }
 }
 export = RequestClient;
