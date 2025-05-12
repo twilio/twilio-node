@@ -72,7 +72,7 @@ describe("twilio", function () {
           start: 0,
           usage_records: [],
           next_page_uri: null,
-          page: 0
+          page: 0,
         });
 
       const client = new twilio.Twilio(accountSid, token, {
