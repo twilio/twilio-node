@@ -20,12 +20,22 @@ class ValidationToken {
   }
 
   fromHttpRequest(request: any): string {
+    const headers = request.headers;
+    const url = new URL(request.url);
+    let requestBody = "";
+    if (headers["Content-Type"] === "application/json")
+      requestBody = request.data;
+    let signedHeaders = {
+      host: url.host,
+      authorization: headers["Authorization"],
+    };
+
     const requestCanonicalizer = new RequestCanonicalizer(
       request.method,
-      request.url,
-      request.queryString,
-      request.requestBody,
-      request.headers
+      url.pathname,
+      request.params,
+      requestBody,
+      signedHeaders
     );
     const canonicalizedRequest = requestCanonicalizer.create();
     const header = {
@@ -37,15 +47,12 @@ class ValidationToken {
     const payload = {
       iss: this.signingKey,
       sub: this.accountSid,
-      exp: new Date(Date.now() + this.ttl * 1000),
       hrh: requestCanonicalizer.getCanonicalizedHashedHeaders(),
       rqh: canonicalizedRequest,
     };
     return jwt.sign(payload, this.privateKey, {
       header: header,
       algorithm: this.algorithm,
-      issuer: this.signingKey,
-      subject: this.accountSid,
       expiresIn: this.ttl,
     });
   }

@@ -4,20 +4,20 @@ const hash = crypto.createHash("sha256");
 class RequestCanonicalizer {
   method: string;
   uri: string;
-  queryString: string;
+  queryParams: any;
   requestBody: string;
   headers: any;
 
   constructor(
     method: string,
     uri: string,
-    queryString: string,
+    queryParams: any,
     requestBody: string,
     headers: any
   ) {
     this.method = method;
-    this.uri = new URL(uri).pathname;
-    this.queryString = queryString;
+    this.uri = uri;
+    this.queryParams = queryParams;
     this.requestBody = requestBody;
     this.headers = this.getNonNullHeaders(headers);
   }
@@ -42,34 +42,30 @@ class RequestCanonicalizer {
     return encodeURI(normalizedPath);
   }
 
-  getCanonicalizedQueryString(): string {
-    if (!this.queryString) {
+  getCanonicalizedQueryParams(): string {
+    if (!this.queryParams) {
       return "";
     }
-    const queryParams = this.queryString.split("&").map((param) => {
-      const [key, value] = param.split("=");
+    const queryParamsList = Object.keys(this.queryParams).map((key) => {
+      const value = this.queryParams[key];
       return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
     });
-    return queryParams.join("&");
+    return queryParamsList.join("&");
   }
 
   getCanonicalizedHeaders(): string {
-    // sort headers on the basis of '
+    // sort headers on the basis of '{key}:{value}'
     const sortedHeaders = Object.keys(this.headers)
-      .sort()
       .map((key) => {
         return `${key.toLowerCase()}:${this.headers[key].trim()}`;
-      });
+      })
+      .sort();
     return sortedHeaders.join("\n");
   }
 
   getCanonicalizedHashedHeaders(): string {
-    const sortedHeaders = Object.keys(this.headers)
-      .sort()
-      .map((key) => {
-        return `${key.toLowerCase()}:${this.headers[key].trim()}`;
-      });
-    return sortedHeaders.join("\n");
+    const sortedHeaders = Object.keys(this.headers).sort();
+    return sortedHeaders.join(";");
   }
 
   getCanonicalizedRequestBody(): string {
@@ -77,21 +73,23 @@ class RequestCanonicalizer {
       return "";
     }
 
-    hash.update(this.requestBody);
-    return hash.digest("hex");
+    return this.sha256Hex(this.requestBody.toString());
+  }
+
+  sha256Hex(body: string) {
+    return crypto.createHash("sha256").update(body).digest("hex");
   }
 
   create(): string {
     let canonicalizedRequest = "";
     canonicalizedRequest += this.method.toUpperCase() + "\n";
     canonicalizedRequest += this.getCanonicalizedPath() + "\n";
-    canonicalizedRequest += this.getCanonicalizedQueryString() + "\n";
+    canonicalizedRequest += this.getCanonicalizedQueryParams() + "\n";
     canonicalizedRequest += this.getCanonicalizedHeaders() + "\n";
     canonicalizedRequest += this.getCanonicalizedHashedHeaders() + "\n";
     canonicalizedRequest += this.getCanonicalizedRequestBody() + "\n";
 
-    hash.update(canonicalizedRequest);
-    return hash.digest("hex");
+    return this.sha256Hex(canonicalizedRequest);
   }
 }
 
