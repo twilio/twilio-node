@@ -280,7 +280,8 @@ namespace Twilio {
         data: opts.data,
         timeout: opts.timeout,
         allowRedirects: opts.allowRedirects,
-        logLevel: opts.logLevel,
+        // use the Twilio client's log-level if the httpClient's log-level is unspecified
+        logLevel: opts.logLevel || this.opts?.logLevel,
       });
     }
 
