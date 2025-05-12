@@ -92,7 +92,7 @@ describe("twilio", function () {
         "Connection: undefined\n" +
         "-- END Twilio API Request --\n" +
         "response.statusCode: 200\n" +
-        "response.headers: {'content-type':'application/json'}"
+        'response.headers: {"content-type":"application/json"}'
         );
       scope.done();
     });
