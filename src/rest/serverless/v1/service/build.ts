@@ -30,7 +30,9 @@ export type BuildRuntime =
   | "node12"
   | "node14"
   | "node16"
-  | "node18";
+  | "node18"
+  | "node20"
+  | "node22";
 
 /**
  * The status of the Build. Can be: `building`, `completed`, or `failed`.
