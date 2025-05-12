@@ -82,18 +82,18 @@ describe("twilio", function () {
       await client.messages.list({ limit: 1 });
       expect(consoleSpy.mock.calls.map((a) => a[0]).join("\n")).toBe(
         "-- BEGIN Twilio API Request --\n" +
-        `get https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json\n` +
-        "Querystring:\n" +
-        "[object Object]\n" +
-        "Headers:\n" +
-        "Accept: undefined\n" +
-        "User-Agent: undefined\n" +
-        "Accept-Charset: undefined\n" +
-        "Connection: undefined\n" +
-        "-- END Twilio API Request --\n" +
-        "response.statusCode: 200\n" +
-        'response.headers: {"content-type":"application/json"}'
-        );
+          `get https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json\n` +
+          "Querystring:\n" +
+          "[object Object]\n" +
+          "Headers:\n" +
+          "Accept: undefined\n" +
+          "User-Agent: undefined\n" +
+          "Accept-Charset: undefined\n" +
+          "Connection: undefined\n" +
+          "-- END Twilio API Request --\n" +
+          "response.statusCode: 200\n" +
+          'response.headers: {"content-type":"application/json"}'
+      );
       scope.done();
     });
   });
