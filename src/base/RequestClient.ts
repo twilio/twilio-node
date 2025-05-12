@@ -1,5 +1,10 @@
 import { HttpMethod } from "../interfaces";
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
@@ -70,10 +75,14 @@ function getExponentialBackoffResponseHandler(
   };
 }
 
-function ValidationInterceptor(validationClient: RequestClient.ValidationClient) {
+function ValidationInterceptor(
+  validationClient: RequestClient.ValidationClient
+) {
   return function (config: InternalAxiosRequestConfig) {
     config.headers = config.headers || {};
-    config.headers["Twilio-Client-Validation"] = new ValidationToken(validationClient).fromHttpRequest(config)
+    config.headers["Twilio-Client-Validation"] = new ValidationToken(
+      validationClient
+    ).fromHttpRequest(config);
     return config;
   };
 }
@@ -152,10 +161,10 @@ class RequestClient {
       );
     }
 
-    if(opts.validationClient) {
+    if (opts.validationClient) {
       this.axios.interceptors.request.use(
-          ValidationInterceptor(opts.validationClient)
-      )
+        ValidationInterceptor(opts.validationClient)
+      );
     }
   }
 

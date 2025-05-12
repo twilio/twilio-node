@@ -1,4 +1,6 @@
-import RequestClient, {ValidationClient} from "./RequestClient"; /* jshint ignore:line */
+import RequestClient, {
+  ValidationClient,
+} from "./RequestClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
 import { Headers } from "../http/request"; /* jshint ignore:line */
 import AuthStrategy from "../auth_strategy/AuthStrategy"; /* jshint ignore:line */

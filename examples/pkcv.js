@@ -17,27 +17,30 @@ const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
 
 var client = new Twilio(accountSid, token);
 
-client.accounts.v1.credentials.publicKey.create({
-  friendlyName: "Public Key",
-  publicKey: publicKey,
-}).then(key => {
-  client.newSigningKeys.create().then(signingKey => {
-    const validationClient = new Twilio(signingKey.sid, signingKey.secret, {
-      accountSid: accountSid,
-      validationClient: {
+client.accounts.v1.credentials.publicKey
+  .create({
+    friendlyName: "Public Key",
+    publicKey: publicKey,
+  })
+  .then((key) => {
+    client.newSigningKeys.create().then((signingKey) => {
+      const validationClient = new Twilio(signingKey.sid, signingKey.secret, {
         accountSid: accountSid,
-        credentialSid: key.sid,
-        signingKey: signingKey.sid,
-        privateKey: privateKey,
-        algorithm: "PS256",
-      },
-    });
-    validationClient.setAccountSid(accountSid);
+        validationClient: {
+          accountSid: accountSid,
+          credentialSid: key.sid,
+          signingKey: signingKey.sid,
+          privateKey: privateKey,
+          algorithm: "PS256",
+        },
+      });
+      validationClient.setAccountSid(accountSid);
 
-    validationClient.messages.list().then((messages) => {
-      console.log(messages);
+      validationClient.messages.list().then((messages) => {
+        console.log(messages);
+      });
     });
+  })
+  .catch((err) => {
+    console.log("Error creating public key: ", err);
   });
-}).catch(err => {
-  console.log("Error creating public key: ", err);
-});
