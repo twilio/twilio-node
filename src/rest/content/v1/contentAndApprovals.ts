@@ -258,9 +258,9 @@ interface ContentAndApprovalsResource {
   account_sid: string;
   friendly_name: string;
   language: string;
-  variables: any;
-  types: any;
-  approval_requests: any;
+  variables: Record<string, object>;
+  types: Record<string, object>;
+  approval_requests: Record<string, object>;
 }
 
 export class ContentAndApprovalsInstance {
@@ -303,15 +303,15 @@ export class ContentAndApprovalsInstance {
   /**
    * Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
    */
-  variables: any;
+  variables: Record<string, object>;
   /**
    * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
-  types: any;
+  types: Record<string, object>;
   /**
    * The submitted information and approval request status of the Content resource.
    */
-  approvalRequests: any;
+  approvalRequests: Record<string, object>;
 
   /**
    * Provide a user-friendly representation

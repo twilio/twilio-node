@@ -35,6 +35,7 @@ export class CallToActionAction {
   "url"?: string;
   "phone"?: string;
   "code"?: string;
+  "id"?: string;
 }
 
 export type CallToActionActionType =
@@ -198,6 +199,8 @@ export class TwilioLocation {
   "latitude": number;
   "longitude": number;
   "label"?: string;
+  "id"?: string;
+  "address"?: string;
 }
 
 /**
@@ -452,8 +455,8 @@ interface ContentResource {
   account_sid: string;
   friendly_name: string;
   language: string;
-  variables: any;
-  types: any;
+  variables: Record<string, object>;
+  types: Record<string, object>;
   url: string;
   links: Record<string, string>;
 }
@@ -504,11 +507,11 @@ export class ContentInstance {
   /**
    * Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
    */
-  variables: any;
+  variables: Record<string, object>;
   /**
    * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
-  types: any;
+  types: Record<string, object>;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`.
    */

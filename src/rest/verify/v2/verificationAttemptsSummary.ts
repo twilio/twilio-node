@@ -173,7 +173,7 @@ interface VerificationAttemptsSummaryResource {
   total_attempts: number;
   total_converted: number;
   total_unconverted: number;
-  conversion_rate_percentage: number;
+  conversion_rate_percentage: string;
   url: string;
 }
 
@@ -209,7 +209,7 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
    */
-  conversionRatePercentage: number;
+  conversionRatePercentage: string;
   url: string;
 
   private get _proxy(): VerificationAttemptsSummaryContext {

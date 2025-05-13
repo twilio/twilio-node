@@ -40,8 +40,6 @@ export interface BrandVettingListInstanceCreateOptions {
 export interface BrandVettingListInstanceEachOptions {
   /** The third-party provider of the vettings to read */
   vettingProvider?: BrandVettingVettingProvider;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,8 +54,6 @@ export interface BrandVettingListInstanceEachOptions {
 export interface BrandVettingListInstanceOptions {
   /** The third-party provider of the vettings to read */
   vettingProvider?: BrandVettingVettingProvider;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -68,8 +64,6 @@ export interface BrandVettingListInstanceOptions {
 export interface BrandVettingListInstancePageOptions {
   /** The third-party provider of the vettings to read */
   vettingProvider?: BrandVettingVettingProvider;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -485,7 +479,6 @@ export function BrandVettingListInstance(
 
     if (params["vettingProvider"] !== undefined)
       data["VettingProvider"] = params["vettingProvider"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
