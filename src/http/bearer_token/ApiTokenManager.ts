@@ -25,9 +25,7 @@ export default class ApiTokenManager implements TokenManager {
     const client = new Client();
     client.setCredentialProvider(noAuthCredentialProvider);
 
-    const tokenListInstance = TokenListInstance(
-      new V1(new IamBase(client))
-    );
+    const tokenListInstance = TokenListInstance(new V1(new IamBase(client)));
     return tokenListInstance
       .create(this.params)
       .then((token) => {
