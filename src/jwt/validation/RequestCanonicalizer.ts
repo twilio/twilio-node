@@ -60,7 +60,7 @@ class RequestCanonicalizer {
         return `${key.toLowerCase()}:${this.headers[key].trim()}`;
       })
       .sort();
-    return sortedHeaders.join("\n");
+    return sortedHeaders.join("\n") + "\n";
   }
 
   getCanonicalizedHashedHeaders(): string {
@@ -87,7 +87,7 @@ class RequestCanonicalizer {
     canonicalizedRequest += this.getCanonicalizedQueryParams() + "\n";
     canonicalizedRequest += this.getCanonicalizedHeaders() + "\n";
     canonicalizedRequest += this.getCanonicalizedHashedHeaders() + "\n";
-    canonicalizedRequest += this.getCanonicalizedRequestBody() + "\n";
+    canonicalizedRequest += this.getCanonicalizedRequestBody();
 
     return this.sha256Hex(canonicalizedRequest);
   }
