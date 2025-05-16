@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2025-05-13] Version 5.6.1
+--------------------------
+**Library - Fix**
+- [PR #1063](https://github.com/twilio/twilio-node/pull/1063): Logging. Thanks to [@ari-at-backbone](https://github.com/ari-at-backbone)!
+
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
 [2025-05-05] Version 5.6.0
 --------------------------
 **Library - Chore**

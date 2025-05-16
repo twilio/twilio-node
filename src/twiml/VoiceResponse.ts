@@ -2668,20 +2668,30 @@ namespace VoiceResponse {
    * Attributes to pass to conversationRelay
    */
   export interface ConversationRelayAttributes {
-    /** debug - Whether debugging on the session is enabled */
-    debug?: boolean;
+    /** debug - Multiple debug options to be used for troubleshooting */
+    debug?: string;
     /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
     dtmfDetection?: boolean;
-    /** interruptByDtmf - Whether DTMF tone can interrupt the play of text-to-speech */
-    interruptByDtmf?: boolean;
-    /** interruptible - Whether caller's speaking can interrupt the play of text-to-speech */
-    interruptible?: boolean;
+    /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
+    elevenlabsTextNormalization?: string;
+    /** hints - Phrases to help better accuracy in speech recognition of these pharases */
+    hints?: string;
+    /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
+    intelligenceService?: string;
+    /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
+    interruptSensitivity?: string;
+    /** interruptible - Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech */
+    interruptible?: string;
     /** language - Language to be used for both text-to-speech and transcription */
     language?: string;
     /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
     partialPrompts?: boolean;
+    /** preemptible - Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media */
+    preemptible?: boolean;
     /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
     profanityFilter?: boolean;
+    /** reportInputDuringAgentSpeech - Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled */
+    reportInputDuringAgentSpeech?: boolean;
     /** speechModel - Speech model to be used for transcription */
     speechModel?: string;
     /** transcriptionLanguage - Language to be used for transcription */
@@ -2698,30 +2708,40 @@ namespace VoiceResponse {
     voice?: string;
     /** welcomeGreeting - The sentence to be played automatically when the session is connected */
     welcomeGreeting?: string;
-    /** welcomeGreetingInterruptible - Whether caller's speaking can interrupt the welcome greeting */
-    welcomeGreetingInterruptible?: boolean;
+    /** welcomeGreetingInterruptible - "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting */
+    welcomeGreetingInterruptible?: string;
   }
 
   /**
    * Attributes to pass to assistant
    */
   export interface AssistantAttributes {
-    /** debug - Whether debugging on the session is enabled */
-    debug?: boolean;
+    /** debug - Multiple debug options to be used for troubleshooting */
+    debug?: string;
     /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
     dtmfDetection?: boolean;
+    /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
+    elevenlabsTextNormalization?: string;
+    /** hints - Phrases to help better accuracy in speech recognition of these pharases */
+    hints?: string;
     /** id - The assistant ID of the AI Assistant */
     id?: string;
-    /** interruptByDtmf - Whether DTMF tone can interrupt the play of text-to-speech */
-    interruptByDtmf?: boolean;
-    /** interruptible - Whether caller's speaking can interrupt the play of text-to-speech */
-    interruptible?: boolean;
+    /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
+    intelligenceService?: string;
+    /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
+    interruptSensitivity?: string;
+    /** interruptible - Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech */
+    interruptible?: string;
     /** language - Language to be used for both text-to-speech and transcription */
     language?: string;
     /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
     partialPrompts?: boolean;
+    /** preemptible - Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media */
+    preemptible?: boolean;
     /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
     profanityFilter?: boolean;
+    /** reportInputDuringAgentSpeech - Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled */
+    reportInputDuringAgentSpeech?: boolean;
     /** speechModel - Speech model to be used for transcription */
     speechModel?: string;
     /** transcriptionLanguage - Language to be used for transcription */
@@ -2736,8 +2756,8 @@ namespace VoiceResponse {
     voice?: string;
     /** welcomeGreeting - The sentence to be played automatically when the session is connected */
     welcomeGreeting?: string;
-    /** welcomeGreetingInterruptible - Whether caller's speaking can interrupt the welcome greeting */
-    welcomeGreetingInterruptible?: boolean;
+    /** welcomeGreetingInterruptible - "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting */
+    welcomeGreetingInterruptible?: string;
   }
 
   /**
