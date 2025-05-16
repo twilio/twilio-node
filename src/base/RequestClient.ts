@@ -75,6 +75,10 @@ function getExponentialBackoffResponseHandler(
   };
 }
 
+/**
+ * ValidationInterceptor adds the Twilio-Client-Validation header to the request
+ * @param validationClient - The validation client for PKCV
+ */
 function ValidationInterceptor(
   validationClient: RequestClient.ValidationClient
 ) {
@@ -161,6 +165,7 @@ class RequestClient {
       );
     }
 
+    // if validation client is set, intercept the request using ValidationInterceptor
     if (opts.validationClient) {
       this.axios.interceptors.request.use(
         ValidationInterceptor(opts.validationClient)
