@@ -2,7 +2,7 @@ import { ValidationClient } from "../../base/RequestClient";
 import RequestCanonicalizer from "./RequestCanonicalizer";
 import jwt, { Algorithm } from "jsonwebtoken";
 
-class ValidationToken {
+class ValidationToken implements ValidationToken.ValidationTokenOptions{
   accountSid: string;
   credentialSid: string;
   signingKey: string;
@@ -70,4 +70,15 @@ class ValidationToken {
   }
 }
 
-export default ValidationToken;
+namespace ValidationToken {
+  export interface ValidationTokenOptions {
+    accountSid: string;
+    credentialSid: string;
+    signingKey: string;
+    privateKey: string;
+    algorithm?: Algorithm;
+    ttl?: number;
+  }
+}
+
+export = ValidationToken;
