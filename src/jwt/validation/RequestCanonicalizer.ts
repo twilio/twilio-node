@@ -73,7 +73,7 @@ class RequestCanonicalizer {
       return "";
     }
 
-    return this.sha256Hex(this.requestBody.toString());
+    return this.sha256Hex(JSON.stringify(this.requestBody));
   }
 
   sha256Hex(body: string) {
