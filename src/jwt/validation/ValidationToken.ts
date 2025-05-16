@@ -37,9 +37,6 @@ class ValidationToken {
   fromHttpRequest(request: any): string {
     const headers = request.headers;
     const url = new URL(request.url);
-    let requestBody = "";
-    if (headers["Content-Type"] === "application/json")
-      requestBody = request.data;
     let signedHeaders = {
       host: url.host,
       authorization: headers["Authorization"],
@@ -49,7 +46,7 @@ class ValidationToken {
       request.method,
       url.pathname,
       request.params,
-      requestBody,
+      request.data,
       signedHeaders
     );
     const canonicalizedRequest = requestCanonicalizer.create();

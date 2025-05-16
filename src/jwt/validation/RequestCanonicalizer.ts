@@ -1,25 +1,24 @@
-const crypto = require("crypto");
-const hash = crypto.createHash("sha256");
+import crypto from "crypto";
 
 class RequestCanonicalizer {
   method: string;
   uri: string;
   queryParams: any;
-  requestBody: string;
+  requestBody: any;
   headers: any;
 
   constructor(
     method: string,
     uri: string,
     queryParams: any,
-    requestBody: string,
+    requestBody: any,
     headers: any
   ) {
     this.method = method;
     this.uri = uri;
     this.queryParams = queryParams;
     this.requestBody = requestBody;
-    this.headers = this.getNonNullHeaders(headers);
+    this.headers = headers;
   }
 
   getNonNullHeaders(headers: any): string[] {
@@ -73,7 +72,11 @@ class RequestCanonicalizer {
       return "";
     }
 
-    return this.sha256Hex(JSON.stringify(this.requestBody));
+    if(typeof this.requestBody === "string") {
+        return this.sha256Hex(this.requestBody);
+    }
+    else
+      return this.sha256Hex(JSON.stringify(this.requestBody));
   }
 
   sha256Hex(body: string) {
