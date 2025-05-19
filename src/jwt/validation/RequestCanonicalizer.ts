@@ -58,7 +58,7 @@ class RequestCanonicalizer {
       .map(([key, value]) => {
         return `${key}=${value}`;
       })
-      .sort()
+      .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" })) // forces ASCII sorting using localeCompare
       .map((param) => {
         const [key, value] = param.split("=");
         return `${this.customEncode(key)}=${this.customEncode(value)}`; // encode and concatenate as `key=value`
@@ -75,12 +75,14 @@ class RequestCanonicalizer {
         }
         return `${key.toLowerCase()}:${this.headers[key].trim()}`;
       })
-      .sort();
+      .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
     return sortedHeaders.join("\n") + "\n";
   }
 
   getCanonicalizedHashedHeaders(): string {
-    const sortedHeaders = Object.keys(this.headers).sort();
+    const sortedHeaders = Object.keys(this.headers).sort((a, b) =>
+      a.localeCompare(b, "en", { sensitivity: "base" })
+    );
     return sortedHeaders.join(";");
   }
 
