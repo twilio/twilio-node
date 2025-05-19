@@ -34,6 +34,16 @@ class RequestCanonicalizer {
       .replace(/%7E/g, "~");
   }
 
+  ASCIICompare(a: string, b: string): number {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  }
+
   getCanonicalizedPath(): string {
     if (!this.uri) return "/";
     // Remove query string from path
@@ -58,7 +68,7 @@ class RequestCanonicalizer {
       .map(([key, value]) => {
         return `${key}=${value}`;
       })
-      .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" })) // forces ASCII sorting using localeCompare
+      .sort((a, b) => this.ASCIICompare(a, b)) // forces ASCII sorting using custom compare
       .map((param) => {
         const [key, value] = param.split("=");
         return `${this.customEncode(key)}=${this.customEncode(value)}`; // encode and concatenate as `key=value`
@@ -75,14 +85,14 @@ class RequestCanonicalizer {
         }
         return `${key.toLowerCase()}:${this.headers[key].trim()}`;
       })
-      .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+      .sort((a, b) => this.ASCIICompare(a, b)); // forces ASCII sorting using custom compare
     return sortedHeaders.join("\n") + "\n";
   }
 
   getCanonicalizedHashedHeaders(): string {
     const sortedHeaders = Object.keys(this.headers).sort((a, b) =>
-      a.localeCompare(b, "en", { sensitivity: "base" })
-    );
+      this.ASCIICompare(a, b)
+    ); // forces ASCII sorting using custom compare
     return sortedHeaders.join(";");
   }
 
