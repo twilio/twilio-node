@@ -21,41 +21,58 @@ class RequestCanonicalizer {
     this.headers = headers;
   }
 
-  getNonNullHeaders(headers: any): string[] {
-    const nonNullKeys = Object.keys(headers).filter((key) => {
-      return headers[key] !== null && headers[key] !== undefined;
-    });
-    const nonNullHeaders: any = {};
-    nonNullKeys.forEach((key) => {
-      nonNullHeaders[key] = headers[key];
-    });
-    return nonNullHeaders;
+  getCanonicalizedMethod(): string {
+    if (!this.method) {
+      return "";
+    }
+    return this.method.toUpperCase();
+  }
+
+  customEncode(str: string): string {
+    return encodeURIComponent(decodeURIComponent(str))
+      .replace(/\*/g, "%2A")
+      .replace(/%7E/g, "~");
   }
 
   getCanonicalizedPath(): string {
-    if (!this.uri) {
-      return "/";
-    }
+    if (!this.uri) return "/";
+    // Remove query string from path
     const path = this.uri.split("?")[0];
+    // Normalize duplicate slashes (but preserve the leading one)
     const normalizedPath = path.replace(/\/+/g, "/");
-    return encodeURI(normalizedPath);
+
+    // We must preserve slashes (as path delimiters) but encode each segment
+    // Split and encode, but first decode each segment to avoid double-encoding
+    return normalizedPath
+      .split("/")
+      .map((segment) => this.customEncode(segment))
+      .join("/");
   }
 
   getCanonicalizedQueryParams(): string {
     if (!this.queryParams) {
       return "";
     }
-    const queryParamsList = Object.keys(this.queryParams).map((key) => {
-      const value = this.queryParams[key];
-      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-    });
-    return queryParamsList.join("&");
+    // sort query params on the basis of '{key}={value}'
+    const sortedQueryParams = Object.entries(this.queryParams)
+      .map(([key, value]) => {
+        return `${key}=${value}`;
+      })
+      .sort()
+      .map((param) => {
+        const [key, value] = param.split("=");
+        return `${this.customEncode(key)}=${this.customEncode(value)}`; // encode and concatenate as `key=value`
+      });
+    return sortedQueryParams.join("&");
   }
 
   getCanonicalizedHeaders(): string {
     // sort headers on the basis of '{key}:{value}'
     const sortedHeaders = Object.keys(this.headers)
       .map((key) => {
+        if (!this.headers[key]) {
+          return `${key.toLowerCase()}:`;
+        }
         return `${key.toLowerCase()}:${this.headers[key].trim()}`;
       })
       .sort();
@@ -72,27 +89,28 @@ class RequestCanonicalizer {
       return "";
     }
 
-    if(typeof this.requestBody === "string") {
-        return this.sha256Hex(this.requestBody);
-    }
-    else
-      return this.sha256Hex(JSON.stringify(this.requestBody));
+    if (typeof this.requestBody === "string") {
+      return this.sha256Hex(this.requestBody);
+    } else return this.sha256Hex(JSON.stringify(this.requestBody));
   }
 
   sha256Hex(body: string) {
     return crypto.createHash("sha256").update(body).digest("hex");
   }
 
-  create(): string {
+  getCanonicalizedRequestString(): string {
     let canonicalizedRequest = "";
-    canonicalizedRequest += this.method.toUpperCase() + "\n";
+    canonicalizedRequest += this.getCanonicalizedMethod() + "\n";
     canonicalizedRequest += this.getCanonicalizedPath() + "\n";
     canonicalizedRequest += this.getCanonicalizedQueryParams() + "\n";
     canonicalizedRequest += this.getCanonicalizedHeaders() + "\n";
     canonicalizedRequest += this.getCanonicalizedHashedHeaders() + "\n";
     canonicalizedRequest += this.getCanonicalizedRequestBody();
+    return canonicalizedRequest;
+  }
 
-    return this.sha256Hex(canonicalizedRequest);
+  create(): string {
+    return this.sha256Hex(this.getCanonicalizedRequestString());
   }
 }
 

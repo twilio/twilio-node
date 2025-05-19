@@ -36,18 +36,22 @@ client.accounts.v1.credentials.publicKey
           credentialSid: key.sid,
           signingKey: signingKey.sid,
           privateKey: privateKey,
-          algorithm: "PS256",  // Validation client supports RS256 or PS256 algorithm. Default is RS256.
+          algorithm: "PS256", // Validation client supports RS256 or PS256 algorithm. Default is RS256.
         },
       });
       validationClient.setAccountSid(accountSid);
 
-      validationClient.messages.list({
-        to: "+919667177192",
-      }).then((messages) => {
-        console.log(messages);
-      }).catch((err) => {
-        console.log("Error making API request: ", err);
-      });
+      validationClient.messages
+        .list({
+          from: process.env.TWILIO_PHONE_NUMBER,
+          limit: 10,
+        })
+        .then((messages) => {
+          console.log(messages);
+        })
+        .catch((err) => {
+          console.log("Error making API request: ", err);
+        });
     });
   })
   .catch((err) => {
