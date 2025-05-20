@@ -242,8 +242,8 @@ interface MessageResource {
   session_id: string;
   identity: string;
   role: string;
-  content: Record<string, object>;
-  meta: Record<string, object>;
+  content: Record<string, any>;
+  meta: Record<string, any>;
   date_created: Date;
   date_updated: Date;
 }
@@ -293,11 +293,11 @@ export class MessageInstance {
   /**
    * The content of the message.
    */
-  content: Record<string, object>;
+  content: Record<string, any>;
   /**
    * The metadata of the message.
    */
-  meta: Record<string, object>;
+  meta: Record<string, any>;
   /**
    * The date and time in GMT when the Message was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

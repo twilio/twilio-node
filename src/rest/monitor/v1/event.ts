@@ -177,7 +177,7 @@ interface EventResource {
   actor_sid: string;
   actor_type: string;
   description: string;
-  event_data: Record<string, object>;
+  event_data: Record<string, any>;
   event_date: Date;
   event_type: string;
   resource_sid: string;
@@ -231,7 +231,7 @@ export class EventInstance {
   /**
    * An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
    */
-  eventData: Record<string, object>;
+  eventData: Record<string, any>;
   /**
    * The date and time in GMT when the event was recorded specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

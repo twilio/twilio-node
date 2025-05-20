@@ -143,9 +143,9 @@ interface InsightsSettingsAnswerSetsPayload
 
 interface InsightsSettingsAnswerSetsResource {
   account_sid: string;
-  answer_sets: Record<string, object>;
-  answer_set_categories: Record<string, object>;
-  not_applicable: Record<string, object>;
+  answer_sets: Record<string, any>;
+  answer_set_categories: Record<string, any>;
+  not_applicable: Record<string, any>;
   url: string;
 }
 
@@ -168,15 +168,15 @@ export class InsightsSettingsAnswerSetsInstance {
   /**
    * The lis of answer sets
    */
-  answerSets: Record<string, object>;
+  answerSets: Record<string, any>;
   /**
    * The list of answer set categories
    */
-  answerSetCategories: Record<string, object>;
+  answerSetCategories: Record<string, any>;
   /**
    * The details for not applicable answer set
    */
-  notApplicable: Record<string, object>;
+  notApplicable: Record<string, any>;
   url: string;
 
   /**

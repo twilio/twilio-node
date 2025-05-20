@@ -259,7 +259,7 @@ interface SentenceResource {
   transcript: string;
   sid: string;
   confidence: number;
-  words: Array<Record<string, object>>;
+  words: Array<Record<string, any>>;
 }
 
 export class SentenceInstance {
@@ -306,7 +306,7 @@ export class SentenceInstance {
   /**
    * Detailed information for each of the words of the given Sentence.
    */
-  words: Array<Record<string, object>>;
+  words: Array<Record<string, any>>;
 
   /**
    * Provide a user-friendly representation

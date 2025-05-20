@@ -204,14 +204,14 @@ interface ModuleDataManagementPayload extends ModuleDataManagementResource {}
 interface ModuleDataManagementResource {
   url: string;
   sid: string;
-  description: Record<string, object>;
-  support: Record<string, object>;
-  policies: Record<string, object>;
-  module_info: Record<string, object>;
-  documentation: Record<string, object>;
-  configuration: Record<string, object>;
-  pricing: Record<string, object>;
-  listings: Array<Record<string, object>>;
+  description: Record<string, any>;
+  support: Record<string, any>;
+  policies: Record<string, any>;
+  module_info: Record<string, any>;
+  documentation: Record<string, any>;
+  configuration: Record<string, any>;
+  pricing: Record<string, any>;
+  listings: Array<Record<string, any>>;
 }
 
 export class ModuleDataManagementInstance {
@@ -248,35 +248,35 @@ export class ModuleDataManagementInstance {
   /**
    * A JSON object describing the module and is displayed under the Description tab of the Module detail page. You can define the main body of the description, highlight key features or aspects of the module and if applicable, provide code samples for developers
    */
-  description: Record<string, object>;
+  description: Record<string, any>;
   /**
    * A JSON object containing information on how customers can obtain support for the module. Use this parameter to provide details such as contact information and support description.
    */
-  support: Record<string, object>;
+  support: Record<string, any>;
   /**
    * A JSON object describing the module\'s privacy and legal policies and is displayed under the Policies tab of the Module detail page. The maximum file size for Policies is 5MB
    */
-  policies: Record<string, object>;
+  policies: Record<string, any>;
   /**
    * A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object
    */
-  moduleInfo: Record<string, object>;
+  moduleInfo: Record<string, any>;
   /**
    * A JSON object for providing comprehensive information, instructions, and resources related to the module
    */
-  documentation: Record<string, object>;
+  documentation: Record<string, any>;
   /**
    * A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
    */
-  configuration: Record<string, object>;
+  configuration: Record<string, any>;
   /**
    * A JSON object for providing Listing specific pricing information.
    */
-  pricing: Record<string, object>;
+  pricing: Record<string, any>;
   /**
    *
    */
-  listings: Array<Record<string, object>>;
+  listings: Array<Record<string, any>>;
 
   private get _proxy(): ModuleDataManagementContext {
     this._context =

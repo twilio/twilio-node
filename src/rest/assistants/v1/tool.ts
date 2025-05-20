@@ -56,7 +56,7 @@ export class AssistantsV1ServiceCreateToolRequest {
   /**
    * The metadata related to method, url, input_schema to used with the Tool.
    */
-  "meta"?: Record<string, object>;
+  "meta"?: Record<string, any>;
   /**
    * The name of the tool.
    */
@@ -96,7 +96,7 @@ export class AssistantsV1ServicePolicy {
   /**
    * The details of the policy based on the type.
    */
-  "policy_details": Record<string, object>;
+  "policy_details": Record<string, any>;
   /**
    * The date and time in GMT when the Policy was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -123,7 +123,7 @@ export class AssistantsV1ServiceUpdateToolRequest {
   /**
    * The metadata related to method, url, input_schema to used with the Tool.
    */
-  "meta"?: Record<string, object>;
+  "meta"?: Record<string, any>;
   /**
    * The name of the tool.
    */
@@ -379,7 +379,7 @@ interface ToolResource {
   description: string;
   enabled: boolean;
   id: string;
-  meta: Record<string, object>;
+  meta: Record<string, any>;
   name: string;
   requires_auth: boolean;
   type: string;
@@ -429,7 +429,7 @@ export class ToolInstance {
   /**
    * The metadata related to method, url, input_schema to used with the Tool.
    */
-  meta: Record<string, object>;
+  meta: Record<string, any>;
   /**
    * The name of the tool.
    */

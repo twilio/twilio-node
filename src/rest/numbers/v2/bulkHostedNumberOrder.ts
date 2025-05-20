@@ -172,7 +172,7 @@ interface BulkHostedNumberOrderResource {
   date_completed: Date;
   url: string;
   total_count: number;
-  results: Array<Record<string, object>>;
+  results: Array<Record<string, any>>;
 }
 
 export class BulkHostedNumberOrderInstance {
@@ -229,7 +229,7 @@ export class BulkHostedNumberOrderInstance {
   /**
    * Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check \'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values\'.
    */
-  results: Array<Record<string, object>>;
+  results: Array<Record<string, any>>;
 
   private get _proxy(): BulkHostedNumberOrderContext {
     this._context =
