@@ -263,7 +263,7 @@ interface BrandRegistrationResource {
   status: BrandRegistrationStatus;
   tcr_id: string;
   failure_reason: string;
-  errors: Array<Record<string, object>>;
+  errors: Array<Record<string, any>>;
   url: string;
   brand_score: number;
   brand_feedback: Array<BrandRegistrationBrandFeedback>;
@@ -350,7 +350,7 @@ export class BrandRegistrationInstance {
   /**
    * A list of errors that occurred during the brand registration process.
    */
-  errors: Array<Record<string, object>>;
+  errors: Array<Record<string, any>>;
   /**
    * The absolute URL of the Brand Registration resource.
    */

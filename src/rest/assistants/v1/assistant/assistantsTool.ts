@@ -184,7 +184,7 @@ interface AssistantsToolResource {
   description: string;
   enabled: boolean;
   id: string;
-  meta: Record<string, object>;
+  meta: Record<string, any>;
   name: string;
   requires_auth: boolean;
   type: string;
@@ -237,7 +237,7 @@ export class AssistantsToolInstance {
   /**
    * The metadata related to method, url, input_schema to used with the Tool.
    */
-  meta: Record<string, object>;
+  meta: Record<string, any>;
   /**
    * The name of the tool.
    */

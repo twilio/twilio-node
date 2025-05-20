@@ -181,7 +181,7 @@ interface ExecutionStepResource {
   execution_sid: string;
   parent_step_sid: string;
   name: string;
-  context: Record<string, object>;
+  context: Record<string, any>;
   transitioned_from: string;
   transitioned_to: string;
   date_created: Date;
@@ -245,7 +245,7 @@ export class ExecutionStepInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: Record<string, any>;
   /**
    * The Widget that preceded the Widget for the Step.
    */

@@ -138,11 +138,11 @@ interface UsageResource {
   sim_sid: string;
   sim_unique_name: string;
   account_sid: string;
-  period: Record<string, object>;
-  commands_usage: Record<string, object>;
-  commands_costs: Record<string, object>;
-  data_usage: Record<string, object>;
-  data_costs: Record<string, object>;
+  period: Record<string, any>;
+  commands_usage: Record<string, any>;
+  commands_costs: Record<string, any>;
+  data_usage: Record<string, any>;
+  data_costs: Record<string, any>;
   url: string;
 }
 
@@ -171,11 +171,11 @@ export class UsageInstance {
   simSid: string;
   simUniqueName: string;
   accountSid: string;
-  period: Record<string, object>;
-  commandsUsage: Record<string, object>;
-  commandsCosts: Record<string, object>;
-  dataUsage: Record<string, object>;
-  dataCosts: Record<string, object>;
+  period: Record<string, any>;
+  commandsUsage: Record<string, any>;
+  commandsCosts: Record<string, any>;
+  dataUsage: Record<string, any>;
+  dataCosts: Record<string, any>;
   url: string;
 
   private get _proxy(): UsageContext {

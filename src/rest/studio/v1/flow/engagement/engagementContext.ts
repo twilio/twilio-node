@@ -108,7 +108,7 @@ interface EngagementContextPayload extends EngagementContextResource {}
 
 interface EngagementContextResource {
   account_sid: string;
-  context: Record<string, object>;
+  context: Record<string, any>;
   engagement_sid: string;
   flow_sid: string;
   url: string;
@@ -140,7 +140,7 @@ export class EngagementContextInstance {
   /**
    * As your flow executes, we save the state in what\'s called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: Record<string, any>;
   /**
    * The SID of the Engagement.
    */

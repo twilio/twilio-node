@@ -103,7 +103,7 @@ interface ApprovalFetchPayload extends ApprovalFetchResource {}
 interface ApprovalFetchResource {
   sid: string;
   account_sid: string;
-  whatsapp: Record<string, object>;
+  whatsapp: Record<string, any>;
   url: string;
 }
 
@@ -135,7 +135,7 @@ export class ApprovalFetchInstance {
   /**
    * Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
    */
-  whatsapp: Record<string, object>;
+  whatsapp: Record<string, any>;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`.
    */

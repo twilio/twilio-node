@@ -235,13 +235,13 @@ interface VerificationResource {
   channel: VerificationChannel;
   status: string;
   valid: boolean;
-  lookup: Record<string, object>;
+  lookup: Record<string, any>;
   amount: string;
   payee: string;
-  send_code_attempts: Array<Record<string, object>>;
+  send_code_attempts: Array<Record<string, any>>;
   date_created: Date;
   date_updated: Date;
-  sna: Record<string, object>;
+  sna: Record<string, any>;
   url: string;
 }
 
@@ -302,7 +302,7 @@ export class VerificationInstance {
   /**
    * Information about the phone number being verified.
    */
-  lookup: Record<string, object>;
+  lookup: Record<string, any>;
   /**
    * The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
    */
@@ -314,7 +314,7 @@ export class VerificationInstance {
   /**
    * An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
    */
-  sendCodeAttempts: Array<Record<string, object>>;
+  sendCodeAttempts: Array<Record<string, any>>;
   /**
    * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
@@ -326,7 +326,7 @@ export class VerificationInstance {
   /**
    * The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
    */
-  sna: Record<string, object>;
+  sna: Record<string, any>;
   /**
    * The absolute URL of the Verification resource.
    */

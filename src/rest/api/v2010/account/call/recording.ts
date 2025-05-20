@@ -330,7 +330,7 @@ interface RecordingResource {
   sid: string;
   price: number;
   uri: string;
-  encryption_details: Record<string, object>;
+  encryption_details: Record<string, any>;
   price_unit: string;
   status: RecordingStatus;
   channels: number;
@@ -419,7 +419,7 @@ export class RecordingInstance {
   /**
    * How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
    */
-  encryptionDetails: Record<string, object>;
+  encryptionDetails: Record<string, any>;
   /**
    * The currency used in the `price` property. Example: `USD`.
    */

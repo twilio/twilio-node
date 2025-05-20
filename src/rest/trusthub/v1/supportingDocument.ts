@@ -287,7 +287,7 @@ interface SupportingDocumentResource {
   mime_type: string;
   status: SupportingDocumentStatus;
   type: string;
-  attributes: Record<string, object>;
+  attributes: Record<string, any>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -340,7 +340,7 @@ export class SupportingDocumentInstance {
   /**
    * The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
    */
-  attributes: Record<string, object>;
+  attributes: Record<string, any>;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

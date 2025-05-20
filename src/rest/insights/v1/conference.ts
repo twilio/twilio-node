@@ -273,9 +273,9 @@ interface ConferenceResource {
   mixer_region: ConferenceRegion;
   mixer_region_requested: ConferenceRegion;
   recording_enabled: boolean;
-  detected_issues: Record<string, object>;
+  detected_issues: Record<string, any>;
   tags: Array<ConferenceTag>;
-  tag_info: Record<string, object>;
+  tag_info: Record<string, any>;
   processing_state: ConferenceProcessingState;
   url: string;
   links: Record<string, string>;
@@ -380,7 +380,7 @@ export class ConferenceInstance {
   /**
    * Potential issues detected by Twilio during the conference.
    */
-  detectedIssues: Record<string, object>;
+  detectedIssues: Record<string, any>;
   /**
    * Tags for detected conference conditions and participant behaviors which may be of interest.
    */
@@ -388,7 +388,7 @@ export class ConferenceInstance {
   /**
    * Object. Contains details about conference tags including severity.
    */
-  tagInfo: Record<string, object>;
+  tagInfo: Record<string, any>;
   processingState: ConferenceProcessingState;
   /**
    * The URL of this resource.

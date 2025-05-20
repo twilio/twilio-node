@@ -222,7 +222,7 @@ interface InteractionChannelParticipantResource {
   interaction_sid: string;
   channel_sid: string;
   url: string;
-  routing_properties: Record<string, object>;
+  routing_properties: Record<string, any>;
 }
 
 export class InteractionChannelParticipantInstance {
@@ -263,7 +263,7 @@ export class InteractionChannelParticipantInstance {
   /**
    * The Participant\'s routing properties.
    */
-  routingProperties: Record<string, object>;
+  routingProperties: Record<string, any>;
 
   private get _proxy(): InteractionChannelParticipantContext {
     this._context =

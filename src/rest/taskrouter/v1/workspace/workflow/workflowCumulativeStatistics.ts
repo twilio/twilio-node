@@ -187,9 +187,9 @@ interface WorkflowCumulativeStatisticsResource {
   reservations_timed_out: number;
   reservations_canceled: number;
   reservations_rescinded: number;
-  split_by_wait_time: Record<string, object>;
-  wait_duration_until_accepted: Record<string, object>;
-  wait_duration_until_canceled: Record<string, object>;
+  split_by_wait_time: Record<string, any>;
+  wait_duration_until_accepted: Record<string, any>;
+  wait_duration_until_canceled: Record<string, any>;
   tasks_canceled: number;
   tasks_completed: number;
   tasks_entered: number;
@@ -296,15 +296,15 @@ export class WorkflowCumulativeStatisticsInstance {
   /**
    * A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
    */
-  splitByWaitTime: Record<string, object>;
+  splitByWaitTime: Record<string, any>;
   /**
    * The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were accepted.
    */
-  waitDurationUntilAccepted: Record<string, object>;
+  waitDurationUntilAccepted: Record<string, any>;
   /**
    * The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were canceled.
    */
-  waitDurationUntilCanceled: Record<string, object>;
+  waitDurationUntilCanceled: Record<string, any>;
   /**
    * The total number of Tasks that were canceled.
    */

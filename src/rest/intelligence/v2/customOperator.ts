@@ -296,7 +296,7 @@ interface CustomOperatorResource {
   operator_type: string;
   version: number;
   availability: CustomOperatorAvailability;
-  config: Record<string, object>;
+  config: Record<string, any>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -359,7 +359,7 @@ export class CustomOperatorInstance {
   /**
    * Operator configuration, following the schema defined by the Operator Type. Only available on Operators created by the Account.
    */
-  config: Record<string, object>;
+  config: Record<string, any>;
   /**
    * The date that this Custom Operator was created, given in ISO 8601 format.
    */

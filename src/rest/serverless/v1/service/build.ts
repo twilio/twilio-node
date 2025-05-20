@@ -229,9 +229,9 @@ interface BuildResource {
   account_sid: string;
   service_sid: string;
   status: BuildStatus;
-  asset_versions: Array<Record<string, object>>;
-  function_versions: Array<Record<string, object>>;
-  dependencies: Array<Record<string, object>>;
+  asset_versions: Array<Record<string, any>>;
+  function_versions: Array<Record<string, any>>;
+  dependencies: Array<Record<string, any>>;
   runtime: BuildRuntime;
   date_created: Date;
   date_updated: Date;
@@ -281,15 +281,15 @@ export class BuildInstance {
   /**
    * The list of Asset Version resource SIDs that are included in the Build.
    */
-  assetVersions: Array<Record<string, object>>;
+  assetVersions: Array<Record<string, any>>;
   /**
    * The list of Function Version resource SIDs that are included in the Build.
    */
-  functionVersions: Array<Record<string, object>>;
+  functionVersions: Array<Record<string, any>>;
   /**
    * A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
    */
-  dependencies: Array<Record<string, object>>;
+  dependencies: Array<Record<string, any>>;
   runtime: BuildRuntime;
   /**
    * The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

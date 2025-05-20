@@ -153,7 +153,7 @@ interface WorkersRealTimeStatisticsPayload
 
 interface WorkersRealTimeStatisticsResource {
   account_sid: string;
-  activity_statistics: Array<Record<string, object>>;
+  activity_statistics: Array<Record<string, any>>;
   total_workers: number;
   workspace_sid: string;
   url: string;
@@ -184,7 +184,7 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * The number of current Workers by Activity.
    */
-  activityStatistics: Array<Record<string, object>>;
+  activityStatistics: Array<Record<string, any>>;
   /**
    * The total number of Workers.
    */

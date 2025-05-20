@@ -361,7 +361,7 @@ interface SyncMapItemResource {
   map_sid: string;
   url: string;
   revision: string;
-  data: Record<string, object>;
+  data: Record<string, any>;
   date_expires: Date;
   date_created: Date;
   date_updated: Date;
@@ -421,7 +421,7 @@ export class SyncMapItemInstance {
   /**
    * An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
    */
-  data: Record<string, object>;
+  data: Record<string, any>;
   /**
    * The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
    */

@@ -378,7 +378,7 @@ interface InsightsQuestionnairesResource {
   name: string;
   description: string;
   active: boolean;
-  questions: Array<Record<string, object>>;
+  questions: Array<Record<string, any>>;
   url: string;
 }
 
@@ -427,7 +427,7 @@ export class InsightsQuestionnairesInstance {
   /**
    * The list of questions with category for a questionnaire
    */
-  questions: Array<Record<string, object>>;
+  questions: Array<Record<string, any>>;
   url: string;
 
   private get _proxy(): InsightsQuestionnairesContext {

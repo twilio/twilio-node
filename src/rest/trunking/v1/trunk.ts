@@ -356,7 +356,7 @@ interface TrunkResource {
   disaster_recovery_url: string;
   friendly_name: string;
   secure: boolean;
-  recording: Record<string, object>;
+  recording: Record<string, any>;
   transfer_mode: TrunkTransferSetting;
   transfer_caller_id: TrunkTransferCallerId;
   cnam_lookup_enabled: boolean;
@@ -422,7 +422,7 @@ export class TrunkInstance {
   /**
    * The recording settings for the trunk. Can be: `do-not-record`, `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing` or `record-from-answer`, all calls going through the trunk will be recorded. The only way to change recording parameters is on a sub-resource of a Trunk after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST -d\'Mode=record-from-answer\'`. See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more information.
    */
-  recording: Record<string, object>;
+  recording: Record<string, any>;
   transferMode: TrunkTransferSetting;
   transferCallerId: TrunkTransferCallerId;
   /**

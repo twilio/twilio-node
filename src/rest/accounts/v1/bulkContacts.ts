@@ -118,7 +118,7 @@ export function BulkContactsListInstance(
 interface BulkContactsPayload extends BulkContactsResource {}
 
 interface BulkContactsResource {
-  items: Record<string, object>;
+  items: Record<string, any>;
 }
 
 export class BulkContactsInstance {
@@ -129,7 +129,7 @@ export class BulkContactsInstance {
   /**
    * A list of objects where each object represents the result of processing a `correlation_id`. Each object contains the following fields: `correlation_id`, a unique 32-character UUID that maps the response to the original request; `error_code`, an integer where 0 indicates success and any non-zero value represents an error; and `error_messages`, an array of strings describing specific validation errors encountered. If the request is successful, the error_messages array will be empty.
    */
-  items: Record<string, object>;
+  items: Record<string, any>;
 
   /**
    * Provide a user-friendly representation

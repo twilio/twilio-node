@@ -247,8 +247,8 @@ interface DeviceResource {
   sid: string;
   unique_name: string;
   account_sid: string;
-  app: Record<string, object>;
-  logging: Record<string, object>;
+  app: Record<string, any>;
+  logging: Record<string, any>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -288,11 +288,11 @@ export class DeviceInstance {
   /**
    * Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
    */
-  app: Record<string, object>;
+  app: Record<string, any>;
   /**
    * Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
    */
-  logging: Record<string, object>;
+  logging: Record<string, any>;
   /**
    * The date that this Device was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

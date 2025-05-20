@@ -280,7 +280,7 @@ interface TranscriptResource {
   date_created: Date;
   date_updated: Date;
   status: TranscriptStatus;
-  channel: Record<string, object>;
+  channel: Record<string, any>;
   data_logging: boolean;
   language_code: string;
   customer_key: string;
@@ -343,7 +343,7 @@ export class TranscriptInstance {
   /**
    * Media Channel describing Transcript Source and Participant Mapping
    */
-  channel: Record<string, object>;
+  channel: Record<string, any>;
   /**
    * Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
    */

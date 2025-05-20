@@ -241,8 +241,8 @@ interface LegacyContentResource {
   account_sid: string;
   friendly_name: string;
   language: string;
-  variables: Record<string, object>;
-  types: Record<string, object>;
+  variables: Record<string, any>;
+  types: Record<string, any>;
   legacy_template_name: string;
   legacy_body: string;
   url: string;
@@ -290,11 +290,11 @@ export class LegacyContentInstance {
   /**
    * Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
    */
-  variables: Record<string, object>;
+  variables: Record<string, any>;
   /**
    * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
-  types: Record<string, object>;
+  types: Record<string, any>;
   /**
    * The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
    */

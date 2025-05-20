@@ -234,7 +234,7 @@ interface RoomRecordingResource {
   duration: number;
   container_format: RoomRecordingFormat;
   codec: RoomRecordingCodec;
-  grouping_sids: Record<string, object>;
+  grouping_sids: Record<string, any>;
   track_name: string;
   offset: number;
   media_external_location: string;
@@ -308,7 +308,7 @@ export class RoomRecordingInstance {
   /**
    * A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`.
    */
-  groupingSids: Record<string, object>;
+  groupingSids: Record<string, any>;
   /**
    * The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
    */

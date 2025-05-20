@@ -317,8 +317,8 @@ interface FactorResource {
   friendly_name: string;
   status: FactorFactorStatuses;
   factor_type: FactorFactorTypes;
-  config: Record<string, object>;
-  metadata: Record<string, object>;
+  config: Record<string, any>;
+  metadata: Record<string, any>;
   url: string;
 }
 
@@ -387,11 +387,11 @@ export class FactorInstance {
   /**
    * An object that contains configurations specific to a `factor_type`.
    */
-  config: Record<string, object>;
+  config: Record<string, any>;
   /**
    * Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
    */
-  metadata: Record<string, object>;
+  metadata: Record<string, any>;
   /**
    * The URL of this resource.
    */

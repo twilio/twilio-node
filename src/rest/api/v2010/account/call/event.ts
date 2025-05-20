@@ -240,8 +240,8 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  request: Record<string, object>;
-  response: Record<string, object>;
+  request: Record<string, any>;
+  response: Record<string, any>;
 }
 
 export class EventInstance {
@@ -258,11 +258,11 @@ export class EventInstance {
   /**
    * Contains a dictionary representing the request of the call.
    */
-  request: Record<string, object>;
+  request: Record<string, any>;
   /**
    * Contains a dictionary representing the call response, including a list of the call events.
    */
-  response: Record<string, object>;
+  response: Record<string, any>;
 
   /**
    * Provide a user-friendly representation

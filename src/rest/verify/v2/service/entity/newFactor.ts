@@ -210,14 +210,14 @@ interface NewFactorResource {
   service_sid: string;
   entity_sid: string;
   identity: string;
-  binding: Record<string, object>;
+  binding: Record<string, any>;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
   status: NewFactorFactorStatuses;
   factor_type: NewFactorFactorTypes;
-  config: Record<string, object>;
-  metadata: Record<string, object>;
+  config: Record<string, any>;
+  metadata: Record<string, any>;
   url: string;
 }
 
@@ -267,7 +267,7 @@ export class NewFactorInstance {
   /**
    * Contains the `factor_type` specific secret and metadata. For push, this is `binding.public_key` and `binding.alg`. For totp, this is `binding.secret` and `binding.uri`. The `binding.uri` property is generated following the [google authenticator key URI format](https://github.com/google/google-authenticator/wiki/Key-Uri-Format), and `Factor.friendly_name` is used for the “accountname” value and `Service.friendly_name` or `Service.totp.issuer` is used for the `issuer` value.   The Binding property is ONLY returned upon Factor creation.
    */
-  binding: Record<string, object>;
+  binding: Record<string, any>;
   /**
    * The date that this Factor was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -285,11 +285,11 @@ export class NewFactorInstance {
   /**
    * An object that contains configurations specific to a `factor_type`.
    */
-  config: Record<string, object>;
+  config: Record<string, any>;
   /**
    * Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
    */
-  metadata: Record<string, object>;
+  metadata: Record<string, any>;
   /**
    * The URL of this resource.
    */

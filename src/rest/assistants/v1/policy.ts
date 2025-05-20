@@ -247,7 +247,7 @@ interface PolicyResource {
   account_sid: string;
   user_sid: string;
   type: string;
-  policy_details: Record<string, object>;
+  policy_details: Record<string, any>;
   date_created: Date;
   date_updated: Date;
 }
@@ -292,7 +292,7 @@ export class PolicyInstance {
   /**
    * The details of the policy based on the type.
    */
-  policyDetails: Record<string, object>;
+  policyDetails: Record<string, any>;
   /**
    * The date and time in GMT when the Policy was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

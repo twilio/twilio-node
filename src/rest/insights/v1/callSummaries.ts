@@ -536,18 +536,18 @@ interface CallSummariesResource {
   end_time: Date;
   duration: number;
   connect_duration: number;
-  from: Record<string, object>;
-  to: Record<string, object>;
-  carrier_edge: Record<string, object>;
-  client_edge: Record<string, object>;
-  sdk_edge: Record<string, object>;
-  sip_edge: Record<string, object>;
+  from: Record<string, any>;
+  to: Record<string, any>;
+  carrier_edge: Record<string, any>;
+  client_edge: Record<string, any>;
+  sdk_edge: Record<string, any>;
+  sip_edge: Record<string, any>;
   tags: Array<string>;
   url: string;
-  attributes: Record<string, object>;
-  properties: Record<string, object>;
-  trust: Record<string, object>;
-  annotation: Record<string, object>;
+  attributes: Record<string, any>;
+  properties: Record<string, any>;
+  trust: Record<string, any>;
+  annotation: Record<string, any>;
 }
 
 export class CallSummariesInstance {
@@ -612,27 +612,27 @@ export class CallSummariesInstance {
   /**
    * The calling party.
    */
-  from: Record<string, object>;
+  from: Record<string, any>;
   /**
    * The called party.
    */
-  to: Record<string, object>;
+  to: Record<string, any>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a PSTN call.
    */
-  carrierEdge: Record<string, object>;
+  carrierEdge: Record<string, any>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a Client call.
    */
-  clientEdge: Record<string, object>;
+  clientEdge: Record<string, any>;
   /**
    * Contains metrics and properties for the SDK sensor library for Client calls.
    */
-  sdkEdge: Record<string, object>;
+  sdkEdge: Record<string, any>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
    */
-  sipEdge: Record<string, object>;
+  sipEdge: Record<string, any>;
   /**
    * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
    */
@@ -644,16 +644,16 @@ export class CallSummariesInstance {
   /**
    * Attributes capturing call-flow-specific details.
    */
-  attributes: Record<string, object>;
+  attributes: Record<string, any>;
   /**
    * Contains edge-agnostic call-level details.
    */
-  properties: Record<string, object>;
+  properties: Record<string, any>;
   /**
    * Contains trusted communications details including Branded Call and verified caller ID.
    */
-  trust: Record<string, object>;
-  annotation: Record<string, object>;
+  trust: Record<string, any>;
+  annotation: Record<string, any>;
 
   /**
    * Provide a user-friendly representation

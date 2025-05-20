@@ -138,7 +138,7 @@ interface StreamMessagePayload extends StreamMessageResource {}
 
 interface StreamMessageResource {
   sid: string;
-  data: Record<string, object>;
+  data: Record<string, any>;
 }
 
 export class StreamMessageInstance {
@@ -159,7 +159,7 @@ export class StreamMessageInstance {
   /**
    * An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
    */
-  data: Record<string, object>;
+  data: Record<string, any>;
 
   /**
    * Provide a user-friendly representation

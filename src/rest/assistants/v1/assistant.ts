@@ -68,7 +68,7 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledge_source_details"?: Record<string, object>;
+  "knowledge_source_details"?: Record<string, any>;
   /**
    * The name of the knowledge source.
    */
@@ -134,7 +134,7 @@ export class AssistantsV1ServiceTool {
   /**
    * The metadata related to method, url, input_schema to used with the Tool.
    */
-  "meta": Record<string, object>;
+  "meta": Record<string, any>;
   /**
    * The name of the tool.
    */
@@ -449,7 +449,7 @@ interface AssistantPayload extends TwilioResponsePayload {
 
 interface AssistantResource {
   account_sid: string;
-  customer_ai: Record<string, object>;
+  customer_ai: Record<string, any>;
   id: string;
   model: string;
   name: string;
@@ -490,7 +490,7 @@ export class AssistantInstance {
   /**
    * The Personalization and Perception Engine settings.
    */
-  customerAi: Record<string, object>;
+  customerAi: Record<string, any>;
   /**
    * The Assistant ID.
    */

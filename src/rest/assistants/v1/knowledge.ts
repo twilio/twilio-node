@@ -34,7 +34,7 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledge_source_details"?: Record<string, object>;
+  "knowledge_source_details"?: Record<string, any>;
   /**
    * The name of the tool.
    */
@@ -78,7 +78,7 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledge_source_details"?: Record<string, object>;
+  "knowledge_source_details"?: Record<string, any>;
   /**
    * The name of the knowledge source.
    */
@@ -356,7 +356,7 @@ interface KnowledgeResource {
   description: string;
   id: string;
   account_sid: string;
-  knowledge_source_details: Record<string, object>;
+  knowledge_source_details: Record<string, any>;
   name: string;
   status: string;
   type: string;
@@ -401,7 +401,7 @@ export class KnowledgeInstance {
   /**
    * The details of the knowledge source based on the type.
    */
-  knowledgeSourceDetails: Record<string, object>;
+  knowledgeSourceDetails: Record<string, any>;
   /**
    * The name of the knowledge source.
    */
