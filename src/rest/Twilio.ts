@@ -29,7 +29,6 @@ import Knowledge from "./Knowledge";
 import Lookups from "./Lookups";
 import Marketplace from "./Marketplace";
 import Messaging from "./Messaging";
-import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
 import Notify from "./Notify";
 import Numbers from "./Numbers";
@@ -119,8 +118,6 @@ class Twilio extends Client {
   _marketplace?: Marketplace;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
-  /** (Twilio.Microvisor) - microvisor domain */
-  _microvisor?: Microvisor;
   /** (Twilio.Monitor) - monitor domain */
   _monitor?: Monitor;
   /** (Twilio.Notify) - notify domain */
@@ -196,7 +193,6 @@ class Twilio extends Client {
       this.lookups;
       this.marketplace;
       this.messaging;
-      this.microvisor;
       this.monitor;
       this.notify;
       this.numbers;
@@ -326,13 +322,6 @@ class Twilio extends Client {
   get messaging(): Messaging {
     return (
       this._messaging ?? (this._messaging = new (require("./Messaging"))(this))
-    );
-  }
-  /** Getter for (Twilio.Microvisor) domain */
-  get microvisor(): Microvisor {
-    return (
-      this._microvisor ??
-      (this._microvisor = new (require("./Microvisor"))(this))
     );
   }
   /** Getter for (Twilio.Monitor) domain */
