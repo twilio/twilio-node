@@ -19,7 +19,10 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../../../interfaces";
 
 export type MobileAddressRequirement = "none" | "any" | "local" | "foreign";
 
@@ -443,7 +446,7 @@ interface MobileResource {
   address_requirements: MobileAddressRequirement;
   api_version: string;
   beta: boolean;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -485,7 +488,12 @@ export class MobileInstance {
     this.addressRequirements = payload.address_requirements;
     this.apiVersion = payload.api_version;
     this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;

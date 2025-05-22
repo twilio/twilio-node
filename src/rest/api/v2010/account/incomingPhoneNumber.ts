@@ -23,7 +23,10 @@ import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../../interfaces";
 
 export type IncomingPhoneNumberAddressRequirement =
   | "none"
@@ -475,7 +478,7 @@ interface IncomingPhoneNumberResource {
   address_requirements: IncomingPhoneNumberAddressRequirement;
   api_version: string;
   beta: boolean;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -521,7 +524,12 @@ export class IncomingPhoneNumberInstance {
     this.addressRequirements = payload.address_requirements;
     this.apiVersion = payload.api_version;
     this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;
