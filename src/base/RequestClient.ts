@@ -78,6 +78,23 @@ function getExponentialBackoffResponseHandler(
 /**
  * ValidationInterceptor adds the Twilio-Client-Validation header to the request
  * @param validationClient - The validation client for PKCV
+ * <p>Usage Example:</p>
+ * ```javascript
+ * import axios from "axios";
+ * // Initialize validation client with credentials
+ * const validationClient = {
+ *           accountSid: "ACXXXXXXXXXXXXXXXX",
+ *           credentialSid: "CRXXXXXXXXXXXXXXXX",
+ *           signingKey: "SKXXXXXXXXXXXXXXXX",
+ *           privateKey: "private key",
+ *           algorithm: "PS256",
+ *         }
+ * // construct an axios instance
+ * const instance = axios.create();
+ * instance.interceptors.request.use(
+ *   ValidationInterceptor(opts.validationClient)
+ * );
+ * ```
  */
 function ValidationInterceptor(
   validationClient: RequestClient.ValidationClient
@@ -413,7 +430,11 @@ namespace RequestClient {
      */
     maxRetries?: number;
     /**
-     * Validation client for PKCV
+     * Validation client for Public Key Client Validation
+     * On setting this with your credentials, Twilio validates:
+       * That the request comes from a sender who is in control of the private key.
+       * That the message has not been modified in transit.
+     * Refer our doc for details - https://www.twilio.com/docs/iam/pkcv
      */
     validationClient?: ValidationClient;
   }
