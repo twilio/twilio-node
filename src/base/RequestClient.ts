@@ -101,9 +101,16 @@ function ValidationInterceptor(
 ) {
   return function (config: InternalAxiosRequestConfig) {
     config.headers = config.headers || {};
-    config.headers["Twilio-Client-Validation"] = new ValidationToken(
-      validationClient
-    ).fromHttpRequest(config);
+    try {
+      config.headers["Twilio-Client-Validation"] = new ValidationToken(
+          validationClient
+      ).fromHttpRequest(config);
+    }
+    catch (err) {
+        // If the validation token cannot be generated, we should not block the request
+        // and just log the error
+        console.error("Error generating Twilio-Client-Validation header", err);
+    }
     return config;
   };
 }
