@@ -86,7 +86,7 @@ class RequestCanonicalizer {
         return `${key.toLowerCase()}:${this.headers[key].trim()}`;
       })
       .sort((a, b) => this.ASCIICompare(a, b)); // forces ASCII sorting using custom compare
-    return sortedHeaders.join("\n") + "\n";
+    return `${sortedHeaders.join("\n")}\n`;
   }
 
   getCanonicalizedHashedHeaders(): string {
@@ -111,14 +111,12 @@ class RequestCanonicalizer {
   }
 
   getCanonicalizedRequestString(): string {
-    let canonicalizedRequest = "";
-    canonicalizedRequest += this.getCanonicalizedMethod() + "\n";
-    canonicalizedRequest += this.getCanonicalizedPath() + "\n";
-    canonicalizedRequest += this.getCanonicalizedQueryParams() + "\n";
-    canonicalizedRequest += this.getCanonicalizedHeaders() + "\n";
-    canonicalizedRequest += this.getCanonicalizedHashedHeaders() + "\n";
-    canonicalizedRequest += this.getCanonicalizedRequestBody();
-    return canonicalizedRequest;
+    return `${this.getCanonicalizedMethod()}
+${this.getCanonicalizedPath()}
+${this.getCanonicalizedQueryParams()}
+${this.getCanonicalizedHeaders()}
+${this.getCanonicalizedHashedHeaders()}
+${this.getCanonicalizedRequestBody()}`;
   }
 
   create(): string {
