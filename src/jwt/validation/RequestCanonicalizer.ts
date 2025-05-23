@@ -3,16 +3,16 @@ import crypto from "crypto";
 class RequestCanonicalizer {
   method: string;
   uri: string;
-  queryParams: any;
+  queryParams: Record<string, string>;
   requestBody: any;
-  headers: any;
+  headers: Record<string, string>;
 
   constructor(
     method: string,
     uri: string,
-    queryParams: any,
+    queryParams: Record<string, string>,
     requestBody: any,
-    headers: any
+    headers: Record<string, string>
   ) {
     this.method = method;
     this.uri = uri;
