@@ -14,7 +14,7 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
 
   /**
    * @constructor
-   * @param opts - The options for the ValidationToken
+   * @param opts - The Options used to configure the ValidationToken
    * @param opts.accountSid - The account SID
    * @param opts.credentialSid - The credential SID for public key submitted to Twilio
    * @param opts.signingKey - The signing key
@@ -55,7 +55,13 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
     this.algorithm = algorithm;
     this.ttl = 300;
   }
-
+/**
+ * Generates a `RequestCanonicalizer` instance for the given HTTP request.
+ *
+ * @param request - The HTTP request object containing details such as headers, URL, method, query parameters, and body.
+ * @throws {Error} If the request URL or method is missing.
+ * @returns {RequestCanonicalizer} - An instance of `RequestCanonicalizer` initialized with the canonicalized request details.
+ */
   getRequestCanonicalizer(request: any): RequestCanonicalizer {
     const headers = request.headers || {};
     const requestUrl = request.url;
@@ -87,7 +93,7 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
   }
 
   /**
-   * Create JWT token to be added in the request header for PKCV
+   * Generate a JWT token to include in the request header for PKCV
    * @param request - The request object
    * @returns {string} - The JWT token
    */
