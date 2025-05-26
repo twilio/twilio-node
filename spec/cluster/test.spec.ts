@@ -1,6 +1,7 @@
 jest.setTimeout(15000);
 
 import twilio from "twilio";
+import crypto from "crypto";
 
 const fromNumber = process.env.TWILIO_FROM_NUMBER;
 const toNumber = process.env.TWILIO_TO_NUMBER;
@@ -30,6 +31,40 @@ test("Should list incoming numbers", () => {
     expect(incomingPhoneNumbers).not.toBeNull();
     expect(incomingPhoneNumbers.length).toBeGreaterThanOrEqual(2);
   });
+});
+
+test("Should list incoming numbers with PKCV", () => {
+    // Generate public and private key pair
+    const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
+        modulusLength: 2048,
+        publicKeyEncoding: { type: "spki", format: "pem" },
+        privateKeyEncoding: { type: "pkcs8", format: "pem" },
+    });
+
+    return testClient.accounts.v1.credentials.publicKey
+        .create({
+            friendlyName: "Public Key",
+            publicKey: publicKey,
+        })
+        .then((key) => {
+                // Switch to the Validation Client to validate API calls
+                const validationClient =twilio(apiKey, apiSecret, {
+                    accountSid: accountSid,
+                    validationClient: {
+                        accountSid: accountSid,
+                        credentialSid: key.sid,
+                        signingKey: apiKey,
+                        privateKey: privateKey,
+                        algorithm: "PS256", // Validation client supports RS256 or PS256 algorithm. Default is RS256.
+                    },
+                });
+                validationClient.setAccountSid(accountSid);
+
+                validationClient.incomingPhoneNumbers.list().then((incomingPhoneNumbers) => {
+                expect(incomingPhoneNumbers).not.toBeNull();
+                expect(incomingPhoneNumbers.length).toBeGreaterThanOrEqual(2);
+            });
+        });
 });
 
 test("Should list a incoming number", () => {
