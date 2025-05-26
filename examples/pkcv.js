@@ -1,4 +1,3 @@
-"use strict";
 var Twilio = require("../lib");
 const crypto = require("crypto");
 

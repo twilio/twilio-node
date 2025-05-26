@@ -2,15 +2,36 @@ import { ValidationClient } from "../../base/RequestClient";
 import RequestCanonicalizer from "./RequestCanonicalizer";
 import jwt, { Algorithm } from "jsonwebtoken";
 
-class ValidationToken implements ValidationToken.ValidationTokenOptions {
+class ValidationToken {
   static DEFAULT_ALGORITHM: "RS256" = "RS256";
   static ALGORITHMS = ["RS256", "PS256"];
-  accountSid: string;
-  credentialSid: string;
-  signingKey: string;
-  privateKey: string;
-  algorithm: Algorithm;
+  private readonly _accountSid: string;
+  private readonly _credentialSid: string;
+  private readonly _signingKey: string;
+  private readonly _privateKey: string;
+  private readonly _algorithm: Algorithm;
   ttl: number;
+
+
+  get accountSid(): string {
+    return this._accountSid;
+  }
+
+  get credentialSid(): string {
+    return this._credentialSid;
+  }
+
+  get signingKey(): string {
+    return this._signingKey;
+  }
+
+  get privateKey(): string {
+    return this._privateKey;
+  }
+
+  get algorithm(): Algorithm {
+    return this._algorithm;
+  }
 
   /**
    * @constructor
@@ -48,11 +69,11 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
       );
     }
 
-    this.accountSid = opts.accountSid;
-    this.credentialSid = opts.credentialSid;
-    this.signingKey = opts.signingKey;
-    this.privateKey = opts.privateKey;
-    this.algorithm = algorithm;
+    this._accountSid = opts.accountSid;
+    this._credentialSid = opts.credentialSid;
+    this._signingKey = opts.signingKey;
+    this._privateKey = opts.privateKey;
+    this._algorithm = algorithm;
     this.ttl = 300;
   }
   /**
@@ -104,18 +125,18 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
       const header = {
         cty: "twilio-pkrv;v=1",
         typ: "JWT",
-        alg: this.algorithm,
-        kid: this.credentialSid,
+        alg: this._algorithm,
+        kid: this._credentialSid,
       };
       const payload = {
-        iss: this.signingKey,
-        sub: this.accountSid,
+        iss: this._signingKey,
+        sub: this._accountSid,
         hrh: requestCanonicalizer.getCanonicalizedHashedHeaders(),
         rqh: canonicalizedRequest,
       };
-      return jwt.sign(payload, this.privateKey, {
+      return jwt.sign(payload, this._privateKey, {
         header: header,
-        algorithm: this.algorithm,
+        algorithm: this._algorithm,
         expiresIn: this.ttl,
       });
     } catch (err) {
@@ -125,14 +146,6 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
 }
 
 namespace ValidationToken {
-  export interface ValidationTokenOptions {
-    accountSid: string;
-    credentialSid: string;
-    signingKey: string;
-    privateKey: string;
-    algorithm?: Algorithm;
-    ttl?: number;
-  }
 }
 
 export = ValidationToken;
