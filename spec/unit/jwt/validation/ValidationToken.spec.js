@@ -304,8 +304,8 @@ describe("ValidationToken", function () {
   });
 
   describe("fromHttpRequest", function () {
+    const token = getToken("PS256");
     describe("should generate the correct JWT token", function () {
-      const token = getToken("PS256");
       const request = {
         url: "https://example.com/path",
         method: "POST",
@@ -331,6 +331,18 @@ describe("ValidationToken", function () {
           token.getRequestCanonicalizer(request).create()
         );
       });
+    });
+
+    describe("exception handling for fromHttpRequest", function () {
+      const request = {
+        url: "https://example.com/path",
+      };
+      it("should throw error when invalid request", function () {
+        expect(() => token.fromHttpRequest(request)).toThrow(
+            new Error("Error generating JWT token Error: Method is required")
+        );
+      });
+
     });
   });
 });

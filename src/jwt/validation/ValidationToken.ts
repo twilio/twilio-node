@@ -98,25 +98,29 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
    * @returns {string} - The JWT token
    */
   fromHttpRequest(request: any): string {
-    const requestCanonicalizer = this.getRequestCanonicalizer(request);
-    const canonicalizedRequest = requestCanonicalizer.create();
-    const header = {
-      cty: "twilio-pkrv;v=1",
-      typ: "JWT",
-      alg: this.algorithm,
-      kid: this.credentialSid,
-    };
-    const payload = {
-      iss: this.signingKey,
-      sub: this.accountSid,
-      hrh: requestCanonicalizer.getCanonicalizedHashedHeaders(),
-      rqh: canonicalizedRequest,
-    };
-    return jwt.sign(payload, this.privateKey, {
-      header: header,
-      algorithm: this.algorithm,
-      expiresIn: this.ttl,
-    });
+    try {
+      const requestCanonicalizer = this.getRequestCanonicalizer(request);
+      const canonicalizedRequest = requestCanonicalizer.create();
+      const header = {
+        cty: "twilio-pkrv;v=1",
+        typ: "JWT",
+        alg: this.algorithm,
+        kid: this.credentialSid,
+      };
+      const payload = {
+        iss: this.signingKey,
+        sub: this.accountSid,
+        hrh: requestCanonicalizer.getCanonicalizedHashedHeaders(),
+        rqh: canonicalizedRequest,
+      };
+      return jwt.sign(payload, this.privateKey, {
+        header: header,
+        algorithm: this.algorithm,
+        expiresIn: this.ttl,
+      });
+    } catch (err) {
+        throw new Error("Error generating JWT token " + err);
+    }
   }
 }
 
