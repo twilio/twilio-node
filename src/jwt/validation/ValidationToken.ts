@@ -12,7 +12,6 @@ class ValidationToken {
   private readonly _algorithm: Algorithm;
   ttl: number;
 
-
   get accountSid(): string {
     return this._accountSid;
   }
@@ -145,7 +144,6 @@ class ValidationToken {
   }
 }
 
-namespace ValidationToken {
-}
+namespace ValidationToken {}
 
 export = ValidationToken;
