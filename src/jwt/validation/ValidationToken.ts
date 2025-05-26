@@ -55,13 +55,13 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
     this.algorithm = algorithm;
     this.ttl = 300;
   }
-/**
- * Generates a `RequestCanonicalizer` instance for the given HTTP request.
- *
- * @param request - The HTTP request object containing details such as headers, URL, method, query parameters, and body.
- * @throws {Error} If the request URL or method is missing.
- * @returns {RequestCanonicalizer} - An instance of `RequestCanonicalizer` initialized with the canonicalized request details.
- */
+  /**
+   * Generates a `RequestCanonicalizer` instance for the given HTTP request.
+   *
+   * @param request - The HTTP request object containing details such as headers, URL, method, query parameters, and body.
+   * @throws {Error} If the request URL or method is missing.
+   * @returns {RequestCanonicalizer} - An instance of `RequestCanonicalizer` initialized with the canonicalized request details.
+   */
   getRequestCanonicalizer(request: any): RequestCanonicalizer {
     const headers = request.headers || {};
     const requestUrl = request.url;
@@ -119,7 +119,7 @@ class ValidationToken implements ValidationToken.ValidationTokenOptions {
         expiresIn: this.ttl,
       });
     } catch (err) {
-        throw new Error("Error generating JWT token " + err);
+      throw new Error("Error generating JWT token " + err);
     }
   }
 }

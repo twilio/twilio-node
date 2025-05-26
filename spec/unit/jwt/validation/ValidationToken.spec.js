@@ -339,10 +339,9 @@ describe("ValidationToken", function () {
       };
       it("should throw error when invalid request", function () {
         expect(() => token.fromHttpRequest(request)).toThrow(
-            new Error("Error generating JWT token Error: Method is required")
+          new Error("Error generating JWT token Error: Method is required")
         );
       });
-
     });
   });
 });
