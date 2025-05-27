@@ -106,9 +106,7 @@ function ValidationInterceptor(
         validationClient
       ).fromHttpRequest(config);
     } catch (err) {
-      // If the validation token cannot be generated, we should not block the request
-      // and just log the error
-      console.error("Error generating Twilio-Client-Validation header", err);
+      throw err;
     }
     return config;
   };
@@ -438,7 +436,10 @@ namespace RequestClient {
     /**
      * Validation client for Public Key Client Validation
      * On setting this with your credentials, Twilio validates:
-     * That the request comes from a sender who is in control of the private key.
+     <ul>
+        <li>The request comes from a sender who is in control of the private key.</li>
+        <li>The message has not been modified in transit.</li>
+     </ul>
      * That the message has not been modified in transit.
      * Refer our doc for details - https://www.twilio.com/docs/iam/pkcv
      */
