@@ -75,43 +75,6 @@ function getExponentialBackoffResponseHandler(
   };
 }
 
-/**
- * ValidationInterceptor adds the Twilio-Client-Validation header to the request
- * @param validationClient - The validation client for PKCV
- * <p>Usage Example:</p>
- * ```javascript
- * import axios from "axios";
- * // Initialize validation client with credentials
- * const validationClient = {
- *           accountSid: "ACXXXXXXXXXXXXXXXX",
- *           credentialSid: "CRXXXXXXXXXXXXXXXX",
- *           signingKey: "SKXXXXXXXXXXXXXXXX",
- *           privateKey: "private key",
- *           algorithm: "PS256",
- *         }
- * // construct an axios instance
- * const instance = axios.create();
- * instance.interceptors.request.use(
- *   ValidationInterceptor(opts.validationClient)
- * );
- * ```
- */
-function ValidationInterceptor(
-  validationClient: RequestClient.ValidationClient
-) {
-  return function (config: InternalAxiosRequestConfig) {
-    config.headers = config.headers || {};
-    try {
-      config.headers["Twilio-Client-Validation"] = new ValidationToken(
-        validationClient
-      ).fromHttpRequest(config);
-    } catch (err) {
-      throw err;
-    }
-    return config;
-  };
-}
-
 class RequestClient {
   defaultTimeout: number;
   axios: AxiosInstance;
@@ -189,7 +152,7 @@ class RequestClient {
     // if validation client is set, intercept the request using ValidationInterceptor
     if (opts.validationClient) {
       this.axios.interceptors.request.use(
-        ValidationInterceptor(opts.validationClient)
+        this.validationInterceptor(opts.validationClient)
       );
     }
   }
@@ -308,6 +271,41 @@ class RequestClient {
     return Object.keys(headers).filter((header) => {
       return !"authorization".includes(header.toLowerCase());
     });
+  }
+
+  /**
+   * ValidationInterceptor adds the Twilio-Client-Validation header to the request
+   * @param validationClient - The validation client for PKCV
+   * <p>Usage Example:</p>
+   * ```javascript
+   * import axios from "axios";
+   * // Initialize validation client with credentials
+   * const validationClient = {
+   *           accountSid: "ACXXXXXXXXXXXXXXXX",
+   *           credentialSid: "CRXXXXXXXXXXXXXXXX",
+   *           signingKey: "SKXXXXXXXXXXXXXXXX",
+   *           privateKey: "private key",
+   *           algorithm: "PS256",
+   *         }
+   * // construct an axios instance
+   * const instance = axios.create();
+   * instance.interceptors.request.use(
+   *   ValidationInterceptor(opts.validationClient)
+   * );
+   * ```
+   */
+  validationInterceptor(validationClient: RequestClient.ValidationClient) {
+    return function (config: InternalAxiosRequestConfig) {
+      config.headers = config.headers || {};
+      try {
+        config.headers["Twilio-Client-Validation"] = new ValidationToken(
+          validationClient
+        ).fromHttpRequest(config);
+      } catch (err) {
+        throw err;
+      }
+      return config;
+    };
   }
 
   private logRequest<TData>(options: LastRequestOptions<TData>) {

@@ -1,4 +1,5 @@
 import twilio from "../../../../src";
+import RequestClient from "../../../../src/base/RequestClient";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
@@ -342,6 +343,57 @@ describe("ValidationToken", function () {
           new Error("Error generating JWT token Error: Method is required")
         );
       });
+    });
+  });
+
+  describe("ValidationInterceptor", function () {
+    it("should add Twilio-Client-Validation header to the request", function () {
+      const validationClient = {
+        accountSid: accountSid,
+        credentialSid: credentialSid,
+        signingKey: signingKey,
+        privateKey: privateKey,
+        algorithm: "RS256",
+      };
+      const requestClient = new RequestClient({
+        validationClient: validationClient,
+      });
+      const config = {
+        url: "https://example.com/path",
+        method: "POST",
+        headers: {},
+      };
+      const newConfig =
+        requestClient.validationInterceptor(validationClient)(config);
+      expect(newConfig.headers["Twilio-Client-Validation"]).toBeDefined();
+      expect(typeof newConfig.headers["Twilio-Client-Validation"]).toBe(
+        "string"
+      );
+    });
+
+    it("should throw error in adding Twilio-Client-Validation header", function () {
+      const validationClient = {
+        accountSid: accountSid,
+        credentialSid: credentialSid,
+        signingKey: signingKey,
+        privateKey: "invalid-key",
+        algorithm: "RS256",
+      };
+      const requestClient = new RequestClient({
+        validationClient: validationClient,
+      });
+      const config = {
+        url: "https://example.com/path",
+        method: "POST",
+        headers: {},
+      };
+      expect(() =>
+        requestClient.validationInterceptor(validationClient)(config)
+      ).toThrow(
+        new Error(
+          "Error generating JWT token Error: secretOrPrivateKey must be an asymmetric key when using RS256"
+        )
+      );
     });
   });
 });
