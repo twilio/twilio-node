@@ -18,7 +18,7 @@ client.setCredentialProvider(orgsCredentialProvider);
 test("Should generate access token", () => {
   const noAuthClient = twilio();
   noAuthClient.setCredentialProvider(new twilio.NoAuthCredentialProvider());
-  return noAuthClient.previewIam.v1.token
+  return noAuthClient.iam.v1.token
     .create({
       grantType: "client_credentials",
       clientId: clientId,
