@@ -22,9 +22,6 @@ class RequestCanonicalizer {
   }
 
   getCanonicalizedMethod(): string {
-    if (!this.method) {
-      return "";
-    }
     return this.method.toUpperCase();
   }
 
@@ -39,7 +36,6 @@ class RequestCanonicalizer {
   }
 
   getCanonicalizedPath(): string {
-    if (!this.uri) return "/";
     // Remove query string from path
     const path = this.uri.split("?")[0];
     // Normalize duplicate slashes (but preserve the leading one)

@@ -131,7 +131,7 @@ describe("ValidationToken", function () {
 
       it("sha256Hex hashes a string correctly", () => {
         const input = "hello world";
-        // Precomputed SHA-256 hex of 'hello world'
+        // Precomputed SHA-256 hex of "hello world"
         const preComputedHash =
           "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9";
         expect(canonicalRequest.sha256Hex(input)).toEqual(preComputedHash);
@@ -139,6 +139,35 @@ describe("ValidationToken", function () {
 
       it("sha256Hex returns a hex string of length 64", () => {
         expect(canonicalRequest.sha256Hex("test")).toMatch(/^[a-f0-9]{64}$/); // Hex string, 64 characters
+      });
+    });
+
+    describe("ASCIICompare", function () {
+      const canonicalRequest = token.getRequestCanonicalizer({
+        url: "https://example.com",
+        method: "POST",
+      });
+
+      it("returns 0 for equal strings", () => {
+        expect(canonicalRequest.ASCIICompare("apple", "apple")).toBe(0);
+      });
+
+      it("returns -1 if first string comes before second", () => {
+        expect(canonicalRequest.ASCIICompare("apple", "banana")).toBe(-1);
+        expect(canonicalRequest.ASCIICompare("a", "b")).toBe(-1);
+        expect(canonicalRequest.ASCIICompare("A", "a")).toBe(-1); // "A" (65) < "a" (97) in ASCII
+      });
+
+      it("returns 1 if first string comes after second", () => {
+        expect(canonicalRequest.ASCIICompare("banana", "apple")).toBe(1);
+        expect(canonicalRequest.ASCIICompare("b", "a")).toBe(1);
+        expect(canonicalRequest.ASCIICompare("bcd", "abc")).toBe(1);
+      });
+
+      it("handles empty strings", () => {
+        expect(canonicalRequest.ASCIICompare("", "")).toBe(0);
+        expect(canonicalRequest.ASCIICompare("", "a")).toBe(-1);
+        expect(canonicalRequest.ASCIICompare("a", "")).toBe(1);
       });
     });
 
