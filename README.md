@@ -274,6 +274,11 @@ If you are using callbacks, error information will be included in the `error` pa
 
 400-level errors are [normal during API operation](https://www.twilio.com/docs/api/rest/request#get-responses) ("Invalid number", "Cannot deliver SMS to that number", for example) and should be handled appropriately.
 
+### Use a Client with PKCV Authentication
+
+twilio-node now supports Public Key Client Validation authentication for Twilio APIs. To use this feature, refer to the [example file](https://github.com/twilio/twilio-node/blob/main/examples/pkcv.js). 
+Additional documentation can be found on [Public Key Client Validation Quickstart](https://twilio.com/docs/iam/pkcv/quickstart).
+
 ### Use a custom HTTP Client
 
 To use a custom HTTP client with this helper library, please see the [advanced example of how to do so](./advanced-examples/custom-http-client.md).
