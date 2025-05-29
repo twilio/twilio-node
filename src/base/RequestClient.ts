@@ -16,6 +16,7 @@ import Request, {
 } from "../http/request";
 import AuthStrategy from "../auth_strategy/AuthStrategy";
 import ValidationToken from "../jwt/validation/ValidationToken";
+import { ValidationClientOptions } from "./ValidationClient";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
@@ -294,7 +295,7 @@ class RequestClient {
    * );
    * ```
    */
-  validationInterceptor(validationClient: RequestClient.ValidationClient) {
+  validationInterceptor(validationClient: ValidationClientOptions) {
     return function (config: InternalAxiosRequestConfig) {
       config.headers = config.headers || {};
       try {
@@ -442,15 +443,7 @@ namespace RequestClient {
      * That the message has not been modified in transit.
      * Refer our doc for details - https://www.twilio.com/docs/iam/pkcv
      */
-    validationClient?: ValidationClient;
-  }
-
-  export interface ValidationClient {
-    accountSid: string;
-    credentialSid: string;
-    signingKey: string;
-    privateKey: string;
-    algorithm?: string;
+    validationClient?: ValidationClientOptions;
   }
 }
 export = RequestClient;

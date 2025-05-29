@@ -1,6 +1,5 @@
-import RequestClient, {
-  ValidationClient,
-} from "./RequestClient"; /* jshint ignore:line */
+import RequestClient from "./RequestClient"; /* jshint ignore:line */
+import { ValidationClientOptions } from "./ValidationClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
 import { Headers } from "../http/request"; /* jshint ignore:line */
 import AuthStrategy from "../auth_strategy/AuthStrategy"; /* jshint ignore:line */
@@ -25,7 +24,7 @@ namespace Twilio {
     autoRetry?: boolean;
     maxRetryDelay?: number;
     maxRetries?: number;
-    validationClient?: ValidationClient;
+    validationClient?: ValidationClientOptions;
 
     /**
      https.Agent options
@@ -74,7 +73,7 @@ namespace Twilio {
     autoRetry?: boolean;
     maxRetryDelay?: number;
     maxRetries?: number;
-    validationClient?: ValidationClient;
+    validationClient?: ValidationClientOptions;
 
     /**
      https.Agent options

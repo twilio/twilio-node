@@ -1,4 +1,4 @@
-import { ValidationClient } from "../../base/RequestClient";
+import { ValidationClientOptions } from "../../base/ValidationClient";
 import RequestCanonicalizer from "./RequestCanonicalizer";
 import jwt, { Algorithm } from "jsonwebtoken";
 
@@ -45,7 +45,7 @@ class ValidationToken {
    * @param opts.algorithm - The algorithm to use for signing the token
    * @param opts.ttl - The time to live for the token in seconds
    */
-  constructor(opts: ValidationClient) {
+  constructor(opts: ValidationClientOptions) {
     if (!opts.accountSid) {
       throw new Error("accountSid is required");
     }
