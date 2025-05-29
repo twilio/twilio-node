@@ -60,7 +60,7 @@ class ValidationToken {
     }
 
     const algorithm =
-      (opts.algorithm as Algorithm) || ValidationToken.DEFAULT_ALGORITHM; // default to RS256;
+      (opts.algorithm as Algorithm) ?? ValidationToken.DEFAULT_ALGORITHM; // default to RS256;
     if (!ValidationToken.ALGORITHMS.includes(algorithm)) {
       throw new Error(
         "Algorithm not supported. Allowed values are " +
@@ -83,7 +83,7 @@ class ValidationToken {
    * @returns {RequestCanonicalizer} - An instance of `RequestCanonicalizer` initialized with the canonicalized request details.
    */
   getRequestCanonicalizer(request: any): RequestCanonicalizer {
-    const headers = request.headers || {};
+    const headers = request.headers ?? {};
     const requestUrl = request.url;
     const method = request.method;
     const queryParams = request.params;
