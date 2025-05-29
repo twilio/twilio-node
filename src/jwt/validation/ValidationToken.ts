@@ -3,8 +3,8 @@ import RequestCanonicalizer from "./RequestCanonicalizer";
 import jwt, { Algorithm } from "jsonwebtoken";
 
 class ValidationToken {
-  static DEFAULT_ALGORITHM: "RS256" = "RS256";
-  static ALGORITHMS = ["RS256", "PS256"];
+  static readonly DEFAULT_ALGORITHM = "RS256" as const;
+  static readonly ALGORITHMS = ["RS256", "PS256"] as const;
   private readonly _accountSid: string;
   private readonly _credentialSid: string;
   private readonly _signingKey: string;
