@@ -4,7 +4,10 @@ import jwt, { Algorithm } from "jsonwebtoken";
 
 class ValidationToken {
   static readonly DEFAULT_ALGORITHM = "RS256" as const;
-  static readonly ALGORITHMS = ["RS256", "PS256"] as const;
+  static readonly ALGORITHMS = [
+    "RS256" as Algorithm,
+    "PS256" as Algorithm,
+  ] as const;
   private readonly _accountSid: string;
   private readonly _credentialSid: string;
   private readonly _signingKey: string;
