@@ -3,6 +3,7 @@ import * as webhooks from "./webhooks/webhooks";
 import IRequestClient from "./base/RequestClient";
 import type { ClientOpts as IClientOpts } from "./base/BaseTwilio";
 import IAccessToken from "./jwt/AccessToken";
+import IValidationToken from "./jwt/validation/ValidationToken";
 import IClientCapability from "./jwt/ClientCapability";
 import ITaskRouterCapability from "./jwt/taskrouter/TaskRouterCapability";
 import * as taskRouterUtil from "./jwt/taskrouter/util";
@@ -29,6 +30,8 @@ namespace TwilioSDK {
   export namespace jwt {
     export type AccessToken = IAccessToken;
     export const AccessToken = IAccessToken;
+    export type ValidationToken = IValidationToken;
+    export const ValidationToken = IValidationToken;
     export type ClientCapability = IClientCapability;
     export const ClientCapability = IClientCapability;
     export namespace taskrouter {
