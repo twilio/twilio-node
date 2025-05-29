@@ -233,7 +233,7 @@ interface ChunkPayload extends TwilioResponsePayload {
 interface ChunkResource {
   account_sid: string;
   content: string;
-  metadata: Record<string, object>;
+  metadata: Record<string, any>;
   date_created: Date;
   date_updated: Date;
 }
@@ -258,7 +258,7 @@ export class ChunkInstance {
   /**
    * The metadata of the chunk.
    */
-  metadata: Record<string, object>;
+  metadata: Record<string, any>;
   /**
    * The date and time in GMT when the Chunk was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

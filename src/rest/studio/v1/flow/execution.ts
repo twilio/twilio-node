@@ -308,7 +308,7 @@ interface ExecutionResource {
   flow_sid: string;
   contact_sid: string;
   contact_channel_address: string;
-  context: Record<string, object>;
+  context: Record<string, any>;
   status: ExecutionStatus;
   date_created: Date;
   date_updated: Date;
@@ -364,7 +364,7 @@ export class ExecutionInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: Record<string, any>;
   status: ExecutionStatus;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

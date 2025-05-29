@@ -163,14 +163,14 @@ interface TaskQueueRealTimeStatisticsPayload
 
 interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;
-  activity_statistics: Array<Record<string, object>>;
+  activity_statistics: Array<Record<string, any>>;
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
   longest_relative_task_age_in_queue: number;
   longest_relative_task_sid_in_queue: string;
   task_queue_sid: string;
-  tasks_by_priority: Record<string, object>;
-  tasks_by_status: Record<string, object>;
+  tasks_by_priority: Record<string, any>;
+  tasks_by_status: Record<string, any>;
   total_available_workers: number;
   total_eligible_workers: number;
   total_tasks: number;
@@ -222,7 +222,7 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * The number of current Workers by Activity.
    */
-  activityStatistics: Array<Record<string, object>>;
+  activityStatistics: Array<Record<string, any>>;
   /**
    * The age of the longest waiting Task.
    */
@@ -246,11 +246,11 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
    */
-  tasksByPriority: Record<string, object>;
+  tasksByPriority: Record<string, any>;
   /**
    * The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
    */
-  tasksByStatus: Record<string, object>;
+  tasksByStatus: Record<string, any>;
   /**
    * The total number of Workers in the TaskQueue with an `available` status. Workers with an `available` status may already have active interactions or may have none.
    */

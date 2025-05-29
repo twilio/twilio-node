@@ -213,14 +213,14 @@ interface OperatorResultResource {
   extract_match: boolean;
   match_probability: number;
   normalized_result: string;
-  utterance_results: Array<Record<string, object>>;
+  utterance_results: Array<Record<string, any>>;
   utterance_match: boolean;
   predicted_label: string;
   predicted_probability: number;
-  label_probabilities: Record<string, object>;
-  extract_results: Record<string, object>;
-  text_generation_results: Record<string, object>;
-  json_results: Record<string, object>;
+  label_probabilities: Record<string, any>;
+  extract_results: Record<string, any>;
+  text_generation_results: Record<string, any>;
+  json_results: Record<string, any>;
   transcript_sid: string;
   url: string;
 }
@@ -282,7 +282,7 @@ export class OperatorResultInstance {
   /**
    * List of mapped utterance object which matches sentences.
    */
-  utteranceResults: Array<Record<string, object>>;
+  utteranceResults: Array<Record<string, any>>;
   /**
    * Boolean to tell if Utterance matches results.
    */
@@ -298,16 +298,16 @@ export class OperatorResultInstance {
   /**
    * The labels probabilities. This might be available on conversation classify model outputs.
    */
-  labelProbabilities: Record<string, object>;
+  labelProbabilities: Record<string, any>;
   /**
    * List of text extraction results. This might be available on classify-extract model outputs.
    */
-  extractResults: Record<string, object>;
+  extractResults: Record<string, any>;
   /**
    * Output of a text generation operator for example Conversation Sumamary.
    */
-  textGenerationResults: Record<string, object>;
-  jsonResults: Record<string, object>;
+  textGenerationResults: Record<string, any>;
+  jsonResults: Record<string, any>;
   /**
    * A 34 character string that uniquely identifies this Transcript.
    */

@@ -288,7 +288,7 @@ interface SinkResource {
   date_updated: Date;
   description: string;
   sid: string;
-  sink_configuration: Record<string, object>;
+  sink_configuration: Record<string, any>;
   sink_type: SinkSinkType;
   status: SinkStatus;
   url: string;
@@ -332,7 +332,7 @@ export class SinkInstance {
   /**
    * The information required for Twilio to connect to the provided Sink encoded as JSON.
    */
-  sinkConfiguration: Record<string, object>;
+  sinkConfiguration: Record<string, any>;
   sinkType: SinkSinkType;
   status: SinkStatus;
   /**

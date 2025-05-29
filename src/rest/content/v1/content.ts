@@ -455,8 +455,8 @@ interface ContentResource {
   account_sid: string;
   friendly_name: string;
   language: string;
-  variables: Record<string, object>;
-  types: Record<string, object>;
+  variables: Record<string, any>;
+  types: Record<string, any>;
   url: string;
   links: Record<string, string>;
 }
@@ -507,11 +507,11 @@ export class ContentInstance {
   /**
    * Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
    */
-  variables: Record<string, object>;
+  variables: Record<string, any>;
   /**
    * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
-  types: Record<string, object>;
+  types: Record<string, any>;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`.
    */

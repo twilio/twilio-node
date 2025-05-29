@@ -547,13 +547,13 @@ interface ServiceResource {
   reachability_enabled: boolean;
   typing_indicator_timeout: number;
   consumption_report_interval: number;
-  limits: Record<string, object>;
-  webhooks: Record<string, object>;
+  limits: Record<string, any>;
+  webhooks: Record<string, any>;
   pre_webhook_url: string;
   post_webhook_url: string;
   webhook_method: string;
   webhook_filters: Array<string>;
-  notifications: Record<string, object>;
+  notifications: Record<string, any>;
   url: string;
   links: Record<string, string>;
 }
@@ -605,13 +605,13 @@ export class ServiceInstance {
   reachabilityEnabled: boolean;
   typingIndicatorTimeout: number;
   consumptionReportInterval: number;
-  limits: Record<string, object>;
-  webhooks: Record<string, object>;
+  limits: Record<string, any>;
+  webhooks: Record<string, any>;
   preWebhookUrl: string;
   postWebhookUrl: string;
   webhookMethod: string;
   webhookFilters: Array<string>;
-  notifications: Record<string, object>;
+  notifications: Record<string, any>;
   url: string;
   links: Record<string, string>;
 

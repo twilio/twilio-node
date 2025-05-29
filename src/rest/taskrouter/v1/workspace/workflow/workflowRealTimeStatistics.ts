@@ -165,8 +165,8 @@ interface WorkflowRealTimeStatisticsResource {
   account_sid: string;
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
-  tasks_by_priority: Record<string, object>;
-  tasks_by_status: Record<string, object>;
+  tasks_by_priority: Record<string, any>;
+  tasks_by_status: Record<string, any>;
   total_tasks: number;
   workflow_sid: string;
   workspace_sid: string;
@@ -213,11 +213,11 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
    */
-  tasksByPriority: Record<string, object>;
+  tasksByPriority: Record<string, any>;
   /**
    * The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
    */
-  tasksByStatus: Record<string, object>;
+  tasksByStatus: Record<string, any>;
   /**
    * The total number of Tasks.
    */

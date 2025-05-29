@@ -179,7 +179,7 @@ interface VerificationCheckResource {
   payee: string;
   date_created: Date;
   date_updated: Date;
-  sna_attempts_error_codes: Array<Record<string, object>>;
+  sna_attempts_error_codes: Array<Record<string, any>>;
 }
 
 export class VerificationCheckInstance {
@@ -246,7 +246,7 @@ export class VerificationCheckInstance {
   /**
    * List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn\'t `sna`.
    */
-  snaAttemptsErrorCodes: Array<Record<string, object>>;
+  snaAttemptsErrorCodes: Array<Record<string, any>>;
 
   /**
    * Provide a user-friendly representation

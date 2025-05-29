@@ -273,7 +273,7 @@ interface ParticipantConversationResource {
   participant_sid: string;
   participant_user_sid: string;
   participant_identity: string;
-  participant_messaging_binding: Record<string, object>;
+  participant_messaging_binding: Record<string, any>;
   conversation_sid: string;
   conversation_unique_name: string;
   conversation_friendly_name: string;
@@ -282,7 +282,7 @@ interface ParticipantConversationResource {
   conversation_date_updated: Date;
   conversation_created_by: string;
   conversation_state: ParticipantConversationState;
-  conversation_timers: Record<string, object>;
+  conversation_timers: Record<string, any>;
   links: Record<string, string>;
 }
 
@@ -336,7 +336,7 @@ export class ParticipantConversationInstance {
   /**
    * Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
    */
-  participantMessagingBinding: Record<string, object>;
+  participantMessagingBinding: Record<string, any>;
   /**
    * The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) this Participant belongs to.
    */
@@ -369,7 +369,7 @@ export class ParticipantConversationInstance {
   /**
    * Timer date values representing state update for this conversation.
    */
-  conversationTimers: Record<string, object>;
+  conversationTimers: Record<string, any>;
   /**
    * Contains absolute URLs to access the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) and [conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) of this conversation.
    */

@@ -218,7 +218,7 @@ interface EventResource {
   actor_type: string;
   actor_url: string;
   description: string;
-  event_data: Record<string, object>;
+  event_data: Record<string, any>;
   event_date: Date;
   event_date_ms: number;
   event_type: string;
@@ -286,7 +286,7 @@ export class EventInstance {
   /**
    * Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types).
    */
-  eventData: Record<string, object>;
+  eventData: Record<string, any>;
   /**
    * The time the event was sent, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

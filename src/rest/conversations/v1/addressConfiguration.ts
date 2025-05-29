@@ -354,7 +354,7 @@ interface AddressConfigurationResource {
   type: string;
   address: string;
   friendly_name: string;
-  auto_creation: Record<string, object>;
+  auto_creation: Record<string, any>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -407,7 +407,7 @@ export class AddressConfigurationInstance {
   /**
    * Auto Creation configuration for the address.
    */
-  autoCreation: Record<string, object>;
+  autoCreation: Record<string, any>;
   /**
    * The date that this resource was created.
    */

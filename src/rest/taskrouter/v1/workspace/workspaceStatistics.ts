@@ -154,8 +154,8 @@ export class WorkspaceStatisticsContextImpl
 interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource {}
 
 interface WorkspaceStatisticsResource {
-  realtime: Record<string, object>;
-  cumulative: Record<string, object>;
+  realtime: Record<string, any>;
+  cumulative: Record<string, any>;
   account_sid: string;
   workspace_sid: string;
   url: string;
@@ -182,11 +182,11 @@ export class WorkspaceStatisticsInstance {
   /**
    * An object that contains the real-time statistics for the Workspace.
    */
-  realtime: Record<string, object>;
+  realtime: Record<string, any>;
   /**
    * An object that contains the cumulative statistics for the Workspace.
    */
-  cumulative: Record<string, object>;
+  cumulative: Record<string, any>;
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
    */

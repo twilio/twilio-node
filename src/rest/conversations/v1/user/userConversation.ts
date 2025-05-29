@@ -289,7 +289,7 @@ interface UserConversationResource {
   user_sid: string;
   friendly_name: string;
   conversation_state: UserConversationState;
-  timers: Record<string, object>;
+  timers: Record<string, any>;
   attributes: string;
   date_created: Date;
   date_updated: Date;
@@ -375,7 +375,7 @@ export class UserConversationInstance {
   /**
    * Timer date values representing state update for this conversation.
    */
-  timers: Record<string, object>;
+  timers: Record<string, any>;
   /**
    * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
    */

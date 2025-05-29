@@ -229,7 +229,7 @@ interface EngagementResource {
   flow_sid: string;
   contact_sid: string;
   contact_channel_address: string;
-  context: Record<string, object>;
+  context: Record<string, any>;
   status: EngagementStatus;
   date_created: Date;
   date_updated: Date;
@@ -285,7 +285,7 @@ export class EngagementInstance {
   /**
    * The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: Record<string, any>;
   status: EngagementStatus;
   /**
    * The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

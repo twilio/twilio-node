@@ -209,8 +209,8 @@ interface VerificationAttemptResource {
   date_updated: Date;
   conversion_status: VerificationAttemptConversionStatus;
   channel: VerificationAttemptChannels;
-  price: Record<string, object>;
-  channel_data: Record<string, object>;
+  price: Record<string, any>;
+  channel_data: Record<string, any>;
   url: string;
 }
 
@@ -267,11 +267,11 @@ export class VerificationAttemptInstance {
   /**
    * An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
    */
-  price: Record<string, object>;
+  price: Record<string, any>;
   /**
    * An object containing the channel specific information for an attempt.
    */
-  channelData: Record<string, object>;
+  channelData: Record<string, any>;
   url: string;
 
   private get _proxy(): VerificationAttemptContext {

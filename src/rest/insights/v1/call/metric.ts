@@ -264,10 +264,10 @@ interface MetricResource {
   account_sid: string;
   edge: MetricTwilioEdge;
   direction: MetricStreamDirection;
-  carrier_edge: Record<string, object>;
-  sip_edge: Record<string, object>;
-  sdk_edge: Record<string, object>;
-  client_edge: Record<string, object>;
+  carrier_edge: Record<string, any>;
+  sip_edge: Record<string, any>;
+  sdk_edge: Record<string, any>;
+  client_edge: Record<string, any>;
 }
 
 export class MetricInstance {
@@ -304,19 +304,19 @@ export class MetricInstance {
   /**
    * Contains metrics and properties for the Twilio media gateway of a PSTN call.
    */
-  carrierEdge: Record<string, object>;
+  carrierEdge: Record<string, any>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
    */
-  sipEdge: Record<string, object>;
+  sipEdge: Record<string, any>;
   /**
    * Contains metrics and properties for the SDK sensor library for Client calls.
    */
-  sdkEdge: Record<string, object>;
+  sdkEdge: Record<string, any>;
   /**
    * Contains metrics and properties for the Twilio media gateway of a Client call.
    */
-  clientEdge: Record<string, object>;
+  clientEdge: Record<string, any>;
 
   /**
    * Provide a user-friendly representation
