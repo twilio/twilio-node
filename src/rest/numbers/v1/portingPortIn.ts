@@ -200,15 +200,15 @@ export class PortingPortInInstance {
    */
   notificationEmails: Array<string>;
   /**
-   * Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. (This value is only available for custom porting customers.)
+   * Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. We can\'t guarantee the exact date and time, as this depends on the losing carrier
    */
   targetPortInDate: Date;
   /**
-   * The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'. (This value is only available for custom porting customers.)
+   * The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'. We can\'t guarantee the exact date and time, as this depends on the losing carrier
    */
   targetPortInTimeRangeStart: string;
   /**
-   * The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'.  (This value is only available for custom porting customers.)
+   * The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'. We can\'t guarantee the exact date and time, as this depends on the losing carrier
    */
   targetPortInTimeRangeEnd: string;
   /**

@@ -92,7 +92,7 @@ export class MessagingV2ChannelsSenderProfile {
   /**
    * The emails of the sender.
    */
-  "emails"?: Array<MessagingV2ChannelsSenderProfileEmails> | null;
+  "emails"?: any | null;
   /**
    * The logo URL of the sender.
    */
@@ -104,29 +104,7 @@ export class MessagingV2ChannelsSenderProfile {
   /**
    * The websites of the sender.
    */
-  "websites"?: Array<MessagingV2ChannelsSenderProfileWebsites> | null;
-}
-
-export class MessagingV2ChannelsSenderProfileEmails {
-  /**
-   * The email of the sender.
-   */
-  "email"?: string | null;
-  /**
-   * The label of the sender.
-   */
-  "label"?: string | null;
-}
-
-export class MessagingV2ChannelsSenderProfileWebsites {
-  /**
-   * The label of the sender.
-   */
-  "label"?: string | null;
-  /**
-   * The website of the sender.
-   */
-  "website"?: string | null;
+  "websites"?: any | null;
 }
 
 /**

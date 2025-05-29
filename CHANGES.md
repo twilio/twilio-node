@@ -1,6 +1,25 @@
 twilio-node changelog
 =====================
 
+[2025-05-29] Version 5.7.0
+--------------------------
+**Library - Feature**
+- [PR #1088](https://github.com/twilio/twilio-node/pull/1088): add public key client validation. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Library - Chore**
+- [PR #1092](https://github.com/twilio/twilio-node/pull/1092): fix cluster test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #1089](https://github.com/twilio/twilio-node/pull/1089): Update IAM token endpoint from Preview to IAM. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Added several usage category enums to `usage_record` API
+
+**Numbers**
+- Update the porting documentation
+
+**Verify**
+- Update `ienum` type for Channels in Verify Attempts API
+
+
 [2025-05-13] Version 5.6.1
 --------------------------
 **Library - Fix**
