@@ -302,6 +302,7 @@ class RequestClient {
           validationClient
         ).fromHttpRequest(config);
       } catch (err) {
+        console.log("Error creating Twilio-Client-Validation header:", err);
         throw err;
       }
       return config;
