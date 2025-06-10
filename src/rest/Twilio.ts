@@ -25,7 +25,6 @@ import Iam from "./Iam";
 import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
-import Knowledge from "./Knowledge";
 import Lookups from "./Lookups";
 import Marketplace from "./Marketplace";
 import Messaging from "./Messaging";
@@ -303,12 +302,6 @@ class Twilio extends Client {
     return (
       this._ipMessaging ??
       (this._ipMessaging = new (require("./IpMessaging"))(this))
-    );
-  }
-  /** Getter for (Twilio.Knowledge) domain */
-  get knowledge(): Knowledge {
-    return (
-      this._knowledge ?? (this._knowledge = new (require("./Knowledge"))(this))
     );
   }
   /** Getter for (Twilio.Lookups) domain */
