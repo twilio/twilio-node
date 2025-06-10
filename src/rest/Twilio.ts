@@ -110,8 +110,6 @@ class Twilio extends Client {
   _intelligence?: Intelligence;
   /** (Twilio.IpMessaging) - ipMessaging domain */
   _ipMessaging?: IpMessaging;
-  /** (Twilio.Knowledge) - knowledge domain */
-  _knowledge?: Knowledge;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
   /** (Twilio.Marketplace) - marketplace domain */
@@ -191,7 +189,6 @@ class Twilio extends Client {
       this.insights;
       this.intelligence;
       this.ipMessaging;
-      this.knowledge;
       this.lookups;
       this.marketplace;
       this.messaging;
