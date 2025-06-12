@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The inbound resource status of the Interaction. Will always be `delivered` for messages and `in-progress` for calls.
+ */
 export type InteractionResourceStatus =
   | "accepted"
   | "answered"

@@ -18,6 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
+ */
 export type RecordingRecordingMode =
   | "do-not-record"
   | "record-from-ringing"
@@ -25,6 +28,9 @@ export type RecordingRecordingMode =
   | "record-from-ringing-dual"
   | "record-from-answer-dual";
 
+/**
+ * The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
+ */
 export type RecordingRecordingTrim = "trim-silence" | "do-not-trim";
 
 /**

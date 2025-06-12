@@ -20,7 +20,16 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type VerificationAttemptChannels = "sms" | "call" | "email" | "whatsapp";
+/**
+ * A string specifying the communication channel used for the verification attempt. i.e SMS, CALL, etc.
+ */
+export type VerificationAttemptChannels =
+  | "sms"
+  | "call"
+  | "email"
+  | "whatsapp"
+  | "rbm"
+  | "sna";
 
 /**
  * A string specifying the conversion status of the verification. A conversion happens when the user is able to provide the correct code. Possible values are `CONVERTED` and `UNCONVERTED`.

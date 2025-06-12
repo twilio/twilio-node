@@ -20,6 +20,9 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
+/**
+ * Always empty for created Message Interactions.
+ */
 export type MessageInteractionResourceStatus =
   | "accepted"
   | "answered"

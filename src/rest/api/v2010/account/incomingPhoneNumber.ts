@@ -25,6 +25,9 @@ import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
+/**
+ * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
+ */
 export type IncomingPhoneNumberAddressRequirement =
   | "none"
   | "any"

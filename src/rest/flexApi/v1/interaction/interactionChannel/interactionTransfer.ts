@@ -18,11 +18,17 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the Transfer. Can be: `active`, `completed`, `failed`.
+ */
 export type InteractionTransferTransferStatus =
   | "active"
   | "failed"
   | "completed";
 
+/**
+ * The type of the Transfer. Can be: `cold`, `warm`.
+ */
 export type InteractionTransferTransferType = "warm" | "cold" | "external";
 
 /**

@@ -21,6 +21,9 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ReservationListInstance } from "./task/reservation";
 
+/**
+ * The current status of the Task\'s assignment. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`.
+ */
 export type TaskStatus =
   | "pending"
   | "reserved"

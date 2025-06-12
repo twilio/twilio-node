@@ -25,6 +25,9 @@ import { isValidPathParam } from "../../../../../base/utility";
  */
 export type TriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
 
+/**
+ * The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that fires the trigger.  Can be: `count`, `usage`, or `price`, as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+ */
 export type TriggerTriggerField = "count" | "usage" | "price";
 
 /**

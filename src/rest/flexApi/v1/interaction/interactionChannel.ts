@@ -23,6 +23,9 @@ import { InteractionChannelInviteListInstance } from "./interactionChannel/inter
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 import { InteractionTransferListInstance } from "./interactionChannel/interactionTransfer";
 
+/**
+ * The status of this channel.
+ */
 export type InteractionChannelChannelStatus =
   | "setup"
   | "active"

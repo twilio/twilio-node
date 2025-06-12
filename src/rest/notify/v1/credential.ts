@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The Credential type. Can be: `gcm`, `fcm`, or `apn`.
+ */
 export type CredentialPushService = "gcm" | "apn" | "fcm";
 
 /**

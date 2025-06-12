@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The Type of this Form. Currently only `form-push` is supported.
+ */
 export type FormFormTypes = "form-push";
 
 export interface FormContext {

@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The set of permissions that your ConnectApp requests.
+ */
 export type ConnectAppPermission = "get-all" | "post-all";
 
 /**

@@ -23,6 +23,9 @@ import { InviteListInstance } from "./channel/invite";
 import { MemberListInstance } from "./channel/member";
 import { MessageListInstance } from "./channel/message";
 
+/**
+ * The visibility of the channel. Can be: `public` or `private`.
+ */
 export type ChannelChannelType = "public" | "private";
 
 /**

@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The visibility of the channel. Can be: `public` or `private`.
+ */
 export type ChannelChannelType = "public" | "private";
 
 export type ChannelWebhookEnabledType = "true" | "false";

@@ -20,8 +20,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The Status of this Factor. One of `unverified` or `verified`.
+ */
 export type FactorFactorStatuses = "unverified" | "verified";
 
+/**
+ * The Type of this Factor. Currently `push` and `totp` are supported.
+ */
 export type FactorFactorTypes = "push" | "totp";
 
 export type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";

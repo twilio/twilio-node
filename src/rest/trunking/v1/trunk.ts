@@ -30,6 +30,9 @@ import { RecordingListInstance } from "./trunk/recording";
  */
 export type TrunkTransferCallerId = "from-transferee" | "from-transferor";
 
+/**
+ * The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
+ */
 export type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
 
 /**

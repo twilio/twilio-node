@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
+ */
 export type AuthorizedConnectAppPermission = "get-all" | "post-all";
 
 /**

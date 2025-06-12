@@ -325,7 +325,15 @@ namespace VoiceResponse {
 
   type ConferenceRecordingEvent = "in-progress" | "completed" | "absent";
 
-  type ConferenceRegion = "us1" | "ie1" | "sg1" | "br1" | "au1" | "jp1" | "de1";
+  type ConferenceRegion =
+    | "us1"
+    | "us2"
+    | "ie1"
+    | "sg1"
+    | "br1"
+    | "au1"
+    | "jp1"
+    | "de1";
 
   type ConferenceTrim = "trim-silence" | "do-not-trim";
 

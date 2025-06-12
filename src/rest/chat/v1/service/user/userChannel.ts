@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the User on the Channel. Can be: `joined`, `invited`, or `not_participating`.
+ */
 export type UserChannelChannelStatus =
   | "joined"
   | "invited"

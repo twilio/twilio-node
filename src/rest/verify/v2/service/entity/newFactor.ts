@@ -18,8 +18,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The Status of this Factor. One of `unverified` or `verified`.
+ */
 export type NewFactorFactorStatuses = "unverified" | "verified";
 
+/**
+ * The Type of this Factor. Currently `push` and `totp` are supported.
+ */
 export type NewFactorFactorTypes = "push" | "totp";
 
 export type NewFactorNotificationPlatforms = "apn" | "fcm" | "none";

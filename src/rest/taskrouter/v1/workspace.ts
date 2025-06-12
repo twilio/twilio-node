@@ -30,6 +30,9 @@ import { WorkspaceCumulativeStatisticsListInstance } from "./workspace/workspace
 import { WorkspaceRealTimeStatisticsListInstance } from "./workspace/workspaceRealTimeStatistics";
 import { WorkspaceStatisticsListInstance } from "./workspace/workspaceStatistics";
 
+/**
+ * The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
+ */
 export type WorkspaceQueueOrder = "FIFO" | "LIFO";
 
 /**

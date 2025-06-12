@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio and, if so, what type. Can be: `none`, `any`, `local`, or `foreign`.
+ */
 export type PhoneNumberAddressRequirement =
   | "none"
   | "any"

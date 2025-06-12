@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The type of push-notification service the credential is for. Can be: `fcm`, `gcm`, or `apn`.
+ */
 export type CredentialPushType = "apn" | "gcm" | "fcm";
 
 /**
@@ -65,7 +68,7 @@ export interface CredentialListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface CredentialListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
@@ -79,7 +82,7 @@ export interface CredentialListInstanceEachOptions {
  * Options to pass to list
  */
 export interface CredentialListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -89,7 +92,7 @@ export interface CredentialListInstanceOptions {
  * Options to pass to page
  */
 export interface CredentialListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;

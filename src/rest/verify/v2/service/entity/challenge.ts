@@ -21,14 +21,23 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { NotificationListInstance } from "./challenge/notification";
 
+/**
+ * Reason for the Challenge to be in certain `status`. One of `none`, `not_needed` or `not_requested`.
+ */
 export type ChallengeChallengeReasons = "none" | "not_needed" | "not_requested";
 
+/**
+ * The Status of this Challenge. One of `pending`, `expired`, `approved` or `denied`.
+ */
 export type ChallengeChallengeStatuses =
   | "pending"
   | "expired"
   | "approved"
   | "denied";
 
+/**
+ * The Factor Type of this Challenge. Currently `push` and `totp` are supported.
+ */
 export type ChallengeFactorTypes = "push" | "totp";
 
 export type ChallengeListOrders = "asc" | "desc";

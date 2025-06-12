@@ -35,6 +35,9 @@ export type ReservationConferenceEvent =
   | "hold"
   | "speaker";
 
+/**
+ * The current status of the reservation. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+ */
 export type ReservationStatus =
   | "pending"
   | "accepted"

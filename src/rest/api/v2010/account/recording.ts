@@ -403,7 +403,7 @@ export class RecordingInstance {
   priceUnit: string;
   status: RecordingStatus;
   /**
-   * The number of channels in the final recording file. Can be: `1` or `2`.
+   * The number of channels in the final recording file. Can be: `1` or `2`. Default: `1`.
    */
   channels: number;
   source: RecordingSource;

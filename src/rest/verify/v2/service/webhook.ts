@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The method to be used when calling the webhook\'s URL.
+ */
 export type WebhookMethods = "GET" | "POST";
 
 /**

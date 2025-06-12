@@ -19,8 +19,10 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
+/**
+ * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
+ */
 export type DependentPhoneNumberAddressRequirement =
   | "none"
   | "any"
@@ -286,14 +288,14 @@ interface DependentPhoneNumberResource {
   voice_fallback_method: string;
   voice_fallback_url: string;
   voice_caller_id_lookup: boolean;
-  date_created: string;
-  date_updated: string;
+  date_created: Date;
+  date_updated: Date;
   sms_fallback_method: string;
   sms_fallback_url: string;
   sms_method: string;
   sms_url: string;
   address_requirements: DependentPhoneNumberAddressRequirement;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: Record<string, object>;
   status_callback: string;
   status_callback_method: string;
   api_version: string;
@@ -321,8 +323,8 @@ export class DependentPhoneNumberInstance {
     this.voiceFallbackMethod = payload.voice_fallback_method;
     this.voiceFallbackUrl = payload.voice_fallback_url;
     this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
-    this.dateCreated = payload.date_created;
-    this.dateUpdated = payload.date_updated;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.smsFallbackMethod = payload.sms_fallback_method;
     this.smsFallbackUrl = payload.sms_fallback_url;
     this.smsMethod = payload.sms_method;
@@ -379,11 +381,11 @@ export class DependentPhoneNumberInstance {
   /**
    * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
-  dateCreated: string;
+  dateCreated: Date;
   /**
    * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
-  dateUpdated: string;
+  dateUpdated: Date;
   /**
    * The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
    */
@@ -401,7 +403,10 @@ export class DependentPhoneNumberInstance {
    */
   smsUrl: string;
   addressRequirements: DependentPhoneNumberAddressRequirement;
-  capabilities: PhoneNumberCapabilities;
+  /**
+   * The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
+   */
+  capabilities: Record<string, object>;
   /**
    * The URL we call using the `status_callback_method` to send status information to your application.
    */

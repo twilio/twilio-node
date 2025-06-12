@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Current state of this user. Can be either `active` or `deactivated` and defaults to `active`
+ */
 export type UserStateType = "active" | "deactivated";
 
 /**

@@ -24,6 +24,9 @@ import { MemberListInstance } from "./channel/member";
 import { MessageListInstance } from "./channel/message";
 import { WebhookListInstance } from "./channel/webhook";
 
+/**
+ * The visibility of the channel. Can be: `public` or `private`.
+ */
 export type ChannelChannelType = "public" | "private";
 
 export type ChannelWebhookEnabledType = "true" | "false";

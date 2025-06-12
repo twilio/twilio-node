@@ -18,6 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The Type of the Factor. Currently only `push` is supported.
+ */
 export type AccessTokenFactorTypes = "push";
 
 /**
