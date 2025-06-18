@@ -1,10 +1,11 @@
 name = "neon-whatsapp-bot"
 main = "dist/inbox-handler.js"
 compatibility_date = "2025-06-18"
+compatibility_flags = ["nodejs_compat"]
+usage_model = "bundled"
+modules = true
 
-[vars]
-API_VERSION = "v1"
+[build]
+command = "npm run build"
 
-[dev]
-port = 8787
 

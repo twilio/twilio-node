@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "send": "node scripts/send-whatsapp.js",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "wrangler deploy",
+    "send": "node scripts/send-whatsapp.js"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
