@@ -1,11 +1,18 @@
-name = "neon-whatsapp-bot"
-main = "dist/inbox-handler.js"
+name = "twilio-neon"
 compatibility_date = "2025-06-18"
-compatibility_flags = ["nodejs_compat"]
-usage_model = "bundled"
-modules = true
+main = "./dist/index.mjs"  # Or wherever your compiled entry point lives
 
 [build]
 command = "npm run build"
 
+[vars]
+TWILIO_ACCOUNT_SID = "your_sid_here"
+TWILIO_AUTH_TOKEN = "your_token_here"
+# Add other environment variables here
 
+[triggers]
+# Optional: add for Git-based auto deploys, etc.
+
+[env.production]
+name = "twilio-neon-prod"
+# Add overrides if you need them in production only
