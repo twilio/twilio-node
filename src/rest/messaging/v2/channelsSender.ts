@@ -70,7 +70,7 @@ export class MessagingV2ChannelsSenderOfflineReasonsItems {
 }
 
 /**
- * Sender profile specific configurations, e.g., {\"name\": \"xxx\", \"about\": \"xxx\", \"address\": \"xxx\", \"description\": \"xxx\", \"email\": \"xxx@xxx\", \"logo_url\": \"https://xxx\", \"vertical\": \"xxx\", \"websites\": [\"https://xxx\", \"...\"]}
+ * Sender profile specific configurations, e.g., {\"name\": \"xxx\", \"about\": \"xxx\", \"address\": \"xxx\", \"description\": \"xxx\", \"emails\": \"xxx@xxx\", \"logo_url\": \"https://xxx\", \"vertical\": \"xxx\", \"websites\": [\"https://xxx\", \"...\"]}
  */
 export class MessagingV2ChannelsSenderProfile {
   /**
@@ -105,6 +105,54 @@ export class MessagingV2ChannelsSenderProfile {
    * The websites of the sender.
    */
   "websites"?: any | null;
+}
+
+/**
+ * Sender profile specific configurations for create and update request, e.g., {\"name\": \"xxx\", \"about\": \"xxx\", \"address\": \"xxx\", \"description\": \"xxx\", \"emails\": [{\"label\": \"email 1\", \"email\": \"xxx@xxx\"}], \"logo_url\": \"https://xxx\", \"vertical\": \"xxx\", \"websites\": [{\"label\": \"email 1\", \"website\": \"https://xxx\"}]}
+ */
+export class MessagingV2ChannelsSenderProfileResponse {
+  /**
+   * The name of the sender.
+   */
+  "name"?: string | null;
+  /**
+   * The about text of the sender.
+   */
+  "about"?: string | null;
+  /**
+   * The address of the sender.
+   */
+  "address"?: string | null;
+  /**
+   * The description of the sender.
+   */
+  "description"?: string | null;
+  /**
+   * The emails of the sender.
+   */
+  "emails"?: Array<MessagingV2ChannelsSenderProfileResponseEmails> | null;
+  /**
+   * The logo URL of the sender.
+   */
+  "logo_url"?: string | null;
+  /**
+   * The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
+   */
+  "vertical"?: string | null;
+  /**
+   * The websites of the sender.
+   */
+  "websites"?: Array<MessagingV2ChannelsSenderProfileResponseWebsites> | null;
+}
+
+export class MessagingV2ChannelsSenderProfileResponseEmails {
+  "email"?: string;
+  "label"?: string;
+}
+
+export class MessagingV2ChannelsSenderProfileResponseWebsites {
+  "website"?: string;
+  "label"?: string;
 }
 
 /**
@@ -423,7 +471,7 @@ interface ChannelsSenderResource {
   sender_id: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
-  profile: MessagingV2ChannelsSenderProfile;
+  profile: MessagingV2ChannelsSenderProfileResponse;
   properties: MessagingV2ChannelsSenderProperties;
   offline_reasons: Array<MessagingV2ChannelsSenderOfflineReasonsItems>;
   url: string;
@@ -462,7 +510,7 @@ export class ChannelsSenderInstance {
   senderId: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
-  profile: MessagingV2ChannelsSenderProfile;
+  profile: MessagingV2ChannelsSenderProfileResponse;
   properties: MessagingV2ChannelsSenderProperties;
   /**
    * Reasons why the sender is offline., e.g., [{\"code\": \"21211400\", \"message\": \"Whatsapp business account is banned by provider {provider_name} | Credit line is assigned to another BSP\", \"more_info\": \"https://www.twilio.com/docs/errors/21211400\"}]

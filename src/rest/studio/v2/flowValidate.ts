@@ -29,7 +29,7 @@ export interface FlowValidateListInstanceUpdateOptions {
   /**  */
   status: FlowValidateStatus;
   /** JSON representation of flow definition. */
-  definition: object;
+  definition: any;
   /** Description of change made in the revision. */
   commitMessage?: string;
 }

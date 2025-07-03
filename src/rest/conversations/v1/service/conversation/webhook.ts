@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type WebhookMethod = "GET" | "POST";
+export type WebhookMethod = "get" | "post";
 
 /**
  * The target of this webhook: `webhook`, `studio`, `trigger`
@@ -323,7 +323,7 @@ interface WebhookResource {
   conversation_sid: string;
   target: string;
   url: string;
-  configuration: Record<string, object>;
+  configuration: any;
   date_created: Date;
   date_updated: Date;
 }
@@ -379,7 +379,7 @@ export class WebhookInstance {
   /**
    * The configuration of this webhook. Is defined based on target.
    */
-  configuration: Record<string, object>;
+  configuration: any;
   /**
    * The date that this resource was created.
    */

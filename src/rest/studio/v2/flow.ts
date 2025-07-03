@@ -37,7 +37,7 @@ export interface FlowContextUpdateOptions {
   /** The string that you assigned to describe the Flow. */
   friendlyName?: string;
   /** JSON representation of flow definition. */
-  definition?: object;
+  definition?: any;
   /** Description of change made in the revision. */
   commitMessage?: string;
 }
@@ -51,7 +51,7 @@ export interface FlowListInstanceCreateOptions {
   /**  */
   status: FlowStatus;
   /** JSON representation of flow definition. */
-  definition: object;
+  definition: any;
   /** Description of change made in the revision. */
   commitMessage?: string;
 }
@@ -295,13 +295,13 @@ interface FlowResource {
   sid: string;
   account_sid: string;
   friendly_name: string;
-  definition: Record<string, object>;
+  definition: any;
   status: FlowStatus;
   revision: number;
   commit_message: string;
   valid: boolean;
-  errors: Array<Record<string, object>>;
-  warnings: Array<Record<string, object>>;
+  errors: Array<any>;
+  warnings: Array<any>;
   date_created: Date;
   date_updated: Date;
   webhook_url: string;
@@ -348,7 +348,7 @@ export class FlowInstance {
   /**
    * JSON representation of flow definition.
    */
-  definition: Record<string, object>;
+  definition: any;
   status: FlowStatus;
   /**
    * The latest revision number of the Flow\'s definition.
@@ -365,11 +365,11 @@ export class FlowInstance {
   /**
    * List of error in the flow definition.
    */
-  errors: Array<Record<string, object>>;
+  errors: Array<any>;
   /**
    * List of warnings in the flow definition.
    */
-  warnings: Array<Record<string, object>>;
+  warnings: Array<any>;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

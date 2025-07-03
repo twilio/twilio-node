@@ -254,9 +254,9 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 
 interface UsageRecordResource {
   account_sid: string;
-  period: Record<string, object>;
-  commands: Record<string, object>;
-  data: Record<string, object>;
+  period: any;
+  commands: any;
+  data: any;
 }
 
 export class UsageRecordInstance {
@@ -274,15 +274,15 @@ export class UsageRecordInstance {
   /**
    * The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
    */
-  period: Record<string, object>;
+  period: any;
   /**
    * An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/iot/wireless/api/account-usagerecord-resource#commands-usage-object).
    */
-  commands: Record<string, object>;
+  commands: any;
   /**
    * An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/iot/wireless/api/account-usagerecord-resource#data-usage-object).
    */
-  data: Record<string, object>;
+  data: any;
 
   /**
    * Provide a user-friendly representation

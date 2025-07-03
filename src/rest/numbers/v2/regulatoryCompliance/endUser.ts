@@ -32,7 +32,7 @@ export interface EndUserContextUpdateOptions {
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The set of parameters that are the attributes of the End User resource which are derived End User Types. */
-  attributes?: object;
+  attributes?: any;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface EndUserListInstanceCreateOptions {
   /**  */
   type: EndUserType;
   /** The set of parameters that are the attributes of the End User resource which are derived End User Types. */
-  attributes?: object;
+  attributes?: any;
 }
 /**
  * Options to pass to each
@@ -266,7 +266,7 @@ interface EndUserResource {
   account_sid: string;
   friendly_name: string;
   type: EndUserType;
-  attributes: Record<string, object>;
+  attributes: any;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -305,7 +305,7 @@ export class EndUserInstance {
   /**
    * The set of parameters that are the attributes of the End Users resource which are listed in the End User Types.
    */
-  attributes: Record<string, object>;
+  attributes: any;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

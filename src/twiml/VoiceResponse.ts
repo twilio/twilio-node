@@ -1322,6 +1322,8 @@ namespace VoiceResponse {
 
   type TranscriptionTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
+  type WhatsAppEvent = "initiated" | "ringing" | "answered" | "completed";
+
   /**
    * Attributes to pass to connect
    */
@@ -2577,6 +2579,22 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to whatsApp
+   */
+  export interface WhatsAppAttributes {
+    /** method - TwiML URL Method */
+    method?: string;
+    /** statusCallback - Status Callback URL */
+    statusCallback?: string;
+    /** statusCallbackEvent - Events to trigger status callback */
+    statusCallbackEvent?: WhatsAppEvent[];
+    /** statusCallbackMethod - Status Callback URL Method */
+    statusCallbackMethod?: string;
+    /** url - TwiML URL */
+    url?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -3333,6 +3351,29 @@ namespace VoiceResponse {
         attributes = {};
       }
       return new VoiceResponse.Sip(this.dial.ele("Sip", attributes, sipUrl));
+    }
+    /**
+     * <WhatsApp> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param phoneNumber - WhatsApp Phone Number to dial
+     */
+    whatsApp(phoneNumber: string): VoiceResponse.WhatsApp;
+    whatsApp(
+      attributes: VoiceResponse.WhatsAppAttributes,
+      phoneNumber: string
+    ): VoiceResponse.WhatsApp;
+    whatsApp(
+      attributes: VoiceResponse.WhatsAppAttributes | string,
+      phoneNumber?: string
+    ): VoiceResponse.WhatsApp {
+      if (typeof attributes === "string") {
+        phoneNumber = attributes;
+        attributes = {};
+      }
+      return new VoiceResponse.WhatsApp(
+        this.dial.ele("WhatsApp", attributes, phoneNumber)
+      );
     }
   }
 
@@ -5385,6 +5426,18 @@ namespace VoiceResponse {
       return new VoiceResponse.Parameter(
         this.virtualAgent.ele("Parameter", attributes)
       );
+    }
+  }
+
+  export class WhatsApp extends TwiML {
+    whatsApp: XMLElement;
+    /**
+     * <WhatsApp> TwiML Noun
+     */
+    constructor(whatsApp: XMLElement) {
+      super();
+      this.whatsApp = whatsApp;
+      this._propertyName = "whatsApp";
     }
   }
 }

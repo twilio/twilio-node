@@ -22,6 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
+import { TranscriptionsListInstance } from "./room/transcriptions";
 
 export type RoomRoomStatus = "in-progress" | "completed" | "failed";
 
@@ -140,6 +141,7 @@ export interface RoomContext {
   participants: ParticipantListInstance;
   recordingRules: RecordingRulesListInstance;
   recordings: RoomRecordingListInstance;
+  transcriptions: TranscriptionsListInstance;
 
   /**
    * Fetch a RoomInstance
@@ -183,6 +185,7 @@ export class RoomContextImpl implements RoomContext {
   protected _participants?: ParticipantListInstance;
   protected _recordingRules?: RecordingRulesListInstance;
   protected _recordings?: RoomRecordingListInstance;
+  protected _transcriptions?: TranscriptionsListInstance;
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
@@ -212,6 +215,13 @@ export class RoomContextImpl implements RoomContext {
       this._recordings ||
       RoomRecordingListInstance(this._version, this._solution.sid);
     return this._recordings;
+  }
+
+  get transcriptions(): TranscriptionsListInstance {
+    this._transcriptions =
+      this._transcriptions ||
+      TranscriptionsListInstance(this._version, this._solution.sid);
+    return this._transcriptions;
   }
 
   fetch(
@@ -512,6 +522,13 @@ export class RoomInstance {
    */
   recordings(): RoomRecordingListInstance {
     return this._proxy.recordings;
+  }
+
+  /**
+   * Access the transcriptions.
+   */
+  transcriptions(): TranscriptionsListInstance {
+    return this._proxy.transcriptions;
   }
 
   /**

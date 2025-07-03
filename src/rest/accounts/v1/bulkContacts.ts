@@ -23,7 +23,7 @@ import { isValidPathParam } from "../../../base/utility";
  */
 export interface BulkContactsListInstanceCreateOptions {
   /** A list of objects where each object represents a contact\\\'s details. Each object includes the following fields: `contact_id`, which must be a string representing phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164); `correlation_id`, a unique 32-character UUID that maps the response to the original request; `country_iso_code`, a string representing the country using the ISO format (e.g., US for the United States); and `zip_code`, a string representing the postal code. */
-  items: Array<object>;
+  items: Array<any>;
 }
 
 export interface BulkContactsSolution {}
@@ -76,7 +76,9 @@ export function BulkContactsListInstance(
 
     let data: any = {};
 
-    data["Items"] = serialize.map(params["items"], (e: object) => e);
+    data["Items"] = serialize.map(params["items"], (e: any) =>
+      serialize.object(e)
+    );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -118,7 +120,7 @@ export function BulkContactsListInstance(
 interface BulkContactsPayload extends BulkContactsResource {}
 
 interface BulkContactsResource {
-  items: Record<string, object>;
+  items: any;
 }
 
 export class BulkContactsInstance {
@@ -129,7 +131,7 @@ export class BulkContactsInstance {
   /**
    * A list of objects where each object represents the result of processing a `correlation_id`. Each object contains the following fields: `correlation_id`, a unique 32-character UUID that maps the response to the original request; `error_code`, an integer where 0 indicates success and any non-zero value represents an error; and `error_messages`, an array of strings describing specific validation errors encountered. If the request is successful, the error_messages array will be empty.
    */
-  items: Record<string, object>;
+  items: any;
 
   /**
    * Provide a user-friendly representation

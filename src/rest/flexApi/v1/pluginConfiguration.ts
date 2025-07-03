@@ -38,7 +38,7 @@ export interface PluginConfigurationListInstanceCreateOptions {
   /** The Flex-Metadata HTTP request header */
   flexMetadata?: string;
   /** A list of objects that describe the plugin versions included in the configuration. Each object contains the sid of the plugin version. */
-  plugins?: Array<object>;
+  plugins?: Array<any>;
   /** The Flex Plugin Configuration\\\'s description. */
   description?: string;
 }
@@ -481,7 +481,9 @@ export function PluginConfigurationListInstance(
 
     data["Name"] = params["name"];
     if (params["plugins"] !== undefined)
-      data["Plugins"] = serialize.map(params["plugins"], (e: object) => e);
+      data["Plugins"] = serialize.map(params["plugins"], (e: any) =>
+        serialize.object(e)
+      );
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
 

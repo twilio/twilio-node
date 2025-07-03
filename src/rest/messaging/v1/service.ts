@@ -60,7 +60,7 @@ export interface ServiceContextUpdateOptions {
   fallbackToLongCode?: boolean;
   /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
   areaCodeGeomatch?: boolean;
-  /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`. */
+  /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`. */
   validityPeriod?: number;
   /** Reserved. */
   synchronousValidation?: boolean;
@@ -98,7 +98,7 @@ export interface ServiceListInstanceCreateOptions {
   fallbackToLongCode?: boolean;
   /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
   areaCodeGeomatch?: boolean;
-  /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`. */
+  /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`. */
   validityPeriod?: number;
   /** Reserved. */
   synchronousValidation?: boolean;
@@ -542,7 +542,7 @@ export class ServiceInstance {
    */
   synchronousValidation: boolean;
   /**
-   * How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
+   * How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`.
    */
   validityPeriod: number;
   /**

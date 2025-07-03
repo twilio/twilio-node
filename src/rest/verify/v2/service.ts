@@ -447,10 +447,10 @@ interface ServiceResource {
   tts_name: string;
   do_not_share_warning_enabled: boolean;
   custom_code_enabled: boolean;
-  push: Record<string, object>;
-  totp: Record<string, object>;
+  push: any;
+  totp: any;
   default_template_sid: string;
-  whatsapp: Record<string, object>;
+  whatsapp: any;
   verify_event_subscription_enabled: boolean;
   date_created: Date;
   date_updated: Date;
@@ -535,13 +535,13 @@ export class ServiceInstance {
   /**
    * Configurations for the Push factors (channel) created under this Service.
    */
-  push: Record<string, object>;
+  push: any;
   /**
    * Configurations for the TOTP factors (channel) created under this Service.
    */
-  totp: Record<string, object>;
+  totp: any;
   defaultTemplateSid: string;
-  whatsapp: Record<string, object>;
+  whatsapp: any;
   /**
    * Whether to allow verifications from the service to reach the stream-events sinks if configured
    */

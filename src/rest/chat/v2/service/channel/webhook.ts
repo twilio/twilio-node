@@ -327,7 +327,7 @@ interface WebhookResource {
   channel_sid: string;
   type: string;
   url: string;
-  configuration: Record<string, object>;
+  configuration: any;
   date_created: Date;
   date_updated: Date;
 }
@@ -383,7 +383,7 @@ export class WebhookInstance {
   /**
    * The JSON string that describes how the channel webhook is configured. The configuration object contains the `url`, `method`, `filters`, and `retry_count` values that are configured by the create and update actions.
    */
-  configuration: Record<string, object>;
+  configuration: any;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

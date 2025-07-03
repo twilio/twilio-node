@@ -245,7 +245,7 @@ interface DataSessionResource {
   operator_country: string;
   operator_name: string;
   cell_id: string;
-  cell_location_estimate: Record<string, object>;
+  cell_location_estimate: any;
   packets_uploaded: number;
   packets_downloaded: number;
   last_updated: Date;
@@ -317,7 +317,7 @@ export class DataSessionInstance {
   /**
    * An object that describes the estimated location in latitude and longitude where the device\'s Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).
    */
-  cellLocationEstimate: Record<string, object>;
+  cellLocationEstimate: any;
   /**
    * The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
    */

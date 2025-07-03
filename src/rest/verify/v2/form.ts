@@ -103,8 +103,8 @@ interface FormPayload extends FormResource {}
 
 interface FormResource {
   form_type: FormFormTypes;
-  forms: Record<string, object>;
-  form_meta: Record<string, object>;
+  forms: any;
+  form_meta: any;
   url: string;
 }
 
@@ -129,11 +129,11 @@ export class FormInstance {
   /**
    * Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
    */
-  forms: Record<string, object>;
+  forms: any;
   /**
    * Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
    */
-  formMeta: Record<string, object>;
+  formMeta: any;
   /**
    * The URL to access the forms for this type.
    */

@@ -160,8 +160,8 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
 interface WorkersStatisticsPayload extends WorkersStatisticsResource {}
 
 interface WorkersStatisticsResource {
-  realtime: Record<string, object>;
-  cumulative: Record<string, object>;
+  realtime: any;
+  cumulative: any;
   account_sid: string;
   workspace_sid: string;
   url: string;
@@ -188,11 +188,11 @@ export class WorkersStatisticsInstance {
   /**
    * An object that contains the real-time statistics for the Worker.
    */
-  realtime: Record<string, object>;
+  realtime: any;
   /**
    * An object that contains the cumulative statistics for the Worker.
    */
-  cumulative: Record<string, object>;
+  cumulative: any;
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
    */

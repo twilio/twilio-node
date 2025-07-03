@@ -21,7 +21,6 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { SessionListInstance } from "./service/session";
-import { ShortCodeListInstance } from "./service/shortCode";
 
 /**
  * Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
@@ -119,7 +118,6 @@ export interface ServiceListInstancePageOptions {
 export interface ServiceContext {
   phoneNumbers: PhoneNumberListInstance;
   sessions: SessionListInstance;
-  shortCodes: ShortCodeListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -183,7 +181,6 @@ export class ServiceContextImpl implements ServiceContext {
 
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _sessions?: SessionListInstance;
-  protected _shortCodes?: ShortCodeListInstance;
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
@@ -205,13 +202,6 @@ export class ServiceContextImpl implements ServiceContext {
     this._sessions =
       this._sessions || SessionListInstance(this._version, this._solution.sid);
     return this._sessions;
-  }
-
-  get shortCodes(): ShortCodeListInstance {
-    this._shortCodes =
-      this._shortCodes ||
-      ShortCodeListInstance(this._version, this._solution.sid);
-    return this._shortCodes;
   }
 
   remove(
@@ -501,13 +491,6 @@ export class ServiceInstance {
    */
   sessions(): SessionListInstance {
     return this._proxy.sessions;
-  }
-
-  /**
-   * Access the shortCodes.
-   */
-  shortCodes(): ShortCodeListInstance {
-    return this._proxy.shortCodes;
   }
 
   /**

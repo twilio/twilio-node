@@ -72,7 +72,7 @@ export interface PaymentListInstanceCreateOptions {
   /** A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits. */
   minPostalCodeLength?: number;
   /** A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors). */
-  parameter?: object;
+  parameter?: any;
   /** This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`. */
   paymentConnector?: string;
   /**  */

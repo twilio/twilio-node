@@ -162,7 +162,7 @@ interface TaskQueueBulkRealTimeStatisticsPayload
 interface TaskQueueBulkRealTimeStatisticsResource {
   account_sid: string;
   workspace_sid: string;
-  task_queue_data: Array<Record<string, object>>;
+  task_queue_data: Array<any>;
   task_queue_response_count: number;
   url: string;
 }
@@ -193,7 +193,7 @@ export class TaskQueueBulkRealTimeStatisticsInstance {
   /**
    * The real-time statistics for each requested TaskQueue SID. `task_queue_data` returns the following attributes:  `task_queue_sid`: The SID of the TaskQueue from which these statistics were calculated.  `total_available_workers`: The total number of Workers available for Tasks in the TaskQueue.  `total_eligible_workers`: The total number of Workers eligible for Tasks in the TaskQueue, regardless of their Activity state.  `total_tasks`: The total number of Tasks.  `longest_task_waiting_age`: The age of the longest waiting Task.  `longest_task_waiting_sid`: The SID of the longest waiting Task.  `tasks_by_status`: The number of Tasks grouped by their current status.  `tasks_by_priority`: The number of Tasks grouped by priority.  `activity_statistics`: The number of current Workers grouped by Activity.
    */
-  taskQueueData: Array<Record<string, object>>;
+  taskQueueData: Array<any>;
   /**
    * The number of TaskQueue statistics received in task_queue_data.
    */

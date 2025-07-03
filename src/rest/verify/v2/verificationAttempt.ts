@@ -21,15 +21,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
- * A string specifying the communication channel used for the verification attempt. i.e SMS, CALL, etc.
+ * A string specifying the communication channel used for the verification attempt.
  */
 export type VerificationAttemptChannels =
   | "sms"
   | "call"
   | "email"
   | "whatsapp"
-  | "rbm"
-  | "sna";
+  | "rbm";
 
 /**
  * A string specifying the conversion status of the verification. A conversion happens when the user is able to provide the correct code. Possible values are `CONVERTED` and `UNCONVERTED`.
@@ -48,7 +47,7 @@ export interface VerificationAttemptListInstanceEachOptions {
   "channelData.to"?: string;
   /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
-  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
+  /** Filter used to query Verification Attempts by communication channel. */
   channel?: VerificationAttemptChannels;
   /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
@@ -81,7 +80,7 @@ export interface VerificationAttemptListInstanceOptions {
   "channelData.to"?: string;
   /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
-  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
+  /** Filter used to query Verification Attempts by communication channel. */
   channel?: VerificationAttemptChannels;
   /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
@@ -107,7 +106,7 @@ export interface VerificationAttemptListInstancePageOptions {
   "channelData.to"?: string;
   /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
-  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
+  /** Filter used to query Verification Attempts by communication channel. */
   channel?: VerificationAttemptChannels;
   /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
@@ -218,8 +217,8 @@ interface VerificationAttemptResource {
   date_updated: Date;
   conversion_status: VerificationAttemptConversionStatus;
   channel: VerificationAttemptChannels;
-  price: Record<string, object>;
-  channel_data: Record<string, object>;
+  price: any;
+  channel_data: any;
   url: string;
 }
 
@@ -276,11 +275,11 @@ export class VerificationAttemptInstance {
   /**
    * An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
    */
-  price: Record<string, object>;
+  price: any;
   /**
    * An object containing the channel specific information for an attempt.
    */
-  channelData: Record<string, object>;
+  channelData: any;
   url: string;
 
   private get _proxy(): VerificationAttemptContext {

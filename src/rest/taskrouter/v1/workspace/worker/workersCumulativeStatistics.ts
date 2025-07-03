@@ -166,7 +166,7 @@ interface WorkersCumulativeStatisticsResource {
   account_sid: string;
   start_time: Date;
   end_time: Date;
-  activity_durations: Array<Record<string, object>>;
+  activity_durations: Array<any>;
   reservations_created: number;
   reservations_accepted: number;
   reservations_rejected: number;
@@ -229,7 +229,7 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
    */
-  activityDurations: Array<Record<string, object>>;
+  activityDurations: Array<any>;
   /**
    * The total number of Reservations that were created.
    */

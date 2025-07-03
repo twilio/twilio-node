@@ -157,7 +157,7 @@ interface EvaluationResource {
   regulation_sid: string;
   bundle_sid: string;
   status: EvaluationStatus;
-  results: Array<Record<string, object>>;
+  results: Array<any>;
   date_created: Date;
   url: string;
 }
@@ -204,7 +204,7 @@ export class EvaluationInstance {
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */
-  results: Array<Record<string, object>>;
+  results: Array<any>;
   dateCreated: Date;
   url: string;
 

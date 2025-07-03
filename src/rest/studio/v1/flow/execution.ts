@@ -44,7 +44,7 @@ export interface ExecutionListInstanceCreateOptions {
   /** The Twilio phone number to send messages or initiate calls from during the Flow\\\'s Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID. */
   from: string;
   /** JSON data that will be added to the Flow\\\'s context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. */
-  parameters?: object;
+  parameters?: any;
 }
 /**
  * Options to pass to each
@@ -308,7 +308,7 @@ interface ExecutionResource {
   flow_sid: string;
   contact_sid: string;
   contact_channel_address: string;
-  context: Record<string, object>;
+  context: any;
   status: ExecutionStatus;
   date_created: Date;
   date_updated: Date;
@@ -364,7 +364,7 @@ export class ExecutionInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: any;
   status: ExecutionStatus;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

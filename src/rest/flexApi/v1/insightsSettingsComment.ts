@@ -140,7 +140,7 @@ interface InsightsSettingsCommentPayload
 
 interface InsightsSettingsCommentResource {
   account_sid: string;
-  comments: Record<string, object>;
+  comments: any;
   url: string;
 }
 
@@ -158,7 +158,7 @@ export class InsightsSettingsCommentInstance {
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
    */
   accountSid: string;
-  comments: Record<string, object>;
+  comments: any;
   url: string;
 
   /**
