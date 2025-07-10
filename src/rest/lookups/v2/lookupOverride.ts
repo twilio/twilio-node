@@ -19,7 +19,13 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export class OverridesRequest {
+  /**
+   * The new line type to override the original line type
+   */
   "line_type"?: string;
+  /**
+   * The reason for the override
+   */
   "reason"?: string;
 }
 
@@ -362,8 +368,17 @@ export class LookupOverrideInstance {
     };
   }
 
+  /**
+   * The phone number for which the override was created
+   */
   phoneNumber: string;
+  /**
+   * The original line type
+   */
   originalLineType: string;
+  /**
+   * The new line type after the override
+   */
   overriddenLineType: string;
   /**
    * The reason for the override
@@ -371,7 +386,7 @@ export class LookupOverrideInstance {
   overrideReason: string;
   overrideTimestamp: Date;
   /**
-   * The user who overrode the line type
+   * The Account SID for the user who made the override
    */
   overriddenByAccountSid: string;
   /**

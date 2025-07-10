@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2025-07-10] Version 5.7.3
+--------------------------
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
 [2025-07-03] Version 5.7.2
 --------------------------
 **Library - Chore**

@@ -472,7 +472,7 @@ interface TollfreeVerificationResource {
   error_code: number;
   edit_expiration: Date;
   edit_allowed: boolean;
-  rejection_reasons: Array<Record<string, object>>;
+  rejection_reasons: Array<any>;
   resource_links: Record<string, object>;
   external_reference_id: string;
 }
@@ -660,7 +660,7 @@ export class TollfreeVerificationInstance {
   /**
    * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
    */
-  rejectionReasons: Array<Record<string, object>>;
+  rejectionReasons: Array<any>;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */

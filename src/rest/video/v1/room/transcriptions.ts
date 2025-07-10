@@ -23,7 +23,7 @@ import { isValidPathParam } from "../../../../base/utility";
 /**
  * The status of the transcriptions resource.
  */
-export type TranscriptionsStatus = "created" | "started" | "stopped" | "failed";
+export type TranscriptionsStatus = "started" | "stopped" | "failed";
 
 /**
  * Options to pass to update a TranscriptionsInstance
@@ -236,7 +236,7 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
 }
 
 interface TranscriptionsPayload extends TwilioResponsePayload {
-  extensions: TranscriptionsResource[];
+  transcriptions: TranscriptionsResource[];
 }
 
 interface TranscriptionsResource {
@@ -244,13 +244,13 @@ interface TranscriptionsResource {
   account_sid: string;
   room_sid: string;
   status: TranscriptionsStatus;
-  identity: string;
   date_created: Date;
   date_updated: Date;
   start_time: Date;
   end_time: Date;
   duration: number;
   url: string;
+  configuration: Record<string, object>;
 }
 
 export class TranscriptionsInstance {
@@ -267,13 +267,13 @@ export class TranscriptionsInstance {
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
     this.status = payload.status;
-    this.identity = payload.identity;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.duration = deserialize.integer(payload.duration);
     this.url = payload.url;
+    this.configuration = payload.configuration;
 
     this._solution = { roomSid, ttid: ttid || this.ttid };
   }
@@ -291,10 +291,6 @@ export class TranscriptionsInstance {
    */
   roomSid: string;
   status: TranscriptionsStatus;
-  /**
-   * The application-defined string that uniquely identifies the resource\'s User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info.
-   */
-  identity: string;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -319,6 +315,10 @@ export class TranscriptionsInstance {
    * The absolute URL of the resource.
    */
   url: string;
+  /**
+   * An JSON object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+   */
+  configuration: Record<string, object>;
 
   private get _proxy(): TranscriptionsContext {
     this._context =
@@ -385,13 +385,13 @@ export class TranscriptionsInstance {
       accountSid: this.accountSid,
       roomSid: this.roomSid,
       status: this.status,
-      identity: this.identity,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       startTime: this.startTime,
       endTime: this.endTime,
       duration: this.duration,
       url: this.url,
+      configuration: this.configuration,
     };
   }
 

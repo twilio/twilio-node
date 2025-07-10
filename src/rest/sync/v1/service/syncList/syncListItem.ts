@@ -39,7 +39,7 @@ export interface SyncListItemContextUpdateOptions {
   /** If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. */
-  data?: object;
+  data?: any;
   /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted. */
@@ -53,7 +53,7 @@ export interface SyncListItemContextUpdateOptions {
  */
 export interface SyncListItemListInstanceCreateOptions {
   /** A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. */
-  data: object;
+  data: any;
   /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted. */

@@ -141,7 +141,7 @@ export function UsAppToPersonUsecaseListInstance(
 interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource {}
 
 interface UsAppToPersonUsecaseResource {
-  us_app_to_person_usecases: Array<Record<string, object>>;
+  us_app_to_person_usecases: Array<any>;
 }
 
 export class UsAppToPersonUsecaseInstance {
@@ -156,7 +156,7 @@ export class UsAppToPersonUsecaseInstance {
   /**
    * Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
    */
-  usAppToPersonUsecases: Array<Record<string, object>>;
+  usAppToPersonUsecases: Array<any>;
 
   /**
    * Provide a user-friendly representation

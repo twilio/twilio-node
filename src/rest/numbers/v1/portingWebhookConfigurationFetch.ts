@@ -18,23 +18,26 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export interface WebhookSolution {}
+export interface PortingWebhookConfigurationFetchSolution {}
 
-export interface WebhookListInstance {
+export interface PortingWebhookConfigurationFetchListInstance {
   _version: V1;
-  _solution: WebhookSolution;
+  _solution: PortingWebhookConfigurationFetchSolution;
   _uri: string;
 
   /**
-   * Fetch a WebhookInstance
+   * Fetch a PortingWebhookConfigurationFetchInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed WebhookInstance
+   * @returns Resolves to processed PortingWebhookConfigurationFetchInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
-  ): Promise<WebhookInstance>;
+    callback?: (
+      error: Error | null,
+      item?: PortingWebhookConfigurationFetchInstance
+    ) => any
+  ): Promise<PortingWebhookConfigurationFetchInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -43,16 +46,21 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function WebhookListInstance(version: V1): WebhookListInstance {
-  const instance = {} as WebhookListInstance;
+export function PortingWebhookConfigurationFetchListInstance(
+  version: V1
+): PortingWebhookConfigurationFetchListInstance {
+  const instance = {} as PortingWebhookConfigurationFetchListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/Porting/Configuration/Webhook`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: WebhookInstance) => any
-  ): Promise<WebhookInstance> {
+    callback?: (
+      error: Error | null,
+      items: PortingWebhookConfigurationFetchInstance
+    ) => any
+  ): Promise<PortingWebhookConfigurationFetchInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
 
@@ -64,7 +72,8 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebhookInstance(operationVersion, payload)
+      (payload) =>
+        new PortingWebhookConfigurationFetchInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -88,9 +97,10 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
   return instance;
 }
 
-interface WebhookPayload extends WebhookResource {}
+interface PortingWebhookConfigurationFetchPayload
+  extends PortingWebhookConfigurationFetchResource {}
 
-interface WebhookResource {
+interface PortingWebhookConfigurationFetchResource {
   url: string;
   port_in_target_url: string;
   port_out_target_url: string;
@@ -99,8 +109,11 @@ interface WebhookResource {
   port_out_target_date_created: Date;
 }
 
-export class WebhookInstance {
-  constructor(protected _version: V1, payload: WebhookResource) {
+export class PortingWebhookConfigurationFetchInstance {
+  constructor(
+    protected _version: V1,
+    payload: PortingWebhookConfigurationFetchResource
+  ) {
     this.url = payload.url;
     this.portInTargetUrl = payload.port_in_target_url;
     this.portOutTargetUrl = payload.port_out_target_url;

@@ -23,7 +23,7 @@ import { isValidPathParam } from "../../../../../base/utility";
  */
 export interface StreamMessageListInstanceCreateOptions {
   /** A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length. */
-  data: object;
+  data: any;
 }
 
 export interface StreamMessageSolution {
