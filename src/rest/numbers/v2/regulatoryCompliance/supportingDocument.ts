@@ -289,7 +289,7 @@ interface SupportingDocumentResource {
   failure_reason: string;
   errors: Array<any>;
   type: string;
-  attributes: any;
+  attributes: Record<string, object>;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -352,7 +352,7 @@ export class SupportingDocumentInstance {
   /**
    * The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
    */
-  attributes: any;
+  attributes: Record<string, object>;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

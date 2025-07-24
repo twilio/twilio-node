@@ -112,6 +112,14 @@ export interface CallSummariesListInstanceEachOptions {
   voiceIntegrityEnabled?: boolean;
   /** A unique SID identifier of the Branded Call. */
   brandedBundleSid?: string;
+  /** Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present). */
+  brandedLogo?: boolean;
+  /** Indicates whether the Branded Call is in_band vs out_of_band. */
+  brandedType?: string;
+  /** Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling. */
+  brandedUseCase?: string;
+  /** Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call. */
+  brandedCallReason?: string;
   /** A unique SID identifier of the Voice Integrity Profile. */
   voiceIntegrityBundleSid?: string;
   /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
@@ -190,6 +198,14 @@ export interface CallSummariesListInstanceOptions {
   voiceIntegrityEnabled?: boolean;
   /** A unique SID identifier of the Branded Call. */
   brandedBundleSid?: string;
+  /** Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present). */
+  brandedLogo?: boolean;
+  /** Indicates whether the Branded Call is in_band vs out_of_band. */
+  brandedType?: string;
+  /** Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling. */
+  brandedUseCase?: string;
+  /** Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call. */
+  brandedCallReason?: string;
   /** A unique SID identifier of the Voice Integrity Profile. */
   voiceIntegrityBundleSid?: string;
   /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
@@ -264,6 +280,14 @@ export interface CallSummariesListInstancePageOptions {
   voiceIntegrityEnabled?: boolean;
   /** A unique SID identifier of the Branded Call. */
   brandedBundleSid?: string;
+  /** Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present). */
+  brandedLogo?: boolean;
+  /** Indicates whether the Branded Call is in_band vs out_of_band. */
+  brandedType?: string;
+  /** Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling. */
+  brandedUseCase?: string;
+  /** Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call. */
+  brandedCallReason?: string;
   /** A unique SID identifier of the Voice Integrity Profile. */
   voiceIntegrityBundleSid?: string;
   /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
@@ -447,6 +471,14 @@ export function CallSummariesListInstance(
       );
     if (params["brandedBundleSid"] !== undefined)
       data["BrandedBundleSid"] = params["brandedBundleSid"];
+    if (params["brandedLogo"] !== undefined)
+      data["BrandedLogo"] = serialize.bool(params["brandedLogo"]);
+    if (params["brandedType"] !== undefined)
+      data["BrandedType"] = params["brandedType"];
+    if (params["brandedUseCase"] !== undefined)
+      data["BrandedUseCase"] = params["brandedUseCase"];
+    if (params["brandedCallReason"] !== undefined)
+      data["BrandedCallReason"] = params["brandedCallReason"];
     if (params["voiceIntegrityBundleSid"] !== undefined)
       data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
     if (params["voiceIntegrityUseCase"] !== undefined)

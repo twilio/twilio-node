@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2025-07-24] Version 5.8.0
+--------------------------
+**Library - Chore**
+- [PR #1106](https://github.com/twilio/twilio-node/pull/1106): upgrade axios version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Twiml**
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+
+
 [2025-07-10] Version 5.7.3
 --------------------------
 **Flex**
