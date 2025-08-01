@@ -46,7 +46,7 @@ export default class TwiML {
    * @returns TwiML XML
    */
   /* jshint ignore:end */
-  toString() {
+  toString(): string {
     return this._getXml().end();
   }
 
