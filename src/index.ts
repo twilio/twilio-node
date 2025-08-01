@@ -88,5 +88,23 @@ namespace TwilioSDK {
   export type ClientOpts = IClientOpts;
 }
 
-// Public module interface is a function, which passes through to RestClient constructor
-export = TwilioSDK;
+// Named exports for ES6 import compatibility: import { Twilio } from 'twilio'
+export const Twilio = TwilioSDK.Twilio;
+export const jwt = TwilioSDK.jwt;
+export const twiml = TwilioSDK.twiml;
+export const RequestClient = TwilioSDK.RequestClient;
+export const ClientCredentialProviderBuilder = TwilioSDK.ClientCredentialProviderBuilder;
+export const OrgsCredentialProviderBuilder = TwilioSDK.OrgsCredentialProviderBuilder;
+export const NoAuthCredentialProvider = TwilioSDK.NoAuthCredentialProvider;
+export const validateBody = TwilioSDK.validateBody;
+export const validateRequest = TwilioSDK.validateRequest;
+export const validateRequestWithBody = TwilioSDK.validateRequestWithBody;
+export const validateExpressRequest = TwilioSDK.validateExpressRequest;
+export const validateIncomingRequest = TwilioSDK.validateIncomingRequest;
+export const getExpectedBodyHash = TwilioSDK.getExpectedBodyHash;
+export const getExpectedTwilioSignature = TwilioSDK.getExpectedTwilioSignature;
+export const webhook = TwilioSDK.webhook;
+export type ClientOpts = TwilioSDK.ClientOpts;
+
+// Default export for CommonJS compatibility: import twilio from 'twilio'
+export default TwilioSDK;
