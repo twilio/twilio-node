@@ -26,7 +26,7 @@ import { InstalledAddOnExtensionListInstance } from "./installedAddOn/installedA
  */
 export interface InstalledAddOnContextUpdateOptions {
   /** Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured */
-  configuration?: object;
+  configuration?: any;
   /** An application-defined string that uniquely identifies the resource. This value must be unique within the Account. */
   uniqueName?: string;
 }
@@ -40,7 +40,7 @@ export interface InstalledAddOnListInstanceCreateOptions {
   /** Whether the Terms of Service were accepted. */
   acceptTermsOfService: boolean;
   /** The JSON object that represents the configuration of the new Add-on being installed. */
-  configuration?: object;
+  configuration?: any;
   /** An application-defined string that uniquely identifies the resource. This value must be unique within the Account. */
   uniqueName?: string;
 }
@@ -286,7 +286,7 @@ interface InstalledAddOnResource {
   account_sid: string;
   friendly_name: string;
   description: string;
-  configuration: Record<string, object>;
+  configuration: any;
   unique_name: string;
   date_created: Date;
   date_updated: Date;
@@ -336,7 +336,7 @@ export class InstalledAddOnInstance {
   /**
    * The JSON object that represents the current configuration of installed Add-on.
    */
-  configuration: Record<string, object>;
+  configuration: any;
   /**
    * An application-defined string that uniquely identifies the resource.
    */

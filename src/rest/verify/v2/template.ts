@@ -239,7 +239,7 @@ interface TemplateResource {
   account_sid: string;
   friendly_name: string;
   channels: Array<string>;
-  translations: Record<string, object>;
+  translations: any;
 }
 
 export class TemplateInstance {
@@ -270,7 +270,7 @@ export class TemplateInstance {
   /**
    * An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
    */
-  translations: Record<string, object>;
+  translations: any;
 
   /**
    * Provide a user-friendly representation

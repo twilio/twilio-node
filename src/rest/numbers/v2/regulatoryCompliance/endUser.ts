@@ -32,7 +32,7 @@ export interface EndUserContextUpdateOptions {
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The set of parameters that are the attributes of the End User resource which are derived End User Types. */
-  attributes?: object;
+  attributes?: any;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface EndUserListInstanceCreateOptions {
   /**  */
   type: EndUserType;
   /** The set of parameters that are the attributes of the End User resource which are derived End User Types. */
-  attributes?: object;
+  attributes?: any;
 }
 /**
  * Options to pass to each

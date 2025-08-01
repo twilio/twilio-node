@@ -371,7 +371,7 @@ interface MessageResource {
   body: string;
   index: number;
   type: string;
-  media: Record<string, object>;
+  media: any;
   url: string;
 }
 
@@ -420,7 +420,7 @@ export class MessageInstance {
   body: string;
   index: number;
   type: string;
-  media: Record<string, object>;
+  media: any;
   url: string;
 
   private get _proxy(): MessageContext {

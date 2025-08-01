@@ -38,7 +38,7 @@ export interface SupportingDocumentContextUpdateOptions {
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. */
-  attributes?: object;
+  attributes?: any;
 }
 
 /**
@@ -50,7 +50,7 @@ export interface SupportingDocumentListInstanceCreateOptions {
   /** The type of the Supporting Document. */
   type: string;
   /** The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. */
-  attributes?: object;
+  attributes?: any;
 }
 /**
  * Options to pass to each
@@ -287,7 +287,7 @@ interface SupportingDocumentResource {
   mime_type: string;
   status: SupportingDocumentStatus;
   type: string;
-  attributes: Record<string, object>;
+  attributes: any;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -340,7 +340,7 @@ export class SupportingDocumentInstance {
   /**
    * The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
    */
-  attributes: Record<string, object>;
+  attributes: any;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */

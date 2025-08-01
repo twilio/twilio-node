@@ -283,9 +283,9 @@ interface InsightsSegmentsResource {
   customer_name: string;
   customer_link: string;
   segment_recording_offset: string;
-  media: Record<string, object>;
-  assessment_type: Record<string, object>;
-  assessment_percentage: Record<string, object>;
+  media: any;
+  assessment_type: any;
+  assessment_percentage: any;
   url: string;
 }
 
@@ -384,15 +384,15 @@ export class InsightsSegmentsInstance {
   /**
    * The media identifiers of the conversation.
    */
-  media: Record<string, object>;
+  media: any;
   /**
    * The type of the assessment.
    */
-  assessmentType: Record<string, object>;
+  assessmentType: any;
   /**
    * The percentage scored on the Assessments.
    */
-  assessmentPercentage: Record<string, object>;
+  assessmentPercentage: any;
   url: string;
 
   /**

@@ -61,9 +61,9 @@ export interface VerificationListInstanceCreateOptions {
   /** The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   payee?: string;
   /** The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request. */
-  rateLimits?: object;
+  rateLimits?: any;
   /** [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields \\\'from\\\' and \\\'from_name\\\' are optional but if included the \\\'from\\\' field must have a valid email address. */
-  channelConfiguration?: object;
+  channelConfiguration?: any;
   /** Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`. */
   appHash?: string;
   /** The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. */
@@ -235,13 +235,13 @@ interface VerificationResource {
   channel: VerificationChannel;
   status: string;
   valid: boolean;
-  lookup: Record<string, object>;
+  lookup: any;
   amount: string;
   payee: string;
-  send_code_attempts: Array<Record<string, object>>;
+  send_code_attempts: Array<any>;
   date_created: Date;
   date_updated: Date;
-  sna: Record<string, object>;
+  sna: any;
   url: string;
 }
 
@@ -302,7 +302,7 @@ export class VerificationInstance {
   /**
    * Information about the phone number being verified.
    */
-  lookup: Record<string, object>;
+  lookup: any;
   /**
    * The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
    */
@@ -314,7 +314,7 @@ export class VerificationInstance {
   /**
    * An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
    */
-  sendCodeAttempts: Array<Record<string, object>>;
+  sendCodeAttempts: Array<any>;
   /**
    * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
@@ -326,7 +326,7 @@ export class VerificationInstance {
   /**
    * The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
    */
-  sna: Record<string, object>;
+  sna: any;
   /**
    * The absolute URL of the Verification resource.
    */

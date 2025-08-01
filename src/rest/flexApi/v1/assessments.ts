@@ -236,7 +236,7 @@ interface AssessmentsResource {
   user_email: string;
   answer_text: string;
   answer_id: string;
-  assessment: Record<string, object>;
+  assessment: any;
   timestamp: number;
   url: string;
 }
@@ -315,7 +315,7 @@ export class AssessmentsInstance {
   /**
    * Assessment Details associated with an assessment
    */
-  assessment: Record<string, object>;
+  assessment: any;
   timestamp: number;
   url: string;
 

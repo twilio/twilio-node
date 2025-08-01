@@ -175,7 +175,7 @@ interface CustomerProfilesEvaluationsResource {
   policy_sid: string;
   customer_profile_sid: string;
   status: CustomerProfilesEvaluationsStatus;
-  results: Array<Record<string, object>>;
+  results: Array<any>;
   date_created: Date;
   url: string;
 }
@@ -222,7 +222,7 @@ export class CustomerProfilesEvaluationsInstance {
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */
-  results: Array<Record<string, object>>;
+  results: Array<any>;
   dateCreated: Date;
   url: string;
 

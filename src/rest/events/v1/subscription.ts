@@ -27,8 +27,6 @@ import { SubscribedEventListInstance } from "./subscription/subscribedEvent";
 export interface SubscriptionContextUpdateOptions {
   /** A human readable description for the Subscription. */
   description?: string;
-  /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
-  sinkSid?: string;
 }
 
 /**
@@ -40,7 +38,7 @@ export interface SubscriptionListInstanceCreateOptions {
   /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
   sinkSid: string;
   /** An array of objects containing the subscribed Event Types */
-  types: Array<object>;
+  types: Array<any>;
 }
 /**
  * Options to pass to each
@@ -232,7 +230,6 @@ export class SubscriptionContextImpl implements SubscriptionContext {
 
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
-    if (params["sinkSid"] !== undefined) data["SinkSid"] = params["sinkSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -577,7 +574,9 @@ export function SubscriptionListInstance(
 
     data["SinkSid"] = params["sinkSid"];
 
-    data["Types"] = serialize.map(params["types"], (e: object) => e);
+    data["Types"] = serialize.map(params["types"], (e: any) =>
+      serialize.object(e)
+    );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

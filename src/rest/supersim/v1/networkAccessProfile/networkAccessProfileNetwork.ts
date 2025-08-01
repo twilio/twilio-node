@@ -204,7 +204,7 @@ interface NetworkAccessProfileNetworkResource {
   network_access_profile_sid: string;
   friendly_name: string;
   iso_country: string;
-  identifiers: Array<Record<string, object>>;
+  identifiers: Array<any>;
   url: string;
 }
 
@@ -247,7 +247,7 @@ export class NetworkAccessProfileNetworkInstance {
   /**
    * Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
    */
-  identifiers: Array<Record<string, object>>;
+  identifiers: Array<any>;
   /**
    * The absolute URL of the Network resource.
    */

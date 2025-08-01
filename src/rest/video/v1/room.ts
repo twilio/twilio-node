@@ -22,6 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
+import { TranscriptionsListInstance } from "./room/transcriptions";
 
 export type RoomRoomStatus = "in-progress" | "completed" | "failed";
 
@@ -62,7 +63,7 @@ export interface RoomListInstanceCreateOptions {
   /** The region for the Room\\\'s media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). */
   mediaRegion?: string;
   /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
-  recordingRules?: object;
+  recordingRules?: any;
   /** A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used. */
   transcriptionsConfiguration?: object;
   /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. */
@@ -140,6 +141,7 @@ export interface RoomContext {
   participants: ParticipantListInstance;
   recordingRules: RecordingRulesListInstance;
   recordings: RoomRecordingListInstance;
+  transcriptions: TranscriptionsListInstance;
 
   /**
    * Fetch a RoomInstance
@@ -183,6 +185,7 @@ export class RoomContextImpl implements RoomContext {
   protected _participants?: ParticipantListInstance;
   protected _recordingRules?: RecordingRulesListInstance;
   protected _recordings?: RoomRecordingListInstance;
+  protected _transcriptions?: TranscriptionsListInstance;
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
@@ -212,6 +215,13 @@ export class RoomContextImpl implements RoomContext {
       this._recordings ||
       RoomRecordingListInstance(this._version, this._solution.sid);
     return this._recordings;
+  }
+
+  get transcriptions(): TranscriptionsListInstance {
+    this._transcriptions =
+      this._transcriptions ||
+      TranscriptionsListInstance(this._version, this._solution.sid);
+    return this._transcriptions;
   }
 
   fetch(
@@ -512,6 +522,13 @@ export class RoomInstance {
    */
   recordings(): RoomRecordingListInstance {
     return this._proxy.recordings;
+  }
+
+  /**
+   * Access the transcriptions.
+   */
+  transcriptions(): TranscriptionsListInstance {
+    return this._proxy.transcriptions;
   }
 
   /**

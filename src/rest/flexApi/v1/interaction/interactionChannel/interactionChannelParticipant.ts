@@ -47,9 +47,9 @@ export interface InteractionChannelParticipantListInstanceCreateOptions {
   /**  */
   type: InteractionChannelParticipantType;
   /** JSON representing the Media Properties for the new Participant. */
-  mediaProperties: object;
+  mediaProperties: any;
   /** Object representing the Routing Properties for the new Participant. */
-  routingProperties?: object;
+  routingProperties?: any;
 }
 /**
  * Options to pass to each
@@ -222,7 +222,7 @@ interface InteractionChannelParticipantResource {
   interaction_sid: string;
   channel_sid: string;
   url: string;
-  routing_properties: Record<string, object>;
+  routing_properties: any;
 }
 
 export class InteractionChannelParticipantInstance {
@@ -263,7 +263,7 @@ export class InteractionChannelParticipantInstance {
   /**
    * The Participant\'s routing properties.
    */
-  routingProperties: Record<string, object>;
+  routingProperties: any;
 
   private get _proxy(): InteractionChannelParticipantContext {
     this._context =

@@ -347,7 +347,7 @@ interface ExportCustomJobResource {
   webhook_method: string;
   email: string;
   job_sid: string;
-  details: Record<string, object>;
+  details: Array<any>;
   job_queue_position: string;
   estimated_completion_time: string;
 }
@@ -406,7 +406,7 @@ export class ExportCustomJobInstance {
   /**
    * The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
    */
-  details: Record<string, object>;
+  details: Array<any>;
   /**
    * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
    */

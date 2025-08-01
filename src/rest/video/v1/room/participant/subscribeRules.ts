@@ -32,7 +32,7 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
   /** A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information. */
-  rules?: object;
+  rules?: any;
 }
 
 export interface SubscribeRulesSolution {

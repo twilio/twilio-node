@@ -165,8 +165,8 @@ interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource {}
 
 interface TaskQueueStatisticsResource {
   account_sid: string;
-  cumulative: Record<string, object>;
-  realtime: Record<string, object>;
+  cumulative: any;
+  realtime: any;
   task_queue_sid: string;
   workspace_sid: string;
   url: string;
@@ -199,11 +199,11 @@ export class TaskQueueStatisticsInstance {
   /**
    * An object that contains the cumulative statistics for the TaskQueue.
    */
-  cumulative: Record<string, object>;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the TaskQueue.
    */
-  realtime: Record<string, object>;
+  realtime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated.
    */

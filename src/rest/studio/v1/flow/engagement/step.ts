@@ -180,7 +180,7 @@ interface StepResource {
   flow_sid: string;
   engagement_sid: string;
   name: string;
-  context: Record<string, object>;
+  context: any;
   parent_step_sid: string;
   transitioned_from: string;
   transitioned_to: string;
@@ -241,7 +241,7 @@ export class StepInstance {
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: any;
   /**
    * The SID of the parent Step.
    */

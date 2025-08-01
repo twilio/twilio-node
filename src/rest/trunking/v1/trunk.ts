@@ -359,11 +359,12 @@ interface TrunkResource {
   disaster_recovery_url: string;
   friendly_name: string;
   secure: boolean;
-  recording: Record<string, object>;
+  recording: any;
   transfer_mode: TrunkTransferSetting;
   transfer_caller_id: TrunkTransferCallerId;
   cnam_lookup_enabled: boolean;
   auth_type: string;
+  symmetric_rtp_enabled: boolean;
   auth_type_set: Array<string>;
   date_created: Date;
   date_updated: Date;
@@ -388,6 +389,7 @@ export class TrunkInstance {
     this.transferCallerId = payload.transfer_caller_id;
     this.cnamLookupEnabled = payload.cnam_lookup_enabled;
     this.authType = payload.auth_type;
+    this.symmetricRtpEnabled = payload.symmetric_rtp_enabled;
     this.authTypeSet = payload.auth_type_set;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -425,7 +427,7 @@ export class TrunkInstance {
   /**
    * The recording settings for the trunk. Can be: `do-not-record`, `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing` or `record-from-answer`, all calls going through the trunk will be recorded. The only way to change recording parameters is on a sub-resource of a Trunk after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST -d\'Mode=record-from-answer\'`. See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more information.
    */
-  recording: Record<string, object>;
+  recording: any;
   transferMode: TrunkTransferSetting;
   transferCallerId: TrunkTransferCallerId;
   /**
@@ -436,6 +438,10 @@ export class TrunkInstance {
    * The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.
    */
   authType: string;
+  /**
+   * Whether Symmetric RTP is enabled for the trunk. When Symmetric RTP is disabled, Twilio will send RTP to the destination negotiated in the SDP. Disabling Symmetric RTP is considered to be more secure and therefore recommended. See [Symmetric RTP](https://www.twilio.com/docs/sip-trunking#symmetric-rtp) for more information.
+   */
+  symmetricRtpEnabled: boolean;
   /**
    * Reserved.
    */
@@ -576,6 +582,7 @@ export class TrunkInstance {
       transferCallerId: this.transferCallerId,
       cnamLookupEnabled: this.cnamLookupEnabled,
       authType: this.authType,
+      symmetricRtpEnabled: this.symmetricRtpEnabled,
       authTypeSet: this.authTypeSet,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,

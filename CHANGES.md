@@ -1,6 +1,54 @@
 twilio-node changelog
 =====================
 
+[2025-07-24] Version 5.8.0
+--------------------------
+**Library - Chore**
+- [PR #1106](https://github.com/twilio/twilio-node/pull/1106): upgrade axios version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Twiml**
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+
+
+[2025-07-10] Version 5.7.3
+--------------------------
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
+[2025-07-03] Version 5.7.2
+--------------------------
+**Library - Chore**
+- [PR #1091](https://github.com/twilio/twilio-node/pull/1091): Remove references to microvisor. Thanks to [@akhani18](https://github.com/akhani18)!
+- [PR #1098](https://github.com/twilio/twilio-node/pull/1098): remove knowledge domain. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.
+
+**Twiml**
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+
 [2025-06-12] Version 5.7.1
 --------------------------
 **Library - Chore**

@@ -384,7 +384,7 @@ interface UsAppToPersonResource {
   date_updated: Date;
   url: string;
   mock: boolean;
-  errors: Array<Record<string, object>>;
+  errors: Array<any>;
 }
 
 export class UsAppToPersonInstance {
@@ -540,7 +540,7 @@ export class UsAppToPersonInstance {
   /**
    * Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
    */
-  errors: Array<Record<string, object>>;
+  errors: Array<any>;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =

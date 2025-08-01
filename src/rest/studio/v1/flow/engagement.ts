@@ -36,7 +36,7 @@ export interface EngagementListInstanceCreateOptions {
   /** The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}` */
   from: string;
   /** A JSON string we will add to your flow\\\'s context and that you can access as variables inside your flow. For example, if you pass in `Parameters={\\\'name\\\':\\\'Zeke\\\'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string \\\'Zeke\\\'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. */
-  parameters?: object;
+  parameters?: any;
 }
 /**
  * Options to pass to each
@@ -229,7 +229,7 @@ interface EngagementResource {
   flow_sid: string;
   contact_sid: string;
   contact_channel_address: string;
-  context: Record<string, object>;
+  context: any;
   status: EngagementStatus;
   date_created: Date;
   date_updated: Date;
@@ -285,7 +285,7 @@ export class EngagementInstance {
   /**
    * The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
    */
-  context: Record<string, object>;
+  context: any;
   status: EngagementStatus;
   /**
    * The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

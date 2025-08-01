@@ -21,11 +21,6 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
 /**
- * The log level. Can be: `info`, `warn`, or `error`.
- */
-export type LogLevel = "info" | "warn" | "error";
-
-/**
  * Options to pass to each
  */
 export interface LogListInstanceEachOptions {
@@ -189,7 +184,7 @@ interface LogResource {
   deployment_sid: string;
   function_sid: string;
   request_sid: string;
-  level: LogLevel;
+  level: string;
   message: string;
   date_created: Date;
   url: string;
@@ -254,7 +249,10 @@ export class LogInstance {
    * The SID of the request associated with the log.
    */
   requestSid: string;
-  level: LogLevel;
+  /**
+   * The log level.
+   */
+  level: string;
   /**
    * The log message.
    */

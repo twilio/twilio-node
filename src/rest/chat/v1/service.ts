@@ -547,13 +547,13 @@ interface ServiceResource {
   reachability_enabled: boolean;
   typing_indicator_timeout: number;
   consumption_report_interval: number;
-  limits: Record<string, object>;
-  webhooks: Record<string, object>;
+  limits: any;
+  webhooks: any;
   pre_webhook_url: string;
   post_webhook_url: string;
   webhook_method: string;
   webhook_filters: Array<string>;
-  notifications: Record<string, object>;
+  notifications: any;
   url: string;
   links: Record<string, string>;
 }
@@ -644,11 +644,11 @@ export class ServiceInstance {
   /**
    * An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
    */
-  limits: Record<string, object>;
+  limits: any;
   /**
    * An object that contains information about the webhooks configured for this service.
    */
-  webhooks: Record<string, object>;
+  webhooks: any;
   /**
    * The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
    */
@@ -668,7 +668,7 @@ export class ServiceInstance {
   /**
    * The notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
    */
-  notifications: Record<string, object>;
+  notifications: any;
   /**
    * The absolute URL of the Service resource.
    */

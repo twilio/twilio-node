@@ -296,7 +296,7 @@ interface UsageRecordResource {
   network_sid: string;
   fleet_sid: string;
   iso_country: string;
-  period: Record<string, object>;
+  period: any;
   data_upload: number;
   data_download: number;
   data_total: number;
@@ -342,7 +342,7 @@ export class UsageRecordInstance {
   /**
    * The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  period: Record<string, object>;
+  period: any;
   /**
    * Total data uploaded in bytes, aggregated by the query parameters.
    */

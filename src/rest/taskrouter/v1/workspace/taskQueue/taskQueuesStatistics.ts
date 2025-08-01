@@ -307,8 +307,8 @@ interface TaskQueuesStatisticsPayload extends TwilioResponsePayload {
 
 interface TaskQueuesStatisticsResource {
   account_sid: string;
-  cumulative: Record<string, object>;
-  realtime: Record<string, object>;
+  cumulative: any;
+  realtime: any;
   task_queue_sid: string;
   workspace_sid: string;
 }
@@ -333,11 +333,11 @@ export class TaskQueuesStatisticsInstance {
   /**
    * An object that contains the cumulative statistics for the TaskQueues.
    */
-  cumulative: Record<string, object>;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the TaskQueues.
    */
-  realtime: Record<string, object>;
+  realtime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated.
    */

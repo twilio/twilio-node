@@ -28,7 +28,7 @@ export interface DocumentContextUpdateOptions {
   /** The If-Match HTTP request header */
   ifMatch?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
-  data?: object;
+  data?: any;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live). */
   ttl?: number;
 }
@@ -40,7 +40,7 @@ export interface DocumentListInstanceCreateOptions {
   /** An application-defined string that uniquely identifies the Sync Document */
   uniqueName?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
-  data?: object;
+  data?: any;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\'s time-to-live). */
   ttl?: number;
 }

@@ -371,7 +371,7 @@ interface MessageResource {
   body: string;
   index: number;
   type: string;
-  media: Record<string, object>;
+  media: any;
   url: string;
 }
 
@@ -465,7 +465,7 @@ export class MessageInstance {
   /**
    * An object that describes the Message\'s media, if the message contains media. The object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object\'s file size in bytes. If the Message has no media, this value is `null`.
    */
-  media: Record<string, object>;
+  media: any;
   /**
    * The absolute URL of the Message resource.
    */

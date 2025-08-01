@@ -295,7 +295,7 @@ interface DependentPhoneNumberResource {
   sms_method: string;
   sms_url: string;
   address_requirements: DependentPhoneNumberAddressRequirement;
-  capabilities: Record<string, object>;
+  capabilities: any;
   status_callback: string;
   status_callback_method: string;
   api_version: string;
@@ -406,7 +406,7 @@ export class DependentPhoneNumberInstance {
   /**
    * The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
    */
-  capabilities: Record<string, object>;
+  capabilities: any;
   /**
    * The URL we call using the `status_callback_method` to send status information to your application.
    */
