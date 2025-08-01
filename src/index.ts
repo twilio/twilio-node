@@ -93,8 +93,10 @@ export const Twilio = TwilioSDK.Twilio;
 export const jwt = TwilioSDK.jwt;
 export const twiml = TwilioSDK.twiml;
 export const RequestClient = TwilioSDK.RequestClient;
-export const ClientCredentialProviderBuilder = TwilioSDK.ClientCredentialProviderBuilder;
-export const OrgsCredentialProviderBuilder = TwilioSDK.OrgsCredentialProviderBuilder;
+export const ClientCredentialProviderBuilder =
+  TwilioSDK.ClientCredentialProviderBuilder;
+export const OrgsCredentialProviderBuilder =
+  TwilioSDK.OrgsCredentialProviderBuilder;
 export const NoAuthCredentialProvider = TwilioSDK.NoAuthCredentialProvider;
 export const validateBody = TwilioSDK.validateBody;
 export const validateRequest = TwilioSDK.validateRequest;
