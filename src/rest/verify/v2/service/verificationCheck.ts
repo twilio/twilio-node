@@ -165,7 +165,7 @@ export function VerificationCheckListInstance(
   return instance;
 }
 
-interface VerificationCheckPayload extends VerificationCheckResource {}
+interface VerificationCheckPayload extends VerificationCheckResource { }
 
 interface VerificationCheckResource {
   sid: string;
@@ -222,7 +222,7 @@ export class VerificationCheckInstance {
   /**
    * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
    */
-  status: string;
+  status: 'pending' | 'approved' | 'canceled' | 'max_attempts_reached' | 'deleted' | 'failed' | 'expired';
   /**
    * Use \"status\" instead. Legacy property indicating whether the verification was successful.
    */
