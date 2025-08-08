@@ -17,7 +17,7 @@ jobs:
           stale-issue-message: 'This issue is stale because it has been open for 30 days with no activity. Please remove stale label or comment or this issue will be closed in 30 days.'
           close-issue-message: 'This issue was closed because it has been stalled for 30 days with no activity. Please open a new issue if the issue is still relevant, linking to this one.'
           days-before-issue-stale: 0
-          days-before-issue-close: 30
+          days-before-issue-close: 0
           exempt-all-milestones: true
           exempt-issue-labels: "type: community enhancement, type: twilio enhancement"
   stale-legacy:
