@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/stale@v9
         with:
-          start-date: '2025-08-08T00:00:00Z' # issues created after this date will be considered
+          start-date: '2020-01-01T00:00:00Z' # issues created after this date will be considered
           stale-issue-message: 'This issue is stale because it has been open for 30 days with no activity. Please remove stale label or comment or this issue will be closed in 30 days.'
           close-issue-message: 'This issue was closed because it has been stalled for 30 days with no activity. Please open a new issue if the issue is still relevant, linking to this one.'
-          days-before-issue-stale: 0
-          days-before-issue-close: 0
+          days-before-issue-stale: 30
+          days-before-issue-close: 30
           exempt-all-milestones: true
           exempt-issue-labels: "type: community enhancement, type: twilio enhancement"
   stale-legacy:
