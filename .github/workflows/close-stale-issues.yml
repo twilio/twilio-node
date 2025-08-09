@@ -31,3 +31,4 @@ jobs:
           days-before-issue-stale: 365
           days-before-issue-close: 30
           exempt-all-milestones: true
+          exempt-issue-labels: "type: community enhancement, type: twilio enhancement"
