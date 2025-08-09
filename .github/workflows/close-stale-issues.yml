@@ -1,26 +1,34 @@
-# This workflow warns and then closes issues and PRs that have had no activity for a specified amount of time.
-#
-# You can adjust the behavior by modifying this file.
-# For more information, see:
-# https://github.com/actions/stale
-name: Mark stale issues and pull requests
-
+name: 'Close stale issues'
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
+permissions:
+  issues: write # to close stale issues
 
 jobs:
   stale:
-
+    name: 'Close month old issues'
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
-
     steps:
-    - uses: actions/stale@v5
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'Stale issue message'
-        stale-pr-message: 'Stale pull request message'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+      - uses: actions/stale@v9
+        with:
+          start-date: '2020-01-01T00:00:00Z' # issues created after this date will be considered
+          stale-issue-message: 'This issue is stale because it has been open for 30 days with no activity. Please remove stale label or comment or this issue will be closed in 30 days.'
+          close-issue-message: 'This issue was closed because it has been stalled for 30 days with no activity. Please open a new issue if the issue is still relevant, linking to this one.'
+          days-before-issue-stale: 30
+          days-before-issue-close: 30
+          exempt-all-milestones: true
+          exempt-issue-labels: "type: community enhancement, type: twilio enhancement"
+  stale-legacy:
+    name: 'Clean up legacy issues similarly'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          stale-issue-message: 'This issue is stale because it has been open for 1 year with no activity. Remove stale label or comment or this will be closed in 30 days.'
+          close-issue-message: 'This issue was closed because it has been stalled for 30 days with no activity. Please open a new issue if the issue is still relevant, linking to this one.'
+          days-before-issue-stale: 365
+          days-before-issue-close: 30
+          exempt-all-milestones: true
+          exempt-issue-labels: "type: community enhancement, type: twilio enhancement"
