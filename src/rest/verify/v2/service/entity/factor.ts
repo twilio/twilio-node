@@ -28,7 +28,7 @@ export type FactorFactorStatuses = "unverified" | "verified";
 /**
  * The Type of this Factor. Currently `push` and `totp` are supported.
  */
-export type FactorFactorTypes = "push" | "totp";
+export type FactorFactorTypes = "push" | "totp" | "passkeys";
 
 export type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
 

@@ -347,7 +347,7 @@ interface CompositionHookResource {
   sid: string;
   audio_sources: Array<string>;
   audio_sources_excluded: Array<string>;
-  video_layout: Record<string, object>;
+  video_layout: any;
   resolution: string;
   trim: boolean;
   format: CompositionHookFormat;
@@ -419,7 +419,7 @@ export class CompositionHookInstance {
   /**
    * A JSON object that describes the video layout of the composition in terms of regions as specified in the HTTP POST request that created the CompositionHook resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
    */
-  videoLayout: Record<string, object>;
+  videoLayout: any;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string\'s format is `{width}x{height}`, such as `640x480`.
    */

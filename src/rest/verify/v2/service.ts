@@ -69,6 +69,12 @@ export interface ServiceContextUpdateOptions {
   "whatsapp.msgServiceSid"?: string;
   /** The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service. */
   "whatsapp.from"?: string;
+  /** The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.id"?: string;
+  /** The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.name"?: string;
+  /** The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`. */
+  "passkeys.relyingParty.origins"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
   verifyEventSubscriptionEnabled?: boolean;
 }
@@ -115,6 +121,18 @@ export interface ServiceListInstanceCreateOptions {
   "whatsapp.msgServiceSid"?: string;
   /** The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID. */
   "whatsapp.from"?: string;
+  /** The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.id"?: string;
+  /** The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.name"?: string;
+  /** The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`. */
+  "passkeys.relyingParty.origins"?: string;
+  /** The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`. */
+  "passkeys.authenticatorAttachment"?: string;
+  /** Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.discoverableCredentials"?: string;
+  /** The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.userVerification"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
   verifyEventSubscriptionEnabled?: boolean;
 }
@@ -387,6 +405,13 @@ export class ServiceContextImpl implements ServiceContext {
       data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
     if (params["whatsapp.from"] !== undefined)
       data["Whatsapp.From"] = params["whatsapp.from"];
+    if (params["passkeys.relyingParty.id"] !== undefined)
+      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    if (params["passkeys.relyingParty.name"] !== undefined)
+      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    if (params["passkeys.relyingParty.origins"] !== undefined)
+      data["Passkeys.RelyingParty.Origins"] =
+        params["passkeys.relyingParty.origins"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
       data["VerifyEventSubscriptionEnabled"] = serialize.bool(
         params["verifyEventSubscriptionEnabled"]
@@ -451,6 +476,7 @@ interface ServiceResource {
   totp: any;
   default_template_sid: string;
   whatsapp: any;
+  passkeys: any;
   verify_event_subscription_enabled: boolean;
   date_created: Date;
   date_updated: Date;
@@ -478,6 +504,7 @@ export class ServiceInstance {
     this.totp = payload.totp;
     this.defaultTemplateSid = payload.default_template_sid;
     this.whatsapp = payload.whatsapp;
+    this.passkeys = payload.passkeys;
     this.verifyEventSubscriptionEnabled =
       payload.verify_event_subscription_enabled;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -542,6 +569,7 @@ export class ServiceInstance {
   totp: any;
   defaultTemplateSid: string;
   whatsapp: any;
+  passkeys: any;
   /**
    * Whether to allow verifications from the service to reach the stream-events sinks if configured
    */
@@ -697,6 +725,7 @@ export class ServiceInstance {
       totp: this.totp,
       defaultTemplateSid: this.defaultTemplateSid,
       whatsapp: this.whatsapp,
+      passkeys: this.passkeys,
       verifyEventSubscriptionEnabled: this.verifyEventSubscriptionEnabled,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
@@ -875,6 +904,21 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
     if (params["whatsapp.from"] !== undefined)
       data["Whatsapp.From"] = params["whatsapp.from"];
+    if (params["passkeys.relyingParty.id"] !== undefined)
+      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    if (params["passkeys.relyingParty.name"] !== undefined)
+      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    if (params["passkeys.relyingParty.origins"] !== undefined)
+      data["Passkeys.RelyingParty.Origins"] =
+        params["passkeys.relyingParty.origins"];
+    if (params["passkeys.authenticatorAttachment"] !== undefined)
+      data["Passkeys.AuthenticatorAttachment"] =
+        params["passkeys.authenticatorAttachment"];
+    if (params["passkeys.discoverableCredentials"] !== undefined)
+      data["Passkeys.DiscoverableCredentials"] =
+        params["passkeys.discoverableCredentials"];
+    if (params["passkeys.userVerification"] !== undefined)
+      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
       data["VerifyEventSubscriptionEnabled"] = serialize.bool(
         params["verifyEventSubscriptionEnabled"]

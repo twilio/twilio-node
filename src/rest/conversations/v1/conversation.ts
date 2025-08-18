@@ -26,7 +26,11 @@ import { WebhookListInstance } from "./conversation/webhook";
 /**
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
  */
-export type ConversationState = "inactive" | "active" | "closed";
+export type ConversationState =
+  | "initializing"
+  | "inactive"
+  | "active"
+  | "closed";
 
 export type ConversationWebhookEnabledType = "true" | "false";
 

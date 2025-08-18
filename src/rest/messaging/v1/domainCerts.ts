@@ -205,7 +205,7 @@ interface DomainCertsResource {
   domain_name: string;
   certificate_sid: string;
   url: string;
-  cert_in_validation: Record<string, object>;
+  cert_in_validation: any;
 }
 
 export class DomainCertsInstance {
@@ -257,7 +257,7 @@ export class DomainCertsInstance {
   /**
    * Optional JSON field describing the status and upload date of a new certificate in the process of validation
    */
-  certInValidation: Record<string, object>;
+  certInValidation: any;
 
   private get _proxy(): DomainCertsContext {
     this._context =

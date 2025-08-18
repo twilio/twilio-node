@@ -176,18 +176,18 @@ interface CallSummaryResource {
   end_time: Date;
   duration: number;
   connect_duration: number;
-  from: Record<string, object>;
-  to: Record<string, object>;
-  carrier_edge: Record<string, object>;
-  client_edge: Record<string, object>;
-  sdk_edge: Record<string, object>;
-  sip_edge: Record<string, object>;
+  from: any;
+  to: any;
+  carrier_edge: any;
+  client_edge: any;
+  sdk_edge: any;
+  sip_edge: any;
   tags: Array<string>;
   url: string;
-  attributes: Record<string, object>;
-  properties: Record<string, object>;
-  trust: Record<string, object>;
-  annotation: Record<string, object>;
+  attributes: any;
+  properties: any;
+  trust: any;
+  annotation: any;
 }
 
 export class CallSummaryInstance {
@@ -261,27 +261,27 @@ export class CallSummaryInstance {
   /**
    * The calling party.
    */
-  from: Record<string, object>;
+  from: any;
   /**
    * The called party.
    */
-  to: Record<string, object>;
+  to: any;
   /**
    * Contains metrics and properties for the Twilio media gateway of a PSTN call.
    */
-  carrierEdge: Record<string, object>;
+  carrierEdge: any;
   /**
    * Contains metrics and properties for the Twilio media gateway of a Client call.
    */
-  clientEdge: Record<string, object>;
+  clientEdge: any;
   /**
    * Contains metrics and properties for the SDK sensor library for Client calls.
    */
-  sdkEdge: Record<string, object>;
+  sdkEdge: any;
   /**
    * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
    */
-  sipEdge: Record<string, object>;
+  sipEdge: any;
   /**
    * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
    */
@@ -293,19 +293,19 @@ export class CallSummaryInstance {
   /**
    * Attributes capturing call-flow-specific details.
    */
-  attributes: Record<string, object>;
+  attributes: any;
   /**
    * Contains edge-agnostic call-level details.
    */
-  properties: Record<string, object>;
+  properties: any;
   /**
    * Contains trusted communications details including Branded Call and verified caller ID.
    */
-  trust: Record<string, object>;
+  trust: any;
   /**
    * Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API.
    */
-  annotation: Record<string, object>;
+  annotation: any;
 
   private get _proxy(): CallSummaryContext {
     this._context =

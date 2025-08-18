@@ -203,9 +203,9 @@ interface ParticipantResource {
   error_code: number;
   error_code_url: string;
   media_region: ParticipantTwilioRealm;
-  properties: Record<string, object>;
+  properties: any;
   edge_location: ParticipantEdgeLocation;
-  publisher_info: Record<string, object>;
+  publisher_info: any;
   url: string;
 }
 
@@ -292,12 +292,12 @@ export class ParticipantInstance {
   /**
    * Object containing information about the participant\'s data from the room. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#properties) for more information.
    */
-  properties: Record<string, object>;
+  properties: any;
   edgeLocation: ParticipantEdgeLocation;
   /**
    * Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#publisher_info) for more information.
    */
-  publisherInfo: Record<string, object>;
+  publisherInfo: any;
   /**
    * URL of the participant resource.
    */

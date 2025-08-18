@@ -22,6 +22,7 @@ import { isValidPathParam } from "../../../../base/utility";
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
  */
 export type ConversationWithParticipantsState =
+  | "initializing"
   | "inactive"
   | "active"
   | "closed";

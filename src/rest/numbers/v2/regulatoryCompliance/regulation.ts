@@ -210,7 +210,7 @@ interface RegulationResource {
   iso_country: string;
   number_type: string;
   end_user_type: RegulationEndUserType;
-  requirements: Record<string, object>;
+  requirements: any;
   url: string;
 }
 
@@ -254,7 +254,7 @@ export class RegulationInstance {
   /**
    * The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
    */
-  requirements: Record<string, object>;
+  requirements: any;
   /**
    * The absolute URL of the Regulation resource.
    */

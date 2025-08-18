@@ -206,16 +206,16 @@ interface PhoneNumberResource {
   national_format: string;
   valid: boolean;
   validation_errors: Array<PhoneNumberValidationError>;
-  caller_name: Record<string, object>;
-  sim_swap: Record<string, object>;
-  call_forwarding: Record<string, object>;
-  line_status: Record<string, object>;
-  line_type_intelligence: Record<string, object>;
-  identity_match: Record<string, object>;
-  reassigned_number: Record<string, object>;
-  sms_pumping_risk: Record<string, object>;
-  phone_number_quality_score: Record<string, object>;
-  pre_fill: Record<string, object>;
+  caller_name: any;
+  sim_swap: any;
+  call_forwarding: any;
+  line_status: any;
+  line_type_intelligence: any;
+  identity_match: any;
+  reassigned_number: any;
+  sms_pumping_risk: any;
+  phone_number_quality_score: any;
+  pre_fill: any;
   url: string;
 }
 
@@ -276,43 +276,43 @@ export class PhoneNumberInstance {
   /**
    * An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
    */
-  callerName: Record<string, object>;
+  callerName: any;
   /**
    * An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
    */
-  simSwap: Record<string, object>;
+  simSwap: any;
   /**
    * An object that contains information on the unconditional call forwarding status of mobile phone number.
    */
-  callForwarding: Record<string, object>;
+  callForwarding: any;
   /**
    * An object that contains line status information for a mobile phone number.
    */
-  lineStatus: Record<string, object>;
+  lineStatus: any;
   /**
    * An object that contains line type information including the carrier name, mobile country code, and mobile network code.
    */
-  lineTypeIntelligence: Record<string, object>;
+  lineTypeIntelligence: any;
   /**
    * An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
    */
-  identityMatch: Record<string, object>;
+  identityMatch: any;
   /**
    * An object that contains reassigned number information. Reassigned Numbers will return a phone number\'s reassignment status given a phone number and date
    */
-  reassignedNumber: Record<string, object>;
+  reassignedNumber: any;
   /**
    * An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
    */
-  smsPumpingRisk: Record<string, object>;
+  smsPumpingRisk: any;
   /**
    * An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
    */
-  phoneNumberQualityScore: Record<string, object>;
+  phoneNumberQualityScore: any;
   /**
    * An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
    */
-  preFill: Record<string, object>;
+  preFill: any;
   /**
    * The absolute URL of the resource.
    */

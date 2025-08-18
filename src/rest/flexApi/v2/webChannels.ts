@@ -32,6 +32,8 @@ export interface WebChannelsListInstanceCreateOptions {
   customerFriendlyName?: string;
   /** The pre-engagement data. */
   preEngagementData?: string;
+  /** The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example. */
+  identity?: string;
 }
 
 export interface WebChannelsSolution {}
@@ -89,6 +91,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
       data["CustomerFriendlyName"] = params["customerFriendlyName"];
     if (params["preEngagementData"] !== undefined)
       data["PreEngagementData"] = params["preEngagementData"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

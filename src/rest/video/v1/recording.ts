@@ -232,7 +232,7 @@ interface RecordingResource {
   duration: number;
   container_format: RecordingFormat;
   codec: RecordingCodec;
-  grouping_sids: Record<string, object>;
+  grouping_sids: any;
   track_name: string;
   offset: number;
   media_external_location: string;
@@ -307,7 +307,7 @@ export class RecordingInstance {
   /**
    * A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
    */
-  groupingSids: Record<string, object>;
+  groupingSids: any;
   /**
    * The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
    */
