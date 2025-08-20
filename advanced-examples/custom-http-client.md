@@ -2,9 +2,9 @@
 
 If you are working with the Twilio Node.js Helper Library, and you need to modify the HTTP requests that the library makes to the Twilio servers, you’re in the right place.
 
-The helper library uses [axios](https://www.npmjs.com/package/axios), a promise-based HTTP client, to make requests. You can also provide your own `httpClient` to customize requests as needed.
+The helper library uses the native `fetch` API to make requests. You can provide your own `fetch` implementation to customize requests as needed, which helps reduce bundle size by allowing you to bring your own HTTP client.
 
-The following example shows a typical request without a custom `httpClient`.
+The following example shows a typical request without a custom `fetch` implementation.
 
 ```js
 const client = require('twilio')(accountSid, authToken);

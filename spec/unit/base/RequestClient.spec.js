@@ -1,42 +1,30 @@
 import mockfs from "mock-fs";
-import axios from "axios";
 import RequestClient from "../../../src/base/RequestClient";
 import HttpsProxyAgent from "https-proxy-agent";
 import http from "http";
 
-function createMockAxios(promiseHandler) {
-  let instance = function () {
-    return promiseHandler;
-  };
+// Global fetch mock setup
+global.fetch = jest.fn();
 
-  instance.defaults = {
-    headers: {
-      post: {},
-    },
-  };
-
-  return instance;
+function createMockFetch(responsePromise) {
+  return jest.fn(() => responsePromise);
 }
 
 describe("RequestClient constructor", function () {
-  let createSpy;
+  let fetchSpy;
   let initialHttpProxyValue = process.env.HTTP_PROXY;
 
   beforeEach(function () {
-    createSpy = jest.spyOn(axios, "create");
-    createSpy.mockReturnValue(
-      createMockAxios(
-        Promise.resolve({
-          status: 200,
-          data: "voltron",
-          headers: { response: "header" },
-        })
-      )
-    );
+    fetchSpy = global.fetch;
+    fetchSpy.mockResolvedValue({
+      status: 200,
+      text: () => Promise.resolve("voltron"),
+      headers: new Map([["response", "header"]]),
+    });
   });
 
   afterEach(function () {
-    createSpy.mockRestore();
+    fetchSpy.mockRestore();
     if (initialHttpProxyValue) {
       process.env.HTTP_PROXY = initialHttpProxyValue;
     } else {
@@ -47,32 +35,16 @@ describe("RequestClient constructor", function () {
   it("should initialize with default values", function () {
     const requestClient = new RequestClient();
     expect(requestClient.defaultTimeout).toEqual(30000);
-    expect(requestClient.axios.defaults.headers.post).toEqual({
-      "Content-Type": "application/x-www-form-urlencoded",
-    });
-    expect(requestClient.axios.defaults.httpsAgent).not.toBeInstanceOf(
-      HttpsProxyAgent
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.timeout).toEqual(
-      30000
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(
-      true
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(
-      undefined
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(20);
-    expect(
-      requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
-    ).toBe(100);
-    expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(
-      5
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toBe(
-      undefined
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.ca).toBe(undefined);
+    expect(requestClient.fetch).toBeDefined();
+    expect(requestClient.agent).not.toBeInstanceOf(HttpsProxyAgent);
+    expect(requestClient.agent.options.timeout).toEqual(30000);
+    expect(requestClient.agent.options.keepAlive).toBe(true);
+    expect(requestClient.agent.options.keepAliveMsecs).toBe(undefined);
+    expect(requestClient.agent.options.maxSockets).toBe(20);
+    expect(requestClient.agent.options.maxTotalSockets).toBe(100);
+    expect(requestClient.agent.options.maxFreeSockets).toBe(5);
+    expect(requestClient.agent.options.scheduling).toBe(undefined);
+    expect(requestClient.agent.options.ca).toBe(undefined);
   });
 
   it("should initialize with a proxy", function () {
@@ -80,15 +52,9 @@ describe("RequestClient constructor", function () {
 
     const requestClient = new RequestClient();
     expect(requestClient.defaultTimeout).toEqual(30000);
-    expect(requestClient.axios.defaults.headers.post).toEqual({
-      "Content-Type": "application/x-www-form-urlencoded",
-    });
-    expect(requestClient.axios.defaults.httpsAgent).toBeInstanceOf(
-      HttpsProxyAgent
-    );
-    expect(requestClient.axios.defaults.httpsAgent.proxy.host).toEqual(
-      "example.com"
-    );
+    expect(requestClient.fetch).toBeDefined();
+    expect(requestClient.agent).toBeInstanceOf(HttpsProxyAgent);
+    expect(requestClient.agent.proxy.host).toEqual("example.com");
   });
 
   it("should initialize custom https settings (all settings customized)", function () {
@@ -102,33 +68,15 @@ describe("RequestClient constructor", function () {
       scheduling: "fifo",
     });
     expect(requestClient.defaultTimeout).toEqual(5000);
-    expect(requestClient.axios.defaults.headers.post).toEqual({
-      "Content-Type": "application/x-www-form-urlencoded",
-    });
-    expect(requestClient.axios.defaults.httpsAgent).not.toBeInstanceOf(
-      HttpsProxyAgent
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.timeout).toEqual(
-      5000
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(
-      true
-    );
-    expect(
-      requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs
-    ).toEqual(1500);
-    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toEqual(
-      100
-    );
-    expect(
-      requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
-    ).toEqual(1000);
-    expect(
-      requestClient.axios.defaults.httpsAgent.options.maxFreeSockets
-    ).toEqual(10);
-    expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toEqual(
-      "fifo"
-    );
+    expect(requestClient.fetch).toBeDefined();
+    expect(requestClient.agent).not.toBeInstanceOf(HttpsProxyAgent);
+    expect(requestClient.agent.options.timeout).toEqual(5000);
+    expect(requestClient.agent.options.keepAlive).toBe(true);
+    expect(requestClient.agent.options.keepAliveMsecs).toEqual(1500);
+    expect(requestClient.agent.options.maxSockets).toEqual(100);
+    expect(requestClient.agent.options.maxTotalSockets).toEqual(1000);
+    expect(requestClient.agent.options.maxFreeSockets).toEqual(10);
+    expect(requestClient.agent.options.scheduling).toEqual("fifo");
   });
 
   it("should initialize custom https settings (some settings customized)", function () {
@@ -158,31 +106,23 @@ describe("RequestClient constructor", function () {
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
     ).toEqual(1500);
-    expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(
-      5
-    );
-    expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toEqual(
-      "lifo"
-    );
+    expect(requestClient.agent.options.maxFreeSockets).toBe(5);
+    expect(requestClient.agent.options.scheduling).toEqual("lifo");
   });
 });
 
 describe("lastResponse and lastRequest defined", function () {
-  let createSpy;
+  let fetchSpy;
   let client;
   let response;
 
   beforeEach(function () {
-    createSpy = jest.spyOn(axios, "create");
-    createSpy.mockReturnValue(
-      createMockAxios(
-        Promise.resolve({
-          status: 200,
-          data: "voltron",
-          headers: { response: "header" },
-        })
-      )
-    );
+    fetchSpy = global.fetch;
+    fetchSpy.mockResolvedValue({
+      status: 200,
+      text: () => Promise.resolve("voltron"),
+      headers: new Map([["response", "header"]]),
+    });
 
     client = new RequestClient();
 
