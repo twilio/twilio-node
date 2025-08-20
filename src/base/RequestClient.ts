@@ -218,12 +218,20 @@ class RequestClient {
     // Build URL with query parameters
     let url = opts.uri;
     if (opts.params) {
-      const urlObj = new URL(url);
-      const queryString = qs.stringify(opts.params, { arrayFormat: "repeat" });
-      if (queryString) {
-        urlObj.search = queryString;
+      try {
+        const urlObj = new URL(url);
+        const queryString = qs.stringify(opts.params, { arrayFormat: "repeat" });
+        if (queryString) {
+          urlObj.search = queryString;
+        }
+        url = urlObj.toString();
+      } catch (e) {
+        // If URL constructor fails, fall back to basic concatenation
+        const queryString = qs.stringify(opts.params, { arrayFormat: "repeat" });
+        if (queryString) {
+          url += (url.includes('?') ? '&' : '?') + queryString;
+        }
       }
-      url = urlObj.toString();
     }
 
     // Prepare fetch options
