@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[Unreleased] Version 5.9.0
+---------------------------
+**Library - Feature**
+- Replace axios with fetch for HTTP requests to reduce bundle size by 100KB+
+- Added `fetch` option to RequestClientOptions to allow custom fetch implementations (undici, node-fetch, etc.)
+- Maintained all existing functionality including retries, HTTPS agents, and validation
+- Fallback to global fetch if no custom fetch provided (Node.js 18+ or browser environments)
+- See examples/custom-fetch.md for usage examples
+
 [2025-08-18] Version 5.8.1
 --------------------------
 **Library - Chore**
