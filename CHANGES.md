@@ -1,6 +1,18 @@
 twilio-node changelog
 =====================
 
+[2025-08-28] Version 5.8.2
+--------------------------
+**Library - Chore**
+- [PR #1116](https://github.com/twilio/twilio-node/pull/1116): upgrade typescript and typedoc version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Studio**
+- Add `type` to Step resource APIs
+
+**Verify**
+- Allow to update all passkeys parameters in the service update
+
+
 [2025-08-18] Version 5.8.1
 --------------------------
 **Library - Chore**

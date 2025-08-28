@@ -75,6 +75,12 @@ export interface ServiceContextUpdateOptions {
   "passkeys.relyingParty.name"?: string;
   /** The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`. */
   "passkeys.relyingParty.origins"?: string;
+  /** The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`. */
+  "passkeys.authenticatorAttachment"?: string;
+  /** Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.discoverableCredentials"?: string;
+  /** The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.userVerification"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
   verifyEventSubscriptionEnabled?: boolean;
 }
@@ -412,6 +418,14 @@ export class ServiceContextImpl implements ServiceContext {
     if (params["passkeys.relyingParty.origins"] !== undefined)
       data["Passkeys.RelyingParty.Origins"] =
         params["passkeys.relyingParty.origins"];
+    if (params["passkeys.authenticatorAttachment"] !== undefined)
+      data["Passkeys.AuthenticatorAttachment"] =
+        params["passkeys.authenticatorAttachment"];
+    if (params["passkeys.discoverableCredentials"] !== undefined)
+      data["Passkeys.DiscoverableCredentials"] =
+        params["passkeys.discoverableCredentials"];
+    if (params["passkeys.userVerification"] !== undefined)
+      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
       data["VerifyEventSubscriptionEnabled"] = serialize.bool(
         params["verifyEventSubscriptionEnabled"]
