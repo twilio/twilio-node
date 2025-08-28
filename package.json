@@ -70,6 +70,29 @@
   ],
   "main": "./lib",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./lib/index.js",
+      "import": "./lib/index.js"
+    },
+    "./services": {
+      "types": "./lib/services/index.d.ts",
+      "require": "./lib/services/index.js",
+      "import": "./lib/services/index.js"
+    },
+    "./modular": {
+      "types": "./lib/modular/index.d.ts",
+      "require": "./lib/modular/index.js",
+      "import": "./lib/modular/index.js"
+    },
+    "./lib/*": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js",
+      "import": "./lib/*.js"
+    }
+  },
+  "sideEffects": false,
   "engines": {
     "node": ">=14.0"
   },
