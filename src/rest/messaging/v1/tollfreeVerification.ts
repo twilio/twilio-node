@@ -473,7 +473,7 @@ interface TollfreeVerificationResource {
   edit_expiration: Date;
   edit_allowed: boolean;
   rejection_reasons: Array<any>;
-  resource_links: Record<string, object>;
+  resource_links: any;
   external_reference_id: string;
 }
 
@@ -664,7 +664,7 @@ export class TollfreeVerificationInstance {
   /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
-  resourceLinks: Record<string, object>;
+  resourceLinks: any;
   /**
    * An optional external reference ID supplied by customer and echoed back on status retrieval.
    */

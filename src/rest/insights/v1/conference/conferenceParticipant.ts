@@ -278,9 +278,9 @@ interface ConferenceParticipantResource {
   conference_region: ConferenceParticipantRegion;
   call_type: ConferenceParticipantCallType;
   processing_state: ConferenceParticipantProcessingState;
-  properties: Record<string, object>;
-  events: Record<string, object>;
-  metrics: Record<string, object>;
+  properties: any;
+  events: any;
+  metrics: any;
   url: string;
 }
 
@@ -406,15 +406,15 @@ export class ConferenceParticipantInstance {
   /**
    * Participant properties and metadata.
    */
-  properties: Record<string, object>;
+  properties: any;
   /**
    * Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
    */
-  events: Record<string, object>;
+  events: any;
   /**
    * Object. Contains participant call quality metrics.
    */
-  metrics: Record<string, object>;
+  metrics: any;
   /**
    * The URL of this resource.
    */

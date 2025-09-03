@@ -372,7 +372,7 @@ interface UsAppToPersonResource {
   campaign_status: string;
   campaign_id: string;
   is_externally_registered: boolean;
-  rate_limits: Record<string, object>;
+  rate_limits: any;
   message_flow: string;
   opt_in_message: string;
   opt_out_message: string;
@@ -492,7 +492,7 @@ export class UsAppToPersonInstance {
   /**
    * Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
    */
-  rateLimits: Record<string, object>;
+  rateLimits: any;
   /**
    * Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
    */

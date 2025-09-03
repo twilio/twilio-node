@@ -231,6 +231,7 @@ interface GetApiKeysResource {
   friendly_name: string;
   date_created: Date;
   date_updated: Date;
+  flags: Array<string>;
 }
 
 export class GetApiKeysInstance {
@@ -239,6 +240,7 @@ export class GetApiKeysInstance {
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
+    this.flags = payload.flags;
   }
 
   /**
@@ -257,6 +259,7 @@ export class GetApiKeysInstance {
    * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
+  flags: Array<string>;
 
   /**
    * Provide a user-friendly representation
@@ -269,6 +272,7 @@ export class GetApiKeysInstance {
       friendlyName: this.friendlyName,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
+      flags: this.flags,
     };
   }
 

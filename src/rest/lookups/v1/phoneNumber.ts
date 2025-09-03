@@ -152,12 +152,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  caller_name: Record<string, object>;
+  caller_name: any;
   country_code: string;
   phone_number: string;
   national_format: string;
-  carrier: Record<string, object>;
-  add_ons: Record<string, object>;
+  carrier: any;
+  add_ons: any;
   url: string;
 }
 
@@ -184,7 +184,7 @@ export class PhoneNumberInstance {
   /**
    * The name of the phone number\'s owner. If `null`, that information was not available.
    */
-  callerName: Record<string, object>;
+  callerName: any;
   /**
    * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.
    */
@@ -200,11 +200,11 @@ export class PhoneNumberInstance {
   /**
    * The telecom company that provides the phone number.
    */
-  carrier: Record<string, object>;
+  carrier: any;
   /**
    * A JSON string with the results of the Add-ons you specified in the `add_ons` parameters. For the format of the object, see [Using Add-ons](https://www.twilio.com/docs/add-ons).
    */
-  addOns: Record<string, object>;
+  addOns: any;
   /**
    * The absolute URL of the resource.
    */

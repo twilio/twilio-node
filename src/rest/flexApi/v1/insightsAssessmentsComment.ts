@@ -406,14 +406,14 @@ interface InsightsAssessmentsCommentResource {
   account_sid: string;
   assessment_sid: string;
   comment: any;
-  offset: number;
+  offset: string;
   report: boolean;
-  weight: number;
+  weight: string;
   agent_id: string;
   segment_id: string;
   user_name: string;
   user_email: string;
-  timestamp: number;
+  timestamp: string;
   url: string;
 }
 
@@ -451,7 +451,7 @@ export class InsightsAssessmentsCommentInstance {
   /**
    * The offset
    */
-  offset: number;
+  offset: string;
   /**
    * The flag indicating if this assessment is part of report
    */
@@ -459,7 +459,7 @@ export class InsightsAssessmentsCommentInstance {
   /**
    * The weightage given to this comment
    */
-  weight: number;
+  weight: string;
   /**
    * The id of the agent.
    */
@@ -479,7 +479,7 @@ export class InsightsAssessmentsCommentInstance {
   /**
    * The timestamp when the record is inserted
    */
-  timestamp: number;
+  timestamp: string;
   url: string;
 
   /**

@@ -38,7 +38,7 @@ export type ChallengeChallengeStatuses =
 /**
  * The Factor Type of this Challenge. Currently `push` and `totp` are supported.
  */
-export type ChallengeFactorTypes = "push" | "totp";
+export type ChallengeFactorTypes = "push" | "totp" | "passkeys";
 
 export type ChallengeListOrders = "asc" | "desc";
 

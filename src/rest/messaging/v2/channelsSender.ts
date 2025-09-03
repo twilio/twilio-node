@@ -21,7 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
- * The Status of this Sender. One of `CREATING`, `ONLINE`, `OFFLINE`, `PENDING_VERIFICATION`, `VERIFYING` or `ONLINE:UPDATING`.
+ * The Status of this Sender
  */
 export type ChannelsSenderStatus =
   | "CREATING"
@@ -30,7 +30,8 @@ export type ChannelsSenderStatus =
   | "PENDING_VERIFICATION"
   | "VERIFYING"
   | "ONLINE:UPDATING"
-  | "STUBBED";
+  | "TWILIO_REVIEW"
+  | "DRAFT";
 
 /**
  * Configuration settings for creating a sender, e.g., {\"waba_id\": \"1234567890\", \"verification_method\": \"sms\"}
@@ -70,7 +71,7 @@ export class MessagingV2ChannelsSenderOfflineReasonsItems {
 }
 
 /**
- * Sender profile specific configurations, e.g., {\"name\": \"xxx\", \"about\": \"xxx\", \"address\": \"xxx\", \"description\": \"xxx\", \"emails\": \"xxx@xxx\", \"logo_url\": \"https://xxx\", \"vertical\": \"xxx\", \"websites\": [\"https://xxx\", \"...\"]}
+ * Sender profile configuration 1) RCS 2) Whatsapp
  */
 export class MessagingV2ChannelsSenderProfile {
   /**
@@ -90,27 +91,47 @@ export class MessagingV2ChannelsSenderProfile {
    */
   "description"?: string | null;
   /**
-   * The emails of the sender.
-   */
-  "emails"?: any | null;
-  /**
    * The logo URL of the sender.
    */
   "logo_url"?: string | null;
+  /**
+   * The banner URL of the sender.
+   */
+  "banner_url"?: string | null;
+  /**
+   * The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+   */
+  "privacy_url"?: string | null;
+  /**
+   * The terms of service URL of the sender.
+   */
+  "terms_of_service_url"?: string | null;
+  /**
+   * string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
+   */
+  "accent_color"?: string | null;
   /**
    * The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
    */
   "vertical"?: string | null;
   /**
-   * The websites of the sender.
+   * The websites of the sender
    */
   "websites"?: any | null;
+  /**
+   * The emails of the sender
+   */
+  "emails"?: any | null;
+  /**
+   * The phone numbers of the sender
+   */
+  "phone_numbers"?: any | null;
 }
 
 /**
- * Sender profile specific configurations for create and update request, e.g., {\"name\": \"xxx\", \"about\": \"xxx\", \"address\": \"xxx\", \"description\": \"xxx\", \"emails\": [{\"label\": \"email 1\", \"email\": \"xxx@xxx\"}], \"logo_url\": \"https://xxx\", \"vertical\": \"xxx\", \"websites\": [{\"label\": \"email 1\", \"website\": \"https://xxx\"}]}
+ * Sender profile configuration response 1) RCS 2) Whatsapp
  */
-export class MessagingV2ChannelsSenderProfileResponse {
+export class MessagingV2ChannelsSenderProfileGenericResponse {
   /**
    * The name of the sender.
    */
@@ -128,13 +149,25 @@ export class MessagingV2ChannelsSenderProfileResponse {
    */
   "description"?: string | null;
   /**
-   * The emails of the sender.
-   */
-  "emails"?: Array<MessagingV2ChannelsSenderProfileResponseEmails> | null;
-  /**
    * The logo URL of the sender.
    */
   "logo_url"?: string | null;
+  /**
+   * The banner URL of the sender.
+   */
+  "banner_url"?: string | null;
+  /**
+   * The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+   */
+  "privacy_url"?: string | null;
+  /**
+   * The terms of service URL of the sender.
+   */
+  "terms_of_service_url"?: string | null;
+  /**
+   * string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
+   */
+  "accent_color"?: string | null;
   /**
    * The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
    */
@@ -142,15 +175,28 @@ export class MessagingV2ChannelsSenderProfileResponse {
   /**
    * The websites of the sender.
    */
-  "websites"?: Array<MessagingV2ChannelsSenderProfileResponseWebsites> | null;
+  "websites"?: Array<MessagingV2ChannelsSenderProfileGenericResponseWebsites> | null;
+  /**
+   * The emails of the sender.
+   */
+  "emails"?: Array<MessagingV2ChannelsSenderProfileGenericResponseEmails> | null;
+  /**
+   * The phone numbers of the sender.
+   */
+  "phone_numbers"?: Array<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> | null;
 }
 
-export class MessagingV2ChannelsSenderProfileResponseEmails {
+export class MessagingV2ChannelsSenderProfileGenericResponseEmails {
   "email"?: string;
   "label"?: string;
 }
 
-export class MessagingV2ChannelsSenderProfileResponseWebsites {
+export class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers {
+  "phone_number"?: string;
+  "label"?: string;
+}
+
+export class MessagingV2ChannelsSenderProfileGenericResponseWebsites {
   "website"?: string;
   "label"?: string;
 }
@@ -214,6 +260,61 @@ export class MessagingV2ChannelsSenderWebhook {
    */
   "status_callback_method"?: string | null;
 }
+
+export class MessagingV2RcsCarrier {
+  /**
+   * carrier in a country e.g. For US-Verizon, AT&T
+   */
+  "name"?: string;
+  "status"?: MessagingV2RcsCarrierStatus;
+}
+
+/**
+ * Carrier level status
+ */
+export type MessagingV2RcsCarrierStatus =
+  | "UNKNOWN"
+  | "UNLAUNCHED"
+  | "CARRIER_REVIEW"
+  | "APPROVED"
+  | "REJECTED"
+  | "SUSPENDED";
+
+export class MessagingV2RcsComplianceCountryResponse {
+  /**
+   * ISO 3166-1 alpha-2 country code (e.g., \'US\', \'UK\').
+   */
+  "country": string;
+  /**
+   * The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+   */
+  "registration_sid": string;
+  "status": MessagingV2RcsCountryStatus;
+  "carriers"?: Array<MessagingV2RcsCarrier>;
+}
+
+/**
+ * KYC compliance information.  This section consists of response to the request launch
+ */
+export class MessagingV2RcsComplianceResponse {
+  /**
+   * The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+   */
+  "registration_sid": string;
+  /**
+   * A list of country-specific compliance details.  It consists of registration_sid, country iso code, country status and carriers information
+   */
+  "countries": Array<MessagingV2RcsComplianceCountryResponse>;
+}
+
+/**
+ * Country level status, it is an aggregation of Carrier level status
+ */
+export type MessagingV2RcsCountryStatus =
+  | "ONLINE"
+  | "OFFLINE"
+  | "TWILIO_REVIEW"
+  | "PENDING_VERIFICATION";
 
 /**
  * Options to pass to update a ChannelsSenderInstance
@@ -471,9 +572,10 @@ interface ChannelsSenderResource {
   sender_id: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
-  profile: MessagingV2ChannelsSenderProfileResponse;
+  profile: MessagingV2ChannelsSenderProfileGenericResponse;
   properties: MessagingV2ChannelsSenderProperties;
   offline_reasons: Array<MessagingV2ChannelsSenderOfflineReasonsItems>;
+  compliance: MessagingV2RcsComplianceResponse;
   url: string;
 }
 
@@ -494,6 +596,7 @@ export class ChannelsSenderInstance {
     this.profile = payload.profile;
     this.properties = payload.properties;
     this.offlineReasons = payload.offline_reasons;
+    this.compliance = payload.compliance;
     this.url = payload.url;
 
     this._solution = { sid: sid || this.sid };
@@ -510,12 +613,13 @@ export class ChannelsSenderInstance {
   senderId: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
-  profile: MessagingV2ChannelsSenderProfileResponse;
+  profile: MessagingV2ChannelsSenderProfileGenericResponse;
   properties: MessagingV2ChannelsSenderProperties;
   /**
    * Reasons why the sender is offline., e.g., [{\"code\": \"21211400\", \"message\": \"Whatsapp business account is banned by provider {provider_name} | Credit line is assigned to another BSP\", \"more_info\": \"https://www.twilio.com/docs/errors/21211400\"}]
    */
   offlineReasons: Array<MessagingV2ChannelsSenderOfflineReasonsItems>;
+  compliance: MessagingV2RcsComplianceResponse;
   /**
    * The URL of this resource, relative to `https://messaging.twilio.com`.
    */
@@ -601,6 +705,7 @@ export class ChannelsSenderInstance {
       profile: this.profile,
       properties: this.properties,
       offlineReasons: this.offlineReasons,
+      compliance: this.compliance,
       url: this.url,
     };
   }

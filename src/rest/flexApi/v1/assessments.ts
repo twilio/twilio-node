@@ -227,9 +227,9 @@ interface AssessmentsPayload extends TwilioResponsePayload {
 interface AssessmentsResource {
   account_sid: string;
   assessment_sid: string;
-  offset: number;
+  offset: string;
   report: boolean;
-  weight: number;
+  weight: string;
   agent_id: string;
   segment_id: string;
   user_name: string;
@@ -237,7 +237,7 @@ interface AssessmentsResource {
   answer_text: string;
   answer_id: string;
   assessment: any;
-  timestamp: number;
+  timestamp: string;
   url: string;
 }
 
@@ -279,7 +279,7 @@ export class AssessmentsInstance {
   /**
    * Offset of the conversation
    */
-  offset: number;
+  offset: string;
   /**
    * The flag indicating if this assessment is part of report
    */
@@ -287,7 +287,7 @@ export class AssessmentsInstance {
   /**
    * The weightage given to this comment
    */
-  weight: number;
+  weight: string;
   /**
    * The id of the Agent
    */
@@ -316,7 +316,7 @@ export class AssessmentsInstance {
    * Assessment Details associated with an assessment
    */
   assessment: any;
-  timestamp: number;
+  timestamp: string;
   url: string;
 
   private get _proxy(): AssessmentsContext {

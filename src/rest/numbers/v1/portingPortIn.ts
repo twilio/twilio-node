@@ -148,8 +148,11 @@ interface PortingPortInResource {
   target_port_in_time_range_start: string;
   target_port_in_time_range_end: string;
   port_in_request_status: string;
-  losing_carrier_information: Record<string, object>;
+  losing_carrier_information: any;
   phone_numbers: Array<any>;
+  bundle_sid: string;
+  portability_advance_carrier: string;
+  auto_cancel_approval_numbers: string;
   documents: Array<string>;
   date_created: Date;
 }
@@ -175,6 +178,9 @@ export class PortingPortInInstance {
     this.portInRequestStatus = payload.port_in_request_status;
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
+    this.bundleSid = payload.bundle_sid;
+    this.portabilityAdvanceCarrier = payload.portability_advance_carrier;
+    this.autoCancelApprovalNumbers = payload.auto_cancel_approval_numbers;
     this.documents = payload.documents;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
@@ -218,8 +224,20 @@ export class PortingPortInInstance {
   /**
    * Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
    */
-  losingCarrierInformation: Record<string, object>;
+  losingCarrierInformation: any;
   phoneNumbers: Array<any>;
+  /**
+   * The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
+   */
+  bundleSid: string;
+  /**
+   * A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
+   */
+  portabilityAdvanceCarrier: string;
+  /**
+   * Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
+   */
+  autoCancelApprovalNumbers: string;
   /**
    * List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
    */
@@ -279,6 +297,9 @@ export class PortingPortInInstance {
       portInRequestStatus: this.portInRequestStatus,
       losingCarrierInformation: this.losingCarrierInformation,
       phoneNumbers: this.phoneNumbers,
+      bundleSid: this.bundleSid,
+      portabilityAdvanceCarrier: this.portabilityAdvanceCarrier,
+      autoCancelApprovalNumbers: this.autoCancelApprovalNumbers,
       documents: this.documents,
       dateCreated: this.dateCreated,
     };
