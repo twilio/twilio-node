@@ -276,7 +276,8 @@ For more specific error handling, you can import and use `RestException` directl
 
 **ESM/ES6 Modules:**
 ```js
-import twilio, { RestException } from 'twilio';
+import twilio from 'twilio';
+const { RestException } = twilio;
 
 const client = twilio(accountSid, authToken);
 
