@@ -64,18 +64,20 @@ var promise = twilio.messages.create({
   to: to,
   body: "create using promises",
 });
-promise.then(function (message) {
-  console.log("Created message using promises");
-  console.log(message.sid);
-}).catch(function (error) {
-  if (error instanceof RestException) {
-    console.log(`Twilio Error ${error.code}: ${error.message}`);
-    console.log(`Status: ${error.status}`);
-    console.log(`More info: ${error.moreInfo}`);
-  } else {
-    console.log("Other error:", error);
-  }
-});
+promise
+  .then(function (message) {
+    console.log("Created message using promises");
+    console.log(message.sid);
+  })
+  .catch(function (error) {
+    if (error instanceof RestException) {
+      console.log(`Twilio Error ${error.code}: ${error.message}`);
+      console.log(`Status: ${error.status}`);
+      console.log(`More info: ${error.moreInfo}`);
+    } else {
+      console.log("Other error:", error);
+    }
+  });
 
 // Create sip trunk using callback as first parameter
 twilio.trunking.v1.trunks.create(function (err, result) {
