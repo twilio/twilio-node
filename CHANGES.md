@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2025-09-04] Version 5.9.0
+--------------------------
+**Library - Feature**
+- [PR #1110](https://github.com/twilio/twilio-node/pull/1110): Add RestException export to main twilio package with examples and documentation. Thanks to [@Copilot](https://github.com/Copilot)!
+
+**Api**
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+
+
 [2025-08-28] Version 5.8.2
 --------------------------
 **Library - Chore**
