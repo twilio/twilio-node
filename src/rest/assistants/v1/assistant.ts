@@ -25,7 +25,7 @@ import { FeedbackListInstance } from "./assistant/feedback";
 import { MessageListInstance } from "./assistant/message";
 
 export class AssistantsV1ServiceCreateAssistantRequest {
-  "customer_ai"?: AssistantsV1ServiceCustomerAi;
+  "customerAi"?: AssistantsV1ServiceCustomerAi;
   /**
    * The name of the assistant.
    */
@@ -37,19 +37,19 @@ export class AssistantsV1ServiceCreateAssistantRequest {
   /**
    * The personality prompt to be used for assistant.
    */
-  "personality_prompt"?: string;
-  "segment_credential"?: AssistantsV1ServiceSegmentCredential;
+  "personalityPrompt"?: string;
+  "segmentCredential"?: AssistantsV1ServiceSegmentCredential;
 }
 
 export class AssistantsV1ServiceCustomerAi {
   /**
    * True if the perception engine is enabled.
    */
-  "perception_engine_enabled": boolean;
+  "perceptionEngineEnabled": boolean;
   /**
    * True if the personalization engine is enabled.
    */
-  "personalization_engine_enabled": boolean;
+  "personalizationEngineEnabled": boolean;
 }
 
 export class AssistantsV1ServiceKnowledge {
@@ -64,11 +64,11 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Knowledge resource.
    */
-  "account_sid"?: string;
+  "accountSid"?: string;
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledge_source_details"?: Record<string, object>;
+  "knowledgeSourceDetails"?: Record<string, object>;
   /**
    * The name of the knowledge source.
    */
@@ -88,37 +88,37 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The embedding model to be used for the knowledge source.
    */
-  "embedding_model"?: string;
+  "embeddingModel"?: string;
   /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_created": Date;
+  "dateCreated": Date;
   /**
    * The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_updated": Date;
+  "dateUpdated": Date;
 }
 
 export class AssistantsV1ServiceSegmentCredential {
   /**
    * The profile API key.
    */
-  "profile_api_key"?: string;
+  "profileApiKey"?: string;
   /**
    * The space ID.
    */
-  "space_id"?: string;
+  "spaceId"?: string;
   /**
    * The write key.
    */
-  "write_key"?: string;
+  "writeKey"?: string;
 }
 
 export class AssistantsV1ServiceTool {
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Tool resource.
    */
-  "account_sid"?: string;
+  "accountSid"?: string;
   /**
    * The description of the tool.
    */
@@ -142,7 +142,7 @@ export class AssistantsV1ServiceTool {
   /**
    * The authentication requirement for the tool.
    */
-  "requires_auth": boolean;
+  "requiresAuth": boolean;
   /**
    * The type of the tool. (\'WEBHOOK\')
    */
@@ -154,15 +154,15 @@ export class AssistantsV1ServiceTool {
   /**
    * The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_created": Date;
+  "dateCreated": Date;
   /**
    * The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_updated": Date;
+  "dateUpdated": Date;
 }
 
 export class AssistantsV1ServiceUpdateAssistantRequest {
-  "customer_ai"?: AssistantsV1ServiceCustomerAi;
+  "customerAi"?: AssistantsV1ServiceCustomerAi;
   /**
    * The name of the assistant.
    */
@@ -174,8 +174,8 @@ export class AssistantsV1ServiceUpdateAssistantRequest {
   /**
    * The personality prompt to be used for assistant.
    */
-  "personality_prompt"?: string;
-  "segment_credential"?: AssistantsV1ServiceSegmentCredential;
+  "personalityPrompt"?: string;
+  "segmentCredential"?: AssistantsV1ServiceSegmentCredential;
 }
 
 /**

@@ -21,17 +21,17 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export class PricingV2TrunkingCountryInstanceOriginatingCallPrices {
-  "base_price"?: number;
-  "current_price"?: number;
-  "number_type"?: string;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
 }
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
-  "origination_prefixes"?: Array<string>;
-  "destination_prefixes"?: Array<string>;
-  "base_price"?: number;
-  "current_price"?: number;
-  "friendly_name"?: string;
+  "originationPrefixes"?: Array<string>;
+  "destinationPrefixes"?: Array<string>;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "friendlyName"?: string;
 }
 
 /**

@@ -26,7 +26,7 @@ export class AssistantsV1ServiceAssistantSendMessageRequest {
   /**
    * The unique name for the session.
    */
-  "session_id"?: string;
+  "sessionId"?: string;
   /**
    * The query to ask the assistant.
    */

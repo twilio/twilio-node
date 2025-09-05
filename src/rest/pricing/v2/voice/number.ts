@@ -22,15 +22,15 @@ import { isValidPathParam } from "../../../../base/utility";
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
  */
 export class PricingV2VoiceVoiceNumberInboundCallPrice {
-  "base_price"?: number;
-  "current_price"?: number;
-  "number_type"?: string;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
 }
 
 export class PricingV2VoiceVoiceNumberOutboundCallPrices {
-  "base_price"?: number;
-  "current_price"?: number;
-  "origination_prefixes"?: Array<string>;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "originationPrefixes"?: Array<string>;
 }
 
 /**

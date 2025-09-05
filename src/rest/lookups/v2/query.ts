@@ -19,134 +19,134 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export class CallForwarding {
-  "call_forwarding_enabled"?: boolean;
-  "error_code"?: number;
+  "callForwardingEnabled"?: boolean;
+  "errorCode"?: number;
 }
 
 export class CallerName {
-  "caller_name"?: string;
-  "caller_type"?: string;
-  "error_code"?: number;
+  "callerName"?: string;
+  "callerType"?: string;
+  "errorCode"?: number;
 }
 
 export class IdentityMatch {
-  "first_name_match"?: string;
-  "last_name_match"?: string;
-  "address_line_match"?: string;
-  "city_match"?: string;
-  "state_match"?: string;
-  "postal_code_match"?: string;
-  "country_code_match"?: string;
-  "national_id_match"?: string;
-  "date_of_birth_match"?: string;
-  "summary_score"?: number;
-  "error_code"?: number;
-  "error_message"?: string;
+  "firstNameMatch"?: string;
+  "lastNameMatch"?: string;
+  "addressLineMatch"?: string;
+  "cityMatch"?: string;
+  "stateMatch"?: string;
+  "postalCodeMatch"?: string;
+  "countryCodeMatch"?: string;
+  "nationalIdMatch"?: string;
+  "dateOfBirthMatch"?: string;
+  "summaryScore"?: number;
+  "errorCode"?: number;
+  "errorMessage"?: string;
 }
 
 export class IdentityMatchParameters {
-  "first_name"?: string;
-  "last_name"?: string;
-  "address_line1"?: string;
-  "address_line2"?: string;
+  "firstName"?: string;
+  "lastName"?: string;
+  "addressLine1"?: string;
+  "addressLine2"?: string;
   "city"?: string;
   "state"?: string;
-  "postal_code"?: string;
-  "address_country_code"?: string;
-  "national_id"?: string;
-  "date_of_birth"?: string;
+  "postalCode"?: string;
+  "addressCountryCode"?: string;
+  "nationalId"?: string;
+  "dateOfBirth"?: string;
 }
 
 export class LastSimSwap {
-  "last_sim_swap_date"?: Date;
-  "swapped_period"?: string;
-  "swapped_in_period"?: boolean;
+  "lastSimSwapDate"?: Date;
+  "swappedPeriod"?: string;
+  "swappedInPeriod"?: boolean;
 }
 
 export class LineStatus {
   "status"?: string;
-  "error_code"?: number;
+  "errorCode"?: number;
 }
 
 export class LineTypeIntelligence {
   "type"?: string;
-  "carrier_name"?: string;
-  "mobile_country_code"?: string;
-  "mobile_network_code"?: string;
-  "error_code"?: number;
+  "carrierName"?: string;
+  "mobileCountryCode"?: string;
+  "mobileNetworkCode"?: string;
+  "errorCode"?: number;
 }
 
 export class LookupRequest1 {
-  "phone_numbers"?: Array<LookupRequestWithCorId>;
+  "phoneNumbers"?: Array<LookupRequestWithCorId>;
 }
 
 export class LookupRequestWithCorId {
   /**
    * Unique identifier used to match request with response
    */
-  "correlation_id"?: string;
-  "phone_number": string;
+  "correlationId"?: string;
+  "phoneNumber": string;
   "fields"?: Array<string>;
-  "country_code"?: string;
-  "identity_match"?: IdentityMatchParameters;
-  "reassigned_number"?: ReassignedNumberRequest;
-  "sms_pumping_risk"?: SmsPumpingRiskParameters;
+  "countryCode"?: string;
+  "identityMatch"?: IdentityMatchParameters;
+  "reassignedNumber"?: ReassignedNumberRequest;
+  "smsPumpingRisk"?: SmsPumpingRiskParameters;
 }
 
 export class LookupResponseWithCorId {
   /**
    * Unique identifier used to match request with response
    */
-  "correlation_id"?: string;
+  "correlationId"?: string;
   /**
    * Twilio error code in case that the request to downstream fails
    */
-  "twilio_error_code"?: number;
-  "calling_country_code"?: string;
-  "country_code"?: string;
-  "phone_number"?: string;
-  "national_format"?: string;
+  "twilioErrorCode"?: number;
+  "callingCountryCode"?: string;
+  "countryCode"?: string;
+  "phoneNumber"?: string;
+  "nationalFormat"?: string;
   "valid"?: boolean;
-  "validation_errors"?: Array<string>;
-  "caller_name"?: CallerName;
-  "sim_swap"?: SimSwap;
-  "call_forwarding"?: CallForwarding;
-  "line_type_intelligence"?: LineTypeIntelligence;
-  "line_status"?: LineStatus;
-  "identity_match"?: IdentityMatch;
-  "reassigned_number"?: ReassignedNumberResponse;
-  "sms_pumping_risk"?: SmsPumpingRisk;
+  "validationErrors"?: Array<string>;
+  "callerName"?: CallerName;
+  "simSwap"?: SimSwap;
+  "callForwarding"?: CallForwarding;
+  "lineTypeIntelligence"?: LineTypeIntelligence;
+  "lineStatus"?: LineStatus;
+  "identityMatch"?: IdentityMatch;
+  "reassignedNumber"?: ReassignedNumberResponse;
+  "smsPumpingRisk"?: SmsPumpingRisk;
 }
 
 export class ReassignedNumberRequest {
-  "last_verified_date"?: string;
+  "lastVerifiedDate"?: string;
 }
 
 export class ReassignedNumberResponse {
-  "last_verified_date"?: string;
-  "is_number_reassigned"?: string;
-  "error_code"?: string;
+  "lastVerifiedDate"?: string;
+  "isNumberReassigned"?: string;
+  "errorCode"?: string;
 }
 
 export class SimSwap {
-  "last_sim_swap"?: LastSimSwap;
-  "carrier_name"?: string;
-  "mobile_country_code"?: string;
-  "mobile_network_code"?: string;
-  "error_code"?: number;
+  "lastSimSwap"?: LastSimSwap;
+  "carrierName"?: string;
+  "mobileCountryCode"?: string;
+  "mobileNetworkCode"?: string;
+  "errorCode"?: number;
 }
 
 export class SmsPumpingRisk {
-  "carrier_risk_category"?: string;
-  "number_blocked"?: boolean;
-  "number_blocked_date"?: Date;
-  "number_blocked_last_3_months"?: boolean;
-  "sms_pumping_risk_score"?: number;
-  "error_code"?: number;
+  "carrierRiskCategory"?: string;
+  "numberBlocked"?: boolean;
+  "numberBlockedDate"?: Date;
+  "numberBlockedLast3Months"?: boolean;
+  "smsPumpingRiskScore"?: number;
+  "errorCode"?: number;
 }
 
 export class SmsPumpingRiskParameters {
-  "partner_sub_id"?: string;
+  "partnerSubId"?: string;
 }
 
 /**
