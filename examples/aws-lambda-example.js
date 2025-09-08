@@ -3,7 +3,7 @@
  * This demonstrates significant bundle size reduction for serverless deployments
  */
 
-const { ModularClient } = require('twilio');
+const { ModularClient } = require("twilio");
 
 // Initialize client with only the services needed for this function
 // This reduces bundle size from ~13MB to ~2-3MB (85% reduction)
@@ -12,7 +12,7 @@ const twilioClient = new ModularClient(
   process.env.TWILIO_AUTH_TOKEN,
   {
     // Only load messaging service - significant bundle size reduction
-    services: ['messaging']
+    services: ["messaging"],
   }
 );
 
@@ -23,13 +23,13 @@ const twilioClient = new ModularClient(
 exports.sendSMS = async (event) => {
   try {
     const { to, message } = JSON.parse(event.body);
-    
+
     if (!to || !message) {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          error: 'Missing required fields: to, message'
-        })
+          error: "Missing required fields: to, message",
+        }),
       };
     }
 
@@ -38,7 +38,7 @@ exports.sendSMS = async (event) => {
     const messageResponse = await twilioClient.messaging.messages.create({
       to: to,
       from: process.env.TWILIO_PHONE_NUMBER,
-      body: message
+      body: message,
     });
 
     return {
@@ -46,19 +46,18 @@ exports.sendSMS = async (event) => {
       body: JSON.stringify({
         success: true,
         messageSid: messageResponse.sid,
-        status: messageResponse.status
-      })
+        status: messageResponse.status,
+      }),
     };
-
   } catch (error) {
-    console.error('Error sending SMS:', error);
-    
+    console.error("Error sending SMS:", error);
+
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: 'Failed to send SMS',
-        details: error.message
-      })
+        error: "Failed to send SMS",
+        details: error.message,
+      }),
     };
   }
 };
@@ -86,17 +85,17 @@ exports.sendSMSMinimal = async (event) => {
 
 /**
  * Deployment considerations:
- * 
+ *
  * 1. Bundle Size Comparison:
  *    - Traditional: ~13MB (includes all Twilio services)
  *    - Modular: ~2-3MB (85% reduction)
  *    - Individual imports: ~1-2MB (90% reduction)
- * 
+ *
  * 2. Cold Start Performance:
  *    - Smaller bundles = faster cold starts
  *    - Less memory usage
  *    - Faster deployment times
- * 
+ *
  * 3. Cost Savings:
  *    - Reduced Lambda execution time
  *    - Lower memory requirements
