@@ -52,6 +52,7 @@ export class CardAction {
   "phone"?: string;
   "id"?: string;
   "code"?: string;
+  "webview_size"?: WebviewSizeType;
 }
 
 export type CardActionType =
@@ -253,6 +254,8 @@ export class Types {
   "whatsapp/card"?: WhatsappCard | null;
   "whatsapp/authentication"?: WhatsappAuthentication | null;
 }
+
+export type WebviewSizeType = "TALL" | "FULL" | "HALF" | "NONE";
 
 /**
  * whatsApp/authentication templates let companies deliver WA approved one-time-password button.

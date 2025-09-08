@@ -270,6 +270,60 @@ try {
 }
 ```
 
+#### Using RestException for Better Error Handling
+
+For more specific error handling, you can import and use `RestException` directly:
+
+**ESM/ES6 Modules:**
+```js
+import twilio from 'twilio';
+const { RestException } = twilio;
+
+const client = twilio(accountSid, authToken);
+
+try {
+  const message = await client.messages.create({
+    body: 'Hello from Node',
+    to: '+12345678901',
+    from: '+12345678901',
+  });
+  console.log(message);
+} catch (error) {
+  if (error instanceof RestException) {
+    console.log(`Twilio Error ${error.code}: ${error.message}`);
+    console.log(`Status: ${error.status}`);
+    console.log(`More info: ${error.moreInfo}`);
+  } else {
+    console.error('Other error:', error);
+  }
+}
+```
+
+**CommonJS:**
+```js
+const twilio = require('twilio');
+const { RestException } = require('twilio');
+
+const client = twilio(accountSid, authToken);
+
+client.messages
+  .create({
+    body: 'Hello from Node',
+    to: '+12345678901',
+    from: '+12345678901',
+  })
+  .then((message) => console.log(message))
+  .catch((error) => {
+    if (error instanceof RestException) {
+      console.log(`Twilio Error ${error.code}: ${error.message}`);
+      console.log(`Status: ${error.status}`);
+      console.log(`More info: ${error.moreInfo}`);
+    } else {
+      console.error('Other error:', error);
+    }
+  });
+```
+
 If you are using callbacks, error information will be included in the `error` parameter of the callback.
 
 400-level errors are [normal during API operation](https://www.twilio.com/docs/api/rest/request#get-responses) ("Invalid number", "Cannot deliver SMS to that number", for example) and should be handled appropriately.

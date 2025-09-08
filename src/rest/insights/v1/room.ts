@@ -58,19 +58,7 @@ export type RoomTwilioRealm =
   | "sg1"
   | "in1"
   | "de1"
-  | "gll"
-  | "stage_us1"
-  | "stage_us2"
-  | "dev_us1"
-  | "dev_us2"
-  | "stage_de1"
-  | "stage_in1"
-  | "stage_ie1"
-  | "stage_br1"
-  | "stage_au1"
-  | "stage_sg1"
-  | "stage_jp1"
-  | "outside";
+  | "gll";
 
 /**
  * Options to pass to each

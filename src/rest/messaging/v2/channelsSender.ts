@@ -21,7 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
- * The Status of this Sender
+ * The status of the sender.
  */
 export type ChannelsSenderStatus =
   | "CREATING"
@@ -34,23 +34,23 @@ export type ChannelsSenderStatus =
   | "DRAFT";
 
 /**
- * Configuration settings for creating a sender, e.g., {\"waba_id\": \"1234567890\", \"verification_method\": \"sms\"}
+ * The configuration settings for creating a sender.
  */
 export class MessagingV2ChannelsSenderConfiguration {
   /**
-   * The ID of the WhatsApp Business Account to use for this sender.
+   * The ID of the WhatsApp Business Account (WABA) to use for this sender.
    */
   "waba_id"?: string | null;
   /**
-   * The method to use for verification. Either \"sms\" or \"voice\".
+   * The verification method.
    */
   "verification_method"?: string | null;
   /**
-   * The verification code to use for this sender.
+   * The verification code.
    */
   "verification_code"?: string | null;
   /**
-   * The SID of the Twilio Voice application to use for this sender.
+   * The SID of the Twilio Voice application.
    */
   "voice_application_sid"?: string | null;
 }
@@ -71,15 +71,15 @@ export class MessagingV2ChannelsSenderOfflineReasonsItems {
 }
 
 /**
- * Sender profile configuration 1) RCS 2) Whatsapp
+ * The profile information for the sender.
  */
 export class MessagingV2ChannelsSenderProfile {
   /**
-   * The name of the sender.
+   * The name of the sender. Required for WhatsApp senders and must follow [Meta\'s display name guidelines](https://www.facebook.com/business/help/757569725593362).
    */
   "name"?: string | null;
   /**
-   * The about text of the sender.
+   * The profile about text for the sender.
    */
   "about"?: string | null;
   /**
@@ -99,7 +99,7 @@ export class MessagingV2ChannelsSenderProfile {
    */
   "banner_url"?: string | null;
   /**
-   * The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+   * The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
    */
   "privacy_url"?: string | null;
   /**
@@ -107,29 +107,29 @@ export class MessagingV2ChannelsSenderProfile {
    */
   "terms_of_service_url"?: string | null;
   /**
-   * string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
+   * The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
    */
   "accent_color"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
+   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
    */
   "vertical"?: string | null;
   /**
-   * The websites of the sender
+   * The websites of the sender.
    */
   "websites"?: any | null;
   /**
-   * The emails of the sender
+   * The emails of the sender.
    */
   "emails"?: any | null;
   /**
-   * The phone numbers of the sender
+   * The phone numbers of the sender.
    */
   "phone_numbers"?: any | null;
 }
 
 /**
- * Sender profile configuration response 1) RCS 2) Whatsapp
+ * The profile information for the sender.
  */
 export class MessagingV2ChannelsSenderProfileGenericResponse {
   /**
@@ -137,7 +137,7 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    */
   "name"?: string | null;
   /**
-   * The about text of the sender.
+   * The profile about text for the sender.
    */
   "about"?: string | null;
   /**
@@ -157,7 +157,7 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    */
   "banner_url"?: string | null;
   /**
-   * The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+   * The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
    */
   "privacy_url"?: string | null;
   /**
@@ -165,11 +165,11 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    */
   "terms_of_service_url"?: string | null;
   /**
-   * string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
+   * The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
    */
   "accent_color"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
+   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
    */
   "vertical"?: string | null;
   /**
@@ -202,7 +202,7 @@ export class MessagingV2ChannelsSenderProfileGenericResponseWebsites {
 }
 
 /**
- * Sender specific additional properties, e.g., {\"quality_rating\": \"HIGH\", \"messaging_limit\": \"10K Customers/24hr\"}
+ * The additional properties for the sender.
  */
 export class MessagingV2ChannelsSenderProperties {
   /**
@@ -217,7 +217,7 @@ export class MessagingV2ChannelsSenderProperties {
 
 export class MessagingV2ChannelsSenderRequestsCreate {
   /**
-   * The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+   * The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
    */
   "sender_id": string | null;
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
@@ -232,7 +232,7 @@ export class MessagingV2ChannelsSenderRequestsUpdate {
 }
 
 /**
- * Webhook specific configurations, e.g., {\"callback_url\": \"https://xxx\", \"callback_method\": \"POST\", \"fallback_url\": \"https://xxx\", \"fallback_method\": \"POST\", \"status_callback_url\": \"https://xxx\", \"status_callback_method\": \"POST\"}
+ * The configuration settings for webhooks.
  */
 export class MessagingV2ChannelsSenderWebhook {
   /**
@@ -240,7 +240,7 @@ export class MessagingV2ChannelsSenderWebhook {
    */
   "callback_url"?: string | null;
   /**
-   * The HTTP method to use for the webhook. Either \"POST\" or \"PUT\".
+   * The HTTP method for the webhook.
    */
   "callback_method"?: string | null;
   /**
@@ -248,7 +248,7 @@ export class MessagingV2ChannelsSenderWebhook {
    */
   "fallback_url"?: string | null;
   /**
-   * The HTTP method to use for the fallback webhook. Either \"POST\" or \"PUT\".
+   * The HTTP method for the fallback webhook.
    */
   "fallback_method"?: string | null;
   /**
@@ -256,21 +256,21 @@ export class MessagingV2ChannelsSenderWebhook {
    */
   "status_callback_url"?: string | null;
   /**
-   * The HTTP method to use for the status callback.
+   * The HTTP method for the status callback.
    */
   "status_callback_method"?: string | null;
 }
 
 export class MessagingV2RcsCarrier {
   /**
-   * carrier in a country e.g. For US-Verizon, AT&T
+   * The name of the carrier. For example, `Verizon` or `AT&T` for US.
    */
   "name"?: string;
   "status"?: MessagingV2RcsCarrierStatus;
 }
 
 /**
- * Carrier level status
+ * The carrier-level status.
  */
 export type MessagingV2RcsCarrierStatus =
   | "UNKNOWN"
@@ -282,11 +282,11 @@ export type MessagingV2RcsCarrierStatus =
 
 export class MessagingV2RcsComplianceCountryResponse {
   /**
-   * ISO 3166-1 alpha-2 country code (e.g., \'US\', \'UK\').
+   * The ISO 3166-1 alpha-2 country code.
    */
   "country": string;
   /**
-   * The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+   * The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
    */
   "registration_sid": string;
   "status": MessagingV2RcsCountryStatus;
@@ -294,21 +294,21 @@ export class MessagingV2RcsComplianceCountryResponse {
 }
 
 /**
- * KYC compliance information.  This section consists of response to the request launch
+ * The KYC compliance information. This section consists of response to the request launch.
  */
 export class MessagingV2RcsComplianceResponse {
   /**
-   * The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+   * The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
    */
   "registration_sid": string;
   /**
-   * A list of country-specific compliance details.  It consists of registration_sid, country iso code, country status and carriers information
+   * A list of country-specific compliance details.
    */
   "countries": Array<MessagingV2RcsComplianceCountryResponse>;
 }
 
 /**
- * Country level status, it is an aggregation of Carrier level status
+ * The country-level status. Based on the aggregation of the carrier-level status.
  */
 export type MessagingV2RcsCountryStatus =
   | "ONLINE"
@@ -337,7 +337,7 @@ export interface ChannelsSenderListInstanceCreateOptions {
 export interface ChannelsSenderListInstanceEachOptions {
   /**  */
   channel: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** The number of items to return per page. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
@@ -356,7 +356,7 @@ export interface ChannelsSenderListInstanceEachOptions {
 export interface ChannelsSenderListInstanceOptions {
   /**  */
   channel: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** The number of items to return per page. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -368,7 +368,7 @@ export interface ChannelsSenderListInstanceOptions {
 export interface ChannelsSenderListInstancePageOptions {
   /**  */
   channel: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** The number of items to return per page. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -603,12 +603,12 @@ export class ChannelsSenderInstance {
   }
 
   /**
-   * A 34 character string that uniquely identifies this Sender.
+   * The SID of the sender.
    */
   sid: string;
   status: ChannelsSenderStatus;
   /**
-   * The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+   * The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
    */
   senderId: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
@@ -616,12 +616,12 @@ export class ChannelsSenderInstance {
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
   properties: MessagingV2ChannelsSenderProperties;
   /**
-   * Reasons why the sender is offline., e.g., [{\"code\": \"21211400\", \"message\": \"Whatsapp business account is banned by provider {provider_name} | Credit line is assigned to another BSP\", \"more_info\": \"https://www.twilio.com/docs/errors/21211400\"}]
+   * The reasons why the sender is offline.
    */
   offlineReasons: Array<MessagingV2ChannelsSenderOfflineReasonsItems>;
   compliance: MessagingV2RcsComplianceResponse;
   /**
-   * The URL of this resource, relative to `https://messaging.twilio.com`.
+   * The URL of the resource.
    */
   url: string;
 

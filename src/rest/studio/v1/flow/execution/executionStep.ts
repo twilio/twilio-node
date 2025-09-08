@@ -184,6 +184,7 @@ interface ExecutionStepResource {
   context: any;
   transitioned_from: string;
   transitioned_to: string;
+  type: string;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -210,6 +211,7 @@ export class ExecutionStepInstance {
     this.context = payload.context;
     this.transitionedFrom = payload.transitioned_from;
     this.transitionedTo = payload.transitioned_to;
+    this.type = payload.type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -254,6 +256,10 @@ export class ExecutionStepInstance {
    * The Widget that will follow the Widget for the Step.
    */
   transitionedTo: string;
+  /**
+   * The type of the widget that was executed.
+   */
+  type: string;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -319,6 +325,7 @@ export class ExecutionStepInstance {
       context: this.context,
       transitionedFrom: this.transitionedFrom,
       transitionedTo: this.transitionedTo,
+      type: this.type,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
