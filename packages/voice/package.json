@@ -1,0 +1,36 @@
+{
+  "name": "@twilio/voice",
+  "version": "1.0.0", 
+  "description": "Twilio Voice API - Make and manage voice calls and recordings",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": [
+    "twilio",
+    "voice",
+    "calls",
+    "recordings",
+    "telephony"
+  ],
+  "author": "API Team <api@twilio.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio/twilio-node.git",
+    "directory": "packages/voice"
+  },
+  "dependencies": {
+    "@twilio/core": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14.0"
+  }
+}

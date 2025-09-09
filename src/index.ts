@@ -14,6 +14,7 @@ import IFaxResponse from "./twiml/FaxResponse";
 import IClientCredentialProvider from "./credential_provider/ClientCredentialProvider";
 import INoAuthCredentialProvider from "./credential_provider/NoAuthCredentialProvider";
 import IOrgsCredentialProvider from "./credential_provider/OrgsCredentialProvider";
+import { ModularTwilioClient, ModularClientOptions } from "./modular/index";
 
 // Shorthand to automatically create a RestClient
 function TwilioSDK(
@@ -28,6 +29,12 @@ namespace TwilioSDK {
   // Main functional components of the Twilio module
   export type Twilio = ITwilio;
   export const Twilio = ITwilio;
+
+  // Modular client for reduced bundle size
+  export type ModularClient = ModularTwilioClient;
+  export const ModularClient = ModularTwilioClient;
+  export type ModularClientOpts = ModularClientOptions;
+
   export namespace jwt {
     export type AccessToken = IAccessToken;
     export const AccessToken = IAccessToken;

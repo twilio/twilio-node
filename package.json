@@ -1,6 +1,6 @@
 {
   "name": "twilio",
-  "description": "A Twilio helper library",
+  "description": "A Twilio helper library - Full SDK with all services (use @twilio/messaging, @twilio/voice etc. for smaller bundles)",
   "version": "5.9.0",
   "author": "API Team <api@twilio.com>",
   "contributors": [
@@ -19,7 +19,48 @@
     "type": "git",
     "url": "https://github.com/twilio/twilio-node.git"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
+    "@twilio/core": "^1.0.0",
+    "@twilio/accounts": "^1.0.0",
+    "@twilio/api": "^1.0.0",
+    "@twilio/assistants": "^1.0.0",
+    "@twilio/bulkexports": "^1.0.0",
+    "@twilio/chat": "^1.0.0",
+    "@twilio/content": "^1.0.0",
+    "@twilio/conversations": "^1.0.0",
+    "@twilio/events": "^1.0.0",
+    "@twilio/flexapi": "^1.0.0",
+    "@twilio/frontlineapi": "^1.0.0",
+    "@twilio/iam": "^1.0.0",
+    "@twilio/insights": "^1.0.0",
+    "@twilio/intelligence": "^1.0.0",
+    "@twilio/ipmessaging": "^1.0.0",
+    "@twilio/lookups": "^1.0.0",
+    "@twilio/marketplace": "^1.0.0",
+    "@twilio/messaging": "^1.0.0",
+    "@twilio/monitor": "^1.0.0",
+    "@twilio/notify": "^1.0.0",
+    "@twilio/numbers": "^1.0.0",
+    "@twilio/oauth": "^1.0.0",
+    "@twilio/preview": "^1.0.0",
+    "@twilio/previewiam": "^1.0.0",
+    "@twilio/pricing": "^1.0.0",
+    "@twilio/proxy": "^1.0.0",
+    "@twilio/routes": "^1.0.0",
+    "@twilio/serverless": "^1.0.0",
+    "@twilio/studio": "^1.0.0",
+    "@twilio/supersim": "^1.0.0",
+    "@twilio/sync": "^1.0.0",
+    "@twilio/taskrouter": "^1.0.0",
+    "@twilio/trunking": "^1.0.0",
+    "@twilio/trusthub": "^1.0.0",
+    "@twilio/verify": "^1.0.0",
+    "@twilio/video": "^1.0.0",
+    "@twilio/voice": "^1.0.0",
+    "@twilio/wireless": "^1.0.0",
     "axios": "^1.11.0",
     "dayjs": "^1.11.9",
     "https-proxy-agent": "^5.0.0",
@@ -70,6 +111,29 @@
   ],
   "main": "./lib",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./lib/index.js",
+      "import": "./lib/index.js"
+    },
+    "./services": {
+      "types": "./lib/services/index.d.ts",
+      "require": "./lib/services/index.js",
+      "import": "./lib/services/index.js"
+    },
+    "./modular": {
+      "types": "./lib/modular/index.d.ts",
+      "require": "./lib/modular/index.js",
+      "import": "./lib/modular/index.js"
+    },
+    "./lib/*": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js",
+      "import": "./lib/*.js"
+    }
+  },
+  "sideEffects": false,
   "engines": {
     "node": ">=14.0"
   },

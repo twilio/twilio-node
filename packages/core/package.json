@@ -1,0 +1,40 @@
+{
+  "name": "@twilio/core",
+  "version": "1.0.0",
+  "description": "Core Twilio client and shared functionality",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": [
+    "twilio",
+    "core",
+    "client"
+  ],
+  "author": "API Team <api@twilio.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio/twilio-node.git",
+    "directory": "packages/core"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "dayjs": "^1.11.9",
+    "https-proxy-agent": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "qs": "^6.9.4",
+    "scmp": "^2.1.0",
+    "xmlbuilder": "^13.0.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14.0"
+  }
+}
