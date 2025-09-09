@@ -1,0 +1,34 @@
+{
+  "name": "@twilio/wireless",
+  "version": "1.0.0",
+  "description": "Twilio Wireless - IoT device connectivity",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": [
+    "twilio",
+    "wireless",
+    "api"
+  ],
+  "author": "API Team <api@twilio.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio/twilio-node.git",
+    "directory": "packages/wireless"
+  },
+  "dependencies": {
+    "@twilio/core": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14.0"
+  }
+}

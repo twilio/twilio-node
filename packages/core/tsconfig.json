@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*",
+    "../../src/base/**/*",
+    "../../src/auth_strategy/**/*",
+    "../../src/credential_provider/**/*",
+    "../../src/http/**/*",
+    "../../src/jwt/**/*",
+    "../../src/interfaces.ts",
+    "../../src/twiml/**/*",
+    "../../src/webhooks/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

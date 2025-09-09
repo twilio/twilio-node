@@ -1,0 +1,34 @@
+{
+  "name": "@twilio/studio",
+  "version": "1.0.0",
+  "description": "Twilio Studio - Visual workflow builder",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": [
+    "twilio",
+    "studio",
+    "api"
+  ],
+  "author": "API Team <api@twilio.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio/twilio-node.git",
+    "directory": "packages/studio"
+  },
+  "dependencies": {
+    "@twilio/core": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14.0"
+  }
+}
