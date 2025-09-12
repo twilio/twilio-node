@@ -7,6 +7,7 @@ declare const atob: any;
 declare const btoa: any;
 declare const process: any;
 declare const Buffer: any;
+declare const global: any;
 
 /**
  * Detect if running in Node.js environment
