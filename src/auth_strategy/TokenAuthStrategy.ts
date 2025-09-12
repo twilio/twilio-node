@@ -1,6 +1,20 @@
 import AuthStrategy from "./AuthStrategy";
 import TokenManager from "../http/bearer_token/TokenManager";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { isNode, decodeBase64 } from "../base/runtime";
+
+// Declare Node.js-specific globals that might not be available in all environments
+declare const require: any;
+declare const Buffer: any;
+
+// Node.js-specific import
+let jwt: any;
+if (isNode()) {
+  try {
+    jwt = require("jsonwebtoken");
+  } catch (error) {
+    // If jsonwebtoken is not available, we'll use basic JWT parsing
+  }
+}
 
 export default class TokenAuthStrategy extends AuthStrategy {
   private token: string;
@@ -45,8 +59,15 @@ export default class TokenAuthStrategy extends AuthStrategy {
    */
   isTokenExpired(token: string): boolean {
     try {
-      // Decode the token without verifying the signature, as we only want to read the expiration for this check
-      const decoded = jwt.decode(token) as JwtPayload;
+      let decoded: any;
+      
+      if (jwt) {
+        // Use jsonwebtoken if available (Node.js)
+        decoded = jwt.decode(token);
+      } else {
+        // Use basic JWT parsing for non-Node.js environments
+        decoded = this.parseJWT(token);
+      }
 
       if (!decoded || !decoded.exp) {
         // If the token doesn't have an expiration, consider it expired
@@ -62,6 +83,31 @@ export default class TokenAuthStrategy extends AuthStrategy {
     } catch (error) {
       // If there's an error decoding the token, consider it expired
       return true;
+    }
+  }
+
+  /**
+   * Basic JWT parsing for environments without jsonwebtoken
+   */
+  private parseJWT(token: string): any {
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) {
+        throw new Error('Invalid JWT format');
+      }
+      
+      // Decode the payload (second part)
+      const payload = parts[1];
+      // Add padding if needed
+      const paddedPayload = payload + '='.repeat((4 - payload.length % 4) % 4);
+      
+      const decoded = isNode() && Buffer
+        ? Buffer.from(paddedPayload, 'base64').toString()
+        : decodeBase64(paddedPayload);
+      
+      return JSON.parse(decoded);
+    } catch (error) {
+      throw new Error('Failed to parse JWT token');
     }
   }
 }

@@ -1,21 +1,40 @@
 import RequestClient from "./RequestClient"; /* jshint ignore:line */
-import { ValidationClientOptions } from "./ValidationClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
 import { Headers } from "../http/request"; /* jshint ignore:line */
 import AuthStrategy from "../auth_strategy/AuthStrategy"; /* jshint ignore:line */
 import CredentialProvider from "../credential_provider/CredentialProvider"; /* jshint ignore:line */
+import { isNode, getEnv } from "./runtime"; /* jshint ignore:line */
 
-const os = require("os"); /* jshint ignore:line */
-const url = require("url"); /* jshint ignore:line */
-const moduleInfo = require("../../package.json"); /* jshint ignore:line */
-const util = require("util"); /* jshint ignore:line */
-const RestException = require("../base/RestException"); /* jshint ignore:line */
+// Declare Node.js-specific globals that might not be available in all environments
+declare const require: any;
+declare const process: any;
+
+// Node.js-specific imports
+let os: any, url: any, moduleInfo: any, util: any, RestException: any, ValidationClientOptions: any;
+
+if (isNode()) {
+  try {
+    os = require("os"); /* jshint ignore:line */
+    url = require("url"); /* jshint ignore:line */
+    moduleInfo = require("../../package.json"); /* jshint ignore:line */
+    util = require("util"); /* jshint ignore:line */
+    RestException = require("../base/RestException"); /* jshint ignore:line */
+    const validationClientModule = require("./ValidationClient"); /* jshint ignore:line */
+    ValidationClientOptions = validationClientModule.ValidationClientOptions;
+  } catch (error) {
+    // If imports fail, we'll use fallback values
+    moduleInfo = { version: "5.9.0", name: "twilio" };
+  }
+} else {
+  // Fallback values for non-Node.js environments
+  moduleInfo = { version: "5.9.0", name: "twilio" };
+}
 
 namespace Twilio {
   export interface ClientOpts {
     httpClient?: RequestClient;
     accountSid?: string;
-    env?: NodeJS.ProcessEnv;
+    env?: { [key: string]: string | undefined };
     edge?: string;
     region?: string;
     lazyLoading?: boolean;
@@ -24,7 +43,7 @@ namespace Twilio {
     autoRetry?: boolean;
     maxRetryDelay?: number;
     maxRetries?: number;
-    validationClient?: ValidationClientOptions;
+    validationClient?: any; // Cross-platform validation client options
 
     /**
      https.Agent options
@@ -36,7 +55,7 @@ namespace Twilio {
     maxTotalSockets?: number;
     maxFreeSockets?: number;
     scheduling?: "fifo" | "lifo" | undefined;
-    ca?: string | Buffer;
+    ca?: string | any; // Buffer type is Node.js specific
   }
 
   export interface RequestOpts {
@@ -66,14 +85,14 @@ namespace Twilio {
     accountSid: string;
     credentialProvider?: CredentialProvider;
     opts?: ClientOpts;
-    env?: NodeJS.ProcessEnv;
+    env?: { [key: string]: string | undefined };
     edge?: string;
     region?: string;
     logLevel?: string;
     autoRetry?: boolean;
     maxRetryDelay?: number;
     maxRetries?: number;
-    validationClient?: ValidationClientOptions;
+    validationClient?: any;
 
     /**
      https.Agent options
@@ -85,7 +104,7 @@ namespace Twilio {
     maxTotalSockets?: number;
     maxFreeSockets?: number;
     scheduling?: "fifo" | "lifo" | undefined;
-    ca?: string | Buffer;
+    ca?: string | any;
 
     userAgentExtensions?: string[];
     _httpClient?: RequestClient;
@@ -112,11 +131,11 @@ namespace Twilio {
       this.username =
         username ??
         this.env?.TWILIO_ACCOUNT_SID ??
-        process.env.TWILIO_ACCOUNT_SID;
+        getEnv("TWILIO_ACCOUNT_SID");
       this.password =
         password ??
         this.env?.TWILIO_AUTH_TOKEN ??
-        process.env.TWILIO_AUTH_TOKEN;
+        getEnv("TWILIO_AUTH_TOKEN");
       this.accountSid = "";
       this.setAccountSid(this.opts?.accountSid || this.username);
       this.invalidateOAuth();
@@ -126,13 +145,13 @@ namespace Twilio {
       this.opts = opts || {};
       this.env = this.opts.env || {};
       this.edge =
-        this.opts.edge ?? this.env.TWILIO_EDGE ?? process.env.TWILIO_EDGE;
+        this.opts.edge ?? this.env.TWILIO_EDGE ?? getEnv("TWILIO_EDGE");
       this.region =
-        this.opts.region ?? this.env.TWILIO_REGION ?? process.env.TWILIO_REGION;
+        this.opts.region ?? this.env.TWILIO_REGION ?? getEnv("TWILIO_REGION");
       this.logLevel =
         this.opts.logLevel ??
         this.env.TWILIO_LOG_LEVEL ??
-        process.env.TWILIO_LOG_LEVEL;
+        getEnv("TWILIO_LOG_LEVEL");
 
       this.timeout = this.opts.timeout;
       this.keepAlive = this.opts.keepAlive;
@@ -244,16 +263,38 @@ namespace Twilio {
       const headers = opts.headers || {};
 
       const pkgVersion = moduleInfo.version;
-      const osName = os.platform();
-      const osArch = os.arch();
-      const nodeVersion = process.version;
+      
+      let osName = "unknown";
+      let osArch = "unknown";
+      let runtime = "unknown";
+      
+      if (isNode()) {
+        osName = os?.platform() || "node";
+        osArch = os?.arch() || "unknown";
+        runtime = process?.version || "node";
+      } else {
+        // For Workers and browsers
+        osName = "web";
+        osArch = "javascript";
+        runtime = typeof globalThis !== "undefined" ? "web" : "browser";
+      }
 
-      headers["User-Agent"] = util.format(
-        "twilio-node/%s (%s %s) node/%s",
+      const userAgentFormat = isNode() && util 
+        ? util.format 
+        : (template: string, ...args: any[]) => {
+            let result = template;
+            args.forEach((arg, index) => {
+              result = result.replace(/%s/, String(arg));
+            });
+            return result;
+          };
+
+      headers["User-Agent"] = userAgentFormat(
+        "twilio-node/%s (%s %s) %s",
         pkgVersion,
         osName,
         osArch,
-        nodeVersion
+        runtime
       );
       this.userAgentExtensions?.forEach((extension) => {
         headers["User-Agent"] += ` ${extension}`;
