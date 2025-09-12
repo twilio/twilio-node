@@ -55,7 +55,10 @@
     "jshint": "jshint src/rest/** src/base/** src/http/**",
     "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
     "prepublish": "npm run build",
-    "build": "tsc",
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc",
+    "build:esm": "node scripts/build-esm.js",
+    "verify-esm": "node scripts/verify-esm.js",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "nsp": "npm audit --production",
@@ -65,11 +68,19 @@
   },
   "files": [
     "lib",
+    "lib-esm",
     "index.js",
     "index.d.ts"
   ],
   "main": "./lib",
+  "module": "./lib-esm/index.js",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js"
+    }
+  },
   "engines": {
     "node": ">=14.0"
   },
