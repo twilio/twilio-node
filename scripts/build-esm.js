@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Create lib-esm directory
-const libEsmDir = path.join(__dirname, '..', 'lib-esm');
+const libEsmDir = path.join(__dirname, "..", "lib-esm");
 if (!fs.existsSync(libEsmDir)) {
   fs.mkdirSync(libEsmDir);
 }
@@ -59,16 +59,19 @@ export {
 export default TwilioSDK;
 `;
 
-fs.writeFileSync(path.join(libEsmDir, 'index.js'), esmIndexContent);
+fs.writeFileSync(path.join(libEsmDir, "index.js"), esmIndexContent);
 
 // Create package.json for ESM directory
 const esmPackageJson = {
-  "type": "module"
+  type: "module",
 };
 
-fs.writeFileSync(path.join(libEsmDir, 'package.json'), JSON.stringify(esmPackageJson, null, 2));
+fs.writeFileSync(
+  path.join(libEsmDir, "package.json"),
+  JSON.stringify(esmPackageJson, null, 2)
+);
 
-console.log('ESM build completed!');
-console.log('Generated files:');
-console.log('- lib-esm/index.js');
-console.log('- lib-esm/package.json');
+console.log("ESM build completed!");
+console.log("Generated files:");
+console.log("- lib-esm/index.js");
+console.log("- lib-esm/package.json");

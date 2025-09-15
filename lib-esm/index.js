@@ -1,9 +1,9 @@
 // ESM wrapper for twilio-node
-import { createRequire } from 'module';
+import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 // Import the CommonJS module
-const TwilioSDK = require('../lib/index.js');
+const TwilioSDK = require("../lib/index.js");
 
 // Extract all exports from the CJS module
 const {
@@ -22,7 +22,7 @@ const {
   validateIncomingRequest,
   getExpectedBodyHash,
   getExpectedTwilioSignature,
-  webhook
+  webhook,
 } = TwilioSDK;
 
 // Export everything as named exports
@@ -42,7 +42,7 @@ export {
   validateIncomingRequest,
   getExpectedBodyHash,
   getExpectedTwilioSignature,
-  webhook
+  webhook,
 };
 
 // Also provide default export for convenience
