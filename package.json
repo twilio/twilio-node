@@ -55,7 +55,7 @@
     "jshint": "jshint src/rest/** src/base/** src/http/**",
     "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
     "prepublish": "npm run build",
-    "build": "npm run build:cjs && npm run build:esm",
+    "build": "npm run build:cjs && npm run build:esm && npm run prettier",
     "build:cjs": "tsc",
     "build:esm": "node scripts/build-esm.js",
     "verify-esm": "node scripts/verify-esm.js",
