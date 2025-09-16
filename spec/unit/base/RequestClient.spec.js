@@ -507,16 +507,20 @@ describe("Network error retry", function () {
     // Verify we have the expected number of each type
     expect(retryableErrors.length).toEqual(3);
     expect(nonRetryableErrors.length).toEqual(4);
-    
+
     // Verify the retryable error codes are the expected ones
-    expect(retryableErrors.map(e => e.code)).toEqual(["ECONNRESET", "ETIMEDOUT", "ECONNABORTED"]);
+    expect(retryableErrors.map((e) => e.code)).toEqual([
+      "ECONNRESET",
+      "ETIMEDOUT",
+      "ECONNABORTED",
+    ]);
   });
 
   it("should enable network error retry when autoRetry is true", function () {
     const clientWithRetry = new RequestClient({
       autoRetry: true,
     });
-    
+
     const clientWithoutRetry = new RequestClient({
       autoRetry: false,
     });
@@ -530,7 +534,7 @@ describe("Network error retry", function () {
     const defaultClient = new RequestClient({
       autoRetry: true,
     });
-    
+
     const customClient = new RequestClient({
       autoRetry: true,
       maxRetries: 5,
@@ -544,13 +548,13 @@ describe("Network error retry", function () {
     const defaultClient = new RequestClient({
       autoRetry: true,
     });
-    
+
     const customClient = new RequestClient({
       autoRetry: true,
       maxRetryDelay: 5000,
     });
 
-    expect(defaultClient.maxRetryDelay).toBe(3000); // Default value  
+    expect(defaultClient.maxRetryDelay).toBe(3000); // Default value
     expect(customClient.maxRetryDelay).toBe(5000); // Custom value
   });
 
@@ -558,14 +562,18 @@ describe("Network error retry", function () {
     const clientWithRetry = new RequestClient({
       autoRetry: true,
     });
-    
+
     const clientWithoutRetry = new RequestClient({
       autoRetry: false,
     });
 
     // Verify that interceptors are registered when autoRetry is enabled
-    expect(clientWithRetry.axios.interceptors.response.handlers.length).toBeGreaterThan(0);
-    expect(clientWithoutRetry.axios.interceptors.response.handlers.length).toBe(0);
+    expect(
+      clientWithRetry.axios.interceptors.response.handlers.length
+    ).toBeGreaterThan(0);
+    expect(clientWithoutRetry.axios.interceptors.response.handlers.length).toBe(
+      0
+    );
   });
 
   it("should handle various error object structures", function () {
