@@ -1,108 +1,151 @@
 import { HttpMethod } from "../interfaces";
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
-import * as fs from "fs";
-import HttpsProxyAgent from "https-proxy-agent";
-import qs from "qs";
-import * as https from "https";
 import Response from "../http/response";
 import Request, {
   Headers,
   RequestOptions as LastRequestOptions,
 } from "../http/request";
 import AuthStrategy from "../auth_strategy/AuthStrategy";
-import ValidationToken from "../jwt/validation/ValidationToken";
-import { ValidationClientOptions } from "./ValidationClient";
+import { isNode } from "./runtime";
+import FetchRequestClient from "./FetchRequestClient";
 
-const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
-const DEFAULT_TIMEOUT = 30000;
-const DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS = 100;
-const DEFAULT_MAX_RETRY_DELAY = 3000;
-const DEFAULT_MAX_RETRIES = 3;
-const DEFAULT_MAX_SOCKETS = 20;
-const DEFAULT_MAX_FREE_SOCKETS = 5;
-const DEFAULT_MAX_TOTAL_SOCKETS = 100;
+// Declare Node.js-specific globals that might not be available in all environments
+declare const require: any;
+declare const process: any;
+declare const Buffer: any;
 
-interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
-  /**
-   * Current retry attempt performed by Axios
-   */
-  retryCount?: number;
+// Interface definitions
+interface RequestOptions<TData = any, TParams = object> {
+  method: HttpMethod;
+  uri: string;
+  username?: string;
+  password?: string;
+  authStrategy?: AuthStrategy;
+  headers?: Headers;
+  params?: TParams;
+  data?: TData;
+  timeout?: number;
+  allowRedirects?: boolean;
+  forever?: boolean;
+  logLevel?: string;
 }
 
-interface ExponentialBackoffResponseHandlerOptions {
-  /**
-   * Maximum retry delay in milliseconds
-   */
-  maxIntervalMillis: number;
-  /**
-   * Maximum number of request retries
-   */
-  maxRetries: number;
+interface RequestClientOptions {
+  timeout?: number;
+  keepAlive?: boolean;
+  keepAliveMsecs?: number;
+  maxSockets?: number;
+  maxTotalSockets?: number;
+  maxFreeSockets?: number;
+  scheduling?: "fifo" | "lifo" | undefined;
+  ca?: string | any;
+  autoRetry?: boolean;
+  maxRetryDelay?: number;
+  maxRetries?: number;
+  validationClient?: any;
 }
 
-function getExponentialBackoffResponseHandler(
-  axios: AxiosInstance,
-  opts: ExponentialBackoffResponseHandlerOptions
-) {
-  const maxIntervalMillis = opts.maxIntervalMillis;
-  const maxRetries = opts.maxRetries;
-
-  return function (res: AxiosResponse<any, any>) {
-    const config: BackoffAxiosRequestConfig = res.config;
-
-    if (res.status !== 429) {
-      return res;
-    }
-
-    const retryCount = (config.retryCount || 0) + 1;
-    if (retryCount <= maxRetries) {
-      config.retryCount = retryCount;
-      const baseDelay = Math.min(
-        maxIntervalMillis,
-        DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, retryCount)
-      );
-      const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
-
-      return new Promise((resolve: (value: Promise<AxiosResponse>) => void) => {
-        setTimeout(() => resolve(axios(config)), delay);
-      });
-    }
-    return res;
-  };
-}
-
+/**
+ * Cross-platform RequestClient that automatically chooses the best implementation
+ * based on the runtime environment
+ */
 class RequestClient {
+  private implementation: any;
+  
+  constructor(opts?: RequestClientOptions) {
+    if (isNode()) {
+      // Try to use original Node.js implementation first
+      try {
+        // Import axios and related modules dynamically
+        const axios = require("axios");
+        const fs = require("fs");
+        const HttpsProxyAgent = require("https-proxy-agent");
+        const qs = require("qs");
+        const https = require("https");
+        const ValidationToken = require("../jwt/validation/ValidationToken");
+        
+        // If we can load Node.js modules, use the inline Node.js implementation
+        this.implementation = new NodeRequestClientInline(opts, {
+          axios,
+          fs,
+          HttpsProxyAgent,
+          qs,
+          https,
+          ValidationToken
+        });
+      } catch (error) {
+        // Fall back to fetch-based client if Node.js modules aren't available
+        this.implementation = new FetchRequestClient(opts);
+      }
+    } else {
+      // Use fetch-based client for Workers and browsers
+      this.implementation = new FetchRequestClient(opts);
+    }
+  }
+
+  async request<TData>(
+    opts: RequestOptions<TData>
+  ): Promise<Response<TData>> {
+    return this.implementation.request(opts);
+  }
+
+  get defaultTimeout(): number {
+    return this.implementation.defaultTimeout;
+  }
+
+  get lastResponse(): Response<any> | undefined {
+    return this.implementation.lastResponse;
+  }
+
+  get lastRequest(): Request<any> | undefined {
+    return this.implementation.lastRequest;
+  }
+
+  get autoRetry(): boolean {
+    return this.implementation.autoRetry;
+  }
+
+  get maxRetryDelay(): number {
+    return this.implementation.maxRetryDelay;
+  }
+
+  get maxRetries(): number {
+    return this.implementation.maxRetries;
+  }
+
+  get keepAlive(): boolean {
+    return this.implementation.keepAlive || false;
+  }
+
+  get axios(): any {
+    return this.implementation.axios;
+  }
+}
+
+/**
+ * Inline Node.js RequestClient implementation to avoid import issues
+ */
+class NodeRequestClientInline {
   defaultTimeout: number;
-  axios: AxiosInstance;
+  axios: any;
   lastResponse?: Response<any>;
   lastRequest?: Request<any>;
   autoRetry: boolean;
   maxRetryDelay: number;
   maxRetries: number;
   keepAlive: boolean;
+  private modules: any;
 
-  /**
-   * Make http request
-   * @param opts - The options passed to https.Agent
-   * @param opts.timeout - https.Agent timeout option. Used as the socket timeout, AND as the default request timeout.
-   * @param opts.keepAlive - https.Agent keepAlive option
-   * @param opts.keepAliveMsecs - https.Agent keepAliveMsecs option
-   * @param opts.maxSockets - https.Agent maxSockets option
-   * @param opts.maxTotalSockets - https.Agent maxTotalSockets option
-   * @param opts.maxFreeSockets - https.Agent maxFreeSockets option
-   * @param opts.scheduling - https.Agent scheduling option
-   * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses. Defaults to false.
-   * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
-   * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
-   * @param opts.validationClient - Validation client for PKCV
-   */
-  constructor(opts?: RequestClient.RequestClientOptions) {
-    opts = opts || {};
+  constructor(opts: RequestClientOptions = {}, modules: any) {
+    this.modules = modules;
+    const { axios, fs, HttpsProxyAgent, qs, https } = modules;
+    
+    const DEFAULT_TIMEOUT = 30000;
+    const DEFAULT_MAX_RETRY_DELAY = 3000;
+    const DEFAULT_MAX_RETRIES = 3;
+    const DEFAULT_MAX_SOCKETS = 20;
+    const DEFAULT_MAX_FREE_SOCKETS = 5;
+    const DEFAULT_MAX_TOTAL_SOCKETS = 100;
+    
     this.defaultTimeout = opts.timeout || DEFAULT_TIMEOUT;
     this.autoRetry = opts.autoRetry || false;
     this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
@@ -110,13 +153,13 @@ class RequestClient {
     this.keepAlive = opts.keepAlive !== false;
 
     // construct an https agent
-    let agentOpts: https.AgentOptions = {
+    let agentOpts = {
       timeout: this.defaultTimeout,
       keepAlive: this.keepAlive,
       keepAliveMsecs: opts.keepAliveMsecs,
-      maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS, // no of sockets open per host
-      maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS, // no of sockets open in total
-      maxFreeSockets: opts.maxFreeSockets || DEFAULT_MAX_FREE_SOCKETS, // no of free sockets open per host
+      maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS,
+      maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS,
+      maxFreeSockets: opts.maxFreeSockets || DEFAULT_MAX_FREE_SOCKETS,
       scheduling: opts.scheduling,
       ca: opts.ca,
     };
@@ -130,8 +173,6 @@ class RequestClient {
 
     let agent;
     if (process.env.HTTP_PROXY) {
-      // Note: if process.env.HTTP_PROXY is set, we're not able to apply the given
-      // socket timeout. See: https://github.com/TooTallNate/node-https-proxy-agent/pull/96
       agent = HttpsProxyAgent(process.env.HTTP_PROXY);
     } else {
       agent = new https.Agent(agentOpts);
@@ -139,44 +180,52 @@ class RequestClient {
 
     // construct an axios instance
     this.axios = axios.create();
-    this.axios.defaults.headers.post["Content-Type"] = DEFAULT_CONTENT_TYPE;
+    this.axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     this.axios.defaults.httpsAgent = agent;
+    
     if (opts.autoRetry) {
       this.axios.interceptors.response.use(
-        getExponentialBackoffResponseHandler(this.axios, {
+        this.getExponentialBackoffResponseHandler(this.axios, {
           maxIntervalMillis: this.maxRetryDelay,
           maxRetries: this.maxRetries,
         })
       );
     }
-
-    // if validation client is set, intercept the request using ValidationInterceptor
-    if (opts.validationClient) {
-      this.axios.interceptors.request.use(
-        this.validationInterceptor(opts.validationClient)
-      );
-    }
   }
 
-  /**
-   * Make http request
-   * @param opts - The options argument
-   * @param opts.method - The http method
-   * @param opts.uri - The request uri
-   * @param opts.username - The username used for auth
-   * @param opts.password - The password used for auth
-   * @param opts.authStrategy - The authStrategy for API call
-   * @param opts.headers - The request headers
-   * @param opts.params - The request params
-   * @param opts.data - The request data
-   * @param opts.timeout - The request timeout in milliseconds (default 30000)
-   * @param opts.allowRedirects - Should the client follow redirects
-   * @param opts.forever - Set to true to use the forever-agent
-   * @param opts.logLevel - Show debug logs
-   */
+  private getExponentialBackoffResponseHandler(axios: any, opts: any) {
+    const maxIntervalMillis = opts.maxIntervalMillis;
+    const maxRetries = opts.maxRetries;
+
+    return function (res: any) {
+      const config = res.config;
+
+      if (res.status !== 429) {
+        return res;
+      }
+
+      const retryCount = (config.retryCount || 0) + 1;
+      if (retryCount <= maxRetries) {
+        config.retryCount = retryCount;
+        const baseDelay = Math.min(
+          maxIntervalMillis,
+          100 * Math.pow(2, retryCount)
+        );
+        const delay = Math.floor(baseDelay * Math.random());
+
+        return new Promise((resolve: any) => {
+          setTimeout(() => resolve(axios(config)), delay);
+        });
+      }
+      return res;
+    };
+  }
+
   async request<TData>(
-    opts: RequestClient.RequestOptions<TData>
+    opts: RequestOptions<TData>
   ): Promise<Response<TData>> {
+    const { qs } = this.modules;
+    
     if (!opts.method) {
       throw new Error("http method is required");
     }
@@ -201,29 +250,29 @@ class RequestClient {
       headers.Authorization = await opts.authStrategy.getAuthString();
     }
 
-    const options: AxiosRequestConfig = {
+    const options = {
       timeout: opts.timeout || this.defaultTimeout,
       maxRedirects: opts.allowRedirects ? 10 : 0,
       url: opts.uri,
       method: opts.method,
       headers: opts.headers,
       proxy: false,
-      validateStatus: (status) => status >= 100 && status < 600,
+      validateStatus: (status: number) => status >= 100 && status < 600,
     };
 
-    if (opts.data && options.headers) {
+    if (opts.data && (options as any).headers) {
       if (
-        options.headers["Content-Type"] === "application/x-www-form-urlencoded"
+        (options as any).headers["Content-Type"] === "application/x-www-form-urlencoded"
       ) {
-        options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
-      } else if (options.headers["Content-Type"] === "application/json") {
-        options.data = opts.data;
+        (options as any).data = qs.stringify(opts.data, { arrayFormat: "repeat" });
+      } else if ((options as any).headers["Content-Type"] === "application/json") {
+        (options as any).data = opts.data;
       }
     }
 
     if (opts.params) {
-      options.params = opts.params;
-      options.paramsSerializer = (params) => {
+      (options as any).params = opts.params;
+      (options as any).paramsSerializer = (params: any) => {
         return qs.stringify(params, { arrayFormat: "repeat" });
       };
     }
@@ -232,7 +281,7 @@ class RequestClient {
       method: opts.method,
       url: opts.uri,
       auth: auth,
-      params: options.params,
+      params: (options as any).params,
       data: opts.data,
       headers: opts.headers,
     };
@@ -246,7 +295,7 @@ class RequestClient {
     this.lastRequest = new Request(requestOptions);
 
     return this.axios(options)
-      .then((response) => {
+      .then((response: any) => {
         if (opts.logLevel === "debug") {
           console.log(`response.statusCode: ${response.status}`);
           console.log(`response.headers: ${JSON.stringify(response.headers)}`);
@@ -262,52 +311,10 @@ class RequestClient {
           headers: response.headers,
         };
       })
-      .catch((error) => {
+      .catch((error: any) => {
         _this.lastResponse = undefined;
         throw error;
       });
-  }
-
-  filterLoggingHeaders(headers: Headers) {
-    return Object.keys(headers).filter((header) => {
-      return !"authorization".includes(header.toLowerCase());
-    });
-  }
-
-  /**
-   * ValidationInterceptor adds the Twilio-Client-Validation header to the request
-   * @param validationClient - The validation client for PKCV
-   * <p>Usage Example:</p>
-   * ```javascript
-   * import axios from "axios";
-   * // Initialize validation client with credentials
-   * const validationClient = {
-   *           accountSid: "ACXXXXXXXXXXXXXXXX",
-   *           credentialSid: "CRXXXXXXXXXXXXXXXX",
-   *           signingKey: "SKXXXXXXXXXXXXXXXX",
-   *           privateKey: "private key",
-   *           algorithm: "PS256",
-   *         }
-   * // construct an axios instance
-   * const instance = axios.create();
-   * instance.interceptors.request.use(
-   *   ValidationInterceptor(opts.validationClient)
-   * );
-   * ```
-   */
-  validationInterceptor(validationClient: ValidationClientOptions) {
-    return function (config: InternalAxiosRequestConfig) {
-      config.headers = config.headers || {};
-      try {
-        config.headers["Twilio-Client-Validation"] = new ValidationToken(
-          validationClient
-        ).fromHttpRequest(config);
-      } catch (err) {
-        console.log("Error creating Twilio-Client-Validation header:", err);
-        throw err;
-      }
-      return config;
-    };
   }
 
   private logRequest<TData>(options: LastRequestOptions<TData>) {
@@ -325,125 +332,49 @@ class RequestClient {
         options.headers as Headers
       );
       filteredHeaderKeys.forEach((header) =>
-        console.log(`${header}: ${options.headers?.header}`)
+        console.log(`${header}: ${(options.headers as any)[header]}`)
       );
     }
 
     console.log("-- END Twilio API Request --");
   }
+
+  private filterLoggingHeaders(headers: Headers) {
+    return Object.keys(headers).filter((header) => {
+      return !header.toLowerCase().includes("authorization");
+    });
+  }
 }
 
 namespace RequestClient {
-  export interface RequestOptions<TData = any, TParams = object> {
-    /**
-     * The HTTP method
-     */
+  export type RequestOptions<TData = any, TParams = object> = {
     method: HttpMethod;
-    /**
-     * The request URI
-     */
     uri: string;
-    /**
-     * The username used for auth
-     */
     username?: string;
-    /**
-     * The password used for auth
-     */
     password?: string;
-    /**
-     * The AuthStrategy for API Call
-     */
     authStrategy?: AuthStrategy;
-    /**
-     * The request headers
-     */
     headers?: Headers;
-    /**
-     * The object of params added as query string to the request
-     */
     params?: TParams;
-    /**
-     * The form data that should be submitted
-     */
     data?: TData;
-    /**
-     * The request timeout in milliseconds
-     */
     timeout?: number;
-    /**
-     * Should the client follow redirects
-     */
     allowRedirects?: boolean;
-    /**
-     * Set to true to use the forever-agent
-     */
     forever?: boolean;
-    /**
-     * Set to 'debug' to enable debug logging
-     */
     logLevel?: string;
-  }
-
-  export interface RequestClientOptions {
-    /**
-     * A timeout in milliseconds. This will be used as the HTTPS agent's socket
-     * timeout, AND as the default request timeout.
-     */
+  };
+  export type RequestClientOptions = {
     timeout?: number;
-    /**
-     * https.Agent keepAlive option
-     */
     keepAlive?: boolean;
-    /**
-     * https.Agent keepAliveMSecs option
-     */
     keepAliveMsecs?: number;
-    /**
-     * https.Agent maxSockets option
-     */
     maxSockets?: number;
-    /**
-     * https.Agent maxTotalSockets option
-     */
     maxTotalSockets?: number;
-    /**
-     * https.Agent maxFreeSockets option
-     */
     maxFreeSockets?: number;
-    /**
-     * https.Agent scheduling option
-     */
     scheduling?: "fifo" | "lifo" | undefined;
-    /**
-     * The private CA certificate bundle (if private SSL certificate)
-     */
-    ca?: string | Buffer;
-    /**
-     * Enable auto-retry with exponential backoff when receiving 429 Errors from
-     * the API. Disabled by default.
-     */
+    ca?: string | any;
     autoRetry?: boolean;
-    /**
-     * Maximum retry delay in milliseconds for 429 Error response retries.
-     * Defaults to 3000.
-     */
     maxRetryDelay?: number;
-    /**
-     * Maximum number of request retries for 429 Error responses. Defaults to 3.
-     */
     maxRetries?: number;
-    /**
-     * Validation client for Public Key Client Validation
-     * On setting this with your credentials, Twilio validates:
-     <ul>
-        <li>The request comes from a sender who is in control of the private key.</li>
-        <li>The message has not been modified in transit.</li>
-     </ul>
-     * That the message has not been modified in transit.
-     * Refer our doc for details - https://www.twilio.com/docs/iam/pkcv
-     */
-    validationClient?: ValidationClientOptions;
-  }
+    validationClient?: any;
+  };
 }
+
 export = RequestClient;

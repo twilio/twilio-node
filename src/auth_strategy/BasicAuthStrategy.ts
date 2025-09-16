@@ -1,4 +1,5 @@
 import AuthStrategy from "./AuthStrategy";
+import { encodeBase64 } from "../base/runtime";
 
 export default class BasicAuthStrategy extends AuthStrategy {
   private username: string;
@@ -11,9 +12,7 @@ export default class BasicAuthStrategy extends AuthStrategy {
   }
 
   getAuthString(): Promise<string> {
-    const auth = Buffer.from(this.username + ":" + this.password).toString(
-      "base64"
-    );
+    const auth = encodeBase64(this.username + ":" + this.password);
     return Promise.resolve(`Basic ${auth}`);
   }
 
