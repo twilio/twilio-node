@@ -492,16 +492,16 @@ describe("Network error retry", function () {
   it("should identify retryable errors correctly", function () {
     // Test isRetryableError function indirectly by checking error handling
     const retryableErrors = [
-      { code: 'ECONNRESET' },
-      { code: 'ETIMEDOUT' },
-      { code: 'ECONNABORTED' }
+      { code: "ECONNRESET" },
+      { code: "ETIMEDOUT" },
+      { code: "ECONNABORTED" },
     ];
-    
+
     const nonRetryableErrors = [
-      { code: 'ENOTFOUND' },
-      { code: 'ECONNREFUSED' },
-      { message: 'Some other error' },
-      null
+      { code: "ENOTFOUND" },
+      { code: "ECONNREFUSED" },
+      { message: "Some other error" },
+      null,
     ];
 
     // This is an indirect test - we'll test the actual retry behavior in integration tests
