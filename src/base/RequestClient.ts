@@ -48,7 +48,7 @@ interface ExponentialBackoffResponseHandlerOptions {
 function isRetryableError(error: any): boolean {
   // Check for network errors that are typically transient
   if (error.code) {
-    return ['ECONNRESET', 'ETIMEDOUT', 'ECONNABORTED'].includes(error.code);
+    return ["ECONNRESET", "ETIMEDOUT", "ECONNABORTED"].includes(error.code);
   }
   return false;
 }
