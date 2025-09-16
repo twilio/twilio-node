@@ -14,8 +14,8 @@ describe("Exponential Backoff Error Handler", function () {
         defaults: { headers: { post: {} } },
         interceptors: {
           response: { use: jest.fn(), handlers: [] },
-          request: { use: jest.fn() }
-        }
+          request: { use: jest.fn() },
+        },
       }),
     };
 
@@ -42,7 +42,8 @@ describe("Exponential Backoff Error Handler", function () {
       const requestClient = new RequestClient({ autoRetry: true });
 
       // Extract error handler from axios interceptors
-      errorHandler = requestClient.axios.interceptors.response.use.mock.calls[0][1];
+      errorHandler =
+        requestClient.axios.interceptors.response.use.mock.calls[0][1];
       axiosInstance = requestClient.axios;
     });
 
@@ -77,14 +78,14 @@ describe("Exponential Backoff Error Handler", function () {
       retryableError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 0
+        retryCount: 0,
       };
 
       // Setup axios mock to resolve on retry
       jest.spyOn(axiosInstance, "request").mockResolvedValueOnce({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
 
       // Start the retry process
@@ -101,14 +102,14 @@ describe("Exponential Backoff Error Handler", function () {
         expect.objectContaining({
           method: "GET",
           url: "/test",
-          retryCount: 1
+          retryCount: 1,
         })
       );
 
       expect(result).toEqual({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
     });
 
@@ -118,14 +119,14 @@ describe("Exponential Backoff Error Handler", function () {
       retryableError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 0
+        retryCount: 0,
       };
 
       // Setup axios mock to resolve on retry
       jest.spyOn(axiosInstance, "request").mockResolvedValueOnce({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
 
       // Start the retry process
@@ -142,14 +143,14 @@ describe("Exponential Backoff Error Handler", function () {
         expect.objectContaining({
           method: "GET",
           url: "/test",
-          retryCount: 1
+          retryCount: 1,
         })
       );
 
       expect(result).toEqual({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
     });
 
@@ -159,14 +160,14 @@ describe("Exponential Backoff Error Handler", function () {
       retryableError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 0
+        retryCount: 0,
       };
 
       // Setup axios mock to resolve on retry
       jest.spyOn(axiosInstance, "request").mockResolvedValueOnce({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
 
       // Start the retry process
@@ -183,14 +184,14 @@ describe("Exponential Backoff Error Handler", function () {
         expect.objectContaining({
           method: "GET",
           url: "/test",
-          retryCount: 1
+          retryCount: 1,
         })
       );
 
       expect(result).toEqual({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
     });
 
@@ -200,7 +201,7 @@ describe("Exponential Backoff Error Handler", function () {
       retryableError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 0
+        retryCount: 0,
       };
 
       // First retry fails again with same error
@@ -209,16 +210,17 @@ describe("Exponential Backoff Error Handler", function () {
       secondError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 1
+        retryCount: 1,
       };
 
       // Setup axios mock to fail on first retry, then succeed
-      jest.spyOn(axiosInstance, "request")
+      jest
+        .spyOn(axiosInstance, "request")
         .mockRejectedValueOnce(secondError)
         .mockResolvedValueOnce({
           status: 200,
           data: "success finally",
-          headers: {}
+          headers: {},
         });
 
       // Start the retry process
@@ -242,7 +244,7 @@ describe("Exponential Backoff Error Handler", function () {
         expect.objectContaining({
           method: "GET",
           url: "/test",
-          retryCount: 1
+          retryCount: 1,
         })
       );
 
@@ -251,14 +253,14 @@ describe("Exponential Backoff Error Handler", function () {
         expect.objectContaining({
           method: "GET",
           url: "/test",
-          retryCount: 2
+          retryCount: 2,
         })
       );
 
       expect(result).toEqual({
         status: 200,
         data: "success finally",
-        headers: {}
+        headers: {},
       });
     });
 
@@ -277,13 +279,14 @@ describe("Exponential Backoff Error Handler", function () {
       error3.config = { method: "GET", url: "/test", retryCount: 2 };
 
       // Setup axios mock for sequence of calls
-      jest.spyOn(axiosInstance, "request")
+      jest
+        .spyOn(axiosInstance, "request")
         .mockRejectedValueOnce(error2)
         .mockRejectedValueOnce(error3)
         .mockResolvedValueOnce({
           status: 200,
           data: "success",
-          headers: {}
+          headers: {},
         });
 
       // Mock setTimeout to capture delay values
@@ -299,7 +302,7 @@ describe("Exponential Backoff Error Handler", function () {
       await retryPromise;
 
       // Extract the delays from the setTimeout calls
-      const delays = setTimeoutSpy.mock.calls.map(call => call[1]);
+      const delays = setTimeoutSpy.mock.calls.map((call) => call[1]);
 
       // Verify exponential backoff pattern (with some flexibility due to jitter)
       expect(delays[0]).toBeLessThanOrEqual(200); // ~100 * 2^1 with jitter
@@ -315,11 +318,12 @@ describe("Exponential Backoff Error Handler", function () {
       // Create a client with custom max retries
       const customClient = new RequestClient({
         autoRetry: true,
-        maxRetries: 2
+        maxRetries: 2,
       });
 
       // Extract error handler
-      const customErrorHandler = customClient.axios.interceptors.response.use.mock.calls[0][1];
+      const customErrorHandler =
+        customClient.axios.interceptors.response.use.mock.calls[0][1];
 
       // Create an error that's already at the retry limit
       const finalRetryError = new Error("Final retry");
@@ -327,7 +331,7 @@ describe("Exponential Backoff Error Handler", function () {
       finalRetryError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 2 // Already at the max retry limit
+        retryCount: 2, // Already at the max retry limit
       };
 
       try {
@@ -344,11 +348,12 @@ describe("Exponential Backoff Error Handler", function () {
       const customClient = new RequestClient({
         autoRetry: true,
         maxRetryDelay: 150, // Very low max delay
-        maxRetries: 5
+        maxRetries: 5,
       });
 
       // Extract error handler
-      const customErrorHandler = customClient.axios.interceptors.response.use.mock.calls[0][1];
+      const customErrorHandler =
+        customClient.axios.interceptors.response.use.mock.calls[0][1];
 
       // Create an error for a high retry count (which would normally have a long delay)
       const highRetryError = new Error("High retry count");
@@ -356,7 +361,7 @@ describe("Exponential Backoff Error Handler", function () {
       highRetryError.config = {
         method: "GET",
         url: "/test",
-        retryCount: 4 // Would normally be 100 * 2^4 = 1600ms
+        retryCount: 4, // Would normally be 100 * 2^4 = 1600ms
       };
 
       // Mock setTimeout to capture delay value
@@ -366,7 +371,7 @@ describe("Exponential Backoff Error Handler", function () {
       jest.spyOn(customClient.axios, "request").mockResolvedValueOnce({
         status: 200,
         data: "success",
-        headers: {}
+        headers: {},
       });
 
       // Start the retry process
