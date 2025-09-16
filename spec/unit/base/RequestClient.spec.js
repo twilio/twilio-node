@@ -478,6 +478,7 @@ describe("Exponential backoff and retry", function () {
         done();
       });
   }, 10000);
+});
 
 describe("Network error retry", function () {
   let client;
@@ -507,5 +508,4 @@ describe("Network error retry", function () {
     expect(retryableErrors.length).toEqual(3);
     expect(nonRetryableErrors.length).toEqual(4);
   });
-});
 });
