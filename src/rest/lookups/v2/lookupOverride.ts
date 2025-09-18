@@ -22,7 +22,7 @@ export class OverridesRequest {
   /**
    * The new line type to override the original line type
    */
-  "line_type"?: string;
+  "lineType"?: string;
   /**
    * The reason for the override
    */

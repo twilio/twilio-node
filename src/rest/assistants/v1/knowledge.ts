@@ -26,7 +26,7 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
    * The Assistant ID.
    */
-  "assistant_id"?: string;
+  "assistantId"?: string;
   /**
    * The description of the knowledge source.
    */
@@ -34,7 +34,7 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledge_source_details"?: Record<string, object>;
+  "knowledgeSourceDetails"?: Record<string, object>;
   /**
    * The name of the tool.
    */
@@ -47,7 +47,7 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
    * The embedding model to be used for the knowledge source. It\'s required for \'Database\' type but disallowed for other types.
    */
-  "embedding_model"?: string;
+  "embeddingModel"?: string;
 }
 
 export class AssistantsV1ServiceCreatePolicyRequest {
@@ -63,7 +63,7 @@ export class AssistantsV1ServiceCreatePolicyRequest {
    * The name of the policy.
    */
   "name"?: string;
-  "policy_details": any | null;
+  "policyDetails": any | null;
   /**
    * The description of the policy.
    */
@@ -78,7 +78,7 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledge_source_details"?: Record<string, object>;
+  "knowledgeSourceDetails"?: Record<string, object>;
   /**
    * The name of the knowledge source.
    */
@@ -91,7 +91,7 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
   /**
    * The embedding model to be used for the knowledge source. It\'s only applicable to \'Database\' type.
    */
-  "embedding_model"?: string;
+  "embeddingModel"?: string;
 }
 
 /**

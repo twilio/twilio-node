@@ -21,9 +21,9 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 export class PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices {
-  "base_price"?: number;
-  "current_price"?: number;
-  "number_type"?: string;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
 }
 
 /**

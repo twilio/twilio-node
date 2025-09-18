@@ -24,7 +24,7 @@ export class PublicApiCreateRoleAssignmentRequest {
   /**
    * Twilio Role Sid representing assigned role
    */
-  "role_sid": string;
+  "roleSid": string;
   /**
    * Twilio Sid representing scope of this assignment
    */

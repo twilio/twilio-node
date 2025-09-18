@@ -24,7 +24,7 @@ import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
 export class AuthenticationAction {
   "type": AuthenticationActionType;
-  "copy_code_text": string;
+  "copyCodeText": string;
 }
 
 export type AuthenticationActionType = "COPY_CODE";
@@ -52,7 +52,7 @@ export class CardAction {
   "phone"?: string;
   "id"?: string;
   "code"?: string;
-  "webview_size"?: WebviewSizeType;
+  "webviewSize"?: WebviewSizeType;
 }
 
 export type CardActionType =
@@ -81,9 +81,9 @@ export class CarouselCard {
 
 export class CatalogItem {
   "id"?: string;
-  "section_title"?: string;
+  "sectionTitle"?: string;
   "name"?: string;
-  "media_url"?: string;
+  "mediaUrl"?: string;
   "price"?: number;
   "description"?: string;
 }
@@ -95,7 +95,7 @@ export class ContentCreateRequest {
   /**
    * User defined name of the content
    */
-  "friendly_name"?: string;
+  "friendlyName"?: string;
   /**
    * Key value pairs of variable name to value
    */
@@ -109,7 +109,7 @@ export class ContentCreateRequest {
 
 export class FlowsPage {
   "id": string;
-  "next_page_id"?: string;
+  "nextPageId"?: string;
   "title"?: string;
   "subtitle"?: string;
   "layout": Array<FlowsPageComponent>;
@@ -169,7 +169,7 @@ export class TwilioCatalog {
   "subtitle"?: string;
   "id"?: string;
   "items"?: Array<CatalogItem>;
-  "dynamic_items"?: string;
+  "dynamicItems"?: string;
 }
 
 /**
@@ -177,9 +177,9 @@ export class TwilioCatalog {
  */
 export class TwilioFlows {
   "body": string;
-  "button_text": string;
+  "buttonText": string;
   "subtitle": string;
-  "media_url": string;
+  "mediaUrl": string;
   "pages": Array<FlowsPage>;
   "type": string;
 }
@@ -240,19 +240,20 @@ export class TwilioText {
  * Content types
  */
 export class Types {
-  "twilio/text"?: TwilioText | null;
-  "twilio/media"?: TwilioMedia | null;
-  "twilio/location"?: TwilioLocation | null;
-  "twilio/list-picker"?: TwilioListPicker | null;
-  "twilio/call-to-action"?: TwilioCallToAction | null;
-  "twilio/quick-reply"?: TwilioQuickReply | null;
-  "twilio/card"?: TwilioCard | null;
-  "twilio/catalog"?: TwilioCatalog | null;
-  "twilio/carousel"?: TwilioCarousel | null;
-  "twilio/flows"?: TwilioFlows | null;
-  "twilio/schedule"?: TwilioSchedule | null;
-  "whatsapp/card"?: WhatsappCard | null;
-  "whatsapp/authentication"?: WhatsappAuthentication | null;
+  "twilioText"?: TwilioText | null;
+  "twilioMedia"?: TwilioMedia | null;
+  "twilioLocation"?: TwilioLocation | null;
+  "twilioListPicker"?: TwilioListPicker | null;
+  "twilioCallToAction"?: TwilioCallToAction | null;
+  "twilioQuickReply"?: TwilioQuickReply | null;
+  "twilioCard"?: TwilioCard | null;
+  "twilioCatalog"?: TwilioCatalog | null;
+  "twilioCarousel"?: TwilioCarousel | null;
+  "twilioFlows"?: TwilioFlows | null;
+  "twilioSchedule"?: TwilioSchedule | null;
+  "whatsappCard"?: WhatsappCard | null;
+  "whatsappAuthentication"?: WhatsappAuthentication | null;
+  "whatsappFlows"?: WhatsappFlows | null;
 }
 
 export type WebviewSizeType = "TALL" | "FULL" | "HALF" | "NONE";
@@ -261,8 +262,8 @@ export type WebviewSizeType = "TALL" | "FULL" | "HALF" | "NONE";
  * whatsApp/authentication templates let companies deliver WA approved one-time-password button.
  */
 export class WhatsappAuthentication {
-  "add_security_recommendation"?: boolean;
-  "code_expiration_minutes"?: number;
+  "addSecurityRecommendation"?: boolean;
+  "codeExpirationMinutes"?: number;
   "actions": Array<AuthenticationAction>;
 }
 
@@ -273,8 +274,22 @@ export class WhatsappCard {
   "body": string;
   "footer"?: string;
   "media"?: Array<string>;
-  "header_text"?: string;
+  "headerText"?: string;
   "actions"?: Array<CardAction>;
+}
+
+/**
+ * whatsapp/flows templates allow you to send multiple messages in a set order with text or select options
+ */
+export class WhatsappFlows {
+  "body": string;
+  "buttonText": string;
+  "subtitle"?: string;
+  "mediaUrl"?: string;
+  "flowId": string;
+  "flowToken"?: string;
+  "flowFirstPageId"?: string;
+  "isFlowFirstPageEndpoint"?: boolean;
 }
 
 /**

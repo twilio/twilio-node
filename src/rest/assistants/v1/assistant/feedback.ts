@@ -24,7 +24,7 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
   /**
    * The message ID.
    */
-  "message_id"?: string;
+  "messageId"?: string;
   /**
    * The score to be given(0-1).
    */
@@ -32,7 +32,7 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
   /**
    * The Session ID.
    */
-  "session_id": string;
+  "sessionId": string;
   /**
    * The text to be given as feedback.
    */

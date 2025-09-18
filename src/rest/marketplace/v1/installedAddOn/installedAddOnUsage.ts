@@ -22,8 +22,8 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
   /**
    * Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
    */
-  "total_submitted"?: number;
-  "billable_items": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
+  "totalSubmitted"?: number;
+  "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {

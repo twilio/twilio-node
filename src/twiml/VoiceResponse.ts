@@ -3163,6 +3163,16 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to aiSession
+   */
+  export interface AiSessionAttributes {
+    /** aiConnector - The unique name or installed add-on sid that identifies the installed addon resource for the AI Connector */
+    aiConnector?: string;
+    /** aiSessionConfiguration - The unique name or id of the AiSession Configuration resource. */
+    aiSessionConfiguration?: string;
+  }
+
+  /**
    * Attributes to pass to language
    */
   export interface LanguageAttributes {
@@ -3232,6 +3242,18 @@ namespace VoiceResponse {
     name?: string;
     /** value - The value of the custom parameter */
     value?: string;
+  }
+
+  export class AiSession extends TwiML {
+    aiSession: XMLElement;
+    /**
+     * <AiSession> TwiML Noun
+     */
+    constructor(aiSession: XMLElement) {
+      super();
+      this.aiSession = aiSession;
+      this._propertyName = "aiSession";
+    }
   }
 
   export class Application extends TwiML {
@@ -3421,6 +3443,18 @@ namespace VoiceResponse {
       super();
       this.connect = connect;
       this._propertyName = "connect";
+    }
+    /**
+     * <AiSession> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    aiSession(
+      attributes?: VoiceResponse.AiSessionAttributes
+    ): VoiceResponse.AiSession {
+      return new VoiceResponse.AiSession(
+        this.connect.ele("AiSession", attributes)
+      );
     }
     /**
      * <Assistant> TwiML Noun

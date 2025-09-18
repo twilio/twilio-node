@@ -22,6 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { AccessTokenListInstance } from "./service/accessToken";
 import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
+import { NewFactorListInstance } from "./service/newFactor";
 import { RateLimitListInstance } from "./service/rateLimit";
 import { VerificationListInstance } from "./service/verification";
 import { VerificationCheckListInstance } from "./service/verificationCheck";
@@ -182,6 +183,7 @@ export interface ServiceContext {
   accessTokens: AccessTokenListInstance;
   entities: EntityListInstance;
   messagingConfigurations: MessagingConfigurationListInstance;
+  newFactors: NewFactorListInstance;
   rateLimits: RateLimitListInstance;
   verifications: VerificationListInstance;
   verificationChecks: VerificationCheckListInstance;
@@ -250,6 +252,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _accessTokens?: AccessTokenListInstance;
   protected _entities?: EntityListInstance;
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
+  protected _newFactors?: NewFactorListInstance;
   protected _rateLimits?: RateLimitListInstance;
   protected _verifications?: VerificationListInstance;
   protected _verificationChecks?: VerificationCheckListInstance;
@@ -282,6 +285,13 @@ export class ServiceContextImpl implements ServiceContext {
       this._messagingConfigurations ||
       MessagingConfigurationListInstance(this._version, this._solution.sid);
     return this._messagingConfigurations;
+  }
+
+  get newFactors(): NewFactorListInstance {
+    this._newFactors =
+      this._newFactors ||
+      NewFactorListInstance(this._version, this._solution.sid);
+    return this._newFactors;
   }
 
   get rateLimits(): RateLimitListInstance {
@@ -687,6 +697,13 @@ export class ServiceInstance {
    */
   messagingConfigurations(): MessagingConfigurationListInstance {
     return this._proxy.messagingConfigurations;
+  }
+
+  /**
+   * Access the newFactors.
+   */
+  newFactors(): NewFactorListInstance {
+    return this._proxy.newFactors;
   }
 
   /**

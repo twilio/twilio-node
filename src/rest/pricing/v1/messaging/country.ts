@@ -21,9 +21,9 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 export class PricingV1MessagingMessagingCountryInstanceInboundSmsPrices {
-  "base_price"?: number;
-  "current_price"?: number;
-  "number_type"?: string;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
 }
 
 export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
@@ -34,9 +34,9 @@ export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
 }
 
 export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices {
-  "base_price"?: number;
-  "current_price"?: number;
-  "number_type"?: string;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
 }
 
 /**

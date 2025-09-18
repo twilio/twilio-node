@@ -47,6 +47,8 @@ export interface ServiceContextUpdateOptions {
   webhookUrl?: string;
   /**  */
   webhookHttpMethod?: ServiceHttpMethod;
+  /** The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results. */
+  encryptionCredentialSid?: string;
 }
 
 /**
@@ -71,6 +73,8 @@ export interface ServiceListInstanceCreateOptions {
   webhookUrl?: string;
   /**  */
   webhookHttpMethod?: ServiceHttpMethod;
+  /** The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results. */
+  encryptionCredentialSid?: string;
 }
 /**
  * Options to pass to each
@@ -255,6 +259,8 @@ export class ServiceContextImpl implements ServiceContext {
       data["WebhookUrl"] = params["webhookUrl"];
     if (params["webhookHttpMethod"] !== undefined)
       data["WebhookHttpMethod"] = params["webhookHttpMethod"];
+    if (params["encryptionCredentialSid"] !== undefined)
+      data["EncryptionCredentialSid"] = params["encryptionCredentialSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -318,6 +324,7 @@ interface ServiceResource {
   webhook_http_method: ServiceHttpMethod;
   read_only_attached_operator_sids: Array<string>;
   version: number;
+  encryption_credential_sid: string;
 }
 
 export class ServiceInstance {
@@ -342,6 +349,7 @@ export class ServiceInstance {
     this.readOnlyAttachedOperatorSids =
       payload.read_only_attached_operator_sids;
     this.version = deserialize.integer(payload.version);
+    this.encryptionCredentialSid = payload.encryption_credential_sid;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -407,6 +415,10 @@ export class ServiceInstance {
    * The version number of this Service.
    */
   version: number;
+  /**
+   * The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
+   */
+  encryptionCredentialSid: string;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -494,6 +506,7 @@ export class ServiceInstance {
       webhookHttpMethod: this.webhookHttpMethod,
       readOnlyAttachedOperatorSids: this.readOnlyAttachedOperatorSids,
       version: this.version,
+      encryptionCredentialSid: this.encryptionCredentialSid,
     };
   }
 
@@ -643,6 +656,8 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       data["WebhookUrl"] = params["webhookUrl"];
     if (params["webhookHttpMethod"] !== undefined)
       data["WebhookHttpMethod"] = params["webhookHttpMethod"];
+    if (params["encryptionCredentialSid"] !== undefined)
+      data["EncryptionCredentialSid"] = params["encryptionCredentialSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

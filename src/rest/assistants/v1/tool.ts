@@ -33,7 +33,7 @@ export class AssistantsV1ServiceCreatePolicyRequest {
    * The name of the policy.
    */
   "name"?: string;
-  "policy_details": any | null;
+  "policyDetails": any | null;
   /**
    * The description of the policy.
    */
@@ -44,7 +44,7 @@ export class AssistantsV1ServiceCreateToolRequest {
   /**
    * The Assistant ID.
    */
-  "assistant_id"?: string;
+  "assistantId"?: string;
   /**
    * The description of the tool.
    */
@@ -84,11 +84,11 @@ export class AssistantsV1ServicePolicy {
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Policy resource.
    */
-  "account_sid"?: string;
+  "accountSid"?: string;
   /**
    * The SID of the User that created the Policy resource.
    */
-  "user_sid"?: string;
+  "userSid"?: string;
   /**
    * The type of the policy.
    */
@@ -96,22 +96,22 @@ export class AssistantsV1ServicePolicy {
   /**
    * The details of the policy based on the type.
    */
-  "policy_details": Record<string, object>;
+  "policyDetails": Record<string, object>;
   /**
    * The date and time in GMT when the Policy was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_created"?: Date;
+  "dateCreated"?: Date;
   /**
    * The date and time in GMT when the Policy was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_updated"?: Date;
+  "dateUpdated"?: Date;
 }
 
 export class AssistantsV1ServiceUpdateToolRequest {
   /**
    * The Assistant ID.
    */
-  "assistant_id"?: string;
+  "assistantId"?: string;
   /**
    * The description of the tool.
    */

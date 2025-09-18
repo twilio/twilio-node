@@ -19,6 +19,8 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { EncryptedOperatorResultsListInstance } from "./transcript/encryptedOperatorResults";
+import { EncryptedSentencesListInstance } from "./transcript/encryptedSentences";
 import { MediaListInstance } from "./transcript/media";
 import { OperatorResultListInstance } from "./transcript/operatorResult";
 import { SentenceListInstance } from "./transcript/sentence";
@@ -131,6 +133,8 @@ export interface TranscriptListInstancePageOptions {
 }
 
 export interface TranscriptContext {
+  encryptedOperatorResults: EncryptedOperatorResultsListInstance;
+  encryptedSentences: EncryptedSentencesListInstance;
   media: MediaListInstance;
   operatorResults: OperatorResultListInstance;
   sentences: SentenceListInstance;
@@ -172,6 +176,8 @@ export class TranscriptContextImpl implements TranscriptContext {
   protected _solution: TranscriptContextSolution;
   protected _uri: string;
 
+  protected _encryptedOperatorResults?: EncryptedOperatorResultsListInstance;
+  protected _encryptedSentences?: EncryptedSentencesListInstance;
   protected _media?: MediaListInstance;
   protected _operatorResults?: OperatorResultListInstance;
   protected _sentences?: SentenceListInstance;
@@ -183,6 +189,20 @@ export class TranscriptContextImpl implements TranscriptContext {
 
     this._solution = { sid };
     this._uri = `/Transcripts/${sid}`;
+  }
+
+  get encryptedOperatorResults(): EncryptedOperatorResultsListInstance {
+    this._encryptedOperatorResults =
+      this._encryptedOperatorResults ||
+      EncryptedOperatorResultsListInstance(this._version, this._solution.sid);
+    return this._encryptedOperatorResults;
+  }
+
+  get encryptedSentences(): EncryptedSentencesListInstance {
+    this._encryptedSentences =
+      this._encryptedSentences ||
+      EncryptedSentencesListInstance(this._version, this._solution.sid);
+    return this._encryptedSentences;
   }
 
   get media(): MediaListInstance {
@@ -288,6 +308,7 @@ interface TranscriptResource {
   duration: number;
   url: string;
   redaction: boolean;
+  encryption_credential_sid: string;
   links: Record<string, string>;
 }
 
@@ -314,6 +335,7 @@ export class TranscriptInstance {
     this.duration = deserialize.integer(payload.duration);
     this.url = payload.url;
     this.redaction = payload.redaction;
+    this.encryptionCredentialSid = payload.encryption_credential_sid;
     this.links = payload.links;
 
     this._solution = { sid: sid || this.sid };
@@ -369,6 +391,10 @@ export class TranscriptInstance {
    * If the transcript has been redacted, a redacted alternative of the transcript will be available.
    */
   redaction: boolean;
+  /**
+   * The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
+   */
+  encryptionCredentialSid: string;
   links: Record<string, string>;
 
   private get _proxy(): TranscriptContext {
@@ -402,6 +428,20 @@ export class TranscriptInstance {
     callback?: (error: Error | null, item?: TranscriptInstance) => any
   ): Promise<TranscriptInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the encryptedOperatorResults.
+   */
+  encryptedOperatorResults(): EncryptedOperatorResultsListInstance {
+    return this._proxy.encryptedOperatorResults;
+  }
+
+  /**
+   * Access the encryptedSentences.
+   */
+  encryptedSentences(): EncryptedSentencesListInstance {
+    return this._proxy.encryptedSentences;
   }
 
   /**
@@ -446,6 +486,7 @@ export class TranscriptInstance {
       duration: this.duration,
       url: this.url,
       redaction: this.redaction,
+      encryptionCredentialSid: this.encryptionCredentialSid,
       links: this.links,
     };
   }

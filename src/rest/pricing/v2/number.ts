@@ -19,20 +19,20 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
-  "origination_prefixes"?: Array<string>;
-  "destination_prefixes"?: Array<string>;
-  "base_price"?: number;
-  "current_price"?: number;
-  "friendly_name"?: string;
+  "originationPrefixes"?: Array<string>;
+  "destinationPrefixes"?: Array<string>;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "friendlyName"?: string;
 }
 
 /**
  * The [OriginatingCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
  */
 export class PricingV2TrunkingNumberOriginatingCallPrice {
-  "base_price"?: number;
-  "current_price"?: number;
-  "number_type"?: string;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
 }
 
 /**

@@ -19,7 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export class CreateReferralConversionRequest {
-  "referral_account_sid"?: string;
+  "referralAccountSid"?: string;
 }
 
 /**
