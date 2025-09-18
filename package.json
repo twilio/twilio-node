@@ -59,7 +59,6 @@
     "build": "npm run build:cjs && npm run build:esm && npm run prettier",
     "build:cjs": "tsc",
     "build:esm": "node scripts/build-esm.js",
-    "verify-esm": "node scripts/verify-esm.js",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "nsp": "npm audit --production",
