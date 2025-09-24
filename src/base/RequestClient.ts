@@ -1,10 +1,10 @@
 import { HttpMethod } from "../interfaces";
 import axios, {
-    AxiosHeaders,
-    AxiosInstance,
-    AxiosRequestConfig,
-    AxiosResponse,
-    InternalAxiosRequestConfig,
+  AxiosHeaders,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
 } from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
