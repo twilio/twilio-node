@@ -52,7 +52,6 @@
     "test": "npm run test:javascript && npm run test:typescript",
     "test:javascript": "jest spec --coverage --detectOpenHandles --testPathIgnorePatterns=spec/cluster",
     "test:typescript": "tsc --noEmit",
-    "test:esm": "node scripts/verify-esm.js",
     "jshint": "jshint src/rest/** src/base/** src/http/**",
     "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
     "prepublish": "npm run build",
