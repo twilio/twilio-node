@@ -38,32 +38,12 @@ TypeScript is supported for TypeScript version 2.9 and above.
 
 To make sure the installation was successful, try sending yourself an SMS message, like this:
 
-**CommonJS:**
 ```js
 // Your AccountSID and Auth Token from console.twilio.com
 const accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 const authToken = 'your_auth_token';
 
 const client = require('twilio')(accountSid, authToken);
-
-client.messages
-  .create({
-    body: 'Hello from twilio-node',
-    to: '+12345678901', // Text your number
-    from: '+12345678901', // From a valid Twilio number
-  })
-  .then((message) => console.log(message.sid));
-```
-
-**ESM/ES6 Modules:**
-```js
-// Your AccountSID and Auth Token from console.twilio.com
-import twilio from 'twilio';
-
-const accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-const authToken = 'your_auth_token';
-
-const client = twilio(accountSid, authToken);
 
 client.messages
   .create({
@@ -112,47 +92,9 @@ const mainAccountCalls = client.api.v2010.account.calls.list; // SID not specifi
 const subaccountCalls = client.api.v2010.account(subaccountSid).calls.list; // SID specified as subaccountSid
 ```
 
-**ESM/ES6 Modules:**
-```javascript
-// Your Account SID, Subaccount SID Auth Token from console.twilio.com
-import twilio from 'twilio';
-
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const subaccountSid = process.env.TWILIO_ACCOUNT_SUBACCOUNT_SID;
-
-const client = twilio(accountSid, authToken);
-const mainAccountCalls = client.api.v2010.account.calls.list; // SID not specified, so defaults to accountSid
-const subaccountCalls = client.api.v2010.account(subaccountSid).calls.list; // SID specified as subaccountSid
-```
-
 ### Lazy Loading
 
 `twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is enabled by default. To disable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `false`:
-
-**CommonJS:**
-```javascript
-// Your Account SID and Auth Token from console.twilio.com
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-
-const client = require('twilio')(accountSid, authToken, {
-  lazyLoading: false,
-});
-```
-
-**ESM/ES6 Modules:**
-```javascript
-// Your Account SID and Auth Token from console.twilio.com
-import twilio from 'twilio';
-
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-
-const client = twilio(accountSid, authToken, {
-  lazyLoading: false,
-});
-```
 
 ### Enable Auto-Retry with Exponential Backoff
 

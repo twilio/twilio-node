@@ -1,5 +1,6 @@
 import { HttpMethod } from "../interfaces";
 import axios, {
+  AxiosHeaders,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
@@ -297,7 +298,7 @@ class RequestClient {
    */
   validationInterceptor(validationClient: ValidationClientOptions) {
     return function (config: InternalAxiosRequestConfig) {
-      config.headers = config.headers || {};
+      config.headers = config.headers || new AxiosHeaders();
       try {
         config.headers["Twilio-Client-Validation"] = new ValidationToken(
           validationClient
