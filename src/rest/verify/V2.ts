@@ -15,7 +15,6 @@
 import VerifyBase from "../VerifyBase";
 import Version from "../../base/Version";
 import { FormListInstance } from "./v2/form";
-import { NewChallengeListInstance } from "./v2/newChallenge";
 import { SafelistListInstance } from "./v2/safelist";
 import { ServiceListInstance } from "./v2/service";
 import { TemplateListInstance } from "./v2/template";
@@ -34,8 +33,6 @@ export default class V2 extends Version {
 
   /** forms - { Twilio.Verify.V2.FormListInstance } resource */
   protected _forms?: FormListInstance;
-  /** newChallenge - { Twilio.Verify.V2.NewChallengeListInstance } resource */
-  protected _newChallenge?: NewChallengeListInstance;
   /** safelist - { Twilio.Verify.V2.SafelistListInstance } resource */
   protected _safelist?: SafelistListInstance;
   /** services - { Twilio.Verify.V2.ServiceListInstance } resource */
@@ -51,12 +48,6 @@ export default class V2 extends Version {
   get forms(): FormListInstance {
     this._forms = this._forms || FormListInstance(this);
     return this._forms;
-  }
-
-  /** Getter for newChallenge resource */
-  get newChallenge(): NewChallengeListInstance {
-    this._newChallenge = this._newChallenge || NewChallengeListInstance(this);
-    return this._newChallenge;
   }
 
   /** Getter for safelist resource */

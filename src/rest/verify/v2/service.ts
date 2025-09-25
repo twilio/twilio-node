@@ -20,8 +20,10 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { AccessTokenListInstance } from "./service/accessToken";
+import { ApproveChallengeListInstance } from "./service/approveChallenge";
 import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
+import { NewChallengeListInstance } from "./service/newChallenge";
 import { NewFactorListInstance } from "./service/newFactor";
 import { RateLimitListInstance } from "./service/rateLimit";
 import { VerificationListInstance } from "./service/verification";
@@ -181,8 +183,10 @@ export interface ServiceListInstancePageOptions {
 
 export interface ServiceContext {
   accessTokens: AccessTokenListInstance;
+  approveChallenge: ApproveChallengeListInstance;
   entities: EntityListInstance;
   messagingConfigurations: MessagingConfigurationListInstance;
+  newChallenge: NewChallengeListInstance;
   newFactors: NewFactorListInstance;
   rateLimits: RateLimitListInstance;
   verifications: VerificationListInstance;
@@ -250,8 +254,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _accessTokens?: AccessTokenListInstance;
+  protected _approveChallenge?: ApproveChallengeListInstance;
   protected _entities?: EntityListInstance;
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
+  protected _newChallenge?: NewChallengeListInstance;
   protected _newFactors?: NewFactorListInstance;
   protected _rateLimits?: RateLimitListInstance;
   protected _verifications?: VerificationListInstance;
@@ -274,6 +280,13 @@ export class ServiceContextImpl implements ServiceContext {
     return this._accessTokens;
   }
 
+  get approveChallenge(): ApproveChallengeListInstance {
+    this._approveChallenge =
+      this._approveChallenge ||
+      ApproveChallengeListInstance(this._version, this._solution.sid);
+    return this._approveChallenge;
+  }
+
   get entities(): EntityListInstance {
     this._entities =
       this._entities || EntityListInstance(this._version, this._solution.sid);
@@ -285,6 +298,13 @@ export class ServiceContextImpl implements ServiceContext {
       this._messagingConfigurations ||
       MessagingConfigurationListInstance(this._version, this._solution.sid);
     return this._messagingConfigurations;
+  }
+
+  get newChallenge(): NewChallengeListInstance {
+    this._newChallenge =
+      this._newChallenge ||
+      NewChallengeListInstance(this._version, this._solution.sid);
+    return this._newChallenge;
   }
 
   get newFactors(): NewFactorListInstance {
@@ -686,6 +706,13 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the approveChallenge.
+   */
+  approveChallenge(): ApproveChallengeListInstance {
+    return this._proxy.approveChallenge;
+  }
+
+  /**
    * Access the entities.
    */
   entities(): EntityListInstance {
@@ -697,6 +724,13 @@ export class ServiceInstance {
    */
   messagingConfigurations(): MessagingConfigurationListInstance {
     return this._proxy.messagingConfigurations;
+  }
+
+  /**
+   * Access the newChallenge.
+   */
+  newChallenge(): NewChallengeListInstance {
+    return this._proxy.newChallenge;
   }
 
   /**

@@ -67,7 +67,7 @@ export interface ParticipantContextUpdateOptions {
 export interface ParticipantListInstanceCreateOptions {
   /** The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint. */
   from: string;
-  /** The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. */
+  /** The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. */
   to: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
@@ -161,6 +161,8 @@ export interface ParticipantListInstanceCreateOptions {
   trim?: string;
   /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
   callToken?: string;
+  /** The name that appears to the called party for this call. Must be between 2 and 255 characters. */
+  callerDisplayName?: string;
 }
 /**
  * Options to pass to each
@@ -909,6 +911,8 @@ export function ParticipantListInstance(
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
       data["CallToken"] = params["callToken"];
+    if (params["callerDisplayName"] !== undefined)
+      data["CallerDisplayName"] = params["callerDisplayName"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

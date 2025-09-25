@@ -1,6 +1,17 @@
 twilio-node changelog
 =====================
 
+[2025-09-25] Version 5.10.1
+---------------------------
+**Library - Chore**
+- [PR #1137](https://github.com/twilio/twilio-node/pull/1137): revert esm changes. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #1132](https://github.com/twilio/twilio-node/pull/1132): Add lib-esm and scripts directories to Dockerfile. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Added optional parameter `CallerDisplayName` for conference participant outbound
+- Updated description for property `to` in the participant create request
+
+
 [2025-09-18] Version 5.10.0
 ---------------------------
 **Library - Feature**
