@@ -2,9 +2,9 @@ import TokenManager from "./TokenManager";
 import {
   TokenListInstance,
   TokenListInstanceCreateOptions,
-} from "../../rest/iam/v1/token";
-import IamBase from "../../rest/IamBase";
-import V1 from "../../rest/iam/V1";
+} from "../../rest/oauth/v2/token";
+import OauthBase from "../../rest/OauthBase";
+import V2 from "../../rest/oauth/V2";
 import NoAuthCredentialProvider from "../../credential_provider/NoAuthCredentialProvider";
 import { Client } from "../../base/BaseTwilio";
 
@@ -25,7 +25,7 @@ export default class ApiTokenManager implements TokenManager {
     const client = new Client();
     client.setCredentialProvider(noAuthCredentialProvider);
 
-    const tokenListInstance = TokenListInstance(new V1(new IamBase(client)));
+    const tokenListInstance = TokenListInstance(new V2(new OauthBase(client)));
     return tokenListInstance
       .create(this.params)
       .then((token) => {
