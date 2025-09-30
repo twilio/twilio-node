@@ -25,6 +25,7 @@ import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
 import { NewChallengeListInstance } from "./service/newChallenge";
 import { NewFactorListInstance } from "./service/newFactor";
+import { NewVerifyFactorListInstance } from "./service/newVerifyFactor";
 import { RateLimitListInstance } from "./service/rateLimit";
 import { VerificationListInstance } from "./service/verification";
 import { VerificationCheckListInstance } from "./service/verificationCheck";
@@ -188,6 +189,7 @@ export interface ServiceContext {
   messagingConfigurations: MessagingConfigurationListInstance;
   newChallenge: NewChallengeListInstance;
   newFactors: NewFactorListInstance;
+  newVerifyFactors: NewVerifyFactorListInstance;
   rateLimits: RateLimitListInstance;
   verifications: VerificationListInstance;
   verificationChecks: VerificationCheckListInstance;
@@ -259,6 +261,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
   protected _newChallenge?: NewChallengeListInstance;
   protected _newFactors?: NewFactorListInstance;
+  protected _newVerifyFactors?: NewVerifyFactorListInstance;
   protected _rateLimits?: RateLimitListInstance;
   protected _verifications?: VerificationListInstance;
   protected _verificationChecks?: VerificationCheckListInstance;
@@ -312,6 +315,13 @@ export class ServiceContextImpl implements ServiceContext {
       this._newFactors ||
       NewFactorListInstance(this._version, this._solution.sid);
     return this._newFactors;
+  }
+
+  get newVerifyFactors(): NewVerifyFactorListInstance {
+    this._newVerifyFactors =
+      this._newVerifyFactors ||
+      NewVerifyFactorListInstance(this._version, this._solution.sid);
+    return this._newVerifyFactors;
   }
 
   get rateLimits(): RateLimitListInstance {
@@ -738,6 +748,13 @@ export class ServiceInstance {
    */
   newFactors(): NewFactorListInstance {
     return this._proxy.newFactors;
+  }
+
+  /**
+   * Access the newVerifyFactors.
+   */
+  newVerifyFactors(): NewVerifyFactorListInstance {
+    return this._proxy.newVerifyFactors;
   }
 
   /**

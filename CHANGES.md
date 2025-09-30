@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2025-09-30] Version 5.10.2
+---------------------------
+**Library - Chore**
+- [PR #1139](https://github.com/twilio/twilio-node/pull/1139): change oauth token endpoint. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Insights**
+- Replace `field` with `key` in Request Filters and Response Metadata Filters and  for Reports API
+
+
 [2025-09-25] Version 5.10.1
 ---------------------------
 **Library - Chore**

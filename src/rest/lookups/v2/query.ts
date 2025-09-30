@@ -32,11 +32,11 @@ export class CallerName {
 export class IdentityMatch {
   "firstNameMatch"?: string;
   "lastNameMatch"?: string;
-  "addressLineMatch"?: string;
+  "addressLinesMatch"?: string;
   "cityMatch"?: string;
   "stateMatch"?: string;
   "postalCodeMatch"?: string;
-  "countryCodeMatch"?: string;
+  "addressCountryMatch"?: string;
   "nationalIdMatch"?: string;
   "dateOfBirthMatch"?: string;
   "summaryScore"?: number;
@@ -69,18 +69,14 @@ export class LineStatus {
 }
 
 export class LineTypeIntelligence {
-  "type"?: string;
-  "carrierName"?: string;
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
+  "carrierName"?: string;
+  "type"?: string;
   "errorCode"?: number;
 }
 
-export class LookupRequest1 {
-  "phoneNumbers"?: Array<LookupRequestWithCorId>;
-}
-
-export class LookupRequestWithCorId {
+export class LookupBatchRequest {
   /**
    * Unique identifier used to match request with response
    */
@@ -89,11 +85,11 @@ export class LookupRequestWithCorId {
   "fields"?: Array<string>;
   "countryCode"?: string;
   "identityMatch"?: IdentityMatchParameters;
-  "reassignedNumber"?: ReassignedNumberRequest;
-  "smsPumpingRisk"?: SmsPumpingRiskParameters;
+  "reassignedNumber"?: ReassignedNumberParameters;
+  "smsPumpingRisk"?: RiskParameters;
 }
 
-export class LookupResponseWithCorId {
+export class LookupBatchResponse {
   /**
    * Unique identifier used to match request with response
    */
@@ -114,18 +110,28 @@ export class LookupResponseWithCorId {
   "lineTypeIntelligence"?: LineTypeIntelligence;
   "lineStatus"?: LineStatus;
   "identityMatch"?: IdentityMatch;
-  "reassignedNumber"?: ReassignedNumberResponse;
+  "reassignedNumber"?: ReassignedNumber;
   "smsPumpingRisk"?: SmsPumpingRisk;
+  "phoneNumberQualityScore"?: any | null;
+  "preFill"?: any | null;
 }
 
-export class ReassignedNumberRequest {
-  "lastVerifiedDate"?: string;
+export class LookupRequest {
+  "phoneNumbers"?: Array<LookupBatchRequest>;
 }
 
-export class ReassignedNumberResponse {
+export class ReassignedNumber {
   "lastVerifiedDate"?: string;
   "isNumberReassigned"?: string;
   "errorCode"?: string;
+}
+
+export class ReassignedNumberParameters {
+  "lastVerifiedDate"?: string;
+}
+
+export class RiskParameters {
+  "partnerSubId"?: string;
 }
 
 export class SimSwap {
@@ -145,16 +151,12 @@ export class SmsPumpingRisk {
   "errorCode"?: number;
 }
 
-export class SmsPumpingRiskParameters {
-  "partnerSubId"?: string;
-}
-
 /**
  * Options to pass to create a QueryInstance
  */
 export interface QueryListInstanceCreateOptions {
   /**  */
-  lookupRequest1?: LookupRequest1;
+  lookupRequest?: LookupRequest;
 }
 
 export interface QuerySolution {}
@@ -184,7 +186,7 @@ export interface QueryListInstance {
    * @returns Resolves to processed QueryInstance
    */
   create(
-    params: LookupRequest1,
+    params: LookupRequest,
     headers?: any,
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance>;
@@ -205,7 +207,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
 
   instance.create = function create(
     params?:
-      | LookupRequest1
+      | LookupRequest
       | ((error: Error | null, items: QueryInstance) => any),
     headers?: any,
     callback?: (error: Error | null, items: QueryInstance) => any
@@ -264,7 +266,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
 interface QueryPayload extends QueryResource {}
 
 interface QueryResource {
-  phone_numbers: Array<LookupResponseWithCorId>;
+  phone_numbers: Array<LookupBatchResponse>;
 }
 
 export class QueryInstance {
@@ -272,7 +274,7 @@ export class QueryInstance {
     this.phoneNumbers = payload.phone_numbers;
   }
 
-  phoneNumbers: Array<LookupResponseWithCorId>;
+  phoneNumbers: Array<LookupBatchResponse>;
 
   /**
    * Provide a user-friendly representation

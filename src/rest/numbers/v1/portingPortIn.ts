@@ -314,6 +314,7 @@ interface PortingPortInResource {
   target_port_in_time_range_start: string;
   target_port_in_time_range_end: string;
   port_in_request_status: string;
+  order_cancellation_reason: string;
   losing_carrier_information: NumbersV1PortingLosingCarrierInformation;
   phone_numbers: Array<NumbersV1PortingPortInPhoneNumberResult>;
   bundle_sid: string;
@@ -342,6 +343,7 @@ export class PortingPortInInstance {
     this.targetPortInTimeRangeStart = payload.target_port_in_time_range_start;
     this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
     this.portInRequestStatus = payload.port_in_request_status;
+    this.orderCancellationReason = payload.order_cancellation_reason;
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
     this.bundleSid = payload.bundle_sid;
@@ -387,6 +389,10 @@ export class PortingPortInInstance {
    * The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
    */
   portInRequestStatus: string;
+  /**
+   * If the order is cancelled this field will provide further context on the cause of the cancellation.
+   */
+  orderCancellationReason: string;
   losingCarrierInformation: NumbersV1PortingLosingCarrierInformation;
   phoneNumbers: Array<NumbersV1PortingPortInPhoneNumberResult>;
   /**
@@ -458,6 +464,7 @@ export class PortingPortInInstance {
       targetPortInTimeRangeStart: this.targetPortInTimeRangeStart,
       targetPortInTimeRangeEnd: this.targetPortInTimeRangeEnd,
       portInRequestStatus: this.portInRequestStatus,
+      orderCancellationReason: this.orderCancellationReason,
       losingCarrierInformation: this.losingCarrierInformation,
       phoneNumbers: this.phoneNumbers,
       bundleSid: this.bundleSid,

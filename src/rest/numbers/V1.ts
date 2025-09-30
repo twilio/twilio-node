@@ -16,6 +16,7 @@ import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { BulkEligibilityListInstance } from "./v1/bulkEligibility";
 import { EligibilityListInstance } from "./v1/eligibility";
+import { PortingAllPortInListInstance } from "./v1/portingAllPortIn";
 import { PortingPortInListInstance } from "./v1/portingPortIn";
 import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNumber";
 import { PortingPortabilityListInstance } from "./v1/portingPortability";
@@ -38,6 +39,8 @@ export default class V1 extends Version {
   protected _bulkEligibilities?: BulkEligibilityListInstance;
   /** eligibilities - { Twilio.Numbers.V1.EligibilityListInstance } resource */
   protected _eligibilities?: EligibilityListInstance;
+  /** portingAllPortIns - { Twilio.Numbers.V1.PortingAllPortInListInstance } resource */
+  protected _portingAllPortIns?: PortingAllPortInListInstance;
   /** portingPortIns - { Twilio.Numbers.V1.PortingPortInListInstance } resource */
   protected _portingPortIns?: PortingPortInListInstance;
   /** portingPortInPhoneNumber - { Twilio.Numbers.V1.PortingPortInPhoneNumberListInstance } resource */
@@ -64,6 +67,13 @@ export default class V1 extends Version {
   get eligibilities(): EligibilityListInstance {
     this._eligibilities = this._eligibilities || EligibilityListInstance(this);
     return this._eligibilities;
+  }
+
+  /** Getter for portingAllPortIns resource */
+  get portingAllPortIns(): PortingAllPortInListInstance {
+    this._portingAllPortIns =
+      this._portingAllPortIns || PortingAllPortInListInstance(this);
+    return this._portingAllPortIns;
   }
 
   /** Getter for portingPortIns resource */
