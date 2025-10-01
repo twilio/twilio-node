@@ -18,12 +18,178 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+export class NumbersV1PortingAddress {
+  /**
+   * The street address, ex: 101 Spear St
+   */
+  "street": string;
+  /**
+   * The building information, ex : 5th floor.
+   */
+  "street2"?: string;
+  /**
+   * The city name, ex: San Francisco.
+   */
+  "city": string;
+  /**
+   * The state name, ex: CA or California. Note this should match the losing carrier’s information exactly. So if they spell out the entire state’s name instead of abbreviating it, please do so.
+   */
+  "state": string;
+  /**
+   * The zip code, ex: 94105.
+   */
+  "zip": string;
+  /**
+   * The country, ex: USA.
+   */
+  "country": string;
+}
+
+export class NumbersV1PortingLosingCarrierInformation {
+  /**
+   * Customer name as it is registered with the losing carrier. This can be an individual or a business name depending on the customer type selected.
+   */
+  "customerName": string;
+  /**
+   * The account number of the customer for the losing carrier. Only require for mobile phone numbers.
+   */
+  "accountNumber"?: string;
+  /**
+   * The account phone number of the customer for the losing carrier.
+   */
+  "accountTelephoneNumber"?: string;
+  /**
+   * If you already have an Address SID that represents the address needed for the LOA, you can provide an Address SID instead of providing the address object in the request body. This will copy the address into the port in request. If changes are made to the Address SID after port in request creation, those changes will not be reflected in the port in request.
+   */
+  "addressSid"?: string;
+  "address"?: NumbersV1PortingAddress;
+  /**
+   * The first and last name of the person listed with the losing carrier who is authorized to make changes on the account.
+   */
+  "authorizedRepresentative": string;
+  /**
+   * Email address of the person (owner of the number) who will sign the letter of authorization for the port in request. This email address should belong to the person named in as the authorized representative.
+   */
+  "authorizedRepresentativeEmail": string;
+  /**
+   * The type of customer account in the losing carrier. This should either be: \'Individual\' or \'Business\'.
+   */
+  "customerType"?: string;
+  "authorizedRepresentativeKatakana"?: string;
+  "subMunicipality"?: string;
+  "building"?: string;
+  "katakanaName"?: string;
+}
+
+export class NumbersV1PortingPortInCreate {
+  /**
+   * Account Sid or subaccount where the phone number(s) will be Ported
+   */
+  "accountSid": string;
+  /**
+   * List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
+   */
+  "documents": Array<string>;
+  /**
+   * List of phone numbers to be ported. Maximum of 1,000 phone numbers per request.
+   */
+  "phoneNumbers"?: Array<NumbersV1PortingPortInCreatePhoneNumbers>;
+  "losingCarrierInformation": NumbersV1PortingLosingCarrierInformation;
+  /**
+   * Additional emails to send a copy of the signed LOA to.
+   */
+  "notificationEmails"?: Array<string> | null;
+  /**
+   * Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. We can\'t guarantee the exact date and time, as this depends on the losing carrier
+   */
+  "targetPortInDate"?: string | null;
+  /**
+   * The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'. We can\'t guarantee the exact date and time, as this depends on the losing carrier
+   */
+  "targetPortInTimeRangeStart"?: string | null;
+  /**
+   * The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'. We can\'t guarantee the exact date and time, as this depends on the losing carrier
+   */
+  "targetPortInTimeRangeEnd"?: string | null;
+  /**
+   * The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
+   */
+  "bundleSid"?: string | null;
+  /**
+   * A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
+   */
+  "portabilityAdvanceCarrier"?: string | null;
+  /**
+   * Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
+   */
+  "autoCancelApprovalNumbers"?: string | null;
+}
+
+export class NumbersV1PortingPortInCreatePhoneNumbers {
+  /**
+   * Phone number to be ported. This must be in the E164 Format.
+   */
+  "phoneNumber": string;
+  /**
+   * Some losing carriers require a PIN to authorize the port of a phone number. If the phone number is a US mobile phone number, the PIN is mandatory to process a porting request. Other carriers and number types may also require a PIN, you\'ll need to contact the losing carrier to determine what your phone number\'s PIN is.
+   */
+  "pin"?: string;
+}
+
+export class NumbersV1PortingPortInPhoneNumberResult {
+  /**
+   * The not portability reason code description. This field may be null if the number is portable or if the portability for a number has not yet been evaluated.
+   */
+  "notPortabilityReason"?: string | null;
+  /**
+   * The not portability reason code. This field may be null if the number is portable or if the portability for a number has not yet been evaluated.
+   */
+  "notPortabilityReasonCode"?: number | null;
+  /**
+   * The number type of the phone number. This can be: toll-free, local, mobile or unknown. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
+   */
+  "numberType"?: string | null;
+  /**
+   * Phone number to be ported. This will be in the E164 Format.
+   */
+  "phoneNumber"?: string;
+  /**
+   * The timestamp the phone number will be ported. This will only be set once a port date has been confirmed. Not all carriers can guarantee a specific time on the port date. Twilio will try its best to get the port completed by this time on the port date. Please subscribe to webhooks for confirmation on when a port has actually been completed.
+   */
+  "portDate"?: Date | null;
+  /**
+   * The SID of the Phone number. This is a unique identifier of the phone number.
+   */
+  "portInPhoneNumberSid"?: string;
+  /**
+   * The status of the port in phone number.
+   */
+  "portInPhoneNumberStatus"?: string;
+  /**
+   * Whether the number is portable by Twilio or not. This field may be null if the number portability has not yet been evaluated. If a number is not portable reference the `not_portability_reason_code` and `not_portability_reason` fields for more details
+   */
+  "portable"?: boolean | null;
+  /**
+   * The description of the rejection reason provided by the losing carrier. This field may be null if the number has not been rejected by the losing carrier.
+   */
+  "rejectionReason"?: string | null;
+  /**
+   * The code for the rejection reason provided by the losing carrier. This field may be null if the number has not been rejected by the losing carrier.
+   */
+  "rejectionReasonCode"?: string | null;
+  /**
+   * Timestamp indicating when the Port In Phone Number resource was last modified.
+   */
+  "statusLastTimeUpdatedTimestamp"?: string | null;
+  "externalPortingVendorPhoneNumberId"?: string | null;
+}
+
 /**
  * Options to pass to create a PortingPortInInstance
  */
 export interface PortingPortInListInstanceCreateOptions {
   /**  */
-  body?: object;
+  numbersV1PortingPortInCreate: NumbersV1PortingPortInCreate;
 }
 
 export interface PortingPortInContext {
@@ -148,8 +314,9 @@ interface PortingPortInResource {
   target_port_in_time_range_start: string;
   target_port_in_time_range_end: string;
   port_in_request_status: string;
-  losing_carrier_information: any;
-  phone_numbers: Array<any>;
+  order_cancellation_reason: string;
+  losing_carrier_information: NumbersV1PortingLosingCarrierInformation;
+  phone_numbers: Array<NumbersV1PortingPortInPhoneNumberResult>;
   bundle_sid: string;
   portability_advance_carrier: string;
   auto_cancel_approval_numbers: string;
@@ -176,6 +343,7 @@ export class PortingPortInInstance {
     this.targetPortInTimeRangeStart = payload.target_port_in_time_range_start;
     this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
     this.portInRequestStatus = payload.port_in_request_status;
+    this.orderCancellationReason = payload.order_cancellation_reason;
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
     this.bundleSid = payload.bundle_sid;
@@ -222,10 +390,11 @@ export class PortingPortInInstance {
    */
   portInRequestStatus: string;
   /**
-   * Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
+   * If the order is cancelled this field will provide further context on the cause of the cancellation.
    */
-  losingCarrierInformation: any;
-  phoneNumbers: Array<any>;
+  orderCancellationReason: string;
+  losingCarrierInformation: NumbersV1PortingLosingCarrierInformation;
+  phoneNumbers: Array<NumbersV1PortingPortInPhoneNumberResult>;
   /**
    * The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
    */
@@ -295,6 +464,7 @@ export class PortingPortInInstance {
       targetPortInTimeRangeStart: this.targetPortInTimeRangeStart,
       targetPortInTimeRangeEnd: this.targetPortInTimeRangeEnd,
       portInRequestStatus: this.portInRequestStatus,
+      orderCancellationReason: this.orderCancellationReason,
       losingCarrierInformation: this.losingCarrierInformation,
       phoneNumbers: this.phoneNumbers,
       bundleSid: this.bundleSid,
@@ -323,16 +493,6 @@ export interface PortingPortInListInstance {
   /**
    * Create a PortingPortInInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed PortingPortInInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance>;
-  /**
-   * Create a PortingPortInInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -340,7 +500,7 @@ export interface PortingPortInListInstance {
    * @returns Resolves to processed PortingPortInInstance
    */
   create(
-    params: object,
+    params: NumbersV1PortingPortInCreate,
     headers?: any,
     callback?: (error: Error | null, item?: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance>;
@@ -367,17 +527,12 @@ export function PortingPortInListInstance(
   instance._uri = `/Porting/PortIn`;
 
   instance.create = function create(
-    params?:
-      | object
-      | ((error: Error | null, items: PortingPortInInstance) => any),
+    params: NumbersV1PortingPortInCreate,
     headers?: any,
     callback?: (error: Error | null, items: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};

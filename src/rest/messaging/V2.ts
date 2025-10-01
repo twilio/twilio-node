@@ -15,6 +15,7 @@
 import MessagingBase from "../MessagingBase";
 import Version from "../../base/Version";
 import { ChannelsSenderListInstance } from "./v2/channelsSender";
+import { TypingIndicatorListInstance } from "./v2/typingIndicator";
 
 export default class V2 extends Version {
   /**
@@ -28,11 +29,20 @@ export default class V2 extends Version {
 
   /** channelsSenders - { Twilio.Messaging.V2.ChannelsSenderListInstance } resource */
   protected _channelsSenders?: ChannelsSenderListInstance;
+  /** typingIndicator - { Twilio.Messaging.V2.TypingIndicatorListInstance } resource */
+  protected _typingIndicator?: TypingIndicatorListInstance;
 
   /** Getter for channelsSenders resource */
   get channelsSenders(): ChannelsSenderListInstance {
     this._channelsSenders =
       this._channelsSenders || ChannelsSenderListInstance(this);
     return this._channelsSenders;
+  }
+
+  /** Getter for typingIndicator resource */
+  get typingIndicator(): TypingIndicatorListInstance {
+    this._typingIndicator =
+      this._typingIndicator || TypingIndicatorListInstance(this);
+    return this._typingIndicator;
   }
 }

@@ -23,9 +23,9 @@ import { isValidPathParam } from "../../../base/utility";
  */
 export interface TokenListInstanceCreateOptions {
   /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
-  grantType: string;
+  grantType?: string;
   /** A 34 character string that uniquely identifies this OAuth App. */
-  clientId: string;
+  clientId?: string;
   /** The credential for confidential OAuth App. */
   clientSecret?: string;
   /** JWT token related to the authorization code grant type. */
@@ -47,6 +47,16 @@ export interface TokenListInstance {
   _solution: TokenSolution;
   _uri: string;
 
+  /**
+   * Create a TokenInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TokenInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: TokenInstance) => any
+  ): Promise<TokenInstance>;
   /**
    * Create a TokenInstance
    *
@@ -75,26 +85,24 @@ export function TokenListInstance(version: V2): TokenListInstance {
   instance._uri = `/token`;
 
   instance.create = function create(
-    params: TokenListInstanceCreateOptions,
+    params?:
+      | TokenListInstanceCreateOptions
+      | ((error: Error | null, items: TokenInstance) => any),
     callback?: (error: Error | null, items: TokenInstance) => any
   ): Promise<TokenInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params["grantType"] === null || params["grantType"] === undefined) {
-      throw new Error("Required parameter \"params['grantType']\" missing.");
-    }
-
-    if (params["clientId"] === null || params["clientId"] === undefined) {
-      throw new Error("Required parameter \"params['clientId']\" missing.");
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
     }
 
     let data: any = {};
 
-    data["grant_type"] = params["grantType"];
-
-    data["client_id"] = params["clientId"];
+    if (params["grantType"] !== undefined)
+      data["grant_type"] = params["grantType"];
+    if (params["clientId"] !== undefined)
+      data["client_id"] = params["clientId"];
     if (params["clientSecret"] !== undefined)
       data["client_secret"] = params["clientSecret"];
     if (params["code"] !== undefined) data["code"] = params["code"];

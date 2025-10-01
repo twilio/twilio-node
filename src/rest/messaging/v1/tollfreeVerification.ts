@@ -466,12 +466,25 @@ interface TollfreeVerificationResource {
   message_volume: string;
   additional_information: string;
   tollfree_phone_number_sid: string;
+  tollfree_phone_number: string;
   status: TollfreeVerificationStatus;
   url: string;
   rejection_reason: string;
   error_code: number;
   edit_expiration: Date;
   edit_allowed: boolean;
+  business_registration_number: string;
+  business_registration_authority: string;
+  business_registration_country: string;
+  business_type: string;
+  business_registration_phone_number: string;
+  doing_business_as: string;
+  opt_in_confirmation_message: string;
+  help_message_sample: string;
+  privacy_policy_url: string;
+  terms_and_conditions_url: string;
+  age_gated_content: boolean;
+  opt_in_keywords: Array<string>;
   rejection_reasons: Array<any>;
   resource_links: any;
   external_reference_id: string;
@@ -514,12 +527,27 @@ export class TollfreeVerificationInstance {
     this.messageVolume = payload.message_volume;
     this.additionalInformation = payload.additional_information;
     this.tollfreePhoneNumberSid = payload.tollfree_phone_number_sid;
+    this.tollfreePhoneNumber = payload.tollfree_phone_number;
     this.status = payload.status;
     this.url = payload.url;
     this.rejectionReason = payload.rejection_reason;
     this.errorCode = deserialize.integer(payload.error_code);
     this.editExpiration = deserialize.iso8601DateTime(payload.edit_expiration);
     this.editAllowed = payload.edit_allowed;
+    this.businessRegistrationNumber = payload.business_registration_number;
+    this.businessRegistrationAuthority =
+      payload.business_registration_authority;
+    this.businessRegistrationCountry = payload.business_registration_country;
+    this.businessType = payload.business_type;
+    this.businessRegistrationPhoneNumber =
+      payload.business_registration_phone_number;
+    this.doingBusinessAs = payload.doing_business_as;
+    this.optInConfirmationMessage = payload.opt_in_confirmation_message;
+    this.helpMessageSample = payload.help_message_sample;
+    this.privacyPolicyUrl = payload.privacy_policy_url;
+    this.termsAndConditionsUrl = payload.terms_and_conditions_url;
+    this.ageGatedContent = payload.age_gated_content;
+    this.optInKeywords = payload.opt_in_keywords;
     this.rejectionReasons = payload.rejection_reasons;
     this.resourceLinks = payload.resource_links;
     this.externalReferenceId = payload.external_reference_id;
@@ -636,6 +664,10 @@ export class TollfreeVerificationInstance {
    * The SID of the Phone Number associated with the Tollfree Verification.
    */
   tollfreePhoneNumberSid: string;
+  /**
+   * The E.164 formatted toll-free phone number associated with the verification.
+   */
+  tollfreePhoneNumber: string;
   status: TollfreeVerificationStatus;
   /**
    * The absolute URL of the Tollfree Verification resource.
@@ -657,6 +689,54 @@ export class TollfreeVerificationInstance {
    * If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
    */
   editAllowed: boolean;
+  /**
+   * A legally recognized business registration number
+   */
+  businessRegistrationNumber: string;
+  /**
+   * The organizational authority for business registrations
+   */
+  businessRegistrationAuthority: string;
+  /**
+   * Country business is registered in
+   */
+  businessRegistrationCountry: string;
+  /**
+   * The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+   */
+  businessType: string;
+  /**
+   * The E.164 formatted number associated with the business.
+   */
+  businessRegistrationPhoneNumber: string;
+  /**
+   * Trade name, sub entity, or downstream business name of business being submitted for verification
+   */
+  doingBusinessAs: string;
+  /**
+   * The confirmation message sent to users when they opt in to receive messages.
+   */
+  optInConfirmationMessage: string;
+  /**
+   * A sample help message provided to users.
+   */
+  helpMessageSample: string;
+  /**
+   * The URL to the privacy policy for the business or organization.
+   */
+  privacyPolicyUrl: string;
+  /**
+   * The URL to the terms and conditions for the business or organization.
+   */
+  termsAndConditionsUrl: string;
+  /**
+   * Indicates if the content is age gated.
+   */
+  ageGatedContent: boolean;
+  /**
+   * List of keywords that users can text in to opt in to receive messages.
+   */
+  optInKeywords: Array<string>;
   /**
    * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
    */
@@ -768,12 +848,25 @@ export class TollfreeVerificationInstance {
       messageVolume: this.messageVolume,
       additionalInformation: this.additionalInformation,
       tollfreePhoneNumberSid: this.tollfreePhoneNumberSid,
+      tollfreePhoneNumber: this.tollfreePhoneNumber,
       status: this.status,
       url: this.url,
       rejectionReason: this.rejectionReason,
       errorCode: this.errorCode,
       editExpiration: this.editExpiration,
       editAllowed: this.editAllowed,
+      businessRegistrationNumber: this.businessRegistrationNumber,
+      businessRegistrationAuthority: this.businessRegistrationAuthority,
+      businessRegistrationCountry: this.businessRegistrationCountry,
+      businessType: this.businessType,
+      businessRegistrationPhoneNumber: this.businessRegistrationPhoneNumber,
+      doingBusinessAs: this.doingBusinessAs,
+      optInConfirmationMessage: this.optInConfirmationMessage,
+      helpMessageSample: this.helpMessageSample,
+      privacyPolicyUrl: this.privacyPolicyUrl,
+      termsAndConditionsUrl: this.termsAndConditionsUrl,
+      ageGatedContent: this.ageGatedContent,
+      optInKeywords: this.optInKeywords,
       rejectionReasons: this.rejectionReasons,
       resourceLinks: this.resourceLinks,
       externalReferenceId: this.externalReferenceId,

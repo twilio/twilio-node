@@ -18,10 +18,78 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+export class CallForwarding {
+  "callForwardingEnabled"?: boolean;
+  "errorCode"?: number;
+}
+
+export class CallerName {
+  "callerName"?: string;
+  "callerType"?: string;
+  "errorCode"?: number;
+}
+
+export class IdentityMatch {
+  "firstNameMatch"?: string;
+  "lastNameMatch"?: string;
+  "addressLinesMatch"?: string;
+  "cityMatch"?: string;
+  "stateMatch"?: string;
+  "postalCodeMatch"?: string;
+  "addressCountryMatch"?: string;
+  "nationalIdMatch"?: string;
+  "dateOfBirthMatch"?: string;
+  "summaryScore"?: number;
+  "errorCode"?: number;
+  "errorMessage"?: string;
+}
+
+export class LastSimSwap {
+  "lastSimSwapDate"?: Date;
+  "swappedPeriod"?: string;
+  "swappedInPeriod"?: boolean;
+}
+
+export class LineStatus {
+  "status"?: string;
+  "errorCode"?: number;
+}
+
+export class LineTypeIntelligence {
+  "mobileCountryCode"?: string;
+  "mobileNetworkCode"?: string;
+  "carrierName"?: string;
+  "type"?: string;
+  "errorCode"?: number;
+}
+
+export class ReassignedNumber {
+  "lastVerifiedDate"?: string;
+  "isNumberReassigned"?: string;
+  "errorCode"?: string;
+}
+
+export class SimSwap {
+  "lastSimSwap"?: LastSimSwap;
+  "carrierName"?: string;
+  "mobileCountryCode"?: string;
+  "mobileNetworkCode"?: string;
+  "errorCode"?: number;
+}
+
+export class SmsPumpingRisk {
+  "carrierRiskCategory"?: string;
+  "numberBlocked"?: boolean;
+  "numberBlockedDate"?: Date;
+  "numberBlockedLast3Months"?: boolean;
+  "smsPumpingRiskScore"?: number;
+  "errorCode"?: number;
+}
+
 /**
  * Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
  */
-export type PhoneNumberValidationError =
+export type ValidationError =
   | "TOO_SHORT"
   | "TOO_LONG"
   | "INVALID_BUT_POSSIBLE"
@@ -205,15 +273,15 @@ interface PhoneNumberResource {
   phone_number: string;
   national_format: string;
   valid: boolean;
-  validation_errors: Array<PhoneNumberValidationError>;
-  caller_name: any;
-  sim_swap: any;
-  call_forwarding: any;
-  line_status: any;
-  line_type_intelligence: any;
-  identity_match: any;
-  reassigned_number: any;
-  sms_pumping_risk: any;
+  validation_errors: Array<ValidationError>;
+  caller_name: CallerName;
+  sim_swap: SimSwap;
+  call_forwarding: CallForwarding;
+  line_type_intelligence: LineTypeIntelligence;
+  line_status: LineStatus;
+  identity_match: IdentityMatch;
+  reassigned_number: ReassignedNumber;
+  sms_pumping_risk: SmsPumpingRisk;
   phone_number_quality_score: any;
   pre_fill: any;
   url: string;
@@ -237,8 +305,8 @@ export class PhoneNumberInstance {
     this.callerName = payload.caller_name;
     this.simSwap = payload.sim_swap;
     this.callForwarding = payload.call_forwarding;
-    this.lineStatus = payload.line_status;
     this.lineTypeIntelligence = payload.line_type_intelligence;
+    this.lineStatus = payload.line_status;
     this.identityMatch = payload.identity_match;
     this.reassignedNumber = payload.reassigned_number;
     this.smsPumpingRisk = payload.sms_pumping_risk;
@@ -272,39 +340,15 @@ export class PhoneNumberInstance {
   /**
    * Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
    */
-  validationErrors: Array<PhoneNumberValidationError>;
-  /**
-   * An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
-   */
-  callerName: any;
-  /**
-   * An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
-   */
-  simSwap: any;
-  /**
-   * An object that contains information on the unconditional call forwarding status of mobile phone number.
-   */
-  callForwarding: any;
-  /**
-   * An object that contains line status information for a mobile phone number.
-   */
-  lineStatus: any;
-  /**
-   * An object that contains line type information including the carrier name, mobile country code, and mobile network code.
-   */
-  lineTypeIntelligence: any;
-  /**
-   * An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
-   */
-  identityMatch: any;
-  /**
-   * An object that contains reassigned number information. Reassigned Numbers will return a phone number\'s reassignment status given a phone number and date
-   */
-  reassignedNumber: any;
-  /**
-   * An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
-   */
-  smsPumpingRisk: any;
+  validationErrors: Array<ValidationError>;
+  callerName: CallerName;
+  simSwap: SimSwap;
+  callForwarding: CallForwarding;
+  lineTypeIntelligence: LineTypeIntelligence;
+  lineStatus: LineStatus;
+  identityMatch: IdentityMatch;
+  reassignedNumber: ReassignedNumber;
+  smsPumpingRisk: SmsPumpingRisk;
   /**
    * An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
    */
@@ -371,8 +415,8 @@ export class PhoneNumberInstance {
       callerName: this.callerName,
       simSwap: this.simSwap,
       callForwarding: this.callForwarding,
-      lineStatus: this.lineStatus,
       lineTypeIntelligence: this.lineTypeIntelligence,
+      lineStatus: this.lineStatus,
       identityMatch: this.identityMatch,
       reassignedNumber: this.reassignedNumber,
       smsPumpingRisk: this.smsPumpingRisk,

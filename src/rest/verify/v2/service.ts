@@ -20,9 +20,12 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { AccessTokenListInstance } from "./service/accessToken";
+import { ApproveChallengeListInstance } from "./service/approveChallenge";
 import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
+import { NewChallengeListInstance } from "./service/newChallenge";
 import { NewFactorListInstance } from "./service/newFactor";
+import { NewVerifyFactorListInstance } from "./service/newVerifyFactor";
 import { RateLimitListInstance } from "./service/rateLimit";
 import { VerificationListInstance } from "./service/verification";
 import { VerificationCheckListInstance } from "./service/verificationCheck";
@@ -181,9 +184,12 @@ export interface ServiceListInstancePageOptions {
 
 export interface ServiceContext {
   accessTokens: AccessTokenListInstance;
+  approveChallenge: ApproveChallengeListInstance;
   entities: EntityListInstance;
   messagingConfigurations: MessagingConfigurationListInstance;
+  newChallenge: NewChallengeListInstance;
   newFactors: NewFactorListInstance;
+  newVerifyFactors: NewVerifyFactorListInstance;
   rateLimits: RateLimitListInstance;
   verifications: VerificationListInstance;
   verificationChecks: VerificationCheckListInstance;
@@ -250,9 +256,12 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _accessTokens?: AccessTokenListInstance;
+  protected _approveChallenge?: ApproveChallengeListInstance;
   protected _entities?: EntityListInstance;
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
+  protected _newChallenge?: NewChallengeListInstance;
   protected _newFactors?: NewFactorListInstance;
+  protected _newVerifyFactors?: NewVerifyFactorListInstance;
   protected _rateLimits?: RateLimitListInstance;
   protected _verifications?: VerificationListInstance;
   protected _verificationChecks?: VerificationCheckListInstance;
@@ -274,6 +283,13 @@ export class ServiceContextImpl implements ServiceContext {
     return this._accessTokens;
   }
 
+  get approveChallenge(): ApproveChallengeListInstance {
+    this._approveChallenge =
+      this._approveChallenge ||
+      ApproveChallengeListInstance(this._version, this._solution.sid);
+    return this._approveChallenge;
+  }
+
   get entities(): EntityListInstance {
     this._entities =
       this._entities || EntityListInstance(this._version, this._solution.sid);
@@ -287,11 +303,25 @@ export class ServiceContextImpl implements ServiceContext {
     return this._messagingConfigurations;
   }
 
+  get newChallenge(): NewChallengeListInstance {
+    this._newChallenge =
+      this._newChallenge ||
+      NewChallengeListInstance(this._version, this._solution.sid);
+    return this._newChallenge;
+  }
+
   get newFactors(): NewFactorListInstance {
     this._newFactors =
       this._newFactors ||
       NewFactorListInstance(this._version, this._solution.sid);
     return this._newFactors;
+  }
+
+  get newVerifyFactors(): NewVerifyFactorListInstance {
+    this._newVerifyFactors =
+      this._newVerifyFactors ||
+      NewVerifyFactorListInstance(this._version, this._solution.sid);
+    return this._newVerifyFactors;
   }
 
   get rateLimits(): RateLimitListInstance {
@@ -686,6 +716,13 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the approveChallenge.
+   */
+  approveChallenge(): ApproveChallengeListInstance {
+    return this._proxy.approveChallenge;
+  }
+
+  /**
    * Access the entities.
    */
   entities(): EntityListInstance {
@@ -700,10 +737,24 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the newChallenge.
+   */
+  newChallenge(): NewChallengeListInstance {
+    return this._proxy.newChallenge;
+  }
+
+  /**
    * Access the newFactors.
    */
   newFactors(): NewFactorListInstance {
     return this._proxy.newFactors;
+  }
+
+  /**
+   * Access the newVerifyFactors.
+   */
+  newVerifyFactors(): NewVerifyFactorListInstance {
+    return this._proxy.newVerifyFactors;
   }
 
   /**

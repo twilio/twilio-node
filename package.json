@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "5.10.0",
+  "version": "5.10.2",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -49,16 +49,13 @@
     "typedoc": "^0.28.11"
   },
   "scripts": {
-    "test": "npm run test:javascript && npm run test:typescript && npm run test:esm",
+    "test": "npm run test:javascript && npm run test:typescript",
     "test:javascript": "jest spec --coverage --detectOpenHandles --testPathIgnorePatterns=spec/cluster",
     "test:typescript": "tsc --noEmit",
-    "test:esm": "node scripts/verify-esm.js",
     "jshint": "jshint src/rest/** src/base/** src/http/**",
     "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
     "prepublish": "npm run build",
-    "build": "npm run build:cjs && npm run build:esm && npm run prettier",
-    "build:cjs": "tsc",
-    "build:esm": "node scripts/build-esm.js",
+    "build": "tsc",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "nsp": "npm audit --production",
@@ -68,12 +65,10 @@
   },
   "files": [
     "lib",
-    "lib-esm",
     "index.js",
     "index.d.ts"
   ],
   "main": "./lib",
-  "module": "./lib-esm/index.js",
   "types": "./index.d.ts",
   "exports": {
     ".": {

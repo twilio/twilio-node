@@ -13,39 +13,84 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
+import V2 from "../../V2";
+const deserialize = require("../../../../base/deserialize");
+const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
-export class CreatePasskeysChallengeRequest {
-  "identity"?: string;
-  "factorSid"?: string;
+export class ApprovePasskeysChallengeRequest {
+  /**
+   * A [base64url](https://base64.guru/standards/base64url) encoded representation of `rawId`.
+   */
+  "id": string;
+  /**
+   * The globally unique identifier for this `PublicKeyCredential`.
+   */
+  "rawId": string;
+  /**
+   * A string that indicates the mechanism by which the WebAuthn implementation is attached to the authenticator at the time the associated `navigator.credentials.create()` or `navigator.credentials.get()` call completes.
+   */
+  "authenticatorAttachment": string;
+  /**
+   * The valid credential types supported by the API. The values of this enumeration are used for versioning the `AuthenticatorAssertion` and `AuthenticatorAttestation` structures according to the type of the authenticator.
+   */
+  "type"?: string;
+  "response": ApprovePasskeysChallengeRequestResponse;
 }
 
 /**
- * Options to pass to create a NewChallengeInstance
+ * The result of a WebAuthn authentication via a `navigator.credentials.get()` request, as specified in [AuthenticatorAttestationResponse](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse).
  */
-export interface NewChallengeContextCreateOptions {
-  /**  */
-  createPasskeysChallengeRequest: CreatePasskeysChallengeRequest;
+export class ApprovePasskeysChallengeRequestResponse {
+  /**
+   * The [authenticator data](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API/Authenticator_data) structure contains information from the authenticator about the processing of a credential creation or authentication request.
+   */
+  "authenticatorData": string;
+  /**
+   * This property contains the JSON-compatible serialization of the data passed from the browser to the authenticator in order to generate this credential.
+   */
+  "clientDataJSON": string;
+  /**
+   * An assertion signature over `authenticatorData` and `clientDataJSON`. The assertion signature is created with the private key of the key pair that was created during the originating `navigator.credentials.create()` call and verified using the public key of that same key pair.
+   */
+  "signature": string;
+  /**
+   * The user handle stored in the authenticator, specified as `user.id` in the options passed to the originating `navigator.credentials.create()` call. This property should contain a base64url-encoded entity SID.
+   */
+  "userHandle"?: string;
 }
 
-export interface NewChallengeContext {
+/**
+ * Options to pass to update a ApproveChallengeInstance
+ */
+export interface ApproveChallengeListInstanceUpdateOptions {
+  /**  */
+  approvePasskeysChallengeRequest: ApprovePasskeysChallengeRequest;
+}
+
+export interface ApproveChallengeSolution {
+  serviceSid: string;
+}
+
+export interface ApproveChallengeListInstance {
+  _version: V2;
+  _solution: ApproveChallengeSolution;
+  _uri: string;
+
   /**
-   * Create a NewChallengeInstance
+   * Update a ApproveChallengeInstance
    *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed NewChallengeInstance
+   * @returns Resolves to processed ApproveChallengeInstance
    */
-  create(
-    params: CreatePasskeysChallengeRequest,
+  update(
+    params: ApprovePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance>;
+    callback?: (error: Error | null, item?: ApproveChallengeInstance) => any
+  ): Promise<ApproveChallengeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -54,28 +99,25 @@ export interface NewChallengeContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NewChallengeContextSolution {
-  serviceSid: string;
-}
-
-export class NewChallengeContextImpl implements NewChallengeContext {
-  protected _solution: NewChallengeContextSolution;
-  protected _uri: string;
-
-  constructor(protected _version: V2, serviceSid: string) {
-    if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
-    }
-
-    this._solution = { serviceSid };
-    this._uri = `/Services/${serviceSid}/Passkeys/Challenges`;
+export function ApproveChallengeListInstance(
+  version: V2,
+  serviceSid: string
+): ApproveChallengeListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  create(
-    params: CreatePasskeysChallengeRequest,
+  const instance = {} as ApproveChallengeListInstance;
+
+  instance._version = version;
+  instance._solution = { serviceSid };
+  instance._uri = `/Services/${serviceSid}/Passkeys/ApproveChallenge`;
+
+  instance.update = function update(
+    params: ApprovePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance> {
+    callback?: (error: Error | null, items: ApproveChallengeInstance) => any
+  ): Promise<ApproveChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -91,9 +133,8 @@ export class NewChallengeContextImpl implements NewChallengeContext {
     headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
-    const instance = this;
-    let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
+    let operationVersion = version,
+      operationPromise = operationVersion.update({
         uri: instance._uri,
         method: "post",
         data,
@@ -102,7 +143,7 @@ export class NewChallengeContextImpl implements NewChallengeContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NewChallengeInstance(
+        new ApproveChallengeInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid
@@ -114,25 +155,25 @@ export class NewChallengeContextImpl implements NewChallengeContext {
       callback
     );
     return operationPromise;
-  }
+  };
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
+  instance.toJSON = function toJSON() {
+    return instance._solution;
+  };
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
+    return inspect(instance.toJSON(), options);
+  };
+
+  return instance;
 }
 
-interface NewChallengePayload extends NewChallengeResource {}
+interface ApproveChallengePayload extends ApproveChallengeResource {}
 
-interface NewChallengeResource {
+interface ApproveChallengeResource {
   options: Record<string, object>;
   sid: string;
   account_sid: string;
@@ -154,14 +195,11 @@ interface NewChallengeResource {
   links: Record<string, string>;
 }
 
-export class NewChallengeInstance {
-  protected _solution: NewChallengeContextSolution;
-  protected _context?: NewChallengeContext;
-
+export class ApproveChallengeInstance {
   constructor(
     protected _version: V2,
-    payload: NewChallengeResource,
-    serviceSid?: string
+    payload: ApproveChallengeResource,
+    serviceSid: string
   ) {
     this.options = payload.options;
     this.sid = payload.sid;
@@ -182,8 +220,6 @@ export class NewChallengeInstance {
     this.factorType = payload.factor_type;
     this.url = payload.url;
     this.links = payload.links;
-
-    this._solution = { serviceSid: serviceSid || this.serviceSid };
   }
 
   /**
@@ -263,35 +299,6 @@ export class NewChallengeInstance {
    */
   links: Record<string, string>;
 
-  private get _proxy(): NewChallengeContext {
-    this._context =
-      this._context ||
-      new NewChallengeContextImpl(this._version, this._solution.serviceSid);
-    return this._context;
-  }
-
-  /**
-   * Create a NewChallengeInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed NewChallengeInstance
-   */
-  create(
-    params: CreatePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance>;
-
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance> {
-    return this._proxy.create(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -324,49 +331,4 @@ export class NewChallengeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-
-export interface NewChallengeSolution {}
-
-export interface NewChallengeListInstance {
-  _version: V2;
-  _solution: NewChallengeSolution;
-  _uri: string;
-
-  (serviceSid: string): NewChallengeContext;
-  get(serviceSid: string): NewChallengeContext;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export function NewChallengeListInstance(
-  version: V2
-): NewChallengeListInstance {
-  const instance = ((serviceSid) =>
-    instance.get(serviceSid)) as NewChallengeListInstance;
-
-  instance.get = function get(serviceSid): NewChallengeContext {
-    return new NewChallengeContextImpl(version, serviceSid);
-  };
-
-  instance._version = version;
-  instance._solution = {};
-  instance._uri = ``;
-
-  instance.toJSON = function toJSON() {
-    return instance._solution;
-  };
-
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
-    return inspect(instance.toJSON(), options);
-  };
-
-  return instance;
 }
