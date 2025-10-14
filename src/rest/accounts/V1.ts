@@ -18,6 +18,7 @@ import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
 import { BulkConsentsListInstance } from "./v1/bulkConsents";
 import { BulkContactsListInstance } from "./v1/bulkContacts";
 import { CredentialListInstance } from "./v1/credential";
+import { MessagingGeopermissionsListInstance } from "./v1/messagingGeopermissions";
 import { SafelistListInstance } from "./v1/safelist";
 import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken";
 
@@ -39,6 +40,8 @@ export default class V1 extends Version {
   protected _bulkContacts?: BulkContactsListInstance;
   /** credentials - { Twilio.Accounts.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** messagingGeopermissions - { Twilio.Accounts.V1.MessagingGeopermissionsListInstance } resource */
+  protected _messagingGeopermissions?: MessagingGeopermissionsListInstance;
   /** safelist - { Twilio.Accounts.V1.SafelistListInstance } resource */
   protected _safelist?: SafelistListInstance;
   /** secondaryAuthToken - { Twilio.Accounts.V1.SecondaryAuthTokenListInstance } resource */
@@ -67,6 +70,14 @@ export default class V1 extends Version {
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
+  }
+
+  /** Getter for messagingGeopermissions resource */
+  get messagingGeopermissions(): MessagingGeopermissionsListInstance {
+    this._messagingGeopermissions =
+      this._messagingGeopermissions ||
+      MessagingGeopermissionsListInstance(this);
+    return this._messagingGeopermissions;
   }
 
   /** Getter for safelist resource */

@@ -322,6 +322,7 @@ interface PortingPortInResource {
   auto_cancel_approval_numbers: string;
   documents: Array<string>;
   date_created: Date;
+  support_ticket_id: number;
 }
 
 export class PortingPortInInstance {
@@ -351,6 +352,7 @@ export class PortingPortInInstance {
     this.autoCancelApprovalNumbers = payload.auto_cancel_approval_numbers;
     this.documents = payload.documents;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.supportTicketId = deserialize.integer(payload.support_ticket_id);
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,
@@ -412,6 +414,10 @@ export class PortingPortInInstance {
    */
   documents: Array<string>;
   dateCreated: Date;
+  /**
+   * Unique ID of the request\'s support ticket
+   */
+  supportTicketId: number;
 
   private get _proxy(): PortingPortInContext {
     this._context =
@@ -472,6 +478,7 @@ export class PortingPortInInstance {
       autoCancelApprovalNumbers: this.autoCancelApprovalNumbers,
       documents: this.documents,
       dateCreated: this.dateCreated,
+      supportTicketId: this.supportTicketId,
     };
   }
 
