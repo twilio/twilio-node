@@ -3,8 +3,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 9 * * *'
-permissions:
-  issues: write # to close stale issues
+permissions: # to close stale issues
+  issues: write
+  contents: read
+  actions: write
+
 
 jobs:
   stale:
