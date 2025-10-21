@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2025-10-14] Version 5.10.3
+---------------------------
+**Api**
+- Updated description for property `CallerDisplayName` for participant create request
+- Updated description for property `CallerDisplayName` for participant create request
+
+**Accounts**
+- FILE_IS_AUTO_GENERATED: false
+
+
 [2025-09-30] Version 5.10.2
 ---------------------------
 **Library - Chore**

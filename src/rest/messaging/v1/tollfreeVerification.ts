@@ -87,6 +87,30 @@ export interface TollfreeVerificationContextUpdateOptions {
   businessContactPhone?: string;
   /** Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to \\\'Website fixed\\\'. */
   editReason?: string;
+  /** A legaly recognized business registration number */
+  businessRegistrationNumber?: string;
+  /** The organizational authority for business registrations */
+  businessRegistrationAuthority?: string;
+  /** Country business is registered in */
+  businessRegistrationCountry?: string;
+  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT */
+  businessType?: string;
+  /** The E.164 formatted number associated with the business. */
+  businessRegistrationPhoneNumber?: string;
+  /** Trade name, sub entity, or downstream business name of business being submitted for verification */
+  doingBusinessAs?: string;
+  /** The confirmation message sent to users when they opt in to receive messages. */
+  optInConfirmationMessage?: string;
+  /** A sample help message provided to users. */
+  helpMessageSample?: string;
+  /** The URL to the privacy policy for the business or organization. */
+  privacyPolicyUrl?: string;
+  /** The URL to the terms and conditions for the business or organization. */
+  termsAndConditionsUrl?: string;
+  /** Indicates if the content is age gated. */
+  ageGatedContent?: boolean;
+  /** List of keywords that users can text in to opt in to receive messages. */
+  optInKeywords?: Array<string>;
 }
 
 /**
@@ -139,6 +163,30 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessContactPhone?: string;
   /** An optional external reference ID supplied by customer and echoed back on status retrieval. */
   externalReferenceId?: string;
+  /** A legally recognized business registration number */
+  businessRegistrationNumber?: string;
+  /** The organizational authority for business registrations */
+  businessRegistrationAuthority?: string;
+  /** Country business is registered in */
+  businessRegistrationCountry?: string;
+  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT */
+  businessType?: string;
+  /** The E.164 formatted number associated with the business. */
+  businessRegistrationPhoneNumber?: string;
+  /** Trade name, sub entity, or downstream business name of business being submitted for verification */
+  doingBusinessAs?: string;
+  /** The confirmation message sent to users when they opt in to receive messages. */
+  optInConfirmationMessage?: string;
+  /** A sample help message provided to users. */
+  helpMessageSample?: string;
+  /** The URL to the privacy policy for the business or organization. */
+  privacyPolicyUrl?: string;
+  /** The URL to the terms and conditions for the business or organization. */
+  termsAndConditionsUrl?: string;
+  /** Indicates if the content is age gated. */
+  ageGatedContent?: boolean;
+  /** List of keywords that users can text in to opt in to receive messages. */
+  optInKeywords?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -389,6 +437,36 @@ export class TollfreeVerificationContextImpl
       data["BusinessContactPhone"] = params["businessContactPhone"];
     if (params["editReason"] !== undefined)
       data["EditReason"] = params["editReason"];
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["businessRegistrationPhoneNumber"] !== undefined)
+      data["BusinessRegistrationPhoneNumber"] =
+        params["businessRegistrationPhoneNumber"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -726,7 +804,7 @@ export class TollfreeVerificationInstance {
    */
   privacyPolicyUrl: string;
   /**
-   * The URL to the terms and conditions for the business or organization.
+   * The URL of the terms and conditions for the business or organization.
    */
   termsAndConditionsUrl: string;
   /**
@@ -734,7 +812,7 @@ export class TollfreeVerificationInstance {
    */
   ageGatedContent: boolean;
   /**
-   * List of keywords that users can text in to opt in to receive messages.
+   * List of keywords that users can send to opt in or out of messages.
    */
   optInKeywords: Array<string>;
   /**
@@ -1148,6 +1226,36 @@ export function TollfreeVerificationListInstance(
       data["BusinessContactPhone"] = params["businessContactPhone"];
     if (params["externalReferenceId"] !== undefined)
       data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["businessRegistrationPhoneNumber"] !== undefined)
+      data["BusinessRegistrationPhoneNumber"] =
+        params["businessRegistrationPhoneNumber"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
