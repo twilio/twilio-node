@@ -32,7 +32,8 @@ export type InteractionChannelChannelStatus =
   | "failed"
   | "closed"
   | "inactive"
-  | "pause";
+  | "pause"
+  | "transfer";
 
 /**
  * The Interaction Channel\'s type. Can be: `sms`, `email`, `chat`, `whatsapp`, `web`, `messenger`, or `gbm`.   **Note:** These can be different from the task channel type specified in the Routing attributes. Task channel type corresponds to channel capacity while this channel type is the actual media type

@@ -289,8 +289,8 @@ export class MessagingV2RcsComplianceCountryResponse {
   /**
    * The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
    */
-  "registrationSid": string;
-  "status": MessagingV2RcsCountryStatus;
+  "registrationSid"?: string;
+  "status"?: MessagingV2RcsCountryStatus;
   "carriers"?: Array<MessagingV2RcsCarrier>;
 }
 
@@ -305,7 +305,7 @@ export class MessagingV2RcsComplianceResponse {
   /**
    * A list of country-specific compliance details.
    */
-  "countries": Array<MessagingV2RcsComplianceCountryResponse>;
+  "countries"?: Array<MessagingV2RcsComplianceCountryResponse>;
 }
 
 /**

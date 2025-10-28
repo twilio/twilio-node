@@ -254,11 +254,11 @@ interface SentencePayload extends TwilioResponsePayload {
 interface SentenceResource {
   media_channel: number;
   sentence_index: number;
-  start_time: number;
-  end_time: number;
+  start_time: string;
+  end_time: string;
   transcript: string;
   sid: string;
-  confidence: number;
+  confidence: string;
   words: Array<any>;
 }
 
@@ -289,11 +289,11 @@ export class SentenceInstance {
   /**
    * Offset from the beginning of the transcript when this sentence starts.
    */
-  startTime: number;
+  startTime: string;
   /**
    * Offset from the beginning of the transcript when this sentence ends.
    */
-  endTime: number;
+  endTime: string;
   /**
    * Transcript text.
    */
@@ -302,7 +302,7 @@ export class SentenceInstance {
    * A 34 character string that uniquely identifies this Sentence.
    */
   sid: string;
-  confidence: number;
+  confidence: string;
   /**
    * Detailed information for each of the words of the given Sentence.
    */
