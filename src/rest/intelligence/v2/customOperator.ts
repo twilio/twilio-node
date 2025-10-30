@@ -27,7 +27,9 @@ export type CustomOperatorAvailability =
   | "internal"
   | "beta"
   | "public"
-  | "retired";
+  | "retired"
+  | "general-availability"
+  | "deprecated";
 
 /**
  * Options to pass to update a CustomOperatorInstance

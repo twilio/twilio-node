@@ -21,12 +21,12 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
 /**
- * The status of the User on the Channel. Can be: `joined`, `invited`, or `not_participating`.
+ * The status of the User on the Channel. Can be: `joined`, `invited`, or `notParticipating`.
  */
 export type UserChannelChannelStatus =
   | "joined"
   | "invited"
-  | "not_participating";
+  | "notParticipating";
 
 /**
  * The push notification level of the User for the Channel. Can be: `default` or `muted`.
@@ -58,7 +58,7 @@ export interface UserChannelContextUpdateOptions {
  * Options to pass to each
  */
 export interface UserChannelListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
@@ -72,7 +72,7 @@ export interface UserChannelListInstanceEachOptions {
  * Options to pass to list
  */
 export interface UserChannelListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -82,7 +82,7 @@ export interface UserChannelListInstanceOptions {
  * Options to pass to page
  */
 export interface UserChannelListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;

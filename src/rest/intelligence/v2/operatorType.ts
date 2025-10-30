@@ -37,7 +37,8 @@ export type OperatorTypeOutputType =
   | "text-classification"
   | "text-extraction"
   | "text-extraction-normalized"
-  | "text-generation";
+  | "text-generation"
+  | "json";
 
 /**
  * Operators with this Operator Type are executed using this provider. Possible values: twilio, amazon, openai.
