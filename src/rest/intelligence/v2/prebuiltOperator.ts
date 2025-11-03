@@ -27,7 +27,8 @@ export type PrebuiltOperatorAvailability =
   | "internal"
   | "beta"
   | "public"
-  | "retired";
+  | "retired"
+  | "general-availability";
 
 /**
  * Options to pass to each

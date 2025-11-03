@@ -33,7 +33,8 @@ export type TranscriptStatus =
   | "in-progress"
   | "completed"
   | "failed"
-  | "canceled";
+  | "canceled"
+  | "error";
 
 /**
  * Options to pass to create a TranscriptInstance

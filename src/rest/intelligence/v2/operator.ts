@@ -23,7 +23,13 @@ import { isValidPathParam } from "../../../base/utility";
 /**
  * Operator availability status. Possible values: internal, beta, public, retired.
  */
-export type OperatorAvailability = "internal" | "beta" | "public" | "retired";
+export type OperatorAvailability =
+  | "internal"
+  | "beta"
+  | "public"
+  | "deprecated"
+  | "general-availability"
+  | "retired";
 
 /**
  * Options to pass to each
