@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Describe how a user opts-in to text messages.
+ */
 export type ComplianceTollfreeInquiriesOptInType =
   | "VERBAL"
   | "WEB_FORM"

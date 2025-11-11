@@ -18,11 +18,17 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The type of business identity.  Can be `direct customer` or `ISV`.
+ */
 export type ComplianceRegistrationInquiriesBusinessIdentityType =
   | "direct_customer"
   | "isv_reseller_or_partner"
   | "unknown";
 
+/**
+ * The authority that registered the business
+ */
 export type ComplianceRegistrationInquiriesBusinessRegistrationAuthority =
   | "UK:CRN"
   | "US:EIN"
@@ -30,10 +36,16 @@ export type ComplianceRegistrationInquiriesBusinessRegistrationAuthority =
   | "AU:ACN"
   | "Other";
 
+/**
+ * The type of End User the regulation requires - can be `Individual` or `Business`.
+ */
 export type ComplianceRegistrationInquiriesEndUserType =
   | "Individual"
   | "Business";
 
+/**
+ * The type of phone number of the Bundle\'s ownership request.  Can be `local`, `mobile`, `national`, or `toll-free`.
+ */
 export type ComplianceRegistrationInquiriesPhoneNumberType =
   | "local"
   | "national"

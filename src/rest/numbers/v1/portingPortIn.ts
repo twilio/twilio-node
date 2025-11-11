@@ -323,6 +323,7 @@ interface PortingPortInResource {
   documents: Array<string>;
   date_created: Date;
   support_ticket_id: number;
+  signature_request_url: string;
 }
 
 export class PortingPortInInstance {
@@ -353,6 +354,7 @@ export class PortingPortInInstance {
     this.documents = payload.documents;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.supportTicketId = deserialize.integer(payload.support_ticket_id);
+    this.signatureRequestUrl = payload.signature_request_url;
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,
@@ -418,6 +420,7 @@ export class PortingPortInInstance {
    * Unique ID of the request\'s support ticket
    */
   supportTicketId: number;
+  signatureRequestUrl: string;
 
   private get _proxy(): PortingPortInContext {
     this._context =
@@ -479,6 +482,7 @@ export class PortingPortInInstance {
       documents: this.documents,
       dateCreated: this.dateCreated,
       supportTicketId: this.supportTicketId,
+      signatureRequestUrl: this.signatureRequestUrl,
     };
   }
 

@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../../base/utility";
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
 
+/**
+ * Determines if the address can be stored or obfuscated based on privacy settings
+ */
 export type MessageAddressRetention = "retain" | "obfuscate";
 
+/**
+ * Determines if the message content can be stored or redacted based on privacy settings
+ */
 export type MessageContentRetention = "retain" | "discard";
 
 /**
@@ -35,8 +41,14 @@ export type MessageDirection =
   | "outbound-call"
   | "outbound-reply";
 
+/**
+ * Include this parameter with a value of `disable` to skip any kind of risk check on the respective message request.
+ */
 export type MessageRiskCheck = "enable" | "disable";
 
+/**
+ * For Messaging Services only: Include this parameter with a value of `fixed` in conjuction with the `send_time` parameter in order to [schedule a Message](https://www.twilio.com/docs/messaging/features/message-scheduling).
+ */
 export type MessageScheduleType = "fixed";
 
 /**

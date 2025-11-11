@@ -32,6 +32,7 @@ export type TranscriptStatus =
   | "queued"
   | "in-progress"
   | "completed"
+  | "new"
   | "failed"
   | "canceled"
   | "error";

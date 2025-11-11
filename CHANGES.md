@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+[2025-11-11] Version 5.10.5
+---------------------------
+**Twiml**
+- Add new noun `<ConversationRelaySession>`
+- Add support for `<Recording>` noun under `<Start>` verb
+
+
 [2025-10-28] Version 5.10.4
 ---------------------------
 **Ai**

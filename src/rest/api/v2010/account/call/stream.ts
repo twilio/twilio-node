@@ -23,6 +23,9 @@ import { isValidPathParam } from "../../../../../base/utility";
  */
 export type StreamStatus = "in-progress" | "stopped";
 
+/**
+ * The tracks to be included in the Stream. Possible values are `inbound_track`, `outbound_track`, `both_tracks`. Default value is `inbound_track`.
+ */
 export type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
 export type StreamUpdateStatus = "stopped";

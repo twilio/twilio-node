@@ -127,7 +127,7 @@ export class ListItem {
 }
 
 export class QuickReplyAction {
-  "type": QuickReplyActionType;
+  "type"?: QuickReplyActionType;
   "title": string;
   "id"?: string;
 }
@@ -146,7 +146,7 @@ export class TwilioCallToAction {
  * twilio/card is a structured template which can be used to send a series of related information. It must include a title and at least one additional field.
  */
 export class TwilioCard {
-  "title": string;
+  "title"?: string;
   "subtitle"?: string;
   "media"?: Array<string>;
   "actions"?: Array<CardAction>;
@@ -178,8 +178,8 @@ export class TwilioCatalog {
 export class TwilioFlows {
   "body": string;
   "buttonText": string;
-  "subtitle": string;
-  "mediaUrl": string;
+  "subtitle"?: string;
+  "mediaUrl"?: string;
   "pages": Array<FlowsPage>;
   "type": string;
 }

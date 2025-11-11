@@ -18,18 +18,18 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export class CallForwarding {
+export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
   "errorCode"?: number;
 }
 
-export class CallerName {
+export class CallerNameInfo {
   "callerName"?: string;
   "callerType"?: string;
   "errorCode"?: number;
 }
 
-export class IdentityMatch {
+export class IdentityMatchInfo {
   "firstNameMatch"?: string;
   "lastNameMatch"?: string;
   "addressLinesMatch"?: string;
@@ -44,18 +44,18 @@ export class IdentityMatch {
   "errorMessage"?: string;
 }
 
-export class LastSimSwap {
+export class LastSimSwapInfo {
   "lastSimSwapDate"?: Date;
   "swappedPeriod"?: string;
   "swappedInPeriod"?: boolean;
 }
 
-export class LineStatus {
+export class LineStatusInfo {
   "status"?: string;
   "errorCode"?: number;
 }
 
-export class LineTypeIntelligence {
+export class LineTypeIntelligenceInfo {
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
   "carrierName"?: string;
@@ -63,21 +63,21 @@ export class LineTypeIntelligence {
   "errorCode"?: number;
 }
 
-export class ReassignedNumber {
+export class ReassignedNumberInfo {
   "lastVerifiedDate"?: string;
   "isNumberReassigned"?: string;
   "errorCode"?: string;
 }
 
-export class SimSwap {
-  "lastSimSwap"?: LastSimSwap;
+export class SimSwapInfo {
+  "lastSimSwap"?: LastSimSwapInfo;
   "carrierName"?: string;
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
   "errorCode"?: number;
 }
 
-export class SmsPumpingRisk {
+export class SmsPumpingRiskInfo {
   "carrierRiskCategory"?: string;
   "numberBlocked"?: boolean;
   "numberBlockedDate"?: Date;
@@ -274,14 +274,14 @@ interface PhoneNumberResource {
   national_format: string;
   valid: boolean;
   validation_errors: Array<ValidationError>;
-  caller_name: CallerName;
-  sim_swap: SimSwap;
-  call_forwarding: CallForwarding;
-  line_type_intelligence: LineTypeIntelligence;
-  line_status: LineStatus;
-  identity_match: IdentityMatch;
-  reassigned_number: ReassignedNumber;
-  sms_pumping_risk: SmsPumpingRisk;
+  caller_name: CallerNameInfo;
+  sim_swap: SimSwapInfo;
+  call_forwarding: CallForwardingInfo;
+  line_type_intelligence: LineTypeIntelligenceInfo;
+  line_status: LineStatusInfo;
+  identity_match: IdentityMatchInfo;
+  reassigned_number: ReassignedNumberInfo;
+  sms_pumping_risk: SmsPumpingRiskInfo;
   phone_number_quality_score: any;
   pre_fill: any;
   url: string;
@@ -341,14 +341,14 @@ export class PhoneNumberInstance {
    * Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
    */
   validationErrors: Array<ValidationError>;
-  callerName: CallerName;
-  simSwap: SimSwap;
-  callForwarding: CallForwarding;
-  lineTypeIntelligence: LineTypeIntelligence;
-  lineStatus: LineStatus;
-  identityMatch: IdentityMatch;
-  reassignedNumber: ReassignedNumber;
-  smsPumpingRisk: SmsPumpingRisk;
+  callerName: CallerNameInfo;
+  simSwap: SimSwapInfo;
+  callForwarding: CallForwardingInfo;
+  lineTypeIntelligence: LineTypeIntelligenceInfo;
+  lineStatus: LineStatusInfo;
+  identityMatch: IdentityMatchInfo;
+  reassignedNumber: ReassignedNumberInfo;
+  smsPumpingRisk: SmsPumpingRiskInfo;
   /**
    * An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
    */

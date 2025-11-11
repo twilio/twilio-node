@@ -18,18 +18,18 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export class CallForwarding {
+export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
   "errorCode"?: number;
 }
 
-export class CallerName {
+export class CallerNameInfo {
   "callerName"?: string;
   "callerType"?: string;
   "errorCode"?: number;
 }
 
-export class IdentityMatch {
+export class IdentityMatchInfo {
   "firstNameMatch"?: string;
   "lastNameMatch"?: string;
   "addressLinesMatch"?: string;
@@ -57,18 +57,18 @@ export class IdentityMatchParameters {
   "dateOfBirth"?: string;
 }
 
-export class LastSimSwap {
+export class LastSimSwapInfo {
   "lastSimSwapDate"?: Date;
   "swappedPeriod"?: string;
   "swappedInPeriod"?: boolean;
 }
 
-export class LineStatus {
+export class LineStatusInfo {
   "status"?: string;
   "errorCode"?: number;
 }
 
-export class LineTypeIntelligence {
+export class LineTypeIntelligenceInfo {
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
   "carrierName"?: string;
@@ -104,14 +104,14 @@ export class LookupBatchResponse {
   "nationalFormat"?: string;
   "valid"?: boolean;
   "validationErrors"?: Array<string>;
-  "callerName"?: CallerName;
-  "simSwap"?: SimSwap;
-  "callForwarding"?: CallForwarding;
-  "lineTypeIntelligence"?: LineTypeIntelligence;
-  "lineStatus"?: LineStatus;
-  "identityMatch"?: IdentityMatch;
-  "reassignedNumber"?: ReassignedNumber;
-  "smsPumpingRisk"?: SmsPumpingRisk;
+  "callerName"?: CallerNameInfo;
+  "simSwap"?: SimSwapInfo;
+  "callForwarding"?: CallForwardingInfo;
+  "lineTypeIntelligence"?: LineTypeIntelligenceInfo;
+  "lineStatus"?: LineStatusInfo;
+  "identityMatch"?: IdentityMatchInfo;
+  "reassignedNumber"?: ReassignedNumberInfo;
+  "smsPumpingRisk"?: SmsPumpingRiskInfo;
   "phoneNumberQualityScore"?: any | null;
   "preFill"?: any | null;
 }
@@ -120,7 +120,7 @@ export class LookupRequest {
   "phoneNumbers"?: Array<LookupBatchRequest>;
 }
 
-export class ReassignedNumber {
+export class ReassignedNumberInfo {
   "lastVerifiedDate"?: string;
   "isNumberReassigned"?: string;
   "errorCode"?: string;
@@ -134,15 +134,15 @@ export class RiskParameters {
   "partnerSubId"?: string;
 }
 
-export class SimSwap {
-  "lastSimSwap"?: LastSimSwap;
+export class SimSwapInfo {
+  "lastSimSwap"?: LastSimSwapInfo;
   "carrierName"?: string;
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
   "errorCode"?: number;
 }
 
-export class SmsPumpingRisk {
+export class SmsPumpingRiskInfo {
   "carrierRiskCategory"?: string;
   "numberBlocked"?: boolean;
   "numberBlockedDate"?: Date;

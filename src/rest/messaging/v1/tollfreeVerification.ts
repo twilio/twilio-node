@@ -202,6 +202,8 @@ export interface TollfreeVerificationListInstanceEachOptions {
   includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The trust product sids / tollfree bundle sids of tollfree verifications */
+  trustProductSid?: Array<string>;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TollfreeVerificationInstance,
@@ -227,6 +229,8 @@ export interface TollfreeVerificationListInstanceOptions {
   includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The trust product sids / tollfree bundle sids of tollfree verifications */
+  trustProductSid?: Array<string>;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -245,6 +249,8 @@ export interface TollfreeVerificationListInstancePageOptions {
   includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The trust product sids / tollfree bundle sids of tollfree verifications */
+  trustProductSid?: Array<string>;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -1303,6 +1309,11 @@ export function TollfreeVerificationListInstance(
     if (params["includeSubAccounts"] !== undefined)
       data["IncludeSubAccounts"] = serialize.bool(params["includeSubAccounts"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["trustProductSid"] !== undefined)
+      data["TrustProductSid"] = serialize.map(
+        params["trustProductSid"],
+        (e: string) => e
+      );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;

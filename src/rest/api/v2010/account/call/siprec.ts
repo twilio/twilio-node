@@ -23,6 +23,9 @@ import { isValidPathParam } from "../../../../../base/utility";
  */
 export type SiprecStatus = "in-progress" | "stopped";
 
+/**
+ * One of `inbound_track`, `outbound_track`, `both_tracks`.
+ */
 export type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
 export type SiprecUpdateStatus = "stopped";

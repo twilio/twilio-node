@@ -624,6 +624,16 @@ namespace VoiceResponse {
 
   type RecordTrim = "trim-silence" | "do-not-trim";
 
+  type RecordingChannels = "mono" | "dual";
+
+  type RecordingEvent = "in-progress" | "completed" | "absent";
+
+  type RecordingRecordingStatusCallbackMethod = "GET" | "POST";
+
+  type RecordingTrack = "inbound" | "outbound" | "both";
+
+  type RecordingTrim = "trim-silence" | "do-not-trim";
+
   type RejectReason = "rejected" | "busy";
 
   type SayLanguage =
@@ -2173,6 +2183,24 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to recording
+   */
+  export interface RecordingAttributes {
+    /** channels - The recording channels for the final recording */
+    channels?: RecordingChannels;
+    /** recordingStatusCallback - Recording Status Callback URL */
+    recordingStatusCallback?: string;
+    /** recordingStatusCallbackEvent - Recording Status Callback Events */
+    recordingStatusCallbackEvent?: RecordingEvent[];
+    /** recordingStatusCallbackMethod - Recording Status Callback URL method */
+    recordingStatusCallbackMethod?: RecordingRecordingStatusCallbackMethod;
+    /** track - To indicate which audio track should be recorded */
+    track?: RecordingTrack;
+    /** trim - Trim the recording */
+    trim?: RecordingTrim;
+  }
+
+  /**
    * Attributes to pass to say
    */
   export interface SayAttributes {
@@ -3173,6 +3201,16 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to conversationRelaySession
+   */
+  export interface ConversationRelaySessionAttributes {
+    /** connector - The unique name or installed add-on sid that identifies the installed addon resource for the ConversationRelaySession Connector */
+    connector?: string;
+    /** sessionConfiguration - The unique name or id of the ConversationRelaySession  Configuration resource. */
+    sessionConfiguration?: string;
+  }
+
+  /**
    * Attributes to pass to language
    */
   export interface LanguageAttributes {
@@ -3513,6 +3551,18 @@ namespace VoiceResponse {
       );
     }
     /**
+     * <ConversationRelaySession> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    conversationRelaySession(
+      attributes?: VoiceResponse.ConversationRelaySessionAttributes
+    ): VoiceResponse.ConversationRelaySession {
+      return new VoiceResponse.ConversationRelaySession(
+        this.connect.ele("ConversationRelaySession", attributes)
+      );
+    }
+    /**
      * <Room> TwiML Noun
      *
      * @param attributes - TwiML attributes
@@ -3600,6 +3650,18 @@ namespace VoiceResponse {
       return new VoiceResponse.Parameter(
         this.conversationRelay.ele("Parameter", attributes)
       );
+    }
+  }
+
+  export class ConversationRelaySession extends TwiML {
+    conversationRelaySession: XMLElement;
+    /**
+     * <ConversationRelaySession> TwiML Noun
+     */
+    constructor(conversationRelaySession: XMLElement) {
+      super();
+      this.conversationRelaySession = conversationRelaySession;
+      this._propertyName = "conversationRelaySession";
     }
   }
 
@@ -4115,6 +4177,18 @@ namespace VoiceResponse {
       super();
       this.record = record;
       this._propertyName = "record";
+    }
+  }
+
+  export class Recording extends TwiML {
+    recording: XMLElement;
+    /**
+     * <Recording> TwiML Noun
+     */
+    constructor(recording: XMLElement) {
+      super();
+      this.recording = recording;
+      this._propertyName = "recording";
     }
   }
 
@@ -5664,6 +5738,18 @@ namespace VoiceResponse {
       super();
       this.start = start;
       this._propertyName = "start";
+    }
+    /**
+     * <Recording> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    recording(
+      attributes?: VoiceResponse.RecordingAttributes
+    ): VoiceResponse.Recording {
+      return new VoiceResponse.Recording(
+        this.start.ele("Recording", attributes)
+      );
     }
     /**
      * <Siprec> TwiML Noun
