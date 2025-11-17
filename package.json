@@ -70,6 +70,13 @@
   ],
   "main": "./lib",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js"
+    }
+  },
   "engines": {
     "node": ">=14.0"
   },
