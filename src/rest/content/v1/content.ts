@@ -107,6 +107,25 @@ export class ContentCreateRequest {
   "types": Types;
 }
 
+/**
+ * Content update request body
+ */
+export class ContentUpdateRequest {
+  /**
+   * User defined name of the content
+   */
+  "friendlyName"?: string;
+  /**
+   * Key value pairs of variable name to value
+   */
+  "variables"?: { [key: string]: string };
+  /**
+   * Language code for the content
+   */
+  "language"?: string;
+  "types": Types;
+}
+
 export class FlowsPage {
   "id": string;
   "nextPageId"?: string;
@@ -293,6 +312,14 @@ export class WhatsappFlows {
 }
 
 /**
+ * Options to pass to update a ContentInstance
+ */
+export interface ContentContextUpdateOptions {
+  /**  */
+  contentUpdateRequest: ContentUpdateRequest;
+}
+
+/**
  * Options to pass to create a ContentInstance
  */
 export interface ContentListInstanceCreateOptions {
@@ -358,6 +385,21 @@ export interface ContentContext {
    * @returns Resolves to processed ContentInstance
    */
   fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance>;
+
+  /**
+   * Update a ContentInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ContentInstance
+   */
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance>;
 
@@ -433,6 +475,47 @@ export class ContentContextImpl implements ContentContext {
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ContentInstance(operationVersion, payload, instance._solution.sid)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
         headers,
       });
 
@@ -570,6 +653,28 @@ export class ContentInstance {
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a ContentInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ContentInstance
+   */
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
+    return this._proxy.update(params, callback);
   }
 
   /**

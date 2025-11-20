@@ -14,6 +14,7 @@
 
 import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
+import { ApplicationListInstance } from "./v2/application";
 import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument";
 import { BulkHostedNumberOrderListInstance } from "./v2/bulkHostedNumberOrder";
 import { BundleCloneListInstance } from "./v2/bundleClone";
@@ -30,6 +31,8 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** applications - { Twilio.Numbers.V2.ApplicationListInstance } resource */
+  protected _applications?: ApplicationListInstance;
   /** authorizationDocuments - { Twilio.Numbers.V2.AuthorizationDocumentListInstance } resource */
   protected _authorizationDocuments?: AuthorizationDocumentListInstance;
   /** bulkHostedNumberOrders - { Twilio.Numbers.V2.BulkHostedNumberOrderListInstance } resource */
@@ -40,6 +43,12 @@ export default class V2 extends Version {
   protected _hostedNumberOrders?: HostedNumberOrderListInstance;
   /** regulatoryCompliance - { Twilio.Numbers.V2.RegulatoryComplianceListInstance } resource */
   protected _regulatoryCompliance?: RegulatoryComplianceListInstance;
+
+  /** Getter for applications resource */
+  get applications(): ApplicationListInstance {
+    this._applications = this._applications || ApplicationListInstance(this);
+    return this._applications;
+  }
 
   /** Getter for authorizationDocuments resource */
   get authorizationDocuments(): AuthorizationDocumentListInstance {

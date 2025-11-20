@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+[2025-11-20] Version 5.10.6
+---------------------------
+**Memory**
+- # Memory API Changes
+- Added initial Memory API endpoints with darkseagreen badge status
+
+
 [2025-11-11] Version 5.10.5
 ---------------------------
 **Twiml**
