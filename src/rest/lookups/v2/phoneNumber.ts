@@ -267,6 +267,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
+interface LineTypeIntelligenceResource {
+  mobile_country_code?: string;
+  mobile_network_code?: string;
+  carrier_name?: string;
+  type?: string;
+  error_code?: number;
+}
+
 interface PhoneNumberResource {
   calling_country_code: string;
   country_code: string;
@@ -277,7 +285,7 @@ interface PhoneNumberResource {
   caller_name: CallerNameInfo;
   sim_swap: SimSwapInfo;
   call_forwarding: CallForwardingInfo;
-  line_type_intelligence: LineTypeIntelligenceInfo;
+  line_type_intelligence: LineTypeIntelligenceResource;
   line_status: LineStatusInfo;
   identity_match: IdentityMatchInfo;
   reassigned_number: ReassignedNumberInfo;
@@ -305,7 +313,15 @@ export class PhoneNumberInstance {
     this.callerName = payload.caller_name;
     this.simSwap = payload.sim_swap;
     this.callForwarding = payload.call_forwarding;
-    this.lineTypeIntelligence = payload.line_type_intelligence;
+    this.lineTypeIntelligence = payload.line_type_intelligence
+      ? {
+          mobileCountryCode: payload.line_type_intelligence.mobile_country_code,
+          mobileNetworkCode: payload.line_type_intelligence.mobile_network_code,
+          carrierName: payload.line_type_intelligence.carrier_name,
+          type: payload.line_type_intelligence.type,
+          errorCode: payload.line_type_intelligence.error_code,
+        }
+      : undefined;
     this.lineStatus = payload.line_status;
     this.identityMatch = payload.identity_match;
     this.reassignedNumber = payload.reassigned_number;
