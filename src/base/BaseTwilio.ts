@@ -12,17 +12,16 @@ const util = require("util"); /* jshint ignore:line */
 const RestException = require("../base/RestException"); /* jshint ignore:line */
 
 namespace Twilio {
-
   export const regionToEdgeMap = new Map<string, string>([
-    ['au1', 'sydney'],
-    ['br1', 'sao-paulo'],
-    ['de1', 'frankfurt'],
-    ['ie1', 'dublin'],
-    ['jp1', 'tokyo'],
-    ['jp2', 'osaka'],
-    ['sg1', 'singapore'],
-    ['us1', 'ashburn'],
-    ['us2', 'umatilla'],
+    ["au1", "sydney"],
+    ["br1", "sao-paulo"],
+    ["de1", "frankfurt"],
+    ["ie1", "dublin"],
+    ["jp1", "tokyo"],
+    ["jp2", "osaka"],
+    ["sg1", "singapore"],
+    ["us1", "ashburn"],
+    ["us2", "umatilla"],
   ]);
 
   export interface ClientOpts {
@@ -139,7 +138,7 @@ namespace Twilio {
       this.opts = opts || {};
       this.env = this.opts.env || {};
       this.edge =
-        this.opts.edge ?? this.env.TWILIO_EDGE ?? process.env.TWILIO_EDGE ;
+        this.opts.edge ?? this.env.TWILIO_EDGE ?? process.env.TWILIO_EDGE;
       this.region =
         this.opts.region ?? this.env.TWILIO_REGION ?? process.env.TWILIO_REGION;
       this.logLevel =
@@ -227,11 +226,10 @@ namespace Twilio {
     request(opts: RequestOpts): Promise<any> {
       if (this.edge !== undefined) {
         console.warn(
-            "[DEPRECATION WARNING] Setting `client.edge` directly is deprecated. Use the constructor or options instead."
+          "[DEPRECATION WARNING] Setting `client.edge` directly is deprecated. Use the constructor or options instead."
         );
-      }
-      else{
-        if( this.region !== undefined) {
+      } else {
+        if (this.region !== undefined) {
           console.info("Setting edge value from the region mapping");
           this.edge = regionToEdgeMap.get(this.region || "");
         }
