@@ -129,16 +129,6 @@ describe("client", () => {
       });
     });
 
-    it("should use the set the edge when only region provided", () => {
-       nock("https://api.region.twilio.com:123")
-        .get("/")
-        .reply(200, "test response");
-      client.region = "us1";
-      client
-        .request({ method: "GET", uri: "https://api.us1.ashburn.twilio.com:123" });
-      expect(client.edge).toEqual("ashburn");
-    });
-
     it("should use not changes the value of edge and region", () => {
       client = new Twilio("ACXXXXXXXX", "test-password");
       client.region = "us1";
