@@ -226,7 +226,7 @@ namespace Twilio {
     request(opts: RequestOpts): Promise<any> {
       if (this.edge !== undefined) {
         console.warn(
-          "[DEPRECATION WARNING] Setting `client.edge` directly is deprecated. Use the constructor or options instead."
+          "[DEPRECATION WARNING] Setting `client.edge` directly is deprecated. This will be removed in future versions."
         );
       } else {
         if (this.region !== undefined) {

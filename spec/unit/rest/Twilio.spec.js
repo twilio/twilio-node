@@ -27,6 +27,20 @@ describe("client", () => {
         "API Key"
       );
     });
+
+    it("should use the set the edge when only region provided", () => {
+      client = new Twilio("ACXXXXXXXX", "test-password");
+      client.region = "us1";
+      expect(client.edge).toEqual("ashburn");
+    });
+
+    it("should use not changes the value of edge and region", () => {
+      client = new Twilio("ACXXXXXXXX", "test-password");
+      client.region = "us1";
+      client.edge = "sydney";
+      expect(client.region).toEqual("us1");
+      expect(client.edge).toEqual("sydney");
+    });
   });
 
   describe("setting region and edge", () => {
