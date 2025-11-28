@@ -224,7 +224,10 @@ namespace Twilio {
     /* jshint ignore:end */
 
     request(opts: RequestOpts): Promise<any> {
-      if ( (this.edge !== undefined && this.region === undefined) || (this.edge === undefined && this.region !== undefined) ) {
+      if (
+        (this.edge !== undefined && this.region === undefined) ||
+        (this.edge === undefined && this.region !== undefined)
+      ) {
         console.warn(
           "[DEPRECATION WARNING] For regional processing, DNS is of format product.edge.region.twilio.com;otherwise use product.twilio.com"
         );
@@ -232,7 +235,7 @@ namespace Twilio {
       if (this.region !== undefined && this.edge === undefined) {
         console.info("Setting edge value from the region mapping");
         const mappedEdge = regionToEdgeMap.get(this.region);
-        if (mappedEdge){
+        if (mappedEdge) {
           this.edge = mappedEdge;
         }
       }
