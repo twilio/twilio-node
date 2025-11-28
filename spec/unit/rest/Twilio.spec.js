@@ -138,8 +138,17 @@ describe("client", () => {
     });
 
     it("should not change the value of edge", () => {
-      client = new Twilio("ACXXXXXXXX", "test-password", { edge: "dublin"});
+      client = new Twilio("ACXXXXXXXX", "test-password", { edge: "dublin" });
       expect(client.edge).toEqual("dublin");
+    });
+
+    it("should use edge set in request function when region is given", () => {
+      client = new Twilio("ACXXXXXXXX", "test-password", { region: "au1" });
+      expect(client.region).toEqual("au1");
+      const scope = nock("https://api.sydney.au1.twilio.com")
+        .get("/")
+        .reply(200, "test response");
+      expect(client.edge).toEqual("sydney");
     });
   });
 
