@@ -139,7 +139,7 @@ describe("client", () => {
 
     it("should not change the value of edge", () => {
       client = new Twilio("ACXXXXXXXX", "test-password", { edge: "dublin"});
-      expect(client.edge).toEqual("sydney");
+      expect(client.edge).toEqual("dublin");
     });
   });
 
