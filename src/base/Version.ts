@@ -172,6 +172,31 @@ export default class Version {
   }
 
   /**
+   * Patch a record
+   *
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to patched result
+   */
+  patch(opts: RequestOpts): Promise<any> {
+    var qResponse = this.request(opts);
+    qResponse = qResponse.then(function success(response) {
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        throw new RestException(response);
+      }
+
+      if (typeof response.body === "string") {
+        return JSON.parse(response.body);
+      }
+      return response.body;
+    });
+
+    return qResponse;
+  }
+
+  /**
    * Delete a record
    *
    * @param opts - request options
