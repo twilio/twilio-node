@@ -12,6 +12,18 @@ const util = require("util"); /* jshint ignore:line */
 const RestException = require("../base/RestException"); /* jshint ignore:line */
 
 namespace Twilio {
+  export const regionToEdgeMap = new Map<string, string>([
+    ["au1", "sydney"],
+    ["br1", "sao-paulo"],
+    ["de1", "frankfurt"],
+    ["ie1", "dublin"],
+    ["jp1", "tokyo"],
+    ["jp2", "osaka"],
+    ["sg1", "singapore"],
+    ["us1", "ashburn"],
+    ["us2", "umatilla"],
+  ]);
+
   export interface ClientOpts {
     httpClient?: RequestClient;
     accountSid?: string;
@@ -212,6 +224,21 @@ namespace Twilio {
     /* jshint ignore:end */
 
     request(opts: RequestOpts): Promise<any> {
+      if (
+        (this.edge !== undefined && this.region === undefined) ||
+        (this.edge === undefined && this.region !== undefined)
+      ) {
+        console.warn(
+          "[DEPRECATION WARNING] For regional processing, DNS is of format product.edge.region.twilio.com;otherwise use product.twilio.com"
+        );
+      }
+      if (this.region !== undefined && this.edge === undefined) {
+        console.warn("Setting edge value from the region mapping");
+        const mappedEdge = regionToEdgeMap.get(this.region);
+        if (mappedEdge) {
+          this.edge = mappedEdge;
+        }
+      }
       opts = opts || {};
 
       if (!opts.method) {
