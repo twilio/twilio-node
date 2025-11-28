@@ -136,6 +136,11 @@ describe("client", () => {
       expect(client.region).toEqual("us1");
       expect(client.edge).toEqual("sydney");
     });
+
+    it("should not change the value of edge", () => {
+      client = new Twilio("ACXXXXXXXX", "test-password", { edge: "dublin"});
+      expect(client.edge).toEqual("sydney");
+    });
   });
 
   describe("adding user agent extensions", () => {
