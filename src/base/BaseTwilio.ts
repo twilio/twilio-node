@@ -224,14 +224,16 @@ namespace Twilio {
     /* jshint ignore:end */
 
     request(opts: RequestOpts): Promise<any> {
-      if (this.edge !== undefined) {
+      if ( (this.edge !== undefined && this.region === undefined) || (this.edge === undefined && this.region !== undefined) ) {
         console.warn(
-          "[DEPRECATION WARNING] Setting `client.edge` directly is deprecated. This will be removed in future versions."
+          "[DEPRECATION WARNING] For regional processing, DNS is of format product.edge.region.twilio.com;otherwise use product.twilio.com"
         );
-      } else {
-        if (this.region !== undefined) {
-          console.info("Setting edge value from the region mapping");
-          this.edge = regionToEdgeMap.get(this.region || "");
+      }
+      if (this.region !== undefined && this.edge === undefined) {
+        console.info("Setting edge value from the region mapping");
+        const mappedEdge = regionToEdgeMap.get(this.region);
+        if (mappedEdge){
+          this.edge = mappedEdge;
         }
       }
       opts = opts || {};
