@@ -129,7 +129,7 @@ describe("client", () => {
       });
     });
 
-    it("should use not changes the value of edge and region", () => {
+    it("should not change the value of edge and region", () => {
       client = new Twilio("ACXXXXXXXX", "test-password");
       client.region = "us1";
       client.edge = "sydney";
