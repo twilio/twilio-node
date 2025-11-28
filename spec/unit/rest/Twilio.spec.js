@@ -148,6 +148,8 @@ describe("client", () => {
       const scope = nock("https://api.sydney.au1.twilio.com")
         .get("/")
         .reply(200, "test response");
+      client.request({ method: "GET", uri: "https://api.twilio.com" })
+        .then(() => scope.done());
       expect(client.edge).toEqual("sydney");
     });
   });
