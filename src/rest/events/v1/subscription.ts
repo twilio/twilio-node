@@ -27,8 +27,6 @@ import { SubscribedEventListInstance } from "./subscription/subscribedEvent";
 export interface SubscriptionContextUpdateOptions {
   /** A human readable description for the Subscription. */
   description?: string;
-  /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
-  sinkSid?: string;
 }
 
 /**
@@ -168,11 +166,14 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -185,11 +186,15 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   fetch(
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -225,10 +230,10 @@ export class SubscriptionContextImpl implements SubscriptionContext {
 
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
-    if (params["sinkSid"] !== undefined) data["SinkSid"] = params["sinkSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -575,6 +580,7 @@ export function SubscriptionListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -617,6 +623,7 @@ export function SubscriptionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

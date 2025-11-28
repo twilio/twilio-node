@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 export type WebhookMethod = "GET" | "POST";
 
+/**
+ * The type of webhook. Can be: `webhook`, `studio`, or `trigger`.
+ */
 export type WebhookType = "webhook" | "trigger" | "studio";
 
 /**
@@ -65,7 +68,7 @@ export interface WebhookListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface WebhookListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 5, and the maximum is 5. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
@@ -79,7 +82,7 @@ export interface WebhookListInstanceEachOptions {
  * Options to pass to list
  */
 export interface WebhookListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 5, and the maximum is 5. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -89,7 +92,7 @@ export interface WebhookListInstanceOptions {
  * Options to pass to page
  */
 export interface WebhookListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 5, and the maximum is 5. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -185,11 +188,14 @@ export class WebhookContextImpl implements WebhookContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -202,11 +208,15 @@ export class WebhookContextImpl implements WebhookContext {
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -263,6 +273,7 @@ export class WebhookContextImpl implements WebhookContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -635,6 +646,7 @@ export function WebhookListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -682,6 +694,7 @@ export function WebhookListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

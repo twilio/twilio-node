@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { EngagementListInstance } from "./flow/engagement";
 import { ExecutionListInstance } from "./flow/execution";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowStatus = "draft" | "published";
 
 /**
@@ -130,11 +133,14 @@ export class FlowContextImpl implements FlowContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -147,11 +153,15 @@ export class FlowContextImpl implements FlowContext {
   fetch(
     callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -436,6 +446,7 @@ export function FlowListInstance(version: V1): FlowListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

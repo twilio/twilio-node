@@ -19,8 +19,313 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApprovalCreateListInstance } from "./content/approvalCreate";
 import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
+export class AuthenticationAction {
+  "type": AuthenticationActionType;
+  "copyCodeText": string;
+}
+
+export type AuthenticationActionType = "COPY_CODE";
+
+export class CallToActionAction {
+  "type": CallToActionActionType;
+  "title": string;
+  "url"?: string;
+  "phone"?: string;
+  "code"?: string;
+  "id"?: string;
+}
+
+export type CallToActionActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "COPY_CODE"
+  | "VOICE_CALL"
+  | "VOICE_CALL_REQUEST";
+
+export class CardAction {
+  "type": CardActionType;
+  "title": string;
+  "url"?: string;
+  "phone"?: string;
+  "id"?: string;
+  "code"?: string;
+  "webviewSize"?: WebviewSizeType;
+}
+
+export type CardActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "QUICK_REPLY"
+  | "COPY_CODE"
+  | "VOICE_CALL";
+
+export class CarouselAction {
+  "type": CarouselActionType;
+  "title": string;
+  "url"?: string;
+  "phone"?: string;
+  "id"?: string;
+}
+
+export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+
+export class CarouselCard {
+  "title"?: string;
+  "body"?: string;
+  "media"?: string;
+  "actions"?: Array<CarouselAction>;
+}
+
+export class CatalogItem {
+  "id"?: string;
+  "sectionTitle"?: string;
+  "name"?: string;
+  "mediaUrl"?: string;
+  "price"?: number;
+  "description"?: string;
+}
+
+/**
+ * Content creation request body
+ */
+export class ContentCreateRequest {
+  /**
+   * User defined name of the content
+   */
+  "friendlyName"?: string;
+  /**
+   * Key value pairs of variable name to value
+   */
+  "variables"?: { [key: string]: string };
+  /**
+   * Language code for the content
+   */
+  "language": string;
+  "types": Types;
+}
+
+/**
+ * Content update request body
+ */
+export class ContentUpdateRequest {
+  /**
+   * User defined name of the content
+   */
+  "friendlyName"?: string;
+  /**
+   * Key value pairs of variable name to value
+   */
+  "variables"?: { [key: string]: string };
+  /**
+   * Language code for the content
+   */
+  "language"?: string;
+  "types": Types;
+}
+
+export class FlowsPage {
+  "id": string;
+  "nextPageId"?: string;
+  "title"?: string;
+  "subtitle"?: string;
+  "layout": Array<FlowsPageComponent>;
+}
+
+export class FlowsPageComponent {
+  "label": string;
+  "type": string;
+}
+
+export class ListItem {
+  "id": string;
+  "item": string;
+  "description"?: string;
+}
+
+export class QuickReplyAction {
+  "type"?: QuickReplyActionType;
+  "title": string;
+  "id"?: string;
+}
+
+export type QuickReplyActionType = "QUICK_REPLY";
+
+/**
+ * twilio/call-to-action buttons let recipients tap to trigger actions such as launching a website or making a phone call.
+ */
+export class TwilioCallToAction {
+  "body"?: string;
+  "actions"?: Array<CallToActionAction>;
+}
+
+/**
+ * twilio/card is a structured template which can be used to send a series of related information. It must include a title and at least one additional field.
+ */
+export class TwilioCard {
+  "title"?: string;
+  "subtitle"?: string;
+  "media"?: Array<string>;
+  "actions"?: Array<CardAction>;
+}
+
+/**
+ * twilio/carousel templates allow you to send a single text message accompanied by a set of up to 10 carousel cards in a horizontally scrollable view
+ */
+export class TwilioCarousel {
+  "body": string;
+  "cards": Array<CarouselCard>;
+}
+
+/**
+ * twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
+ */
+export class TwilioCatalog {
+  "title"?: string;
+  "body": string;
+  "subtitle"?: string;
+  "id"?: string;
+  "items"?: Array<CatalogItem>;
+  "dynamicItems"?: string;
+}
+
+/**
+ * twilio/flows templates allow you to send multiple messages in a set order with text or select options
+ */
+export class TwilioFlows {
+  "body": string;
+  "buttonText": string;
+  "subtitle"?: string;
+  "mediaUrl"?: string;
+  "pages": Array<FlowsPage>;
+  "type": string;
+}
+
+/**
+ * twilio/list-picker includes a menu of up to 10 options, which offers a simple way for users to make a selection.
+ */
+export class TwilioListPicker {
+  "body": string;
+  "button": string;
+  "items": Array<ListItem>;
+}
+
+/**
+ * twilio/location type contains a location pin and an optional label, which can be used to enhance delivery notifications or connect recipients to physical experiences you offer.
+ */
+export class TwilioLocation {
+  "latitude": number;
+  "longitude": number;
+  "label"?: string;
+  "id"?: string;
+  "address"?: string;
+}
+
+/**
+ * twilio/media is used to send file attachments, or to send long text via MMS in the US and Canada. As such, the twilio/media type must contain at least ONE of text or media content.
+ */
+export class TwilioMedia {
+  "body"?: string;
+  "media": Array<string>;
+}
+
+/**
+ * twilio/quick-reply templates let recipients tap, rather than type, to respond to the message.
+ */
+export class TwilioQuickReply {
+  "body": string;
+  "actions": Array<QuickReplyAction>;
+}
+
+/**
+ * twilio/schedule templates allow us to send a message with a schedule with different time slots
+ */
+export class TwilioSchedule {
+  "id": string;
+  "title": string;
+  "timeSlots": string;
+}
+
+/**
+ * Type containing only plain text-based content
+ */
+export class TwilioText {
+  "body": string;
+}
+
+/**
+ * Content types
+ */
+export class Types {
+  "twilioText"?: TwilioText | null;
+  "twilioMedia"?: TwilioMedia | null;
+  "twilioLocation"?: TwilioLocation | null;
+  "twilioListPicker"?: TwilioListPicker | null;
+  "twilioCallToAction"?: TwilioCallToAction | null;
+  "twilioQuickReply"?: TwilioQuickReply | null;
+  "twilioCard"?: TwilioCard | null;
+  "twilioCatalog"?: TwilioCatalog | null;
+  "twilioCarousel"?: TwilioCarousel | null;
+  "twilioFlows"?: TwilioFlows | null;
+  "twilioSchedule"?: TwilioSchedule | null;
+  "whatsappCard"?: WhatsappCard | null;
+  "whatsappAuthentication"?: WhatsappAuthentication | null;
+  "whatsappFlows"?: WhatsappFlows | null;
+}
+
+export type WebviewSizeType = "TALL" | "FULL" | "HALF" | "NONE";
+
+/**
+ * whatsApp/authentication templates let companies deliver WA approved one-time-password button.
+ */
+export class WhatsappAuthentication {
+  "addSecurityRecommendation"?: boolean;
+  "codeExpirationMinutes"?: number;
+  "actions": Array<AuthenticationAction>;
+}
+
+/**
+ * whatsapp/card is a structured template which can be used to send a series of related information. It must include a body and at least one additional field.
+ */
+export class WhatsappCard {
+  "body": string;
+  "footer"?: string;
+  "media"?: Array<string>;
+  "headerText"?: string;
+  "actions"?: Array<CardAction>;
+}
+
+/**
+ * whatsapp/flows templates allow you to send multiple messages in a set order with text or select options
+ */
+export class WhatsappFlows {
+  "body": string;
+  "buttonText": string;
+  "subtitle"?: string;
+  "mediaUrl"?: string;
+  "flowId": string;
+  "flowToken"?: string;
+  "flowFirstPageId"?: string;
+  "isFlowFirstPageEndpoint"?: boolean;
+}
+
+/**
+ * Options to pass to update a ContentInstance
+ */
+export interface ContentContextUpdateOptions {
+  /**  */
+  contentUpdateRequest: ContentUpdateRequest;
+}
+
+/**
+ * Options to pass to create a ContentInstance
+ */
+export interface ContentListInstanceCreateOptions {
+  /**  */
+  contentCreateRequest: ContentCreateRequest;
+}
 /**
  * Options to pass to each
  */
@@ -58,6 +363,7 @@ export interface ContentListInstancePageOptions {
 }
 
 export interface ContentContext {
+  approvalCreate: ApprovalCreateListInstance;
   approvalFetch: ApprovalFetchListInstance;
 
   /**
@@ -83,6 +389,21 @@ export interface ContentContext {
   ): Promise<ContentInstance>;
 
   /**
+   * Update a ContentInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ContentInstance
+   */
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -97,6 +418,7 @@ export class ContentContextImpl implements ContentContext {
   protected _solution: ContentContextSolution;
   protected _uri: string;
 
+  protected _approvalCreate?: ApprovalCreateListInstance;
   protected _approvalFetch?: ApprovalFetchListInstance;
 
   constructor(protected _version: V1, sid: string) {
@@ -106,6 +428,13 @@ export class ContentContextImpl implements ContentContext {
 
     this._solution = { sid };
     this._uri = `/Content/${sid}`;
+  }
+
+  get approvalCreate(): ApprovalCreateListInstance {
+    this._approvalCreate =
+      this._approvalCreate ||
+      ApprovalCreateListInstance(this._version, this._solution.sid);
+    return this._approvalCreate;
   }
 
   get approvalFetch(): ApprovalFetchListInstance {
@@ -118,11 +447,14 @@ export class ContentContextImpl implements ContentContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -135,11 +467,56 @@ export class ContentContextImpl implements ContentContext {
   fetch(
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ContentInstance(operationVersion, payload, instance._solution.sid)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -179,8 +556,8 @@ interface ContentResource {
   account_sid: string;
   friendly_name: string;
   language: string;
-  variables: any;
-  types: any;
+  variables: Record<string, object>;
+  types: Record<string, object>;
   url: string;
   links: Record<string, string>;
 }
@@ -231,11 +608,11 @@ export class ContentInstance {
   /**
    * Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
    */
-  variables: any;
+  variables: Record<string, object>;
   /**
-   * The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
+   * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
-  types: any;
+  types: Record<string, object>;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`.
    */
@@ -279,6 +656,35 @@ export class ContentInstance {
   }
 
   /**
+   * Update a ContentInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ContentInstance
+   */
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Access the approvalCreate.
+   */
+  approvalCreate(): ApprovalCreateListInstance {
+    return this._proxy.approvalCreate;
+  }
+
+  /**
    * Access the approvalFetch.
    */
   approvalFetch(): ApprovalFetchListInstance {
@@ -319,6 +725,21 @@ export interface ContentListInstance {
 
   (sid: string): ContentContext;
   get(sid: string): ContentContext;
+
+  /**
+   * Create a ContentInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ContentInstance
+   */
+  create(
+    params: ContentCreateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance>;
 
   /**
    * Streams ContentInstance records from the API.
@@ -407,6 +828,45 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance._solution = {};
   instance._uri = `/Content`;
 
+  instance.create = function create(
+    params: ContentCreateRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: ContentInstance) => any
+  ): Promise<ContentInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new ContentInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | ContentListInstancePageOptions
@@ -428,6 +888,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -21,7 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 
-export type RoomCodec = "VP8" | "H264" | "VP9";
+export type RoomCodec = "VP8" | "H264" | "VP9" | "opus";
 
 export type RoomCreatedMethod = "sdk" | "ad_hoc" | "api";
 
@@ -38,7 +38,11 @@ export type RoomEdgeLocation =
 
 export type RoomEndReason = "room_ended_via_api" | "timeout";
 
-export type RoomProcessingState = "complete" | "in_progress";
+export type RoomProcessingState =
+  | "complete"
+  | "in_progress"
+  | "timeout"
+  | "not_started";
 
 export type RoomRoomStatus = "in_progress" | "completed";
 
@@ -172,11 +176,15 @@ export class RoomContextImpl implements RoomContext {
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -563,6 +571,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

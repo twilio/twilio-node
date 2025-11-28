@@ -93,7 +93,7 @@ namespace MessagingResponse {
    * Attributes to pass to message
    */
   export interface MessageAttributes {
-    /** action - Action URL */
+    /** action - A URL specifying where Twilio should send status callbacks for the created outbound message. */
     action?: string;
     /** from - Phone Number to send Message from */
     from?: string;

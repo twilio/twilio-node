@@ -18,7 +18,78 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type PhoneNumberValidationError =
+export class CallForwardingInfo {
+  "callForwardingEnabled"?: boolean;
+  "errorCode"?: number;
+}
+
+export class CallerNameInfo {
+  "callerName"?: string;
+  "callerType"?: string;
+  "errorCode"?: number;
+}
+
+export class IdentityMatchInfo {
+  "firstNameMatch"?: string;
+  "lastNameMatch"?: string;
+  "addressLinesMatch"?: string;
+  "cityMatch"?: string;
+  "stateMatch"?: string;
+  "postalCodeMatch"?: string;
+  "addressCountryMatch"?: string;
+  "nationalIdMatch"?: string;
+  "dateOfBirthMatch"?: string;
+  "summaryScore"?: number;
+  "errorCode"?: number;
+  "errorMessage"?: string;
+}
+
+export class LastSimSwapInfo {
+  "lastSimSwapDate"?: Date;
+  "swappedPeriod"?: string;
+  "swappedInPeriod"?: boolean;
+}
+
+export class LineStatusInfo {
+  "status"?: string;
+  "errorCode"?: number;
+}
+
+export class LineTypeIntelligenceInfo {
+  "mobileCountryCode"?: string;
+  "mobileNetworkCode"?: string;
+  "carrierName"?: string;
+  "type"?: string;
+  "errorCode"?: number;
+}
+
+export class ReassignedNumberInfo {
+  "lastVerifiedDate"?: string;
+  "isNumberReassigned"?: string;
+  "errorCode"?: string;
+}
+
+export class SimSwapInfo {
+  "lastSimSwap"?: LastSimSwapInfo;
+  "carrierName"?: string;
+  "mobileCountryCode"?: string;
+  "mobileNetworkCode"?: string;
+  "errorCode"?: number;
+}
+
+export class SmsPumpingRiskInfo {
+  "carrierRiskCategory"?: string;
+  "numberBlocked"?: boolean;
+  "numberBlockedDate"?: Date;
+  "numberBlockedLast3Months"?: boolean;
+  "smsPumpingRiskScore"?: number;
+  "errorCode"?: number;
+}
+
+/**
+ * Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
+ */
+export type ValidationError =
   | "TOO_SHORT"
   | "TOO_LONG"
   | "INVALID_BUT_POSSIBLE"
@@ -30,7 +101,7 @@ export type PhoneNumberValidationError =
  * Options to pass to fetch a PhoneNumberInstance
  */
 export interface PhoneNumberContextFetchOptions {
-  /** A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number. */
+  /** A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill. */
   fields?: string;
   /** The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format. */
   countryCode?: string;
@@ -56,6 +127,10 @@ export interface PhoneNumberContextFetchOptions {
   dateOfBirth?: string;
   /** The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests. */
   lastVerifiedDate?: string;
+  /** The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests. */
+  verificationSid?: string;
+  /** The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis. */
+  partnerSubId?: string;
 }
 
 export interface PhoneNumberContext {
@@ -143,8 +218,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       data["DateOfBirth"] = params["dateOfBirth"];
     if (params["lastVerifiedDate"] !== undefined)
       data["LastVerifiedDate"] = params["lastVerifiedDate"];
+    if (params["verificationSid"] !== undefined)
+      data["VerificationSid"] = params["verificationSid"];
+    if (params["partnerSubId"] !== undefined)
+      data["PartnerSubId"] = params["partnerSubId"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -193,16 +273,17 @@ interface PhoneNumberResource {
   phone_number: string;
   national_format: string;
   valid: boolean;
-  validation_errors: Array<PhoneNumberValidationError>;
-  caller_name: any;
-  sim_swap: any;
-  call_forwarding: any;
-  live_activity: any;
-  line_type_intelligence: any;
-  identity_match: any;
-  reassigned_number: any;
-  sms_pumping_risk: any;
+  validation_errors: Array<ValidationError>;
+  caller_name: CallerNameInfo;
+  sim_swap: SimSwapInfo;
+  call_forwarding: CallForwardingInfo;
+  line_type_intelligence: LineTypeIntelligenceInfo;
+  line_status: LineStatusInfo;
+  identity_match: IdentityMatchInfo;
+  reassigned_number: ReassignedNumberInfo;
+  sms_pumping_risk: SmsPumpingRiskInfo;
   phone_number_quality_score: any;
+  pre_fill: any;
   url: string;
 }
 
@@ -224,12 +305,13 @@ export class PhoneNumberInstance {
     this.callerName = payload.caller_name;
     this.simSwap = payload.sim_swap;
     this.callForwarding = payload.call_forwarding;
-    this.liveActivity = payload.live_activity;
     this.lineTypeIntelligence = payload.line_type_intelligence;
+    this.lineStatus = payload.line_status;
     this.identityMatch = payload.identity_match;
     this.reassignedNumber = payload.reassigned_number;
     this.smsPumpingRisk = payload.sms_pumping_risk;
     this.phoneNumberQualityScore = payload.phone_number_quality_score;
+    this.preFill = payload.pre_fill;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -258,43 +340,23 @@ export class PhoneNumberInstance {
   /**
    * Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
    */
-  validationErrors: Array<PhoneNumberValidationError>;
-  /**
-   * An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
-   */
-  callerName: any;
-  /**
-   * An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
-   */
-  simSwap: any;
-  /**
-   * An object that contains information on the unconditional call forwarding status of mobile phone number.
-   */
-  callForwarding: any;
-  /**
-   * An object that contains live activity information for a mobile phone number.
-   */
-  liveActivity: any;
-  /**
-   * An object that contains line type information including the carrier name, mobile country code, and mobile network code.
-   */
-  lineTypeIntelligence: any;
-  /**
-   * An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
-   */
-  identityMatch: any;
-  /**
-   * An object that contains reassigned number information. Reassigned Numbers will return a phone number\'s reassignment status given a phone number and date
-   */
-  reassignedNumber: any;
-  /**
-   * An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
-   */
-  smsPumpingRisk: any;
+  validationErrors: Array<ValidationError>;
+  callerName: CallerNameInfo;
+  simSwap: SimSwapInfo;
+  callForwarding: CallForwardingInfo;
+  lineTypeIntelligence: LineTypeIntelligenceInfo;
+  lineStatus: LineStatusInfo;
+  identityMatch: IdentityMatchInfo;
+  reassignedNumber: ReassignedNumberInfo;
+  smsPumpingRisk: SmsPumpingRiskInfo;
   /**
    * An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
    */
   phoneNumberQualityScore: any;
+  /**
+   * An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
+   */
+  preFill: any;
   /**
    * The absolute URL of the resource.
    */
@@ -353,12 +415,13 @@ export class PhoneNumberInstance {
       callerName: this.callerName,
       simSwap: this.simSwap,
       callForwarding: this.callForwarding,
-      liveActivity: this.liveActivity,
       lineTypeIntelligence: this.lineTypeIntelligence,
+      lineStatus: this.lineStatus,
       identityMatch: this.identityMatch,
       reassignedNumber: this.reassignedNumber,
       smsPumpingRisk: this.smsPumpingRisk,
       phoneNumberQualityScore: this.phoneNumberQualityScore,
+      preFill: this.preFill,
       url: this.url,
     };
   }

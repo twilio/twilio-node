@@ -24,12 +24,16 @@ import { isValidPathParam } from "../../../base/utility";
 export interface WebChannelsListInstanceCreateOptions {
   /** The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration. */
   addressSid: string;
+  /** The Ui-Version HTTP request header */
+  uiVersion?: string;
   /** The Conversation\\\'s friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example. */
   chatFriendlyName?: string;
   /** The Conversation participant\\\'s friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example. */
   customerFriendlyName?: string;
   /** The pre-engagement data. */
   preEngagementData?: string;
+  /** The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example. */
+  identity?: string;
 }
 
 export interface WebChannelsSolution {}
@@ -87,9 +91,13 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
       data["CustomerFriendlyName"] = params["customerFriendlyName"];
     if (params["preEngagementData"] !== undefined)
       data["PreEngagementData"] = params["preEngagementData"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["uiVersion"] !== undefined)
+      headers["Ui-Version"] = params["uiVersion"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

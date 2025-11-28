@@ -24,7 +24,7 @@ import { isValidPathParam } from "../../../base/utility";
 export interface PhoneNumberContextFetchOptions {
   /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format. */
   countryCode?: string;
-  /** The type of information to return. Can be: `carrier` or `caller-name`. The default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information is currently available only in the US and costs $0.01 per phone number looked up.  To retrieve both types on information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value. */
+  /** The type of information to return. Can be: `carrier` or `caller-name`. The default is null. To retrieve both types of information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value. */
   type?: Array<string>;
   /** The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons). */
   addOns?: Array<string>;
@@ -108,6 +108,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       };
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

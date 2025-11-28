@@ -21,14 +21,23 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
+import { InteractionTransferListInstance } from "./interactionChannel/interactionTransfer";
 
+/**
+ * The status of this channel.
+ */
 export type InteractionChannelChannelStatus =
   | "setup"
   | "active"
   | "failed"
   | "closed"
-  | "inactive";
+  | "inactive"
+  | "pause"
+  | "transfer";
 
+/**
+ * The Interaction Channel\'s type. Can be: `sms`, `email`, `chat`, `whatsapp`, `web`, `messenger`, or `gbm`.   **Note:** These can be different from the task channel type specified in the Routing attributes. Task channel type corresponds to channel capacity while this channel type is the actual media type
+ */
 export type InteractionChannelType =
   | "voice"
   | "sms"
@@ -92,6 +101,7 @@ export interface InteractionChannelListInstancePageOptions {
 export interface InteractionChannelContext {
   invites: InteractionChannelInviteListInstance;
   participants: InteractionChannelParticipantListInstance;
+  transfers: InteractionTransferListInstance;
 
   /**
    * Fetch a InteractionChannelInstance
@@ -137,6 +147,7 @@ export class InteractionChannelContextImpl
 
   protected _invites?: InteractionChannelInviteListInstance;
   protected _participants?: InteractionChannelParticipantListInstance;
+  protected _transfers?: InteractionTransferListInstance;
 
   constructor(protected _version: V1, interactionSid: string, sid: string) {
     if (!isValidPathParam(interactionSid)) {
@@ -173,14 +184,29 @@ export class InteractionChannelContextImpl
     return this._participants;
   }
 
+  get transfers(): InteractionTransferListInstance {
+    this._transfers =
+      this._transfers ||
+      InteractionTransferListInstance(
+        this._version,
+        this._solution.interactionSid,
+        this._solution.sid
+      );
+    return this._transfers;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: InteractionChannelInstance) => any
   ): Promise<InteractionChannelInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -220,6 +246,7 @@ export class InteractionChannelContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -375,6 +402,13 @@ export class InteractionChannelInstance {
    */
   participants(): InteractionChannelParticipantListInstance {
     return this._proxy.participants;
+  }
+
+  /**
+   * Access the transfers.
+   */
+  transfers(): InteractionTransferListInstance {
+    return this._proxy.transfers;
   }
 
   /**
@@ -534,6 +568,7 @@ export function InteractionChannelListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -8,8 +8,7 @@
     "moduleResolution": "node",
     "allowJs": true,
     "rootDir": "src",
-    "outDir": "lib",
-    "strict": true
+    "outDir": "lib"
   },
   "include": ["src"],
 }

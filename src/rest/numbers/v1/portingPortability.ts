@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The type of the requested phone number. One of `LOCAL`, `UNKNOWN`, `MOBILE`, `TOLL-FREE`.
+ */
 export type PortingPortabilityNumberType =
   | "LOCAL"
   | "UNKNOWN"
@@ -28,8 +31,10 @@ export type PortingPortabilityNumberType =
  * Options to pass to fetch a PortingPortabilityInstance
  */
 export interface PortingPortabilityContextFetchOptions {
-  /** The SID of the account where the phone number(s) will be ported. */
+  /** Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account. */
   targetAccountSid?: string;
+  /** Address Sid of customer to which the number will be ported. */
+  addressSid?: string;
 }
 
 export interface PortingPortabilityContext {
@@ -99,8 +104,11 @@ export class PortingPortabilityContextImpl
 
     if (params["targetAccountSid"] !== undefined)
       data["TargetAccountSid"] = params["targetAccountSid"];
+    if (params["addressSid"] !== undefined)
+      data["AddressSid"] = params["addressSid"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -152,8 +160,6 @@ interface PortingPortabilityResource {
   not_portable_reason_code: number;
   number_type: PortingPortabilityNumberType;
   country: string;
-  messaging_carrier: string;
-  voice_carrier: string;
   url: string;
 }
 
@@ -176,8 +182,6 @@ export class PortingPortabilityInstance {
     );
     this.numberType = payload.number_type;
     this.country = payload.country;
-    this.messagingCarrier = payload.messaging_carrier;
-    this.voiceCarrier = payload.voice_carrier;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -188,15 +192,15 @@ export class PortingPortabilityInstance {
    */
   phoneNumber: string;
   /**
-   * The target account sid to which the number will be ported
+   * Account Sid that the phone number belongs to in Twilio. This is only returned for phone numbers that already exist in Twilio’s inventory and belong to your account or sub account.
    */
   accountSid: string;
   /**
-   * Boolean flag specifying if phone number is portable or not.
+   * Boolean flag indicates if the phone number can be ported into Twilio through the Porting API or not.
    */
   portable: boolean;
   /**
-   * Boolean flag specifying if PIN and account number is required for the phone number.
+   * Indicates if the port in process will require a personal identification number (PIN) and an account number for this phone number. If this is true you will be required to submit both a PIN and account number from the losing carrier for this number when opening a port in request. These fields will be required in order to complete the port in process to Twilio.
    */
   pinAndAccountNumberRequired: boolean;
   /**
@@ -204,7 +208,7 @@ export class PortingPortabilityInstance {
    */
   notPortableReason: string;
   /**
-   * The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`.
+   * The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise.
    */
   notPortableReasonCode: number;
   numberType: PortingPortabilityNumberType;
@@ -212,14 +216,6 @@ export class PortingPortabilityInstance {
    * Country the phone number belongs to.
    */
   country: string;
-  /**
-   * Current messaging carrier of the phone number
-   */
-  messagingCarrier: string;
-  /**
-   * Current voice carrier of the phone number
-   */
-  voiceCarrier: string;
   /**
    * This is the url of the request that you\'re trying to reach out to locate the resource.
    */
@@ -280,8 +276,6 @@ export class PortingPortabilityInstance {
       notPortableReasonCode: this.notPortableReasonCode,
       numberType: this.numberType,
       country: this.country,
-      messagingCarrier: this.messagingCarrier,
-      voiceCarrier: this.voiceCarrier,
       url: this.url,
     };
   }

@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The status of the Flex onboarding. Can be: `ok`, `inprogress`,`notstarted`.
+ */
 export type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
 
 /**
@@ -26,6 +29,14 @@ export type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
 export interface ConfigurationContextFetchOptions {
   /** The Pinned UI version of the Configuration resource to fetch. */
   uiVersion?: string;
+}
+
+/**
+ * Options to pass to update a ConfigurationInstance
+ */
+export interface ConfigurationContextUpdateOptions {
+  /**  */
+  body?: object;
 }
 
 export interface ConfigurationContext {
@@ -49,6 +60,31 @@ export interface ConfigurationContext {
    */
   fetch(
     params: ConfigurationContextFetchOptions,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  update(
+    params: object,
+    headers?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
@@ -89,6 +125,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       data["UiVersion"] = params["uiVersion"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -96,6 +133,51 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         uri: instance._uri,
         method: "get",
         params: data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new ConfigurationInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params?:
+      | object
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
         headers,
       });
 
@@ -464,6 +546,38 @@ export class ConfigurationInstance {
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  update(
+    params: object,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    return this._proxy.update(params, callback);
   }
 
   /**

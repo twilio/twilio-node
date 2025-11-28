@@ -19,11 +19,15 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { TaskQueueBulkRealTimeStatisticsListInstance } from "./taskQueue/taskQueueBulkRealTimeStatistics";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
 import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
+/**
+ * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or `FIFO` to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
+ */
 export type TaskQueueTaskOrder = "FIFO" | "LIFO";
 
 /**
@@ -240,11 +244,14 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -257,11 +264,15 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   fetch(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -311,6 +322,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -591,6 +603,8 @@ export interface TaskQueueListInstance {
   (sid: string): TaskQueueContext;
   get(sid: string): TaskQueueContext;
 
+  _bulkRealTimeStatistics?: TaskQueueBulkRealTimeStatisticsListInstance;
+  bulkRealTimeStatistics: TaskQueueBulkRealTimeStatisticsListInstance;
   _statistics?: TaskQueuesStatisticsListInstance;
   statistics: TaskQueuesStatisticsListInstance;
 
@@ -701,6 +715,19 @@ export function TaskQueueListInstance(
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues`;
 
+  Object.defineProperty(instance, "bulkRealTimeStatistics", {
+    get: function bulkRealTimeStatistics() {
+      if (!instance._bulkRealTimeStatistics) {
+        instance._bulkRealTimeStatistics =
+          TaskQueueBulkRealTimeStatisticsListInstance(
+            instance._version,
+            instance._solution.workspaceSid
+          );
+      }
+      return instance._bulkRealTimeStatistics;
+    },
+  });
+
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
       if (!instance._statistics) {
@@ -744,6 +771,7 @@ export function TaskQueueListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -797,6 +825,7 @@ export function TaskQueueListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

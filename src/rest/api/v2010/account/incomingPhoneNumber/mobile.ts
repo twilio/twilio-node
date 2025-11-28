@@ -21,8 +21,14 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
+/**
+ * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
+ */
 export type MobileAddressRequirement = "none" | "any" | "local" | "foreign";
 
+/**
+ * The status of address registration with emergency services. A registered emergency address will be used during handling of emergency calls from this number.
+ */
 export type MobileEmergencyAddressStatus =
   | "registered"
   | "unregistered"
@@ -31,6 +37,9 @@ export type MobileEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
+/**
+ * The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
+ */
 export type MobileEmergencyStatus = "Active" | "Inactive";
 
 export type MobileVoiceReceiveMode = "voice" | "fax";
@@ -319,6 +328,7 @@ export function MobileListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -372,6 +382,7 @@ export function MobileListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

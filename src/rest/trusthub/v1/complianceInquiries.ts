@@ -24,16 +24,20 @@ import { isValidPathParam } from "../../../base/utility";
 export interface ComplianceInquiriesContextUpdateOptions {
   /** The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile. */
   primaryProfileSid: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
 }
 
 /**
  * Options to pass to create a ComplianceInquiriesInstance
  */
 export interface ComplianceInquiriesListInstanceCreateOptions {
-  /** The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile. */
-  primaryProfileSid: string;
   /** The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used. */
   notificationEmail?: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
+  /** The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile. */
+  primaryProfileSid?: string;
 }
 
 export interface ComplianceInquiriesContext {
@@ -96,9 +100,12 @@ export class ComplianceInquiriesContextImpl
     let data: any = {};
 
     data["PrimaryProfileSid"] = params["primaryProfileSid"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -244,6 +251,16 @@ export interface ComplianceInquiriesListInstance {
   /**
    * Create a ComplianceInquiriesInstance
    *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceInquiriesInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
+  ): Promise<ComplianceInquiriesInstance>;
+  /**
+   * Create a ComplianceInquiriesInstance
+   *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
@@ -276,30 +293,30 @@ export function ComplianceInquiriesListInstance(
   instance._uri = `/ComplianceInquiries/Customers/Initialize`;
 
   instance.create = function create(
-    params: ComplianceInquiriesListInstanceCreateOptions,
+    params?:
+      | ComplianceInquiriesListInstanceCreateOptions
+      | ((error: Error | null, items: ComplianceInquiriesInstance) => any),
     callback?: (error: Error | null, items: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (
-      params["primaryProfileSid"] === null ||
-      params["primaryProfileSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['primaryProfileSid']\" missing."
-      );
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
     }
 
     let data: any = {};
 
-    data["PrimaryProfileSid"] = params["primaryProfileSid"];
     if (params["notificationEmail"] !== undefined)
       data["NotificationEmail"] = params["notificationEmail"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+    if (params["primaryProfileSid"] !== undefined)
+      data["PrimaryProfileSid"] = params["primaryProfileSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

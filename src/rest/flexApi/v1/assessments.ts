@@ -177,6 +177,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -226,9 +227,9 @@ interface AssessmentsPayload extends TwilioResponsePayload {
 interface AssessmentsResource {
   account_sid: string;
   assessment_sid: string;
-  offset: number;
+  offset: string;
   report: boolean;
-  weight: number;
+  weight: string;
   agent_id: string;
   segment_id: string;
   user_name: string;
@@ -236,7 +237,7 @@ interface AssessmentsResource {
   answer_text: string;
   answer_id: string;
   assessment: any;
-  timestamp: number;
+  timestamp: string;
   url: string;
 }
 
@@ -278,7 +279,7 @@ export class AssessmentsInstance {
   /**
    * Offset of the conversation
    */
-  offset: number;
+  offset: string;
   /**
    * The flag indicating if this assessment is part of report
    */
@@ -286,7 +287,7 @@ export class AssessmentsInstance {
   /**
    * The weightage given to this comment
    */
-  weight: number;
+  weight: string;
   /**
    * The id of the Agent
    */
@@ -315,7 +316,7 @@ export class AssessmentsInstance {
    * Assessment Details associated with an assessment
    */
   assessment: any;
-  timestamp: number;
+  timestamp: string;
   url: string;
 
   private get _proxy(): AssessmentsContext {
@@ -565,6 +566,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 
@@ -610,6 +612,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 

@@ -23,6 +23,9 @@ import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowStatus = "draft" | "published";
 
 /**
@@ -180,11 +183,14 @@ export class FlowContextImpl implements FlowContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -197,11 +203,15 @@ export class FlowContextImpl implements FlowContext {
   fetch(
     callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -240,6 +250,7 @@ export class FlowContextImpl implements FlowContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -625,6 +636,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -666,6 +678,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -18,6 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
+ */
 export type RecordingRecordingMode =
   | "do-not-record"
   | "record-from-ringing"
@@ -25,6 +28,9 @@ export type RecordingRecordingMode =
   | "record-from-ringing-dual"
   | "record-from-answer-dual";
 
+/**
+ * The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
+ */
 export type RecordingRecordingTrim = "trim-silence" | "do-not-trim";
 
 /**
@@ -99,11 +105,15 @@ export class RecordingContextImpl implements RecordingContext {
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -142,6 +152,7 @@ export class RecordingContextImpl implements RecordingContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

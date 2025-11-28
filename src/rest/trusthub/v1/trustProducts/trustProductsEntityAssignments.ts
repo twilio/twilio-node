@@ -31,6 +31,8 @@ export interface TrustProductsEntityAssignmentsListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface TrustProductsEntityAssignmentsListInstanceEachOptions {
+  /** A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document. */
+  objectType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -48,6 +50,8 @@ export interface TrustProductsEntityAssignmentsListInstanceEachOptions {
  * Options to pass to list
  */
 export interface TrustProductsEntityAssignmentsListInstanceOptions {
+  /** A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document. */
+  objectType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -58,6 +62,8 @@ export interface TrustProductsEntityAssignmentsListInstanceOptions {
  * Options to pass to page
  */
 export interface TrustProductsEntityAssignmentsListInstancePageOptions {
+  /** A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document. */
+  objectType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -126,11 +132,14 @@ export class TrustProductsEntityAssignmentsContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -146,11 +155,15 @@ export class TrustProductsEntityAssignmentsContextImpl
       item?: TrustProductsEntityAssignmentsInstance
     ) => any
   ): Promise<TrustProductsEntityAssignmentsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -472,6 +485,7 @@ export function TrustProductsEntityAssignmentsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -518,12 +532,15 @@ export function TrustProductsEntityAssignmentsListInstance(
 
     let data: any = {};
 
+    if (params["objectType"] !== undefined)
+      data["ObjectType"] = params["objectType"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

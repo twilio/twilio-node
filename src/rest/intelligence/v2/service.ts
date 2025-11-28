@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The HTTP method for the Webhook. One of `GET` or `POST`.
+ */
 export type ServiceHttpMethod = "GET" | "POST" | "NULL";
 
 /**
@@ -34,8 +37,6 @@ export interface ServiceContextUpdateOptions {
   dataLogging?: boolean;
   /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
-  /** The default language code of the audio. */
-  languageCode?: string;
   /** Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
   /** Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service. */
@@ -46,6 +47,8 @@ export interface ServiceContextUpdateOptions {
   webhookUrl?: string;
   /**  */
   webhookHttpMethod?: ServiceHttpMethod;
+  /** The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results. */
+  encryptionCredentialSid?: string;
 }
 
 /**
@@ -60,7 +63,7 @@ export interface ServiceListInstanceCreateOptions {
   dataLogging?: boolean;
   /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
-  /** The default language code of the audio. */
+  /** The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it\\\'s set. */
   languageCode?: string;
   /** Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service. */
   autoRedaction?: boolean;
@@ -70,6 +73,8 @@ export interface ServiceListInstanceCreateOptions {
   webhookUrl?: string;
   /**  */
   webhookHttpMethod?: ServiceHttpMethod;
+  /** The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results. */
+  encryptionCredentialSid?: string;
 }
 /**
  * Options to pass to each
@@ -180,11 +185,14 @@ export class ServiceContextImpl implements ServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -197,11 +205,15 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -237,8 +249,6 @@ export class ServiceContextImpl implements ServiceContext {
       data["DataLogging"] = serialize.bool(params["dataLogging"]);
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
-    if (params["languageCode"] !== undefined)
-      data["LanguageCode"] = params["languageCode"];
     if (params["uniqueName"] !== undefined)
       data["UniqueName"] = params["uniqueName"];
     if (params["autoRedaction"] !== undefined)
@@ -249,9 +259,12 @@ export class ServiceContextImpl implements ServiceContext {
       data["WebhookUrl"] = params["webhookUrl"];
     if (params["webhookHttpMethod"] !== undefined)
       data["WebhookHttpMethod"] = params["webhookHttpMethod"];
+    if (params["encryptionCredentialSid"] !== undefined)
+      data["EncryptionCredentialSid"] = params["encryptionCredentialSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -309,7 +322,9 @@ interface ServiceResource {
   url: string;
   webhook_url: string;
   webhook_http_method: ServiceHttpMethod;
+  read_only_attached_operator_sids: Array<string>;
   version: number;
+  encryption_credential_sid: string;
 }
 
 export class ServiceInstance {
@@ -331,7 +346,10 @@ export class ServiceInstance {
     this.url = payload.url;
     this.webhookUrl = payload.webhook_url;
     this.webhookHttpMethod = payload.webhook_http_method;
+    this.readOnlyAttachedOperatorSids =
+      payload.read_only_attached_operator_sids;
     this.version = deserialize.integer(payload.version);
+    this.encryptionCredentialSid = payload.encryption_credential_sid;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -369,7 +387,7 @@ export class ServiceInstance {
    */
   friendlyName: string;
   /**
-   * The default language code of the audio.
+   * The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it\'s set.
    */
   languageCode: string;
   /**
@@ -390,9 +408,17 @@ export class ServiceInstance {
   webhookUrl: string;
   webhookHttpMethod: ServiceHttpMethod;
   /**
+   * Operator sids attached to this service, read only
+   */
+  readOnlyAttachedOperatorSids: Array<string>;
+  /**
    * The version number of this Service.
    */
   version: number;
+  /**
+   * The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
+   */
+  encryptionCredentialSid: string;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -478,7 +504,9 @@ export class ServiceInstance {
       url: this.url,
       webhookUrl: this.webhookUrl,
       webhookHttpMethod: this.webhookHttpMethod,
+      readOnlyAttachedOperatorSids: this.readOnlyAttachedOperatorSids,
       version: this.version,
+      encryptionCredentialSid: this.encryptionCredentialSid,
     };
   }
 
@@ -628,9 +656,12 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       data["WebhookUrl"] = params["webhookUrl"];
     if (params["webhookHttpMethod"] !== undefined)
       data["WebhookHttpMethod"] = params["webhookHttpMethod"];
+    if (params["encryptionCredentialSid"] !== undefined)
+      data["EncryptionCredentialSid"] = params["encryptionCredentialSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -672,6 +703,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

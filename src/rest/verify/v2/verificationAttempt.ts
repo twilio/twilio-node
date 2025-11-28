@@ -20,8 +20,19 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type VerificationAttemptChannels = "sms" | "call" | "email" | "whatsapp";
+/**
+ * A string specifying the communication channel used for the verification attempt.
+ */
+export type VerificationAttemptChannels =
+  | "sms"
+  | "call"
+  | "email"
+  | "whatsapp"
+  | "rbm";
 
+/**
+ * A string specifying the conversion status of the verification. A conversion happens when the user is able to provide the correct code. Possible values are `CONVERTED` and `UNCONVERTED`.
+ */
 export type VerificationAttemptConversionStatus = "converted" | "unconverted";
 
 /**
@@ -36,7 +47,7 @@ export interface VerificationAttemptListInstanceEachOptions {
   "channelData.to"?: string;
   /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
-  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
+  /** Filter used to query Verification Attempts by communication channel. */
   channel?: VerificationAttemptChannels;
   /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
@@ -69,7 +80,7 @@ export interface VerificationAttemptListInstanceOptions {
   "channelData.to"?: string;
   /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
-  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
+  /** Filter used to query Verification Attempts by communication channel. */
   channel?: VerificationAttemptChannels;
   /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
@@ -95,7 +106,7 @@ export interface VerificationAttemptListInstancePageOptions {
   "channelData.to"?: string;
   /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
-  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
+  /** Filter used to query Verification Attempts by communication channel. */
   channel?: VerificationAttemptChannels;
   /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
@@ -152,11 +163,15 @@ export class VerificationAttemptContextImpl
   fetch(
     callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
   ): Promise<VerificationAttemptInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -463,6 +478,7 @@ export function VerificationAttemptListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The push technology to use for the User Binding. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+ */
 export type UserBindingBindingType = "gcm" | "apn" | "fcm";
 
 /**
@@ -28,7 +31,7 @@ export type UserBindingBindingType = "gcm" | "apn" | "fcm";
 export interface UserBindingListInstanceEachOptions {
   /** The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
   bindingType?: Array<UserBindingBindingType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
@@ -44,7 +47,7 @@ export interface UserBindingListInstanceEachOptions {
 export interface UserBindingListInstanceOptions {
   /** The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
   bindingType?: Array<UserBindingBindingType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -56,7 +59,7 @@ export interface UserBindingListInstanceOptions {
 export interface UserBindingListInstancePageOptions {
   /** The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
   bindingType?: Array<UserBindingBindingType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -129,11 +132,14 @@ export class UserBindingContextImpl implements UserBindingContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -146,11 +152,15 @@ export class UserBindingContextImpl implements UserBindingContext {
   fetch(
     callback?: (error: Error | null, item?: UserBindingInstance) => any
   ): Promise<UserBindingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -480,6 +490,7 @@ export function UserBindingListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

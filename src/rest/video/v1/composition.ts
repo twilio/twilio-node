@@ -20,8 +20,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The container format of the composition\'s media files as specified in the POST request that created the Composition resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information.
+ */
 export type CompositionFormat = "mp4" | "webm";
 
+/**
+ * The status of the composition. Can be: `enqueued`, `processing`, `completed`, `deleted` or `failed`. `enqueued` is the initial state and indicates that the composition request has been received and is scheduled for processing; `processing` indicates the composition is being processed; `completed` indicates the composition has been completed and is available for download; `deleted` means the composition media has been deleted from the system, but its metadata is still available for 30 days; `failed` indicates the composition failed to execute the media processing task.
+ */
 export type CompositionStatus =
   | "enqueued"
   | "processing"
@@ -64,7 +70,7 @@ export interface CompositionListInstanceEachOptions {
   dateCreatedBefore?: Date;
   /** Read only Composition resources with this Room SID. */
   roomSid?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CompositionInstance, done: (err?: Error) => void) => void;
@@ -86,7 +92,7 @@ export interface CompositionListInstanceOptions {
   dateCreatedBefore?: Date;
   /** Read only Composition resources with this Room SID. */
   roomSid?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -104,7 +110,7 @@ export interface CompositionListInstancePageOptions {
   dateCreatedBefore?: Date;
   /** Read only Composition resources with this Room SID. */
   roomSid?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -162,11 +168,14 @@ export class CompositionContextImpl implements CompositionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -179,11 +188,15 @@ export class CompositionContextImpl implements CompositionContext {
   fetch(
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -575,6 +588,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -626,6 +640,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

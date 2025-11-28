@@ -216,7 +216,7 @@ describe("Request validation", () => {
 
   it("should validate urls with special characters", () => {
     const specialRequestUrl = requestUrl + "&Body=It's+amazing";
-    const signature = "dsq4Ehbj6cs+KdTkpF5sSSplOWw=";
+    const signature = "TfZzewPq8wqrGlMfyAud8+/IvJ0=";
     const isValid = validateRequest(
       token,
       signature,
@@ -346,6 +346,24 @@ describe("Request validation middleware", () => {
     });
 
     expect(response.statusCode).toEqual(200);
+  });
+
+  it("should validate if options passed but not validate flag", () => {
+    const newUrl =
+      fullUrl.pathname + fullUrl.search + "&somethingUnexpected=true";
+    const request = httpMocks.createRequest(
+      Object.assign({}, defaultRequest, {
+        originalUrl: newUrl,
+      })
+    );
+
+    const middleware = webhook(token, {});
+
+    middleware(request, response, () => {
+      expect(true).toBeFalsy();
+    });
+
+    expect(response.statusCode).toEqual(403);
   });
 
   it("should accept manual host+proto", (done) => {

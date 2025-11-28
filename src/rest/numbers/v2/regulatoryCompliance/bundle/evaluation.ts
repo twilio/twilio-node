@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The compliance status of the Evaluation resource.
+ */
 export type EvaluationStatus = "compliant" | "noncompliant";
 
 /**
@@ -102,11 +105,15 @@ export class EvaluationContextImpl implements EvaluationContext {
   fetch(
     callback?: (error: Error | null, item?: EvaluationInstance) => any
   ): Promise<EvaluationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -368,10 +375,14 @@ export function EvaluationListInstance(
   instance.create = function create(
     callback?: (error: Error | null, items: EvaluationInstance) => any
   ): Promise<EvaluationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -411,6 +422,7 @@ export function EvaluationListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

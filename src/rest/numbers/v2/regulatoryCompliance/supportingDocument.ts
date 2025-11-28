@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The verification status of the Supporting Document resource.
+ */
 export type SupportingDocumentStatus =
   | "draft"
   | "pending-review"
@@ -163,11 +166,14 @@ export class SupportingDocumentContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -180,11 +186,15 @@ export class SupportingDocumentContextImpl
   fetch(
     callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -225,6 +235,7 @@ export class SupportingDocumentContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -276,6 +287,7 @@ interface SupportingDocumentResource {
   mime_type: string;
   status: SupportingDocumentStatus;
   failure_reason: string;
+  errors: Array<any>;
   type: string;
   attributes: any;
   date_created: Date;
@@ -298,6 +310,7 @@ export class SupportingDocumentInstance {
     this.mimeType = payload.mime_type;
     this.status = payload.status;
     this.failureReason = payload.failure_reason;
+    this.errors = payload.errors;
     this.type = payload.type;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -328,6 +341,10 @@ export class SupportingDocumentInstance {
    * The failure reason of the Supporting Document Resource.
    */
   failureReason: string;
+  /**
+   * A list of errors that occurred during the registering RC Bundle
+   */
+  errors: Array<any>;
   /**
    * The type of the Supporting Document.
    */
@@ -425,6 +442,7 @@ export class SupportingDocumentInstance {
       mimeType: this.mimeType,
       status: this.status,
       failureReason: this.failureReason,
+      errors: this.errors,
       type: this.type,
       attributes: this.attributes,
       dateCreated: this.dateCreated,
@@ -586,6 +604,7 @@ export function SupportingDocumentListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -627,6 +646,7 @@ export function SupportingDocumentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -20,12 +20,17 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The type of the applied Language Understanding Operator. One of conversation-classify, utterance-classify, extract, extract-normalize, or pii-extract
+ */
 export type OperatorResultOperatorType =
-  | "conversation_classify"
-  | "utterance_classify"
+  | "conversation-classify"
+  | "utterance-classify"
   | "extract"
-  | "extract_normalize"
-  | "pii_extract";
+  | "extract-normalize"
+  | "pii-extract"
+  | "text-generation"
+  | "json";
 
 /**
  * Options to pass to fetch a OperatorResultInstance
@@ -155,6 +160,7 @@ export class OperatorResultContextImpl implements OperatorResultContext {
       data["Redacted"] = serialize.bool(params["redacted"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -214,6 +220,7 @@ interface OperatorResultResource {
   label_probabilities: any;
   extract_results: any;
   text_generation_results: any;
+  json_results: any;
   transcript_sid: string;
   url: string;
 }
@@ -241,6 +248,7 @@ export class OperatorResultInstance {
     this.labelProbabilities = payload.label_probabilities;
     this.extractResults = payload.extract_results;
     this.textGenerationResults = payload.text_generation_results;
+    this.jsonResults = payload.json_results;
     this.transcriptSid = payload.transcript_sid;
     this.url = payload.url;
 
@@ -299,6 +307,7 @@ export class OperatorResultInstance {
    * Output of a text generation operator for example Conversation Sumamary.
    */
   textGenerationResults: any;
+  jsonResults: any;
   /**
    * A 34 character string that uniquely identifies this Transcript.
    */
@@ -369,6 +378,7 @@ export class OperatorResultInstance {
       labelProbabilities: this.labelProbabilities,
       extractResults: this.extractResults,
       textGenerationResults: this.textGenerationResults,
+      jsonResults: this.jsonResults,
       transcriptSid: this.transcriptSid,
       url: this.url,
     };
@@ -515,6 +525,7 @@ export function OperatorResultListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

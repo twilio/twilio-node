@@ -22,6 +22,8 @@ This library supports the following Node.js implementations:
 - Node.js 14
 - Node.js 16
 - Node.js 18
+- Node.js 20
+- Node.js lts(22)
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
@@ -57,6 +59,13 @@ After a brief delay, you will receive the text message on your phone.
 > **Warning**
 > It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
 
+## OAuth Feature for Twilio APIs
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication. This feature is currently in beta and its implementation is subject to change.
+
+API examples [here](https://github.com/twilio/twilio-node/blob/main/examples/public_oauth.js)
+
+Organisation API examples [here](https://github.com/twilio/twilio-node/blob/main/examples/orgs_api.js)
+
 ## Usage
 
 Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
@@ -71,6 +80,7 @@ If your environment requires SSL decryption, you can set the path to CA bundle i
 
 If you invoke any V2010 operations without specifying an account SID, `twilio-node` will automatically use the `TWILIO_ACCOUNT_SID` value that the client was initialized with. This is useful for when you'd like to, for example, fetch resources for your main account but also your subaccount. See below:
 
+**CommonJS:**
 ```javascript
 // Your Account SID, Subaccount SID Auth Token from console.twilio.com
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -86,16 +96,6 @@ const subaccountCalls = client.api.v2010.account(subaccountSid).calls.list; // S
 
 `twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is enabled by default. To disable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `false`:
 
-```javascript
-// Your Account SID and Auth Token from console.twilio.com
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-
-const client = require('twilio')(accountSid, authToken, {
-  lazyLoading: false,
-});
-```
-
 ### Enable Auto-Retry with Exponential Backoff
 
 `twilio-node` supports automatic retry with exponential backoff when API requests receive an [Error 429 response](https://support.twilio.com/hc/en-us/articles/360044308153-Twilio-API-response-Error-429-Too-Many-Requests-). This retry with exponential backoff feature is disabled by default. To enable this feature, instantiate the Twilio client with the `autoRetry` flag set to `true`.
@@ -109,6 +109,27 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken, {
   autoRetry: true,
   maxRetries: 3,
+});
+```
+
+### Set HTTP Agent Options
+
+`twilio-node` allows you to set HTTP Agent Options in the Request Client. This feature allows you to re-use your connections. To enable this feature, instantiate the Twilio client with the `keepAlive` flag set to `true`.
+
+Optionally, the socket timeout and maximum number of sockets can also be set. See the example below:
+
+```javascript
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken, {
+    timeout: 30000, // HTTPS agent's socket timeout in milliseconds, default is 30000
+    keepAlive: true, // https.Agent keepAlive option, default is false
+    keepAliveMsecs: 1000, // https.Agent keepAliveMsecs option in milliseconds, default is 1000
+    maxSockets: 20, // https.Agent maxSockets option, default is 20
+    maxTotalSockets: 100, // https.Agent maxTotalSockets option, default is 100
+    maxFreeSockets: 5, // https.Agent maxFreeSockets option, default is 5
+    scheduling: "lifo", // https.Agent scheduling option, default is 'lifo'
 });
 ```
 
@@ -240,9 +261,68 @@ try {
 }
 ```
 
+#### Using RestException for Better Error Handling
+
+For more specific error handling, you can import and use `RestException` directly:
+
+**ESM/ES6 Modules:**
+```js
+import twilio from 'twilio';
+const { RestException } = twilio;
+
+const client = twilio(accountSid, authToken);
+
+try {
+  const message = await client.messages.create({
+    body: 'Hello from Node',
+    to: '+12345678901',
+    from: '+12345678901',
+  });
+  console.log(message);
+} catch (error) {
+  if (error instanceof RestException) {
+    console.log(`Twilio Error ${error.code}: ${error.message}`);
+    console.log(`Status: ${error.status}`);
+    console.log(`More info: ${error.moreInfo}`);
+  } else {
+    console.error('Other error:', error);
+  }
+}
+```
+
+**CommonJS:**
+```js
+const twilio = require('twilio');
+const { RestException } = require('twilio');
+
+const client = twilio(accountSid, authToken);
+
+client.messages
+  .create({
+    body: 'Hello from Node',
+    to: '+12345678901',
+    from: '+12345678901',
+  })
+  .then((message) => console.log(message))
+  .catch((error) => {
+    if (error instanceof RestException) {
+      console.log(`Twilio Error ${error.code}: ${error.message}`);
+      console.log(`Status: ${error.status}`);
+      console.log(`More info: ${error.moreInfo}`);
+    } else {
+      console.error('Other error:', error);
+    }
+  });
+```
+
 If you are using callbacks, error information will be included in the `error` parameter of the callback.
 
 400-level errors are [normal during API operation](https://www.twilio.com/docs/api/rest/request#get-responses) ("Invalid number", "Cannot deliver SMS to that number", for example) and should be handled appropriately.
+
+### Use a Client with PKCV Authentication
+
+twilio-node now supports Public Key Client Validation authentication for Twilio APIs. To use this feature, refer to the [example file](https://github.com/twilio/twilio-node/blob/main/examples/pkcv.js). 
+Additional documentation can be found on [Public Key Client Validation Quickstart](https://twilio.com/docs/iam/pkcv/quickstart).
 
 ### Use a custom HTTP Client
 

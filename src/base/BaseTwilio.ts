@@ -1,6 +1,9 @@
 import RequestClient from "./RequestClient"; /* jshint ignore:line */
+import { ValidationClientOptions } from "./ValidationClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
 import { Headers } from "../http/request"; /* jshint ignore:line */
+import AuthStrategy from "../auth_strategy/AuthStrategy"; /* jshint ignore:line */
+import CredentialProvider from "../credential_provider/CredentialProvider"; /* jshint ignore:line */
 
 const os = require("os"); /* jshint ignore:line */
 const url = require("url"); /* jshint ignore:line */
@@ -9,6 +12,18 @@ const util = require("util"); /* jshint ignore:line */
 const RestException = require("../base/RestException"); /* jshint ignore:line */
 
 namespace Twilio {
+  export const regionToEdgeMap = new Map<string, string>([
+    ["au1", "sydney"],
+    ["br1", "sao-paulo"],
+    ["de1", "frankfurt"],
+    ["ie1", "dublin"],
+    ["jp1", "tokyo"],
+    ["jp2", "osaka"],
+    ["sg1", "singapore"],
+    ["us1", "ashburn"],
+    ["us2", "umatilla"],
+  ]);
+
   export interface ClientOpts {
     httpClient?: RequestClient;
     accountSid?: string;
@@ -19,7 +34,21 @@ namespace Twilio {
     logLevel?: string;
     userAgentExtensions?: string[];
     autoRetry?: boolean;
+    maxRetryDelay?: number;
     maxRetries?: number;
+    validationClient?: ValidationClientOptions;
+
+    /**
+     https.Agent options
+     */
+    timeout?: number;
+    keepAlive?: boolean;
+    keepAliveMsecs?: number;
+    maxSockets?: number;
+    maxTotalSockets?: number;
+    maxFreeSockets?: number;
+    scheduling?: "fifo" | "lifo" | undefined;
+    ca?: string | Buffer;
   }
 
   export interface RequestOpts {
@@ -27,6 +56,7 @@ namespace Twilio {
     uri?: string;
     username?: string;
     password?: string;
+    authStrategy?: AuthStrategy;
     headers?: Headers;
     params?: object;
     data?: object;
@@ -43,16 +73,32 @@ namespace Twilio {
   /* jshint ignore:end */
 
   export class Client {
-    username: string;
-    password: string;
+    username?: string;
+    password?: string;
     accountSid: string;
+    credentialProvider?: CredentialProvider;
     opts?: ClientOpts;
     env?: NodeJS.ProcessEnv;
     edge?: string;
     region?: string;
     logLevel?: string;
-    autoRetry: boolean;
+    autoRetry?: boolean;
+    maxRetryDelay?: number;
     maxRetries?: number;
+    validationClient?: ValidationClientOptions;
+
+    /**
+     https.Agent options
+     */
+    timeout?: number;
+    keepAlive?: boolean;
+    keepAliveMsecs?: number;
+    maxSockets?: number;
+    maxTotalSockets?: number;
+    maxFreeSockets?: number;
+    scheduling?: "fifo" | "lifo" | undefined;
+    ca?: string | Buffer;
+
     userAgentExtensions?: string[];
     _httpClient?: RequestClient;
 
@@ -74,23 +120,23 @@ namespace Twilio {
     /* jshint ignore:end */
 
     constructor(username?: string, password?: string, opts?: ClientOpts) {
-      this.opts = opts || {};
-      this.env = this.opts.env || {};
+      this.setOpts(opts);
       this.username =
         username ??
-        this.env.TWILIO_ACCOUNT_SID ??
-        process.env.TWILIO_ACCOUNT_SID ??
-        (() => {
-          throw new Error("username is required");
-        })();
+        this.env?.TWILIO_ACCOUNT_SID ??
+        process.env.TWILIO_ACCOUNT_SID;
       this.password =
         password ??
-        this.env.TWILIO_AUTH_TOKEN ??
-        process.env.TWILIO_AUTH_TOKEN ??
-        (() => {
-          throw new Error("password is required");
-        })();
-      this.accountSid = this.opts.accountSid || this.username;
+        this.env?.TWILIO_AUTH_TOKEN ??
+        process.env.TWILIO_AUTH_TOKEN;
+      this.accountSid = "";
+      this.setAccountSid(this.opts?.accountSid || this.username);
+      this.invalidateOAuth();
+    }
+
+    setOpts(opts?: ClientOpts) {
+      this.opts = opts || {};
+      this.env = this.opts.env || {};
       this.edge =
         this.opts.edge ?? this.env.TWILIO_EDGE ?? process.env.TWILIO_EDGE;
       this.region =
@@ -99,17 +145,32 @@ namespace Twilio {
         this.opts.logLevel ??
         this.env.TWILIO_LOG_LEVEL ??
         process.env.TWILIO_LOG_LEVEL;
+
+      this.timeout = this.opts.timeout;
+      this.keepAlive = this.opts.keepAlive;
+      this.keepAliveMsecs = this.opts.keepAliveMsecs;
+      this.maxSockets = this.opts.maxSockets;
+      this.maxTotalSockets = this.opts.maxTotalSockets;
+      this.maxFreeSockets = this.opts.maxFreeSockets;
+      this.scheduling = this.opts.scheduling;
+      this.ca = this.opts.ca;
       this.autoRetry = this.opts.autoRetry || false;
+      this.maxRetryDelay = this.opts.maxRetryDelay;
       this.maxRetries = this.opts.maxRetries;
+      this.validationClient = this.opts.validationClient;
       this.userAgentExtensions = this.opts.userAgentExtensions || [];
       this._httpClient = this.opts.httpClient;
 
       if (this.opts.lazyLoading === false) {
         this._httpClient = this.httpClient;
       }
+    }
 
-      if (!this.accountSid.startsWith("AC")) {
-        const apiKeyMsg = this.accountSid.startsWith("SK")
+    setAccountSid(accountSid?: string) {
+      this.accountSid = accountSid || "";
+
+      if (this.accountSid && !this.accountSid?.startsWith("AC")) {
+        const apiKeyMsg = this.accountSid?.startsWith("SK")
           ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
           : "";
 
@@ -117,11 +178,36 @@ namespace Twilio {
       }
     }
 
+    setCredentialProvider(credentialProvider: CredentialProvider) {
+      this.credentialProvider = credentialProvider;
+      this.accountSid = "";
+      this.invalidateBasicAuth();
+    }
+
+    invalidateBasicAuth() {
+      this.username = undefined;
+      this.password = undefined;
+    }
+
+    invalidateOAuth() {
+      this.credentialProvider = undefined;
+    }
+
     get httpClient() {
       if (!this._httpClient) {
         this._httpClient = new RequestClient({
+          timeout: this.timeout,
+          keepAlive: this.keepAlive,
+          keepAliveMsecs: this.keepAliveMsecs,
+          maxSockets: this.maxSockets,
+          maxTotalSockets: this.maxTotalSockets,
+          maxFreeSockets: this.maxFreeSockets,
+          scheduling: this.scheduling,
+          ca: this.ca,
           autoRetry: this.autoRetry,
+          maxRetryDelay: this.maxRetryDelay,
           maxRetries: this.maxRetries,
+          validationClient: this.validationClient,
         });
       }
       return this._httpClient;
@@ -138,6 +224,21 @@ namespace Twilio {
     /* jshint ignore:end */
 
     request(opts: RequestOpts): Promise<any> {
+      if (
+        (this.edge !== undefined && this.region === undefined) ||
+        (this.edge === undefined && this.region !== undefined)
+      ) {
+        console.warn(
+          "[DEPRECATION WARNING] For regional processing, DNS is of format product.edge.region.twilio.com;otherwise use product.twilio.com"
+        );
+      }
+      if (this.region !== undefined && this.edge === undefined) {
+        console.warn("Setting edge value from the region mapping");
+        const mappedEdge = regionToEdgeMap.get(this.region);
+        if (mappedEdge) {
+          this.edge = mappedEdge;
+        }
+      }
       opts = opts || {};
 
       if (!opts.method) {
@@ -150,6 +251,22 @@ namespace Twilio {
 
       const username = opts.username || this.username;
       const password = opts.password || this.password;
+      const authStrategy =
+        opts.authStrategy || this.credentialProvider?.toAuthStrategy();
+
+      if (!authStrategy) {
+        if (!username) {
+          (() => {
+            throw new Error("username is required");
+          })();
+        }
+
+        if (!password) {
+          (() => {
+            throw new Error("password is required");
+          })();
+        }
+      }
 
       const headers = opts.headers || {};
 
@@ -170,11 +287,14 @@ namespace Twilio {
       });
       headers["Accept-Charset"] = "utf-8";
 
-      if (opts.method === "post" && !headers["Content-Type"]) {
+      if (
+        (opts.method === "post" || opts.method === "put") &&
+        !headers["Content-Type"]
+      ) {
         headers["Content-Type"] = "application/x-www-form-urlencoded";
       }
 
-      if (!headers["Accept"]) {
+      if (opts.method !== "delete" && !headers["Accept"]) {
         headers["Accept"] = "application/json";
       }
 
@@ -186,12 +306,14 @@ namespace Twilio {
         uri: uri.href,
         username: username,
         password: password,
+        authStrategy: authStrategy,
         headers: headers,
         params: opts.params,
         data: opts.data,
         timeout: opts.timeout,
         allowRedirects: opts.allowRedirects,
-        logLevel: opts.logLevel,
+        // use the Twilio client's log-level if the httpClient's log-level is unspecified
+        logLevel: opts.logLevel || this.opts?.logLevel,
       });
     }
 

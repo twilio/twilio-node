@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        node: [ 14, 16, 18, lts/* ]
+        node: [ 14, 16, 18, 20, 22, lts/* ]
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v3
@@ -33,20 +33,27 @@ jobs:
       - name: Run Unit Tests
         run: npm run ci
 
-#      - name: Run Cluster Tests
-#        if: (!github.event.pull_request.head.repo.fork)
-#        env:
-#          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-#          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
-#          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
-#          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
-#          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
-#        run: |
-#          npm pack
-#          tar -xzf twilio*.tgz
-#          cd spec/cluster
-#          npm install
-#          npm run test
+      - name: Run Cluster Tests
+        if: (!github.event.pull_request.head.repo.fork)
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_ORGS_CLIENT_ID: ${{ secrets.TWILIO_ORGS_CLIENT_ID }}
+          TWILIO_ORGS_CLIENT_SECRET: ${{ secrets.TWILIO_ORGS_CLIENT_SECRET }}
+          TWILIO_ORGS_USER_ID: ${{ secrets.TWILIO_ORGS_USER_ID }}
+          TWILIO_ORG_SID: ${{ secrets.TWILIO_ORG_SID }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_MESSAGE_SID: ${{ secrets.TWILIO_MESSAGE_SID }}
+        run: |
+          npm pack
+          tar -xzf twilio*.tgz
+          cd spec/cluster
+          npm install
+          npm run test
 
       - name: SonarCloud Scan
         if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == 'lts/*' && !github.event.pull_request.head.repo.fork }}

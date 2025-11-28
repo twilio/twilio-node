@@ -10,16 +10,12 @@
  */
 
 import Domain from "../base/Domain";
-import DeployedDevices from "./preview/DeployedDevices";
 import HostedNumbers from "./preview/HostedNumbers";
-import Sync from "./preview/Sync";
 import Marketplace from "./preview/Marketplace";
 import Wireless from "./preview/Wireless";
 
 class PreviewBase extends Domain {
-  _deployed_devices?: DeployedDevices;
   _hosted_numbers?: HostedNumbers;
-  _sync?: Sync;
   _marketplace?: Marketplace;
   _wireless?: Wireless;
 
@@ -32,18 +28,9 @@ class PreviewBase extends Domain {
     super(twilio, "https://preview.twilio.com");
   }
 
-  get deployed_devices(): DeployedDevices {
-    this._deployed_devices =
-      this._deployed_devices || new DeployedDevices(this);
-    return this._deployed_devices;
-  }
   get hosted_numbers(): HostedNumbers {
     this._hosted_numbers = this._hosted_numbers || new HostedNumbers(this);
     return this._hosted_numbers;
-  }
-  get sync(): Sync {
-    this._sync = this._sync || new Sync(this);
-    return this._sync;
   }
   get marketplace(): Marketplace {
     this._marketplace = this._marketplace || new Marketplace(this);

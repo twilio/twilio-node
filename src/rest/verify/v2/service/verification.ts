@@ -18,10 +18,19 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The verification method used. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna`, or `rcs`.
+ */
 export type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
+/**
+ * Risk_check overrides Fraud Prevention measures like Fraud Guard, Geo Permissions etc per verification attempt basis, allowing Verify to block traffic considered fraudulent if enabled or bypass active protections if disabled. Can be: `enable`(default) or `disable`. For SMS channel only.
+ */
 export type VerificationRiskCheck = "enable" | "disable";
 
+/**
+ * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
+ */
 export type VerificationStatus = "canceled" | "approved";
 
 /**
@@ -66,6 +75,8 @@ export interface VerificationListInstanceCreateOptions {
   templateCustomSubstitutions?: string;
   /** Strongly encouraged if using the auto channel. The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
   deviceIp?: string;
+  /** An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification. */
+  enableSnaClientToken?: boolean;
   /**  */
   riskCheck?: VerificationRiskCheck;
   /** A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length. */
@@ -129,11 +140,15 @@ export class VerificationContextImpl implements VerificationContext {
   fetch(
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -171,6 +186,7 @@ export class VerificationContextImpl implements VerificationContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -279,7 +295,7 @@ export class VerificationInstance {
   to: string;
   channel: VerificationChannel;
   /**
-   * The status of the verification. One of: `pending`, `approved`, or `canceled`
+   * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
    */
   status: string;
   /**
@@ -488,12 +504,17 @@ export function VerificationListInstance(
       data["TemplateCustomSubstitutions"] =
         params["templateCustomSubstitutions"];
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
+    if (params["enableSnaClientToken"] !== undefined)
+      data["EnableSnaClientToken"] = serialize.bool(
+        params["enableSnaClientToken"]
+      );
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["tags"] !== undefined) data["Tags"] = params["tags"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

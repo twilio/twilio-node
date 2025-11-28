@@ -68,11 +68,14 @@ export class JobContextImpl implements JobContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -85,11 +88,15 @@ export class JobContextImpl implements JobContext {
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
   ): Promise<JobInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -123,7 +130,7 @@ interface JobPayload extends JobResource {}
 interface JobResource {
   resource_type: string;
   friendly_name: string;
-  details: any;
+  details: Array<any>;
   start_day: string;
   end_day: string;
   job_sid: string;
@@ -167,7 +174,7 @@ export class JobInstance {
   /**
    * The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
    */
-  details: any;
+  details: Array<any>;
   /**
    * The start time for the export specified when creating the job
    */

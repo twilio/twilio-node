@@ -18,6 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The Type of the Factor. Currently only `push` is supported.
+ */
 export type AccessTokenFactorTypes = "push";
 
 /**
@@ -78,11 +81,15 @@ export class AccessTokenContextImpl implements AccessTokenContext {
   fetch(
     callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -319,6 +326,7 @@ export function AccessTokenListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

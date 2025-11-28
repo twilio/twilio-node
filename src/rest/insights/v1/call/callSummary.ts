@@ -37,7 +37,12 @@ export type CallSummaryCallState =
   | "answered"
   | "undialed";
 
-export type CallSummaryCallType = "carrier" | "sip" | "trunking" | "client";
+export type CallSummaryCallType =
+  | "carrier"
+  | "sip"
+  | "trunking"
+  | "client"
+  | "whatsapp";
 
 export type CallSummaryProcessingState = "complete" | "partial";
 
@@ -116,6 +121,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
       data["ProcessingState"] = params["processingState"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

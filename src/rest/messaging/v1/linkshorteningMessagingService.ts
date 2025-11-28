@@ -85,11 +85,15 @@ export class LinkshorteningMessagingServiceContextImpl
       item?: LinkshorteningMessagingServiceInstance
     ) => any
   ): Promise<LinkshorteningMessagingServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -112,11 +116,14 @@ export class LinkshorteningMessagingServiceContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(

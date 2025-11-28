@@ -19,6 +19,7 @@ import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { DataListInstance } from "./payload/data";
 
 /**
  * Options to pass to each
@@ -57,6 +58,8 @@ export interface PayloadListInstancePageOptions {
 }
 
 export interface PayloadContext {
+  data: DataListInstance;
+
   /**
    * Remove a PayloadInstance
    *
@@ -97,6 +100,8 @@ export class PayloadContextImpl implements PayloadContext {
   protected _solution: PayloadContextSolution;
   protected _uri: string;
 
+  protected _data?: DataListInstance;
+
   constructor(
     protected _version: V2010,
     accountSid: string,
@@ -124,14 +129,30 @@ export class PayloadContextImpl implements PayloadContext {
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
   }
 
+  get data(): DataListInstance {
+    this._data =
+      this._data ||
+      DataListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.referenceSid,
+        this._solution.addOnResultSid,
+        this._solution.sid
+      );
+    return this._data;
+  }
+
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -144,11 +165,15 @@ export class PayloadContextImpl implements PayloadContext {
   fetch(
     callback?: (error: Error | null, item?: PayloadInstance) => any
   ): Promise<PayloadInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -316,6 +341,13 @@ export class PayloadInstance {
     callback?: (error: Error | null, item?: PayloadInstance) => any
   ): Promise<PayloadInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the data.
+   */
+  data(): DataListInstance {
+    return this._proxy.data;
   }
 
   /**
@@ -489,6 +521,7 @@ export function PayloadListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

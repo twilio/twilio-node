@@ -22,6 +22,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 export type InteractionChannelParticipantStatus = "closed" | "wrapup";
 
+/**
+ * Participant type. Can be: `agent`, `customer`, `supervisor`, `external`, `unknown`
+ */
 export type InteractionChannelParticipantType =
   | "supervisor"
   | "customer"
@@ -45,6 +48,8 @@ export interface InteractionChannelParticipantListInstanceCreateOptions {
   type: InteractionChannelParticipantType;
   /** JSON representing the Media Properties for the new Participant. */
   mediaProperties: any;
+  /** Object representing the Routing Properties for the new Participant. */
+  routingProperties?: any;
 }
 /**
  * Options to pass to each
@@ -164,6 +169,7 @@ export class InteractionChannelParticipantContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -216,6 +222,7 @@ interface InteractionChannelParticipantResource {
   interaction_sid: string;
   channel_sid: string;
   url: string;
+  routing_properties: any;
 }
 
 export class InteractionChannelParticipantInstance {
@@ -234,6 +241,7 @@ export class InteractionChannelParticipantInstance {
     this.interactionSid = payload.interaction_sid;
     this.channelSid = payload.channel_sid;
     this.url = payload.url;
+    this.routingProperties = payload.routing_properties;
 
     this._solution = { interactionSid, channelSid, sid: sid || this.sid };
   }
@@ -252,6 +260,10 @@ export class InteractionChannelParticipantInstance {
    */
   channelSid: string;
   url: string;
+  /**
+   * The Participant\'s routing properties.
+   */
+  routingProperties: any;
 
   private get _proxy(): InteractionChannelParticipantContext {
     this._context =
@@ -303,6 +315,7 @@ export class InteractionChannelParticipantInstance {
       interactionSid: this.interactionSid,
       channelSid: this.channelSid,
       url: this.url,
+      routingProperties: this.routingProperties,
     };
   }
 
@@ -495,9 +508,12 @@ export function InteractionChannelParticipantListInstance(
     data["Type"] = params["type"];
 
     data["MediaProperties"] = serialize.object(params["mediaProperties"]);
+    if (params["routingProperties"] !== undefined)
+      data["RoutingProperties"] = serialize.object(params["routingProperties"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -551,6 +567,7 @@ export function InteractionChannelParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

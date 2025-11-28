@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowRevisionStatus = "draft" | "published";
 
 /**
@@ -102,11 +105,15 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
   fetch(
     callback?: (error: Error | null, item?: FlowRevisionInstance) => any
   ): Promise<FlowRevisionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -410,6 +417,7 @@ export function FlowRevisionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -15,7 +15,10 @@
 import AccountsBase from "../AccountsBase";
 import Version from "../../base/Version";
 import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
+import { BulkConsentsListInstance } from "./v1/bulkConsents";
+import { BulkContactsListInstance } from "./v1/bulkContacts";
 import { CredentialListInstance } from "./v1/credential";
+import { MessagingGeopermissionsListInstance } from "./v1/messagingGeopermissions";
 import { SafelistListInstance } from "./v1/safelist";
 import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken";
 
@@ -31,8 +34,14 @@ export default class V1 extends Version {
 
   /** authTokenPromotion - { Twilio.Accounts.V1.AuthTokenPromotionListInstance } resource */
   protected _authTokenPromotion?: AuthTokenPromotionListInstance;
+  /** bulkConsents - { Twilio.Accounts.V1.BulkConsentsListInstance } resource */
+  protected _bulkConsents?: BulkConsentsListInstance;
+  /** bulkContacts - { Twilio.Accounts.V1.BulkContactsListInstance } resource */
+  protected _bulkContacts?: BulkContactsListInstance;
   /** credentials - { Twilio.Accounts.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** messagingGeopermissions - { Twilio.Accounts.V1.MessagingGeopermissionsListInstance } resource */
+  protected _messagingGeopermissions?: MessagingGeopermissionsListInstance;
   /** safelist - { Twilio.Accounts.V1.SafelistListInstance } resource */
   protected _safelist?: SafelistListInstance;
   /** secondaryAuthToken - { Twilio.Accounts.V1.SecondaryAuthTokenListInstance } resource */
@@ -45,10 +54,30 @@ export default class V1 extends Version {
     return this._authTokenPromotion;
   }
 
+  /** Getter for bulkConsents resource */
+  get bulkConsents(): BulkConsentsListInstance {
+    this._bulkConsents = this._bulkConsents || BulkConsentsListInstance(this);
+    return this._bulkConsents;
+  }
+
+  /** Getter for bulkContacts resource */
+  get bulkContacts(): BulkContactsListInstance {
+    this._bulkContacts = this._bulkContacts || BulkContactsListInstance(this);
+    return this._bulkContacts;
+  }
+
   /** Getter for credentials resource */
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
+  }
+
+  /** Getter for messagingGeopermissions resource */
+  get messagingGeopermissions(): MessagingGeopermissionsListInstance {
+    this._messagingGeopermissions =
+      this._messagingGeopermissions ||
+      MessagingGeopermissionsListInstance(this);
+    return this._messagingGeopermissions;
   }
 
   /** Getter for safelist resource */

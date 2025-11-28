@@ -1,8 +1,8 @@
 const scmp = require("scmp");
 import crypto from "crypto";
 import urllib from "url";
-import Url from "url-parse";
 import { IncomingHttpHeaders } from "http2";
+import { parse, stringify } from "querystring";
 
 export interface Request {
   protocol: string;
@@ -65,7 +65,7 @@ export interface WebhookOptions {
  * @param parsedUrl - The parsed url object that Twilio requested on your server
  * @returns URL with standard port number included
  */
-function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
+function buildUrlWithStandardPort(parsedUrl: URL): string {
   let url = "";
   const port = parsedUrl.protocol === "https:" ? ":443" : ":80";
 
@@ -74,7 +74,7 @@ function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
   url += parsedUrl.password ? ":" + parsedUrl.password : "";
   url += parsedUrl.username || parsedUrl.password ? "@" : "";
   url += parsedUrl.host ? parsedUrl.host + port : "";
-  url += parsedUrl.pathname + parsedUrl.query + parsedUrl.hash;
+  url += parsedUrl.pathname + parsedUrl.search + parsedUrl.hash;
 
   return url;
 }
@@ -85,7 +85,7 @@ function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
  @param parsedUrl - The parsed url object that Twilio requested on your server
  @returns URL with port
  */
-function addPort(parsedUrl: Url<string>): string {
+function addPort(parsedUrl: URL): string {
   if (!parsedUrl.port) {
     return buildUrlWithStandardPort(parsedUrl);
   }
@@ -98,9 +98,23 @@ function addPort(parsedUrl: Url<string>): string {
  @param parsedUrl - The parsed url object that Twilio requested on your server
  @returns URL without port
  */
-function removePort(parsedUrl: Url<string>): string {
-  parsedUrl.set("port", "");
+function removePort(parsedUrl: URL): string {
+  parsedUrl = new URL(parsedUrl); // prevent mutation of original URL object
+
+  parsedUrl.port = "";
   return parsedUrl.toString();
+}
+
+function withLegacyQuerystring(url: string): string {
+  const parsedUrl = new URL(url);
+
+  if (parsedUrl.search) {
+    const qs = parse(parsedUrl.search.slice(1));
+    parsedUrl.search = "";
+    return parsedUrl.toString() + "?" + stringify(qs);
+  }
+
+  return url;
 }
 
 /**
@@ -179,34 +193,71 @@ export function validateRequest(
   params: Record<string, any>
 ): boolean {
   twilioHeader = twilioHeader || "";
-  const urlObject = new Url(url);
-  const urlWithPort = addPort(urlObject);
-  const urlWithoutPort = removePort(urlObject);
+  const urlObject = new URL(url);
 
   /*
    *  Check signature of the url with and without the port number
+   *  and with and without the legacy querystring (special chars are encoded when using `new URL()`)
    *  since signature generation on the back end is inconsistent
    */
-  const signatureWithPort = getExpectedTwilioSignature(
+  const isValidSignatureWithoutPort = validateSignatureWithUrl(
     authToken,
-    urlWithPort,
+    twilioHeader,
+    removePort(urlObject),
     params
-  );
-  const signatureWithoutPort = getExpectedTwilioSignature(
-    authToken,
-    urlWithoutPort,
-    params
-  );
-  const validSignatureWithPort = scmp(
-    Buffer.from(twilioHeader),
-    Buffer.from(signatureWithPort)
-  );
-  const validSignatureWithoutPort = scmp(
-    Buffer.from(twilioHeader),
-    Buffer.from(signatureWithoutPort)
   );
 
-  return validSignatureWithoutPort || validSignatureWithPort;
+  if (isValidSignatureWithoutPort) {
+    return true;
+  }
+
+  const isValidSignatureWithPort = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    addPort(urlObject),
+    params
+  );
+
+  if (isValidSignatureWithPort) {
+    return true;
+  }
+
+  const isValidSignatureWithLegacyQuerystringWithoutPort =
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      withLegacyQuerystring(removePort(urlObject)),
+      params
+    );
+
+  if (isValidSignatureWithLegacyQuerystringWithoutPort) {
+    return true;
+  }
+
+  const isValidSignatureWithLegacyQuerystringWithPort =
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      withLegacyQuerystring(addPort(urlObject)),
+      params
+    );
+
+  return isValidSignatureWithLegacyQuerystringWithPort;
+}
+
+function validateSignatureWithUrl(
+  authToken: string,
+  twilioHeader: string,
+  url: string,
+  params: Record<string, any>
+): boolean {
+  const signatureWithoutPort = getExpectedTwilioSignature(
+    authToken,
+    url,
+    params
+  );
+
+  return scmp(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
 }
 
 export function validateBody(
@@ -233,10 +284,10 @@ export function validateRequestWithBody(
   url: string,
   body: string
 ): boolean {
-  const urlObject = new Url(url, true);
+  const urlObject = new URL(url);
   return (
     validateRequest(authToken, twilioHeader, url, {}) &&
-    validateBody(body, urlObject.query.bodySHA256 || "")
+    validateBody(body, urlObject.searchParams.get("bodySHA256") || "")
   );
 }
 
@@ -356,11 +407,8 @@ export function webhook(
     }
   }
 
-  if (!options) {
-    options = {
-      validate: true,
-    };
-  }
+  if (!options) options = {};
+  if (options.validate == undefined) options.validate = true;
 
   // Process arguments
   var tokenString;

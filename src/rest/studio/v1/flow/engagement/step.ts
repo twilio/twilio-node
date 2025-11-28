@@ -127,11 +127,15 @@ export class StepContextImpl implements StepContext {
   fetch(
     callback?: (error: Error | null, item?: StepInstance) => any
   ): Promise<StepInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -177,8 +181,10 @@ interface StepResource {
   engagement_sid: string;
   name: string;
   context: any;
+  parent_step_sid: string;
   transitioned_from: string;
   transitioned_to: string;
+  type: string;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -202,8 +208,10 @@ export class StepInstance {
     this.engagementSid = payload.engagement_sid;
     this.name = payload.name;
     this.context = payload.context;
+    this.parentStepSid = payload.parent_step_sid;
     this.transitionedFrom = payload.transitioned_from;
     this.transitionedTo = payload.transitioned_to;
+    this.type = payload.type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -237,6 +245,10 @@ export class StepInstance {
    */
   context: any;
   /**
+   * The SID of the parent Step.
+   */
+  parentStepSid: string;
+  /**
    * The Widget that preceded the Widget for the Step.
    */
   transitionedFrom: string;
@@ -244,6 +256,10 @@ export class StepInstance {
    * The Widget that will follow the Widget for the Step.
    */
   transitionedTo: string;
+  /**
+   * The type of the widget that was executed.
+   */
+  type: string;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -306,8 +322,10 @@ export class StepInstance {
       engagementSid: this.engagementSid,
       name: this.name,
       context: this.context,
+      parentStepSid: this.parentStepSid,
       transitionedFrom: this.transitionedFrom,
       transitionedTo: this.transitionedTo,
+      type: this.type,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
@@ -453,6 +471,7 @@ export function StepListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

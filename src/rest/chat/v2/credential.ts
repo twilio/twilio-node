@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The type of push-notification service the credential is for. Can be: `gcm`, `fcm`, or `apn`.
+ */
 export type CredentialPushService = "gcm" | "apn" | "fcm";
 
 /**
@@ -168,11 +171,14 @@ export class CredentialContextImpl implements CredentialContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -185,11 +191,15 @@ export class CredentialContextImpl implements CredentialContext {
   fetch(
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -236,6 +246,7 @@ export class CredentialContextImpl implements CredentialContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -566,6 +577,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -607,6 +619,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

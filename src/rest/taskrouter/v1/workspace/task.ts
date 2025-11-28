@@ -21,6 +21,9 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ReservationListInstance } from "./task/reservation";
 
+/**
+ * The current status of the Task\'s assignment. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`.
+ */
 export type TaskStatus =
   | "pending"
   | "reserved"
@@ -53,7 +56,7 @@ export interface TaskContextUpdateOptions {
   priority?: number;
   /** When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
-  /** The task\\\'s new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can\\\'t be in the future. */
+  /** The task\\\'s new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can\\\'t be in the future or before the year of 1900. */
   virtualStartTime?: Date;
 }
 
@@ -69,10 +72,16 @@ export interface TaskListInstanceCreateOptions {
   taskChannel?: string;
   /** The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional. */
   workflowSid?: string;
-  /** A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\'s `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`. */
+  /** A JSON string with the attributes of the new task. This value is passed to the Workflow\\\'s `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`. */
   attributes?: string;
-  /** The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can\\\'t be in the future. */
+  /** The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can\\\'t be in the future or before the year of 1900. */
   virtualStartTime?: Date;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
+  /** A boolean that indicates if the Task should respect a Worker\\\'s capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker\\\'s capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.  */
+  ignoreCapacity?: string;
+  /** The SID of the TaskQueue in which the Task belongs */
+  taskQueueSid?: string;
 }
 /**
  * Options to pass to each
@@ -92,6 +101,8 @@ export interface TaskListInstanceEachOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
   /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons. */
@@ -124,6 +135,8 @@ export interface TaskListInstanceOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
   /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons. */
@@ -152,6 +165,8 @@ export interface TaskListInstancePageOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
   /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons. */
@@ -304,11 +319,15 @@ export class TaskContextImpl implements TaskContext {
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -358,6 +377,7 @@ export class TaskContextImpl implements TaskContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -428,6 +448,8 @@ interface TaskResource {
   url: string;
   links: Record<string, string>;
   virtual_start_time: Date;
+  ignore_capacity: boolean;
+  routing_target: string;
 }
 
 export class TaskInstance {
@@ -466,6 +488,8 @@ export class TaskInstance {
     this.virtualStartTime = deserialize.iso8601DateTime(
       payload.virtual_start_time
     );
+    this.ignoreCapacity = payload.ignore_capacity;
+    this.routingTarget = payload.routing_target;
 
     this._solution = { workspaceSid, sid: sid || this.sid };
   }
@@ -555,6 +579,14 @@ export class TaskInstance {
    * The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   virtualStartTime: Date;
+  /**
+   * A boolean that indicates if the Task should respect a Worker\'s capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker\'s capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
+   */
+  ignoreCapacity: boolean;
+  /**
+   * A SID of a Worker, Queue, or Workflow to route a Task to
+   */
+  routingTarget: string;
 
   private get _proxy(): TaskContext {
     this._context =
@@ -676,6 +708,8 @@ export class TaskInstance {
       url: this.url,
       links: this.links,
       virtualStartTime: this.virtualStartTime,
+      ignoreCapacity: this.ignoreCapacity,
+      routingTarget: this.routingTarget,
     };
   }
 
@@ -840,9 +874,16 @@ export function TaskListInstance(
       data["VirtualStartTime"] = serialize.iso8601DateTime(
         params["virtualStartTime"]
       );
+    if (params["routingTarget"] !== undefined)
+      data["RoutingTarget"] = params["routingTarget"];
+    if (params["ignoreCapacity"] !== undefined)
+      data["IgnoreCapacity"] = params["ignoreCapacity"];
+    if (params["taskQueueSid"] !== undefined)
+      data["TaskQueueSid"] = params["taskQueueSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -899,6 +940,8 @@ export function TaskListInstance(
       data["TaskQueueName"] = params["taskQueueName"];
     if (params["evaluateTaskAttributes"] !== undefined)
       data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
+    if (params["routingTarget"] !== undefined)
+      data["RoutingTarget"] = params["routingTarget"];
     if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
     if (params["hasAddons"] !== undefined)
       data["HasAddons"] = serialize.bool(params["hasAddons"]);
@@ -908,6 +951,7 @@ export function TaskListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

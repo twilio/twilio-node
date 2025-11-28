@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The visibility of the channel. Can be: `public` or `private`.
+ */
 export type ChannelChannelType = "public" | "private";
 
 export type ChannelWebhookEnabledType = "true" | "false";
@@ -108,6 +111,7 @@ export class ChannelContextImpl implements ChannelContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 

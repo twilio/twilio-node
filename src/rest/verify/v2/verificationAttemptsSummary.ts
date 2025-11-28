@@ -22,7 +22,8 @@ export type VerificationAttemptsSummaryChannels =
   | "sms"
   | "call"
   | "email"
-  | "whatsapp";
+  | "whatsapp"
+  | "rbm";
 
 /**
  * Options to pass to fetch a VerificationAttemptsSummaryInstance
@@ -36,7 +37,7 @@ export interface VerificationAttemptsSummaryContextFetchOptions {
   dateCreatedBefore?: Date;
   /** Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation. */
   country?: string;
-  /** Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP` */
+  /** Filter Verification Attempts considered on the summary aggregation by communication channel. */
   channel?: VerificationAttemptsSummaryChannels;
   /** Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format. */
   destinationPrefix?: string;
@@ -129,6 +130,7 @@ export class VerificationAttemptsSummaryContextImpl
       data["DestinationPrefix"] = params["destinationPrefix"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -172,7 +174,7 @@ interface VerificationAttemptsSummaryResource {
   total_attempts: number;
   total_converted: number;
   total_unconverted: number;
-  conversion_rate_percentage: number;
+  conversion_rate_percentage: string;
   url: string;
 }
 
@@ -208,7 +210,7 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
    */
-  conversionRatePercentage: number;
+  conversionRatePercentage: string;
   url: string;
 
   private get _proxy(): VerificationAttemptsSummaryContext {

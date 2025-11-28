@@ -47,7 +47,7 @@ export interface SyncMapListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface SyncMapListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
@@ -61,7 +61,7 @@ export interface SyncMapListInstanceEachOptions {
  * Options to pass to list
  */
 export interface SyncMapListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -71,7 +71,7 @@ export interface SyncMapListInstanceOptions {
  * Options to pass to page
  */
 export interface SyncMapListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -185,11 +185,14 @@ export class SyncMapContextImpl implements SyncMapContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -202,11 +205,15 @@ export class SyncMapContextImpl implements SyncMapContext {
   fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -247,6 +254,7 @@ export class SyncMapContextImpl implements SyncMapContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -635,6 +643,7 @@ export function SyncMapListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -681,6 +690,7 @@ export function SyncMapListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

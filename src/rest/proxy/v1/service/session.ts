@@ -22,8 +22,14 @@ import { isValidPathParam } from "../../../../base/utility";
 import { InteractionListInstance } from "./session/interaction";
 import { ParticipantListInstance } from "./session/participant";
 
+/**
+ * The Mode of the Session. Can be: `message-only`, `voice-only`, or `voice-and-message`.
+ */
 export type SessionMode = "message-only" | "voice-only" | "voice-and-message";
 
+/**
+ * The status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`.
+ */
 export type SessionStatus =
   | "open"
   | "in-progress"
@@ -202,11 +208,14 @@ export class SessionContextImpl implements SessionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -219,11 +228,15 @@ export class SessionContextImpl implements SessionContext {
   fetch(
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -265,6 +278,7 @@ export class SessionContextImpl implements SessionContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -690,6 +704,7 @@ export function SessionListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -736,6 +751,7 @@ export function SessionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The status of the Flow. Can be: `draft` or `published`.
+ */
 export type FlowValidateStatus = "draft" | "published";
 
 /**
@@ -105,6 +108,7 @@ export function FlowValidateListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.update({

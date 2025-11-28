@@ -18,9 +18,15 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The Status of this Factor. One of `unverified` or `verified`.
+ */
 export type NewFactorFactorStatuses = "unverified" | "verified";
 
-export type NewFactorFactorTypes = "push" | "totp";
+/**
+ * The Type of this Factor. Currently `push` and `totp` are supported.
+ */
+export type NewFactorFactorTypes = "push" | "totp" | "passkeys";
 
 export type NewFactorNotificationPlatforms = "apn" | "fcm" | "none";
 
@@ -161,6 +167,7 @@ export function NewFactorListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -210,6 +217,7 @@ interface NewFactorResource {
   entity_sid: string;
   identity: string;
   binding: any;
+  options: any;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -233,6 +241,7 @@ export class NewFactorInstance {
     this.entitySid = payload.entity_sid;
     this.identity = payload.identity;
     this.binding = payload.binding;
+    this.options = payload.options;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;
@@ -267,6 +276,7 @@ export class NewFactorInstance {
    * Contains the `factor_type` specific secret and metadata. For push, this is `binding.public_key` and `binding.alg`. For totp, this is `binding.secret` and `binding.uri`. The `binding.uri` property is generated following the [google authenticator key URI format](https://github.com/google/google-authenticator/wiki/Key-Uri-Format), and `Factor.friendly_name` is used for the “accountname” value and `Service.friendly_name` or `Service.totp.issuer` is used for the `issuer` value.   The Binding property is ONLY returned upon Factor creation.
    */
   binding: any;
+  options: any;
   /**
    * The date that this Factor was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -307,6 +317,7 @@ export class NewFactorInstance {
       entitySid: this.entitySid,
       identity: this.identity,
       binding: this.binding,
+      options: this.options,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       friendlyName: this.friendlyName,

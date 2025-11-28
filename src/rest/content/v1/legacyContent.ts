@@ -175,6 +175,7 @@ export function LegacyContentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -240,8 +241,8 @@ interface LegacyContentResource {
   account_sid: string;
   friendly_name: string;
   language: string;
-  variables: any;
-  types: any;
+  variables: Record<string, object>;
+  types: Record<string, object>;
   legacy_template_name: string;
   legacy_body: string;
   url: string;
@@ -289,11 +290,11 @@ export class LegacyContentInstance {
   /**
    * Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
    */
-  variables: any;
+  variables: Record<string, object>;
   /**
-   * The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
+   * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
-  types: any;
+  types: Record<string, object>;
   /**
    * The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
    */

@@ -18,8 +18,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the Stream. Possible values are `stopped` and `in-progress`.
+ */
 export type StreamStatus = "in-progress" | "stopped";
 
+/**
+ * The tracks to be included in the Stream. Possible values are `inbound_track`, `outbound_track`, `both_tracks`. Default value is `inbound_track`.
+ */
 export type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
 export type StreamUpdateStatus = "stopped";
@@ -36,15 +42,15 @@ export interface StreamContextUpdateOptions {
  * Options to pass to create a StreamInstance
  */
 export interface StreamListInstanceCreateOptions {
-  /** Relative or absolute url where WebSocket connection will be established. */
+  /** Relative or absolute URL where WebSocket connection will be established. */
   url: string;
-  /** The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream. */
+  /** The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream. */
   name?: string;
   /**  */
   track?: StreamTrack;
-  /** Absolute URL of the status callback. */
+  /** Absolute URL to which Twilio sends status callback HTTP requests. */
   statusCallback?: string;
-  /** The http method for the status_callback (one of GET, POST). */
+  /** The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`. */
   statusCallbackMethod?: string;
   /** Parameter name */
   "parameter1.name"?: string;
@@ -515,6 +521,7 @@ export class StreamContextImpl implements StreamContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -604,7 +611,7 @@ export class StreamInstance {
    */
   callSid: string;
   /**
-   * The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+   * The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
    */
   name: string;
   status: StreamStatus;
@@ -1147,6 +1154,7 @@ export function StreamListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

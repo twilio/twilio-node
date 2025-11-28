@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the User on the Channel. Can be: `joined`, `invited`, or `not_participating`.
+ */
 export type UserChannelChannelStatus =
   | "joined"
   | "invited"
@@ -187,6 +190,7 @@ export function UserChannelListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

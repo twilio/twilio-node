@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * The compliance status of the Evaluation resource.
+ */
 export type TrustProductsEvaluationsStatus = "compliant" | "noncompliant";
 
 /**
@@ -120,11 +123,15 @@ export class TrustProductsEvaluationsContextImpl
       item?: TrustProductsEvaluationsInstance
     ) => any
   ): Promise<TrustProductsEvaluationsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -429,6 +436,7 @@ export function TrustProductsEvaluationsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -475,6 +483,7 @@ export function TrustProductsEvaluationsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

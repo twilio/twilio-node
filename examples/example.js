@@ -1,4 +1,5 @@
 var Twilio = require("../lib");
+var { RestException } = require("../lib");
 
 var accountSid = process.env.TWILIO_ACCOUNT_SID;
 var token = process.env.TWILIO_AUTH_TOKEN;
@@ -34,7 +35,7 @@ twilio.calls.each(function (call) {
 var from = process.env.FROM_NUMBER;
 var to = process.env.TO_NUMBER;
 
-// Send message using callback
+// Send message using callback with RestException handling
 twilio.messages.create(
   {
     from: from,
@@ -42,21 +43,41 @@ twilio.messages.create(
     body: "create using callback",
   },
   function (err, result) {
+    if (err) {
+      if (err instanceof RestException) {
+        console.log(`Twilio Error ${err.code}: ${err.message}`);
+        console.log(`Status: ${err.status}`);
+        console.log(`More info: ${err.moreInfo}`);
+      } else {
+        console.log("Other error:", err);
+      }
+      return;
+    }
     console.log("Created message using callback");
     console.log(result.sid);
   }
 );
 
-// Send message using promise
+// Send message using promise with RestException handling
 var promise = twilio.messages.create({
   from: from,
   to: to,
   body: "create using promises",
 });
-promise.then(function (message) {
-  console.log("Created message using promises");
-  console.log(message.sid);
-});
+promise
+  .then(function (message) {
+    console.log("Created message using promises");
+    console.log(message.sid);
+  })
+  .catch(function (error) {
+    if (error instanceof RestException) {
+      console.log(`Twilio Error ${error.code}: ${error.message}`);
+      console.log(`Status: ${error.status}`);
+      console.log(`More info: ${error.moreInfo}`);
+    } else {
+      console.log("Other error:", error);
+    }
+  });
 
 // Create sip trunk using callback as first parameter
 twilio.trunking.v1.trunks.create(function (err, result) {

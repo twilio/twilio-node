@@ -20,6 +20,9 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
+/**
+ * The message delivery status, can be `read`, `failed`, `delivered`, `undelivered`, `sent` or null.
+ */
 export type DeliveryReceiptDeliveryStatus =
   | "read"
   | "failed"
@@ -31,7 +34,7 @@ export type DeliveryReceiptDeliveryStatus =
  * Options to pass to each
  */
 export interface DeliveryReceiptListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
@@ -48,7 +51,7 @@ export interface DeliveryReceiptListInstanceEachOptions {
  * Options to pass to list
  */
 export interface DeliveryReceiptListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -58,7 +61,7 @@ export interface DeliveryReceiptListInstanceOptions {
  * Options to pass to page
  */
 export interface DeliveryReceiptListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -126,11 +129,15 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   fetch(
     callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any
   ): Promise<DeliveryReceiptInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -468,6 +475,7 @@ export function DeliveryReceiptListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

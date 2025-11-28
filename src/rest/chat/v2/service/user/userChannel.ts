@@ -20,11 +20,17 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the User on the Channel. Can be: `joined`, `invited`, or `notParticipating`.
+ */
 export type UserChannelChannelStatus =
   | "joined"
   | "invited"
-  | "not_participating";
+  | "notParticipating";
 
+/**
+ * The push notification level of the User for the Channel. Can be: `default` or `muted`.
+ */
 export type UserChannelNotificationLevel = "default" | "muted";
 
 export type UserChannelWebhookEnabledType = "true" | "false";
@@ -52,7 +58,7 @@ export interface UserChannelContextUpdateOptions {
  * Options to pass to each
  */
 export interface UserChannelListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
@@ -66,7 +72,7 @@ export interface UserChannelListInstanceEachOptions {
  * Options to pass to list
  */
 export interface UserChannelListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -76,7 +82,7 @@ export interface UserChannelListInstanceOptions {
  * Options to pass to page
  */
 export interface UserChannelListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -219,11 +225,15 @@ export class UserChannelContextImpl implements UserChannelContext {
   fetch(
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -270,6 +280,7 @@ export class UserChannelContextImpl implements UserChannelContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -648,6 +659,7 @@ export function UserChannelListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -14,6 +14,12 @@
 
 import IntelligenceBase from "../IntelligenceBase";
 import Version from "../../base/Version";
+import { CustomOperatorListInstance } from "./v2/customOperator";
+import { OperatorListInstance } from "./v2/operator";
+import { OperatorAttachmentListInstance } from "./v2/operatorAttachment";
+import { OperatorAttachmentsListInstance } from "./v2/operatorAttachments";
+import { OperatorTypeListInstance } from "./v2/operatorType";
+import { PrebuiltOperatorListInstance } from "./v2/prebuiltOperator";
 import { ServiceListInstance } from "./v2/service";
 import { TranscriptListInstance } from "./v2/transcript";
 
@@ -27,10 +33,62 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** customOperators - { Twilio.Intelligence.V2.CustomOperatorListInstance } resource */
+  protected _customOperators?: CustomOperatorListInstance;
+  /** operators - { Twilio.Intelligence.V2.OperatorListInstance } resource */
+  protected _operators?: OperatorListInstance;
+  /** operatorAttachment - { Twilio.Intelligence.V2.OperatorAttachmentListInstance } resource */
+  protected _operatorAttachment?: OperatorAttachmentListInstance;
+  /** operatorAttachments - { Twilio.Intelligence.V2.OperatorAttachmentsListInstance } resource */
+  protected _operatorAttachments?: OperatorAttachmentsListInstance;
+  /** operatorType - { Twilio.Intelligence.V2.OperatorTypeListInstance } resource */
+  protected _operatorType?: OperatorTypeListInstance;
+  /** prebuiltOperators - { Twilio.Intelligence.V2.PrebuiltOperatorListInstance } resource */
+  protected _prebuiltOperators?: PrebuiltOperatorListInstance;
   /** services - { Twilio.Intelligence.V2.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
   /** transcripts - { Twilio.Intelligence.V2.TranscriptListInstance } resource */
   protected _transcripts?: TranscriptListInstance;
+
+  /** Getter for customOperators resource */
+  get customOperators(): CustomOperatorListInstance {
+    this._customOperators =
+      this._customOperators || CustomOperatorListInstance(this);
+    return this._customOperators;
+  }
+
+  /** Getter for operators resource */
+  get operators(): OperatorListInstance {
+    this._operators = this._operators || OperatorListInstance(this);
+    return this._operators;
+  }
+
+  /** Getter for operatorAttachment resource */
+  get operatorAttachment(): OperatorAttachmentListInstance {
+    this._operatorAttachment =
+      this._operatorAttachment || OperatorAttachmentListInstance(this);
+    return this._operatorAttachment;
+  }
+
+  /** Getter for operatorAttachments resource */
+  get operatorAttachments(): OperatorAttachmentsListInstance {
+    this._operatorAttachments =
+      this._operatorAttachments || OperatorAttachmentsListInstance(this);
+    return this._operatorAttachments;
+  }
+
+  /** Getter for operatorType resource */
+  get operatorType(): OperatorTypeListInstance {
+    this._operatorType = this._operatorType || OperatorTypeListInstance(this);
+    return this._operatorType;
+  }
+
+  /** Getter for prebuiltOperators resource */
+  get prebuiltOperators(): PrebuiltOperatorListInstance {
+    this._prebuiltOperators =
+      this._prebuiltOperators || PrebuiltOperatorListInstance(this);
+    return this._prebuiltOperators;
+  }
 
   /** Getter for services resource */
   get services(): ServiceListInstance {

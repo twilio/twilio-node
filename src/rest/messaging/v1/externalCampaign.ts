@@ -26,6 +26,8 @@ export interface ExternalCampaignListInstanceCreateOptions {
   campaignId: string;
   /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with. */
   messagingServiceSid: string;
+  /** Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call. */
+  cnpMigration?: boolean;
 }
 
 export interface ExternalCampaignSolution {}
@@ -90,9 +92,12 @@ export function ExternalCampaignListInstance(
     data["CampaignId"] = params["campaignId"];
 
     data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["cnpMigration"] !== undefined)
+      data["CnpMigration"] = serialize.bool(params["cnpMigration"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

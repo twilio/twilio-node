@@ -22,6 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { BindingListInstance } from "./service/binding";
 import { ConfigurationListInstance } from "./service/configuration";
 import { ConversationListInstance } from "./service/conversation";
+import { ConversationWithParticipantsListInstance } from "./service/conversationWithParticipants";
 import { ParticipantConversationListInstance } from "./service/participantConversation";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
@@ -37,7 +38,7 @@ export interface ServiceListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface ServiceListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
@@ -51,7 +52,7 @@ export interface ServiceListInstanceEachOptions {
  * Options to pass to list
  */
 export interface ServiceListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -61,7 +62,7 @@ export interface ServiceListInstanceOptions {
  * Options to pass to page
  */
 export interface ServiceListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -73,6 +74,7 @@ export interface ServiceContext {
   bindings: BindingListInstance;
   configuration: ConfigurationListInstance;
   conversations: ConversationListInstance;
+  conversationWithParticipants: ConversationWithParticipantsListInstance;
   participantConversations: ParticipantConversationListInstance;
   roles: RoleListInstance;
   users: UserListInstance;
@@ -117,6 +119,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _bindings?: BindingListInstance;
   protected _configuration?: ConfigurationListInstance;
   protected _conversations?: ConversationListInstance;
+  protected _conversationWithParticipants?: ConversationWithParticipantsListInstance;
   protected _participantConversations?: ParticipantConversationListInstance;
   protected _roles?: RoleListInstance;
   protected _users?: UserListInstance;
@@ -150,6 +153,16 @@ export class ServiceContextImpl implements ServiceContext {
     return this._conversations;
   }
 
+  get conversationWithParticipants(): ConversationWithParticipantsListInstance {
+    this._conversationWithParticipants =
+      this._conversationWithParticipants ||
+      ConversationWithParticipantsListInstance(
+        this._version,
+        this._solution.sid
+      );
+    return this._conversationWithParticipants;
+  }
+
   get participantConversations(): ParticipantConversationListInstance {
     this._participantConversations =
       this._participantConversations ||
@@ -172,11 +185,14 @@ export class ServiceContextImpl implements ServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -189,11 +205,15 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -333,6 +353,13 @@ export class ServiceInstance {
    */
   conversations(): ConversationListInstance {
     return this._proxy.conversations;
+  }
+
+  /**
+   * Access the conversationWithParticipants.
+   */
+  conversationWithParticipants(): ConversationWithParticipantsListInstance {
+    return this._proxy.conversationWithParticipants;
   }
 
   /**
@@ -509,6 +536,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -550,6 +578,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -57,11 +57,15 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -99,7 +103,7 @@ interface ApprovalFetchPayload extends ApprovalFetchResource {}
 interface ApprovalFetchResource {
   sid: string;
   account_sid: string;
-  whatsapp: any;
+  whatsapp: Record<string, object>;
   url: string;
 }
 
@@ -131,7 +135,7 @@ export class ApprovalFetchInstance {
   /**
    * Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
    */
-  whatsapp: any;
+  whatsapp: Record<string, object>;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`.
    */

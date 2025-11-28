@@ -14,7 +14,11 @@
 
 import LookupsBase from "../LookupsBase";
 import Version from "../../base/Version";
+import { BucketListInstance } from "./v2/bucket";
+import { LookupOverrideListInstance } from "./v2/lookupOverride";
 import { PhoneNumberListInstance } from "./v2/phoneNumber";
+import { QueryListInstance } from "./v2/query";
+import { RateLimitListInstance } from "./v2/rateLimit";
 
 export default class V2 extends Version {
   /**
@@ -26,12 +30,45 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** bucket - { Twilio.Lookups.V2.BucketListInstance } resource */
+  protected _bucket?: BucketListInstance;
+  /** lookupOverrides - { Twilio.Lookups.V2.LookupOverrideListInstance } resource */
+  protected _lookupOverrides?: LookupOverrideListInstance;
   /** phoneNumbers - { Twilio.Lookups.V2.PhoneNumberListInstance } resource */
   protected _phoneNumbers?: PhoneNumberListInstance;
+  /** query - { Twilio.Lookups.V2.QueryListInstance } resource */
+  protected _query?: QueryListInstance;
+  /** rateLimits - { Twilio.Lookups.V2.RateLimitListInstance } resource */
+  protected _rateLimits?: RateLimitListInstance;
+
+  /** Getter for bucket resource */
+  get bucket(): BucketListInstance {
+    this._bucket = this._bucket || BucketListInstance(this);
+    return this._bucket;
+  }
+
+  /** Getter for lookupOverrides resource */
+  get lookupOverrides(): LookupOverrideListInstance {
+    this._lookupOverrides =
+      this._lookupOverrides || LookupOverrideListInstance(this);
+    return this._lookupOverrides;
+  }
 
   /** Getter for phoneNumbers resource */
   get phoneNumbers(): PhoneNumberListInstance {
     this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
     return this._phoneNumbers;
+  }
+
+  /** Getter for query resource */
+  get query(): QueryListInstance {
+    this._query = this._query || QueryListInstance(this);
+    return this._query;
+  }
+
+  /** Getter for rateLimits resource */
+  get rateLimits(): RateLimitListInstance {
+    this._rateLimits = this._rateLimits || RateLimitListInstance(this);
+    return this._rateLimits;
   }
 }

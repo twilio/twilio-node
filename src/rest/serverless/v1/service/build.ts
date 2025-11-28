@@ -21,14 +21,22 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { BuildStatusListInstance } from "./build/buildStatus";
 
+/**
+ * The Runtime version that will be used to run the Build resource when it is deployed.
+ */
 export type BuildRuntime =
   | "node8"
   | "node10"
   | "node12"
   | "node14"
   | "node16"
-  | "node18";
+  | "node18"
+  | "node20"
+  | "node22";
 
+/**
+ * The status of the Build. Can be: `building`, `completed`, or `failed`.
+ */
 export type BuildStatus = "building" | "completed" | "failed";
 
 /**
@@ -150,11 +158,14 @@ export class BuildContextImpl implements BuildContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -167,11 +178,15 @@ export class BuildContextImpl implements BuildContext {
   fetch(
     callback?: (error: Error | null, item?: BuildInstance) => any
   ): Promise<BuildInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -521,6 +536,7 @@ export function BuildListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -567,6 +583,7 @@ export function BuildListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

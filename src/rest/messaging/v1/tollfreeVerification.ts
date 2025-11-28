@@ -20,13 +20,21 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Describe how a user opts-in to text messages.
+ */
 export type TollfreeVerificationOptInType =
   | "VERBAL"
   | "WEB_FORM"
   | "PAPER_FORM"
   | "VIA_TEXT"
-  | "MOBILE_QR_CODE";
+  | "MOBILE_QR_CODE"
+  | "IMPORT"
+  | "IMPORT_PLEASE_REPLACE";
 
+/**
+ * The compliance status of the Tollfree Verification record.
+ */
 export type TollfreeVerificationStatus =
   | "PENDING_REVIEW"
   | "IN_REVIEW"
@@ -75,10 +83,34 @@ export interface TollfreeVerificationContextUpdateOptions {
   businessContactLastName?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  /** The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
   /** Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to \\\'Website fixed\\\'. */
   editReason?: string;
+  /** A legaly recognized business registration number */
+  businessRegistrationNumber?: string;
+  /** The organizational authority for business registrations */
+  businessRegistrationAuthority?: string;
+  /** Country business is registered in */
+  businessRegistrationCountry?: string;
+  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT */
+  businessType?: string;
+  /** The E.164 formatted number associated with the business. */
+  businessRegistrationPhoneNumber?: string;
+  /** Trade name, sub entity, or downstream business name of business being submitted for verification */
+  doingBusinessAs?: string;
+  /** The confirmation message sent to users when they opt in to receive messages. */
+  optInConfirmationMessage?: string;
+  /** A sample help message provided to users. */
+  helpMessageSample?: string;
+  /** The URL to the privacy policy for the business or organization. */
+  privacyPolicyUrl?: string;
+  /** The URL to the terms and conditions for the business or organization. */
+  termsAndConditionsUrl?: string;
+  /** Indicates if the content is age gated. */
+  ageGatedContent?: boolean;
+  /** List of keywords that users can text in to opt in to receive messages. */
+  optInKeywords?: Array<string>;
 }
 
 /**
@@ -127,10 +159,34 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessContactLastName?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  /** The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
   /** An optional external reference ID supplied by customer and echoed back on status retrieval. */
   externalReferenceId?: string;
+  /** A legally recognized business registration number */
+  businessRegistrationNumber?: string;
+  /** The organizational authority for business registrations */
+  businessRegistrationAuthority?: string;
+  /** Country business is registered in */
+  businessRegistrationCountry?: string;
+  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT */
+  businessType?: string;
+  /** The E.164 formatted number associated with the business. */
+  businessRegistrationPhoneNumber?: string;
+  /** Trade name, sub entity, or downstream business name of business being submitted for verification */
+  doingBusinessAs?: string;
+  /** The confirmation message sent to users when they opt in to receive messages. */
+  optInConfirmationMessage?: string;
+  /** A sample help message provided to users. */
+  helpMessageSample?: string;
+  /** The URL to the privacy policy for the business or organization. */
+  privacyPolicyUrl?: string;
+  /** The URL to the terms and conditions for the business or organization. */
+  termsAndConditionsUrl?: string;
+  /** Indicates if the content is age gated. */
+  ageGatedContent?: boolean;
+  /** List of keywords that users can text in to opt in to receive messages. */
+  optInKeywords?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -140,8 +196,14 @@ export interface TollfreeVerificationListInstanceEachOptions {
   tollfreePhoneNumberSid?: string;
   /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** Customer supplied reference id for the Tollfree Verification record. */
+  externalReferenceId?: string;
+  /** Whether to include Tollfree Verifications from sub accounts in list response. */
+  includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The trust product sids / tollfree bundle sids of tollfree verifications */
+  trustProductSid?: Array<string>;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TollfreeVerificationInstance,
@@ -161,8 +223,14 @@ export interface TollfreeVerificationListInstanceOptions {
   tollfreePhoneNumberSid?: string;
   /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** Customer supplied reference id for the Tollfree Verification record. */
+  externalReferenceId?: string;
+  /** Whether to include Tollfree Verifications from sub accounts in list response. */
+  includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The trust product sids / tollfree bundle sids of tollfree verifications */
+  trustProductSid?: Array<string>;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -175,8 +243,14 @@ export interface TollfreeVerificationListInstancePageOptions {
   tollfreePhoneNumberSid?: string;
   /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** Customer supplied reference id for the Tollfree Verification record. */
+  externalReferenceId?: string;
+  /** Whether to include Tollfree Verifications from sub accounts in list response. */
+  includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The trust product sids / tollfree bundle sids of tollfree verifications */
+  trustProductSid?: Array<string>;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -258,11 +332,14 @@ export class TollfreeVerificationContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -275,11 +352,15 @@ export class TollfreeVerificationContextImpl
   fetch(
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -362,9 +443,40 @@ export class TollfreeVerificationContextImpl
       data["BusinessContactPhone"] = params["businessContactPhone"];
     if (params["editReason"] !== undefined)
       data["EditReason"] = params["editReason"];
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["businessRegistrationPhoneNumber"] !== undefined)
+      data["BusinessRegistrationPhoneNumber"] =
+        params["businessRegistrationPhoneNumber"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -438,12 +550,26 @@ interface TollfreeVerificationResource {
   message_volume: string;
   additional_information: string;
   tollfree_phone_number_sid: string;
+  tollfree_phone_number: string;
   status: TollfreeVerificationStatus;
   url: string;
   rejection_reason: string;
   error_code: number;
   edit_expiration: Date;
   edit_allowed: boolean;
+  business_registration_number: string;
+  business_registration_authority: string;
+  business_registration_country: string;
+  business_type: string;
+  business_registration_phone_number: string;
+  doing_business_as: string;
+  opt_in_confirmation_message: string;
+  help_message_sample: string;
+  privacy_policy_url: string;
+  terms_and_conditions_url: string;
+  age_gated_content: boolean;
+  opt_in_keywords: Array<string>;
+  rejection_reasons: Array<any>;
   resource_links: any;
   external_reference_id: string;
 }
@@ -485,12 +611,28 @@ export class TollfreeVerificationInstance {
     this.messageVolume = payload.message_volume;
     this.additionalInformation = payload.additional_information;
     this.tollfreePhoneNumberSid = payload.tollfree_phone_number_sid;
+    this.tollfreePhoneNumber = payload.tollfree_phone_number;
     this.status = payload.status;
     this.url = payload.url;
     this.rejectionReason = payload.rejection_reason;
     this.errorCode = deserialize.integer(payload.error_code);
     this.editExpiration = deserialize.iso8601DateTime(payload.edit_expiration);
     this.editAllowed = payload.edit_allowed;
+    this.businessRegistrationNumber = payload.business_registration_number;
+    this.businessRegistrationAuthority =
+      payload.business_registration_authority;
+    this.businessRegistrationCountry = payload.business_registration_country;
+    this.businessType = payload.business_type;
+    this.businessRegistrationPhoneNumber =
+      payload.business_registration_phone_number;
+    this.doingBusinessAs = payload.doing_business_as;
+    this.optInConfirmationMessage = payload.opt_in_confirmation_message;
+    this.helpMessageSample = payload.help_message_sample;
+    this.privacyPolicyUrl = payload.privacy_policy_url;
+    this.termsAndConditionsUrl = payload.terms_and_conditions_url;
+    this.ageGatedContent = payload.age_gated_content;
+    this.optInKeywords = payload.opt_in_keywords;
+    this.rejectionReasons = payload.rejection_reasons;
     this.resourceLinks = payload.resource_links;
     this.externalReferenceId = payload.external_reference_id;
 
@@ -570,7 +712,7 @@ export class TollfreeVerificationInstance {
    */
   businessContactEmail: string;
   /**
-   * The phone number of the contact for the business or organization using the Tollfree number.
+   * The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
    */
   businessContactPhone: string;
   /**
@@ -606,6 +748,10 @@ export class TollfreeVerificationInstance {
    * The SID of the Phone Number associated with the Tollfree Verification.
    */
   tollfreePhoneNumberSid: string;
+  /**
+   * The E.164 formatted toll-free phone number associated with the verification.
+   */
+  tollfreePhoneNumber: string;
   status: TollfreeVerificationStatus;
   /**
    * The absolute URL of the Tollfree Verification resource.
@@ -627,6 +773,58 @@ export class TollfreeVerificationInstance {
    * If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
    */
   editAllowed: boolean;
+  /**
+   * A legally recognized business registration number
+   */
+  businessRegistrationNumber: string;
+  /**
+   * The organizational authority for business registrations
+   */
+  businessRegistrationAuthority: string;
+  /**
+   * Country business is registered in
+   */
+  businessRegistrationCountry: string;
+  /**
+   * The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+   */
+  businessType: string;
+  /**
+   * The E.164 formatted number associated with the business.
+   */
+  businessRegistrationPhoneNumber: string;
+  /**
+   * Trade name, sub entity, or downstream business name of business being submitted for verification
+   */
+  doingBusinessAs: string;
+  /**
+   * The confirmation message sent to users when they opt in to receive messages.
+   */
+  optInConfirmationMessage: string;
+  /**
+   * A sample help message provided to users.
+   */
+  helpMessageSample: string;
+  /**
+   * The URL to the privacy policy for the business or organization.
+   */
+  privacyPolicyUrl: string;
+  /**
+   * The URL of the terms and conditions for the business or organization.
+   */
+  termsAndConditionsUrl: string;
+  /**
+   * Indicates if the content is age gated.
+   */
+  ageGatedContent: boolean;
+  /**
+   * List of keywords that users can send to opt in or out of messages.
+   */
+  optInKeywords: Array<string>;
+  /**
+   * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
+   */
+  rejectionReasons: Array<any>;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
@@ -734,12 +932,26 @@ export class TollfreeVerificationInstance {
       messageVolume: this.messageVolume,
       additionalInformation: this.additionalInformation,
       tollfreePhoneNumberSid: this.tollfreePhoneNumberSid,
+      tollfreePhoneNumber: this.tollfreePhoneNumber,
       status: this.status,
       url: this.url,
       rejectionReason: this.rejectionReason,
       errorCode: this.errorCode,
       editExpiration: this.editExpiration,
       editAllowed: this.editAllowed,
+      businessRegistrationNumber: this.businessRegistrationNumber,
+      businessRegistrationAuthority: this.businessRegistrationAuthority,
+      businessRegistrationCountry: this.businessRegistrationCountry,
+      businessType: this.businessType,
+      businessRegistrationPhoneNumber: this.businessRegistrationPhoneNumber,
+      doingBusinessAs: this.doingBusinessAs,
+      optInConfirmationMessage: this.optInConfirmationMessage,
+      helpMessageSample: this.helpMessageSample,
+      privacyPolicyUrl: this.privacyPolicyUrl,
+      termsAndConditionsUrl: this.termsAndConditionsUrl,
+      ageGatedContent: this.ageGatedContent,
+      optInKeywords: this.optInKeywords,
+      rejectionReasons: this.rejectionReasons,
       resourceLinks: this.resourceLinks,
       externalReferenceId: this.externalReferenceId,
     };
@@ -1020,9 +1232,40 @@ export function TollfreeVerificationListInstance(
       data["BusinessContactPhone"] = params["businessContactPhone"];
     if (params["externalReferenceId"] !== undefined)
       data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["businessRegistrationPhoneNumber"] !== undefined)
+      data["BusinessRegistrationPhoneNumber"] =
+        params["businessRegistrationPhoneNumber"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -1061,12 +1304,22 @@ export function TollfreeVerificationListInstance(
     if (params["tollfreePhoneNumberSid"] !== undefined)
       data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["includeSubAccounts"] !== undefined)
+      data["IncludeSubAccounts"] = serialize.bool(params["includeSubAccounts"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["trustProductSid"] !== undefined)
+      data["TrustProductSid"] = serialize.map(
+        params["trustProductSid"],
+        (e: string) => e
+      );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

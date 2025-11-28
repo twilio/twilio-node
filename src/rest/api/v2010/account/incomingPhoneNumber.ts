@@ -25,12 +25,18 @@ import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
+/**
+ * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
+ */
 export type IncomingPhoneNumberAddressRequirement =
   | "none"
   | "any"
   | "local"
   | "foreign";
 
+/**
+ * The status of address registration with emergency services. A registered emergency address will be used during handling of emergency calls from this number.
+ */
 export type IncomingPhoneNumberEmergencyAddressStatus =
   | "registered"
   | "unregistered"
@@ -39,6 +45,9 @@ export type IncomingPhoneNumberEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
+/**
+ * The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
+ */
 export type IncomingPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
 export type IncomingPhoneNumberVoiceReceiveMode = "voice" | "fax";
@@ -306,11 +315,14 @@ export class IncomingPhoneNumberContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -323,11 +335,15 @@ export class IncomingPhoneNumberContextImpl
   fetch(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -410,6 +426,7 @@ export class IncomingPhoneNumberContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -1031,6 +1048,7 @@ export function IncomingPhoneNumberListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -1084,6 +1102,7 @@ export function IncomingPhoneNumberListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

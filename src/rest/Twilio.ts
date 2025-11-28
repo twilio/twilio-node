@@ -12,6 +12,7 @@
 import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio";
 import Accounts from "./Accounts";
 import Api from "./Api";
+import Assistants from "./Assistants";
 import Bulkexports from "./Bulkexports";
 import Chat from "./Chat";
 import Content from "./Content";
@@ -19,16 +20,19 @@ import Conversations from "./Conversations";
 import Events from "./Events";
 import FlexApi from "./FlexApi";
 import FrontlineApi from "./FrontlineApi";
+import PreviewIam from "./PreviewIam";
+import Iam from "./Iam";
 import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
+import Knowledge from "./Knowledge";
 import Lookups from "./Lookups";
-import Media from "./Media";
+import Marketplace from "./Marketplace";
 import Messaging from "./Messaging";
-import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
 import Notify from "./Notify";
 import Numbers from "./Numbers";
+import Oauth from "./Oauth";
 import Preview from "./Preview";
 import Pricing from "./Pricing";
 import Proxy from "./Proxy";
@@ -80,6 +84,8 @@ class Twilio extends Client {
   _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
   _api?: Api;
+  /** (Twilio.Assistants) - assistants domain */
+  _assistants?: Assistants;
   /** (Twilio.Bulkexports) - bulkexports domain */
   _bulkexports?: Bulkexports;
   /** (Twilio.Chat) - chat domain */
@@ -94,26 +100,32 @@ class Twilio extends Client {
   _flexApi?: FlexApi;
   /** (Twilio.FrontlineApi) - frontlineApi domain */
   _frontlineApi?: FrontlineApi;
+  /** (Twilio.PreviewIam) - previewIam domain */
+  _previewIam?: PreviewIam;
+  /** (Twilio.Iam) - iam domain */
+  _iam?: Iam;
   /** (Twilio.Insights) - insights domain */
   _insights?: Insights;
   /** (Twilio.Intelligence) - intelligence domain */
   _intelligence?: Intelligence;
   /** (Twilio.IpMessaging) - ipMessaging domain */
   _ipMessaging?: IpMessaging;
+  /** (Twilio.Knowledge) - knowledge domain */
+  _knowledge?: Knowledge;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
-  /** (Twilio.Media) - media domain */
-  _media?: Media;
+  /** (Twilio.Marketplace) - marketplace domain */
+  _marketplace?: Marketplace;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
-  /** (Twilio.Microvisor) - microvisor domain */
-  _microvisor?: Microvisor;
   /** (Twilio.Monitor) - monitor domain */
   _monitor?: Monitor;
   /** (Twilio.Notify) - notify domain */
   _notify?: Notify;
   /** (Twilio.Numbers) - numbers domain */
   _numbers?: Numbers;
+  /** (Twilio.Oauth) - oauth domain */
+  _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
   _preview?: Preview;
   /** (Twilio.Pricing) - pricing domain */
@@ -164,6 +176,7 @@ class Twilio extends Client {
     if (this.opts?.lazyLoading === false) {
       this.accounts;
       this.api;
+      this.assistants;
       this.bulkexports;
       this.chat;
       this.content;
@@ -171,16 +184,19 @@ class Twilio extends Client {
       this.events;
       this.flexApi;
       this.frontlineApi;
+      this.previewIam;
+      this.iam;
       this.insights;
       this.intelligence;
       this.ipMessaging;
+      this.knowledge;
       this.lookups;
-      this.media;
+      this.marketplace;
       this.messaging;
-      this.microvisor;
       this.monitor;
       this.notify;
       this.numbers;
+      this.oauth;
       this.preview;
       this.pricing;
       this.proxy;
@@ -209,6 +225,13 @@ class Twilio extends Client {
   /** Getter for (Twilio.Api) domain */
   get api(): Api {
     return this._api ?? (this._api = new (require("./Api"))(this));
+  }
+  /** Getter for (Twilio.Assistants) domain */
+  get assistants(): Assistants {
+    return (
+      this._assistants ??
+      (this._assistants = new (require("./Assistants"))(this))
+    );
   }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
@@ -247,6 +270,17 @@ class Twilio extends Client {
       (this._frontlineApi = new (require("./FrontlineApi"))(this))
     );
   }
+  /** Getter for (Twilio.PreviewIam) domain */
+  get previewIam(): PreviewIam {
+    return (
+      this._previewIam ??
+      (this._previewIam = new (require("./PreviewIam"))(this))
+    );
+  }
+  /** Getter for (Twilio.Iam) domain */
+  get iam(): Iam {
+    return this._iam ?? (this._iam = new (require("./Iam"))(this));
+  }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {
     return (
@@ -267,25 +301,27 @@ class Twilio extends Client {
       (this._ipMessaging = new (require("./IpMessaging"))(this))
     );
   }
+  /** Getter for (Twilio.Knowledge) domain */
+  get knowledge(): Knowledge {
+    return (
+      this._knowledge ?? (this._knowledge = new (require("./Knowledge"))(this))
+    );
+  }
   /** Getter for (Twilio.Lookups) domain */
   get lookups(): Lookups {
     return this._lookups ?? (this._lookups = new (require("./Lookups"))(this));
   }
-  /** Getter for (Twilio.Media) domain */
-  get media(): Media {
-    return this._media ?? (this._media = new (require("./Media"))(this));
+  /** Getter for (Twilio.Marketplace) domain */
+  get marketplace(): Marketplace {
+    return (
+      this._marketplace ??
+      (this._marketplace = new (require("./Marketplace"))(this))
+    );
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {
     return (
       this._messaging ?? (this._messaging = new (require("./Messaging"))(this))
-    );
-  }
-  /** Getter for (Twilio.Microvisor) domain */
-  get microvisor(): Microvisor {
-    return (
-      this._microvisor ??
-      (this._microvisor = new (require("./Microvisor"))(this))
     );
   }
   /** Getter for (Twilio.Monitor) domain */
@@ -299,6 +335,10 @@ class Twilio extends Client {
   /** Getter for (Twilio.Numbers) domain */
   get numbers(): Numbers {
     return this._numbers ?? (this._numbers = new (require("./Numbers"))(this));
+  }
+  /** Getter for (Twilio.Oauth) domain */
+  get oauth(): Oauth {
+    return this._oauth ?? (this._oauth = new (require("./Oauth"))(this));
   }
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {

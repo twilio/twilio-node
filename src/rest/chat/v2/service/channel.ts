@@ -24,6 +24,9 @@ import { MemberListInstance } from "./channel/member";
 import { MessageListInstance } from "./channel/message";
 import { WebhookListInstance } from "./channel/webhook";
 
+/**
+ * The visibility of the channel. Can be: `public` or `private`.
+ */
 export type ChannelChannelType = "public" | "private";
 
 export type ChannelWebhookEnabledType = "true" | "false";
@@ -83,7 +86,7 @@ export interface ChannelListInstanceCreateOptions {
 export interface ChannelListInstanceEachOptions {
   /** The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`. */
   type?: Array<ChannelChannelType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
@@ -99,7 +102,7 @@ export interface ChannelListInstanceEachOptions {
 export interface ChannelListInstanceOptions {
   /** The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`. */
   type?: Array<ChannelChannelType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -111,7 +114,7 @@ export interface ChannelListInstanceOptions {
 export interface ChannelListInstancePageOptions {
   /** The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`. */
   type?: Array<ChannelChannelType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -298,11 +301,15 @@ export class ChannelContextImpl implements ChannelContext {
   fetch(
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -352,6 +359,7 @@ export class ChannelContextImpl implements ChannelContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -799,6 +807,7 @@ export function ChannelListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
@@ -852,6 +861,7 @@ export function ChannelListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

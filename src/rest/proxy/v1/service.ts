@@ -21,14 +21,19 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { SessionListInstance } from "./service/session";
-import { ShortCodeListInstance } from "./service/shortCode";
 
+/**
+ * Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
+ */
 export type ServiceGeoMatchLevel =
   | "area-code"
   | "overlay"
   | "radius"
   | "country";
 
+/**
+ * The preference for Proxy Number selection in the Service instance. Can be: `prefer-sticky` or `avoid-sticky`. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
+ */
 export type ServiceNumberSelectionBehavior = "avoid-sticky" | "prefer-sticky";
 
 /**
@@ -113,7 +118,6 @@ export interface ServiceListInstancePageOptions {
 export interface ServiceContext {
   phoneNumbers: PhoneNumberListInstance;
   sessions: SessionListInstance;
-  shortCodes: ShortCodeListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -177,7 +181,6 @@ export class ServiceContextImpl implements ServiceContext {
 
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _sessions?: SessionListInstance;
-  protected _shortCodes?: ShortCodeListInstance;
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
@@ -201,21 +204,17 @@ export class ServiceContextImpl implements ServiceContext {
     return this._sessions;
   }
 
-  get shortCodes(): ShortCodeListInstance {
-    this._shortCodes =
-      this._shortCodes ||
-      ShortCodeListInstance(this._version, this._solution.sid);
-    return this._shortCodes;
-  }
-
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -228,11 +227,15 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -281,6 +284,7 @@ export class ServiceContextImpl implements ServiceContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -490,13 +494,6 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the shortCodes.
-   */
-  shortCodes(): ShortCodeListInstance {
-    return this._proxy.shortCodes;
-  }
-
-  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -667,6 +664,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -708,6 +706,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

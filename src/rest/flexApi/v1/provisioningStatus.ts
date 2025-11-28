@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Email Provisioning Status
+ */
 export type ProvisioningStatusStatus =
   | "active"
   | "in-progress"
@@ -59,11 +62,15 @@ export class ProvisioningStatusContextImpl
   fetch(
     callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

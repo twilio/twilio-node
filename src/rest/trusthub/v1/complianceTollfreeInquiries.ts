@@ -18,6 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Describe how a user opts-in to text messages.
+ */
 export type ComplianceTollfreeInquiriesOptInType =
   | "VERBAL"
   | "WEB_FORM"
@@ -71,6 +74,10 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   businessContactEmail?: string;
   /** The phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
+  /** Skip the messaging use case screen of the inquiry form. */
+  skipMessagingUseCase?: boolean;
 }
 
 export interface ComplianceTollfreeInquiriesSolution {}
@@ -191,9 +198,16 @@ export function ComplianceTollfreeInquiriesListInstance(
       data["BusinessContactEmail"] = params["businessContactEmail"];
     if (params["businessContactPhone"] !== undefined)
       data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+    if (params["skipMessagingUseCase"] !== undefined)
+      data["SkipMessagingUseCase"] = serialize.bool(
+        params["skipMessagingUseCase"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

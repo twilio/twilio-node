@@ -325,7 +325,15 @@ namespace VoiceResponse {
 
   type ConferenceRecordingEvent = "in-progress" | "completed" | "absent";
 
-  type ConferenceRegion = "us1" | "ie1" | "sg1" | "br1" | "au1" | "jp1" | "de1";
+  type ConferenceRegion =
+    | "us1"
+    | "us2"
+    | "ie1"
+    | "sg1"
+    | "br1"
+    | "au1"
+    | "jp1"
+    | "de1";
 
   type ConferenceTrim = "trim-silence" | "do-not-trim";
 
@@ -347,6 +355,8 @@ namespace VoiceResponse {
   type ConversationRecordingEvent = "in-progress" | "completed" | "absent";
 
   type ConversationTrim = "trim-silence" | "do-not-trim";
+
+  type DialEvents = "call-progress-event";
 
   type DialRecord =
     | "do-not-record"
@@ -537,13 +547,6 @@ namespace VoiceResponse {
     | "cmn-Hant-TW"
     | "zu-ZA";
 
-  type GatherSpeechModel =
-    | "default"
-    | "numbers_and_commands"
-    | "phone_call"
-    | "experimental_conversations"
-    | "experimental_utterances";
-
   type NumberEvent = "initiated" | "ringing" | "answered" | "completed";
 
   type PayBankAccountType =
@@ -575,7 +578,7 @@ namespace VoiceResponse {
 
   type PayStatusCallbackMethod = "GET" | "POST";
 
-  type PayTokenType = "one-time" | "reusable";
+  type PayTokenType = "one-time" | "reusable" | "payment-method";
 
   type PayValidCardTypes =
     | "visa"
@@ -621,10 +624,22 @@ namespace VoiceResponse {
 
   type RecordTrim = "trim-silence" | "do-not-trim";
 
+  type RecordingChannels = "mono" | "dual";
+
+  type RecordingEvent = "in-progress" | "completed" | "absent";
+
+  type RecordingRecordingStatusCallbackMethod = "GET" | "POST";
+
+  type RecordingTrack = "inbound" | "outbound" | "both";
+
+  type RecordingTrim = "trim-silence" | "do-not-trim";
+
   type RejectReason = "rejected" | "busy";
 
   type SayLanguage =
     | "af-ZA"
+    | "am-ET"
+    | "ar-AE"
     | "ar-XA"
     | "arb"
     | "bg-BG"
@@ -642,6 +657,7 @@ namespace VoiceResponse {
     | "en-CA"
     | "en-GB"
     | "en-GB-WLS"
+    | "en-IE"
     | "en-IN"
     | "en-NZ"
     | "en-US"
@@ -653,6 +669,7 @@ namespace VoiceResponse {
     | "fil-PH"
     | "fr-CA"
     | "fr-FR"
+    | "fr-BE"
     | "gu-IN"
     | "he-IL"
     | "hi-IN"
@@ -695,6 +712,18 @@ namespace VoiceResponse {
     | "woman"
     | "alice"
     | "Google.af-ZA-Standard-A"
+    | "Google.am-ET-Standard-A"
+    | "Google.am-ET-Standard-B"
+    | "Google.am-ET-Wavenet-A"
+    | "Google.am-ET-Wavenet-B"
+    | "Google.ar-XA-Chirp3-HD-Aoede"
+    | "Google.ar-XA-Chirp3-HD-Charon"
+    | "Google.ar-XA-Chirp3-HD-Fenrir"
+    | "Google.ar-XA-Chirp3-HD-Kore"
+    | "Google.ar-XA-Chirp3-HD-Leda"
+    | "Google.ar-XA-Chirp3-HD-Orus"
+    | "Google.ar-XA-Chirp3-HD-Puck"
+    | "Google.ar-XA-Chirp3-HD-Zephyr"
     | "Google.ar-XA-Standard-A"
     | "Google.ar-XA-Standard-B"
     | "Google.ar-XA-Standard-C"
@@ -704,7 +733,33 @@ namespace VoiceResponse {
     | "Google.ar-XA-Wavenet-C"
     | "Google.ar-XA-Wavenet-D"
     | "Google.bg-BG-Standard-A"
+    | "Google.bg-BG-Standard-B"
+    | "Google.bn-IN-Chirp3-HD-Aoede"
+    | "Google.bn-IN-Chirp3-HD-Charon"
+    | "Google.bn-IN-Chirp3-HD-Fenrir"
+    | "Google.bn-IN-Chirp3-HD-Kore"
+    | "Google.bn-IN-Chirp3-HD-Leda"
+    | "Google.bn-IN-Chirp3-HD-Orus"
+    | "Google.bn-IN-Chirp3-HD-Puck"
+    | "Google.bn-IN-Chirp3-HD-Zephyr"
+    | "Google.bn-IN-Standard-A"
+    | "Google.bn-IN-Standard-B"
+    | "Google.bn-IN-Standard-C"
+    | "Google.bn-IN-Standard-D"
+    | "Google.bn-IN-Wavenet-A"
+    | "Google.bn-IN-Wavenet-B"
+    | "Google.bn-IN-Wavenet-C"
+    | "Google.bn-IN-Wavenet-D"
     | "Google.ca-ES-Standard-A"
+    | "Google.ca-ES-Standard-B"
+    | "Google.cmn-CN-Chirp3-HD-Aoede"
+    | "Google.cmn-CN-Chirp3-HD-Charon"
+    | "Google.cmn-CN-Chirp3-HD-Fenrir"
+    | "Google.cmn-CN-Chirp3-HD-Kore"
+    | "Google.cmn-CN-Chirp3-HD-Leda"
+    | "Google.cmn-CN-Chirp3-HD-Orus"
+    | "Google.cmn-CN-Chirp3-HD-Puck"
+    | "Google.cmn-CN-Chirp3-HD-Zephyr"
     | "Google.cmn-CN-Standard-A"
     | "Google.cmn-CN-Standard-B"
     | "Google.cmn-CN-Standard-C"
@@ -720,35 +775,66 @@ namespace VoiceResponse {
     | "Google.cmn-TW-Wavenet-B"
     | "Google.cmn-TW-Wavenet-C"
     | "Google.cs-CZ-Standard-A"
+    | "Google.cs-CZ-Standard-B"
     | "Google.cs-CZ-Wavenet-A"
+    | "Google.cs-CZ-Wavenet-B"
     | "Google.da-DK-Neural2-D"
     | "Google.da-DK-Neural2-F"
     | "Google.da-DK-Standard-A"
     | "Google.da-DK-Standard-C"
     | "Google.da-DK-Standard-D"
     | "Google.da-DK-Standard-E"
+    | "Google.da-DK-Standard-F"
+    | "Google.da-DK-Standard-G"
     | "Google.da-DK-Wavenet-A"
     | "Google.da-DK-Wavenet-C"
     | "Google.da-DK-Wavenet-D"
     | "Google.da-DK-Wavenet-E"
+    | "Google.da-DK-Wavenet-F"
+    | "Google.da-DK-Wavenet-G"
+    | "Google.de-DE-Chirp3-HD-Aoede"
+    | "Google.de-DE-Chirp3-HD-Charon"
+    | "Google.de-DE-Chirp3-HD-Fenrir"
+    | "Google.de-DE-Chirp3-HD-Kore"
+    | "Google.de-DE-Chirp3-HD-Leda"
+    | "Google.de-DE-Chirp3-HD-Orus"
+    | "Google.de-DE-Chirp3-HD-Puck"
+    | "Google.de-DE-Chirp3-HD-Zephyr"
+    | "Google.de-DE-Neural2-A"
     | "Google.de-DE-Neural2-B"
     | "Google.de-DE-Neural2-C"
     | "Google.de-DE-Neural2-D"
     | "Google.de-DE-Neural2-F"
+    | "Google.de-DE-Neural2-G"
+    | "Google.de-DE-Neural2-H"
     | "Google.de-DE-Standard-A"
     | "Google.de-DE-Standard-B"
     | "Google.de-DE-Standard-C"
     | "Google.de-DE-Standard-D"
     | "Google.de-DE-Standard-E"
     | "Google.de-DE-Standard-F"
+    | "Google.de-DE-Standard-G"
+    | "Google.de-DE-Standard-H"
     | "Google.de-DE-Wavenet-A"
     | "Google.de-DE-Wavenet-B"
     | "Google.de-DE-Wavenet-C"
     | "Google.de-DE-Wavenet-D"
     | "Google.de-DE-Wavenet-E"
     | "Google.de-DE-Wavenet-F"
+    | "Google.de-DE-Wavenet-G"
+    | "Google.de-DE-Wavenet-H"
     | "Google.el-GR-Standard-A"
+    | "Google.el-GR-Standard-B"
     | "Google.el-GR-Wavenet-A"
+    | "Google.el-GR-Wavenet-B"
+    | "Google.en-AU-Chirp3-HD-Aoede"
+    | "Google.en-AU-Chirp3-HD-Charon"
+    | "Google.en-AU-Chirp3-HD-Fenrir"
+    | "Google.en-AU-Chirp3-HD-Kore"
+    | "Google.en-AU-Chirp3-HD-Leda"
+    | "Google.en-AU-Chirp3-HD-Orus"
+    | "Google.en-AU-Chirp3-HD-Puck"
+    | "Google.en-AU-Chirp3-HD-Zephyr"
     | "Google.en-AU-Neural2-A"
     | "Google.en-AU-Neural2-B"
     | "Google.en-AU-Neural2-C"
@@ -761,29 +847,67 @@ namespace VoiceResponse {
     | "Google.en-AU-Wavenet-B"
     | "Google.en-AU-Wavenet-C"
     | "Google.en-AU-Wavenet-D"
+    | "Google.en-GB-Chirp3-HD-Aoede"
+    | "Google.en-GB-Chirp3-HD-Charon"
+    | "Google.en-GB-Chirp3-HD-Fenrir"
+    | "Google.en-GB-Chirp3-HD-Kore"
+    | "Google.en-GB-Chirp3-HD-Leda"
+    | "Google.en-GB-Chirp3-HD-Orus"
+    | "Google.en-GB-Chirp3-HD-Puck"
+    | "Google.en-GB-Chirp3-HD-Zephyr"
     | "Google.en-GB-Neural2-A"
     | "Google.en-GB-Neural2-B"
     | "Google.en-GB-Neural2-C"
     | "Google.en-GB-Neural2-D"
     | "Google.en-GB-Neural2-F"
+    | "Google.en-GB-Neural2-N"
+    | "Google.en-GB-Neural2-O"
     | "Google.en-GB-Standard-A"
     | "Google.en-GB-Standard-B"
     | "Google.en-GB-Standard-C"
     | "Google.en-GB-Standard-D"
     | "Google.en-GB-Standard-F"
+    | "Google.en-GB-Standard-N"
+    | "Google.en-GB-Standard-O"
     | "Google.en-GB-Wavenet-A"
     | "Google.en-GB-Wavenet-B"
     | "Google.en-GB-Wavenet-C"
     | "Google.en-GB-Wavenet-D"
     | "Google.en-GB-Wavenet-F"
+    | "Google.en-GB-Wavenet-N"
+    | "Google.en-GB-Wavenet-O"
+    | "Google.en-IN-Chirp3-HD-Aoede"
+    | "Google.en-IN-Chirp3-HD-Charon"
+    | "Google.en-IN-Chirp3-HD-Fenrir"
+    | "Google.en-IN-Chirp3-HD-Kore"
+    | "Google.en-IN-Chirp3-HD-Leda"
+    | "Google.en-IN-Chirp3-HD-Orus"
+    | "Google.en-IN-Chirp3-HD-Puck"
+    | "Google.en-IN-Chirp3-HD-Zephyr"
+    | "Google.en-IN-Neural2-A"
+    | "Google.en-IN-Neural2-B"
+    | "Google.en-IN-Neural2-C"
+    | "Google.en-IN-Neural2-D"
     | "Google.en-IN-Standard-A"
     | "Google.en-IN-Standard-B"
     | "Google.en-IN-Standard-C"
     | "Google.en-IN-Standard-D"
+    | "Google.en-IN-Standard-E"
+    | "Google.en-IN-Standard-F"
     | "Google.en-IN-Wavenet-A"
     | "Google.en-IN-Wavenet-B"
     | "Google.en-IN-Wavenet-C"
     | "Google.en-IN-Wavenet-D"
+    | "Google.en-IN-Wavenet-E"
+    | "Google.en-IN-Wavenet-F"
+    | "Google.en-US-Chirp3-HD-Aoede"
+    | "Google.en-US-Chirp3-HD-Charon"
+    | "Google.en-US-Chirp3-HD-Fenrir"
+    | "Google.en-US-Chirp3-HD-Kore"
+    | "Google.en-US-Chirp3-HD-Leda"
+    | "Google.en-US-Chirp3-HD-Orus"
+    | "Google.en-US-Chirp3-HD-Puck"
+    | "Google.en-US-Chirp3-HD-Zephyr"
     | "Google.en-US-Neural2-A"
     | "Google.en-US-Neural2-C"
     | "Google.en-US-Neural2-D"
@@ -813,18 +937,45 @@ namespace VoiceResponse {
     | "Google.en-US-Wavenet-H"
     | "Google.en-US-Wavenet-I"
     | "Google.en-US-Wavenet-J"
+    | "Google.es-ES-Chirp3-HD-Aoede"
+    | "Google.es-ES-Chirp3-HD-Charon"
+    | "Google.es-ES-Chirp3-HD-Fenrir"
+    | "Google.es-ES-Chirp3-HD-Kore"
+    | "Google.es-ES-Chirp3-HD-Leda"
+    | "Google.es-ES-Chirp3-HD-Orus"
+    | "Google.es-ES-Chirp3-HD-Puck"
+    | "Google.es-ES-Chirp3-HD-Zephyr"
     | "Google.es-ES-Neural2-A"
     | "Google.es-ES-Neural2-B"
     | "Google.es-ES-Neural2-C"
     | "Google.es-ES-Neural2-D"
     | "Google.es-ES-Neural2-E"
     | "Google.es-ES-Neural2-F"
+    | "Google.es-ES-Neural2-G"
+    | "Google.es-ES-Neural2-H"
+    | "Google.es-ES-Standard-A"
     | "Google.es-ES-Standard-B"
     | "Google.es-ES-Standard-C"
     | "Google.es-ES-Standard-D"
+    | "Google.es-ES-Standard-E"
+    | "Google.es-ES-Standard-F"
+    | "Google.es-ES-Standard-G"
+    | "Google.es-ES-Standard-H"
     | "Google.es-ES-Wavenet-B"
     | "Google.es-ES-Wavenet-C"
     | "Google.es-ES-Wavenet-D"
+    | "Google.es-ES-Wavenet-E"
+    | "Google.es-ES-Wavenet-F"
+    | "Google.es-ES-Wavenet-G"
+    | "Google.es-ES-Wavenet-H"
+    | "Google.es-US-Chirp3-HD-Aoede"
+    | "Google.es-US-Chirp3-HD-Charon"
+    | "Google.es-US-Chirp3-HD-Fenrir"
+    | "Google.es-US-Chirp3-HD-Kore"
+    | "Google.es-US-Chirp3-HD-Leda"
+    | "Google.es-US-Chirp3-HD-Orus"
+    | "Google.es-US-Chirp3-HD-Puck"
+    | "Google.es-US-Chirp3-HD-Zephyr"
     | "Google.es-US-Neural2-A"
     | "Google.es-US-Neural2-B"
     | "Google.es-US-Neural2-C"
@@ -835,8 +986,13 @@ namespace VoiceResponse {
     | "Google.es-US-Wavenet-B"
     | "Google.es-US-Wavenet-C"
     | "Google.eu-ES-Standard-A"
+    | "Google.eu-ES-Standard-B"
     | "Google.fi-FI-Standard-A"
+    | "Google.fi-FI-Standard-B"
     | "Google.fi-FI-Wavenet-A"
+    | "Google.fi-FI-Wavenet-B"
+    | "Google.fil-ph-Neural2-A"
+    | "Google.fil-ph-Neural2-D"
     | "Google.fil-PH-Standard-A"
     | "Google.fil-PH-Standard-B"
     | "Google.fil-PH-Standard-C"
@@ -845,8 +1001,14 @@ namespace VoiceResponse {
     | "Google.fil-PH-Wavenet-B"
     | "Google.fil-PH-Wavenet-C"
     | "Google.fil-PH-Wavenet-D"
-    | "Google.fil-ph-Neural2-A"
-    | "Google.fil-ph-Neural2-D"
+    | "Google.fr-CA-Chirp3-HD-Aoede"
+    | "Google.fr-CA-Chirp3-HD-Charon"
+    | "Google.fr-CA-Chirp3-HD-Fenrir"
+    | "Google.fr-CA-Chirp3-HD-Kore"
+    | "Google.fr-CA-Chirp3-HD-Leda"
+    | "Google.fr-CA-Chirp3-HD-Orus"
+    | "Google.fr-CA-Chirp3-HD-Puck"
+    | "Google.fr-CA-Chirp3-HD-Zephyr"
     | "Google.fr-CA-Neural2-A"
     | "Google.fr-CA-Neural2-B"
     | "Google.fr-CA-Neural2-C"
@@ -859,22 +1021,53 @@ namespace VoiceResponse {
     | "Google.fr-CA-Wavenet-B"
     | "Google.fr-CA-Wavenet-C"
     | "Google.fr-CA-Wavenet-D"
+    | "Google.fr-FR-Chirp3-HD-Aoede"
+    | "Google.fr-FR-Chirp3-HD-Charon"
+    | "Google.fr-FR-Chirp3-HD-Fenrir"
+    | "Google.fr-FR-Chirp3-HD-Kore"
+    | "Google.fr-FR-Chirp3-HD-Leda"
+    | "Google.fr-FR-Chirp3-HD-Orus"
+    | "Google.fr-FR-Chirp3-HD-Puck"
+    | "Google.fr-FR-Chirp3-HD-Zephyr"
     | "Google.fr-FR-Neural2-A"
     | "Google.fr-FR-Neural2-B"
     | "Google.fr-FR-Neural2-C"
     | "Google.fr-FR-Neural2-D"
     | "Google.fr-FR-Neural2-E"
+    | "Google.fr-FR-Neural2-F"
+    | "Google.fr-FR-Neural2-G"
     | "Google.fr-FR-Standard-A"
     | "Google.fr-FR-Standard-B"
     | "Google.fr-FR-Standard-C"
     | "Google.fr-FR-Standard-D"
     | "Google.fr-FR-Standard-E"
+    | "Google.fr-FR-Standard-F"
+    | "Google.fr-FR-Standard-G"
     | "Google.fr-FR-Wavenet-A"
     | "Google.fr-FR-Wavenet-B"
     | "Google.fr-FR-Wavenet-C"
     | "Google.fr-FR-Wavenet-D"
     | "Google.fr-FR-Wavenet-E"
+    | "Google.fr-FR-Wavenet-F"
+    | "Google.fr-FR-Wavenet-G"
     | "Google.gl-ES-Standard-A"
+    | "Google.gl-ES-Standard-B"
+    | "Google.gu-IN-Chirp3-HD-Aoede"
+    | "Google.gu-IN-Chirp3-HD-Charon"
+    | "Google.gu-IN-Chirp3-HD-Fenrir"
+    | "Google.gu-IN-Chirp3-HD-Kore"
+    | "Google.gu-IN-Chirp3-HD-Leda"
+    | "Google.gu-IN-Chirp3-HD-Orus"
+    | "Google.gu-IN-Chirp3-HD-Puck"
+    | "Google.gu-IN-Chirp3-HD-Zephyr"
+    | "Google.gu-IN-Standard-A"
+    | "Google.gu-IN-Standard-B"
+    | "Google.gu-IN-Standard-C"
+    | "Google.gu-IN-Standard-D"
+    | "Google.gu-IN-Wavenet-A"
+    | "Google.gu-IN-Wavenet-B"
+    | "Google.gu-IN-Wavenet-C"
+    | "Google.gu-IN-Wavenet-D"
     | "Google.he-IL-Standard-A"
     | "Google.he-IL-Standard-B"
     | "Google.he-IL-Standard-C"
@@ -883,6 +1076,14 @@ namespace VoiceResponse {
     | "Google.he-IL-Wavenet-B"
     | "Google.he-IL-Wavenet-C"
     | "Google.he-IL-Wavenet-D"
+    | "Google.hi-IN-Chirp3-HD-Aoede"
+    | "Google.hi-IN-Chirp3-HD-Charon"
+    | "Google.hi-IN-Chirp3-HD-Fenrir"
+    | "Google.hi-IN-Chirp3-HD-Kore"
+    | "Google.hi-IN-Chirp3-HD-Leda"
+    | "Google.hi-IN-Chirp3-HD-Orus"
+    | "Google.hi-IN-Chirp3-HD-Puck"
+    | "Google.hi-IN-Chirp3-HD-Zephyr"
     | "Google.hi-IN-Neural2-A"
     | "Google.hi-IN-Neural2-B"
     | "Google.hi-IN-Neural2-C"
@@ -891,12 +1092,25 @@ namespace VoiceResponse {
     | "Google.hi-IN-Standard-B"
     | "Google.hi-IN-Standard-C"
     | "Google.hi-IN-Standard-D"
+    | "Google.hi-IN-Standard-E"
+    | "Google.hi-IN-Standard-F"
     | "Google.hi-IN-Wavenet-A"
     | "Google.hi-IN-Wavenet-B"
     | "Google.hi-IN-Wavenet-C"
     | "Google.hi-IN-Wavenet-D"
+    | "Google.hi-IN-Wavenet-E"
+    | "Google.hi-IN-Wavenet-F"
     | "Google.hu-HU-Standard-A"
+    | "Google.hu-HU-Standard-B"
     | "Google.hu-HU-Wavenet-A"
+    | "Google.id-ID-Chirp3-HD-Aoede"
+    | "Google.id-ID-Chirp3-HD-Charon"
+    | "Google.id-ID-Chirp3-HD-Fenrir"
+    | "Google.id-ID-Chirp3-HD-Kore"
+    | "Google.id-ID-Chirp3-HD-Leda"
+    | "Google.id-ID-Chirp3-HD-Orus"
+    | "Google.id-ID-Chirp3-HD-Puck"
+    | "Google.id-ID-Chirp3-HD-Zephyr"
     | "Google.id-ID-Standard-A"
     | "Google.id-ID-Standard-B"
     | "Google.id-ID-Standard-C"
@@ -906,14 +1120,38 @@ namespace VoiceResponse {
     | "Google.id-ID-Wavenet-C"
     | "Google.id-ID-Wavenet-D"
     | "Google.is-IS-Standard-A"
+    | "Google.is-IS-Standard-B"
+    | "Google.it-IT-Chirp3-HD-Aoede"
+    | "Google.it-IT-Chirp3-HD-Charon"
+    | "Google.it-IT-Chirp3-HD-Fenrir"
+    | "Google.it-IT-Chirp3-HD-Kore"
+    | "Google.it-IT-Chirp3-HD-Leda"
+    | "Google.it-IT-Chirp3-HD-Orus"
+    | "Google.it-IT-Chirp3-HD-Puck"
+    | "Google.it-IT-Chirp3-HD-Zephyr"
     | "Google.it-IT-Neural2-A"
     | "Google.it-IT-Neural2-C"
+    | "Google.it-IT-Neural2-F"
+    | "Google.it-IT-Standard-A"
     | "Google.it-IT-Standard-B"
     | "Google.it-IT-Standard-C"
     | "Google.it-IT-Standard-D"
+    | "Google.it-IT-Standard-E"
+    | "Google.it-IT-Standard-F"
+    | "Google.it-IT-Wavenet-A"
     | "Google.it-IT-Wavenet-B"
     | "Google.it-IT-Wavenet-C"
     | "Google.it-IT-Wavenet-D"
+    | "Google.it-IT-Wavenet-E"
+    | "Google.it-IT-Wavenet-F"
+    | "Google.ja-JP-Chirp3-HD-Aoede"
+    | "Google.ja-JP-Chirp3-HD-Charon"
+    | "Google.ja-JP-Chirp3-HD-Fenrir"
+    | "Google.ja-JP-Chirp3-HD-Kore"
+    | "Google.ja-JP-Chirp3-HD-Leda"
+    | "Google.ja-JP-Chirp3-HD-Orus"
+    | "Google.ja-JP-Chirp3-HD-Puck"
+    | "Google.ja-JP-Chirp3-HD-Zephyr"
     | "Google.ja-JP-Neural2-B"
     | "Google.ja-JP-Neural2-C"
     | "Google.ja-JP-Neural2-D"
@@ -925,6 +1163,30 @@ namespace VoiceResponse {
     | "Google.ja-JP-Wavenet-B"
     | "Google.ja-JP-Wavenet-C"
     | "Google.ja-JP-Wavenet-D"
+    | "Google.kn-IN-Chirp3-HD-Aoede"
+    | "Google.kn-IN-Chirp3-HD-Charon"
+    | "Google.kn-IN-Chirp3-HD-Fenrir"
+    | "Google.kn-IN-Chirp3-HD-Kore"
+    | "Google.kn-IN-Chirp3-HD-Leda"
+    | "Google.kn-IN-Chirp3-HD-Orus"
+    | "Google.kn-IN-Chirp3-HD-Puck"
+    | "Google.kn-IN-Chirp3-HD-Zephyr"
+    | "Google.kn-IN-Standard-A"
+    | "Google.kn-IN-Standard-B"
+    | "Google.kn-IN-Standard-C"
+    | "Google.kn-IN-Standard-D"
+    | "Google.kn-IN-Wavenet-A"
+    | "Google.kn-IN-Wavenet-B"
+    | "Google.kn-IN-Wavenet-C"
+    | "Google.kn-IN-Wavenet-D"
+    | "Google.ko-KR-Chirp3-HD-Aoede"
+    | "Google.ko-KR-Chirp3-HD-Charon"
+    | "Google.ko-KR-Chirp3-HD-Fenrir"
+    | "Google.ko-KR-Chirp3-HD-Kore"
+    | "Google.ko-KR-Chirp3-HD-Leda"
+    | "Google.ko-KR-Chirp3-HD-Orus"
+    | "Google.ko-KR-Chirp3-HD-Puck"
+    | "Google.ko-KR-Chirp3-HD-Zephyr"
     | "Google.ko-KR-Neural2-A"
     | "Google.ko-KR-Neural2-B"
     | "Google.ko-KR-Neural2-C"
@@ -937,9 +1199,33 @@ namespace VoiceResponse {
     | "Google.ko-KR-Wavenet-C"
     | "Google.ko-KR-Wavenet-D"
     | "Google.lt-LT-Standard-A"
+    | "Google.lt-LT-Standard-B"
     | "Google.lv-LV-Standard-A"
+    | "Google.lv-LV-Standard-B"
+    | "Google.ml-IN-Chirp3-HD-Aoede"
+    | "Google.ml-IN-Chirp3-HD-Charon"
+    | "Google.ml-IN-Chirp3-HD-Fenrir"
+    | "Google.ml-IN-Chirp3-HD-Kore"
+    | "Google.ml-IN-Chirp3-HD-Leda"
+    | "Google.ml-IN-Chirp3-HD-Orus"
+    | "Google.ml-IN-Chirp3-HD-Puck"
+    | "Google.ml-IN-Chirp3-HD-Zephyr"
+    | "Google.ml-IN-Standard-A"
+    | "Google.ml-IN-Standard-B"
+    | "Google.ml-IN-Standard-C"
+    | "Google.ml-IN-Standard-D"
+    | "Google.ml-IN-Wavenet-A"
+    | "Google.ml-IN-Wavenet-B"
     | "Google.ml-IN-Wavenet-C"
     | "Google.ml-IN-Wavenet-D"
+    | "Google.mr-IN-Chirp3-HD-Aoede"
+    | "Google.mr-IN-Chirp3-HD-Charon"
+    | "Google.mr-IN-Chirp3-HD-Fenrir"
+    | "Google.mr-IN-Chirp3-HD-Kore"
+    | "Google.mr-IN-Chirp3-HD-Leda"
+    | "Google.mr-IN-Chirp3-HD-Orus"
+    | "Google.mr-IN-Chirp3-HD-Puck"
+    | "Google.mr-IN-Chirp3-HD-Zephyr"
     | "Google.mr-IN-Standard-A"
     | "Google.mr-IN-Standard-B"
     | "Google.mr-IN-Standard-C"
@@ -959,25 +1245,45 @@ namespace VoiceResponse {
     | "Google.nb-NO-Standard-C"
     | "Google.nb-NO-Standard-D"
     | "Google.nb-NO-Standard-E"
+    | "Google.nb-NO-Standard-F"
+    | "Google.nb-NO-Standard-G"
     | "Google.nb-NO-Wavenet-A"
     | "Google.nb-NO-Wavenet-B"
     | "Google.nb-NO-Wavenet-C"
     | "Google.nb-NO-Wavenet-D"
     | "Google.nb-NO-Wavenet-E"
+    | "Google.nb-NO-Wavenet-F"
+    | "Google.nb-NO-Wavenet-G"
     | "Google.nl-BE-Standard-A"
     | "Google.nl-BE-Standard-B"
+    | "Google.nl-BE-Standard-C"
+    | "Google.nl-BE-Standard-D"
     | "Google.nl-BE-Wavenet-A"
     | "Google.nl-BE-Wavenet-B"
+    | "Google.nl-BE-Wavenet-C"
+    | "Google.nl-BE-Wavenet-D"
+    | "Google.nl-NL-Chirp3-HD-Aoede"
+    | "Google.nl-NL-Chirp3-HD-Charon"
+    | "Google.nl-NL-Chirp3-HD-Fenrir"
+    | "Google.nl-NL-Chirp3-HD-Kore"
+    | "Google.nl-NL-Chirp3-HD-Leda"
+    | "Google.nl-NL-Chirp3-HD-Orus"
+    | "Google.nl-NL-Chirp3-HD-Puck"
+    | "Google.nl-NL-Chirp3-HD-Zephyr"
     | "Google.nl-NL-Standard-A"
     | "Google.nl-NL-Standard-B"
     | "Google.nl-NL-Standard-C"
     | "Google.nl-NL-Standard-D"
     | "Google.nl-NL-Standard-E"
+    | "Google.nl-NL-Standard-F"
+    | "Google.nl-NL-Standard-G"
     | "Google.nl-NL-Wavenet-A"
     | "Google.nl-NL-Wavenet-B"
     | "Google.nl-NL-Wavenet-C"
     | "Google.nl-NL-Wavenet-D"
     | "Google.nl-NL-Wavenet-E"
+    | "Google.nl-NL-Wavenet-F"
+    | "Google.nl-NL-Wavenet-G"
     | "Google.pa-IN-Standard-A"
     | "Google.pa-IN-Standard-B"
     | "Google.pa-IN-Standard-C"
@@ -986,35 +1292,73 @@ namespace VoiceResponse {
     | "Google.pa-IN-Wavenet-B"
     | "Google.pa-IN-Wavenet-C"
     | "Google.pa-IN-Wavenet-D"
+    | "Google.pl-PL-Chirp3-HD-Aoede"
+    | "Google.pl-PL-Chirp3-HD-Charon"
+    | "Google.pl-PL-Chirp3-HD-Fenrir"
+    | "Google.pl-PL-Chirp3-HD-Kore"
+    | "Google.pl-PL-Chirp3-HD-Leda"
+    | "Google.pl-PL-Chirp3-HD-Orus"
+    | "Google.pl-PL-Chirp3-HD-Puck"
+    | "Google.pl-PL-Chirp3-HD-Zephyr"
     | "Google.pl-PL-Standard-A"
     | "Google.pl-PL-Standard-B"
     | "Google.pl-PL-Standard-C"
     | "Google.pl-PL-Standard-D"
     | "Google.pl-PL-Standard-E"
+    | "Google.pl-PL-Standard-F"
+    | "Google.pl-PL-Standard-G"
     | "Google.pl-PL-Wavenet-A"
     | "Google.pl-PL-Wavenet-B"
     | "Google.pl-PL-Wavenet-C"
     | "Google.pl-PL-Wavenet-D"
     | "Google.pl-PL-Wavenet-E"
+    | "Google.pl-PL-Wavenet-F"
+    | "Google.pl-PL-Wavenet-G"
+    | "Google.pt-BR-Chirp3-HD-Aoede"
+    | "Google.pt-BR-Chirp3-HD-Charon"
+    | "Google.pt-BR-Chirp3-HD-Fenrir"
+    | "Google.pt-BR-Chirp3-HD-Kore"
+    | "Google.pt-BR-Chirp3-HD-Leda"
+    | "Google.pt-BR-Chirp3-HD-Orus"
+    | "Google.pt-BR-Chirp3-HD-Puck"
+    | "Google.pt-BR-Chirp3-HD-Zephyr"
     | "Google.pt-BR-Neural2-A"
     | "Google.pt-BR-Neural2-B"
     | "Google.pt-BR-Neural2-C"
     | "Google.pt-BR-Standard-A"
     | "Google.pt-BR-Standard-B"
     | "Google.pt-BR-Standard-C"
+    | "Google.pt-BR-Standard-D"
+    | "Google.pt-BR-Standard-E"
     | "Google.pt-BR-Wavenet-A"
     | "Google.pt-BR-Wavenet-B"
     | "Google.pt-BR-Wavenet-C"
+    | "Google.pt-BR-Wavenet-D"
+    | "Google.pt-BR-Wavenet-E"
     | "Google.pt-PT-Standard-A"
     | "Google.pt-PT-Standard-B"
     | "Google.pt-PT-Standard-C"
     | "Google.pt-PT-Standard-D"
+    | "Google.pt-PT-Standard-E"
+    | "Google.pt-PT-Standard-F"
     | "Google.pt-PT-Wavenet-A"
     | "Google.pt-PT-Wavenet-B"
     | "Google.pt-PT-Wavenet-C"
     | "Google.pt-PT-Wavenet-D"
+    | "Google.pt-PT-Wavenet-E"
+    | "Google.pt-PT-Wavenet-F"
     | "Google.ro-RO-Standard-A"
+    | "Google.ro-RO-Standard-B"
     | "Google.ro-RO-Wavenet-A"
+    | "Google.ro-RO-Wavenet-B"
+    | "Google.ru-RU-Chirp3-HD-Aoede"
+    | "Google.ru-RU-Chirp3-HD-Charon"
+    | "Google.ru-RU-Chirp3-HD-Fenrir"
+    | "Google.ru-RU-Chirp3-HD-Kore"
+    | "Google.ru-RU-Chirp3-HD-Leda"
+    | "Google.ru-RU-Chirp3-HD-Orus"
+    | "Google.ru-RU-Chirp3-HD-Puck"
+    | "Google.ru-RU-Chirp3-HD-Zephyr"
     | "Google.ru-RU-Standard-A"
     | "Google.ru-RU-Standard-B"
     | "Google.ru-RU-Standard-C"
@@ -1026,18 +1370,32 @@ namespace VoiceResponse {
     | "Google.ru-RU-Wavenet-D"
     | "Google.ru-RU-Wavenet-E"
     | "Google.sk-SK-Standard-A"
+    | "Google.sk-SK-Standard-B"
     | "Google.sk-SK-Wavenet-A"
+    | "Google.sk-SK-Wavenet-B"
     | "Google.sr-RS-Standard-A"
     | "Google.sv-SE-Standard-A"
     | "Google.sv-SE-Standard-B"
     | "Google.sv-SE-Standard-C"
     | "Google.sv-SE-Standard-D"
     | "Google.sv-SE-Standard-E"
+    | "Google.sv-SE-Standard-F"
+    | "Google.sv-SE-Standard-G"
     | "Google.sv-SE-Wavenet-A"
     | "Google.sv-SE-Wavenet-B"
     | "Google.sv-SE-Wavenet-C"
     | "Google.sv-SE-Wavenet-D"
     | "Google.sv-SE-Wavenet-E"
+    | "Google.sv-SE-Wavenet-F"
+    | "Google.sv-SE-Wavenet-G"
+    | "Google.ta-IN-Chirp3-HD-Aoede"
+    | "Google.ta-IN-Chirp3-HD-Charon"
+    | "Google.ta-IN-Chirp3-HD-Fenrir"
+    | "Google.ta-IN-Chirp3-HD-Kore"
+    | "Google.ta-IN-Chirp3-HD-Leda"
+    | "Google.ta-IN-Chirp3-HD-Orus"
+    | "Google.ta-IN-Chirp3-HD-Puck"
+    | "Google.ta-IN-Chirp3-HD-Zephyr"
     | "Google.ta-IN-Standard-A"
     | "Google.ta-IN-Standard-B"
     | "Google.ta-IN-Standard-C"
@@ -1046,10 +1404,36 @@ namespace VoiceResponse {
     | "Google.ta-IN-Wavenet-B"
     | "Google.ta-IN-Wavenet-C"
     | "Google.ta-IN-Wavenet-D"
+    | "Google.te-IN-Chirp3-HD-Aoede"
+    | "Google.te-IN-Chirp3-HD-Charon"
+    | "Google.te-IN-Chirp3-HD-Fenrir"
+    | "Google.te-IN-Chirp3-HD-Kore"
+    | "Google.te-IN-Chirp3-HD-Leda"
+    | "Google.te-IN-Chirp3-HD-Orus"
+    | "Google.te-IN-Chirp3-HD-Puck"
+    | "Google.te-IN-Chirp3-HD-Zephyr"
     | "Google.te-IN-Standard-A"
     | "Google.te-IN-Standard-B"
+    | "Google.te-IN-Standard-C"
+    | "Google.te-IN-Standard-D"
+    | "Google.th-TH-Chirp3-HD-Aoede"
+    | "Google.th-TH-Chirp3-HD-Charon"
+    | "Google.th-TH-Chirp3-HD-Fenrir"
+    | "Google.th-TH-Chirp3-HD-Kore"
+    | "Google.th-TH-Chirp3-HD-Leda"
+    | "Google.th-TH-Chirp3-HD-Orus"
+    | "Google.th-TH-Chirp3-HD-Puck"
+    | "Google.th-TH-Chirp3-HD-Zephyr"
     | "Google.th-TH-Neural2-C"
     | "Google.th-TH-Standard-A"
+    | "Google.tr-TR-Chirp3-HD-Aoede"
+    | "Google.tr-TR-Chirp3-HD-Charon"
+    | "Google.tr-TR-Chirp3-HD-Fenrir"
+    | "Google.tr-TR-Chirp3-HD-Kore"
+    | "Google.tr-TR-Chirp3-HD-Leda"
+    | "Google.tr-TR-Chirp3-HD-Orus"
+    | "Google.tr-TR-Chirp3-HD-Puck"
+    | "Google.tr-TR-Chirp3-HD-Zephyr"
     | "Google.tr-TR-Standard-A"
     | "Google.tr-TR-Standard-B"
     | "Google.tr-TR-Standard-C"
@@ -1062,6 +1446,14 @@ namespace VoiceResponse {
     | "Google.tr-TR-Wavenet-E"
     | "Google.uk-UA-Standard-A"
     | "Google.uk-UA-Wavenet-A"
+    | "Google.vi-VN-Chirp3-HD-Aoede"
+    | "Google.vi-VN-Chirp3-HD-Charon"
+    | "Google.vi-VN-Chirp3-HD-Fenrir"
+    | "Google.vi-VN-Chirp3-HD-Kore"
+    | "Google.vi-VN-Chirp3-HD-Leda"
+    | "Google.vi-VN-Chirp3-HD-Orus"
+    | "Google.vi-VN-Chirp3-HD-Puck"
+    | "Google.vi-VN-Chirp3-HD-Zephyr"
     | "Google.vi-VN-Neural2-A"
     | "Google.vi-VN-Neural2-D"
     | "Google.vi-VN-Standard-A"
@@ -1106,6 +1498,7 @@ namespace VoiceResponse {
     | "Polly.Justin"
     | "Polly.Karl"
     | "Polly.Kendra"
+    | "Polly.Kevin"
     | "Polly.Kimberly"
     | "Polly.Lea"
     | "Polly.Liv"
@@ -1145,16 +1538,20 @@ namespace VoiceResponse {
     | "Polly.Ayanda-Neural"
     | "Polly.Bianca-Neural"
     | "Polly.Brian-Neural"
+    | "Polly.Burcu-Neural"
     | "Polly.Camila-Neural"
     | "Polly.Daniel-Neural"
+    | "Polly.Danielle-Neural"
     | "Polly.Elin-Neural"
     | "Polly.Emma-Neural"
     | "Polly.Gabrielle-Neural"
+    | "Polly.Gregory-Neural"
     | "Polly.Hala-Neural"
     | "Polly.Hannah-Neural"
     | "Polly.Hiujin-Neural"
     | "Polly.Ida-Neural"
     | "Polly.Ines-Neural"
+    | "Polly.Isabelle-Neural"
     | "Polly.Ivy-Neural"
     | "Polly.Joanna-Neural"
     | "Polly.Joey-Neural"
@@ -1167,10 +1564,12 @@ namespace VoiceResponse {
     | "Polly.Laura-Neural"
     | "Polly.Lea-Neural"
     | "Polly.Liam-Neural"
+    | "Polly.Lisa-Neural"
     | "Polly.Lucia-Neural"
     | "Polly.Lupe-Neural"
     | "Polly.Matthew-Neural"
     | "Polly.Mia-Neural"
+    | "Polly.Niamh-Neural"
     | "Polly.Ola-Neural"
     | "Polly.Olivia-Neural"
     | "Polly.Pedro-Neural"
@@ -1179,14 +1578,36 @@ namespace VoiceResponse {
     | "Polly.Salli-Neural"
     | "Polly.Seoyeon-Neural"
     | "Polly.Sergio-Neural"
+    | "Polly.Sofie-Neural"
     | "Polly.Stephen-Neural"
     | "Polly.Suvi-Neural"
     | "Polly.Takumi-Neural"
-    | "Polly.Tomoko-Neural"
     | "Polly.Thiago-Neural"
+    | "Polly.Tomoko-Neural"
     | "Polly.Vicki-Neural"
     | "Polly.Vitoria-Neural"
-    | "Polly.Zhiyu-Neural";
+    | "Polly.Zayd-Neural"
+    | "Polly.Zhiyu-Neural"
+    | "Polly.Amy-Generative"
+    | "Polly.Andres-Generative"
+    | "Polly.Ayanda-Generative"
+    | "Polly.Bianca-Generative"
+    | "Polly.Daniel-Generative"
+    | "Polly.Danielle-Generative"
+    | "Polly.Joanna-Generative"
+    | "Polly.Kajal-Generative"
+    | "Polly.Lea-Generative"
+    | "Polly.Lucia-Generative"
+    | "Polly.Lupe-Generative"
+    | "Polly.Matthew-Generative"
+    | "Polly.Mía-Generative"
+    | "Polly.Olivia-Generative"
+    | "Polly.Pedro-Generative"
+    | "Polly.Rémi-Generative"
+    | "Polly.Ruth-Generative"
+    | "Polly.Sergio-Generative"
+    | "Polly.Stephen-Generative"
+    | "Polly.Vicki-Generative";
 
   type SipEvent = "initiated" | "ringing" | "answered" | "completed";
 
@@ -1283,6 +1704,12 @@ namespace VoiceResponse {
 
   type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
+  type TranscriptionStatusCallbackMethod = "GET" | "POST";
+
+  type TranscriptionTrack = "inbound_track" | "outbound_track" | "both_tracks";
+
+  type WhatsAppEvent = "initiated" | "ringing" | "answered" | "completed";
+
   /**
    * Attributes to pass to connect
    */
@@ -1303,6 +1730,8 @@ namespace VoiceResponse {
     answerOnBridge?: boolean;
     /** callerId - Caller ID to display */
     callerId?: string;
+    /** events - Subscription to events */
+    events?: DialEvents;
     /** hangupOnStar - Hangup call on star press */
     hangupOnStar?: boolean;
     /** method - Action URL method */
@@ -1386,7 +1815,7 @@ namespace VoiceResponse {
     /** profanityFilter - Profanity Filter on speech */
     profanityFilter?: boolean;
     /** speechModel - Specify the model that is best suited for your use case */
-    speechModel?: GatherSpeechModel;
+    speechModel?: string;
     /** speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer. */
     speechTimeout?: string;
     /** timeout - Time to wait to gather input */
@@ -1612,6 +2041,60 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to transcription
+   */
+  export interface TranscriptionAttributes {
+    /** enableAutomaticPunctuation - Enable Automatic Punctuation */
+    enableAutomaticPunctuation?: boolean;
+    /** hints - Hints to be provided to the transcription engine */
+    hints?: string;
+    /** inboundTrackLabel - Friendly name given to the Inbound Track */
+    inboundTrackLabel?: string;
+    /** intelligenceService - The SID or the unique name of the Intelligence Service to be used */
+    intelligenceService?: string;
+    /** languageCode - Language Code used by the transcription engine */
+    languageCode?: string;
+    /** name - Friendly name given to the Transcription */
+    name?: string;
+    /** outboundTrackLabel - Friendly name given to the Outbound Track Label */
+    outboundTrackLabel?: string;
+    /** partialResults - Indicates if partial results are going to be send to the customer */
+    partialResults?: boolean;
+    /** profanityFilter - Enable Profanity Filter */
+    profanityFilter?: boolean;
+    /** speechModel - Speech Model used by the transcription engine */
+    speechModel?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: TranscriptionStatusCallbackMethod;
+    /** statusCallbackUrl - Status Callback URL */
+    statusCallbackUrl?: string;
+    /** track - Track to be analyze by the provider */
+    track?: TranscriptionTrack;
+    /** transcriptionEngine - Transcription Engine to be used */
+    transcriptionEngine?: string;
+  }
+
+  /**
+   * Attributes to pass to config
+   */
+  export interface ConfigAttributes {
+    /** name - The name of the custom config */
+    name?: string;
+    /** value - The value of the custom config */
+    value?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -1663,6 +2146,58 @@ namespace VoiceResponse {
     statusCallbackMethod?: SiprecStatusCallbackMethod;
     /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
+  }
+
+  /**
+   * Attributes to pass to transcription
+   */
+  export interface TranscriptionAttributes {
+    /** enableAutomaticPunctuation - Enable Automatic Punctuation */
+    enableAutomaticPunctuation?: boolean;
+    /** hints - Hints to be provided to the transcription engine */
+    hints?: string;
+    /** inboundTrackLabel - Friendly name given to the Inbound Track */
+    inboundTrackLabel?: string;
+    /** intelligenceService - The SID or the unique name of the Intelligence Service to be used */
+    intelligenceService?: string;
+    /** languageCode - Language Code used by the transcription engine */
+    languageCode?: string;
+    /** name - Friendly name given to the Transcription */
+    name?: string;
+    /** outboundTrackLabel - Friendly name given to the Outbound Track Label */
+    outboundTrackLabel?: string;
+    /** partialResults - Indicates if partial results are going to be send to the customer */
+    partialResults?: boolean;
+    /** profanityFilter - Enable Profanity Filter */
+    profanityFilter?: boolean;
+    /** speechModel - Speech Model used by the transcription engine */
+    speechModel?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: TranscriptionStatusCallbackMethod;
+    /** statusCallbackUrl - Status Callback URL */
+    statusCallbackUrl?: string;
+    /** track - Track to be analyze by the provider */
+    track?: TranscriptionTrack;
+    /** transcriptionEngine - Transcription Engine to be used */
+    transcriptionEngine?: string;
+  }
+
+  /**
+   * Attributes to pass to recording
+   */
+  export interface RecordingAttributes {
+    /** channels - The recording channels for the final recording */
+    channels?: RecordingChannels;
+    /** recordingStatusCallback - Recording Status Callback URL */
+    recordingStatusCallback?: string;
+    /** recordingStatusCallbackEvent - Recording Status Callback Events */
+    recordingStatusCallbackEvent?: RecordingEvent[];
+    /** recordingStatusCallbackMethod - Recording Status Callback URL method */
+    recordingStatusCallbackMethod?: RecordingRecordingStatusCallbackMethod;
+    /** track - To indicate which audio track should be recorded */
+    track?: RecordingTrack;
+    /** trim - Trim the recording */
+    trim?: RecordingTrim;
   }
 
   /**
@@ -2448,6 +2983,22 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to whatsApp
+   */
+  export interface WhatsAppAttributes {
+    /** method - TwiML URL Method */
+    method?: string;
+    /** statusCallback - Status Callback URL */
+    statusCallback?: string;
+    /** statusCallbackEvent - Events to trigger status callback */
+    statusCallbackEvent?: WhatsAppEvent[];
+    /** statusCallbackMethod - Status Callback URL Method */
+    statusCallbackMethod?: string;
+    /** url - TwiML URL */
+    url?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -2544,6 +3095,174 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to conversationRelay
+   */
+  export interface ConversationRelayAttributes {
+    /** debug - Multiple debug options to be used for troubleshooting */
+    debug?: string;
+    /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
+    dtmfDetection?: boolean;
+    /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
+    elevenlabsTextNormalization?: string;
+    /** hints - Phrases to help better accuracy in speech recognition of these pharases */
+    hints?: string;
+    /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
+    intelligenceService?: string;
+    /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
+    interruptSensitivity?: string;
+    /** interruptible - Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech */
+    interruptible?: string;
+    /** language - Language to be used for both text-to-speech and transcription */
+    language?: string;
+    /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
+    partialPrompts?: boolean;
+    /** preemptible - Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media */
+    preemptible?: boolean;
+    /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
+    profanityFilter?: boolean;
+    /** reportInputDuringAgentSpeech - Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled */
+    reportInputDuringAgentSpeech?: boolean;
+    /** speechModel - Speech model to be used for transcription */
+    speechModel?: string;
+    /** transcriptionLanguage - Language to be used for transcription */
+    transcriptionLanguage?: string;
+    /** transcriptionProvider - Provider to be used for transcription */
+    transcriptionProvider?: string;
+    /** ttsLanguage - Language to be used for text-to-speech */
+    ttsLanguage?: string;
+    /** ttsProvider - Provider to be used for text-to-speech */
+    ttsProvider?: string;
+    /** url - URL of the remote service where the session is connected to */
+    url?: string;
+    /** voice - Voice to be used for text-to-speech */
+    voice?: string;
+    /** welcomeGreeting - The sentence to be played automatically when the session is connected */
+    welcomeGreeting?: string;
+    /** welcomeGreetingInterruptible - "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting */
+    welcomeGreetingInterruptible?: string;
+  }
+
+  /**
+   * Attributes to pass to assistant
+   */
+  export interface AssistantAttributes {
+    /** debug - Multiple debug options to be used for troubleshooting */
+    debug?: string;
+    /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
+    dtmfDetection?: boolean;
+    /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
+    elevenlabsTextNormalization?: string;
+    /** hints - Phrases to help better accuracy in speech recognition of these pharases */
+    hints?: string;
+    /** id - The assistant ID of the AI Assistant */
+    id?: string;
+    /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
+    intelligenceService?: string;
+    /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
+    interruptSensitivity?: string;
+    /** interruptible - Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech */
+    interruptible?: string;
+    /** language - Language to be used for both text-to-speech and transcription */
+    language?: string;
+    /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
+    partialPrompts?: boolean;
+    /** preemptible - Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media */
+    preemptible?: boolean;
+    /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
+    profanityFilter?: boolean;
+    /** reportInputDuringAgentSpeech - Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled */
+    reportInputDuringAgentSpeech?: boolean;
+    /** speechModel - Speech model to be used for transcription */
+    speechModel?: string;
+    /** transcriptionLanguage - Language to be used for transcription */
+    transcriptionLanguage?: string;
+    /** transcriptionProvider - Provider to be used for transcription */
+    transcriptionProvider?: string;
+    /** ttsLanguage - Language to be used for text-to-speech */
+    ttsLanguage?: string;
+    /** ttsProvider - Provider to be used for text-to-speech */
+    ttsProvider?: string;
+    /** voice - Voice to be used for text-to-speech */
+    voice?: string;
+    /** welcomeGreeting - The sentence to be played automatically when the session is connected */
+    welcomeGreeting?: string;
+    /** welcomeGreetingInterruptible - "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting */
+    welcomeGreetingInterruptible?: string;
+  }
+
+  /**
+   * Attributes to pass to aiSession
+   */
+  export interface AiSessionAttributes {
+    /** aiConnector - The unique name or installed add-on sid that identifies the installed addon resource for the AI Connector */
+    aiConnector?: string;
+    /** aiSessionConfiguration - The unique name or id of the AiSession Configuration resource. */
+    aiSessionConfiguration?: string;
+  }
+
+  /**
+   * Attributes to pass to conversationRelaySession
+   */
+  export interface ConversationRelaySessionAttributes {
+    /** connector - The unique name or installed add-on sid that identifies the installed addon resource for the ConversationRelaySession Connector */
+    connector?: string;
+    /** sessionConfiguration - The unique name or id of the ConversationRelaySession  Configuration resource. */
+    sessionConfiguration?: string;
+  }
+
+  /**
+   * Attributes to pass to language
+   */
+  export interface LanguageAttributes {
+    /** code - Language code of this language setting is for */
+    code?: string;
+    /** speechModel - Speech model to be used for transcription of this language */
+    speechModel?: string;
+    /** transcriptionProvider - Provider to be used for transcription of this language */
+    transcriptionProvider?: string;
+    /** ttsProvider - Provider to be used for text-to-speech of this language */
+    ttsProvider?: string;
+    /** voice - Voice to be used for text-to-speech of this language */
+    voice?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
+   * Attributes to pass to language
+   */
+  export interface LanguageAttributes {
+    /** code - Language code of this language setting is for */
+    code?: string;
+    /** speechModel - Speech model to be used for transcription of this language */
+    speechModel?: string;
+    /** transcriptionProvider - Provider to be used for transcription of this language */
+    transcriptionProvider?: string;
+    /** ttsProvider - Provider to be used for text-to-speech of this language */
+    ttsProvider?: string;
+    /** voice - Voice to be used for text-to-speech of this language */
+    voice?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to config
    */
   export interface ConfigAttributes {
@@ -2561,6 +3280,18 @@ namespace VoiceResponse {
     name?: string;
     /** value - The value of the custom parameter */
     value?: string;
+  }
+
+  export class AiSession extends TwiML {
+    aiSession: XMLElement;
+    /**
+     * <AiSession> TwiML Noun
+     */
+    constructor(aiSession: XMLElement) {
+      super();
+      this.aiSession = aiSession;
+      this._propertyName = "aiSession";
+    }
   }
 
   export class Application extends TwiML {
@@ -2619,6 +3350,42 @@ namespace VoiceResponse {
       super();
       this.applicationSid = applicationSid;
       this._propertyName = "applicationSid";
+    }
+  }
+
+  export class Assistant extends TwiML {
+    assistant: XMLElement;
+    /**
+     * <Assistant> TwiML Noun
+     */
+    constructor(assistant: XMLElement) {
+      super();
+      this.assistant = assistant;
+      this._propertyName = "assistant";
+    }
+    /**
+     * <Language> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    language(
+      attributes?: VoiceResponse.LanguageAttributes
+    ): VoiceResponse.Language {
+      return new VoiceResponse.Language(
+        this.assistant.ele("Language", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.assistant.ele("Parameter", attributes)
+      );
     }
   }
 
@@ -2716,6 +3483,30 @@ namespace VoiceResponse {
       this._propertyName = "connect";
     }
     /**
+     * <AiSession> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    aiSession(
+      attributes?: VoiceResponse.AiSessionAttributes
+    ): VoiceResponse.AiSession {
+      return new VoiceResponse.AiSession(
+        this.connect.ele("AiSession", attributes)
+      );
+    }
+    /**
+     * <Assistant> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    assistant(
+      attributes?: VoiceResponse.AssistantAttributes
+    ): VoiceResponse.Assistant {
+      return new VoiceResponse.Assistant(
+        this.connect.ele("Assistant", attributes)
+      );
+    }
+    /**
      * <Autopilot> TwiML Noun
      *
      * @param attributes - TwiML attributes
@@ -2745,6 +3536,30 @@ namespace VoiceResponse {
     ): VoiceResponse.Conversation {
       return new VoiceResponse.Conversation(
         this.connect.ele("Conversation", attributes)
+      );
+    }
+    /**
+     * <ConversationRelay> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    conversationRelay(
+      attributes?: VoiceResponse.ConversationRelayAttributes
+    ): VoiceResponse.ConversationRelay {
+      return new VoiceResponse.ConversationRelay(
+        this.connect.ele("ConversationRelay", attributes)
+      );
+    }
+    /**
+     * <ConversationRelaySession> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    conversationRelaySession(
+      attributes?: VoiceResponse.ConversationRelaySessionAttributes
+    ): VoiceResponse.ConversationRelaySession {
+      return new VoiceResponse.ConversationRelaySession(
+        this.connect.ele("ConversationRelaySession", attributes)
       );
     }
     /**
@@ -2799,6 +3614,54 @@ namespace VoiceResponse {
       super();
       this.conversation = conversation;
       this._propertyName = "conversation";
+    }
+  }
+
+  export class ConversationRelay extends TwiML {
+    conversationRelay: XMLElement;
+    /**
+     * <ConversationRelay> TwiML Noun
+     */
+    constructor(conversationRelay: XMLElement) {
+      super();
+      this.conversationRelay = conversationRelay;
+      this._propertyName = "conversationRelay";
+    }
+    /**
+     * <Language> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    language(
+      attributes?: VoiceResponse.LanguageAttributes
+    ): VoiceResponse.Language {
+      return new VoiceResponse.Language(
+        this.conversationRelay.ele("Language", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.conversationRelay.ele("Parameter", attributes)
+      );
+    }
+  }
+
+  export class ConversationRelaySession extends TwiML {
+    conversationRelaySession: XMLElement;
+    /**
+     * <ConversationRelaySession> TwiML Noun
+     */
+    constructor(conversationRelaySession: XMLElement) {
+      super();
+      this.conversationRelaySession = conversationRelaySession;
+      this._propertyName = "conversationRelaySession";
     }
   }
 
@@ -2961,6 +3824,29 @@ namespace VoiceResponse {
       }
       return new VoiceResponse.Sip(this.dial.ele("Sip", attributes, sipUrl));
     }
+    /**
+     * <WhatsApp> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param phoneNumber - WhatsApp Phone Number to dial
+     */
+    whatsApp(phoneNumber: string): VoiceResponse.WhatsApp;
+    whatsApp(
+      attributes: VoiceResponse.WhatsAppAttributes,
+      phoneNumber: string
+    ): VoiceResponse.WhatsApp;
+    whatsApp(
+      attributes: VoiceResponse.WhatsAppAttributes | string,
+      phoneNumber?: string
+    ): VoiceResponse.WhatsApp {
+      if (typeof attributes === "string") {
+        phoneNumber = attributes;
+        attributes = {};
+      }
+      return new VoiceResponse.WhatsApp(
+        this.dial.ele("WhatsApp", attributes, phoneNumber)
+      );
+    }
   }
 
   export class Echo extends TwiML {
@@ -3103,6 +3989,18 @@ namespace VoiceResponse {
       super();
       this.identity = identity;
       this._propertyName = "identity";
+    }
+  }
+
+  export class Language extends TwiML {
+    language: XMLElement;
+    /**
+     * <Language> TwiML Noun
+     */
+    constructor(language: XMLElement) {
+      super();
+      this.language = language;
+      this._propertyName = "language";
     }
   }
 
@@ -3279,6 +4177,18 @@ namespace VoiceResponse {
       super();
       this.record = record;
       this._propertyName = "record";
+    }
+  }
+
+  export class Recording extends TwiML {
+    recording: XMLElement;
+    /**
+     * <Recording> TwiML Noun
+     */
+    constructor(recording: XMLElement) {
+      super();
+      this.recording = recording;
+      this._propertyName = "recording";
     }
   }
 
@@ -4830,6 +5740,18 @@ namespace VoiceResponse {
       this._propertyName = "start";
     }
     /**
+     * <Recording> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    recording(
+      attributes?: VoiceResponse.RecordingAttributes
+    ): VoiceResponse.Recording {
+      return new VoiceResponse.Recording(
+        this.start.ele("Recording", attributes)
+      );
+    }
+    /**
      * <Siprec> TwiML Noun
      *
      * @param attributes - TwiML attributes
@@ -4844,6 +5766,18 @@ namespace VoiceResponse {
      */
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
       return new VoiceResponse.Stream(this.start.ele("Stream", attributes));
+    }
+    /**
+     * <Transcription> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    transcription(
+      attributes?: VoiceResponse.TranscriptionAttributes
+    ): VoiceResponse.Transcription {
+      return new VoiceResponse.Transcription(
+        this.start.ele("Transcription", attributes)
+      );
     }
   }
 
@@ -4872,6 +5806,18 @@ namespace VoiceResponse {
      */
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
       return new VoiceResponse.Stream(this.stop.ele("Stream", attributes));
+    }
+    /**
+     * <Transcription> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    transcription(
+      attributes?: VoiceResponse.TranscriptionAttributes
+    ): VoiceResponse.Transcription {
+      return new VoiceResponse.Transcription(
+        this.stop.ele("Transcription", attributes)
+      );
     }
   }
 
@@ -4911,6 +5857,40 @@ namespace VoiceResponse {
     }
   }
 
+  export class Transcription extends TwiML {
+    transcription: XMLElement;
+    /**
+     * <Transcription> TwiML Noun
+     */
+    constructor(transcription: XMLElement) {
+      super();
+      this.transcription = transcription;
+      this._propertyName = "transcription";
+    }
+    /**
+     * <Config> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
+      return new VoiceResponse.Config(
+        this.transcription.ele("Config", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.transcription.ele("Parameter", attributes)
+      );
+    }
+  }
+
   export class VirtualAgent extends TwiML {
     virtualAgent: XMLElement;
     /**
@@ -4942,6 +5922,18 @@ namespace VoiceResponse {
       return new VoiceResponse.Parameter(
         this.virtualAgent.ele("Parameter", attributes)
       );
+    }
+  }
+
+  export class WhatsApp extends TwiML {
+    whatsApp: XMLElement;
+    /**
+     * <WhatsApp> TwiML Noun
+     */
+    constructor(whatsApp: XMLElement) {
+      super();
+      this.whatsApp = whatsApp;
+      this._propertyName = "whatsApp";
     }
   }
 }

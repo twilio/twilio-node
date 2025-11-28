@@ -18,11 +18,17 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
+ */
 export type PaymentBankAccountType =
   | "consumer-checking"
   | "consumer-savings"
   | "commercial-checking";
 
+/**
+ * The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, or `bank-account-number`.
+ */
 export type PaymentCapture =
   | "payment-card-number"
   | "expiration-date"
@@ -31,11 +37,20 @@ export type PaymentCapture =
   | "bank-routing-number"
   | "bank-account-number";
 
+/**
+ * Type of payment being captured. One of `credit-card` or `ach-debit`. The default value is `credit-card`.
+ */
 export type PaymentPaymentMethod = "credit-card" | "ach-debit";
 
+/**
+ * Indicates whether the current payment session should be cancelled or completed. When `cancel` the payment session is cancelled. When `complete`, Twilio sends the payment information to the selected Pay Connector for processing.
+ */
 export type PaymentStatus = "complete" | "cancel";
 
-export type PaymentTokenType = "one-time" | "reusable";
+/**
+ * Indicates whether the payment method should be tokenized as a `one-time`, `reusable`, or `payment-method` token. The default value is `reusable`. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized.
+ */
+export type PaymentTokenType = "one-time" | "reusable" | "payment-method";
 
 /**
  * Options to pass to update a PaymentInstance
@@ -178,6 +193,7 @@ export class PaymentContextImpl implements PaymentContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -445,6 +461,7 @@ export function PaymentListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

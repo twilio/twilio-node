@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The inbound resource status of the Interaction. Will always be `delivered` for messages and `in-progress` for calls.
+ */
 export type InteractionResourceStatus =
   | "accepted"
   | "answered"
@@ -43,6 +46,9 @@ export type InteractionResourceStatus =
   | "undelivered"
   | "unknown";
 
+/**
+ * The Type of the Interaction. Can be: `message`, `voice` or `unknown`.
+ */
 export type InteractionType = "message" | "voice" | "unknown";
 
 /**
@@ -146,11 +152,14 @@ export class InteractionContextImpl implements InteractionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -163,11 +172,15 @@ export class InteractionContextImpl implements InteractionContext {
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -535,6 +548,7 @@ export function InteractionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

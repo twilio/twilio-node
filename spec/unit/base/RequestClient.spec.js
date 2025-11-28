@@ -57,19 +57,17 @@ describe("RequestClient constructor", function () {
       30000
     );
     expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(
-      undefined
+      true
     );
     expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(
       undefined
     );
-    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(
-      undefined
-    );
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(20);
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
-    ).toBe(undefined);
+    ).toBe(100);
     expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(
-      undefined
+      5
     );
     expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toBe(
       undefined
@@ -156,14 +154,12 @@ describe("RequestClient constructor", function () {
     expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(
       undefined
     );
-    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(
-      undefined
-    );
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(20);
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
     ).toEqual(1500);
     expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(
-      undefined
+      5
     );
     expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toEqual(
       "lifo"
@@ -222,7 +218,7 @@ describe("lastResponse and lastRequest defined", function () {
     expect(client.lastRequest.headers).toEqual({
       "test-header-key": "test-header-value",
       Authorization: "Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk",
-      Connection: "close",
+      Connection: "keep-alive",
     });
     expect(client.lastRequest.data).toEqual({
       "test-data-key": "test-data-value",
@@ -288,7 +284,7 @@ describe("lastRequest defined, lastResponse undefined", function () {
       expect(client.lastRequest.headers).toEqual({
         "test-header-key": "test-header-value",
         Authorization: "Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk",
-        Connection: "close",
+        Connection: "keep-alive",
       });
       expect(client.lastRequest.data).toEqual({
         "test-data-key": "test-data-value",

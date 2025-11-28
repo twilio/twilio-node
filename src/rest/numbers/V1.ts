@@ -15,9 +15,15 @@
 import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { BulkEligibilityListInstance } from "./v1/bulkEligibility";
-import { PortingBulkPortabilityListInstance } from "./v1/portingBulkPortability";
-import { PortingPortInFetchListInstance } from "./v1/portingPortInFetch";
+import { EligibilityListInstance } from "./v1/eligibility";
+import { PortingAllPortInListInstance } from "./v1/portingAllPortIn";
+import { PortingPortInListInstance } from "./v1/portingPortIn";
+import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNumber";
 import { PortingPortabilityListInstance } from "./v1/portingPortability";
+import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConfiguration";
+import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete";
+import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration";
+import { WebhookListInstance } from "./v1/webhook";
 
 export default class V1 extends Version {
   /**
@@ -31,12 +37,24 @@ export default class V1 extends Version {
 
   /** bulkEligibilities - { Twilio.Numbers.V1.BulkEligibilityListInstance } resource */
   protected _bulkEligibilities?: BulkEligibilityListInstance;
-  /** portingBulkPortabilities - { Twilio.Numbers.V1.PortingBulkPortabilityListInstance } resource */
-  protected _portingBulkPortabilities?: PortingBulkPortabilityListInstance;
-  /** portingPortIns - { Twilio.Numbers.V1.PortingPortInFetchListInstance } resource */
-  protected _portingPortIns?: PortingPortInFetchListInstance;
+  /** eligibilities - { Twilio.Numbers.V1.EligibilityListInstance } resource */
+  protected _eligibilities?: EligibilityListInstance;
+  /** portingAllPortIns - { Twilio.Numbers.V1.PortingAllPortInListInstance } resource */
+  protected _portingAllPortIns?: PortingAllPortInListInstance;
+  /** portingPortIns - { Twilio.Numbers.V1.PortingPortInListInstance } resource */
+  protected _portingPortIns?: PortingPortInListInstance;
+  /** portingPortInPhoneNumber - { Twilio.Numbers.V1.PortingPortInPhoneNumberListInstance } resource */
+  protected _portingPortInPhoneNumber?: PortingPortInPhoneNumberListInstance;
   /** portingPortabilities - { Twilio.Numbers.V1.PortingPortabilityListInstance } resource */
   protected _portingPortabilities?: PortingPortabilityListInstance;
+  /** portingWebhookConfigurations - { Twilio.Numbers.V1.PortingWebhookConfigurationListInstance } resource */
+  protected _portingWebhookConfigurations?: PortingWebhookConfigurationListInstance;
+  /** portingWebhookConfigurationsDelete - { Twilio.Numbers.V1.PortingWebhookConfigurationDeleteListInstance } resource */
+  protected _portingWebhookConfigurationsDelete?: PortingWebhookConfigurationDeleteListInstance;
+  /** signingRequestConfigurations - { Twilio.Numbers.V1.SigningRequestConfigurationListInstance } resource */
+  protected _signingRequestConfigurations?: SigningRequestConfigurationListInstance;
+  /** webhook - { Twilio.Numbers.V1.WebhookListInstance } resource */
+  protected _webhook?: WebhookListInstance;
 
   /** Getter for bulkEligibilities resource */
   get bulkEligibilities(): BulkEligibilityListInstance {
@@ -45,19 +63,32 @@ export default class V1 extends Version {
     return this._bulkEligibilities;
   }
 
-  /** Getter for portingBulkPortabilities resource */
-  get portingBulkPortabilities(): PortingBulkPortabilityListInstance {
-    this._portingBulkPortabilities =
-      this._portingBulkPortabilities ||
-      PortingBulkPortabilityListInstance(this);
-    return this._portingBulkPortabilities;
+  /** Getter for eligibilities resource */
+  get eligibilities(): EligibilityListInstance {
+    this._eligibilities = this._eligibilities || EligibilityListInstance(this);
+    return this._eligibilities;
+  }
+
+  /** Getter for portingAllPortIns resource */
+  get portingAllPortIns(): PortingAllPortInListInstance {
+    this._portingAllPortIns =
+      this._portingAllPortIns || PortingAllPortInListInstance(this);
+    return this._portingAllPortIns;
   }
 
   /** Getter for portingPortIns resource */
-  get portingPortIns(): PortingPortInFetchListInstance {
+  get portingPortIns(): PortingPortInListInstance {
     this._portingPortIns =
-      this._portingPortIns || PortingPortInFetchListInstance(this);
+      this._portingPortIns || PortingPortInListInstance(this);
     return this._portingPortIns;
+  }
+
+  /** Getter for portingPortInPhoneNumber resource */
+  get portingPortInPhoneNumber(): PortingPortInPhoneNumberListInstance {
+    this._portingPortInPhoneNumber =
+      this._portingPortInPhoneNumber ||
+      PortingPortInPhoneNumberListInstance(this);
+    return this._portingPortInPhoneNumber;
   }
 
   /** Getter for portingPortabilities resource */
@@ -65,5 +96,35 @@ export default class V1 extends Version {
     this._portingPortabilities =
       this._portingPortabilities || PortingPortabilityListInstance(this);
     return this._portingPortabilities;
+  }
+
+  /** Getter for portingWebhookConfigurations resource */
+  get portingWebhookConfigurations(): PortingWebhookConfigurationListInstance {
+    this._portingWebhookConfigurations =
+      this._portingWebhookConfigurations ||
+      PortingWebhookConfigurationListInstance(this);
+    return this._portingWebhookConfigurations;
+  }
+
+  /** Getter for portingWebhookConfigurationsDelete resource */
+  get portingWebhookConfigurationsDelete(): PortingWebhookConfigurationDeleteListInstance {
+    this._portingWebhookConfigurationsDelete =
+      this._portingWebhookConfigurationsDelete ||
+      PortingWebhookConfigurationDeleteListInstance(this);
+    return this._portingWebhookConfigurationsDelete;
+  }
+
+  /** Getter for signingRequestConfigurations resource */
+  get signingRequestConfigurations(): SigningRequestConfigurationListInstance {
+    this._signingRequestConfigurations =
+      this._signingRequestConfigurations ||
+      SigningRequestConfigurationListInstance(this);
+    return this._signingRequestConfigurations;
+  }
+
+  /** Getter for webhook resource */
+  get webhook(): WebhookListInstance {
+    this._webhook = this._webhook || WebhookListInstance(this);
+    return this._webhook;
   }
 }

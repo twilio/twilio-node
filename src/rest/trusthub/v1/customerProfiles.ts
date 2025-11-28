@@ -23,6 +23,9 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
+/**
+ * The verification status of the Customer-Profile resource.
+ */
 export type CustomerProfilesStatus =
   | "draft"
   | "pending-review"
@@ -225,11 +228,14 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -242,11 +248,15 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   fetch(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -289,6 +299,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -346,6 +357,7 @@ interface CustomerProfilesResource {
   date_updated: Date;
   url: string;
   links: Record<string, string>;
+  errors: Array<any>;
 }
 
 export class CustomerProfilesInstance {
@@ -369,6 +381,7 @@ export class CustomerProfilesInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
     this.links = payload.links;
+    this.errors = payload.errors;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -418,6 +431,10 @@ export class CustomerProfilesInstance {
    * The URLs of the Assigned Items of the Customer-Profile resource.
    */
   links: Record<string, string>;
+  /**
+   * The error codes associated with the rejection of the Customer-Profile.
+   */
+  errors: Array<any>;
 
   private get _proxy(): CustomerProfilesContext {
     this._context =
@@ -522,6 +539,7 @@ export class CustomerProfilesInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
+      errors: this.errors,
     };
   }
 
@@ -683,6 +701,7 @@ export function CustomerProfilesListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -729,6 +748,7 @@ export function CustomerProfilesListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

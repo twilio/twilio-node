@@ -25,8 +25,14 @@ import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
+/**
+ * Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.
+ */
 export type TrunkTransferCallerId = "from-transferee" | "from-transferor";
 
+/**
+ * The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
+ */
 export type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
 
 /**
@@ -228,11 +234,14 @@ export class TrunkContextImpl implements TrunkContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -245,11 +254,15 @@ export class TrunkContextImpl implements TrunkContext {
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -298,6 +311,7 @@ export class TrunkContextImpl implements TrunkContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -350,6 +364,7 @@ interface TrunkResource {
   transfer_caller_id: TrunkTransferCallerId;
   cnam_lookup_enabled: boolean;
   auth_type: string;
+  symmetric_rtp_enabled: boolean;
   auth_type_set: Array<string>;
   date_created: Date;
   date_updated: Date;
@@ -374,6 +389,7 @@ export class TrunkInstance {
     this.transferCallerId = payload.transfer_caller_id;
     this.cnamLookupEnabled = payload.cnam_lookup_enabled;
     this.authType = payload.auth_type;
+    this.symmetricRtpEnabled = payload.symmetric_rtp_enabled;
     this.authTypeSet = payload.auth_type_set;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -422,6 +438,10 @@ export class TrunkInstance {
    * The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.
    */
   authType: string;
+  /**
+   * Whether Symmetric RTP is enabled for the trunk. When Symmetric RTP is disabled, Twilio will send RTP to the destination negotiated in the SDP. Disabling Symmetric RTP is considered to be more secure and therefore recommended. See [Symmetric RTP](https://www.twilio.com/docs/sip-trunking#symmetric-rtp) for more information.
+   */
+  symmetricRtpEnabled: boolean;
   /**
    * Reserved.
    */
@@ -562,6 +582,7 @@ export class TrunkInstance {
       transferCallerId: this.transferCallerId,
       cnamLookupEnabled: this.cnamLookupEnabled,
       authType: this.authType,
+      symmetricRtpEnabled: this.symmetricRtpEnabled,
       authTypeSet: this.authTypeSet,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
@@ -730,6 +751,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -771,6 +793,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

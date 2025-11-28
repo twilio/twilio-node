@@ -30,6 +30,9 @@ export type BundleSortBy = "valid-until" | "date-updated";
 
 export type BundleSortDirection = "ASC" | "DESC";
 
+/**
+ * The verification status of the Bundle resource.
+ */
 export type BundleStatus =
   | "draft"
   | "pending-review"
@@ -68,8 +71,10 @@ export interface BundleListInstanceCreateOptions {
   isoCountry?: string;
   /**  */
   endUserType?: BundleEndUserType;
-  /** The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll free`. */
+  /** The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
+  /** Indicates that Bundle is a Test Bundle and will be Auto-Rejected */
+  isTest?: boolean;
 }
 /**
  * Options to pass to each
@@ -83,7 +88,7 @@ export interface BundleListInstanceEachOptions {
   regulationSid?: string;
   /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
-  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
@@ -119,7 +124,7 @@ export interface BundleListInstanceOptions {
   regulationSid?: string;
   /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
-  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
@@ -151,7 +156,7 @@ export interface BundleListInstancePageOptions {
   regulationSid?: string;
   /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
-  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
@@ -284,11 +289,14 @@ export class BundleContextImpl implements BundleContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -301,11 +309,15 @@ export class BundleContextImpl implements BundleContext {
   fetch(
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -344,6 +356,7 @@ export class BundleContextImpl implements BundleContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -727,9 +740,12 @@ export function BundleListInstance(version: V2): BundleListInstance {
       data["EndUserType"] = params["endUserType"];
     if (params["numberType"] !== undefined)
       data["NumberType"] = params["numberType"];
+    if (params["isTest"] !== undefined)
+      data["IsTest"] = serialize.bool(params["isTest"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -797,6 +813,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

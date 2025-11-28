@@ -22,20 +22,38 @@ import { isValidPathParam } from "../../../../base/utility";
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
 
+/**
+ * Determines if the address can be stored or obfuscated based on privacy settings
+ */
 export type MessageAddressRetention = "retain" | "obfuscate";
 
+/**
+ * Determines if the message content can be stored or redacted based on privacy settings
+ */
 export type MessageContentRetention = "retain" | "discard";
 
+/**
+ * The direction of the message. Can be: `inbound` for incoming messages, `outbound-api` for messages created by the REST API, `outbound-call` for messages created during a call, or `outbound-reply` for messages created in response to an incoming message.
+ */
 export type MessageDirection =
   | "inbound"
   | "outbound-api"
   | "outbound-call"
   | "outbound-reply";
 
+/**
+ * Include this parameter with a value of `disable` to skip any kind of risk check on the respective message request.
+ */
 export type MessageRiskCheck = "enable" | "disable";
 
+/**
+ * For Messaging Services only: Include this parameter with a value of `fixed` in conjuction with the `send_time` parameter in order to [schedule a Message](https://www.twilio.com/docs/messaging/features/message-scheduling).
+ */
 export type MessageScheduleType = "fixed";
 
+/**
+ * The status of the Message. Possible values: `accepted`, `scheduled`, `canceled`, `queued`, `sending`, `sent`, `failed`, `delivered`, `undelivered`, `receiving`, `received`, or `read` (WhatsApp only). For more information, See [detailed descriptions](https://www.twilio.com/docs/sms/api/message-resource#message-status-values).
+ */
 export type MessageStatus =
   | "queued"
   | "sending"
@@ -50,6 +68,8 @@ export type MessageStatus =
   | "read"
   | "partially_delivered"
   | "canceled";
+
+export type MessageTrafficType = "free";
 
 export type MessageUpdateStatus = "canceled";
 
@@ -71,15 +91,15 @@ export interface MessageListInstanceCreateOptions {
   to: string;
   /** The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).  */
   statusCallback?: string;
-  /** The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). If this parameter is provided, the `status_callback` parameter of this request is ignored; [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App\\\'s `message_status_callback` URL. */
+  /** The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App\\\'s `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored. */
   applicationSid?: string;
-  /** The maximum price in US dollars that you are willing to pay for this Message\\\'s delivery. The value can have up to four decimal places. When the `max_price` parameter is provided, the cost of a message is checked before it is sent. If the cost exceeds `max_price`, the message is not sent and the Message `status` is `failed`. */
+  /** [OBSOLETE] This parameter will no longer have any effect as of 2024-06-03. */
   maxPrice?: number;
   /** Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`. */
   provideFeedback?: boolean;
   /** Total number of attempts made (including this request) to send the message regardless of the provider used */
   attempt?: number;
-  /** The maximum length in seconds that the Message can remain in Twilio\\\'s outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `14400`. Default value is `14400`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html) */
+  /** The maximum length in seconds that the Message can remain in Twilio\\\'s outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html) */
   validityPeriod?: number;
   /** Reserved */
   forceDelivery?: boolean;
@@ -91,6 +111,8 @@ export interface MessageListInstanceCreateOptions {
   smartEncoded?: boolean;
   /** Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp). */
   persistentAction?: Array<string>;
+  /**  */
+  trafficType?: MessageTrafficType;
   /** For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided. */
   shortenUrls?: boolean;
   /**  */
@@ -118,9 +140,9 @@ export interface MessageListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface MessageListInstanceEachOptions {
-  /** Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111` */
+  /** Filter by recipient. For example: Set this parameter to `+15558881111` to retrieve a list of Message resources sent to `+15558881111`. */
   to?: string;
-  /** Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999` */
+  /** Filter by sender. For example: Set this parameter to `+15552229999` to retrieve a list of Message resources sent by `+15552229999`. */
   from?: string;
   /** Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date). */
   dateSent?: Date;
@@ -142,9 +164,9 @@ export interface MessageListInstanceEachOptions {
  * Options to pass to list
  */
 export interface MessageListInstanceOptions {
-  /** Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111` */
+  /** Filter by recipient. For example: Set this parameter to `+15558881111` to retrieve a list of Message resources sent to `+15558881111`. */
   to?: string;
-  /** Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999` */
+  /** Filter by sender. For example: Set this parameter to `+15552229999` to retrieve a list of Message resources sent by `+15552229999`. */
   from?: string;
   /** Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date). */
   dateSent?: Date;
@@ -162,9 +184,9 @@ export interface MessageListInstanceOptions {
  * Options to pass to page
  */
 export interface MessageListInstancePageOptions {
-  /** Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111` */
+  /** Filter by recipient. For example: Set this parameter to `+15558881111` to retrieve a list of Message resources sent to `+15558881111`. */
   to?: string;
-  /** Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999` */
+  /** Filter by sender. For example: Set this parameter to `+15552229999` to retrieve a list of Message resources sent by `+15552229999`. */
   from?: string;
   /** Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date). */
   dateSent?: Date;
@@ -286,11 +308,14 @@ export class MessageContextImpl implements MessageContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -303,11 +328,15 @@ export class MessageContextImpl implements MessageContext {
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -347,6 +376,7 @@ export class MessageContextImpl implements MessageContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -475,7 +505,7 @@ export class MessageInstance {
    */
   price: string;
   /**
-   * The description of the `error_code` if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`.
+   * The description of the `error_code` if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`. The value returned in this field for a specific error cause is subject to change as Twilio improves errors. Users should not use the `error_code` and `error_message` fields programmatically.
    */
   errorMessage: string;
   /**
@@ -492,7 +522,7 @@ export class MessageInstance {
   numMedia: string;
   status: MessageStatus;
   /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) associated with the Message resource. The value is `null` if a Messaging Service was not used.
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) associated with the Message resource. A unique default value is assigned if a Messaging Service is not used.
    */
   messagingServiceSid: string;
   /**
@@ -508,7 +538,7 @@ export class MessageInstance {
    */
   dateCreated: Date;
   /**
-   * The [error code](https://www.twilio.com/docs/api/errors) returned if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`.
+   * The [error code](https://www.twilio.com/docs/api/errors) returned if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`. The value returned in this field for a specific error cause is subject to change as Twilio improves errors. Users should not use the `error_code` and `error_message` fields programmatically.
    */
   errorCode: number;
   /**
@@ -797,6 +827,8 @@ export function MessageListInstance(
         params["persistentAction"],
         (e: string) => e
       );
+    if (params["trafficType"] !== undefined)
+      data["TrafficType"] = params["trafficType"];
     if (params["shortenUrls"] !== undefined)
       data["ShortenUrls"] = serialize.bool(params["shortenUrls"]);
     if (params["scheduleType"] !== undefined)
@@ -820,6 +852,7 @@ export function MessageListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -874,6 +907,7 @@ export function MessageListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

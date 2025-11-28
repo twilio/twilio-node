@@ -52,7 +52,8 @@ export type ConferenceParticipantRegion =
   | "ie1"
   | "jp1"
   | "sg1"
-  | "de1";
+  | "de1"
+  | "in1";
 
 /**
  * Options to pass to fetch a ConferenceParticipantInstance
@@ -207,6 +208,7 @@ export class ConferenceParticipantContextImpl
     if (params["metrics"] !== undefined) data["Metrics"] = params["metrics"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -658,6 +660,7 @@ export function ConferenceParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

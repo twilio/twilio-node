@@ -20,6 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If `channelType` is `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task Channel to Programmable Chat.
+ */
 export type FlexFlowChannelType =
   | "web"
   | "sms"
@@ -28,6 +31,9 @@ export type FlexFlowChannelType =
   | "line"
   | "custom";
 
+/**
+ * The software that will handle inbound messages. [Integration Type](https://www.twilio.com/docs/flex/developer/messaging/manage-flows#integration-types) can be: `studio`, `external`,  or `task`.
+ */
 export type FlexFlowIntegrationType = "studio" | "external" | "task";
 
 /**
@@ -224,11 +230,14 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -241,11 +250,15 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   fetch(
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -314,6 +327,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -715,6 +729,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -758,6 +773,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

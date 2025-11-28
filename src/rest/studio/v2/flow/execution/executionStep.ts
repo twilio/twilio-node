@@ -127,11 +127,15 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepInstance) => any
   ): Promise<ExecutionStepInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -175,10 +179,12 @@ interface ExecutionStepResource {
   account_sid: string;
   flow_sid: string;
   execution_sid: string;
+  parent_step_sid: string;
   name: string;
   context: any;
   transitioned_from: string;
   transitioned_to: string;
+  type: string;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -200,10 +206,12 @@ export class ExecutionStepInstance {
     this.accountSid = payload.account_sid;
     this.flowSid = payload.flow_sid;
     this.executionSid = payload.execution_sid;
+    this.parentStepSid = payload.parent_step_sid;
     this.name = payload.name;
     this.context = payload.context;
     this.transitionedFrom = payload.transitioned_from;
     this.transitionedTo = payload.transitioned_to;
+    this.type = payload.type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -229,6 +237,10 @@ export class ExecutionStepInstance {
    */
   executionSid: string;
   /**
+   * The SID of the parent Step.
+   */
+  parentStepSid: string;
+  /**
    * The event that caused the Flow to transition to the Step.
    */
   name: string;
@@ -244,6 +256,10 @@ export class ExecutionStepInstance {
    * The Widget that will follow the Widget for the Step.
    */
   transitionedTo: string;
+  /**
+   * The type of the widget that was executed.
+   */
+  type: string;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -304,10 +320,12 @@ export class ExecutionStepInstance {
       accountSid: this.accountSid,
       flowSid: this.flowSid,
       executionSid: this.executionSid,
+      parentStepSid: this.parentStepSid,
       name: this.name,
       context: this.context,
       transitionedFrom: this.transitionedFrom,
       transitionedTo: this.transitionedTo,
+      type: this.type,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
@@ -459,6 +477,7 @@ export function ExecutionStepListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -20,6 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the participant\'s call in a session. Can be: `queued`, `connecting`, `ringing`, `connected`, `complete`, or `failed`.
+ */
 export type ParticipantStatus =
   | "queued"
   | "connecting"
@@ -44,7 +47,7 @@ export interface ParticipantContextUpdateOptions {
   announceUrl?: string;
   /** The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   announceMethod?: string;
-  /** The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). */
+  /** The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `\\\'\\\'`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl). */
   waitUrl?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
   waitMethod?: string;
@@ -64,7 +67,7 @@ export interface ParticipantContextUpdateOptions {
 export interface ParticipantListInstanceCreateOptions {
   /** The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint. */
   from: string;
-  /** The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. */
+  /** The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. */
   to: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
@@ -86,7 +89,7 @@ export interface ParticipantListInstanceCreateOptions {
   startConferenceOnEnter?: boolean;
   /** Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`. */
   endConferenceOnExit?: boolean;
-  /** The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). */
+  /** The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `\\\'\\\'`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl). */
   waitUrl?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
   waitMethod?: string;
@@ -114,7 +117,7 @@ export interface ParticipantListInstanceCreateOptions {
   sipAuthUsername?: string;
   /** The SIP password for authentication. */
   sipAuthPassword?: string;
-  /** The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`. */
+  /** The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`. */
   region?: string;
   /** The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available. */
   conferenceRecordingStatusCallback?: string;
@@ -158,6 +161,8 @@ export interface ParticipantListInstanceCreateOptions {
   trim?: string;
   /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
   callToken?: string;
+  /** The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address. */
+  callerDisplayName?: string;
 }
 /**
  * Options to pass to each
@@ -301,11 +306,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -318,11 +326,15 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -385,6 +397,7 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -445,6 +458,7 @@ interface ParticipantResource {
   hold: boolean;
   start_conference_on_enter: boolean;
   status: ParticipantStatus;
+  queue_time: string;
   uri: string;
 }
 
@@ -472,6 +486,7 @@ export class ParticipantInstance {
     this.hold = payload.hold;
     this.startConferenceOnEnter = payload.start_conference_on_enter;
     this.status = payload.status;
+    this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 
     this._solution = {
@@ -530,6 +545,10 @@ export class ParticipantInstance {
    */
   startConferenceOnEnter: boolean;
   status: ParticipantStatus;
+  /**
+   * The wait time in milliseconds before participant\'s call is placed. Only available in the response to a create participant request.
+   */
+  queueTime: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
@@ -623,6 +642,7 @@ export class ParticipantInstance {
       hold: this.hold,
       startConferenceOnEnter: this.startConferenceOnEnter,
       status: this.status,
+      queueTime: this.queueTime,
       uri: this.uri,
     };
   }
@@ -891,9 +911,12 @@ export function ParticipantListInstance(
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
       data["CallToken"] = params["callToken"];
+    if (params["callerDisplayName"] !== undefined)
+      data["CallerDisplayName"] = params["callerDisplayName"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -947,6 +970,7 @@ export function ParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

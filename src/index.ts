@@ -2,13 +2,18 @@ import ITwilio from "./rest/Twilio";
 import * as webhooks from "./webhooks/webhooks";
 import IRequestClient from "./base/RequestClient";
 import type { ClientOpts as IClientOpts } from "./base/BaseTwilio";
+import IRestException from "./base/RestException";
 import IAccessToken from "./jwt/AccessToken";
+import IValidationToken from "./jwt/validation/ValidationToken";
 import IClientCapability from "./jwt/ClientCapability";
 import ITaskRouterCapability from "./jwt/taskrouter/TaskRouterCapability";
 import * as taskRouterUtil from "./jwt/taskrouter/util";
 import IVoiceResponse from "./twiml/VoiceResponse";
 import IMessagingResponse from "./twiml/MessagingResponse";
 import IFaxResponse from "./twiml/FaxResponse";
+import IClientCredentialProvider from "./credential_provider/ClientCredentialProvider";
+import INoAuthCredentialProvider from "./credential_provider/NoAuthCredentialProvider";
+import IOrgsCredentialProvider from "./credential_provider/OrgsCredentialProvider";
 
 // Shorthand to automatically create a RestClient
 function TwilioSDK(
@@ -26,6 +31,8 @@ namespace TwilioSDK {
   export namespace jwt {
     export type AccessToken = IAccessToken;
     export const AccessToken = IAccessToken;
+    export type ValidationToken = IValidationToken;
+    export const ValidationToken = IValidationToken;
     export type ClientCapability = IClientCapability;
     export const ClientCapability = IClientCapability;
     export namespace taskrouter {
@@ -44,6 +51,24 @@ namespace TwilioSDK {
   }
   export type RequestClient = IRequestClient;
   export const RequestClient = IRequestClient;
+  export type RestException = IRestException;
+  export const RestException = IRestException;
+
+  export type ClientCredentialProviderBuilder =
+    IClientCredentialProvider.ClientCredentialProviderBuilder;
+  export const ClientCredentialProviderBuilder =
+    IClientCredentialProvider.ClientCredentialProviderBuilder;
+
+  export type OrgsCredentialProviderBuilder =
+    IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
+  export const OrgsCredentialProviderBuilder =
+    IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
+
+  export type NoAuthCredentialProvider =
+    INoAuthCredentialProvider.NoAuthCredentialProvider;
+  export const NoAuthCredentialProvider =
+    INoAuthCredentialProvider.NoAuthCredentialProvider;
+
   // Setup webhook helper functionality
   export type validateBody = typeof webhooks.validateBody;
   export const validateBody = webhooks.validateBody;

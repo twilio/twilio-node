@@ -21,15 +21,24 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { NotificationListInstance } from "./challenge/notification";
 
+/**
+ * Reason for the Challenge to be in certain `status`. One of `none`, `not_needed` or `not_requested`.
+ */
 export type ChallengeChallengeReasons = "none" | "not_needed" | "not_requested";
 
+/**
+ * The Status of this Challenge. One of `pending`, `expired`, `approved` or `denied`.
+ */
 export type ChallengeChallengeStatuses =
   | "pending"
   | "expired"
   | "approved"
   | "denied";
 
-export type ChallengeFactorTypes = "push" | "totp";
+/**
+ * The Factor Type of this Challenge. Currently `push` and `totp` are supported.
+ */
+export type ChallengeFactorTypes = "push" | "totp" | "passkeys";
 
 export type ChallengeListOrders = "asc" | "desc";
 
@@ -207,11 +216,15 @@ export class ChallengeContextImpl implements ChallengeContext {
   fetch(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -254,6 +267,7 @@ export class ChallengeContextImpl implements ChallengeContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -671,6 +685,7 @@ export function ChallengeListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -722,6 +737,7 @@ export function ChallengeListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

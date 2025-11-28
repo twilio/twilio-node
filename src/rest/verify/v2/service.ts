@@ -20,8 +20,12 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { AccessTokenListInstance } from "./service/accessToken";
+import { ApproveChallengeListInstance } from "./service/approveChallenge";
 import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
+import { NewChallengeListInstance } from "./service/newChallenge";
+import { NewFactorListInstance } from "./service/newFactor";
+import { NewVerifyFactorListInstance } from "./service/newVerifyFactor";
 import { RateLimitListInstance } from "./service/rateLimit";
 import { VerificationListInstance } from "./service/verification";
 import { VerificationCheckListInstance } from "./service/verificationCheck";
@@ -47,7 +51,7 @@ export interface ServiceContextUpdateOptions {
   psd2Enabled?: boolean;
   /** Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.** */
   doNotShareWarningEnabled?: boolean;
-  /** Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers. */
+  /** Whether to allow sending verifications with a custom code instead of a randomly generated one. */
   customCodeEnabled?: boolean;
   /** Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. */
   "push.includeDate"?: boolean;
@@ -65,6 +69,22 @@ export interface ServiceContextUpdateOptions {
   "totp.skew"?: number;
   /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
   defaultTemplateSid?: string;
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service. */
+  "whatsapp.msgServiceSid"?: string;
+  /** The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service. */
+  "whatsapp.from"?: string;
+  /** The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.id"?: string;
+  /** The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.name"?: string;
+  /** The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`. */
+  "passkeys.relyingParty.origins"?: string;
+  /** The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`. */
+  "passkeys.authenticatorAttachment"?: string;
+  /** Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.discoverableCredentials"?: string;
+  /** The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.userVerification"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
   verifyEventSubscriptionEnabled?: boolean;
 }
@@ -89,7 +109,7 @@ export interface ServiceListInstanceCreateOptions {
   psd2Enabled?: boolean;
   /** Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code` */
   doNotShareWarningEnabled?: boolean;
-  /** Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers. */
+  /** Whether to allow sending verifications with a custom code instead of a randomly generated one. */
   customCodeEnabled?: boolean;
   /** Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead. */
   "push.includeDate"?: boolean;
@@ -107,6 +127,22 @@ export interface ServiceListInstanceCreateOptions {
   "totp.skew"?: number;
   /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
   defaultTemplateSid?: string;
+  /** The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users. */
+  "whatsapp.msgServiceSid"?: string;
+  /** The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID. */
+  "whatsapp.from"?: string;
+  /** The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.id"?: string;
+  /** The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys. */
+  "passkeys.relyingParty.name"?: string;
+  /** The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`. */
+  "passkeys.relyingParty.origins"?: string;
+  /** The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`. */
+  "passkeys.authenticatorAttachment"?: string;
+  /** Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.discoverableCredentials"?: string;
+  /** The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
+  "passkeys.userVerification"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
   verifyEventSubscriptionEnabled?: boolean;
 }
@@ -148,8 +184,12 @@ export interface ServiceListInstancePageOptions {
 
 export interface ServiceContext {
   accessTokens: AccessTokenListInstance;
+  approveChallenge: ApproveChallengeListInstance;
   entities: EntityListInstance;
   messagingConfigurations: MessagingConfigurationListInstance;
+  newChallenge: NewChallengeListInstance;
+  newFactors: NewFactorListInstance;
+  newVerifyFactors: NewVerifyFactorListInstance;
   rateLimits: RateLimitListInstance;
   verifications: VerificationListInstance;
   verificationChecks: VerificationCheckListInstance;
@@ -216,8 +256,12 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _accessTokens?: AccessTokenListInstance;
+  protected _approveChallenge?: ApproveChallengeListInstance;
   protected _entities?: EntityListInstance;
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
+  protected _newChallenge?: NewChallengeListInstance;
+  protected _newFactors?: NewFactorListInstance;
+  protected _newVerifyFactors?: NewVerifyFactorListInstance;
   protected _rateLimits?: RateLimitListInstance;
   protected _verifications?: VerificationListInstance;
   protected _verificationChecks?: VerificationCheckListInstance;
@@ -239,6 +283,13 @@ export class ServiceContextImpl implements ServiceContext {
     return this._accessTokens;
   }
 
+  get approveChallenge(): ApproveChallengeListInstance {
+    this._approveChallenge =
+      this._approveChallenge ||
+      ApproveChallengeListInstance(this._version, this._solution.sid);
+    return this._approveChallenge;
+  }
+
   get entities(): EntityListInstance {
     this._entities =
       this._entities || EntityListInstance(this._version, this._solution.sid);
@@ -250,6 +301,27 @@ export class ServiceContextImpl implements ServiceContext {
       this._messagingConfigurations ||
       MessagingConfigurationListInstance(this._version, this._solution.sid);
     return this._messagingConfigurations;
+  }
+
+  get newChallenge(): NewChallengeListInstance {
+    this._newChallenge =
+      this._newChallenge ||
+      NewChallengeListInstance(this._version, this._solution.sid);
+    return this._newChallenge;
+  }
+
+  get newFactors(): NewFactorListInstance {
+    this._newFactors =
+      this._newFactors ||
+      NewFactorListInstance(this._version, this._solution.sid);
+    return this._newFactors;
+  }
+
+  get newVerifyFactors(): NewVerifyFactorListInstance {
+    this._newVerifyFactors =
+      this._newVerifyFactors ||
+      NewVerifyFactorListInstance(this._version, this._solution.sid);
+    return this._newVerifyFactors;
   }
 
   get rateLimits(): RateLimitListInstance {
@@ -282,11 +354,14 @@ export class ServiceContextImpl implements ServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -299,11 +374,15 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -368,6 +447,25 @@ export class ServiceContextImpl implements ServiceContext {
       data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
       data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    if (params["whatsapp.msgServiceSid"] !== undefined)
+      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    if (params["whatsapp.from"] !== undefined)
+      data["Whatsapp.From"] = params["whatsapp.from"];
+    if (params["passkeys.relyingParty.id"] !== undefined)
+      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    if (params["passkeys.relyingParty.name"] !== undefined)
+      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    if (params["passkeys.relyingParty.origins"] !== undefined)
+      data["Passkeys.RelyingParty.Origins"] =
+        params["passkeys.relyingParty.origins"];
+    if (params["passkeys.authenticatorAttachment"] !== undefined)
+      data["Passkeys.AuthenticatorAttachment"] =
+        params["passkeys.authenticatorAttachment"];
+    if (params["passkeys.discoverableCredentials"] !== undefined)
+      data["Passkeys.DiscoverableCredentials"] =
+        params["passkeys.discoverableCredentials"];
+    if (params["passkeys.userVerification"] !== undefined)
+      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
       data["VerifyEventSubscriptionEnabled"] = serialize.bool(
         params["verifyEventSubscriptionEnabled"]
@@ -375,6 +473,7 @@ export class ServiceContextImpl implements ServiceContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -430,6 +529,8 @@ interface ServiceResource {
   push: any;
   totp: any;
   default_template_sid: string;
+  whatsapp: any;
+  passkeys: any;
   verify_event_subscription_enabled: boolean;
   date_created: Date;
   date_updated: Date;
@@ -456,6 +557,8 @@ export class ServiceInstance {
     this.push = payload.push;
     this.totp = payload.totp;
     this.defaultTemplateSid = payload.default_template_sid;
+    this.whatsapp = payload.whatsapp;
+    this.passkeys = payload.passkeys;
     this.verifyEventSubscriptionEnabled =
       payload.verify_event_subscription_enabled;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -475,7 +578,7 @@ export class ServiceInstance {
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+   * The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. It cannot contain more than 4 (consecutive or non-consecutive) digits. **This value should not contain PII.**
    */
   friendlyName: string;
   /**
@@ -507,7 +610,7 @@ export class ServiceInstance {
    */
   doNotShareWarningEnabled: boolean;
   /**
-   * Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+   * Whether to allow sending verifications with a custom code instead of a randomly generated one.
    */
   customCodeEnabled: boolean;
   /**
@@ -519,6 +622,8 @@ export class ServiceInstance {
    */
   totp: any;
   defaultTemplateSid: string;
+  whatsapp: any;
+  passkeys: any;
   /**
    * Whether to allow verifications from the service to reach the stream-events sinks if configured
    */
@@ -611,6 +716,13 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the approveChallenge.
+   */
+  approveChallenge(): ApproveChallengeListInstance {
+    return this._proxy.approveChallenge;
+  }
+
+  /**
    * Access the entities.
    */
   entities(): EntityListInstance {
@@ -622,6 +734,27 @@ export class ServiceInstance {
    */
   messagingConfigurations(): MessagingConfigurationListInstance {
     return this._proxy.messagingConfigurations;
+  }
+
+  /**
+   * Access the newChallenge.
+   */
+  newChallenge(): NewChallengeListInstance {
+    return this._proxy.newChallenge;
+  }
+
+  /**
+   * Access the newFactors.
+   */
+  newFactors(): NewFactorListInstance {
+    return this._proxy.newFactors;
+  }
+
+  /**
+   * Access the newVerifyFactors.
+   */
+  newVerifyFactors(): NewVerifyFactorListInstance {
+    return this._proxy.newVerifyFactors;
   }
 
   /**
@@ -673,6 +806,8 @@ export class ServiceInstance {
       push: this.push,
       totp: this.totp,
       defaultTemplateSid: this.defaultTemplateSid,
+      whatsapp: this.whatsapp,
+      passkeys: this.passkeys,
       verifyEventSubscriptionEnabled: this.verifyEventSubscriptionEnabled,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
@@ -847,6 +982,25 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
       data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    if (params["whatsapp.msgServiceSid"] !== undefined)
+      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    if (params["whatsapp.from"] !== undefined)
+      data["Whatsapp.From"] = params["whatsapp.from"];
+    if (params["passkeys.relyingParty.id"] !== undefined)
+      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    if (params["passkeys.relyingParty.name"] !== undefined)
+      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    if (params["passkeys.relyingParty.origins"] !== undefined)
+      data["Passkeys.RelyingParty.Origins"] =
+        params["passkeys.relyingParty.origins"];
+    if (params["passkeys.authenticatorAttachment"] !== undefined)
+      data["Passkeys.AuthenticatorAttachment"] =
+        params["passkeys.authenticatorAttachment"];
+    if (params["passkeys.discoverableCredentials"] !== undefined)
+      data["Passkeys.DiscoverableCredentials"] =
+        params["passkeys.discoverableCredentials"];
+    if (params["passkeys.userVerification"] !== undefined)
+      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
       data["VerifyEventSubscriptionEnabled"] = serialize.bool(
         params["verifyEventSubscriptionEnabled"]
@@ -854,6 +1008,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -895,6 +1050,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

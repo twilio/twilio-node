@@ -20,12 +20,21 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * The codec used to encode the track. Can be: `VP8`, `H264`, `OPUS`, and `PCMU`.
+ */
 export type RecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
 
 export type RecordingFormat = "mka" | "mkv";
 
+/**
+ * The status of the recording. Can be: `processing`, `completed`, or `deleted`. `processing` indicates the recording is still being captured; `completed` indicates the recording has been captured and is now available for download. `deleted` means the recording media has been deleted from the system, but its metadata is still available.
+ */
 export type RecordingStatus = "processing" | "completed" | "deleted" | "failed";
 
+/**
+ * The recording\'s media type. Can be: `audio` or `video`.
+ */
 export type RecordingType = "audio" | "video" | "data";
 
 /**
@@ -44,7 +53,7 @@ export interface RecordingListInstanceEachOptions {
   dateCreatedBefore?: Date;
   /** Read only recordings that have this media type. Can be either `audio` or `video`. */
   mediaType?: RecordingType;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
@@ -70,7 +79,7 @@ export interface RecordingListInstanceOptions {
   dateCreatedBefore?: Date;
   /** Read only recordings that have this media type. Can be either `audio` or `video`. */
   mediaType?: RecordingType;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -92,7 +101,7 @@ export interface RecordingListInstancePageOptions {
   dateCreatedBefore?: Date;
   /** Read only recordings that have this media type. Can be either `audio` or `video`. */
   mediaType?: RecordingType;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -150,11 +159,14 @@ export class RecordingContextImpl implements RecordingContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -167,11 +179,15 @@ export class RecordingContextImpl implements RecordingContext {
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -519,6 +535,7 @@ export function RecordingListInstance(version: V1): RecordingListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

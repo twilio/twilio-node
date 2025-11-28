@@ -20,6 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+/**
+ * IP address version of the corresponding IP address
+ */
 export type SimIpAddressIpAddressVersion = "IPv4" | "IPv6";
 
 /**
@@ -178,6 +181,7 @@ export function SimIpAddressListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

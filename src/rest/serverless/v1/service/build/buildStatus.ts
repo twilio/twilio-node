@@ -18,6 +18,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * The status of the Build. Can be: `building`, `completed`, or `failed`.
+ */
 export type BuildStatusStatus = "building" | "completed" | "failed";
 
 export interface BuildStatusContext {
@@ -64,11 +67,15 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   fetch(
     callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

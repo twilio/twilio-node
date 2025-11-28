@@ -1,20 +1,32 @@
 import { HttpMethod } from "../interfaces";
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {
+  AxiosHeaders,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
 import * as https from "https";
 import Response from "../http/response";
 import Request, {
-  RequestOptions as LastRequestOptions,
   Headers,
+  RequestOptions as LastRequestOptions,
 } from "../http/request";
+import AuthStrategy from "../auth_strategy/AuthStrategy";
+import ValidationToken from "../jwt/validation/ValidationToken";
+import { ValidationClientOptions } from "./ValidationClient";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
 const DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS = 100;
 const DEFAULT_MAX_RETRY_DELAY = 3000;
 const DEFAULT_MAX_RETRIES = 3;
+const DEFAULT_MAX_SOCKETS = 20;
+const DEFAULT_MAX_FREE_SOCKETS = 5;
+const DEFAULT_MAX_TOTAL_SOCKETS = 100;
 
 interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
   /**
@@ -73,6 +85,7 @@ class RequestClient {
   autoRetry: boolean;
   maxRetryDelay: number;
   maxRetries: number;
+  keepAlive: boolean;
 
   /**
    * Make http request
@@ -87,6 +100,7 @@ class RequestClient {
    * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses. Defaults to false.
    * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
    * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
+   * @param opts.validationClient - Validation client for PKCV
    */
   constructor(opts?: RequestClient.RequestClientOptions) {
     opts = opts || {};
@@ -94,15 +108,16 @@ class RequestClient {
     this.autoRetry = opts.autoRetry || false;
     this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
     this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
+    this.keepAlive = opts.keepAlive !== false;
 
     // construct an https agent
     let agentOpts: https.AgentOptions = {
       timeout: this.defaultTimeout,
-      keepAlive: opts.keepAlive,
+      keepAlive: this.keepAlive,
       keepAliveMsecs: opts.keepAliveMsecs,
-      maxSockets: opts.maxSockets,
-      maxTotalSockets: opts.maxTotalSockets,
-      maxFreeSockets: opts.maxFreeSockets,
+      maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS, // no of sockets open per host
+      maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS, // no of sockets open in total
+      maxFreeSockets: opts.maxFreeSockets || DEFAULT_MAX_FREE_SOCKETS, // no of free sockets open per host
       scheduling: opts.scheduling,
       ca: opts.ca,
     };
@@ -135,6 +150,13 @@ class RequestClient {
         })
       );
     }
+
+    // if validation client is set, intercept the request using ValidationInterceptor
+    if (opts.validationClient) {
+      this.axios.interceptors.request.use(
+        this.validationInterceptor(opts.validationClient)
+      );
+    }
   }
 
   /**
@@ -144,6 +166,7 @@ class RequestClient {
    * @param opts.uri - The request uri
    * @param opts.username - The username used for auth
    * @param opts.password - The password used for auth
+   * @param opts.authStrategy - The authStrategy for API call
    * @param opts.headers - The request headers
    * @param opts.params - The request params
    * @param opts.data - The request data
@@ -152,7 +175,7 @@ class RequestClient {
    * @param opts.forever - Set to true to use the forever-agent
    * @param opts.logLevel - Show debug logs
    */
-  request<TData>(
+  async request<TData>(
     opts: RequestClient.RequestOptions<TData>
   ): Promise<Response<TData>> {
     if (!opts.method) {
@@ -165,11 +188,8 @@ class RequestClient {
 
     var headers = opts.headers || {};
 
-    if (!headers.Connection && !headers.connection && opts.forever) {
-      headers.Connection = "keep-alive";
-    } else if (!headers.Connection && !headers.connection) {
-      headers.Connection = "close";
-    }
+    if (!headers.Connection && !headers.connection)
+      headers.Connection = this.keepAlive ? "keep-alive" : "close";
 
     let auth = undefined;
 
@@ -178,6 +198,8 @@ class RequestClient {
         "base64"
       );
       headers.Authorization = "Basic " + auth;
+    } else if (opts.authStrategy) {
+      headers.Authorization = await opts.authStrategy.getAuthString();
     }
 
     const options: AxiosRequestConfig = {
@@ -190,8 +212,14 @@ class RequestClient {
       validateStatus: (status) => status >= 100 && status < 600,
     };
 
-    if (opts.data) {
-      options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
+    if (opts.data && options.headers) {
+      if (
+        options.headers["Content-Type"] === "application/x-www-form-urlencoded"
+      ) {
+        options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
+      } else if (options.headers["Content-Type"] === "application/json") {
+        options.data = opts.data;
+      }
     }
 
     if (opts.params) {
@@ -247,6 +275,42 @@ class RequestClient {
     });
   }
 
+  /**
+   * ValidationInterceptor adds the Twilio-Client-Validation header to the request
+   * @param validationClient - The validation client for PKCV
+   * <p>Usage Example:</p>
+   * ```javascript
+   * import axios from "axios";
+   * // Initialize validation client with credentials
+   * const validationClient = {
+   *           accountSid: "ACXXXXXXXXXXXXXXXX",
+   *           credentialSid: "CRXXXXXXXXXXXXXXXX",
+   *           signingKey: "SKXXXXXXXXXXXXXXXX",
+   *           privateKey: "private key",
+   *           algorithm: "PS256",
+   *         }
+   * // construct an axios instance
+   * const instance = axios.create();
+   * instance.interceptors.request.use(
+   *   ValidationInterceptor(opts.validationClient)
+   * );
+   * ```
+   */
+  validationInterceptor(validationClient: ValidationClientOptions) {
+    return function (config: InternalAxiosRequestConfig) {
+      config.headers = config.headers || new AxiosHeaders();
+      try {
+        config.headers["Twilio-Client-Validation"] = new ValidationToken(
+          validationClient
+        ).fromHttpRequest(config);
+      } catch (err) {
+        console.log("Error creating Twilio-Client-Validation header:", err);
+        throw err;
+      }
+      return config;
+    };
+  }
+
   private logRequest<TData>(options: LastRequestOptions<TData>) {
     console.log("-- BEGIN Twilio API Request --");
     console.log(`${options.method} ${options.url}`);
@@ -288,6 +352,10 @@ namespace RequestClient {
      * The password used for auth
      */
     password?: string;
+    /**
+     * The AuthStrategy for API Call
+     */
+    authStrategy?: AuthStrategy;
     /**
      * The request headers
      */
@@ -366,6 +434,17 @@ namespace RequestClient {
      * Maximum number of request retries for 429 Error responses. Defaults to 3.
      */
     maxRetries?: number;
+    /**
+     * Validation client for Public Key Client Validation
+     * On setting this with your credentials, Twilio validates:
+     <ul>
+        <li>The request comes from a sender who is in control of the private key.</li>
+        <li>The message has not been modified in transit.</li>
+     </ul>
+     * That the message has not been modified in transit.
+     * Refer our doc for details - https://www.twilio.com/docs/iam/pkcv
+     */
+    validationClient?: ValidationClientOptions;
   }
 }
 export = RequestClient;
