@@ -19,6 +19,7 @@ import { DeactivationsListInstance } from "./v1/deactivations";
 import { DomainCertsListInstance } from "./v1/domainCerts";
 import { DomainConfigListInstance } from "./v1/domainConfig";
 import { DomainConfigMessagingServiceListInstance } from "./v1/domainConfigMessagingService";
+import { DomainValidateDnListInstance } from "./v1/domainValidateDn";
 import { ExternalCampaignListInstance } from "./v1/externalCampaign";
 import { LinkshorteningMessagingServiceListInstance } from "./v1/linkshorteningMessagingService";
 import { LinkshorteningMessagingServiceDomainAssociationListInstance } from "./v1/linkshorteningMessagingServiceDomainAssociation";
@@ -47,6 +48,8 @@ export default class V1 extends Version {
   protected _domainConfig?: DomainConfigListInstance;
   /** domainConfigMessagingService - { Twilio.Messaging.V1.DomainConfigMessagingServiceListInstance } resource */
   protected _domainConfigMessagingService?: DomainConfigMessagingServiceListInstance;
+  /** domainValidateDns - { Twilio.Messaging.V1.DomainValidateDnListInstance } resource */
+  protected _domainValidateDns?: DomainValidateDnListInstance;
   /** externalCampaign - { Twilio.Messaging.V1.ExternalCampaignListInstance } resource */
   protected _externalCampaign?: ExternalCampaignListInstance;
   /** linkshorteningMessagingService - { Twilio.Messaging.V1.LinkshorteningMessagingServiceListInstance } resource */
@@ -94,6 +97,13 @@ export default class V1 extends Version {
       this._domainConfigMessagingService ||
       DomainConfigMessagingServiceListInstance(this);
     return this._domainConfigMessagingService;
+  }
+
+  /** Getter for domainValidateDns resource */
+  get domainValidateDns(): DomainValidateDnListInstance {
+    this._domainValidateDns =
+      this._domainValidateDns || DomainValidateDnListInstance(this);
+    return this._domainValidateDns;
   }
 
   /** Getter for externalCampaign resource */

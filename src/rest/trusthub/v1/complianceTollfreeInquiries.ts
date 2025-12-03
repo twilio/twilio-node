@@ -36,6 +36,8 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   tollfreePhoneNumber: string;
   /** The email address to receive the notification about the verification result. */
   notificationEmail: string;
+  /** The Customer Profile Sid associated with the Account. */
+  customerProfileSid?: string;
   /** The name of the business or organization using the Tollfree number. */
   businessName?: string;
   /** The website of the business or organization using the Tollfree number. */
@@ -153,6 +155,8 @@ export function ComplianceTollfreeInquiriesListInstance(
     data["TollfreePhoneNumber"] = params["tollfreePhoneNumber"];
 
     data["NotificationEmail"] = params["notificationEmail"];
+    if (params["customerProfileSid"] !== undefined)
+      data["CustomerProfileSid"] = params["customerProfileSid"];
     if (params["businessName"] !== undefined)
       data["BusinessName"] = params["businessName"];
     if (params["businessWebsite"] !== undefined)
