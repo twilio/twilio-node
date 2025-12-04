@@ -43,7 +43,8 @@ describe("patch method", function () {
     const body = { test: true, patched: true };
     const version = new Version(
       {
-        request: () => Promise.resolve({ statusCode: 200, body: JSON.stringify(body) }),
+        request: () =>
+          Promise.resolve({ statusCode: 200, body: JSON.stringify(body) }),
       },
       {}
     );
