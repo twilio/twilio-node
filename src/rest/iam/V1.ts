@@ -17,6 +17,7 @@ import Version from "../../base/Version";
 import { ApiKeyListInstance } from "./v1/apiKey";
 import { GetApiKeysListInstance } from "./v1/getApiKeys";
 import { NewApiKeyListInstance } from "./v1/newApiKey";
+import { OAuthAppListInstance } from "./v1/oAuthApp";
 import { TokenListInstance } from "./v1/token";
 
 export default class V1 extends Version {
@@ -35,6 +36,8 @@ export default class V1 extends Version {
   protected _getApiKeys?: GetApiKeysListInstance;
   /** newApiKey - { Twilio.Iam.V1.NewApiKeyListInstance } resource */
   protected _newApiKey?: NewApiKeyListInstance;
+  /** oAuthApps - { Twilio.Iam.V1.OAuthAppListInstance } resource */
+  protected _oAuthApps?: OAuthAppListInstance;
   /** token - { Twilio.Iam.V1.TokenListInstance } resource */
   protected _token?: TokenListInstance;
 
@@ -54,6 +57,12 @@ export default class V1 extends Version {
   get newApiKey(): NewApiKeyListInstance {
     this._newApiKey = this._newApiKey || NewApiKeyListInstance(this);
     return this._newApiKey;
+  }
+
+  /** Getter for oAuthApps resource */
+  get oAuthApps(): OAuthAppListInstance {
+    this._oAuthApps = this._oAuthApps || OAuthAppListInstance(this);
+    return this._oAuthApps;
   }
 
   /** Getter for token resource */

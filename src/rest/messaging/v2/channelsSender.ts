@@ -338,7 +338,7 @@ export interface ChannelsSenderListInstanceCreateOptions {
 export interface ChannelsSenderListInstanceEachOptions {
   /**  */
   channel: string;
-  /** The number of items to return per page. */
+  /** The number of items to return per page. For WhatsApp, the default is `20`. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
@@ -357,7 +357,7 @@ export interface ChannelsSenderListInstanceEachOptions {
 export interface ChannelsSenderListInstanceOptions {
   /**  */
   channel: string;
-  /** The number of items to return per page. */
+  /** The number of items to return per page. For WhatsApp, the default is `20`. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -369,7 +369,7 @@ export interface ChannelsSenderListInstanceOptions {
 export interface ChannelsSenderListInstancePageOptions {
   /**  */
   channel: string;
-  /** The number of items to return per page. */
+  /** The number of items to return per page. For WhatsApp, the default is `20`. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;

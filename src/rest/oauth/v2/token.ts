@@ -22,6 +22,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to create a TokenInstance
  */
 export interface TokenListInstanceCreateOptions {
+  /** Optional Account SID to perform on behalf of requests. */
+  accountSid?: string;
   /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
   grantType?: string;
   /** A 34 character string that uniquely identifies this OAuth App. */
@@ -98,6 +100,9 @@ export function TokenListInstance(version: V2): TokenListInstance {
     }
 
     let data: any = {};
+
+    if (params["accountSid"] !== undefined)
+      data["account_sid"] = params["accountSid"];
 
     if (params["grantType"] !== undefined)
       data["grant_type"] = params["grantType"];

@@ -233,9 +233,9 @@ namespace Twilio {
         );
       }
       if (this.region !== undefined && this.edge === undefined) {
-        console.warn("Setting edge value from the region mapping");
         const mappedEdge = regionToEdgeMap.get(this.region);
         if (mappedEdge) {
+          console.warn("Setting edge value from the region mapping");
           this.edge = mappedEdge;
         }
       }
