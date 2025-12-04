@@ -33,9 +33,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      # Ensure npm 11.5.1 or later is installed
-      - name: Update npm
-        run: npm install -g npm@latest
+      - run: npm install
       
       - name: Run Unit Tests
         run: npm run ci
