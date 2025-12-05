@@ -172,6 +172,25 @@ export default class Version {
   }
 
   /**
+   * Patch a record
+   *
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to patched result
+   */
+  async patch(opts: RequestOpts): Promise<any> {
+    const response = await this.request(opts);
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw new RestException(response);
+    }
+    return typeof response.body === "string"
+      ? JSON.parse(response.body)
+      : response.body;
+  }
+
+  /**
    * Delete a record
    *
    * @param opts - request options
