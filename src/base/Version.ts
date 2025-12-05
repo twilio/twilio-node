@@ -185,7 +185,9 @@ export default class Version {
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw new RestException(response);
     }
-    return typeof response.body === "string" ? JSON.parse(response.body) : response.body;
+    return typeof response.body === "string"
+      ? JSON.parse(response.body)
+      : response.body;
   }
 
   /**
