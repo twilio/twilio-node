@@ -370,3 +370,80 @@ describe("each method", function () {
       });
   });
 });
+
+describe("remove method", function () {
+  const body = { message: "Resource deleted" };
+
+  // Test all 2XX status codes
+  const successStatusCodes = [
+    200, 201, 202, 203, 204, 205, 206, 207, 208, 226,
+  ];
+
+  successStatusCodes.forEach((statusCode) => {
+    it(`should return true for ${statusCode} status code`, function (done) {
+      const version = new Version(
+        {
+          request: () => Promise.resolve({ statusCode, body }),
+        },
+        {}
+      );
+
+      version.remove({}).then((response) => {
+        expect(response).toBeDefined();
+        expect(response).toBe(true);
+        done();
+      });
+    });
+  });
+
+  it("should throw an exception for status code < 200", function (done) {
+    const errorBody = { message: "Invalid request" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 199, body: errorBody }),
+      },
+      null
+    );
+
+    version.remove({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(199);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should throw an exception for status code >= 300", function (done) {
+    const errorBody = { message: "Resource not found" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 404, body: errorBody }),
+      },
+      null
+    );
+
+    version.remove({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(404);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should throw an exception for 5xx status code", function (done) {
+    const errorBody = { message: "Internal server error" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 500, body: errorBody }),
+      },
+      null
+    );
+
+    version.remove({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(500);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+});
