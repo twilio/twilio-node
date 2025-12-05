@@ -375,9 +375,7 @@ describe("remove method", function () {
   const body = { message: "Resource deleted" };
 
   // Test all 2XX status codes
-  const successStatusCodes = [
-    200, 201, 202, 203, 204, 205, 206, 207, 208, 226,
-  ];
+  const successStatusCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226];
 
   successStatusCodes.forEach((statusCode) => {
     it(`should return true for ${statusCode} status code`, function (done) {
