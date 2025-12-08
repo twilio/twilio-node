@@ -34,7 +34,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - run: npm install
-      
+
       - name: Run Unit Tests
         run: npm run ci
 
@@ -109,8 +109,6 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Submit metric to Datadog
         uses: sendgrid/dx-automator/actions/datadog-release-metric@main
