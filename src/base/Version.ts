@@ -172,6 +172,25 @@ export default class Version {
   }
 
   /**
+   * Patch a record
+   *
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to patched result
+   */
+  async patch(opts: RequestOpts): Promise<any> {
+    const response = await this.request(opts);
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw new RestException(response);
+    }
+    return typeof response.body === "string"
+      ? JSON.parse(response.body)
+      : response.body;
+  }
+
+  /**
    * Delete a record
    *
    * @param opts - request options
@@ -181,13 +200,13 @@ export default class Version {
    * @returns promise that resolves to true if record was deleted
    */
   remove(opts: RequestOpts): Promise<boolean> {
-    var qResponse = this.request(opts);
+    let qResponse = this.request(opts);
     qResponse = qResponse.then(function success(response) {
       if (response.statusCode < 200 || response.statusCode >= 300) {
         throw new RestException(response);
       }
 
-      return response.statusCode === 204;
+      return true; // if response code is 2XX, deletion was successful
     });
 
     return qResponse;
