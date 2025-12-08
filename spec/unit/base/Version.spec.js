@@ -38,6 +38,42 @@ describe("fetch method", function () {
   });
 });
 
+describe("patch method", function () {
+  it("should parse JSON string response body for patch", function (done) {
+    const body = { test: true, patched: true };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({ statusCode: 200, body: JSON.stringify(body) }),
+      },
+      {}
+    );
+
+    version.patch({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response).toEqual(body);
+      done();
+    });
+  });
+
+  it("should throw an exception if status code >= 300", function (done) {
+    const body = { message: "invalid body" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 400, body }),
+      },
+      null
+    );
+
+    version.patch({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(400);
+      expect(error.message).toEqual(body.message);
+      done();
+    });
+  });
+});
+
 describe("streaming results", function () {
   let holodeck;
   let client;
