@@ -10,6 +10,10 @@ on:
     - cron: '0 15 * * 1-5'
   workflow_dispatch:
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: write
+
 jobs:
   test:
     name: Test
@@ -30,6 +34,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - run: npm install
+
       - name: Run Unit Tests
         run: npm run ci
 
@@ -78,7 +83,9 @@ jobs:
         with:
           node-version: lts/*
 
-      - run: npm install
+      # Ensure npm 11.5.1 or later is installed
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -102,8 +109,6 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Submit metric to Datadog
         uses: sendgrid/dx-automator/actions/datadog-release-metric@main
