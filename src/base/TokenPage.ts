@@ -57,14 +57,14 @@ export default class TokenPage<
    * @param version - A twilio version instance
    * @param response - The http response
    * @param uri - The URI for making pagination requests
-   * @param data - The request parameters
+   * @param params - The request parameters
    * @param solution - path solution
    */
   constructor(
     version: TVersion,
     response: Response<string | TPayload>,
     uri: string,
-    data: Record<string, any> = {},
+    params: Record<string, any> = {},
     solution: Solution = {}
   ) {
     const payload = this.processResponse(response);
@@ -73,7 +73,7 @@ export default class TokenPage<
     this._payload = payload;
     this._solution = solution;
     this._uri = uri;
-    this._params = data;
+    this._params = params;
 
     this.instances = this.loadInstances(this.loadPage(payload));
   }
