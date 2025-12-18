@@ -1,911 +1,670 @@
 import TokenPage, { TokenPaginationPayload } from "../../../src/base/TokenPage";
-import Version from "../../../src/base/Version";
 import Response from "../../../src/http/response";
+import Version from "../../../src/base/Version";
+import Domain from "../../../src/base/Domain";
 
-// Test resource types
-interface TestResource {
-  id: string;
-  name: string;
-}
+// Mock implementation of Version for testing
+class MockVersion extends Version {
+  pageResponse: any;
 
-interface TestPayload extends TokenPaginationPayload {
-  results: TestResource[];
-}
+  constructor() {
+    const mockDomain = {
+      twilio: {},
+      absoluteUrl: (uri: string) => uri,
+    } as Domain;
+    super(mockDomain, "v1");
+    this.pageResponse = null;
+  }
 
-class TestInstance {
-  id: string;
-  name: string;
-
-  constructor(version: any, payload: TestResource) {
-    this.id = payload.id;
-    this.name = payload.name;
+  page(opts: any): Promise<any> {
+    return Promise.resolve(this.pageResponse);
   }
 }
 
-class TestPage extends TokenPage<any, TestPayload, TestResource, TestInstance> {
+// Simple test resource and instance types
+interface TestResource {
+  id: number;
+  name: string;
+}
+
+interface TestInstance {
+  id: number;
+  name: string;
+}
+
+// Concrete implementation of TokenPage for testing
+class TestTokenPage extends TokenPage<
+  MockVersion,
+  TokenPaginationPayload,
+  TestResource,
+  TestInstance
+> {
   getInstance(payload: TestResource): TestInstance {
-    return new TestInstance(this._version, payload);
+    return {
+      id: payload.id,
+      name: payload.name,
+    };
   }
 }
 
 describe("TokenPage", () => {
-  let mockVersion: any;
-  let mockDomain: any;
-  let mockSolution: any;
-
-  beforeEach(() => {
-    mockDomain = {
-      absoluteUrl: jest.fn((uri: string) => `https://api.twilio.com${uri}`),
-      twilio: {
-        request: jest.fn(),
-      },
-    };
-
-    mockVersion = {
-      _domain: mockDomain,
-    } as any;
-
-    mockSolution = {};
-  });
-
   describe("constructor", () => {
-    it("should initialize with token-based pagination metadata", () => {
-      const payload: TestPayload = {
+    it("should initialize with uri, data, and solution", () => {
+      const mockVersion = new MockVersion();
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 50,
-          nextToken: "next-token-123",
+          nextToken: "next123",
           previousToken: null,
         },
-        results: [
-          { id: "1", name: "Item 1" },
-          { id: "2", name: "Item 2" },
+        items: [
+          { id: 1, name: "Item 1" },
+          { id: 2, name: "Item 2" },
         ],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
       };
+      const response = new Response(200, responseBody, {});
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
+      const tokenPage = new TestTokenPage(
         mockVersion,
         response,
-        mockSolution,
-        "/TestResources"
+        "/api/items",
+        { filter: "active" },
+        { accountSid: "AC123" }
       );
 
-      expect(page.instances).toHaveLength(2);
-      expect(page.instances[0].id).toBe("1");
-      expect(page.instances[1].id).toBe("2");
+      expect(tokenPage).toBeDefined();
+      expect(tokenPage.instances).toHaveLength(2);
+      expect(tokenPage.instances[0].id).toBe(1);
+      expect(tokenPage.instances[1].id).toBe(2);
     });
 
-    it("should handle string response body", () => {
-      const payload: TestPayload = {
+    it("should initialize with default empty data and solution", () => {
+      const mockVersion = new MockVersion();
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "next-token-123",
-          previousToken: null,
+          key: "items",
+          pageSize: 10,
         },
-        results: [{ id: "1", name: "Item 1" }],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
+      const response = new Response(200, responseBody, {});
 
-      const response: Response<string> = {
-        statusCode: 200,
-        body: JSON.stringify(payload),
-        headers: {},
-      };
+      const tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
 
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.instances).toHaveLength(1);
-      expect(page.instances[0].id).toBe("1");
+      expect(tokenPage).toBeDefined();
+      expect(tokenPage.instances).toHaveLength(0);
     });
   });
 
-  describe("getNextPageUrl", () => {
-    it("should return URL with nextToken when token exists", () => {
-      const payload: TestPayload = {
+  describe("property getters", () => {
+    let mockVersion: MockVersion;
+    let tokenPage: TestTokenPage;
+
+    beforeEach(() => {
+      mockVersion = new MockVersion();
+    });
+
+    it("should return key from meta", () => {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "next-token-abc123",
-          previousToken: null,
+          key: "records",
+          pageSize: 25,
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        records: [],
       };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/records");
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
+      expect(tokenPage.key).toBe("records");
+    });
+
+    it("should throw error when key is not present", () => {
+      const responseBody: any = {
+        meta: {
+          pageSize: 25,
+        },
+        records: [],
       };
+      const response = new Response(200, responseBody, {});
 
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
+      expect(() => {
+        new TestTokenPage(mockVersion, response, "/api/records");
+      }).toThrow(
+        "Token pagination requires meta.key to be present in response"
       );
+    });
 
-      expect(page.nextPageUrl).toBe(
-        "https://api.twilio.com/TestResources?PageToken=next-token-abc123"
-      );
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        "/TestResources?PageToken=next-token-abc123"
-      );
+    it("should return pageSize from meta", () => {
+      const responseBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 100,
+        },
+        items: [],
+      };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
+
+      expect(tokenPage.pageSize).toBe(100);
+    });
+
+    it("should return undefined when pageSize is not present", () => {
+      const responseBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+        },
+        items: [],
+      };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
+
+      expect(tokenPage.pageSize).toBeUndefined();
+    });
+
+    it("should return nextToken from meta", () => {
+      const responseBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 50,
+          nextToken: "token_abc123",
+        },
+        items: [],
+      };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
+
+      expect(tokenPage.nextToken).toBe("token_abc123");
     });
 
     it("should return undefined when nextToken is null", () => {
-      const payload: TestPayload = {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 50,
           nextToken: null,
-          previousToken: null,
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.nextPageUrl).toBeUndefined();
+      expect(tokenPage.nextToken).toBeUndefined();
     });
 
-    it("should return undefined when nextToken is undefined", () => {
-      const payload: TestPayload = {
+    it("should return previousToken from meta", () => {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 50,
+          previousToken: "token_xyz789",
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.nextPageUrl).toBeUndefined();
-    });
-
-    it("should properly URL encode nextToken", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "token with spaces & special=chars",
-          previousToken: null,
-        },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        "/TestResources?PageToken=token%20with%20spaces%20%26%20special%3Dchars"
-      );
-    });
-  });
-
-  describe("getPreviousPageUrl", () => {
-    it("should return URL with previousToken when token exists", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: null,
-          previousToken: "prev-token-xyz789",
-        },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.previousPageUrl).toBe(
-        "https://api.twilio.com/TestResources?PageToken=prev-token-xyz789"
-      );
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        "/TestResources?PageToken=prev-token-xyz789"
-      );
+      expect(tokenPage.previousToken).toBe("token_xyz789");
     });
 
     it("should return undefined when previousToken is null", () => {
-      const payload: TestPayload = {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 50,
-          nextToken: null,
           previousToken: null,
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
+      const response = new Response(200, responseBody, {});
+      tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.previousPageUrl).toBeUndefined();
-    });
-
-    it("should return undefined when previousToken is undefined", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-        },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.previousPageUrl).toBeUndefined();
-    });
-
-    it("should properly URL encode previousToken", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: null,
-          previousToken: "prev+token/with?special&chars",
-        },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        "/TestResources?PageToken=prev%2Btoken%2Fwith%3Fspecial%26chars"
-      );
+      expect(tokenPage.previousToken).toBeUndefined();
     });
   });
 
-  describe("buildUrlWithToken", () => {
-    it("should append token with ? when base URI has no query params", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "token123",
-          previousToken: null,
-        },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
+  describe("nextPage", () => {
+    let mockVersion: MockVersion;
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        "/TestResources?PageToken=token123"
-      );
+    beforeEach(() => {
+      mockVersion = new MockVersion();
     });
 
-    it("should append token with & when base URI already has query params", () => {
-      const payload: TestPayload = {
+    it("should return undefined when nextToken is not present", () => {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 50,
-          nextToken: "token123",
-          previousToken: null,
+          nextToken: null,
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
+      const response = new Response(200, responseBody, {});
+      const tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
+      const result = tokenPage.nextPage();
 
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources?Availability=public"
-      );
-
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        "/TestResources?Availability=public&PageToken=token123"
-      );
-    });
-  });
-
-  describe("pagination flow", () => {
-    it("should support both next and previous tokens simultaneously", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "next-token",
-          previousToken: "prev-token",
-        },
-        results: [{ id: "1", name: "Item 1" }],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.nextPageUrl).toBeDefined();
-      expect(page.previousPageUrl).toBeDefined();
-      expect(page.nextPageUrl).toContain("next-token");
-      expect(page.previousPageUrl).toContain("prev-token");
+      expect(result).toBeUndefined();
     });
 
-    it("should call nextPage() to fetch next page", async () => {
-      const firstPayload: TestPayload = {
+    it("should fetch next page with nextToken", async () => {
+      const firstPageBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 2,
-          nextToken: "next-token-123",
-          previousToken: null,
+          nextToken: "next_token_123",
         },
-        results: [
-          { id: "1", name: "Item 1" },
-          { id: "2", name: "Item 2" },
+        items: [
+          { id: 1, name: "Item 1" },
+          { id: 2, name: "Item 2" },
         ],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 2,
-        previous_page_uri: "",
-        uri: "",
       };
 
-      const secondPayload: TestPayload = {
+      const secondPageBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
           pageSize: 2,
           nextToken: null,
-          previousToken: "prev-token-123",
+          previousToken: "prev_token_456",
         },
-        results: [
-          { id: "3", name: "Item 3" },
-          { id: "4", name: "Item 4" },
+        items: [
+          { id: 3, name: "Item 3" },
+          { id: 4, name: "Item 4" },
         ],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 1,
-        page_size: 2,
-        previous_page_uri: "",
-        uri: "",
       };
 
-      const firstResponse: Response<TestPayload> = {
-        statusCode: 200,
-        body: firstPayload,
-      };
+      const firstResponse = new Response(200, firstPageBody, {});
+      const secondResponse = new Response(200, secondPageBody, {});
 
-      mockDomain.twilio.request.mockResolvedValue({
-        statusCode: 200,
-        body: secondPayload,
-      });
+      mockVersion.pageResponse = secondResponse;
 
-      const page = new TestPage(
+      const tokenPage = new TestTokenPage(
         mockVersion,
         firstResponse,
-        mockSolution,
-        "/TestResources"
+        "/api/items"
       );
 
-      expect(page.instances).toHaveLength(2);
-      expect(page.instances[0].id).toBe("1");
+      const nextPage = await tokenPage.nextPage();
 
-      const nextPage = await page.nextPage();
       expect(nextPage).toBeDefined();
-      expect(nextPage!.instances).toHaveLength(2);
-      expect(nextPage!.instances[0].id).toBe("3");
-      expect(nextPage!.instances[1].id).toBe("4");
-
-      expect(mockDomain.twilio.request).toHaveBeenCalledWith({
-        method: "get",
-        uri: "https://api.twilio.com/TestResources?PageToken=next-token-123",
-      });
+      expect(nextPage?.instances).toHaveLength(2);
+      expect(nextPage?.instances[0].id).toBe(3);
+      expect(nextPage?.instances[1].id).toBe(4);
     });
 
-    it("should return undefined when calling nextPage() without nextPageUrl", () => {
-      const payload: TestPayload = {
+    it("should include pageToken in request params", async () => {
+      const firstPageBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
+          key: "items",
+          pageSize: 50,
+          nextToken: "next_token_abc",
+        },
+        items: [],
+      };
+
+      const secondPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
           pageSize: 50,
           nextToken: null,
-          previousToken: null,
         },
-        results: [{ id: "1", name: "Last Item" }],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
+      const firstResponse = new Response(200, firstPageBody, {});
+      const secondResponse = new Response(200, secondPageBody, {});
 
-      const page = new TestPage(
+      mockVersion.pageResponse = secondResponse;
+
+      // Spy on the page method to verify it's called with correct params
+      const pageSpy = jest.spyOn(mockVersion, "page");
+
+      const tokenPage = new TestTokenPage(
         mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
+        firstResponse,
+        "/api/items"
       );
 
-      const nextPage = page.nextPage();
-      expect(nextPage).toBeUndefined();
+      await tokenPage.nextPage();
+
+      expect(pageSpy).toHaveBeenCalledWith({
+        method: "get",
+        uri: "/api/items",
+        params: { pageToken: "next_token_abc" },
+      });
     });
 
-    it("should call previousPage() to fetch previous page", async () => {
-      const currentPayload: TestPayload = {
+    it("should throw error when URI is not provided", () => {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 2,
-          nextToken: null,
-          previousToken: "prev-token-123",
+          key: "items",
+          pageSize: 50,
+          nextToken: "next_token_123",
         },
-        results: [
-          { id: "3", name: "Item 3" },
-          { id: "4", name: "Item 4" },
-        ],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 1,
-        page_size: 2,
-        previous_page_uri: "",
-        uri: "",
+        items: [],
       };
 
-      const previousPayload: TestPayload = {
+      const response = new Response(200, responseBody, {});
+
+      // Create page with empty URI
+      const tokenPage = new TestTokenPage(mockVersion, response, "");
+
+      expect(() => tokenPage.nextPage()).toThrow(
+        "URI must be provided for token pagination"
+      );
+    });
+  });
+
+  describe("previousPage", () => {
+    let mockVersion: MockVersion;
+
+    beforeEach(() => {
+      mockVersion = new MockVersion();
+    });
+
+    it("should return undefined when previousToken is not present", () => {
+      const responseBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 2,
-          nextToken: "next-token-123",
+          key: "items",
+          pageSize: 50,
           previousToken: null,
         },
-        results: [
-          { id: "1", name: "Item 1" },
-          { id: "2", name: "Item 2" },
+        items: [],
+      };
+      const response = new Response(200, responseBody, {});
+      const tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
+
+      const result = tokenPage.previousPage();
+
+      expect(result).toBeUndefined();
+    });
+
+    it("should fetch previous page with previousToken", async () => {
+      const secondPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 2,
+          nextToken: null,
+          previousToken: "prev_token_456",
+        },
+        items: [
+          { id: 3, name: "Item 3" },
+          { id: 4, name: "Item 4" },
         ],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 2,
-        previous_page_uri: "",
-        uri: "",
       };
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: currentPayload,
+      const firstPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 2,
+          nextToken: "next_token_123",
+          previousToken: null,
+        },
+        items: [
+          { id: 1, name: "Item 1" },
+          { id: 2, name: "Item 2" },
+        ],
       };
 
-      mockDomain.twilio.request.mockResolvedValue({
-        statusCode: 200,
-        body: previousPayload,
-      });
+      const secondResponse = new Response(200, secondPageBody, {});
+      const firstResponse = new Response(200, firstPageBody, {});
 
-      const page = new TestPage(
+      mockVersion.pageResponse = firstResponse;
+
+      const tokenPage = new TestTokenPage(
         mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
+        secondResponse,
+        "/api/items"
       );
 
-      expect(page.instances).toHaveLength(2);
-      expect(page.instances[0].id).toBe("3");
+      const prevPage = await tokenPage.previousPage();
 
-      const prevPage = await page.previousPage();
       expect(prevPage).toBeDefined();
-      expect(prevPage!.instances).toHaveLength(2);
-      expect(prevPage!.instances[0].id).toBe("1");
-      expect(prevPage!.instances[1].id).toBe("2");
+      expect(prevPage?.instances).toHaveLength(2);
+      expect(prevPage?.instances[0].id).toBe(1);
+      expect(prevPage?.instances[1].id).toBe(2);
+    });
 
-      expect(mockDomain.twilio.request).toHaveBeenCalledWith({
+    it("should include pageToken in request params", async () => {
+      const responseBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 50,
+          previousToken: "prev_token_xyz",
+        },
+        items: [],
+      };
+
+      const prevPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 50,
+          previousToken: null,
+        },
+        items: [],
+      };
+
+      const response = new Response(200, responseBody, {});
+      const prevResponse = new Response(200, prevPageBody, {});
+
+      mockVersion.pageResponse = prevResponse;
+
+      // Spy on the page method to verify it's called with correct params
+      const pageSpy = jest.spyOn(mockVersion, "page");
+
+      const tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
+
+      await tokenPage.previousPage();
+
+      expect(pageSpy).toHaveBeenCalledWith({
         method: "get",
-        uri: "https://api.twilio.com/TestResources?PageToken=prev-token-123",
+        uri: "/api/items",
+        params: { pageToken: "prev_token_xyz" },
+      });
+    });
+  });
+
+  describe("pagination with query params", () => {
+    let mockVersion: MockVersion;
+
+    beforeEach(() => {
+      mockVersion = new MockVersion();
+    });
+
+    it("should preserve original query params when fetching next page", async () => {
+      const firstPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 10,
+          nextToken: "next_token_abc",
+        },
+        items: [{ id: 1, name: "Filtered Item 1" }],
+      };
+
+      const secondPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 10,
+          nextToken: null,
+        },
+        items: [{ id: 2, name: "Filtered Item 2" }],
+      };
+
+      const firstResponse = new Response(200, firstPageBody, {});
+      const secondResponse = new Response(200, secondPageBody, {});
+
+      mockVersion.pageResponse = secondResponse;
+
+      // Spy on the page method to verify params
+      const pageSpy = jest.spyOn(mockVersion, "page");
+
+      // Create page with query parameters
+      const queryParams = {
+        status: "active",
+        category: "electronics",
+        minPrice: 100,
+      };
+
+      const tokenPage = new TestTokenPage(
+        mockVersion,
+        firstResponse,
+        "/api/items",
+        queryParams
+      );
+
+      await tokenPage.nextPage();
+
+      // Verify that original query params are preserved and pageToken is added
+      expect(pageSpy).toHaveBeenCalledWith({
+        method: "get",
+        uri: "/api/items",
+        params: {
+          status: "active",
+          category: "electronics",
+          minPrice: 100,
+          pageToken: "next_token_abc",
+        },
       });
     });
 
-    it("should return undefined when calling previousPage() without previousPageUrl", () => {
-      const payload: TestPayload = {
+    it("should preserve original query params when fetching previous page", async () => {
+      const secondPageBody: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "next-token",
-          previousToken: null,
+          key: "items",
+          pageSize: 10,
+          previousToken: "prev_token_xyz",
         },
-        results: [{ id: "1", name: "First Item" }],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [{ id: 2, name: "Filtered Item 2" }],
       };
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
+      const firstPageBody: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 10,
+          nextToken: "next_token_abc",
+        },
+        items: [{ id: 1, name: "Filtered Item 1" }],
       };
 
-      const page = new TestPage(
+      const secondResponse = new Response(200, secondPageBody, {});
+      const firstResponse = new Response(200, firstPageBody, {});
+
+      mockVersion.pageResponse = firstResponse;
+
+      // Spy on the page method to verify params
+      const pageSpy = jest.spyOn(mockVersion, "page");
+
+      // Create page with query parameters
+      const queryParams = {
+        status: "pending",
+        sort: "date",
+      };
+
+      const tokenPage = new TestTokenPage(
         mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
+        secondResponse,
+        "/api/items",
+        queryParams
       );
 
-      const prevPage = page.previousPage();
-      expect(prevPage).toBeUndefined();
-    });
-  });
+      await tokenPage.previousPage();
 
-  describe("inherited functionality from Page", () => {
-    it("should load instances from meta.key array", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 3,
-          nextToken: null,
-          previousToken: null,
+      // Verify that original query params are preserved and pageToken is added
+      expect(pageSpy).toHaveBeenCalledWith({
+        method: "get",
+        uri: "/api/items",
+        params: {
+          status: "pending",
+          sort: "date",
+          pageToken: "prev_token_xyz",
         },
-        results: [
-          { id: "1", name: "Item 1" },
-          { id: "2", name: "Item 2" },
-          { id: "3", name: "Item 3" },
+      });
+    });
+
+    it("should handle multiple page navigations with query params", async () => {
+      const page1Body: TokenPaginationPayload = {
+        meta: {
+          key: "items",
+          pageSize: 2,
+          nextToken: "token_page2",
+        },
+        items: [
+          { id: 1, name: "Item 1" },
+          { id: 2, name: "Item 2" },
         ],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 3,
-        previous_page_uri: "",
-        uri: "",
       };
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.instances).toHaveLength(3);
-      expect(page.instances[0]).toBeInstanceOf(TestInstance);
-      expect(page.instances[0].id).toBe("1");
-      expect(page.instances[1].id).toBe("2");
-      expect(page.instances[2].id).toBe("3");
-    });
-
-    it("should support toJSON serialization", () => {
-      const payload: TestPayload = {
+      const page2Body: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 1,
-          nextToken: "next",
-          previousToken: null,
+          key: "items",
+          pageSize: 2,
+          nextToken: "token_page3",
+          previousToken: "token_page1",
         },
-        results: [{ id: "1", name: "Item 1" }],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 1,
-        previous_page_uri: "",
-        uri: "",
+        items: [
+          { id: 3, name: "Item 3" },
+          { id: 4, name: "Item 4" },
+        ],
       };
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      const json = page.toJSON();
-      expect(json).toBeDefined();
-      expect(json).toHaveProperty("instances");
-      expect(json).toHaveProperty("nextPageUrl");
-      expect(json).toHaveProperty("previousPageUrl");
-    });
-  });
-
-  describe("edge cases", () => {
-    it("should handle empty results array", () => {
-      const payload: TestPayload = {
+      const page3Body: TokenPaginationPayload = {
         meta: {
-          key: "results",
-          pageSize: 50,
+          key: "items",
+          pageSize: 2,
           nextToken: null,
-          previousToken: null,
+          previousToken: "token_page2",
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
+        items: [
+          { id: 5, name: "Item 5" },
+          { id: 6, name: "Item 6" },
+        ],
       };
 
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
+      const page1Response = new Response(200, page1Body, {});
+      const page2Response = new Response(200, page2Body, {});
+      const page3Response = new Response(200, page3Body, {});
 
-      const page = new TestPage(
+      const queryParams = { filter: "active", limit: 2 };
+
+      // Navigate to page 2
+      mockVersion.pageResponse = page2Response;
+      const page1 = new TestTokenPage(
         mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
+        page1Response,
+        "/api/items",
+        queryParams
       );
+      const page2 = await page1.nextPage();
 
-      expect(page.instances).toHaveLength(0);
-      expect(page.nextPageUrl).toBeUndefined();
-      expect(page.previousPageUrl).toBeUndefined();
-    });
+      expect(page2).toBeDefined();
+      expect(page2?.instances[0].id).toBe(3);
 
-    it("should handle tokens with only whitespace correctly", () => {
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: "   ",
-          previousToken: null,
+      // Navigate to page 3
+      mockVersion.pageResponse = page3Response;
+      const page3 = await page2!.nextPage();
+
+      expect(page3).toBeDefined();
+      expect(page3?.instances[0].id).toBe(5);
+      expect(page3?.nextToken).toBeUndefined();
+
+      // Navigate back to page 2
+      mockVersion.pageResponse = page2Response;
+      const pageSpy = jest.spyOn(mockVersion, "page");
+      const backToPage2 = await page3!.previousPage();
+
+      expect(backToPage2).toBeDefined();
+      expect(backToPage2?.instances[0].id).toBe(3);
+
+      // Verify query params are still preserved
+      expect(pageSpy).toHaveBeenCalledWith({
+        method: "get",
+        uri: "/api/items",
+        params: {
+          filter: "active",
+          limit: 2,
+          pageToken: "token_page2",
         },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      // Whitespace tokens are still valid tokens
-      expect(page.nextPageUrl).toBeDefined();
-      expect(page.nextPageUrl).toContain("PageToken=");
-    });
-
-    it("should handle base64-encoded tokens", () => {
-      const base64Token = "eyJwYWdlIjoyLCJsaW1pdCI6NTB9"; // {"page":2,"limit":50}
-      const payload: TestPayload = {
-        meta: {
-          key: "results",
-          pageSize: 50,
-          nextToken: base64Token,
-          previousToken: null,
-        },
-        results: [],
-        first_page_uri: "",
-        next_page_uri: "",
-        page: 0,
-        page_size: 50,
-        previous_page_uri: "",
-        uri: "",
-      };
-
-      const response: Response<TestPayload> = {
-        statusCode: 200,
-        body: payload,
-        headers: {},
-      };
-
-      const page = new TestPage(
-        mockVersion,
-        response,
-        mockSolution,
-        "/TestResources"
-      );
-
-      expect(page.nextPageUrl).toBeDefined();
-      expect(mockDomain.absoluteUrl).toHaveBeenCalledWith(
-        `/TestResources?PageToken=${base64Token}`
-      );
+      });
     });
   });
 });
