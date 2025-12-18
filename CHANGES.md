@@ -1,6 +1,11 @@
 twilio-node changelog
 =====================
 
+[2025-12-18] Version 5.11.1
+---------------------------
+**Library - Chore**
+- [PR #1161](https://github.com/twilio/twilio-node/pull/1161): reinstate npm install before npm publish. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
 [2025-12-17] Version 5.11.0
 ---------------------------
 **Library - Chore**
