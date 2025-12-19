@@ -1,6 +1,30 @@
 twilio-node changelog
 =====================
 
+[2025-12-18] Version 5.11.1
+---------------------------
+**Library - Chore**
+- [PR #1161](https://github.com/twilio/twilio-node/pull/1161): reinstate npm install before npm publish. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+[2025-12-17] Version 5.11.0
+---------------------------
+**Library - Chore**
+- [PR #1155](https://github.com/twilio/twilio-node/pull/1155): Add trusted publisher. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #1156](https://github.com/twilio/twilio-node/pull/1156): allow 2XX response for delete. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Feature**
+- [PR #1151](https://github.com/twilio/twilio-node/pull/1151): Add patch functionality. Thanks to [@kridai](https://github.com/kridai)!
+
+**Trunking**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+
+**Trusthub**
+- Added new parameters in in toll-free initialize api payload.
+- Remove the invalid status transition to Draft from the examples
+- Change the value of email to a valid one in the examples.
+
+
 [2025-12-03] Version 5.10.7
 ---------------------------
 **Library - Chore**

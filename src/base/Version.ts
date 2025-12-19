@@ -200,13 +200,13 @@ export default class Version {
    * @returns promise that resolves to true if record was deleted
    */
   remove(opts: RequestOpts): Promise<boolean> {
-    var qResponse = this.request(opts);
+    let qResponse = this.request(opts);
     qResponse = qResponse.then(function success(response) {
       if (response.statusCode < 200 || response.statusCode >= 300) {
         throw new RestException(response);
       }
 
-      return response.statusCode === 204;
+      return true; // if response code is 2XX, deletion was successful
     });
 
     return qResponse;

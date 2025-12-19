@@ -83,7 +83,7 @@ export interface ChannelListInstanceCreateOptions {
 export interface ChannelListInstanceEachOptions {
   /**  */
   type?: Array<ChannelChannelType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
@@ -99,7 +99,7 @@ export interface ChannelListInstanceEachOptions {
 export interface ChannelListInstanceOptions {
   /**  */
   type?: Array<ChannelChannelType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -111,7 +111,7 @@ export interface ChannelListInstanceOptions {
 export interface ChannelListInstancePageOptions {
   /**  */
   type?: Array<ChannelChannelType>;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;

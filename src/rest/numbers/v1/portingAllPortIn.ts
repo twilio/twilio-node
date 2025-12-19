@@ -33,9 +33,9 @@ export interface PortingAllPortInListInstanceEachOptions {
   /** Filter by Port In request status */
   portInRequestStatus?: string;
   /** Find all created before a certain date */
-  createdBefore?: Date;
+  createdBefore?: string;
   /** Find all created after a certain date */
-  createdAfter?: Date;
+  createdAfter?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: PortingAllPortInInstance,
@@ -60,9 +60,9 @@ export interface PortingAllPortInListInstanceOptions {
   /** Filter by Port In request status */
   portInRequestStatus?: string;
   /** Find all created before a certain date */
-  createdBefore?: Date;
+  createdBefore?: string;
   /** Find all created after a certain date */
-  createdAfter?: Date;
+  createdAfter?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -80,9 +80,9 @@ export interface PortingAllPortInListInstancePageOptions {
   /** Filter by Port In request status */
   portInRequestStatus?: string;
   /** Find all created before a certain date */
-  createdBefore?: Date;
+  createdBefore?: string;
   /** Find all created after a certain date */
-  createdAfter?: Date;
+  createdAfter?: string;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -209,11 +209,9 @@ export function PortingAllPortInListInstance(
     if (params["portInRequestStatus"] !== undefined)
       data["PortInRequestStatus"] = params["portInRequestStatus"];
     if (params["createdBefore"] !== undefined)
-      data["CreatedBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"]
-      );
+      data["CreatedBefore"] = params["createdBefore"];
     if (params["createdAfter"] !== undefined)
-      data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
+      data["CreatedAfter"] = params["createdAfter"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;

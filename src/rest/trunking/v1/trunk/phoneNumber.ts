@@ -19,6 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 /**
  * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio and, if so, what type. Can be: `none`, `any`, `local`, or `foreign`.
@@ -198,7 +199,7 @@ interface PhoneNumberResource {
   address_requirements: PhoneNumberAddressRequirement;
   api_version: string;
   beta: boolean;
-  capabilities: Record<string, string>;
+  capabilities: PhoneNumberCapabilities;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -275,10 +276,7 @@ export class PhoneNumberInstance {
    * Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
    */
   beta: boolean;
-  /**
-   * The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
-   */
-  capabilities: Record<string, string>;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */

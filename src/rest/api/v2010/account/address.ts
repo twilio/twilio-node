@@ -61,7 +61,7 @@ export interface AddressListInstanceCreateOptions {
   postalCode: string;
   /** The ISO country code of the new address. */
   isoCountry: string;
-  /** A descriptive string that you create to describe the new address. It can be up to 64 characters long. */
+  /** A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses. */
   friendlyName?: string;
   /** Whether to enable emergency calling on the new address. Can be: `true` or `false`. */
   emergencyEnabled?: boolean;
