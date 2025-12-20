@@ -74,9 +74,9 @@ export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
 
 export class CarouselCard {
   "title"?: string;
-  "body"?: string;
-  "media"?: string;
-  "actions"?: Array<CarouselAction>;
+  "body": string;
+  "media": string;
+  "actions": Array<CarouselAction>;
 }
 
 export class CatalogItem {
@@ -129,13 +129,13 @@ export class ContentUpdateRequest {
 export class FlowsPage {
   "id": string;
   "nextPageId"?: string;
-  "title"?: string;
+  "title": string;
   "subtitle"?: string;
   "layout": Array<FlowsPageComponent>;
 }
 
 export class FlowsPageComponent {
-  "label": string;
+  "label"?: string;
   "type": string;
 }
 
@@ -157,8 +157,8 @@ export type QuickReplyActionType = "QUICK_REPLY";
  * twilio/call-to-action buttons let recipients tap to trigger actions such as launching a website or making a phone call.
  */
 export class TwilioCallToAction {
-  "body"?: string;
-  "actions"?: Array<CallToActionAction>;
+  "body": string;
+  "actions": Array<CallToActionAction>;
 }
 
 /**

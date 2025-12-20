@@ -19,6 +19,16 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
+ * Type of Business.
+ */
+export type ComplianceTollfreeInquiriesBusinessType =
+  | "PRIVATE_PROFIT"
+  | "PUBLIC_PROFIT"
+  | "NON_PROFIT"
+  | "SOLE_PROPRIETOR"
+  | "GOVERNMENT";
+
+/**
  * Describe how a user opts-in to text messages.
  */
 export type ComplianceTollfreeInquiriesOptInType =
@@ -36,6 +46,8 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   tollfreePhoneNumber: string;
   /** The email address to receive the notification about the verification result. */
   notificationEmail: string;
+  /** The Customer Profile Sid associated with the Account. */
+  customerProfileSid?: string;
   /** The name of the business or organization using the Tollfree number. */
   businessName?: string;
   /** The website of the business or organization using the Tollfree number. */
@@ -78,6 +90,30 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   themeSetId?: string;
   /** Skip the messaging use case screen of the inquiry form. */
   skipMessagingUseCase?: boolean;
+  /** The Business Registration Number of the business or organization. */
+  businessRegistrationNumber?: string;
+  /** The Business Registration Authority of the business or organization. */
+  businessRegistrationAuthority?: string;
+  /** The Business Registration Country of the business or organization. */
+  businessRegistrationCountry?: string;
+  /**  */
+  businessType?: ComplianceTollfreeInquiriesBusinessType;
+  /** Trade name, sub entity, or downstream business name of business being submitted for verification. */
+  doingBusinessAs?: string;
+  /** The confirmation message sent to users when they opt in to receive messages. */
+  optInConfirmationMessage?: string;
+  /** A sample help message provided to users. */
+  helpMessageSample?: string;
+  /** The URL to the privacy policy for the business or organization. */
+  privacyPolicyUrl?: string;
+  /** The URL to the terms and conditions for the business or organization. */
+  termsAndConditionsUrl?: string;
+  /** Indicates if the content is age gated. */
+  ageGatedContent?: boolean;
+  /** A legally recognized business registration number. */
+  externalReferenceId?: string;
+  /** List of keywords that users can text in to opt in to receive messages. */
+  optInKeywords?: Array<string>;
 }
 
 export interface ComplianceTollfreeInquiriesSolution {}
@@ -153,6 +189,8 @@ export function ComplianceTollfreeInquiriesListInstance(
     data["TollfreePhoneNumber"] = params["tollfreePhoneNumber"];
 
     data["NotificationEmail"] = params["notificationEmail"];
+    if (params["customerProfileSid"] !== undefined)
+      data["CustomerProfileSid"] = params["customerProfileSid"];
     if (params["businessName"] !== undefined)
       data["BusinessName"] = params["businessName"];
     if (params["businessWebsite"] !== undefined)
@@ -203,6 +241,35 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["skipMessagingUseCase"] !== undefined)
       data["SkipMessagingUseCase"] = serialize.bool(
         params["skipMessagingUseCase"]
+      );
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
       );
 
     const headers: any = {};

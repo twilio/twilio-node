@@ -38,6 +38,42 @@ describe("fetch method", function () {
   });
 });
 
+describe("patch method", function () {
+  it("should parse JSON string response body for patch", function (done) {
+    const body = { test: true, patched: true };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({ statusCode: 200, body: JSON.stringify(body) }),
+      },
+      {}
+    );
+
+    version.patch({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response).toEqual(body);
+      done();
+    });
+  });
+
+  it("should throw an exception if status code >= 300", function (done) {
+    const body = { message: "invalid body" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 400, body }),
+      },
+      null
+    );
+
+    version.patch({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(400);
+      expect(error.message).toEqual(body.message);
+      done();
+    });
+  });
+});
+
 describe("streaming results", function () {
   let holodeck;
   let client;
@@ -368,5 +404,80 @@ describe("each method", function () {
           done();
         },
       });
+  });
+});
+
+describe("remove method", function () {
+  const body = { message: "Resource deleted" };
+
+  // Test all 2XX status codes
+  const successStatusCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226];
+
+  successStatusCodes.forEach((statusCode) => {
+    it(`should return true for ${statusCode} status code`, function (done) {
+      const version = new Version(
+        {
+          request: () => Promise.resolve({ statusCode, body }),
+        },
+        {}
+      );
+
+      version.remove({}).then((response) => {
+        expect(response).toBeDefined();
+        expect(response).toBe(true);
+        done();
+      });
+    });
+  });
+
+  it("should throw an exception for status code < 200", function (done) {
+    const errorBody = { message: "Invalid request" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 199, body: errorBody }),
+      },
+      null
+    );
+
+    version.remove({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(199);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should throw an exception for status code >= 300", function (done) {
+    const errorBody = { message: "Resource not found" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 404, body: errorBody }),
+      },
+      null
+    );
+
+    version.remove({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(404);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should throw an exception for 5xx status code", function (done) {
+    const errorBody = { message: "Internal server error" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 500, body: errorBody }),
+      },
+      null
+    );
+
+    version.remove({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(500);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
   });
 });

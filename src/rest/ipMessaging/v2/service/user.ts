@@ -57,7 +57,7 @@ export interface UserListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface UserListInstanceEachOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserInstance, done: (err?: Error) => void) => void;
@@ -71,7 +71,7 @@ export interface UserListInstanceEachOptions {
  * Options to pass to list
  */
 export interface UserListInstanceOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -81,7 +81,7 @@ export interface UserListInstanceOptions {
  * Options to pass to page
  */
 export interface UserListInstancePageOptions {
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
