@@ -61,6 +61,14 @@ export class LineTypeIntelligenceInfo {
   "carrierName"?: string;
   "type"?: string;
   "errorCode"?: number;
+  /** @deprecated Use mobileCountryCode instead. */
+  "mobile_country_code"?: string;
+  /** @deprecated Use mobileNetworkCode instead. */
+  "mobile_network_code"?: string;
+  /** @deprecated Use carrierName instead. */
+  "carrier_name"?: string;
+  /** @deprecated Use errorCode instead. */
+  "error_code"?: number;
 }
 
 export class ReassignedNumberInfo {
@@ -320,6 +328,10 @@ export class PhoneNumberInstance {
           carrierName: payload.line_type_intelligence.carrier_name,
           type: payload.line_type_intelligence.type,
           errorCode: payload.line_type_intelligence.error_code,
+          mobile_country_code: payload.line_type_intelligence.mobile_country_code,
+          mobile_network_code: payload.line_type_intelligence.mobile_network_code,
+          carrier_name: payload.line_type_intelligence.carrier_name,
+          error_code: payload.line_type_intelligence.error_code,
         }
       : undefined;
     this.lineStatus = payload.line_status;
