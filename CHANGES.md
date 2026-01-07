@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2026-01-07] Version 5.11.2
+---------------------------
+**Library - Chore**
+- [PR #1161](https://github.com/twilio/twilio-node/pull/1161): reinstate npm install before npm publish. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Added optional parameter `clientNotificationUrl` for create call api
+- Added optional parameter `clientNotificationUrl` for create participant api
+
+
 [2025-12-18] Version 5.11.1
 ---------------------------
 **Library - Chore**
