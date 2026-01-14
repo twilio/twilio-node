@@ -42,6 +42,11 @@ export type TollfreeVerificationStatus =
   | "TWILIO_REJECTED";
 
 /**
+ * The third-party political vetting provider.
+ */
+export type TollfreeVerificationVettingProvider = "CAMPAIGN_VERIFY";
+
+/**
  * Options to pass to update a TollfreeVerificationInstance
  */
 export interface TollfreeVerificationContextUpdateOptions {
@@ -111,6 +116,10 @@ export interface TollfreeVerificationContextUpdateOptions {
   ageGatedContent?: boolean;
   /** List of keywords that users can text in to opt in to receive messages. */
   optInKeywords?: Array<string>;
+  /**  */
+  vettingProvider?: TollfreeVerificationVettingProvider;
+  /** The unique ID of the vetting */
+  vettingId?: string;
 }
 
 /**
@@ -187,6 +196,10 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   ageGatedContent?: boolean;
   /** List of keywords that users can text in to opt in to receive messages. */
   optInKeywords?: Array<string>;
+  /**  */
+  vettingProvider?: TollfreeVerificationVettingProvider;
+  /** The unique ID of the vetting */
+  vettingId?: string;
 }
 /**
  * Options to pass to each
@@ -473,6 +486,10 @@ export class TollfreeVerificationContextImpl
         params["optInKeywords"],
         (e: string) => e
       );
+    if (params["vettingProvider"] !== undefined)
+      data["VettingProvider"] = params["vettingProvider"];
+    if (params["vettingId"] !== undefined)
+      data["VettingId"] = params["vettingId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -572,6 +589,9 @@ interface TollfreeVerificationResource {
   rejection_reasons: Array<any>;
   resource_links: any;
   external_reference_id: string;
+  vetting_id: string;
+  vetting_provider: TollfreeVerificationVettingProvider;
+  vetting_id_expiration: Date;
 }
 
 export class TollfreeVerificationInstance {
@@ -635,6 +655,11 @@ export class TollfreeVerificationInstance {
     this.rejectionReasons = payload.rejection_reasons;
     this.resourceLinks = payload.resource_links;
     this.externalReferenceId = payload.external_reference_id;
+    this.vettingId = payload.vetting_id;
+    this.vettingProvider = payload.vetting_provider;
+    this.vettingIdExpiration = deserialize.iso8601DateTime(
+      payload.vetting_id_expiration
+    );
 
     this._solution = { sid: sid || this.sid };
   }
@@ -833,6 +858,9 @@ export class TollfreeVerificationInstance {
    * An optional external reference ID supplied by customer and echoed back on status retrieval.
    */
   externalReferenceId: string;
+  vettingId: string;
+  vettingProvider: TollfreeVerificationVettingProvider;
+  vettingIdExpiration: Date;
 
   private get _proxy(): TollfreeVerificationContext {
     this._context =
@@ -954,6 +982,9 @@ export class TollfreeVerificationInstance {
       rejectionReasons: this.rejectionReasons,
       resourceLinks: this.resourceLinks,
       externalReferenceId: this.externalReferenceId,
+      vettingId: this.vettingId,
+      vettingProvider: this.vettingProvider,
+      vettingIdExpiration: this.vettingIdExpiration,
     };
   }
 
@@ -1262,6 +1293,10 @@ export function TollfreeVerificationListInstance(
         params["optInKeywords"],
         (e: string) => e
       );
+    if (params["vettingProvider"] !== undefined)
+      data["VettingProvider"] = params["vettingProvider"];
+    if (params["vettingId"] !== undefined)
+      data["VettingId"] = params["vettingId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
