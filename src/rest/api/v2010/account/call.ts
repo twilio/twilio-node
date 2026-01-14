@@ -137,6 +137,8 @@ export interface CallListInstanceCreateOptions {
   recordingTrack?: string;
   /** The maximum duration of the call in seconds. Constraints depend on account and configuration. */
   timeLimit?: number;
+  /** The URL that we should use to deliver `push call notification`. */
+  clientNotificationUrl?: string;
   /** The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). */
   url?: string;
   /** TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters. */
@@ -1111,6 +1113,8 @@ export function CallListInstance(
       data["RecordingTrack"] = params["recordingTrack"];
     if (params["timeLimit"] !== undefined)
       data["TimeLimit"] = params["timeLimit"];
+    if (params["clientNotificationUrl"] !== undefined)
+      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
     if (params["url"] !== undefined) data["Url"] = params["url"];
     if (params["twiml"] !== undefined)
       data["Twiml"] = serialize.twiml(params["twiml"]);

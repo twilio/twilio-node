@@ -161,6 +161,8 @@ export interface ParticipantListInstanceCreateOptions {
   trim?: string;
   /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
   callToken?: string;
+  /** The URL that we should use to deliver `push call notification`. */
+  clientNotificationUrl?: string;
   /** The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address. */
   callerDisplayName?: string;
 }
@@ -911,6 +913,8 @@ export function ParticipantListInstance(
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
       data["CallToken"] = params["callToken"];
+    if (params["clientNotificationUrl"] !== undefined)
+      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
     if (params["callerDisplayName"] !== undefined)
       data["CallerDisplayName"] = params["callerDisplayName"];
 
