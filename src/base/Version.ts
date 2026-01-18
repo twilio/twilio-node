@@ -4,6 +4,7 @@ import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
 import TwilioServiceException from "./TwilioServiceException";
 import { trim } from "./utility";
+import { ApiResponse } from "./ApiResponse";
 
 export interface PageLimitOptions {
   /**
@@ -241,6 +242,181 @@ export default class Version {
     });
 
     return qResponse;
+  }
+
+  /**
+   * Create a new record and return response metadata
+   *
+   * @param opts - request options
+   *
+   * @throws TwilioServiceException if response matches RFC-9457 format
+   * @throws RestException for legacy format
+   * @throws Error If response returns non 2xx or 201 status code
+   *
+   * @returns promise that resolves to ApiResponse with created record and metadata
+   */
+  createWithResponseInfo<T>(opts: RequestOpts): Promise<ApiResponse<T>> {
+    return this.request(opts).then((response) => {
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        this.throwException(response);
+      }
+
+      let body: T;
+      if (typeof response.body === "string") {
+        body = JSON.parse(response.body);
+      } else {
+        body = response.body;
+      }
+
+      return {
+        body: body,
+        statusCode: response.statusCode,
+        headers: response.headers,
+      };
+    });
+  }
+
+  /**
+   * Fetch an instance of a record and return response metadata
+   *
+   * @param opts - request options
+   *
+   * @throws TwilioServiceException if response matches RFC-9457 format
+   * @throws RestException for legacy format
+   * @throws Error If response returns non 2xx or 3xx status code
+   *
+   * @returns promise that resolves to ApiResponse with fetched record and metadata
+   */
+  fetchWithResponseInfo<T>(opts: RequestOpts): Promise<ApiResponse<T>> {
+    return this.request(opts).then((response) => {
+      if (response.statusCode < 200 || response.statusCode >= 400) {
+        this.throwException(response);
+      }
+
+      let body: T;
+      if (typeof response.body === "string") {
+        body = JSON.parse(response.body);
+      } else {
+        body = response.body;
+      }
+
+      return {
+        body: body,
+        statusCode: response.statusCode,
+        headers: response.headers,
+      };
+    });
+  }
+
+  /**
+   * Fetch a page of records and return response metadata
+   *
+   * @param opts - request options
+   * @returns promise that resolves to ApiResponse with page and metadata
+   */
+  pageWithResponseInfo<T>(opts: RequestOpts): Promise<ApiResponse<T>> {
+    return this.request(opts).then((response) => {
+      let body: T;
+      if (typeof response.body === "string") {
+        body = JSON.parse(response.body);
+      } else {
+        body = response.body;
+      }
+
+      return {
+        body: body,
+        statusCode: response.statusCode,
+        headers: response.headers,
+      };
+    });
+  }
+
+  /**
+   * Update a record and return response metadata
+   *
+   * @param opts - request options
+   *
+   * @throws TwilioServiceException if response matches RFC-9457 format
+   * @throws RestException for legacy format
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to ApiResponse with updated record and metadata
+   */
+  updateWithResponseInfo<T>(opts: RequestOpts): Promise<ApiResponse<T>> {
+    return this.request(opts).then((response) => {
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        this.throwException(response);
+      }
+
+      let body: T;
+      if (typeof response.body === "string") {
+        body = JSON.parse(response.body);
+      } else {
+        body = response.body;
+      }
+
+      return {
+        body: body,
+        statusCode: response.statusCode,
+        headers: response.headers,
+      };
+    });
+  }
+
+  /**
+   * Patch a record and return response metadata
+   *
+   * @param opts - request options
+   *
+   * @throws TwilioServiceException if response matches RFC-9457 format
+   * @throws RestException for legacy format
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to ApiResponse with patched record and metadata
+   */
+  async patchWithResponseInfo<T>(opts: RequestOpts): Promise<ApiResponse<T>> {
+    const response = await this.request(opts);
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      this.throwException(response);
+    }
+
+    let body: T;
+    if (typeof response.body === "string") {
+      body = JSON.parse(response.body);
+    } else {
+      body = response.body;
+    }
+
+    return {
+      body: body,
+      statusCode: response.statusCode,
+      headers: response.headers,
+    };
+  }
+
+  /**
+   * Delete a record and return response metadata
+   *
+   * @param opts - request options
+   *
+   * @throws TwilioServiceException if response matches RFC-9457 format
+   * @throws RestException for legacy format
+   * @throws Error If response returns a 5xx status
+   *
+   * @returns promise that resolves to ApiResponse with boolean and metadata
+   */
+  removeWithResponseInfo(opts: RequestOpts): Promise<ApiResponse<boolean>> {
+    return this.request(opts).then((response) => {
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        this.throwException(response);
+      }
+
+      return {
+        body: true, // if response code is 2XX, deletion was successful
+        statusCode: response.statusCode,
+        headers: response.headers,
+      };
+    });
   }
 
   /**

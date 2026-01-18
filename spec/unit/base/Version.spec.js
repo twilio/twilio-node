@@ -481,3 +481,509 @@ describe("remove method", function () {
     });
   });
 });
+
+describe("createWithResponseInfo method", function () {
+  it("should return ApiResponse with body, statusCode, and headers on success", function (done) {
+    const body = { id: "12345", name: "test resource" };
+    const headers = { "x-request-id": "abc123", "x-ratelimit-remaining": "99" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 201, body, headers }),
+      },
+      {}
+    );
+
+    version.createWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(201);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should parse JSON string response body", function (done) {
+    const body = { id: "12345", name: "test resource" };
+    const headers = { "x-request-id": "abc123" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 201,
+            body: JSON.stringify(body),
+            headers,
+          }),
+      },
+      {}
+    );
+
+    version.createWithResponseInfo({}).then((response) => {
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(201);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should throw exception for non-2xx status codes", function (done) {
+    const errorBody = { message: "Bad request" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 400, body: errorBody }),
+      },
+      null
+    );
+
+    version.createWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(400);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should handle empty headers", function (done) {
+    const body = { id: "12345", name: "test resource" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 201, body, headers: {} }),
+      },
+      {}
+    );
+
+    version.createWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(201);
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+
+  it("should handle undefined headers", function (done) {
+    const body = { id: "12345", name: "test resource" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 201, body }),
+      },
+      {}
+    );
+
+    version.createWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(201);
+      expect(response.headers).toBeUndefined();
+      done();
+    });
+  });
+});
+
+describe("fetchWithResponseInfo method", function () {
+  it("should return ApiResponse with body, statusCode, and headers", function (done) {
+    const body = { id: "12345", status: "active" };
+    const headers = { "x-request-id": "xyz789", "x-ratelimit-limit": "1000" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers }),
+      },
+      {}
+    );
+
+    version.fetchWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should handle 3xx status codes successfully", function (done) {
+    const body = { id: "12345", redirected: true };
+    const headers = { location: "https://api.twilio.com/new-location" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 307, body, headers }),
+      },
+      {}
+    );
+
+    version.fetchWithResponseInfo({}).then((response) => {
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(307);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should throw exception for status code >= 400", function (done) {
+    const errorBody = { message: "Not found" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 404, body: errorBody }),
+      },
+      null
+    );
+
+    version.fetchWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(404);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should handle empty headers", function (done) {
+    const body = { id: "12345", status: "active" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers: {} }),
+      },
+      {}
+    );
+
+    version.fetchWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+});
+
+describe("updateWithResponseInfo method", function () {
+  it("should return ApiResponse with updated resource", function (done) {
+    const body = { id: "12345", name: "updated resource" };
+    const headers = { "x-request-id": "update123" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers }),
+      },
+      {}
+    );
+
+    version.updateWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should parse JSON string response body", function (done) {
+    const body = { id: "12345", updated: true };
+    const headers = { "content-type": "application/json" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            body: JSON.stringify(body),
+            headers,
+          }),
+      },
+      {}
+    );
+
+    version.updateWithResponseInfo({}).then((response) => {
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      done();
+    });
+  });
+
+  it("should throw exception for non-2xx status codes", function (done) {
+    const errorBody = { message: "Forbidden" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 403, body: errorBody }),
+      },
+      null
+    );
+
+    version.updateWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(403);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should handle empty headers", function (done) {
+    const body = { id: "12345", updated: true };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers: {} }),
+      },
+      {}
+    );
+
+    version.updateWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+});
+
+describe("patchWithResponseInfo method", function () {
+  it("should return ApiResponse with patched resource", function (done) {
+    const body = { id: "12345", patched: true };
+    const headers = { "x-request-id": "patch123" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers }),
+      },
+      {}
+    );
+
+    version.patchWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should parse JSON string response body", function (done) {
+    const body = { id: "12345", field: "new value" };
+    const headers = { "x-request-id": "patch456" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            body: JSON.stringify(body),
+            headers,
+          }),
+      },
+      {}
+    );
+
+    version.patchWithResponseInfo({}).then((response) => {
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should throw exception for non-2xx status codes", function (done) {
+    const errorBody = { message: "Unprocessable Entity" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 422, body: errorBody }),
+      },
+      null
+    );
+
+    version.patchWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(422);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should handle empty headers", function (done) {
+    const body = { id: "12345", patched: true };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers: {} }),
+      },
+      {}
+    );
+
+    version.patchWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+});
+
+describe("removeWithResponseInfo method", function () {
+  it("should return ApiResponse with true body for successful deletion", function (done) {
+    const headers = { "x-request-id": "delete123" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 204, body: "", headers }),
+      },
+      {}
+    );
+
+    version.removeWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toBe(true);
+      expect(response.statusCode).toEqual(204);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  // Test all 2XX status codes
+  const successStatusCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226];
+
+  successStatusCodes.forEach((statusCode) => {
+    it(`should return ApiResponse with true body for ${statusCode} status code`, function (done) {
+      const headers = { "x-request-id": `delete-${statusCode}` };
+      const version = new Version(
+        {
+          request: () => Promise.resolve({ statusCode, body: {}, headers }),
+        },
+        {}
+      );
+
+      version.removeWithResponseInfo({}).then((response) => {
+        expect(response.body).toBe(true);
+        expect(response.statusCode).toEqual(statusCode);
+        expect(response.headers).toEqual(headers);
+        done();
+      });
+    });
+  });
+
+  it("should throw exception for status code >= 300", function (done) {
+    const errorBody = { message: "Resource not found" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 404, body: errorBody }),
+      },
+      null
+    );
+
+    version.removeWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(404);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should throw exception for 5xx status codes", function (done) {
+    const errorBody = { message: "Internal server error" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 500, body: errorBody }),
+      },
+      null
+    );
+
+    version.removeWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(500);
+      expect(error.message).toEqual(errorBody.message);
+      done();
+    });
+  });
+
+  it("should handle empty headers", function (done) {
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({ statusCode: 204, body: "", headers: {} }),
+      },
+      {}
+    );
+
+    version.removeWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toBe(true);
+      expect(response.statusCode).toEqual(204);
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+});
+
+describe("pageWithResponseInfo method", function () {
+  it("should return ApiResponse with page data", function (done) {
+    const body = {
+      messages: [{ id: "1" }, { id: "2" }],
+      page: 0,
+      page_size: 50,
+    };
+    const headers = { "x-request-id": "page123", "x-total-count": "100" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers }),
+      },
+      {}
+    );
+
+    version.pageWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should parse JSON string response body", function (done) {
+    const body = { items: [{ id: "a" }], next_page_uri: "/page2" };
+    const headers = { "x-page-number": "1" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            body: JSON.stringify(body),
+            headers,
+          }),
+      },
+      {}
+    );
+
+    version.pageWithResponseInfo({}).then((response) => {
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+
+  it("should handle empty page results", function (done) {
+    const body = { items: [], page: 0, page_size: 50 };
+    const headers = { "x-request-id": "empty-page" };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers }),
+      },
+      {}
+    );
+
+    version.pageWithResponseInfo({}).then((response) => {
+      expect(response.body).toEqual(body);
+      expect(response.body.items).toHaveLength(0);
+      expect(response.statusCode).toEqual(200);
+      done();
+    });
+  });
+
+  it("should handle empty headers", function (done) {
+    const body = { messages: [{ id: "1" }], page: 0, page_size: 50 };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 200, body, headers: {} }),
+      },
+      {}
+    );
+
+    version.pageWithResponseInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.body).toEqual(body);
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+});

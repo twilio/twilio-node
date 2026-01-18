@@ -3,6 +3,7 @@ import * as webhooks from "./webhooks/webhooks";
 import IRequestClient from "./base/RequestClient";
 import type { ClientOpts as IClientOpts } from "./base/BaseTwilio";
 import IRestException from "./base/RestException";
+import type { ApiResponse as IApiResponse } from "./base/ApiResponse";
 import IAccessToken from "./jwt/AccessToken";
 import IValidationToken from "./jwt/validation/ValidationToken";
 import IClientCapability from "./jwt/ClientCapability";
@@ -53,6 +54,7 @@ namespace TwilioSDK {
   export const RequestClient = IRequestClient;
   export type RestException = IRestException;
   export const RestException = IRestException;
+  export type ApiResponse<T> = IApiResponse<T>;
 
   export type ClientCredentialProviderBuilder =
     IClientCredentialProvider.ClientCredentialProviderBuilder;
