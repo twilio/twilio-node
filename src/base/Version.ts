@@ -308,7 +308,6 @@ export default class Version {
     });
   }
 
-
   /**
    * Update a record and return response metadata
    *
@@ -635,7 +634,10 @@ export default class Version {
     let pPending = true;
     let pResolve: (value: ApiResponse<void>) => void;
     let pReject: (reason?: any) => void;
-    let firstPageMetadata: { statusCode: number; headers: Record<string, string> } | null = null;
+    let firstPageMetadata: {
+      statusCode: number;
+      headers: Record<string, string>;
+    } | null = null;
 
     if (this._version instanceof Version) {
       limits = this._version.readLimits({
@@ -786,7 +788,10 @@ export default class Version {
       params = params || {};
     }
     let allResources: any[] = [];
-    let firstPageMetadata: { statusCode: number; headers: Record<string, string> } | null = null;
+    let firstPageMetadata: {
+      statusCode: number;
+      headers: Record<string, string>;
+    } | null = null;
 
     params.callback = function (resource: any, done: any) {
       allResources.push(resource);
@@ -799,7 +804,10 @@ export default class Version {
     };
 
     let operationPromise = new Promise<ApiResponse<T[]>>((resolve, reject) => {
-      params.done = function (error: any, metadata?: { statusCode: number; headers: Record<string, string> }) {
+      params.done = function (
+        error: any,
+        metadata?: { statusCode: number; headers: Record<string, string> }
+      ) {
         if (metadata) {
           firstPageMetadata = metadata;
         }
