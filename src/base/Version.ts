@@ -2,6 +2,7 @@ import Domain from "./Domain";
 import Page, { TwilioResponsePayload } from "./Page";
 import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
+import TwilioServiceException from "./TwilioServiceException";
 import { trim } from "./utility";
 
 export interface PageLimitOptions {
@@ -38,6 +39,36 @@ export default class Version {
 
   get domain(): Domain {
     return this._domain;
+  }
+
+  /**
+   * Throws the appropriate exception based on the response format
+   *
+   * @param response - the response object
+   * @throws TwilioServiceException if response matches RFC-9457 format
+   * @throws RestException for legacy format
+   */
+  private throwException(response: any): never {
+    const isResponseBodyString = typeof response.body === "string";
+    let body = null;
+
+    if (isResponseBodyString) {
+      try {
+        body = JSON.parse(response.body);
+      } catch (e) {
+        // If parsing fails, body remains null
+      }
+    } else {
+      body = response.body;
+    }
+
+    // Check if response matches RFC-9457 format
+    if (TwilioServiceException.isRFC9457Response(body)) {
+      throw new TwilioServiceException(response);
+    }
+
+    // Fall back to legacy RestException
+    throw new RestException(response);
   }
 
   /**
@@ -97,9 +128,9 @@ export default class Version {
    */
   create(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
-    qResponse = qResponse.then(function success(response) {
+    qResponse = qResponse.then((response) => {
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw new RestException(response);
+        this.throwException(response);
       }
       if (typeof response.body === "string") {
         return JSON.parse(response.body);
@@ -122,9 +153,9 @@ export default class Version {
   fetch(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
 
-    qResponse = qResponse.then(function success(response) {
+    qResponse = qResponse.then((response) => {
       if (response.statusCode < 200 || response.statusCode >= 400) {
-        throw new RestException(response);
+        this.throwException(response);
       }
 
       if (typeof response.body === "string") {
@@ -157,9 +188,9 @@ export default class Version {
    */
   update(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
-    qResponse = qResponse.then(function success(response) {
+    qResponse = qResponse.then((response) => {
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw new RestException(response);
+        this.throwException(response);
       }
 
       if (typeof response.body === "string") {
@@ -183,7 +214,7 @@ export default class Version {
   async patch(opts: RequestOpts): Promise<any> {
     const response = await this.request(opts);
     if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw new RestException(response);
+      this.throwException(response);
     }
     return typeof response.body === "string"
       ? JSON.parse(response.body)
@@ -201,9 +232,9 @@ export default class Version {
    */
   remove(opts: RequestOpts): Promise<boolean> {
     let qResponse = this.request(opts);
-    qResponse = qResponse.then(function success(response) {
+    qResponse = qResponse.then((response) => {
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw new RestException(response);
+        this.throwException(response);
       }
 
       return true; // if response code is 2XX, deletion was successful
