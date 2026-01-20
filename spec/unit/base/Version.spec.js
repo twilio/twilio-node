@@ -903,3 +903,546 @@ describe("removeWithResponseInfo method", function () {
     });
   });
 });
+
+describe("eachWithHttpInfo method", function () {
+  const bodyOne = {
+    instances: [{ body: "payload0" }, { body: "payload1" }],
+    nextPage: function () {
+      return Promise.resolve({
+        statusCode: 200,
+        headers: { "x-page": "2" },
+        body: bodyTwo,
+      });
+    },
+  };
+  const bodyTwo = {
+    instances: [{ body: "payload2" }, { body: "payload3" }],
+    nextPage: function () {
+      return Promise.resolve({
+        statusCode: 200,
+        headers: { "x-page": "3" },
+        body: bodyThree,
+      });
+    },
+  };
+  const bodyThree = {
+    instances: [{ body: "payload4" }],
+    nextPage: null,
+  };
+
+  it("should call user callback for each resource instance with HTTP metadata", function (done) {
+    let mockCallback = jest.fn();
+    const headers = { "x-request-id": "abc123", "x-ratelimit-remaining": "99" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: bodyOne,
+          }),
+      },
+      {}
+    );
+
+    version
+      .eachWithHttpInfo({
+        done: (error, metadata) => {
+          expect(error).toBeUndefined();
+          expect(mockCallback).toHaveBeenCalledTimes(5);
+          expect(metadata).toBeDefined();
+          expect(metadata.statusCode).toEqual(200);
+          expect(metadata.headers).toEqual(headers);
+          done();
+        },
+        callback: mockCallback,
+      })
+      .then((response) => {
+        expect(response.statusCode).toEqual(200);
+        expect(response.headers).toEqual(headers);
+      });
+  });
+
+  it("should capture first page metadata", function (done) {
+    const headers = { "x-request-id": "first-page" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: bodyOne,
+          }),
+      },
+      {}
+    );
+
+    version.eachWithHttpInfo({ callback: jest.fn() }).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      expect(response.body).toBeUndefined();
+      done();
+    });
+  });
+
+  it("should handle string body by parsing JSON", function (done) {
+    const stringBody = JSON.stringify({
+      instances: [{ id: "1" }],
+      nextPage: null,
+    });
+    const headers = { "content-type": "application/json" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: stringBody,
+          }),
+      },
+      {}
+    );
+
+    version
+      .eachWithHttpInfo({
+        callback: (item) => {
+          expect(item.id).toEqual("1");
+        },
+      })
+      .then((response) => {
+        expect(response.statusCode).toEqual(200);
+        done();
+      });
+  });
+
+  it("should reject with error when page method returns undefined on first page", function (done) {
+    const version = new Version(
+      {
+        request: () => undefined,
+      },
+      {}
+    );
+
+    version.eachWithHttpInfo({ callback: jest.fn() }).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.message).toContain("did not return a Promise");
+      done();
+    });
+  });
+
+  it("should handle response without statusCode (direct Page object)", function (done) {
+    const directPageBody = {
+      instances: [{ id: "test1" }],
+      nextPage: null,
+    };
+    const version = new Version(
+      {
+        request: () => Promise.resolve(directPageBody),
+      },
+      {}
+    );
+
+    version.eachWithHttpInfo({ callback: jest.fn() }).then((response) => {
+      expect(response.statusCode).toEqual(200); // Default when no metadata
+      expect(response.headers).toEqual({});
+      done();
+    });
+  });
+
+  it("should call user done with error if callback throws", function (done) {
+    const mockError = new Error("Callback error");
+    const mockCallback = jest.fn(() => {
+      throw mockError;
+    });
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers: {},
+            body: { instances: [{ id: "1" }], nextPage: null },
+          }),
+      },
+      {}
+    );
+
+    version
+      .eachWithHttpInfo({
+        callback: mockCallback,
+        done: (error) => {
+          expect(error).toBe(mockError);
+          done();
+        },
+      })
+      .catch(() => {});
+  });
+
+  it("should short-circuit when done is called with error", function (done) {
+    const mockError = new Error("User stopped iteration");
+    const mockCallback = jest.fn((instance, doneCallback) => {
+      doneCallback(mockError);
+    });
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers: {},
+            body: bodyOne,
+          }),
+      },
+      {}
+    );
+
+    version
+      .eachWithHttpInfo({
+        callback: mockCallback,
+        done: (error) => {
+          expect(error).toBe(mockError);
+          expect(mockCallback).toHaveBeenCalledTimes(1);
+          done();
+        },
+      })
+      .catch(() => {});
+  });
+
+  it("should respect limit parameter", function (done) {
+    const mockCallback = jest.fn();
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers: {},
+            body: bodyOne,
+          }),
+      },
+      {}
+    );
+
+    version._version = version; // Make it check limits
+
+    version
+      .eachWithHttpInfo({
+        limit: 2,
+        callback: mockCallback,
+      })
+      .then(() => {
+        expect(mockCallback).toHaveBeenCalledTimes(2);
+        done();
+      });
+  });
+
+  it("should throw error if callback is not provided", function () {
+    const version = new Version({ request: jest.fn() }, {});
+
+    expect(() => {
+      version.eachWithHttpInfo({});
+    }).toThrow("Callback function must be provided");
+  });
+
+  it("should handle pageWithHttpInfo method if available", function (done) {
+    const headers = { "x-request-id": "page-http-info" };
+    const mockCallback = jest.fn();
+
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: { instances: [{ id: "1" }], nextPage: null },
+          }),
+      },
+      {}
+    );
+
+    // Add pageWithHttpInfo method to version
+    version.pageWithHttpInfo = function () {
+      return Promise.resolve({
+        statusCode: 200,
+        headers,
+        body: { instances: [{ id: "1" }], nextPage: null },
+      });
+    };
+
+    version.eachWithHttpInfo({ callback: mockCallback }).then((response) => {
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      done();
+    });
+  });
+});
+
+describe("listWithHttpInfo method", function () {
+  const bodyOne = {
+    instances: [{ body: "payload0" }, { body: "payload1" }],
+    nextPage: function () {
+      return Promise.resolve({
+        statusCode: 200,
+        headers: { "x-page": "2" },
+        body: bodyTwo,
+      });
+    },
+  };
+  const bodyTwo = {
+    instances: [{ body: "payload2" }],
+    nextPage: null,
+  };
+
+  it("should return ApiResponse with array of all resources and first page metadata", function (done) {
+    const headers = { "x-request-id": "list123", "x-ratelimit-limit": "1000" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: bodyOne,
+          }),
+      },
+      {}
+    );
+
+    version.listWithHttpInfo({}).then((response) => {
+      expect(response).toBeDefined();
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      expect(Array.isArray(response.body)).toBe(true);
+      expect(response.body.length).toEqual(3);
+      expect(response.body[0].body).toEqual("payload0");
+      expect(response.body[1].body).toEqual("payload1");
+      expect(response.body[2].body).toEqual("payload2");
+      done();
+    });
+  });
+
+  it("should respect limit parameter", function (done) {
+    const headers = { "x-request-id": "limited-list" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: bodyOne,
+          }),
+      },
+      {}
+    );
+
+    version._version = version; // Make it check limits
+
+    version.listWithHttpInfo({ limit: 2 }).then((response) => {
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      expect(response.body.length).toEqual(2);
+      done();
+    });
+  });
+
+  it("should handle callback parameter", function (done) {
+    const headers = { "x-request-id": "callback-test" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: { instances: [{ id: "1" }], nextPage: null },
+          }),
+      },
+      {}
+    );
+
+    version._version = version; // Enable callback handling
+
+    version.listWithHttpInfo({}, (error, response) => {
+      expect(error).toBeNull();
+      expect(response).toBeDefined();
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      expect(Array.isArray(response.body)).toBe(true);
+      done();
+    });
+  });
+
+  it("should handle function as first parameter", function (done) {
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers: {},
+            body: { instances: [{ id: "1" }], nextPage: null },
+          }),
+      },
+      {}
+    );
+
+    version._version = version; // Enable callback handling
+
+    version.listWithHttpInfo((error, response) => {
+      expect(error).toBeNull();
+      expect(response).toBeDefined();
+      done();
+    });
+  });
+
+  it("should return empty array when no instances", function (done) {
+    const headers = { "x-request-id": "empty-list" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: { instances: [], nextPage: null },
+          }),
+      },
+      {}
+    );
+
+    version.listWithHttpInfo({}).then((response) => {
+      expect(response.statusCode).toEqual(200);
+      expect(response.headers).toEqual(headers);
+      expect(response.body).toEqual([]);
+      done();
+    });
+  });
+
+  it("should set promise callback when _version is Version instance", function (done) {
+    const headers = { "x-request-id": "promise-callback-test" };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 200,
+            headers,
+            body: { instances: [{ id: "1" }], nextPage: null },
+          }),
+      },
+      {}
+    );
+
+    version._version = version;
+
+    version.listWithHttpInfo({}, (error, response) => {
+      expect(error).toBeNull();
+      expect(response.statusCode).toEqual(200);
+      done();
+    });
+  });
+});
+
+describe("throwException method (tested through public methods)", function () {
+  it("should throw RestException for legacy format", function (done) {
+    const legacyBody = {
+      message: "Invalid parameter",
+      code: 20001,
+      more_info: "https://www.twilio.com/docs/errors/20001",
+    };
+    const version = new Version(
+      {
+        request: () => Promise.resolve({ statusCode: 400, body: legacyBody }),
+      },
+      null
+    );
+
+    version.create({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.message).toEqual(legacyBody.message);
+      expect(error.status).toEqual(400);
+      done();
+    });
+  });
+
+  it("should parse JSON string body before checking exception type", function (done) {
+    const errorBody = {
+      message: "Not Found",
+      code: 20404,
+    };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 404,
+            body: JSON.stringify(errorBody),
+          }),
+      },
+      null
+    );
+
+    version.fetch({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(404);
+      done();
+    });
+  });
+
+  it("should handle JSON parse failure gracefully", function (done) {
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 500,
+            body: "Invalid JSON {{{",
+          }),
+      },
+      null
+    );
+
+    version.update({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(500);
+      done();
+    });
+  });
+
+  it("should handle non-string error body in update", function (done) {
+    const errorBody = {
+      message: "Server error",
+      code: 50000,
+    };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 500,
+            body: errorBody,
+          }),
+      },
+      null
+    );
+
+    version.patch({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(500);
+      done();
+    });
+  });
+
+  it("should handle error in createWithResponseInfo", function (done) {
+    const errorBody = {
+      message: "Conflict",
+      code: 40900,
+    };
+    const version = new Version(
+      {
+        request: () =>
+          Promise.resolve({
+            statusCode: 409,
+            body: errorBody,
+          }),
+      },
+      null
+    );
+
+    version.createWithResponseInfo({}).catch((error) => {
+      expect(error).toBeDefined();
+      expect(error.status).toEqual(409);
+      done();
+    });
+  });
+});
