@@ -172,7 +172,10 @@ promise.then(function (response) {
   console.log("Message SID:", response.body.sid);
   console.log("Status Code:", response.statusCode);
   console.log("Response Headers:", response.headers);
-  console.log("Rate Limit Remaining:", response.headers["x-ratelimit-remaining"]);
+  console.log(
+    "Rate Limit Remaining:",
+    response.headers["x-ratelimit-remaining"]
+  );
 });
 
 // Example: List messages with HTTP response info
