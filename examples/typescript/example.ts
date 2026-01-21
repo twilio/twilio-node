@@ -130,3 +130,34 @@ promiseMessage.then((messages: any[]) => {
 const twiml = new twilio.twiml.VoiceResponse();
 twiml.dial({}, "+12345678901");
 twiml.play("https://demo.twilio.com/docs/classic.mp3");
+
+// Example: Create message with HTTP response info (status code and headers)
+// Using createWithHttpInfo to get response headers like rate limits, request IDs
+const promiseWithInfo = client.messages.createWithHttpInfo({
+  from: from,
+  to: to,
+  body: "create with HTTP info",
+});
+promiseWithInfo.then((response: any) => {
+  console.log("Created message with HTTP info");
+  console.log("Message SID:", response.body.sid);
+  console.log("Status Code:", response.statusCode);
+  console.log("Response Headers:", response.headers);
+  console.log(
+    "Rate Limit Remaining:",
+    response.headers["x-ratelimit-remaining"]
+  );
+});
+
+// Example: List messages with HTTP response info
+// Using listWithHttpInfo to get first page metadata including rate limits
+const promiseListWithInfo = client.messages.listWithHttpInfo({ limit: 5 });
+promiseListWithInfo.then((response: any) => {
+  console.log("Listed messages with HTTP info");
+  console.log("Total messages retrieved:", response.body.length);
+  console.log("Status Code:", response.statusCode);
+  console.log("Response Headers:", response.headers);
+  response.body.forEach(function (message: any) {
+    console.log(message.sid);
+  });
+});
