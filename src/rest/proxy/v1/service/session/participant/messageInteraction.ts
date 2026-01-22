@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 /**
  * Always empty for created Message Interactions.
@@ -93,6 +95,7 @@ export interface MessageInteractionListInstanceOptions {
 export interface MessageInteractionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -110,6 +113,20 @@ export interface MessageInteractionContext {
   fetch(
     callback?: (error: Error | null, item?: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance>;
+
+  /**
+   * Fetch a MessageInteractionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInteractionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInteractionInstance>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -183,6 +200,45 @@ export class MessageInteractionContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInteractionInstance>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<MessageInteractionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MessageInteractionInstance> => ({
+          ...response,
+          body: new MessageInteractionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sessionSid,
+            instance._solution.participantSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -372,6 +428,22 @@ export class MessageInteractionInstance {
   }
 
   /**
+   * Fetch a MessageInteractionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInteractionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInteractionInstance>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -444,6 +516,35 @@ export interface MessageInteractionListInstance {
   ): Promise<MessageInteractionInstance>;
 
   /**
+   * Create a MessageInteractionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInteractionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInteractionInstance>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance>>;
+  /**
+   * Create a MessageInteractionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInteractionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: MessageInteractionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInteractionInstance>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance>>;
+
+  /**
    * Streams MessageInteractionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -472,6 +573,34 @@ export interface MessageInteractionListInstance {
     ) => void
   ): void;
   /**
+   * Streams MessageInteractionInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageInteractionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: MessageInteractionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: MessageInteractionListInstanceEachOptions,
+    callback?: (
+      item: MessageInteractionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of MessageInteractionInstance records from the API.
    *
    * The request is executed immediately.
@@ -483,6 +612,21 @@ export interface MessageInteractionListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage>;
+  /**
+   * Retrieve a single target page of MessageInteractionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionPage>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionPage>>;
   /**
    * Lists MessageInteractionInstance records from the API as a list.
    *
@@ -499,6 +643,30 @@ export interface MessageInteractionListInstance {
     params: MessageInteractionListInstanceOptions,
     callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
   ): Promise<MessageInteractionInstance[]>;
+  /**
+   * Lists MessageInteractionInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageInteractionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance[]>>;
+  listWithHttpInfo(
+    params: MessageInteractionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance[]>>;
   /**
    * Retrieve a single page of MessageInteractionInstance records from the API.
    *
@@ -517,6 +685,30 @@ export interface MessageInteractionListInstance {
     params: MessageInteractionListInstancePageOptions,
     callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage>;
+  /**
+   * Retrieve a single page of MessageInteractionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageInteractionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionPage>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionPage>>;
+  pageWithHttpInfo(
+    params: MessageInteractionListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionPage>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -609,6 +801,64 @@ export function MessageInteractionListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | MessageInteractionListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<MessageInteractionInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionInstance>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["mediaUrl"] !== undefined)
+      data["MediaUrl"] = serialize.map(params["mediaUrl"], (e: string) => e);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<MessageInteractionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MessageInteractionInstance> => ({
+          ...response,
+          body: new MessageInteractionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sessionSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | MessageInteractionListInstancePageOptions
@@ -666,7 +916,6 @@ export function MessageInteractionListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new MessageInteractionPage(
@@ -674,6 +923,91 @@ export function MessageInteractionListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | MessageInteractionListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<MessageInteractionPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInteractionPage>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<MessageInteractionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MessageInteractionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<MessageInteractionPage>
+    ) => any
+  ): Promise<ApiResponse<MessageInteractionPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<MessageInteractionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MessageInteractionPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

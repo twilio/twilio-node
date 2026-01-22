@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 /**
@@ -162,6 +164,7 @@ export interface MachineToMachineListInstancePageOptions {
   faxEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -207,6 +210,34 @@ export interface MachineToMachineListInstance {
     ) => void
   ): void;
   /**
+   * Streams MachineToMachineInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MachineToMachineListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: MachineToMachineInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: MachineToMachineListInstanceEachOptions,
+    callback?: (
+      item: MachineToMachineInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of MachineToMachineInstance records from the API.
    *
    * The request is executed immediately.
@@ -218,6 +249,21 @@ export interface MachineToMachineListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
+  /**
+   * Retrieve a single target page of MachineToMachineInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MachineToMachinePage>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachinePage>>;
   /**
    * Lists MachineToMachineInstance records from the API as a list.
    *
@@ -234,6 +280,30 @@ export interface MachineToMachineListInstance {
     params: MachineToMachineListInstanceOptions,
     callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
   ): Promise<MachineToMachineInstance[]>;
+  /**
+   * Lists MachineToMachineInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MachineToMachineListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MachineToMachineInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachineInstance[]>>;
+  listWithHttpInfo(
+    params: MachineToMachineListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MachineToMachineInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachineInstance[]>>;
   /**
    * Retrieve a single page of MachineToMachineInstance records from the API.
    *
@@ -252,6 +322,30 @@ export interface MachineToMachineListInstance {
     params: MachineToMachineListInstancePageOptions,
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
+  /**
+   * Retrieve a single page of MachineToMachineInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MachineToMachineListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MachineToMachinePage>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachinePage>>;
+  pageWithHttpInfo(
+    params: MachineToMachineListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MachineToMachinePage>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachinePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -369,10 +463,131 @@ export function MachineToMachineListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new MachineToMachinePage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | MachineToMachineListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<MachineToMachinePage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MachineToMachinePage>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachinePage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
+    if (params["smsEnabled"] !== undefined)
+      data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+    if (params["mmsEnabled"] !== undefined)
+      data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+    if (params["voiceEnabled"] !== undefined)
+      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    if (params["excludeAllAddressRequired"] !== undefined)
+      data["ExcludeAllAddressRequired"] = serialize.bool(
+        params["excludeAllAddressRequired"]
+      );
+    if (params["excludeLocalAddressRequired"] !== undefined)
+      data["ExcludeLocalAddressRequired"] = serialize.bool(
+        params["excludeLocalAddressRequired"]
+      );
+    if (params["excludeForeignAddressRequired"] !== undefined)
+      data["ExcludeForeignAddressRequired"] = serialize.bool(
+        params["excludeForeignAddressRequired"]
+      );
+    if (params["beta"] !== undefined)
+      data["Beta"] = serialize.bool(params["beta"]);
+    if (params["nearNumber"] !== undefined)
+      data["NearNumber"] = params["nearNumber"];
+    if (params["nearLatLong"] !== undefined)
+      data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
+    if (params["inPostalCode"] !== undefined)
+      data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
+    if (params["inRateCenter"] !== undefined)
+      data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
+    if (params["inLocality"] !== undefined)
+      data["InLocality"] = params["inLocality"];
+    if (params["faxEnabled"] !== undefined)
+      data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<MachineToMachinePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MachineToMachinePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<MachineToMachinePage>
+    ) => any
+  ): Promise<ApiResponse<MachineToMachinePage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<MachineToMachinePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MachineToMachinePage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

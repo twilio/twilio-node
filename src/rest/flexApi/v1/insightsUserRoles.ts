@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a InsightsUserRolesInstance
@@ -49,6 +50,35 @@ export interface InsightsUserRolesContext {
     params: InsightsUserRolesContextFetchOptions,
     callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
   ): Promise<InsightsUserRolesInstance>;
+
+  /**
+   * Fetch a InsightsUserRolesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsUserRolesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsUserRolesInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsUserRolesInstance>>;
+  /**
+   * Fetch a InsightsUserRolesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsUserRolesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: InsightsUserRolesContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsUserRolesInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsUserRolesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -100,6 +130,56 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
     operationPromise = operationPromise.then(
       (payload) => new InsightsUserRolesInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | InsightsUserRolesContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<InsightsUserRolesInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsUserRolesInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsUserRolesInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InsightsUserRolesResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InsightsUserRolesInstance> => ({
+          ...response,
+          body: new InsightsUserRolesInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -180,6 +260,45 @@ export class InsightsUserRolesInstance {
     callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
   ): Promise<InsightsUserRolesInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a InsightsUserRolesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsUserRolesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsUserRolesInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsUserRolesInstance>>;
+  /**
+   * Fetch a InsightsUserRolesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsUserRolesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: InsightsUserRolesContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsUserRolesInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsUserRolesInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsUserRolesInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsUserRolesInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

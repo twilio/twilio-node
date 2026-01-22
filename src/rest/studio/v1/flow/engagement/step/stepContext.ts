@@ -17,6 +17,7 @@ import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 export interface StepContextContext {
   /**
@@ -29,6 +30,20 @@ export interface StepContextContext {
   fetch(
     callback?: (error: Error | null, item?: StepContextInstance) => any
   ): Promise<StepContextInstance>;
+
+  /**
+   * Fetch a StepContextInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed StepContextInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<StepContextInstance>
+    ) => any
+  ): Promise<ApiResponse<StepContextInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -93,6 +108,44 @@ export class StepContextContextImpl implements StepContextContext {
           instance._solution.stepSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<StepContextInstance>
+    ) => any
+  ): Promise<ApiResponse<StepContextInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<StepContextResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<StepContextInstance> => ({
+          ...response,
+          body: new StepContextInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid,
+            instance._solution.engagementSid,
+            instance._solution.stepSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -195,6 +248,22 @@ export class StepContextInstance {
     callback?: (error: Error | null, item?: StepContextInstance) => any
   ): Promise<StepContextInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a StepContextInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed StepContextInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<StepContextInstance>
+    ) => any
+  ): Promise<ApiResponse<StepContextInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

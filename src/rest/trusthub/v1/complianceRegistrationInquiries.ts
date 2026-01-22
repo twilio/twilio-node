@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The type of business identity.  Can be `direct customer` or `ISV`.
@@ -177,6 +178,35 @@ export interface ComplianceRegistrationInquiriesContext {
   ): Promise<ComplianceRegistrationInquiriesInstance>;
 
   /**
+   * Update a ComplianceRegistrationInquiriesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
+  /**
+   * Update a ComplianceRegistrationInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ComplianceRegistrationInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -249,6 +279,64 @@ export class ComplianceRegistrationInquiriesContextImpl
           instance._solution.registrationId
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | ComplianceRegistrationInquiriesContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["isIsvEmbed"] !== undefined)
+      data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ComplianceRegistrationInquiriesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ComplianceRegistrationInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceRegistrationInquiriesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.registrationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -365,6 +453,45 @@ export class ComplianceRegistrationInquiriesInstance {
   }
 
   /**
+   * Update a ComplianceRegistrationInquiriesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
+  /**
+   * Update a ComplianceRegistrationInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ComplianceRegistrationInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -408,6 +535,22 @@ export interface ComplianceRegistrationInquiriesListInstance {
       item?: ComplianceRegistrationInquiriesInstance
     ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance>;
+
+  /**
+   * Create a ComplianceRegistrationInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -568,6 +711,151 @@ export function ComplianceRegistrationInquiriesListInstance(
       (payload) =>
         new ComplianceRegistrationInquiriesInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["endUserType"] === null || params["endUserType"] === undefined) {
+      throw new Error("Required parameter \"params['endUserType']\" missing.");
+    }
+
+    if (
+      params["phoneNumberType"] === null ||
+      params["phoneNumberType"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['phoneNumberType']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["EndUserType"] = params["endUserType"];
+
+    data["PhoneNumberType"] = params["phoneNumberType"];
+    if (params["businessIdentityType"] !== undefined)
+      data["BusinessIdentityType"] = params["businessIdentityType"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessLegalName"] !== undefined)
+      data["BusinessLegalName"] = params["businessLegalName"];
+    if (params["notificationEmail"] !== undefined)
+      data["NotificationEmail"] = params["notificationEmail"];
+    if (params["acceptedNotificationReceipt"] !== undefined)
+      data["AcceptedNotificationReceipt"] = serialize.bool(
+        params["acceptedNotificationReceipt"]
+      );
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessWebsiteUrl"] !== undefined)
+      data["BusinessWebsiteUrl"] = params["businessWebsiteUrl"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["authorizedRepresentative1FirstName"] !== undefined)
+      data["AuthorizedRepresentative1FirstName"] =
+        params["authorizedRepresentative1FirstName"];
+    if (params["authorizedRepresentative1LastName"] !== undefined)
+      data["AuthorizedRepresentative1LastName"] =
+        params["authorizedRepresentative1LastName"];
+    if (params["authorizedRepresentative1Phone"] !== undefined)
+      data["AuthorizedRepresentative1Phone"] =
+        params["authorizedRepresentative1Phone"];
+    if (params["authorizedRepresentative1Email"] !== undefined)
+      data["AuthorizedRepresentative1Email"] =
+        params["authorizedRepresentative1Email"];
+    if (params["authorizedRepresentative1DateOfBirth"] !== undefined)
+      data["AuthorizedRepresentative1DateOfBirth"] =
+        params["authorizedRepresentative1DateOfBirth"];
+    if (params["addressStreet"] !== undefined)
+      data["AddressStreet"] = params["addressStreet"];
+    if (params["addressStreetSecondary"] !== undefined)
+      data["AddressStreetSecondary"] = params["addressStreetSecondary"];
+    if (params["addressCity"] !== undefined)
+      data["AddressCity"] = params["addressCity"];
+    if (params["addressSubdivision"] !== undefined)
+      data["AddressSubdivision"] = params["addressSubdivision"];
+    if (params["addressPostalCode"] !== undefined)
+      data["AddressPostalCode"] = params["addressPostalCode"];
+    if (params["addressCountryCode"] !== undefined)
+      data["AddressCountryCode"] = params["addressCountryCode"];
+    if (params["emergencyAddressStreet"] !== undefined)
+      data["EmergencyAddressStreet"] = params["emergencyAddressStreet"];
+    if (params["emergencyAddressStreetSecondary"] !== undefined)
+      data["EmergencyAddressStreetSecondary"] =
+        params["emergencyAddressStreetSecondary"];
+    if (params["emergencyAddressCity"] !== undefined)
+      data["EmergencyAddressCity"] = params["emergencyAddressCity"];
+    if (params["emergencyAddressSubdivision"] !== undefined)
+      data["EmergencyAddressSubdivision"] =
+        params["emergencyAddressSubdivision"];
+    if (params["emergencyAddressPostalCode"] !== undefined)
+      data["EmergencyAddressPostalCode"] = params["emergencyAddressPostalCode"];
+    if (params["emergencyAddressCountryCode"] !== undefined)
+      data["EmergencyAddressCountryCode"] =
+        params["emergencyAddressCountryCode"];
+    if (params["useAddressAsEmergencyAddress"] !== undefined)
+      data["UseAddressAsEmergencyAddress"] = serialize.bool(
+        params["useAddressAsEmergencyAddress"]
+      );
+    if (params["fileName"] !== undefined) data["FileName"] = params["fileName"];
+    if (params["file"] !== undefined) data["File"] = params["file"];
+    if (params["firstName"] !== undefined)
+      data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
+    if (params["dateOfBirth"] !== undefined)
+      data["DateOfBirth"] = params["dateOfBirth"];
+    if (params["individualEmail"] !== undefined)
+      data["IndividualEmail"] = params["individualEmail"];
+    if (params["individualPhone"] !== undefined)
+      data["IndividualPhone"] = params["individualPhone"];
+    if (params["isIsvEmbed"] !== undefined)
+      data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
+    if (params["isvRegisteringForSelfOrTenant"] !== undefined)
+      data["IsvRegisteringForSelfOrTenant"] =
+        params["isvRegisteringForSelfOrTenant"];
+    if (params["statusCallbackUrl"] !== undefined)
+      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ComplianceRegistrationInquiriesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ComplianceRegistrationInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceRegistrationInquiriesInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

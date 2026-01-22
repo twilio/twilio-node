@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The Type of the Factor. Currently only `push` is supported.
@@ -48,6 +49,20 @@ export interface AccessTokenContext {
   fetch(
     callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance>;
+
+  /**
+   * Fetch a AccessTokenInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AccessTokenInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<AccessTokenInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -101,6 +116,43 @@ export class AccessTokenContextImpl implements AccessTokenContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<AccessTokenInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AccessTokenResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AccessTokenInstance> => ({
+          ...response,
+          body: new AccessTokenInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -225,6 +277,22 @@ export class AccessTokenInstance {
   }
 
   /**
+   * Fetch a AccessTokenInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AccessTokenInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<AccessTokenInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -273,6 +341,22 @@ export interface AccessTokenListInstance {
     params: AccessTokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance>;
+
+  /**
+   * Create a AccessTokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AccessTokenInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: AccessTokenListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<AccessTokenInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -344,6 +428,65 @@ export function AccessTokenListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AccessTokenListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AccessTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<AccessTokenInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error("Required parameter \"params['identity']\" missing.");
+    }
+
+    if (params["factorType"] === null || params["factorType"] === undefined) {
+      throw new Error("Required parameter \"params['factorType']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Identity"] = params["identity"];
+
+    data["FactorType"] = params["factorType"];
+    if (params["factorFriendlyName"] !== undefined)
+      data["FactorFriendlyName"] = params["factorFriendlyName"];
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AccessTokenResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AccessTokenInstance> => ({
+          ...response,
+          body: new AccessTokenInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

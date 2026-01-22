@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The status of the Build. Can be: `building`, `completed`, or `failed`.
@@ -34,6 +35,20 @@ export interface BuildStatusContext {
   fetch(
     callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance>;
+
+  /**
+   * Fetch a BuildStatusInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BuildStatusInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BuildStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<BuildStatusInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -87,6 +102,43 @@ export class BuildStatusContextImpl implements BuildStatusContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BuildStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<BuildStatusInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<BuildStatusResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<BuildStatusInstance> => ({
+          ...response,
+          body: new BuildStatusInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -178,6 +230,22 @@ export class BuildStatusInstance {
     callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a BuildStatusInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BuildStatusInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BuildStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<BuildStatusInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

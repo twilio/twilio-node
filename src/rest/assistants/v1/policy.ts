@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -62,6 +64,7 @@ export interface PolicyListInstancePageOptions {
   knowledgeId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -98,6 +101,28 @@ export interface PolicyListInstance {
     callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams PolicyInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PolicyListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: PolicyListInstanceEachOptions,
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of PolicyInstance records from the API.
    *
    * The request is executed immediately.
@@ -109,6 +134,18 @@ export interface PolicyListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: PolicyPage) => any
   ): Promise<PolicyPage>;
+  /**
+   * Retrieve a single target page of PolicyInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+  ): Promise<ApiResponse<PolicyPage>>;
   /**
    * Lists PolicyInstance records from the API as a list.
    *
@@ -125,6 +162,30 @@ export interface PolicyListInstance {
     params: PolicyListInstanceOptions,
     callback?: (error: Error | null, items: PolicyInstance[]) => any
   ): Promise<PolicyInstance[]>;
+  /**
+   * Lists PolicyInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PolicyListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PolicyInstance[]>
+    ) => any
+  ): Promise<ApiResponse<PolicyInstance[]>>;
+  listWithHttpInfo(
+    params: PolicyListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PolicyInstance[]>
+    ) => any
+  ): Promise<ApiResponse<PolicyInstance[]>>;
   /**
    * Retrieve a single page of PolicyInstance records from the API.
    *
@@ -143,6 +204,24 @@ export interface PolicyListInstance {
     params: PolicyListInstancePageOptions,
     callback?: (error: Error | null, items: PolicyPage) => any
   ): Promise<PolicyPage>;
+  /**
+   * Retrieve a single page of PolicyInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PolicyListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+  ): Promise<ApiResponse<PolicyPage>>;
+  pageWithHttpInfo(
+    params: PolicyListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+  ): Promise<ApiResponse<PolicyPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -213,10 +292,80 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new PolicyPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | PolicyListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<PolicyPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+  ): Promise<ApiResponse<PolicyPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["toolId"] !== undefined) data["ToolId"] = params["toolId"];
+    if (params["knowledgeId"] !== undefined)
+      data["KnowledgeId"] = params["knowledgeId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<PolicyPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PolicyPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<PolicyPage>) => any
+  ): Promise<ApiResponse<PolicyPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<PolicyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PolicyPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

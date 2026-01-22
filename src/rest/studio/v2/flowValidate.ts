@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The status of the Flow. Can be: `draft` or `published`.
@@ -56,6 +57,22 @@ export interface FlowValidateListInstance {
     params: FlowValidateListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: FlowValidateInstance) => any
   ): Promise<FlowValidateInstance>;
+
+  /**
+   * Update a FlowValidateInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlowValidateInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlowValidateListInstanceUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowValidateInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowValidateInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -121,6 +138,69 @@ export function FlowValidateListInstance(
     operationPromise = operationPromise.then(
       (payload) => new FlowValidateInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: FlowValidateListInstanceUpdateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowValidateInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowValidateInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error("Required parameter \"params['status']\" missing.");
+    }
+
+    if (params["definition"] === null || params["definition"] === undefined) {
+      throw new Error("Required parameter \"params['definition']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    data["Status"] = params["status"];
+
+    data["Definition"] = serialize.object(params["definition"]);
+    if (params["commitMessage"] !== undefined)
+      data["CommitMessage"] = params["commitMessage"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FlowValidateResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlowValidateInstance> => ({
+          ...response,
+          body: new FlowValidateInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

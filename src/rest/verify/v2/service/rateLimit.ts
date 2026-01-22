@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { BucketListInstance } from "./rateLimit/bucket";
 
 /**
@@ -68,6 +70,7 @@ export interface RateLimitListInstanceOptions {
 export interface RateLimitListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -89,6 +92,17 @@ export interface RateLimitContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
@@ -98,6 +112,20 @@ export interface RateLimitContext {
   fetch(
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
+
+  /**
+   * Fetch a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
 
   /**
    * Update a RateLimitInstance
@@ -121,6 +149,35 @@ export interface RateLimitContext {
     params: RateLimitContextUpdateOptions,
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
+
+  /**
+   * Update a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
+  /**
+   * Update a RateLimitInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RateLimitContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -184,6 +241,30 @@ export class RateLimitContextImpl implements RateLimitContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
@@ -207,6 +288,43 @@ export class RateLimitContextImpl implements RateLimitContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RateLimitResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RateLimitInstance> => ({
+          ...response,
+          body: new RateLimitInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -255,6 +373,60 @@ export class RateLimitContextImpl implements RateLimitContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | RateLimitContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<RateLimitInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["description"] !== undefined)
+      data["Description"] = params["description"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<RateLimitResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RateLimitInstance> => ({
+          ...response,
+          body: new RateLimitInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -378,6 +550,19 @@ export class RateLimitInstance {
   }
 
   /**
+   * Remove a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
@@ -388,6 +573,22 @@ export class RateLimitInstance {
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -418,6 +619,45 @@ export class RateLimitInstance {
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
+  /**
+   * Update a RateLimitInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RateLimitContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -477,6 +717,22 @@ export interface RateLimitListInstance {
   ): Promise<RateLimitInstance>;
 
   /**
+   * Create a RateLimitInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: RateLimitListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
+
+  /**
    * Streams RateLimitInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -499,6 +755,28 @@ export interface RateLimitListInstance {
     callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams RateLimitInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RateLimitListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: RateLimitListInstanceEachOptions,
+    callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of RateLimitInstance records from the API.
    *
    * The request is executed immediately.
@@ -510,6 +788,18 @@ export interface RateLimitListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage>;
+  /**
+   * Retrieve a single target page of RateLimitInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<RateLimitPage>) => any
+  ): Promise<ApiResponse<RateLimitPage>>;
   /**
    * Lists RateLimitInstance records from the API as a list.
    *
@@ -526,6 +816,30 @@ export interface RateLimitListInstance {
     params: RateLimitListInstanceOptions,
     callback?: (error: Error | null, items: RateLimitInstance[]) => any
   ): Promise<RateLimitInstance[]>;
+  /**
+   * Lists RateLimitInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RateLimitListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RateLimitInstance[]>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance[]>>;
+  listWithHttpInfo(
+    params: RateLimitListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RateLimitInstance[]>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance[]>>;
   /**
    * Retrieve a single page of RateLimitInstance records from the API.
    *
@@ -544,6 +858,24 @@ export interface RateLimitListInstance {
     params: RateLimitListInstancePageOptions,
     callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage>;
+  /**
+   * Retrieve a single page of RateLimitInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RateLimitListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<RateLimitPage>) => any
+  ): Promise<ApiResponse<RateLimitPage>>;
+  pageWithHttpInfo(
+    params: RateLimitListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<RateLimitPage>) => any
+  ): Promise<ApiResponse<RateLimitPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -616,6 +948,58 @@ export function RateLimitListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: RateLimitListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
+      throw new Error("Required parameter \"params['uniqueName']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["UniqueName"] = params["uniqueName"];
+    if (params["description"] !== undefined)
+      data["Description"] = params["description"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<RateLimitResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RateLimitInstance> => ({
+          ...response,
+          body: new RateLimitInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | RateLimitListInstancePageOptions
@@ -669,10 +1053,85 @@ export function RateLimitListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new RateLimitPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | RateLimitListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<RateLimitPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<RateLimitPage>) => any
+  ): Promise<ApiResponse<RateLimitPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<RateLimitPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RateLimitPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<RateLimitPage>) => any
+  ): Promise<ApiResponse<RateLimitPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<RateLimitPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RateLimitPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

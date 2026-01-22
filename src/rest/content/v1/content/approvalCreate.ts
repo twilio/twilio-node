@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Content approval request body
@@ -63,6 +64,24 @@ export interface ApprovalCreateListInstance {
     headers?: any,
     callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance>;
+
+  /**
+   * Create a ApprovalCreateInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApprovalCreateInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApprovalCreateInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalCreateInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -121,6 +140,56 @@ export function ApprovalCreateListInstance(
           instance._solution.contentSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApprovalCreateInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalCreateInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ApprovalCreateResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApprovalCreateInstance> => ({
+          ...response,
+          body: new ApprovalCreateInstance(
+            operationVersion,
+            response.body,
+            instance._solution.contentSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

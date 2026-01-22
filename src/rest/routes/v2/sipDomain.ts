@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a SipDomainInstance
@@ -41,6 +42,20 @@ export interface SipDomainContext {
   ): Promise<SipDomainInstance>;
 
   /**
+   * Fetch a SipDomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SipDomainInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>>;
+
+  /**
    * Update a SipDomainInstance
    *
    * @param callback - Callback to handle processed record
@@ -62,6 +77,35 @@ export interface SipDomainContext {
     params: SipDomainContextUpdateOptions,
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
+
+  /**
+   * Update a SipDomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SipDomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>>;
+  /**
+   * Update a SipDomainInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SipDomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SipDomainContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -117,6 +161,42 @@ export class SipDomainContextImpl implements SipDomainContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SipDomainResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SipDomainInstance> => ({
+          ...response,
+          body: new SipDomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sipDomain
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | SipDomainContextUpdateOptions
@@ -158,6 +238,61 @@ export class SipDomainContextImpl implements SipDomainContext {
           instance._solution.sipDomain
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | SipDomainContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<SipDomainInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["voiceRegion"] !== undefined)
+      data["VoiceRegion"] = params["voiceRegion"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<SipDomainResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SipDomainInstance> => ({
+          ...response,
+          body: new SipDomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sipDomain
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,6 +379,22 @@ export class SipDomainInstance {
   }
 
   /**
+   * Fetch a SipDomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SipDomainInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a SipDomainInstance
    *
    * @param callback - Callback to handle processed record
@@ -271,6 +422,45 @@ export class SipDomainInstance {
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a SipDomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SipDomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>>;
+  /**
+   * Update a SipDomainInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SipDomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SipDomainContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
+  ): Promise<ApiResponse<SipDomainInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

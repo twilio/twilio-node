@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 import { AssignedAddOnExtensionListInstance } from "./assignedAddOn/assignedAddOnExtension";
 
 /**
@@ -58,6 +60,7 @@ export interface AssignedAddOnListInstanceOptions {
 export interface AssignedAddOnListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -79,6 +82,17 @@ export interface AssignedAddOnContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a AssignedAddOnInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
@@ -88,6 +102,20 @@ export interface AssignedAddOnContext {
   fetch(
     callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance>;
+
+  /**
+   * Fetch a AssignedAddOnInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssignedAddOnInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssignedAddOnInstance>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -162,6 +190,30 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance> {
@@ -186,6 +238,44 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssignedAddOnInstance>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AssignedAddOnResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AssignedAddOnInstance> => ({
+          ...response,
+          body: new AssignedAddOnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.resourceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -323,6 +413,19 @@ export class AssignedAddOnInstance {
   }
 
   /**
+   * Remove a AssignedAddOnInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
@@ -333,6 +436,22 @@ export class AssignedAddOnInstance {
     callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a AssignedAddOnInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssignedAddOnInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssignedAddOnInstance>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -395,6 +514,22 @@ export interface AssignedAddOnListInstance {
   ): Promise<AssignedAddOnInstance>;
 
   /**
+   * Create a AssignedAddOnInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssignedAddOnInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: AssignedAddOnListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssignedAddOnInstance>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance>>;
+
+  /**
    * Streams AssignedAddOnInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -423,6 +558,34 @@ export interface AssignedAddOnListInstance {
     ) => void
   ): void;
   /**
+   * Streams AssignedAddOnInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssignedAddOnListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: AssignedAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: AssignedAddOnListInstanceEachOptions,
+    callback?: (
+      item: AssignedAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of AssignedAddOnInstance records from the API.
    *
    * The request is executed immediately.
@@ -434,6 +597,21 @@ export interface AssignedAddOnListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage>;
+  /**
+   * Retrieve a single target page of AssignedAddOnInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnPage>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnPage>>;
   /**
    * Lists AssignedAddOnInstance records from the API as a list.
    *
@@ -450,6 +628,30 @@ export interface AssignedAddOnListInstance {
     params: AssignedAddOnListInstanceOptions,
     callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
   ): Promise<AssignedAddOnInstance[]>;
+  /**
+   * Lists AssignedAddOnInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssignedAddOnListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance[]>>;
+  listWithHttpInfo(
+    params: AssignedAddOnListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance[]>>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
    *
@@ -468,6 +670,30 @@ export interface AssignedAddOnListInstance {
     params: AssignedAddOnListInstancePageOptions,
     callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage>;
+  /**
+   * Retrieve a single page of AssignedAddOnInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssignedAddOnListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnPage>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnPage>>;
+  pageWithHttpInfo(
+    params: AssignedAddOnListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnPage>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -549,6 +775,62 @@ export function AssignedAddOnListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AssignedAddOnListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnInstance>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["installedAddOnSid"] === null ||
+      params["installedAddOnSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['installedAddOnSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["InstalledAddOnSid"] = params["installedAddOnSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AssignedAddOnResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AssignedAddOnInstance> => ({
+          ...response,
+          body: new AssignedAddOnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.resourceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | AssignedAddOnListInstancePageOptions
@@ -602,10 +884,91 @@ export function AssignedAddOnListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new AssignedAddOnPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AssignedAddOnListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<AssignedAddOnPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssignedAddOnPage>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<AssignedAddOnPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AssignedAddOnPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<AssignedAddOnPage>
+    ) => any
+  ): Promise<ApiResponse<AssignedAddOnPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AssignedAddOnPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssignedAddOnPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

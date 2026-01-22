@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
   /**
@@ -72,6 +73,24 @@ export interface InstalledAddOnUsageListInstance {
     headers?: any,
     callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance>;
+
+  /**
+   * Create a InstalledAddOnUsageInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InstalledAddOnUsageInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InstalledAddOnUsageInstance>
+    ) => any
+  ): Promise<ApiResponse<InstalledAddOnUsageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -130,6 +149,56 @@ export function InstalledAddOnUsageListInstance(
           instance._solution.installedAddOnSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InstalledAddOnUsageInstance>
+    ) => any
+  ): Promise<ApiResponse<InstalledAddOnUsageInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<InstalledAddOnUsageResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InstalledAddOnUsageInstance> => ({
+          ...response,
+          body: new InstalledAddOnUsageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.installedAddOnSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -17,6 +17,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
@@ -119,6 +120,19 @@ export interface PaymentContext {
   ): Promise<PaymentInstance>;
 
   /**
+   * Update a PaymentInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PaymentInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: PaymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+  ): Promise<ApiResponse<PaymentInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -214,6 +228,74 @@ export class PaymentContextImpl implements PaymentContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: PaymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+  ): Promise<ApiResponse<PaymentInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["idempotencyKey"] === null ||
+      params["idempotencyKey"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['idempotencyKey']\" missing."
+      );
+    }
+
+    if (
+      params["statusCallback"] === null ||
+      params["statusCallback"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['statusCallback']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["IdempotencyKey"] = params["idempotencyKey"];
+
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["capture"] !== undefined) data["Capture"] = params["capture"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<PaymentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PaymentInstance> => ({
+          ...response,
+          body: new PaymentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -326,6 +408,26 @@ export class PaymentInstance {
   }
 
   /**
+   * Update a PaymentInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PaymentInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: PaymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+  ): Promise<ApiResponse<PaymentInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+  ): Promise<ApiResponse<PaymentInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -371,6 +473,19 @@ export interface PaymentListInstance {
     params: PaymentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance>;
+
+  /**
+   * Create a PaymentInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PaymentInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: PaymentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+  ): Promise<ApiResponse<PaymentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -480,6 +595,95 @@ export function PaymentListInstance(
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: PaymentListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<PaymentInstance>) => any
+  ): Promise<ApiResponse<PaymentInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["idempotencyKey"] === null ||
+      params["idempotencyKey"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['idempotencyKey']\" missing."
+      );
+    }
+
+    if (
+      params["statusCallback"] === null ||
+      params["statusCallback"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['statusCallback']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["IdempotencyKey"] = params["idempotencyKey"];
+
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["bankAccountType"] !== undefined)
+      data["BankAccountType"] = params["bankAccountType"];
+    if (params["chargeAmount"] !== undefined)
+      data["ChargeAmount"] = params["chargeAmount"];
+    if (params["currency"] !== undefined) data["Currency"] = params["currency"];
+    if (params["description"] !== undefined)
+      data["Description"] = params["description"];
+    if (params["input"] !== undefined) data["Input"] = params["input"];
+    if (params["minPostalCodeLength"] !== undefined)
+      data["MinPostalCodeLength"] = params["minPostalCodeLength"];
+    if (params["parameter"] !== undefined)
+      data["Parameter"] = serialize.object(params["parameter"]);
+    if (params["paymentConnector"] !== undefined)
+      data["PaymentConnector"] = params["paymentConnector"];
+    if (params["paymentMethod"] !== undefined)
+      data["PaymentMethod"] = params["paymentMethod"];
+    if (params["postalCode"] !== undefined)
+      data["PostalCode"] = serialize.bool(params["postalCode"]);
+    if (params["securityCode"] !== undefined)
+      data["SecurityCode"] = serialize.bool(params["securityCode"]);
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    if (params["tokenType"] !== undefined)
+      data["TokenType"] = params["tokenType"];
+    if (params["validCardTypes"] !== undefined)
+      data["ValidCardTypes"] = params["validCardTypes"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<PaymentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PaymentInstance> => ({
+          ...response,
+          body: new PaymentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -17,6 +17,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a NewKeyInstance
@@ -57,6 +58,29 @@ export interface NewKeyListInstance {
     params: NewKeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewKeyInstance) => any
   ): Promise<NewKeyInstance>;
+
+  /**
+   * Create a NewKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewKeyInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NewKeyInstance>) => any
+  ): Promise<ApiResponse<NewKeyInstance>>;
+  /**
+   * Create a NewKeyInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewKeyInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NewKeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<NewKeyInstance>) => any
+  ): Promise<ApiResponse<NewKeyInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -117,6 +141,55 @@ export function NewKeyListInstance(
           instance._solution.accountSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | NewKeyListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<NewKeyInstance>) => any),
+    callback?: (error: Error | null, items: ApiResponse<NewKeyInstance>) => any
+  ): Promise<ApiResponse<NewKeyInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NewKeyResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewKeyInstance> => ({
+          ...response,
+          body: new NewKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

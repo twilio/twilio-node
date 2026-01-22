@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export interface SinkTestSolution {
   sid: string;
@@ -37,6 +38,20 @@ export interface SinkTestListInstance {
   create(
     callback?: (error: Error | null, item?: SinkTestInstance) => any
   ): Promise<SinkTestInstance>;
+
+  /**
+   * Create a SinkTestInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkTestInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SinkTestInstance>
+    ) => any
+  ): Promise<ApiResponse<SinkTestInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,6 +91,41 @@ export function SinkTestListInstance(
       (payload) =>
         new SinkTestInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SinkTestInstance>
+    ) => any
+  ): Promise<ApiResponse<SinkTestInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<SinkTestResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SinkTestInstance> => ({
+          ...response,
+          body: new SinkTestInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

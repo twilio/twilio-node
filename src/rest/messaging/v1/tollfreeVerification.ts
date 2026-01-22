@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Describe how a user opts-in to text messages.
@@ -264,6 +266,7 @@ export interface TollfreeVerificationListInstancePageOptions {
   pageSize?: number;
   /** The trust product sids / tollfree bundle sids of tollfree verifications */
   trustProductSid?: Array<string>;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -283,6 +286,17 @@ export interface TollfreeVerificationContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a TollfreeVerificationInstance
    *
    * @param callback - Callback to handle processed record
@@ -292,6 +306,20 @@ export interface TollfreeVerificationContext {
   fetch(
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance>;
+
+  /**
+   * Fetch a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>>;
 
   /**
    * Update a TollfreeVerificationInstance
@@ -315,6 +343,35 @@ export interface TollfreeVerificationContext {
     params: TollfreeVerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance>;
+
+  /**
+   * Update a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>>;
+  /**
+   * Update a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TollfreeVerificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -362,6 +419,30 @@ export class TollfreeVerificationContextImpl
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
@@ -384,6 +465,42 @@ export class TollfreeVerificationContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TollfreeVerificationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TollfreeVerificationInstance> => ({
+          ...response,
+          body: new TollfreeVerificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -512,6 +629,143 @@ export class TollfreeVerificationContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | TollfreeVerificationContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<TollfreeVerificationInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["businessName"] !== undefined)
+      data["BusinessName"] = params["businessName"];
+    if (params["businessWebsite"] !== undefined)
+      data["BusinessWebsite"] = params["businessWebsite"];
+    if (params["notificationEmail"] !== undefined)
+      data["NotificationEmail"] = params["notificationEmail"];
+    if (params["useCaseCategories"] !== undefined)
+      data["UseCaseCategories"] = serialize.map(
+        params["useCaseCategories"],
+        (e: string) => e
+      );
+    if (params["useCaseSummary"] !== undefined)
+      data["UseCaseSummary"] = params["useCaseSummary"];
+    if (params["productionMessageSample"] !== undefined)
+      data["ProductionMessageSample"] = params["productionMessageSample"];
+    if (params["optInImageUrls"] !== undefined)
+      data["OptInImageUrls"] = serialize.map(
+        params["optInImageUrls"],
+        (e: string) => e
+      );
+    if (params["optInType"] !== undefined)
+      data["OptInType"] = params["optInType"];
+    if (params["messageVolume"] !== undefined)
+      data["MessageVolume"] = params["messageVolume"];
+    if (params["businessStreetAddress"] !== undefined)
+      data["BusinessStreetAddress"] = params["businessStreetAddress"];
+    if (params["businessStreetAddress2"] !== undefined)
+      data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
+    if (params["businessCity"] !== undefined)
+      data["BusinessCity"] = params["businessCity"];
+    if (params["businessStateProvinceRegion"] !== undefined)
+      data["BusinessStateProvinceRegion"] =
+        params["businessStateProvinceRegion"];
+    if (params["businessPostalCode"] !== undefined)
+      data["BusinessPostalCode"] = params["businessPostalCode"];
+    if (params["businessCountry"] !== undefined)
+      data["BusinessCountry"] = params["businessCountry"];
+    if (params["additionalInformation"] !== undefined)
+      data["AdditionalInformation"] = params["additionalInformation"];
+    if (params["businessContactFirstName"] !== undefined)
+      data["BusinessContactFirstName"] = params["businessContactFirstName"];
+    if (params["businessContactLastName"] !== undefined)
+      data["BusinessContactLastName"] = params["businessContactLastName"];
+    if (params["businessContactEmail"] !== undefined)
+      data["BusinessContactEmail"] = params["businessContactEmail"];
+    if (params["businessContactPhone"] !== undefined)
+      data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["editReason"] !== undefined)
+      data["EditReason"] = params["editReason"];
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["businessRegistrationPhoneNumber"] !== undefined)
+      data["BusinessRegistrationPhoneNumber"] =
+        params["businessRegistrationPhoneNumber"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
+    if (params["vettingProvider"] !== undefined)
+      data["VettingProvider"] = params["vettingProvider"];
+    if (params["vettingId"] !== undefined)
+      data["VettingId"] = params["vettingId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TollfreeVerificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TollfreeVerificationInstance> => ({
+          ...response,
+          body: new TollfreeVerificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -883,6 +1137,19 @@ export class TollfreeVerificationInstance {
   }
 
   /**
+   * Remove a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a TollfreeVerificationInstance
    *
    * @param callback - Callback to handle processed record
@@ -893,6 +1160,22 @@ export class TollfreeVerificationInstance {
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -923,6 +1206,45 @@ export class TollfreeVerificationInstance {
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>>;
+  /**
+   * Update a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TollfreeVerificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -1017,6 +1339,22 @@ export interface TollfreeVerificationListInstance {
   ): Promise<TollfreeVerificationInstance>;
 
   /**
+   * Create a TollfreeVerificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TollfreeVerificationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>>;
+
+  /**
    * Streams TollfreeVerificationInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -1045,6 +1383,34 @@ export interface TollfreeVerificationListInstance {
     ) => void
   ): void;
   /**
+   * Streams TollfreeVerificationInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TollfreeVerificationListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: TollfreeVerificationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: TollfreeVerificationListInstanceEachOptions,
+    callback?: (
+      item: TollfreeVerificationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of TollfreeVerificationInstance records from the API.
    *
    * The request is executed immediately.
@@ -1056,6 +1422,21 @@ export interface TollfreeVerificationListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
+  /**
+   * Retrieve a single target page of TollfreeVerificationInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationPage>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationPage>>;
   /**
    * Lists TollfreeVerificationInstance records from the API as a list.
    *
@@ -1079,6 +1460,30 @@ export interface TollfreeVerificationListInstance {
     ) => any
   ): Promise<TollfreeVerificationInstance[]>;
   /**
+   * Lists TollfreeVerificationInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TollfreeVerificationListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationInstance[]>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance[]>>;
+  listWithHttpInfo(
+    params: TollfreeVerificationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationInstance[]>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance[]>>;
+  /**
    * Retrieve a single page of TollfreeVerificationInstance records from the API.
    *
    * The request is executed immediately.
@@ -1096,6 +1501,30 @@ export interface TollfreeVerificationListInstance {
     params: TollfreeVerificationListInstancePageOptions,
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
+  /**
+   * Retrieve a single page of TollfreeVerificationInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TollfreeVerificationListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationPage>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationPage>>;
+  pageWithHttpInfo(
+    params: TollfreeVerificationListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationPage>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -1321,6 +1750,219 @@ export function TollfreeVerificationListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: TollfreeVerificationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["businessName"] === null ||
+      params["businessName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['businessName']\" missing.");
+    }
+
+    if (
+      params["businessWebsite"] === null ||
+      params["businessWebsite"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['businessWebsite']\" missing."
+      );
+    }
+
+    if (
+      params["notificationEmail"] === null ||
+      params["notificationEmail"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['notificationEmail']\" missing."
+      );
+    }
+
+    if (
+      params["useCaseCategories"] === null ||
+      params["useCaseCategories"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['useCaseCategories']\" missing."
+      );
+    }
+
+    if (
+      params["useCaseSummary"] === null ||
+      params["useCaseSummary"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['useCaseSummary']\" missing."
+      );
+    }
+
+    if (
+      params["productionMessageSample"] === null ||
+      params["productionMessageSample"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['productionMessageSample']\" missing."
+      );
+    }
+
+    if (
+      params["optInImageUrls"] === null ||
+      params["optInImageUrls"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['optInImageUrls']\" missing."
+      );
+    }
+
+    if (params["optInType"] === null || params["optInType"] === undefined) {
+      throw new Error("Required parameter \"params['optInType']\" missing.");
+    }
+
+    if (
+      params["messageVolume"] === null ||
+      params["messageVolume"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messageVolume']\" missing."
+      );
+    }
+
+    if (
+      params["tollfreePhoneNumberSid"] === null ||
+      params["tollfreePhoneNumberSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['tollfreePhoneNumberSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["BusinessName"] = params["businessName"];
+
+    data["BusinessWebsite"] = params["businessWebsite"];
+
+    data["NotificationEmail"] = params["notificationEmail"];
+
+    data["UseCaseCategories"] = serialize.map(
+      params["useCaseCategories"],
+      (e: string) => e
+    );
+
+    data["UseCaseSummary"] = params["useCaseSummary"];
+
+    data["ProductionMessageSample"] = params["productionMessageSample"];
+
+    data["OptInImageUrls"] = serialize.map(
+      params["optInImageUrls"],
+      (e: string) => e
+    );
+
+    data["OptInType"] = params["optInType"];
+
+    data["MessageVolume"] = params["messageVolume"];
+
+    data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
+    if (params["customerProfileSid"] !== undefined)
+      data["CustomerProfileSid"] = params["customerProfileSid"];
+    if (params["businessStreetAddress"] !== undefined)
+      data["BusinessStreetAddress"] = params["businessStreetAddress"];
+    if (params["businessStreetAddress2"] !== undefined)
+      data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
+    if (params["businessCity"] !== undefined)
+      data["BusinessCity"] = params["businessCity"];
+    if (params["businessStateProvinceRegion"] !== undefined)
+      data["BusinessStateProvinceRegion"] =
+        params["businessStateProvinceRegion"];
+    if (params["businessPostalCode"] !== undefined)
+      data["BusinessPostalCode"] = params["businessPostalCode"];
+    if (params["businessCountry"] !== undefined)
+      data["BusinessCountry"] = params["businessCountry"];
+    if (params["additionalInformation"] !== undefined)
+      data["AdditionalInformation"] = params["additionalInformation"];
+    if (params["businessContactFirstName"] !== undefined)
+      data["BusinessContactFirstName"] = params["businessContactFirstName"];
+    if (params["businessContactLastName"] !== undefined)
+      data["BusinessContactLastName"] = params["businessContactLastName"];
+    if (params["businessContactEmail"] !== undefined)
+      data["BusinessContactEmail"] = params["businessContactEmail"];
+    if (params["businessContactPhone"] !== undefined)
+      data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["businessRegistrationPhoneNumber"] !== undefined)
+      data["BusinessRegistrationPhoneNumber"] =
+        params["businessRegistrationPhoneNumber"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
+    if (params["vettingProvider"] !== undefined)
+      data["VettingProvider"] = params["vettingProvider"];
+    if (params["vettingId"] !== undefined)
+      data["VettingId"] = params["vettingId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TollfreeVerificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TollfreeVerificationInstance> => ({
+          ...response,
+          body: new TollfreeVerificationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | TollfreeVerificationListInstancePageOptions
@@ -1390,7 +2032,6 @@ export function TollfreeVerificationListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new TollfreeVerificationPage(
@@ -1398,6 +2039,103 @@ export function TollfreeVerificationListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TollfreeVerificationListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<TollfreeVerificationPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TollfreeVerificationPage>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["tollfreePhoneNumberSid"] !== undefined)
+      data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["includeSubAccounts"] !== undefined)
+      data["IncludeSubAccounts"] = serialize.bool(params["includeSubAccounts"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["trustProductSid"] !== undefined)
+      data["TrustProductSid"] = serialize.map(
+        params["trustProductSid"],
+        (e: string) => e
+      );
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<TollfreeVerificationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TollfreeVerificationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<TollfreeVerificationPage>
+    ) => any
+  ): Promise<ApiResponse<TollfreeVerificationPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TollfreeVerificationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TollfreeVerificationPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

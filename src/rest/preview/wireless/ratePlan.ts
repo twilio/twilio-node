@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import Wireless from "../Wireless";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a RatePlanInstance
@@ -85,6 +87,7 @@ export interface RatePlanListInstanceOptions {
 export interface RatePlanListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -104,6 +107,17 @@ export interface RatePlanContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
@@ -113,6 +127,20 @@ export interface RatePlanContext {
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance>;
+
+  /**
+   * Fetch a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
 
   /**
    * Update a RatePlanInstance
@@ -136,6 +164,35 @@ export interface RatePlanContext {
     params: RatePlanContextUpdateOptions,
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance>;
+
+  /**
+   * Update a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
+  /**
+   * Update a RatePlanInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RatePlanContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -181,6 +238,30 @@ export class RatePlanContextImpl implements RatePlanContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
@@ -199,6 +280,42 @@ export class RatePlanContextImpl implements RatePlanContext {
       (payload) =>
         new RatePlanInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RatePlanResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RatePlanInstance> => ({
+          ...response,
+          body: new RatePlanInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,6 +361,61 @@ export class RatePlanContextImpl implements RatePlanContext {
       (payload) =>
         new RatePlanInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | RatePlanContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<RatePlanInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<RatePlanResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RatePlanInstance> => ({
+          ...response,
+          body: new RatePlanInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -350,6 +522,19 @@ export class RatePlanInstance {
   }
 
   /**
+   * Remove a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
@@ -360,6 +545,22 @@ export class RatePlanInstance {
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -390,6 +591,45 @@ export class RatePlanInstance {
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
+  /**
+   * Update a RatePlanInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RatePlanContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -455,6 +695,35 @@ export interface RatePlanListInstance {
   ): Promise<RatePlanInstance>;
 
   /**
+   * Create a RatePlanInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
+  /**
+   * Create a RatePlanInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RatePlanInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: RatePlanListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>>;
+
+  /**
    * Streams RatePlanInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -477,6 +746,28 @@ export interface RatePlanListInstance {
     callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams RatePlanInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RatePlanListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: RatePlanListInstanceEachOptions,
+    callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of RatePlanInstance records from the API.
    *
    * The request is executed immediately.
@@ -488,6 +779,18 @@ export interface RatePlanListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage>;
+  /**
+   * Retrieve a single target page of RatePlanInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<RatePlanPage>) => any
+  ): Promise<ApiResponse<RatePlanPage>>;
   /**
    * Lists RatePlanInstance records from the API as a list.
    *
@@ -504,6 +807,30 @@ export interface RatePlanListInstance {
     params: RatePlanListInstanceOptions,
     callback?: (error: Error | null, items: RatePlanInstance[]) => any
   ): Promise<RatePlanInstance[]>;
+  /**
+   * Lists RatePlanInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RatePlanListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RatePlanInstance[]>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance[]>>;
+  listWithHttpInfo(
+    params: RatePlanListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RatePlanInstance[]>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance[]>>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    *
@@ -522,6 +849,24 @@ export interface RatePlanListInstance {
     params: RatePlanListInstancePageOptions,
     callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage>;
+  /**
+   * Retrieve a single page of RatePlanInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RatePlanListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<RatePlanPage>) => any
+  ): Promise<ApiResponse<RatePlanPage>>;
+  pageWithHttpInfo(
+    params: RatePlanListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<RatePlanPage>) => any
+  ): Promise<ApiResponse<RatePlanPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -605,6 +950,77 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | RatePlanListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<RatePlanInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RatePlanInstance>
+    ) => any
+  ): Promise<ApiResponse<RatePlanInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["dataEnabled"] !== undefined)
+      data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+    if (params["dataLimit"] !== undefined)
+      data["DataLimit"] = params["dataLimit"];
+    if (params["dataMetering"] !== undefined)
+      data["DataMetering"] = params["dataMetering"];
+    if (params["messagingEnabled"] !== undefined)
+      data["MessagingEnabled"] = serialize.bool(params["messagingEnabled"]);
+    if (params["voiceEnabled"] !== undefined)
+      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    if (params["commandsEnabled"] !== undefined)
+      data["CommandsEnabled"] = serialize.bool(params["commandsEnabled"]);
+    if (params["nationalRoamingEnabled"] !== undefined)
+      data["NationalRoamingEnabled"] = serialize.bool(
+        params["nationalRoamingEnabled"]
+      );
+    if (params["internationalRoaming"] !== undefined)
+      data["InternationalRoaming"] = serialize.map(
+        params["internationalRoaming"],
+        (e: string) => e
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<RatePlanResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RatePlanInstance> => ({
+          ...response,
+          body: new RatePlanInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | RatePlanListInstancePageOptions
@@ -658,10 +1074,81 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new RatePlanPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | RatePlanListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<RatePlanPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<RatePlanPage>) => any
+  ): Promise<ApiResponse<RatePlanPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<RatePlanPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RatePlanPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<RatePlanPage>) => any
+  ): Promise<ApiResponse<RatePlanPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<RatePlanPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RatePlanPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

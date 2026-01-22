@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a AuthorizeInstance
@@ -63,6 +64,35 @@ export interface AuthorizeListInstance {
     params: AuthorizeListInstanceFetchOptions,
     callback?: (error: Error | null, item?: AuthorizeInstance) => any
   ): Promise<AuthorizeInstance>;
+
+  /**
+   * Fetch a AuthorizeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthorizeInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthorizeInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthorizeInstance>>;
+  /**
+   * Fetch a AuthorizeInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthorizeInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: AuthorizeListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthorizeInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthorizeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -115,6 +145,58 @@ export function AuthorizeListInstance(version: V1): AuthorizeListInstance {
     operationPromise = operationPromise.then(
       (payload) => new AuthorizeInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | AuthorizeListInstanceFetchOptions
+      | ((error: Error | null, items: ApiResponse<AuthorizeInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthorizeInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthorizeInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["responseType"] !== undefined)
+      data["ResponseType"] = params["responseType"];
+    if (params["clientId"] !== undefined) data["ClientId"] = params["clientId"];
+    if (params["redirectUri"] !== undefined)
+      data["RedirectUri"] = params["redirectUri"];
+    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AuthorizeResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AuthorizeInstance> => ({
+          ...response,
+          body: new AuthorizeInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

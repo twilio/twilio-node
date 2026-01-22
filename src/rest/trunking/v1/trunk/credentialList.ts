@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a CredentialListInstance
@@ -60,6 +62,7 @@ export interface CredentialListListInstanceOptions {
 export interface CredentialListListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -79,6 +82,17 @@ export interface CredentialListContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a CredentialListInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
@@ -88,6 +102,20 @@ export interface CredentialListContext {
   fetch(
     callback?: (error: Error | null, item?: CredentialListInstance) => any
   ): Promise<CredentialListInstance>;
+
+  /**
+   * Fetch a CredentialListInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CredentialListInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -138,6 +166,30 @@ export class CredentialListContextImpl implements CredentialListContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: CredentialListInstance) => any
   ): Promise<CredentialListInstance> {
@@ -161,6 +213,43 @@ export class CredentialListContextImpl implements CredentialListContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CredentialListResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CredentialListInstance> => ({
+          ...response,
+          body: new CredentialListInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -272,6 +361,19 @@ export class CredentialListInstance {
   }
 
   /**
+   * Remove a CredentialListInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
@@ -282,6 +384,22 @@ export class CredentialListInstance {
     callback?: (error: Error | null, item?: CredentialListInstance) => any
   ): Promise<CredentialListInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a CredentialListInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CredentialListInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -332,6 +450,22 @@ export interface CredentialListListInstance {
   ): Promise<CredentialListInstance>;
 
   /**
+   * Create a CredentialListInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CredentialListInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CredentialListListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance>>;
+
+  /**
    * Streams CredentialListInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -360,6 +494,34 @@ export interface CredentialListListInstance {
     ) => void
   ): void;
   /**
+   * Streams CredentialListInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CredentialListListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: CredentialListInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: CredentialListListInstanceEachOptions,
+    callback?: (
+      item: CredentialListInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of CredentialListInstance records from the API.
    *
    * The request is executed immediately.
@@ -371,6 +533,21 @@ export interface CredentialListListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CredentialListPage) => any
   ): Promise<CredentialListPage>;
+  /**
+   * Retrieve a single target page of CredentialListInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListPage>>;
   /**
    * Lists CredentialListInstance records from the API as a list.
    *
@@ -387,6 +564,30 @@ export interface CredentialListListInstance {
     params: CredentialListListInstanceOptions,
     callback?: (error: Error | null, items: CredentialListInstance[]) => any
   ): Promise<CredentialListInstance[]>;
+  /**
+   * Lists CredentialListInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CredentialListListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance[]>>;
+  listWithHttpInfo(
+    params: CredentialListListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance[]>>;
   /**
    * Retrieve a single page of CredentialListInstance records from the API.
    *
@@ -405,6 +606,30 @@ export interface CredentialListListInstance {
     params: CredentialListListInstancePageOptions,
     callback?: (error: Error | null, items: CredentialListPage) => any
   ): Promise<CredentialListPage>;
+  /**
+   * Retrieve a single page of CredentialListInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CredentialListListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListPage>>;
+  pageWithHttpInfo(
+    params: CredentialListListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -480,6 +705,61 @@ export function CredentialListListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CredentialListListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["credentialListSid"] === null ||
+      params["credentialListSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['credentialListSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["CredentialListSid"] = params["credentialListSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CredentialListResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CredentialListInstance> => ({
+          ...response,
+          body: new CredentialListInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | CredentialListListInstancePageOptions
@@ -533,10 +813,91 @@ export function CredentialListListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new CredentialListPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CredentialListListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<CredentialListPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<CredentialListPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CredentialListPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CredentialListPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CredentialListPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CredentialListPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

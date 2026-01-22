@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 import { FunctionVersionContentListInstance } from "./functionVersion/functionVersionContent";
 
 /**
@@ -59,6 +61,7 @@ export interface FunctionVersionListInstanceOptions {
 export interface FunctionVersionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -78,6 +81,20 @@ export interface FunctionVersionContext {
   fetch(
     callback?: (error: Error | null, item?: FunctionVersionInstance) => any
   ): Promise<FunctionVersionInstance>;
+
+  /**
+   * Fetch a FunctionVersionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionVersionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionVersionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -156,6 +173,44 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionVersionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FunctionVersionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FunctionVersionInstance> => ({
+          ...response,
+          body: new FunctionVersionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.functionSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -275,6 +330,22 @@ export class FunctionVersionInstance {
   }
 
   /**
+   * Fetch a FunctionVersionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionVersionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionVersionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Access the functionVersionContent.
    */
   functionVersionContent(): FunctionVersionContentListInstance {
@@ -347,6 +418,34 @@ export interface FunctionVersionListInstance {
     ) => void
   ): void;
   /**
+   * Streams FunctionVersionInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionVersionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: FunctionVersionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: FunctionVersionListInstanceEachOptions,
+    callback?: (
+      item: FunctionVersionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of FunctionVersionInstance records from the API.
    *
    * The request is executed immediately.
@@ -358,6 +457,21 @@ export interface FunctionVersionListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: FunctionVersionPage) => any
   ): Promise<FunctionVersionPage>;
+  /**
+   * Retrieve a single target page of FunctionVersionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionVersionPage>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionPage>>;
   /**
    * Lists FunctionVersionInstance records from the API as a list.
    *
@@ -374,6 +488,30 @@ export interface FunctionVersionListInstance {
     params: FunctionVersionListInstanceOptions,
     callback?: (error: Error | null, items: FunctionVersionInstance[]) => any
   ): Promise<FunctionVersionInstance[]>;
+  /**
+   * Lists FunctionVersionInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionVersionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionVersionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionInstance[]>>;
+  listWithHttpInfo(
+    params: FunctionVersionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionVersionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionInstance[]>>;
   /**
    * Retrieve a single page of FunctionVersionInstance records from the API.
    *
@@ -392,6 +530,30 @@ export interface FunctionVersionListInstance {
     params: FunctionVersionListInstancePageOptions,
     callback?: (error: Error | null, items: FunctionVersionPage) => any
   ): Promise<FunctionVersionPage>;
+  /**
+   * Retrieve a single page of FunctionVersionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionVersionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionVersionPage>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionPage>>;
+  pageWithHttpInfo(
+    params: FunctionVersionListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionVersionPage>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -481,10 +643,91 @@ export function FunctionVersionListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new FunctionVersionPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | FunctionVersionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<FunctionVersionPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionVersionPage>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<FunctionVersionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FunctionVersionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<FunctionVersionPage>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<FunctionVersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FunctionVersionPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

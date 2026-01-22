@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Type of Business.
@@ -114,6 +115,10 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   externalReferenceId?: string;
   /** List of keywords that users can text in to opt in to receive messages. */
   optInKeywords?: Array<string>;
+  /** Unique identifier for the created Vetting . */
+  vettingId?: string;
+  /** Name of the vetting provider. */
+  vettingProvider?: string;
 }
 
 export interface ComplianceTollfreeInquiriesSolution {}
@@ -138,6 +143,22 @@ export interface ComplianceTollfreeInquiriesListInstance {
       item?: ComplianceTollfreeInquiriesInstance
     ) => any
   ): Promise<ComplianceTollfreeInquiriesInstance>;
+
+  /**
+   * Create a ComplianceTollfreeInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceTollfreeInquiriesInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceTollfreeInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceTollfreeInquiriesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -271,6 +292,10 @@ export function ComplianceTollfreeInquiriesListInstance(
         params["optInKeywords"],
         (e: string) => e
       );
+    if (params["vettingId"] !== undefined)
+      data["VettingId"] = params["vettingId"];
+    if (params["vettingProvider"] !== undefined)
+      data["VettingProvider"] = params["vettingProvider"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -288,6 +313,157 @@ export function ComplianceTollfreeInquiriesListInstance(
       (payload) =>
         new ComplianceTollfreeInquiriesInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ComplianceTollfreeInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceTollfreeInquiriesInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["tollfreePhoneNumber"] === null ||
+      params["tollfreePhoneNumber"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['tollfreePhoneNumber']\" missing."
+      );
+    }
+
+    if (
+      params["notificationEmail"] === null ||
+      params["notificationEmail"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['notificationEmail']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["TollfreePhoneNumber"] = params["tollfreePhoneNumber"];
+
+    data["NotificationEmail"] = params["notificationEmail"];
+    if (params["customerProfileSid"] !== undefined)
+      data["CustomerProfileSid"] = params["customerProfileSid"];
+    if (params["businessName"] !== undefined)
+      data["BusinessName"] = params["businessName"];
+    if (params["businessWebsite"] !== undefined)
+      data["BusinessWebsite"] = params["businessWebsite"];
+    if (params["useCaseCategories"] !== undefined)
+      data["UseCaseCategories"] = serialize.map(
+        params["useCaseCategories"],
+        (e: string) => e
+      );
+    if (params["useCaseSummary"] !== undefined)
+      data["UseCaseSummary"] = params["useCaseSummary"];
+    if (params["productionMessageSample"] !== undefined)
+      data["ProductionMessageSample"] = params["productionMessageSample"];
+    if (params["optInImageUrls"] !== undefined)
+      data["OptInImageUrls"] = serialize.map(
+        params["optInImageUrls"],
+        (e: string) => e
+      );
+    if (params["optInType"] !== undefined)
+      data["OptInType"] = params["optInType"];
+    if (params["messageVolume"] !== undefined)
+      data["MessageVolume"] = params["messageVolume"];
+    if (params["businessStreetAddress"] !== undefined)
+      data["BusinessStreetAddress"] = params["businessStreetAddress"];
+    if (params["businessStreetAddress2"] !== undefined)
+      data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
+    if (params["businessCity"] !== undefined)
+      data["BusinessCity"] = params["businessCity"];
+    if (params["businessStateProvinceRegion"] !== undefined)
+      data["BusinessStateProvinceRegion"] =
+        params["businessStateProvinceRegion"];
+    if (params["businessPostalCode"] !== undefined)
+      data["BusinessPostalCode"] = params["businessPostalCode"];
+    if (params["businessCountry"] !== undefined)
+      data["BusinessCountry"] = params["businessCountry"];
+    if (params["additionalInformation"] !== undefined)
+      data["AdditionalInformation"] = params["additionalInformation"];
+    if (params["businessContactFirstName"] !== undefined)
+      data["BusinessContactFirstName"] = params["businessContactFirstName"];
+    if (params["businessContactLastName"] !== undefined)
+      data["BusinessContactLastName"] = params["businessContactLastName"];
+    if (params["businessContactEmail"] !== undefined)
+      data["BusinessContactEmail"] = params["businessContactEmail"];
+    if (params["businessContactPhone"] !== undefined)
+      data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+    if (params["skipMessagingUseCase"] !== undefined)
+      data["SkipMessagingUseCase"] = serialize.bool(
+        params["skipMessagingUseCase"]
+      );
+    if (params["businessRegistrationNumber"] !== undefined)
+      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    if (params["businessRegistrationAuthority"] !== undefined)
+      data["BusinessRegistrationAuthority"] =
+        params["businessRegistrationAuthority"];
+    if (params["businessRegistrationCountry"] !== undefined)
+      data["BusinessRegistrationCountry"] =
+        params["businessRegistrationCountry"];
+    if (params["businessType"] !== undefined)
+      data["BusinessType"] = params["businessType"];
+    if (params["doingBusinessAs"] !== undefined)
+      data["DoingBusinessAs"] = params["doingBusinessAs"];
+    if (params["optInConfirmationMessage"] !== undefined)
+      data["OptInConfirmationMessage"] = params["optInConfirmationMessage"];
+    if (params["helpMessageSample"] !== undefined)
+      data["HelpMessageSample"] = params["helpMessageSample"];
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
+    if (params["ageGatedContent"] !== undefined)
+      data["AgeGatedContent"] = serialize.bool(params["ageGatedContent"]);
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
+    if (params["vettingId"] !== undefined)
+      data["VettingId"] = params["vettingId"];
+    if (params["vettingProvider"] !== undefined)
+      data["VettingProvider"] = params["vettingProvider"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ComplianceTollfreeInquiriesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ComplianceTollfreeInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceTollfreeInquiriesInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

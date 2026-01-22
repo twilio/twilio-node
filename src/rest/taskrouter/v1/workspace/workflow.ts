@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { WorkflowCumulativeStatisticsListInstance } from "./workflow/workflowCumulativeStatistics";
 import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics";
 import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
@@ -92,6 +94,7 @@ export interface WorkflowListInstancePageOptions {
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -115,6 +118,17 @@ export interface WorkflowContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a WorkflowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
@@ -124,6 +138,20 @@ export interface WorkflowContext {
   fetch(
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance>;
+
+  /**
+   * Fetch a WorkflowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>>;
 
   /**
    * Update a WorkflowInstance
@@ -147,6 +175,35 @@ export interface WorkflowContext {
     params: WorkflowContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance>;
+
+  /**
+   * Update a WorkflowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>>;
+  /**
+   * Update a WorkflowInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: WorkflowContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -234,6 +291,30 @@ export class WorkflowContextImpl implements WorkflowContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
@@ -257,6 +338,43 @@ export class WorkflowContextImpl implements WorkflowContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkflowResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkflowInstance> => ({
+          ...response,
+          body: new WorkflowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -316,6 +434,71 @@ export class WorkflowContextImpl implements WorkflowContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | WorkflowContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<WorkflowInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["assignmentCallbackUrl"] !== undefined)
+      data["AssignmentCallbackUrl"] = params["assignmentCallbackUrl"];
+    if (params["fallbackAssignmentCallbackUrl"] !== undefined)
+      data["FallbackAssignmentCallbackUrl"] =
+        params["fallbackAssignmentCallbackUrl"];
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = params["configuration"];
+    if (params["taskReservationTimeout"] !== undefined)
+      data["TaskReservationTimeout"] = params["taskReservationTimeout"];
+    if (params["reEvaluateTasks"] !== undefined)
+      data["ReEvaluateTasks"] = params["reEvaluateTasks"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<WorkflowResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkflowInstance> => ({
+          ...response,
+          body: new WorkflowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -466,6 +649,19 @@ export class WorkflowInstance {
   }
 
   /**
+   * Remove a WorkflowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
@@ -476,6 +672,22 @@ export class WorkflowInstance {
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a WorkflowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -506,6 +718,45 @@ export class WorkflowInstance {
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a WorkflowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>>;
+  /**
+   * Update a WorkflowInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: WorkflowContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -583,6 +834,22 @@ export interface WorkflowListInstance {
   ): Promise<WorkflowInstance>;
 
   /**
+   * Create a WorkflowInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: WorkflowListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>>;
+
+  /**
    * Streams WorkflowInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -605,6 +872,28 @@ export interface WorkflowListInstance {
     callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams WorkflowInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkflowListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: WorkflowListInstanceEachOptions,
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of WorkflowInstance records from the API.
    *
    * The request is executed immediately.
@@ -616,6 +905,18 @@ export interface WorkflowListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage>;
+  /**
+   * Retrieve a single target page of WorkflowInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+  ): Promise<ApiResponse<WorkflowPage>>;
   /**
    * Lists WorkflowInstance records from the API as a list.
    *
@@ -632,6 +933,30 @@ export interface WorkflowListInstance {
     params: WorkflowListInstanceOptions,
     callback?: (error: Error | null, items: WorkflowInstance[]) => any
   ): Promise<WorkflowInstance[]>;
+  /**
+   * Lists WorkflowInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkflowListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WorkflowInstance[]>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance[]>>;
+  listWithHttpInfo(
+    params: WorkflowListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WorkflowInstance[]>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance[]>>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API.
    *
@@ -650,6 +975,24 @@ export interface WorkflowListInstance {
     params: WorkflowListInstancePageOptions,
     callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage>;
+  /**
+   * Retrieve a single page of WorkflowInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkflowListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+  ): Promise<ApiResponse<WorkflowPage>>;
+  pageWithHttpInfo(
+    params: WorkflowListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+  ): Promise<ApiResponse<WorkflowPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -741,6 +1084,77 @@ export function WorkflowListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: WorkflowListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WorkflowInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    if (
+      params["configuration"] === null ||
+      params["configuration"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['configuration']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    data["Configuration"] = params["configuration"];
+    if (params["assignmentCallbackUrl"] !== undefined)
+      data["AssignmentCallbackUrl"] = params["assignmentCallbackUrl"];
+    if (params["fallbackAssignmentCallbackUrl"] !== undefined)
+      data["FallbackAssignmentCallbackUrl"] =
+        params["fallbackAssignmentCallbackUrl"];
+    if (params["taskReservationTimeout"] !== undefined)
+      data["TaskReservationTimeout"] = params["taskReservationTimeout"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<WorkflowResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkflowInstance> => ({
+          ...response,
+          body: new WorkflowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | WorkflowListInstancePageOptions
@@ -796,10 +1210,83 @@ export function WorkflowListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new WorkflowPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | WorkflowListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<WorkflowPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+  ): Promise<ApiResponse<WorkflowPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<WorkflowPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new WorkflowPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<WorkflowPage>) => any
+  ): Promise<ApiResponse<WorkflowPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<WorkflowPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new WorkflowPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The status of the participant\'s call in a session. Can be: `queued`, `connecting`, `ringing`, `connected`, `complete`, or `failed`.
@@ -214,6 +216,7 @@ export interface ParticipantListInstancePageOptions {
   coaching?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -233,6 +236,17 @@ export interface ParticipantContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
@@ -242,6 +256,20 @@ export interface ParticipantContext {
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
+
+  /**
+   * Fetch a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
    * Update a ParticipantInstance
@@ -265,6 +293,35 @@ export interface ParticipantContext {
     params: ParticipantContextUpdateOptions,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
+
+  /**
+   * Update a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
+  /**
+   * Update a ParticipantInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ParticipantContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -325,6 +382,30 @@ export class ParticipantContextImpl implements ParticipantContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
@@ -349,6 +430,44 @@ export class ParticipantContextImpl implements ParticipantContext {
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ParticipantResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.conferenceSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -420,6 +539,83 @@ export class ParticipantContextImpl implements ParticipantContext {
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | ParticipantContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<ParticipantInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["muted"] !== undefined)
+      data["Muted"] = serialize.bool(params["muted"]);
+    if (params["hold"] !== undefined)
+      data["Hold"] = serialize.bool(params["hold"]);
+    if (params["holdUrl"] !== undefined) data["HoldUrl"] = params["holdUrl"];
+    if (params["holdMethod"] !== undefined)
+      data["HoldMethod"] = params["holdMethod"];
+    if (params["announceUrl"] !== undefined)
+      data["AnnounceUrl"] = params["announceUrl"];
+    if (params["announceMethod"] !== undefined)
+      data["AnnounceMethod"] = params["announceMethod"];
+    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
+    if (params["waitMethod"] !== undefined)
+      data["WaitMethod"] = params["waitMethod"];
+    if (params["beepOnExit"] !== undefined)
+      data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
+    if (params["endConferenceOnExit"] !== undefined)
+      data["EndConferenceOnExit"] = serialize.bool(
+        params["endConferenceOnExit"]
+      );
+    if (params["coaching"] !== undefined)
+      data["Coaching"] = serialize.bool(params["coaching"]);
+    if (params["callSidToCoach"] !== undefined)
+      data["CallSidToCoach"] = params["callSidToCoach"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ParticipantResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.conferenceSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -582,6 +778,19 @@ export class ParticipantInstance {
   }
 
   /**
+   * Remove a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
@@ -592,6 +801,22 @@ export class ParticipantInstance {
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -622,6 +847,45 @@ export class ParticipantInstance {
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
+  /**
+   * Update a ParticipantInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ParticipantContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -681,6 +945,22 @@ export interface ParticipantListInstance {
   ): Promise<ParticipantInstance>;
 
   /**
+   * Create a ParticipantInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ParticipantListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
+
+  /**
    * Streams ParticipantInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -703,6 +983,28 @@ export interface ParticipantListInstance {
     callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams ParticipantInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: ParticipantListInstanceEachOptions,
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
    * The request is executed immediately.
@@ -714,6 +1016,18 @@ export interface ParticipantListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -730,6 +1044,30 @@ export interface ParticipantListInstance {
     params: ParticipantListInstanceOptions,
     callback?: (error: Error | null, items: ParticipantInstance[]) => any
   ): Promise<ParticipantInstance[]>;
+  /**
+   * Lists ParticipantInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance[]>>;
+  listWithHttpInfo(
+    params: ParticipantListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance[]>>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -748,6 +1086,24 @@ export interface ParticipantListInstance {
     params: ParticipantListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>>;
+  pageWithHttpInfo(
+    params: ParticipantListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -947,6 +1303,174 @@ export function ParticipantListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ParticipantListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["from"] === null || params["from"] === undefined) {
+      throw new Error("Required parameter \"params['from']\" missing.");
+    }
+
+    if (params["to"] === null || params["to"] === undefined) {
+      throw new Error("Required parameter \"params['to']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["From"] = params["from"];
+
+    data["To"] = params["to"];
+    if (params["statusCallback"] !== undefined)
+      data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["statusCallbackEvent"] !== undefined)
+      data["StatusCallbackEvent"] = serialize.map(
+        params["statusCallbackEvent"],
+        (e: string) => e
+      );
+    if (params["label"] !== undefined) data["Label"] = params["label"];
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    if (params["record"] !== undefined)
+      data["Record"] = serialize.bool(params["record"]);
+    if (params["muted"] !== undefined)
+      data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
+    if (params["startConferenceOnEnter"] !== undefined)
+      data["StartConferenceOnEnter"] = serialize.bool(
+        params["startConferenceOnEnter"]
+      );
+    if (params["endConferenceOnExit"] !== undefined)
+      data["EndConferenceOnExit"] = serialize.bool(
+        params["endConferenceOnExit"]
+      );
+    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
+    if (params["waitMethod"] !== undefined)
+      data["WaitMethod"] = params["waitMethod"];
+    if (params["earlyMedia"] !== undefined)
+      data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+    if (params["maxParticipants"] !== undefined)
+      data["MaxParticipants"] = params["maxParticipants"];
+    if (params["conferenceRecord"] !== undefined)
+      data["ConferenceRecord"] = params["conferenceRecord"];
+    if (params["conferenceTrim"] !== undefined)
+      data["ConferenceTrim"] = params["conferenceTrim"];
+    if (params["conferenceStatusCallback"] !== undefined)
+      data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+    if (params["conferenceStatusCallbackMethod"] !== undefined)
+      data["ConferenceStatusCallbackMethod"] =
+        params["conferenceStatusCallbackMethod"];
+    if (params["conferenceStatusCallbackEvent"] !== undefined)
+      data["ConferenceStatusCallbackEvent"] = serialize.map(
+        params["conferenceStatusCallbackEvent"],
+        (e: string) => e
+      );
+    if (params["recordingChannels"] !== undefined)
+      data["RecordingChannels"] = params["recordingChannels"];
+    if (params["recordingStatusCallback"] !== undefined)
+      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    if (params["recordingStatusCallbackMethod"] !== undefined)
+      data["RecordingStatusCallbackMethod"] =
+        params["recordingStatusCallbackMethod"];
+    if (params["sipAuthUsername"] !== undefined)
+      data["SipAuthUsername"] = params["sipAuthUsername"];
+    if (params["sipAuthPassword"] !== undefined)
+      data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["region"] !== undefined) data["Region"] = params["region"];
+    if (params["conferenceRecordingStatusCallback"] !== undefined)
+      data["ConferenceRecordingStatusCallback"] =
+        params["conferenceRecordingStatusCallback"];
+    if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
+      data["ConferenceRecordingStatusCallbackMethod"] =
+        params["conferenceRecordingStatusCallbackMethod"];
+    if (params["recordingStatusCallbackEvent"] !== undefined)
+      data["RecordingStatusCallbackEvent"] = serialize.map(
+        params["recordingStatusCallbackEvent"],
+        (e: string) => e
+      );
+    if (params["conferenceRecordingStatusCallbackEvent"] !== undefined)
+      data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(
+        params["conferenceRecordingStatusCallbackEvent"],
+        (e: string) => e
+      );
+    if (params["coaching"] !== undefined)
+      data["Coaching"] = serialize.bool(params["coaching"]);
+    if (params["callSidToCoach"] !== undefined)
+      data["CallSidToCoach"] = params["callSidToCoach"];
+    if (params["jitterBufferSize"] !== undefined)
+      data["JitterBufferSize"] = params["jitterBufferSize"];
+    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
+    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    if (params["callReason"] !== undefined)
+      data["CallReason"] = params["callReason"];
+    if (params["recordingTrack"] !== undefined)
+      data["RecordingTrack"] = params["recordingTrack"];
+    if (params["timeLimit"] !== undefined)
+      data["TimeLimit"] = params["timeLimit"];
+    if (params["machineDetection"] !== undefined)
+      data["MachineDetection"] = params["machineDetection"];
+    if (params["machineDetectionTimeout"] !== undefined)
+      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    if (params["machineDetectionSpeechThreshold"] !== undefined)
+      data["MachineDetectionSpeechThreshold"] =
+        params["machineDetectionSpeechThreshold"];
+    if (params["machineDetectionSpeechEndThreshold"] !== undefined)
+      data["MachineDetectionSpeechEndThreshold"] =
+        params["machineDetectionSpeechEndThreshold"];
+    if (params["machineDetectionSilenceTimeout"] !== undefined)
+      data["MachineDetectionSilenceTimeout"] =
+        params["machineDetectionSilenceTimeout"];
+    if (params["amdStatusCallback"] !== undefined)
+      data["AmdStatusCallback"] = params["amdStatusCallback"];
+    if (params["amdStatusCallbackMethod"] !== undefined)
+      data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
+    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    if (params["callToken"] !== undefined)
+      data["CallToken"] = params["callToken"];
+    if (params["clientNotificationUrl"] !== undefined)
+      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
+    if (params["callerDisplayName"] !== undefined)
+      data["CallerDisplayName"] = params["callerDisplayName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ParticipantResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.conferenceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | ParticipantListInstancePageOptions
@@ -1006,10 +1530,94 @@ export function ParticipantListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new ParticipantPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ParticipantListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["muted"] !== undefined)
+      data["Muted"] = serialize.bool(params["muted"]);
+    if (params["hold"] !== undefined)
+      data["Hold"] = serialize.bool(params["hold"]);
+    if (params["coaching"] !== undefined)
+      data["Coaching"] = serialize.bool(params["coaching"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<ParticipantPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ParticipantPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ParticipantPage>
+    ) => any
+  ): Promise<ApiResponse<ParticipantPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

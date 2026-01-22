@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a WorkersCumulativeStatisticsInstance
@@ -61,6 +62,35 @@ export interface WorkersCumulativeStatisticsContext {
       item?: WorkersCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkersCumulativeStatisticsInstance>;
+
+  /**
+   * Fetch a WorkersCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
+  /**
+   * Fetch a WorkersCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkersCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -137,6 +167,66 @@ export class WorkersCumulativeStatisticsContextImpl
           instance._solution.workspaceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | WorkersCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkersCumulativeStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkersCumulativeStatisticsInstance> => ({
+          ...response,
+          body: new WorkersCumulativeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -310,6 +400,45 @@ export class WorkersCumulativeStatisticsInstance {
     ) => any
   ): Promise<WorkersCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a WorkersCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
+  /**
+   * Fetch a WorkersCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkersCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

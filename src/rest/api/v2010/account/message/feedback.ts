@@ -17,6 +17,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Reported outcome indicating whether there is confirmation that the Message recipient performed a tracked user action. Can be: `unconfirmed` or `confirmed`. For more details see [How to Optimize Message Deliverability with Message Feedback](https://www.twilio.com/docs/messaging/guides/send-message-feedback-to-twilio).
@@ -63,6 +64,35 @@ export interface FeedbackListInstance {
     params: FeedbackListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
+
+  /**
+   * Create a FeedbackInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FeedbackInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FeedbackInstance>
+    ) => any
+  ): Promise<ApiResponse<FeedbackInstance>>;
+  /**
+   * Create a FeedbackInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FeedbackInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: FeedbackListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FeedbackInstance>
+    ) => any
+  ): Promise<ApiResponse<FeedbackInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -128,6 +158,58 @@ export function FeedbackListInstance(
           instance._solution.messageSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | FeedbackListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<FeedbackInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FeedbackInstance>
+    ) => any
+  ): Promise<ApiResponse<FeedbackInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["outcome"] !== undefined) data["Outcome"] = params["outcome"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<FeedbackResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FeedbackInstance> => ({
+          ...response,
+          body: new FeedbackInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.messageSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

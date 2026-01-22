@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a PortingWebhookConfigurationInstance
@@ -63,6 +64,37 @@ export interface PortingWebhookConfigurationListInstance {
       item?: PortingWebhookConfigurationInstance
     ) => any
   ): Promise<PortingWebhookConfigurationInstance>;
+
+  /**
+   * Create a PortingWebhookConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingWebhookConfigurationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingWebhookConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingWebhookConfigurationInstance>>;
+  /**
+   * Create a PortingWebhookConfigurationInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingWebhookConfigurationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingWebhookConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingWebhookConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -123,6 +155,63 @@ export function PortingWebhookConfigurationListInstance(
       (payload) =>
         new PortingWebhookConfigurationInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | object
+      | ((
+          error: Error | null,
+          items: ApiResponse<PortingWebhookConfigurationInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingWebhookConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingWebhookConfigurationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<PortingWebhookConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PortingWebhookConfigurationInstance> => ({
+          ...response,
+          body: new PortingWebhookConfigurationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

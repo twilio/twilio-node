@@ -17,6 +17,7 @@ import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The visibility of the channel. Can be: `public` or `private`.
@@ -60,6 +61,29 @@ export interface ChannelContext {
     params: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
+
+  /**
+   * Update a ChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+  ): Promise<ApiResponse<ChannelInstance>>;
+  /**
+   * Update a ChannelInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+  ): Promise<ApiResponse<ChannelInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -133,6 +157,60 @@ export class ChannelContextImpl implements ChannelContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<ChannelInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+  ): Promise<ApiResponse<ChannelInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["type"] !== undefined) data["Type"] = params["type"];
+    if (params["messagingServiceSid"] !== undefined)
+      data["MessagingServiceSid"] = params["messagingServiceSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ChannelResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ChannelInstance> => ({
+          ...response,
+          body: new ChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -298,6 +376,36 @@ export class ChannelInstance {
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+  ): Promise<ApiResponse<ChannelInstance>>;
+  /**
+   * Update a ChannelInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+  ): Promise<ApiResponse<ChannelInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+  ): Promise<ApiResponse<ChannelInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

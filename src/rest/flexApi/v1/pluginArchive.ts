@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a PluginArchiveInstance
@@ -49,6 +50,35 @@ export interface PluginArchiveContext {
     params: PluginArchiveContextUpdateOptions,
     callback?: (error: Error | null, item?: PluginArchiveInstance) => any
   ): Promise<PluginArchiveInstance>;
+
+  /**
+   * Update a PluginArchiveInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginArchiveInstance>
+    ) => any
+  ): Promise<ApiResponse<PluginArchiveInstance>>;
+  /**
+   * Update a PluginArchiveInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: PluginArchiveContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginArchiveInstance>
+    ) => any
+  ): Promise<ApiResponse<PluginArchiveInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -111,6 +141,60 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | PluginArchiveContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<PluginArchiveInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginArchiveInstance>
+    ) => any
+  ): Promise<ApiResponse<PluginArchiveInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<PluginArchiveResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PluginArchiveInstance> => ({
+          ...response,
+          body: new PluginArchiveInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -241,6 +325,45 @@ export class PluginArchiveInstance {
     callback?: (error: Error | null, item?: PluginArchiveInstance) => any
   ): Promise<PluginArchiveInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a PluginArchiveInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginArchiveInstance>
+    ) => any
+  ): Promise<ApiResponse<PluginArchiveInstance>>;
+  /**
+   * Update a PluginArchiveInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: PluginArchiveContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginArchiveInstance>
+    ) => any
+  ): Promise<ApiResponse<PluginArchiveInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginArchiveInstance>
+    ) => any
+  ): Promise<ApiResponse<PluginArchiveInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

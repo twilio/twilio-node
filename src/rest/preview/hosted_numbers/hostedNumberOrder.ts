@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { PhoneNumberCapabilities } from "../../../interfaces";
 
 /**
@@ -169,6 +171,7 @@ export interface HostedNumberOrderListInstancePageOptions {
   uniqueName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -188,6 +191,17 @@ export interface HostedNumberOrderContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
@@ -197,6 +211,20 @@ export interface HostedNumberOrderContext {
   fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
+
+  /**
+   * Fetch a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
    * Update a HostedNumberOrderInstance
@@ -220,6 +248,35 @@ export interface HostedNumberOrderContext {
     params: HostedNumberOrderContextUpdateOptions,
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
+
+  /**
+   * Update a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
+  /**
+   * Update a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -265,6 +322,30 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
@@ -287,6 +368,42 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<HostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<HostedNumberOrderInstance> => ({
+          ...response,
+          body: new HostedNumberOrderInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -350,6 +467,78 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | HostedNumberOrderContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<HostedNumberOrderInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["ccEmails"] !== undefined)
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["verificationCode"] !== undefined)
+      data["VerificationCode"] = params["verificationCode"];
+    if (params["verificationType"] !== undefined)
+      data["VerificationType"] = params["verificationType"];
+    if (params["verificationDocumentSid"] !== undefined)
+      data["VerificationDocumentSid"] = params["verificationDocumentSid"];
+    if (params["extension"] !== undefined)
+      data["Extension"] = params["extension"];
+    if (params["callDelay"] !== undefined)
+      data["CallDelay"] = params["callDelay"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<HostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<HostedNumberOrderInstance> => ({
+          ...response,
+          body: new HostedNumberOrderInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -545,6 +734,19 @@ export class HostedNumberOrderInstance {
   }
 
   /**
+   * Remove a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
@@ -555,6 +757,22 @@ export class HostedNumberOrderInstance {
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -585,6 +803,45 @@ export class HostedNumberOrderInstance {
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
+  /**
+   * Update a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -649,6 +906,22 @@ export interface HostedNumberOrderListInstance {
   ): Promise<HostedNumberOrderInstance>;
 
   /**
+   * Create a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
+
+  /**
    * Streams HostedNumberOrderInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -677,6 +950,34 @@ export interface HostedNumberOrderListInstance {
     ) => void
   ): void;
   /**
+   * Streams HostedNumberOrderInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { HostedNumberOrderListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: HostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: HostedNumberOrderListInstanceEachOptions,
+    callback?: (
+      item: HostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API.
    *
    * The request is executed immediately.
@@ -688,6 +989,21 @@ export interface HostedNumberOrderListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
+  /**
+   * Retrieve a single target page of HostedNumberOrderInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderPage>>;
   /**
    * Lists HostedNumberOrderInstance records from the API as a list.
    *
@@ -704,6 +1020,30 @@ export interface HostedNumberOrderListInstance {
     params: HostedNumberOrderListInstanceOptions,
     callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
   ): Promise<HostedNumberOrderInstance[]>;
+  /**
+   * Lists HostedNumberOrderInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { HostedNumberOrderListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderInstance[]>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance[]>>;
+  listWithHttpInfo(
+    params: HostedNumberOrderListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderInstance[]>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance[]>>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
    *
@@ -722,6 +1062,30 @@ export interface HostedNumberOrderListInstance {
     params: HostedNumberOrderListInstancePageOptions,
     callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
+  /**
+   * Retrieve a single page of HostedNumberOrderInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { HostedNumberOrderListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderPage>>;
+  pageWithHttpInfo(
+    params: HostedNumberOrderListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -822,6 +1186,91 @@ export function HostedNumberOrderListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
+    }
+
+    if (
+      params["smsCapability"] === null ||
+      params["smsCapability"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['smsCapability']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["PhoneNumber"] = params["phoneNumber"];
+
+    data["SmsCapability"] = serialize.bool(params["smsCapability"]);
+    if (params["accountSid"] !== undefined)
+      data["AccountSid"] = params["accountSid"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["ccEmails"] !== undefined)
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
+    if (params["smsMethod"] !== undefined)
+      data["SmsMethod"] = params["smsMethod"];
+    if (params["smsFallbackUrl"] !== undefined)
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    if (params["smsFallbackMethod"] !== undefined)
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    if (params["statusCallbackUrl"] !== undefined)
+      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["smsApplicationSid"] !== undefined)
+      data["SmsApplicationSid"] = params["smsApplicationSid"];
+    if (params["addressSid"] !== undefined)
+      data["AddressSid"] = params["addressSid"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["verificationType"] !== undefined)
+      data["VerificationType"] = params["verificationType"];
+    if (params["verificationDocumentSid"] !== undefined)
+      data["VerificationDocumentSid"] = params["verificationDocumentSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<HostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<HostedNumberOrderInstance> => ({
+          ...response,
+          body: new HostedNumberOrderInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | HostedNumberOrderListInstancePageOptions
@@ -884,7 +1333,6 @@ export function HostedNumberOrderListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new HostedNumberOrderPage(
@@ -892,6 +1340,100 @@ export function HostedNumberOrderListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | HostedNumberOrderListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<HostedNumberOrderPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["phoneNumber"] !== undefined)
+      data["PhoneNumber"] = params["phoneNumber"];
+    if (params["incomingPhoneNumberSid"] !== undefined)
+      data["IncomingPhoneNumberSid"] = params["incomingPhoneNumberSid"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<HostedNumberOrderPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new HostedNumberOrderPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<HostedNumberOrderPage>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<HostedNumberOrderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new HostedNumberOrderPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a BulkCountryUpdateInstance
@@ -45,6 +46,22 @@ export interface BulkCountryUpdateListInstance {
     params: BulkCountryUpdateListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
   ): Promise<BulkCountryUpdateInstance>;
+
+  /**
+   * Create a BulkCountryUpdateInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkCountryUpdateInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: BulkCountryUpdateListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkCountryUpdateInstance>
+    ) => any
+  ): Promise<ApiResponse<BulkCountryUpdateInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -98,6 +115,57 @@ export function BulkCountryUpdateListInstance(
     operationPromise = operationPromise.then(
       (payload) => new BulkCountryUpdateInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: BulkCountryUpdateListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BulkCountryUpdateInstance>
+    ) => any
+  ): Promise<ApiResponse<BulkCountryUpdateInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["updateRequest"] === null ||
+      params["updateRequest"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['updateRequest']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["UpdateRequest"] = params["updateRequest"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BulkCountryUpdateResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<BulkCountryUpdateInstance> => ({
+          ...response,
+          body: new BulkCountryUpdateInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a WorkspaceStatisticsInstance
@@ -57,6 +58,35 @@ export interface WorkspaceStatisticsContext {
     params: WorkspaceStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
   ): Promise<WorkspaceStatisticsInstance>;
+
+  /**
+   * Fetch a WorkspaceStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkspaceStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkspaceStatisticsInstance>>;
+  /**
+   * Fetch a WorkspaceStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkspaceStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkspaceStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkspaceStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -129,6 +159,68 @@ export class WorkspaceStatisticsContextImpl
           instance._solution.workspaceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | WorkspaceStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<WorkspaceStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkspaceStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["splitByWaitTime"] !== undefined)
+      data["SplitByWaitTime"] = params["splitByWaitTime"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkspaceStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkspaceStatisticsInstance> => ({
+          ...response,
+          body: new WorkspaceStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -238,6 +330,45 @@ export class WorkspaceStatisticsInstance {
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
   ): Promise<WorkspaceStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a WorkspaceStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkspaceStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkspaceStatisticsInstance>>;
+  /**
+   * Fetch a WorkspaceStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkspaceStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkspaceStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkspaceStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkspaceStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

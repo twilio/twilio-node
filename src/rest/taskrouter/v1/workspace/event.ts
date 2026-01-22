@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -116,6 +118,7 @@ export interface EventListInstancePageOptions {
   sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -133,6 +136,17 @@ export interface EventContext {
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
   ): Promise<EventInstance>;
+
+  /**
+   * Fetch a EventInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EventInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any
+  ): Promise<ApiResponse<EventInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -186,6 +200,40 @@ export class EventContextImpl implements EventContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any
+  ): Promise<ApiResponse<EventInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<EventResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<EventInstance> => ({
+          ...response,
+          body: new EventInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -357,6 +405,19 @@ export class EventInstance {
   }
 
   /**
+   * Fetch a EventInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EventInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any
+  ): Promise<ApiResponse<EventInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -423,6 +484,28 @@ export interface EventListInstance {
     callback?: (item: EventInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams EventInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EventListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: EventListInstanceEachOptions,
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of EventInstance records from the API.
    *
    * The request is executed immediately.
@@ -434,6 +517,18 @@ export interface EventListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage>;
+  /**
+   * Retrieve a single target page of EventInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any
+  ): Promise<ApiResponse<EventPage>>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -450,6 +545,24 @@ export interface EventListInstance {
     params: EventListInstanceOptions,
     callback?: (error: Error | null, items: EventInstance[]) => any
   ): Promise<EventInstance[]>;
+  /**
+   * Lists EventInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EventListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<EventInstance[]>) => any
+  ): Promise<ApiResponse<EventInstance[]>>;
+  listWithHttpInfo(
+    params: EventListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<EventInstance[]>) => any
+  ): Promise<ApiResponse<EventInstance[]>>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -468,6 +581,24 @@ export interface EventListInstance {
     params: EventListInstancePageOptions,
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage>;
+  /**
+   * Retrieve a single page of EventInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EventListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any
+  ): Promise<ApiResponse<EventPage>>;
+  pageWithHttpInfo(
+    params: EventListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any
+  ): Promise<ApiResponse<EventPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -565,9 +696,95 @@ export function EventListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new EventPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | EventListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<EventPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any
+  ): Promise<ApiResponse<EventPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["eventType"] !== undefined)
+      data["EventType"] = params["eventType"];
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["reservationSid"] !== undefined)
+      data["ReservationSid"] = params["reservationSid"];
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskQueueSid"] !== undefined)
+      data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskSid"] !== undefined) data["TaskSid"] = params["taskSid"];
+    if (params["workerSid"] !== undefined)
+      data["WorkerSid"] = params["workerSid"];
+    if (params["workflowSid"] !== undefined)
+      data["WorkflowSid"] = params["workflowSid"];
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<EventPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EventPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<EventPage>) => any
+  ): Promise<ApiResponse<EventPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<EventPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EventPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface DomainCertsContext {
   /**
@@ -29,6 +30,20 @@ export interface DomainCertsContext {
   fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
+
+  /**
+   * Fetch a DomainCertsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainCertsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,6 +91,42 @@ export class DomainCertsContextImpl implements DomainCertsContext {
           instance._solution.domainSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DomainCertsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainCertsInstance> => ({
+          ...response,
+          body: new DomainCertsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -192,6 +243,22 @@ export class DomainCertsInstance {
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a DomainCertsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainCertsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

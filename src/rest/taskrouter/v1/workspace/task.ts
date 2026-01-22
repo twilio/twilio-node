@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { ReservationListInstance } from "./task/reservation";
 
 /**
@@ -173,6 +175,7 @@ export interface TaskListInstancePageOptions {
   hasAddons?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -206,6 +209,29 @@ export interface TaskContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a TaskInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: TaskContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a TaskInstance
    *
    * @param callback - Callback to handle processed record
@@ -215,6 +241,17 @@ export interface TaskContext {
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance>;
+
+  /**
+   * Fetch a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
 
   /**
    * Update a TaskInstance
@@ -238,6 +275,29 @@ export interface TaskContext {
     params: TaskContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance>;
+
+  /**
+   * Update a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
+  /**
+   * Update a TaskInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TaskContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -316,6 +376,49 @@ export class TaskContextImpl implements TaskContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    params?:
+      | TaskContextRemoveOptions
+      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
@@ -339,6 +442,40 @@ export class TaskContextImpl implements TaskContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TaskResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskInstance> => ({
+          ...response,
+          body: new TaskInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -399,6 +536,69 @@ export class TaskContextImpl implements TaskContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | TaskContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<TaskInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["assignmentStatus"] !== undefined)
+      data["AssignmentStatus"] = params["assignmentStatus"];
+    if (params["reason"] !== undefined) data["Reason"] = params["reason"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["virtualStartTime"] !== undefined)
+      data["VirtualStartTime"] = serialize.iso8601DateTime(
+        params["virtualStartTime"]
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TaskResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskInstance> => ({
+          ...response,
+          body: new TaskInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -630,6 +830,36 @@ export class TaskInstance {
   }
 
   /**
+   * Remove a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a TaskInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: TaskContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  removeWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(params, callback);
+  }
+
+  /**
    * Fetch a TaskInstance
    *
    * @param callback - Callback to handle processed record
@@ -640,6 +870,19 @@ export class TaskInstance {
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -670,6 +913,36 @@ export class TaskInstance {
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
+  /**
+   * Update a TaskInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TaskContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -754,6 +1027,29 @@ export interface TaskListInstance {
   ): Promise<TaskInstance>;
 
   /**
+   * Create a TaskInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
+  /**
+   * Create a TaskInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TaskListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>>;
+
+  /**
    * Streams TaskInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -776,6 +1072,28 @@ export interface TaskListInstance {
     callback?: (item: TaskInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams TaskInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TaskListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: TaskInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: TaskListInstanceEachOptions,
+    callback?: (item: TaskInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of TaskInstance records from the API.
    *
    * The request is executed immediately.
@@ -787,6 +1105,18 @@ export interface TaskListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage>;
+  /**
+   * Retrieve a single target page of TaskInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<TaskPage>) => any
+  ): Promise<ApiResponse<TaskPage>>;
   /**
    * Lists TaskInstance records from the API as a list.
    *
@@ -803,6 +1133,24 @@ export interface TaskListInstance {
     params: TaskListInstanceOptions,
     callback?: (error: Error | null, items: TaskInstance[]) => any
   ): Promise<TaskInstance[]>;
+  /**
+   * Lists TaskInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TaskListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<TaskInstance[]>) => any
+  ): Promise<ApiResponse<TaskInstance[]>>;
+  listWithHttpInfo(
+    params: TaskListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<TaskInstance[]>) => any
+  ): Promise<ApiResponse<TaskInstance[]>>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
    *
@@ -821,6 +1169,24 @@ export interface TaskListInstance {
     params: TaskListInstancePageOptions,
     callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage>;
+  /**
+   * Retrieve a single page of TaskInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TaskListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<TaskPage>) => any
+  ): Promise<ApiResponse<TaskPage>>;
+  pageWithHttpInfo(
+    params: TaskListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<TaskPage>) => any
+  ): Promise<ApiResponse<TaskPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -909,6 +1275,71 @@ export function TaskListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | TaskListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<TaskInstance>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TaskInstance>) => any
+  ): Promise<ApiResponse<TaskInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["workflowSid"] !== undefined)
+      data["WorkflowSid"] = params["workflowSid"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["virtualStartTime"] !== undefined)
+      data["VirtualStartTime"] = serialize.iso8601DateTime(
+        params["virtualStartTime"]
+      );
+    if (params["routingTarget"] !== undefined)
+      data["RoutingTarget"] = params["routingTarget"];
+    if (params["ignoreCapacity"] !== undefined)
+      data["IgnoreCapacity"] = params["ignoreCapacity"];
+    if (params["taskQueueSid"] !== undefined)
+      data["TaskQueueSid"] = params["taskQueueSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TaskResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskInstance> => ({
+          ...response,
+          body: new TaskInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | TaskListInstancePageOptions
@@ -982,9 +1413,97 @@ export function TaskListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new TaskPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TaskListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<TaskPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TaskPage>) => any
+  ): Promise<ApiResponse<TaskPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["assignmentStatus"] !== undefined)
+      data["AssignmentStatus"] = serialize.map(
+        params["assignmentStatus"],
+        (e: string) => e
+      );
+    if (params["workflowSid"] !== undefined)
+      data["WorkflowSid"] = params["workflowSid"];
+    if (params["workflowName"] !== undefined)
+      data["WorkflowName"] = params["workflowName"];
+    if (params["taskQueueSid"] !== undefined)
+      data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskQueueName"] !== undefined)
+      data["TaskQueueName"] = params["taskQueueName"];
+    if (params["evaluateTaskAttributes"] !== undefined)
+      data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
+    if (params["routingTarget"] !== undefined)
+      data["RoutingTarget"] = params["routingTarget"];
+    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
+    if (params["hasAddons"] !== undefined)
+      data["HasAddons"] = serialize.bool(params["hasAddons"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<TaskPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TaskPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<TaskPage>) => any
+  ): Promise<ApiResponse<TaskPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TaskPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TaskPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

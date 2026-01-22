@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
@@ -158,6 +159,35 @@ export interface PhoneNumberContext {
   ): Promise<PhoneNumberInstance>;
 
   /**
+   * Fetch a PhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+  /**
+   * Fetch a PhoneNumberInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: PhoneNumberContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -243,6 +273,82 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
           instance._solution.phoneNumber
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | PhoneNumberContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<PhoneNumberInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["fields"] !== undefined) data["Fields"] = params["fields"];
+    if (params["countryCode"] !== undefined)
+      data["CountryCode"] = params["countryCode"];
+    if (params["firstName"] !== undefined)
+      data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
+    if (params["addressLine1"] !== undefined)
+      data["AddressLine1"] = params["addressLine1"];
+    if (params["addressLine2"] !== undefined)
+      data["AddressLine2"] = params["addressLine2"];
+    if (params["city"] !== undefined) data["City"] = params["city"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
+    if (params["postalCode"] !== undefined)
+      data["PostalCode"] = params["postalCode"];
+    if (params["addressCountryCode"] !== undefined)
+      data["AddressCountryCode"] = params["addressCountryCode"];
+    if (params["nationalId"] !== undefined)
+      data["NationalId"] = params["nationalId"];
+    if (params["dateOfBirth"] !== undefined)
+      data["DateOfBirth"] = params["dateOfBirth"];
+    if (params["lastVerifiedDate"] !== undefined)
+      data["LastVerifiedDate"] = params["lastVerifiedDate"];
+    if (params["verificationSid"] !== undefined)
+      data["VerificationSid"] = params["verificationSid"];
+    if (params["partnerSubId"] !== undefined)
+      data["PartnerSubId"] = params["partnerSubId"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PhoneNumberResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PhoneNumberInstance> => ({
+          ...response,
+          body: new PhoneNumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -397,6 +503,45 @@ export class PhoneNumberInstance {
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a PhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+  /**
+   * Fetch a PhoneNumberInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: PhoneNumberContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

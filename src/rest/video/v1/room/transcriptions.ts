@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The status of the transcriptions resource.
@@ -73,6 +75,7 @@ export interface TranscriptionsListInstanceOptions {
 export interface TranscriptionsListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -90,6 +93,20 @@ export interface TranscriptionsContext {
   fetch(
     callback?: (error: Error | null, item?: TranscriptionsInstance) => any
   ): Promise<TranscriptionsInstance>;
+
+  /**
+   * Fetch a TranscriptionsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
 
   /**
    * Update a TranscriptionsInstance
@@ -113,6 +130,35 @@ export interface TranscriptionsContext {
     params: TranscriptionsContextUpdateOptions,
     callback?: (error: Error | null, item?: TranscriptionsInstance) => any
   ): Promise<TranscriptionsInstance>;
+
+  /**
+   * Update a TranscriptionsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
+  /**
+   * Update a TranscriptionsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TranscriptionsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -174,6 +220,43 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TranscriptionsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TranscriptionsInstance> => ({
+          ...response,
+          body: new TranscriptionsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.ttid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | TranscriptionsContextUpdateOptions
@@ -221,6 +304,62 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     return operationPromise;
   }
 
+  updateWithHttpInfo(
+    params?:
+      | TranscriptionsContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<TranscriptionsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TranscriptionsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TranscriptionsInstance> => ({
+          ...response,
+          body: new TranscriptionsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.ttid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -243,6 +382,7 @@ interface TranscriptionsResource {
   ttid: string;
   account_sid: string;
   room_sid: string;
+  source_sid: string;
   status: TranscriptionsStatus;
   date_created: Date;
   date_updated: Date;
@@ -266,6 +406,7 @@ export class TranscriptionsInstance {
     this.ttid = payload.ttid;
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
+    this.sourceSid = payload.source_sid;
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -290,6 +431,10 @@ export class TranscriptionsInstance {
    * The SID of the transcriptions\'s room.
    */
   roomSid: string;
+  /**
+   * The SID of the transcriptions\'s associated call.
+   */
+  sourceSid: string;
   status: TranscriptionsStatus;
   /**
    * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -345,6 +490,22 @@ export class TranscriptionsInstance {
   }
 
   /**
+   * Fetch a TranscriptionsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a TranscriptionsInstance
    *
    * @param callback - Callback to handle processed record
@@ -375,6 +536,45 @@ export class TranscriptionsInstance {
   }
 
   /**
+   * Update a TranscriptionsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
+  /**
+   * Update a TranscriptionsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TranscriptionsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -384,6 +584,7 @@ export class TranscriptionsInstance {
       ttid: this.ttid,
       accountSid: this.accountSid,
       roomSid: this.roomSid,
+      sourceSid: this.sourceSid,
       status: this.status,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
@@ -436,6 +637,35 @@ export interface TranscriptionsListInstance {
   ): Promise<TranscriptionsInstance>;
 
   /**
+   * Create a TranscriptionsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
+  /**
+   * Create a TranscriptionsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TranscriptionsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>>;
+
+  /**
    * Streams TranscriptionsInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -464,6 +694,34 @@ export interface TranscriptionsListInstance {
     ) => void
   ): void;
   /**
+   * Streams TranscriptionsInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TranscriptionsListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: TranscriptionsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: TranscriptionsListInstanceEachOptions,
+    callback?: (
+      item: TranscriptionsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of TranscriptionsInstance records from the API.
    *
    * The request is executed immediately.
@@ -475,6 +733,21 @@ export interface TranscriptionsListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: TranscriptionsPage) => any
   ): Promise<TranscriptionsPage>;
+  /**
+   * Retrieve a single target page of TranscriptionsInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsPage>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsPage>>;
   /**
    * Lists TranscriptionsInstance records from the API as a list.
    *
@@ -491,6 +764,30 @@ export interface TranscriptionsListInstance {
     params: TranscriptionsListInstanceOptions,
     callback?: (error: Error | null, items: TranscriptionsInstance[]) => any
   ): Promise<TranscriptionsInstance[]>;
+  /**
+   * Lists TranscriptionsInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TranscriptionsListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsInstance[]>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance[]>>;
+  listWithHttpInfo(
+    params: TranscriptionsListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsInstance[]>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance[]>>;
   /**
    * Retrieve a single page of TranscriptionsInstance records from the API.
    *
@@ -509,6 +806,30 @@ export interface TranscriptionsListInstance {
     params: TranscriptionsListInstancePageOptions,
     callback?: (error: Error | null, items: TranscriptionsPage) => any
   ): Promise<TranscriptionsPage>;
+  /**
+   * Retrieve a single page of TranscriptionsInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TranscriptionsListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsPage>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsPage>>;
+  pageWithHttpInfo(
+    params: TranscriptionsListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsPage>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -581,6 +902,61 @@ export function TranscriptionsListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | TranscriptionsListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<TranscriptionsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TranscriptionsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TranscriptionsInstance> => ({
+          ...response,
+          body: new TranscriptionsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | TranscriptionsListInstancePageOptions
@@ -634,10 +1010,91 @@ export function TranscriptionsListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new TranscriptionsPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TranscriptionsListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<TranscriptionsPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionsPage>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<TranscriptionsPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TranscriptionsPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<TranscriptionsPage>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionsPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TranscriptionsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TranscriptionsPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

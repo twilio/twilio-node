@@ -17,6 +17,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a ValidationRequestInstance
@@ -57,6 +58,22 @@ export interface ValidationRequestListInstance {
     params: ValidationRequestListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ValidationRequestInstance) => any
   ): Promise<ValidationRequestInstance>;
+
+  /**
+   * Create a ValidationRequestInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ValidationRequestInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ValidationRequestListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ValidationRequestInstance>
+    ) => any
+  ): Promise<ApiResponse<ValidationRequestInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -125,6 +142,66 @@ export function ValidationRequestListInstance(
           instance._solution.accountSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ValidationRequestListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ValidationRequestInstance>
+    ) => any
+  ): Promise<ApiResponse<ValidationRequestInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["PhoneNumber"] = params["phoneNumber"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["callDelay"] !== undefined)
+      data["CallDelay"] = params["callDelay"];
+    if (params["extension"] !== undefined)
+      data["Extension"] = params["extension"];
+    if (params["statusCallback"] !== undefined)
+      data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ValidationRequestResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ValidationRequestInstance> => ({
+          ...response,
+          body: new ValidationRequestInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

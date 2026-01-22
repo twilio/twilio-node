@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { ParticipantListInstance } from "./room/participant";
 
 export type RoomCodec = "VP8" | "H264" | "VP9" | "opus";
@@ -120,6 +122,7 @@ export interface RoomListInstancePageOptions {
   createdBefore?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -139,6 +142,17 @@ export interface RoomContext {
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance>;
+
+  /**
+   * Fetch a RoomInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RoomInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
+  ): Promise<ApiResponse<RoomInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -191,6 +205,39 @@ export class RoomContextImpl implements RoomContext {
       (payload) =>
         new RoomInstance(operationVersion, payload, instance._solution.roomSid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
+  ): Promise<ApiResponse<RoomInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RoomResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RoomInstance> => ({
+          ...response,
+          body: new RoomInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -392,6 +439,19 @@ export class RoomInstance {
   }
 
   /**
+   * Fetch a RoomInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RoomInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
+  ): Promise<ApiResponse<RoomInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Access the participants.
    */
   participants(): ParticipantListInstance {
@@ -472,6 +532,28 @@ export interface RoomListInstance {
     callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams RoomInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RoomListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: RoomListInstanceEachOptions,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of RoomInstance records from the API.
    *
    * The request is executed immediately.
@@ -483,6 +565,18 @@ export interface RoomListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
+  /**
+   * Retrieve a single target page of RoomInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
+  ): Promise<ApiResponse<RoomPage>>;
   /**
    * Lists RoomInstance records from the API as a list.
    *
@@ -499,6 +593,24 @@ export interface RoomListInstance {
     params: RoomListInstanceOptions,
     callback?: (error: Error | null, items: RoomInstance[]) => any
   ): Promise<RoomInstance[]>;
+  /**
+   * Lists RoomInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RoomListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any
+  ): Promise<ApiResponse<RoomInstance[]>>;
+  listWithHttpInfo(
+    params: RoomListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any
+  ): Promise<ApiResponse<RoomInstance[]>>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    *
@@ -517,6 +629,24 @@ export interface RoomListInstance {
     params: RoomListInstancePageOptions,
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
+  /**
+   * Retrieve a single page of RoomInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { RoomListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
+  ): Promise<ApiResponse<RoomPage>>;
+  pageWithHttpInfo(
+    params: RoomListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
+  ): Promise<ApiResponse<RoomPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -602,9 +732,90 @@ export function RoomListInstance(version: V1): RoomListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new RoomPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | RoomListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<RoomPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
+  ): Promise<ApiResponse<RoomPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["roomType"] !== undefined)
+      data["RoomType"] = serialize.map(
+        params["roomType"],
+        (e: RoomRoomType) => e
+      );
+    if (params["codec"] !== undefined)
+      data["Codec"] = serialize.map(params["codec"], (e: RoomCodec) => e);
+    if (params["roomName"] !== undefined) data["RoomName"] = params["roomName"];
+    if (params["createdAfter"] !== undefined)
+      data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
+    if (params["createdBefore"] !== undefined)
+      data["CreatedBefore"] = serialize.iso8601DateTime(
+        params["createdBefore"]
+      );
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<RoomPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RoomPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<RoomPage>) => any
+  ): Promise<ApiResponse<RoomPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<RoomPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RoomPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

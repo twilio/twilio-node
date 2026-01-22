@@ -17,6 +17,7 @@ import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../../base/ApiResponse";
 
 export interface DataContext {
   /**
@@ -29,6 +30,17 @@ export interface DataContext {
   fetch(
     callback?: (error: Error | null, item?: DataInstance) => any
   ): Promise<DataInstance>;
+
+  /**
+   * Fetch a DataInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DataInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DataInstance>) => any
+  ): Promise<ApiResponse<DataInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -108,6 +120,42 @@ export class DataContextImpl implements DataContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DataInstance>) => any
+  ): Promise<ApiResponse<DataInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DataResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DataInstance> => ({
+          ...response,
+          body: new DataInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.referenceSid,
+            instance._solution.addOnResultSid,
+            instance._solution.payloadSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -174,6 +222,19 @@ export class DataInstance {
     callback?: (error: Error | null, item?: DataInstance) => any
   ): Promise<DataInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a DataInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DataInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DataInstance>) => any
+  ): Promise<ApiResponse<DataInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

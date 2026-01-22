@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The status of the Participant. Can be: `connected` or `disconnected`.
@@ -34,6 +35,20 @@ export interface AnonymizeContext {
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance>;
+
+  /**
+   * Update a AnonymizeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AnonymizeInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnonymizeInstance>
+    ) => any
+  ): Promise<ApiResponse<AnonymizeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -87,6 +102,43 @@ export class AnonymizeContextImpl implements AnonymizeContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnonymizeInstance>
+    ) => any
+  ): Promise<ApiResponse<AnonymizeInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AnonymizeResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AnonymizeInstance> => ({
+          ...response,
+          body: new AnonymizeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -214,6 +266,22 @@ export class AnonymizeInstance {
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance> {
     return this._proxy.update(callback);
+  }
+
+  /**
+   * Update a AnonymizeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AnonymizeInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnonymizeInstance>
+    ) => any
+  ): Promise<ApiResponse<AnonymizeInstance>> {
+    return this._proxy.updateWithHttpInfo(callback);
   }
 
   /**

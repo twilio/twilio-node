@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The track type. Can be: `audio`, `video` or `data`.
@@ -58,6 +60,7 @@ export interface PublishedTrackListInstanceOptions {
 export interface PublishedTrackListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -75,6 +78,20 @@ export interface PublishedTrackContext {
   fetch(
     callback?: (error: Error | null, item?: PublishedTrackInstance) => any
   ): Promise<PublishedTrackInstance>;
+
+  /**
+   * Fetch a PublishedTrackInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PublishedTrackInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PublishedTrackInstance>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -139,6 +156,44 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PublishedTrackInstance>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PublishedTrackResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PublishedTrackInstance> => ({
+          ...response,
+          body: new PublishedTrackInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -261,6 +316,22 @@ export class PublishedTrackInstance {
   }
 
   /**
+   * Fetch a PublishedTrackInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PublishedTrackInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PublishedTrackInstance>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -326,6 +397,34 @@ export interface PublishedTrackListInstance {
     ) => void
   ): void;
   /**
+   * Streams PublishedTrackInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PublishedTrackListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: PublishedTrackInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: PublishedTrackListInstanceEachOptions,
+    callback?: (
+      item: PublishedTrackInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of PublishedTrackInstance records from the API.
    *
    * The request is executed immediately.
@@ -337,6 +436,21 @@ export interface PublishedTrackListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: PublishedTrackPage) => any
   ): Promise<PublishedTrackPage>;
+  /**
+   * Retrieve a single target page of PublishedTrackInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PublishedTrackPage>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackPage>>;
   /**
    * Lists PublishedTrackInstance records from the API as a list.
    *
@@ -353,6 +467,30 @@ export interface PublishedTrackListInstance {
     params: PublishedTrackListInstanceOptions,
     callback?: (error: Error | null, items: PublishedTrackInstance[]) => any
   ): Promise<PublishedTrackInstance[]>;
+  /**
+   * Lists PublishedTrackInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PublishedTrackListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PublishedTrackInstance[]>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackInstance[]>>;
+  listWithHttpInfo(
+    params: PublishedTrackListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PublishedTrackInstance[]>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackInstance[]>>;
   /**
    * Retrieve a single page of PublishedTrackInstance records from the API.
    *
@@ -371,6 +509,30 @@ export interface PublishedTrackListInstance {
     params: PublishedTrackListInstancePageOptions,
     callback?: (error: Error | null, items: PublishedTrackPage) => any
   ): Promise<PublishedTrackPage>;
+  /**
+   * Retrieve a single page of PublishedTrackInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PublishedTrackListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PublishedTrackPage>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackPage>>;
+  pageWithHttpInfo(
+    params: PublishedTrackListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PublishedTrackPage>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -455,10 +617,91 @@ export function PublishedTrackListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new PublishedTrackPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | PublishedTrackListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<PublishedTrackPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PublishedTrackPage>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<PublishedTrackPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PublishedTrackPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<PublishedTrackPage>
+    ) => any
+  ): Promise<ApiResponse<PublishedTrackPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<PublishedTrackPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PublishedTrackPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

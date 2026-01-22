@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
@@ -55,6 +56,35 @@ export interface TaskQueueRealTimeStatisticsContext {
       item?: TaskQueueRealTimeStatisticsInstance
     ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
+
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: TaskQueueRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -136,6 +166,62 @@ export class TaskQueueRealTimeStatisticsContextImpl
           instance._solution.taskQueueSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | TaskQueueRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TaskQueueRealTimeStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskQueueRealTimeStatisticsInstance> => ({
+          ...response,
+          body: new TaskQueueRealTimeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.taskQueueSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -320,6 +406,45 @@ export class TaskQueueRealTimeStatisticsInstance {
     ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: TaskQueueRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

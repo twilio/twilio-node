@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export interface JobContext {
   /**
@@ -31,6 +32,17 @@ export interface JobContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a JobInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a JobInstance
    *
    * @param callback - Callback to handle processed record
@@ -40,6 +52,17 @@ export interface JobContext {
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
   ): Promise<JobInstance>;
+
+  /**
+   * Fetch a JobInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed JobInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any
+  ): Promise<ApiResponse<JobInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -85,6 +108,30 @@ export class JobContextImpl implements JobContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
   ): Promise<JobInstance> {
@@ -103,6 +150,39 @@ export class JobContextImpl implements JobContext {
       (payload) =>
         new JobInstance(operationVersion, payload, instance._solution.jobSid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any
+  ): Promise<ApiResponse<JobInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<JobResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<JobInstance> => ({
+          ...response,
+          body: new JobInstance(
+            operationVersion,
+            response.body,
+            instance._solution.jobSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -229,6 +309,19 @@ export class JobInstance {
   }
 
   /**
+   * Remove a JobInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a JobInstance
    *
    * @param callback - Callback to handle processed record
@@ -239,6 +332,19 @@ export class JobInstance {
     callback?: (error: Error | null, item?: JobInstance) => any
   ): Promise<JobInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a JobInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed JobInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any
+  ): Promise<ApiResponse<JobInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

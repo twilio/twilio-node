@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a InsightsAssessmentsCommentInstance
@@ -90,6 +92,7 @@ export interface InsightsAssessmentsCommentListInstancePageOptions {
   agentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -120,6 +123,22 @@ export interface InsightsAssessmentsCommentListInstance {
   ): Promise<InsightsAssessmentsCommentInstance>;
 
   /**
+   * Create a InsightsAssessmentsCommentInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsAssessmentsCommentInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: InsightsAssessmentsCommentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsAssessmentsCommentInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance>>;
+
+  /**
    * Streams InsightsAssessmentsCommentInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -148,6 +167,34 @@ export interface InsightsAssessmentsCommentListInstance {
     ) => void
   ): void;
   /**
+   * Streams InsightsAssessmentsCommentInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InsightsAssessmentsCommentListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: InsightsAssessmentsCommentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: InsightsAssessmentsCommentListInstanceEachOptions,
+    callback?: (
+      item: InsightsAssessmentsCommentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of InsightsAssessmentsCommentInstance records from the API.
    *
    * The request is executed immediately.
@@ -162,6 +209,21 @@ export interface InsightsAssessmentsCommentListInstance {
       items: InsightsAssessmentsCommentPage
     ) => any
   ): Promise<InsightsAssessmentsCommentPage>;
+  /**
+   * Retrieve a single target page of InsightsAssessmentsCommentInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
   /**
    * Lists InsightsAssessmentsCommentInstance records from the API as a list.
    *
@@ -184,6 +246,30 @@ export interface InsightsAssessmentsCommentListInstance {
       items: InsightsAssessmentsCommentInstance[]
     ) => any
   ): Promise<InsightsAssessmentsCommentInstance[]>;
+  /**
+   * Lists InsightsAssessmentsCommentInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InsightsAssessmentsCommentListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentInstance[]>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
+  listWithHttpInfo(
+    params: InsightsAssessmentsCommentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentInstance[]>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
   /**
    * Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
    *
@@ -208,6 +294,30 @@ export interface InsightsAssessmentsCommentListInstance {
       items: InsightsAssessmentsCommentPage
     ) => any
   ): Promise<InsightsAssessmentsCommentPage>;
+  /**
+   * Retrieve a single page of InsightsAssessmentsCommentInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InsightsAssessmentsCommentListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
+  pageWithHttpInfo(
+    params: InsightsAssessmentsCommentListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -303,6 +413,90 @@ export function InsightsAssessmentsCommentListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: InsightsAssessmentsCommentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["categoryId"] === null || params["categoryId"] === undefined) {
+      throw new Error("Required parameter \"params['categoryId']\" missing.");
+    }
+
+    if (
+      params["categoryName"] === null ||
+      params["categoryName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['categoryName']\" missing.");
+    }
+
+    if (params["comment"] === null || params["comment"] === undefined) {
+      throw new Error("Required parameter \"params['comment']\" missing.");
+    }
+
+    if (params["segmentId"] === null || params["segmentId"] === undefined) {
+      throw new Error("Required parameter \"params['segmentId']\" missing.");
+    }
+
+    if (params["agentId"] === null || params["agentId"] === undefined) {
+      throw new Error("Required parameter \"params['agentId']\" missing.");
+    }
+
+    if (params["offset"] === null || params["offset"] === undefined) {
+      throw new Error("Required parameter \"params['offset']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["CategoryId"] = params["categoryId"];
+
+    data["CategoryName"] = params["categoryName"];
+
+    data["Comment"] = params["comment"];
+
+    data["SegmentId"] = params["segmentId"];
+
+    data["AgentId"] = params["agentId"];
+
+    data["Offset"] = params["offset"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<InsightsAssessmentsCommentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InsightsAssessmentsCommentInstance> => ({
+          ...response,
+          body: new InsightsAssessmentsCommentInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | InsightsAssessmentsCommentListInstancePageOptions
@@ -371,7 +565,6 @@ export function InsightsAssessmentsCommentListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new InsightsAssessmentsCommentPage(
@@ -379,6 +572,96 @@ export function InsightsAssessmentsCommentListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | InsightsAssessmentsCommentListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<InsightsAssessmentsCommentPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["segmentId"] !== undefined)
+      data["SegmentId"] = params["segmentId"];
+    if (params["agentId"] !== undefined) data["AgentId"] = params["agentId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<InsightsAssessmentsCommentPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InsightsAssessmentsCommentPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
+  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<InsightsAssessmentsCommentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InsightsAssessmentsCommentPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

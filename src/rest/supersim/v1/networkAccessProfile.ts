@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { NetworkAccessProfileNetworkListInstance } from "./networkAccessProfile/networkAccessProfileNetwork";
 
 /**
@@ -71,6 +73,7 @@ export interface NetworkAccessProfileListInstanceOptions {
 export interface NetworkAccessProfileListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -90,6 +93,20 @@ export interface NetworkAccessProfileContext {
   fetch(
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance>;
+
+  /**
+   * Fetch a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
 
   /**
    * Update a NetworkAccessProfileInstance
@@ -113,6 +130,35 @@ export interface NetworkAccessProfileContext {
     params: NetworkAccessProfileContextUpdateOptions,
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance>;
+
+  /**
+   * Update a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
+  /**
+   * Update a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: NetworkAccessProfileContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -182,6 +228,42 @@ export class NetworkAccessProfileContextImpl
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<NetworkAccessProfileResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NetworkAccessProfileInstance> => ({
+          ...response,
+          body: new NetworkAccessProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | NetworkAccessProfileContextUpdateOptions
@@ -221,6 +303,62 @@ export class NetworkAccessProfileContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | NetworkAccessProfileContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<NetworkAccessProfileInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<NetworkAccessProfileResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NetworkAccessProfileInstance> => ({
+          ...response,
+          body: new NetworkAccessProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -324,6 +462,22 @@ export class NetworkAccessProfileInstance {
   }
 
   /**
+   * Fetch a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a NetworkAccessProfileInstance
    *
    * @param callback - Callback to handle processed record
@@ -351,6 +505,45 @@ export class NetworkAccessProfileInstance {
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
+  /**
+   * Update a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: NetworkAccessProfileContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -416,6 +609,35 @@ export interface NetworkAccessProfileListInstance {
   ): Promise<NetworkAccessProfileInstance>;
 
   /**
+   * Create a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
+  /**
+   * Create a NetworkAccessProfileInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NetworkAccessProfileInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NetworkAccessProfileListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>>;
+
+  /**
    * Streams NetworkAccessProfileInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -444,6 +666,34 @@ export interface NetworkAccessProfileListInstance {
     ) => void
   ): void;
   /**
+   * Streams NetworkAccessProfileInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { NetworkAccessProfileListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: NetworkAccessProfileInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: NetworkAccessProfileListInstanceEachOptions,
+    callback?: (
+      item: NetworkAccessProfileInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of NetworkAccessProfileInstance records from the API.
    *
    * The request is executed immediately.
@@ -455,6 +705,21 @@ export interface NetworkAccessProfileListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: NetworkAccessProfilePage) => any
   ): Promise<NetworkAccessProfilePage>;
+  /**
+   * Retrieve a single target page of NetworkAccessProfileInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfilePage>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfilePage>>;
   /**
    * Lists NetworkAccessProfileInstance records from the API as a list.
    *
@@ -478,6 +743,30 @@ export interface NetworkAccessProfileListInstance {
     ) => any
   ): Promise<NetworkAccessProfileInstance[]>;
   /**
+   * Lists NetworkAccessProfileInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { NetworkAccessProfileListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfileInstance[]>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance[]>>;
+  listWithHttpInfo(
+    params: NetworkAccessProfileListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfileInstance[]>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance[]>>;
+  /**
    * Retrieve a single page of NetworkAccessProfileInstance records from the API.
    *
    * The request is executed immediately.
@@ -495,6 +784,30 @@ export interface NetworkAccessProfileListInstance {
     params: NetworkAccessProfileListInstancePageOptions,
     callback?: (error: Error | null, items: NetworkAccessProfilePage) => any
   ): Promise<NetworkAccessProfilePage>;
+  /**
+   * Retrieve a single page of NetworkAccessProfileInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { NetworkAccessProfileListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfilePage>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfilePage>>;
+  pageWithHttpInfo(
+    params: NetworkAccessProfileListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfilePage>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfilePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -560,6 +873,62 @@ export function NetworkAccessProfileListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | NetworkAccessProfileListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<NetworkAccessProfileInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfileInstance>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["networks"] !== undefined)
+      data["Networks"] = serialize.map(params["networks"], (e: string) => e);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NetworkAccessProfileResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NetworkAccessProfileInstance> => ({
+          ...response,
+          body: new NetworkAccessProfileInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | NetworkAccessProfileListInstancePageOptions
@@ -617,7 +986,6 @@ export function NetworkAccessProfileListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new NetworkAccessProfilePage(
@@ -625,6 +993,91 @@ export function NetworkAccessProfileListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | NetworkAccessProfileListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<NetworkAccessProfilePage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NetworkAccessProfilePage>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfilePage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<NetworkAccessProfilePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new NetworkAccessProfilePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<NetworkAccessProfilePage>
+    ) => any
+  ): Promise<ApiResponse<NetworkAccessProfilePage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<NetworkAccessProfilePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new NetworkAccessProfilePage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

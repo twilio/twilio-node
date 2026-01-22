@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to update a UsAppToPersonInstance
@@ -107,6 +109,7 @@ export interface UsAppToPersonListInstanceOptions {
 export interface UsAppToPersonListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -126,6 +129,17 @@ export interface UsAppToPersonContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a UsAppToPersonInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a UsAppToPersonInstance
    *
    * @param callback - Callback to handle processed record
@@ -135,6 +149,20 @@ export interface UsAppToPersonContext {
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance>;
+
+  /**
+   * Fetch a UsAppToPersonInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   /**
    * Update a UsAppToPersonInstance
@@ -148,6 +176,22 @@ export interface UsAppToPersonContext {
     params: UsAppToPersonContextUpdateOptions,
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance>;
+
+  /**
+   * Update a UsAppToPersonInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: UsAppToPersonContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -202,6 +246,30 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
@@ -225,6 +293,43 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UsAppToPersonResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UsAppToPersonInstance> => ({
+          ...response,
+          body: new UsAppToPersonInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -330,6 +435,117 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: UsAppToPersonContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["hasEmbeddedLinks"] === null ||
+      params["hasEmbeddedLinks"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+      );
+    }
+
+    if (
+      params["hasEmbeddedPhone"] === null ||
+      params["hasEmbeddedPhone"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+      );
+    }
+
+    if (
+      params["messageSamples"] === null ||
+      params["messageSamples"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messageSamples']\" missing."
+      );
+    }
+
+    if (params["messageFlow"] === null || params["messageFlow"] === undefined) {
+      throw new Error("Required parameter \"params['messageFlow']\" missing.");
+    }
+
+    if (params["description"] === null || params["description"] === undefined) {
+      throw new Error("Required parameter \"params['description']\" missing.");
+    }
+
+    if (params["ageGated"] === null || params["ageGated"] === undefined) {
+      throw new Error("Required parameter \"params['ageGated']\" missing.");
+    }
+
+    if (
+      params["directLending"] === null ||
+      params["directLending"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['directLending']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["HasEmbeddedLinks"] = serialize.bool(params["hasEmbeddedLinks"]);
+
+    data["HasEmbeddedPhone"] = serialize.bool(params["hasEmbeddedPhone"]);
+
+    data["MessageSamples"] = serialize.map(
+      params["messageSamples"],
+      (e: string) => e
+    );
+
+    data["MessageFlow"] = params["messageFlow"];
+
+    data["Description"] = params["description"];
+
+    data["AgeGated"] = serialize.bool(params["ageGated"]);
+
+    data["DirectLending"] = serialize.bool(params["directLending"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<UsAppToPersonResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UsAppToPersonInstance> => ({
+          ...response,
+          body: new UsAppToPersonInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -567,6 +783,19 @@ export class UsAppToPersonInstance {
   }
 
   /**
+   * Remove a UsAppToPersonInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a UsAppToPersonInstance
    *
    * @param callback - Callback to handle processed record
@@ -577,6 +806,22 @@ export class UsAppToPersonInstance {
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a UsAppToPersonInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -597,6 +842,32 @@ export class UsAppToPersonInstance {
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a UsAppToPersonInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: UsAppToPersonContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -668,6 +939,22 @@ export interface UsAppToPersonListInstance {
   ): Promise<UsAppToPersonInstance>;
 
   /**
+   * Create a UsAppToPersonInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: UsAppToPersonListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
+
+  /**
    * Streams UsAppToPersonInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -696,6 +983,34 @@ export interface UsAppToPersonListInstance {
     ) => void
   ): void;
   /**
+   * Streams UsAppToPersonInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UsAppToPersonListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: UsAppToPersonInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: UsAppToPersonListInstanceEachOptions,
+    callback?: (
+      item: UsAppToPersonInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of UsAppToPersonInstance records from the API.
    *
    * The request is executed immediately.
@@ -707,6 +1022,21 @@ export interface UsAppToPersonListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
+  /**
+   * Retrieve a single target page of UsAppToPersonInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonPage>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonPage>>;
   /**
    * Lists UsAppToPersonInstance records from the API as a list.
    *
@@ -723,6 +1053,30 @@ export interface UsAppToPersonListInstance {
     params: UsAppToPersonListInstanceOptions,
     callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
   ): Promise<UsAppToPersonInstance[]>;
+  /**
+   * Lists UsAppToPersonInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UsAppToPersonListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonInstance[]>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance[]>>;
+  listWithHttpInfo(
+    params: UsAppToPersonListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonInstance[]>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance[]>>;
   /**
    * Retrieve a single page of UsAppToPersonInstance records from the API.
    *
@@ -741,6 +1095,30 @@ export interface UsAppToPersonListInstance {
     params: UsAppToPersonListInstancePageOptions,
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
+  /**
+   * Retrieve a single page of UsAppToPersonInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UsAppToPersonListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonPage>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonPage>>;
+  pageWithHttpInfo(
+    params: UsAppToPersonListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonPage>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -902,6 +1280,147 @@ export function UsAppToPersonListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: UsAppToPersonListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["brandRegistrationSid"] === null ||
+      params["brandRegistrationSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['brandRegistrationSid']\" missing."
+      );
+    }
+
+    if (params["description"] === null || params["description"] === undefined) {
+      throw new Error("Required parameter \"params['description']\" missing.");
+    }
+
+    if (params["messageFlow"] === null || params["messageFlow"] === undefined) {
+      throw new Error("Required parameter \"params['messageFlow']\" missing.");
+    }
+
+    if (
+      params["messageSamples"] === null ||
+      params["messageSamples"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messageSamples']\" missing."
+      );
+    }
+
+    if (
+      params["usAppToPersonUsecase"] === null ||
+      params["usAppToPersonUsecase"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['usAppToPersonUsecase']\" missing."
+      );
+    }
+
+    if (
+      params["hasEmbeddedLinks"] === null ||
+      params["hasEmbeddedLinks"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+      );
+    }
+
+    if (
+      params["hasEmbeddedPhone"] === null ||
+      params["hasEmbeddedPhone"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["BrandRegistrationSid"] = params["brandRegistrationSid"];
+
+    data["Description"] = params["description"];
+
+    data["MessageFlow"] = params["messageFlow"];
+
+    data["MessageSamples"] = serialize.map(
+      params["messageSamples"],
+      (e: string) => e
+    );
+
+    data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
+
+    data["HasEmbeddedLinks"] = serialize.bool(params["hasEmbeddedLinks"]);
+
+    data["HasEmbeddedPhone"] = serialize.bool(params["hasEmbeddedPhone"]);
+    if (params["optInMessage"] !== undefined)
+      data["OptInMessage"] = params["optInMessage"];
+    if (params["optOutMessage"] !== undefined)
+      data["OptOutMessage"] = params["optOutMessage"];
+    if (params["helpMessage"] !== undefined)
+      data["HelpMessage"] = params["helpMessage"];
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
+    if (params["optOutKeywords"] !== undefined)
+      data["OptOutKeywords"] = serialize.map(
+        params["optOutKeywords"],
+        (e: string) => e
+      );
+    if (params["helpKeywords"] !== undefined)
+      data["HelpKeywords"] = serialize.map(
+        params["helpKeywords"],
+        (e: string) => e
+      );
+    if (params["subscriberOptIn"] !== undefined)
+      data["SubscriberOptIn"] = serialize.bool(params["subscriberOptIn"]);
+    if (params["ageGated"] !== undefined)
+      data["AgeGated"] = serialize.bool(params["ageGated"]);
+    if (params["directLending"] !== undefined)
+      data["DirectLending"] = serialize.bool(params["directLending"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<UsAppToPersonResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UsAppToPersonInstance> => ({
+          ...response,
+          body: new UsAppToPersonInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | UsAppToPersonListInstancePageOptions
@@ -955,10 +1474,91 @@ export function UsAppToPersonListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new UsAppToPersonPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | UsAppToPersonListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<UsAppToPersonPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsAppToPersonPage>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<UsAppToPersonPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UsAppToPersonPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<UsAppToPersonPage>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<UsAppToPersonPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UsAppToPersonPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

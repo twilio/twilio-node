@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The model by which a SIMs usage is metered and billed. Defaults to `payg`.
@@ -104,6 +106,7 @@ export interface FleetListInstancePageOptions {
   networkAccessProfile?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -121,6 +124,17 @@ export interface FleetContext {
   fetch(
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
+
+  /**
+   * Fetch a FleetInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>>;
 
   /**
    * Update a FleetInstance
@@ -144,6 +158,29 @@ export interface FleetContext {
     params: FleetContextUpdateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
+
+  /**
+   * Update a FleetInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>>;
+  /**
+   * Update a FleetInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -187,6 +224,39 @@ export class FleetContextImpl implements FleetContext {
       (payload) =>
         new FleetInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FleetResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FleetInstance> => ({
+          ...response,
+          body: new FleetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -242,6 +312,68 @@ export class FleetContextImpl implements FleetContext {
       (payload) =>
         new FleetInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<FleetInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["networkAccessProfile"] !== undefined)
+      data["NetworkAccessProfile"] = params["networkAccessProfile"];
+    if (params["ipCommandsUrl"] !== undefined)
+      data["IpCommandsUrl"] = params["ipCommandsUrl"];
+    if (params["ipCommandsMethod"] !== undefined)
+      data["IpCommandsMethod"] = params["ipCommandsMethod"];
+    if (params["smsCommandsUrl"] !== undefined)
+      data["SmsCommandsUrl"] = params["smsCommandsUrl"];
+    if (params["smsCommandsMethod"] !== undefined)
+      data["SmsCommandsMethod"] = params["smsCommandsMethod"];
+    if (params["dataLimit"] !== undefined)
+      data["DataLimit"] = params["dataLimit"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FleetResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FleetInstance> => ({
+          ...response,
+          body: new FleetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -388,6 +520,19 @@ export class FleetInstance {
   }
 
   /**
+   * Fetch a FleetInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a FleetInstance
    *
    * @param callback - Callback to handle processed record
@@ -415,6 +560,36 @@ export class FleetInstance {
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a FleetInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>>;
+  /**
+   * Update a FleetInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -471,6 +646,19 @@ export interface FleetListInstance {
   ): Promise<FleetInstance>;
 
   /**
+   * Create a FleetInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FleetInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>>;
+
+  /**
    * Streams FleetInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -493,6 +681,28 @@ export interface FleetListInstance {
     callback?: (item: FleetInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams FleetInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FleetListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: FleetListInstanceEachOptions,
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of FleetInstance records from the API.
    *
    * The request is executed immediately.
@@ -504,6 +714,18 @@ export interface FleetListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
+  /**
+   * Retrieve a single target page of FleetInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+  ): Promise<ApiResponse<FleetPage>>;
   /**
    * Lists FleetInstance records from the API as a list.
    *
@@ -520,6 +742,24 @@ export interface FleetListInstance {
     params: FleetListInstanceOptions,
     callback?: (error: Error | null, items: FleetInstance[]) => any
   ): Promise<FleetInstance[]>;
+  /**
+   * Lists FleetInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FleetListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<FleetInstance[]>) => any
+  ): Promise<ApiResponse<FleetInstance[]>>;
+  listWithHttpInfo(
+    params: FleetListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<FleetInstance[]>) => any
+  ): Promise<ApiResponse<FleetInstance[]>>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    *
@@ -538,6 +778,24 @@ export interface FleetListInstance {
     params: FleetListInstancePageOptions,
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
+  /**
+   * Retrieve a single page of FleetInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FleetListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+  ): Promise<ApiResponse<FleetPage>>;
+  pageWithHttpInfo(
+    params: FleetListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+  ): Promise<ApiResponse<FleetPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -617,6 +875,70 @@ export function FleetListInstance(version: V1): FleetListInstance {
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<FleetInstance>) => any
+  ): Promise<ApiResponse<FleetInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["networkAccessProfile"] === null ||
+      params["networkAccessProfile"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['networkAccessProfile']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["NetworkAccessProfile"] = params["networkAccessProfile"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["dataEnabled"] !== undefined)
+      data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+    if (params["dataLimit"] !== undefined)
+      data["DataLimit"] = params["dataLimit"];
+    if (params["ipCommandsUrl"] !== undefined)
+      data["IpCommandsUrl"] = params["ipCommandsUrl"];
+    if (params["ipCommandsMethod"] !== undefined)
+      data["IpCommandsMethod"] = params["ipCommandsMethod"];
+    if (params["smsCommandsEnabled"] !== undefined)
+      data["SmsCommandsEnabled"] = serialize.bool(params["smsCommandsEnabled"]);
+    if (params["smsCommandsUrl"] !== undefined)
+      data["SmsCommandsUrl"] = params["smsCommandsUrl"];
+    if (params["smsCommandsMethod"] !== undefined)
+      data["SmsCommandsMethod"] = params["smsCommandsMethod"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<FleetResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FleetInstance> => ({
+          ...response,
+          body: new FleetInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | FleetListInstancePageOptions
@@ -671,9 +993,78 @@ export function FleetListInstance(version: V1): FleetListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new FleetPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | FleetListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<FleetPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+  ): Promise<ApiResponse<FleetPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["networkAccessProfile"] !== undefined)
+      data["NetworkAccessProfile"] = params["networkAccessProfile"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<FleetPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FleetPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<FleetPage>) => any
+  ): Promise<ApiResponse<FleetPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<FleetPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FleetPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

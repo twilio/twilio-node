@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a PhoneNumberInstance
@@ -41,6 +42,20 @@ export interface PhoneNumberContext {
   ): Promise<PhoneNumberInstance>;
 
   /**
+   * Fetch a PhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+
+  /**
    * Update a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
@@ -62,6 +77,35 @@ export interface PhoneNumberContext {
     params: PhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
+
+  /**
+   * Update a PhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+  /**
+   * Update a PhoneNumberInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: PhoneNumberContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -117,6 +161,42 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PhoneNumberResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PhoneNumberInstance> => ({
+          ...response,
+          body: new PhoneNumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | PhoneNumberContextUpdateOptions
@@ -158,6 +238,61 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
           instance._solution.phoneNumber
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | PhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<PhoneNumberInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["voiceRegion"] !== undefined)
+      data["VoiceRegion"] = params["voiceRegion"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<PhoneNumberResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PhoneNumberInstance> => ({
+          ...response,
+          body: new PhoneNumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -268,6 +403,22 @@ export class PhoneNumberInstance {
   }
 
   /**
+   * Fetch a PhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
@@ -295,6 +446,45 @@ export class PhoneNumberInstance {
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a PhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+  /**
+   * Update a PhoneNumberInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PhoneNumberInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: PhoneNumberContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PhoneNumberInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a ComplianceInquiriesInstance
@@ -53,6 +54,22 @@ export interface ComplianceInquiriesContext {
     params: ComplianceInquiriesContextUpdateOptions,
     callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance>;
+
+  /**
+   * Update a ComplianceInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceInquiriesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ComplianceInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -124,6 +141,64 @@ export class ComplianceInquiriesContextImpl
           instance._solution.customerId
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: ComplianceInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["primaryProfileSid"] === null ||
+      params["primaryProfileSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['primaryProfileSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["PrimaryProfileSid"] = params["primaryProfileSid"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ComplianceInquiriesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ComplianceInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceInquiriesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.customerId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -220,6 +295,32 @@ export class ComplianceInquiriesInstance {
   }
 
   /**
+   * Update a ComplianceInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceInquiriesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ComplianceInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -270,6 +371,35 @@ export interface ComplianceInquiriesListInstance {
     params: ComplianceInquiriesListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance>;
+
+  /**
+   * Create a ComplianceInquiriesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceInquiriesInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
+  /**
+   * Create a ComplianceInquiriesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceInquiriesInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ComplianceInquiriesListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -329,6 +459,64 @@ export function ComplianceInquiriesListInstance(
     operationPromise = operationPromise.then(
       (payload) => new ComplianceInquiriesInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | ComplianceInquiriesListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ComplianceInquiriesInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
+  ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["notificationEmail"] !== undefined)
+      data["NotificationEmail"] = params["notificationEmail"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+    if (params["primaryProfileSid"] !== undefined)
+      data["PrimaryProfileSid"] = params["primaryProfileSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ComplianceInquiriesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ComplianceInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceInquiriesInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Rate limit response schema
@@ -83,6 +84,35 @@ export interface RateLimitListInstance {
   ): Promise<RateLimitInstance>;
 
   /**
+   * Fetch a RateLimitInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
+  /**
+   * Fetch a RateLimitInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RateLimitInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: RateLimitListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -128,6 +158,53 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
     operationPromise = operationPromise.then(
       (payload) => new RateLimitInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | RateLimitListInstanceFetchOptions
+      | ((error: Error | null, items: ApiResponse<RateLimitInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RateLimitInstance>
+    ) => any
+  ): Promise<ApiResponse<RateLimitInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["fields"] !== undefined)
+      data["Fields"] = serialize.map(params["fields"], (e: string) => e);
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RateLimitResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RateLimitInstance> => ({
+          ...response,
+          body: new RateLimitInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

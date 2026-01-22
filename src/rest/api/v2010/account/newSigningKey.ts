@@ -17,6 +17,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a NewSigningKeyInstance
@@ -57,6 +58,35 @@ export interface NewSigningKeyListInstance {
     params: NewSigningKeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance>;
+
+  /**
+   * Create a NewSigningKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewSigningKeyInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewSigningKeyInstance>
+    ) => any
+  ): Promise<ApiResponse<NewSigningKeyInstance>>;
+  /**
+   * Create a NewSigningKeyInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewSigningKeyInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NewSigningKeyListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewSigningKeyInstance>
+    ) => any
+  ): Promise<ApiResponse<NewSigningKeyInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -117,6 +147,61 @@ export function NewSigningKeyListInstance(
           instance._solution.accountSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | NewSigningKeyListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<NewSigningKeyInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NewSigningKeyInstance>
+    ) => any
+  ): Promise<ApiResponse<NewSigningKeyInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NewSigningKeyResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewSigningKeyInstance> => ({
+          ...response,
+          body: new NewSigningKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

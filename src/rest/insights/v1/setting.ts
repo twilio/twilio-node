@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a SettingInstance
@@ -63,6 +64,29 @@ export interface SettingContext {
   ): Promise<SettingInstance>;
 
   /**
+   * Fetch a SettingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+  /**
+   * Fetch a SettingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: SettingContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+
+  /**
    * Update a SettingInstance
    *
    * @param callback - Callback to handle processed record
@@ -84,6 +108,29 @@ export interface SettingContext {
     params: SettingContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance>;
+
+  /**
+   * Update a SettingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+  /**
+   * Update a SettingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SettingContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -144,6 +191,51 @@ export class SettingContextImpl implements SettingContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    params?:
+      | SettingContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<SettingInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["subaccountSid"] !== undefined)
+      data["SubaccountSid"] = params["subaccountSid"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SettingResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SettingInstance> => ({
+          ...response,
+          body: new SettingInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | SettingContextUpdateOptions
@@ -182,6 +274,56 @@ export class SettingContextImpl implements SettingContext {
     operationPromise = operationPromise.then(
       (payload) => new SettingInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | SettingContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<SettingInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["advancedFeatures"] !== undefined)
+      data["AdvancedFeatures"] = serialize.bool(params["advancedFeatures"]);
+    if (params["voiceTrace"] !== undefined)
+      data["VoiceTrace"] = serialize.bool(params["voiceTrace"]);
+    if (params["subaccountSid"] !== undefined)
+      data["SubaccountSid"] = params["subaccountSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<SettingResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SettingInstance> => ({
+          ...response,
+          body: new SettingInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -279,6 +421,36 @@ export class SettingInstance {
   }
 
   /**
+   * Fetch a SettingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+  /**
+   * Fetch a SettingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: SettingContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
+  }
+
+  /**
    * Update a SettingInstance
    *
    * @param callback - Callback to handle processed record
@@ -306,6 +478,36 @@ export class SettingInstance {
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a SettingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+  /**
+   * Update a SettingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SettingContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+  ): Promise<ApiResponse<SettingInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a TypingIndicatorInstance
@@ -47,6 +48,22 @@ export interface TypingIndicatorListInstance {
     params: TypingIndicatorListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TypingIndicatorInstance) => any
   ): Promise<TypingIndicatorInstance>;
+
+  /**
+   * Create a TypingIndicatorInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TypingIndicatorInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TypingIndicatorListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TypingIndicatorInstance>
+    ) => any
+  ): Promise<ApiResponse<TypingIndicatorInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -101,6 +118,58 @@ export function TypingIndicatorListInstance(
     operationPromise = operationPromise.then(
       (payload) => new TypingIndicatorInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: TypingIndicatorListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TypingIndicatorInstance>
+    ) => any
+  ): Promise<ApiResponse<TypingIndicatorInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["channel"] === null || params["channel"] === undefined) {
+      throw new Error("Required parameter \"params['channel']\" missing.");
+    }
+
+    if (params["messageId"] === null || params["messageId"] === undefined) {
+      throw new Error("Required parameter \"params['messageId']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["channel"] = params["channel"];
+
+    data["messageId"] = params["messageId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TypingIndicatorResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TypingIndicatorInstance> => ({
+          ...response,
+          body: new TypingIndicatorInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

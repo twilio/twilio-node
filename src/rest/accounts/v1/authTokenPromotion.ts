@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface AuthTokenPromotionContext {
   /**
@@ -29,6 +30,20 @@ export interface AuthTokenPromotionContext {
   update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
   ): Promise<AuthTokenPromotionInstance>;
+
+  /**
+   * Update a AuthTokenPromotionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -67,6 +82,38 @@ export class AuthTokenPromotionContextImpl
     operationPromise = operationPromise.then(
       (payload) => new AuthTokenPromotionInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AuthTokenPromotionResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AuthTokenPromotionInstance> => ({
+          ...response,
+          body: new AuthTokenPromotionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -151,6 +198,22 @@ export class AuthTokenPromotionInstance {
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
   ): Promise<AuthTokenPromotionInstance> {
     return this._proxy.update(callback);
+  }
+
+  /**
+   * Update a AuthTokenPromotionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
+    return this._proxy.updateWithHttpInfo(callback);
   }
 
   /**

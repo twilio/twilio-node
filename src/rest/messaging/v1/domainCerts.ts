@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a DomainCertsInstance
@@ -39,6 +40,17 @@ export interface DomainCertsContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a DomainCertsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a DomainCertsInstance
    *
    * @param callback - Callback to handle processed record
@@ -48,6 +60,20 @@ export interface DomainCertsContext {
   fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
+
+  /**
+   * Fetch a DomainCertsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainCertsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>>;
 
   /**
    * Update a DomainCertsInstance
@@ -61,6 +87,22 @@ export interface DomainCertsContext {
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
+
+  /**
+   * Update a DomainCertsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainCertsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: DomainCertsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -106,6 +148,30 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
@@ -128,6 +194,42 @@ export class DomainCertsContextImpl implements DomainCertsContext {
           instance._solution.domainSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DomainCertsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainCertsInstance> => ({
+          ...response,
+          body: new DomainCertsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -173,6 +275,57 @@ export class DomainCertsContextImpl implements DomainCertsContext {
           instance._solution.domainSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: DomainCertsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["tlsCert"] === null || params["tlsCert"] === undefined) {
+      throw new Error("Required parameter \"params['tlsCert']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["TlsCert"] = params["tlsCert"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<DomainCertsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainCertsInstance> => ({
+          ...response,
+          body: new DomainCertsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -280,6 +433,19 @@ export class DomainCertsInstance {
   }
 
   /**
+   * Remove a DomainCertsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a DomainCertsInstance
    *
    * @param callback - Callback to handle processed record
@@ -290,6 +456,22 @@ export class DomainCertsInstance {
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a DomainCertsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainCertsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -310,6 +492,32 @@ export class DomainCertsInstance {
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a DomainCertsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainCertsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: DomainCertsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainCertsInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The type of the requested phone number. One of `LOCAL`, `UNKNOWN`, `MOBILE`, `TOLL-FREE`.
@@ -60,6 +61,35 @@ export interface PortingPortabilityContext {
     params: PortingPortabilityContextFetchOptions,
     callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
   ): Promise<PortingPortabilityInstance>;
+
+  /**
+   * Fetch a PortingPortabilityInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortabilityInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+  /**
+   * Fetch a PortingPortabilityInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: PortingPortabilityContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortabilityInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortabilityInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -127,6 +157,63 @@ export class PortingPortabilityContextImpl
           instance._solution.phoneNumber
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | PortingPortabilityContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<PortingPortabilityInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortabilityInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortabilityInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["targetAccountSid"] !== undefined)
+      data["TargetAccountSid"] = params["targetAccountSid"];
+    if (params["addressSid"] !== undefined)
+      data["AddressSid"] = params["addressSid"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PortingPortabilityResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PortingPortabilityInstance> => ({
+          ...response,
+          body: new PortingPortabilityInstance(
+            operationVersion,
+            response.body,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -259,6 +346,45 @@ export class PortingPortabilityInstance {
     callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
   ): Promise<PortingPortabilityInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a PortingPortabilityInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortabilityInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+  /**
+   * Fetch a PortingPortabilityInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: PortingPortabilityContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortabilityInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortabilityInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortabilityInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

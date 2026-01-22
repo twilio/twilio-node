@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
@@ -93,6 +95,7 @@ export interface SinkListInstancePageOptions {
   status?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -115,6 +118,17 @@ export interface SinkContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a SinkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a SinkInstance
    *
    * @param callback - Callback to handle processed record
@@ -124,6 +138,17 @@ export interface SinkContext {
   fetch(
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance>;
+
+  /**
+   * Fetch a SinkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>>;
 
   /**
    * Update a SinkInstance
@@ -137,6 +162,19 @@ export interface SinkContext {
     params: SinkContextUpdateOptions,
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance>;
+
+  /**
+   * Update a SinkInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SinkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -198,6 +236,30 @@ export class SinkContextImpl implements SinkContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance> {
@@ -216,6 +278,39 @@ export class SinkContextImpl implements SinkContext {
       (payload) =>
         new SinkInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SinkResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SinkInstance> => ({
+          ...response,
+          body: new SinkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -257,6 +352,54 @@ export class SinkContextImpl implements SinkContext {
       (payload) =>
         new SinkInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: SinkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["description"] === null || params["description"] === undefined) {
+      throw new Error("Required parameter \"params['description']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Description"] = params["description"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<SinkResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SinkInstance> => ({
+          ...response,
+          body: new SinkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -364,6 +507,19 @@ export class SinkInstance {
   }
 
   /**
+   * Remove a SinkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a SinkInstance
    *
    * @param callback - Callback to handle processed record
@@ -374,6 +530,19 @@ export class SinkInstance {
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a SinkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -394,6 +563,26 @@ export class SinkInstance {
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a SinkInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SinkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -458,6 +647,19 @@ export interface SinkListInstance {
   ): Promise<SinkInstance>;
 
   /**
+   * Create a SinkInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: SinkListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>>;
+
+  /**
    * Streams SinkInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -480,6 +682,28 @@ export interface SinkListInstance {
     callback?: (item: SinkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams SinkInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SinkListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: SinkInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: SinkListInstanceEachOptions,
+    callback?: (item: SinkInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of SinkInstance records from the API.
    *
    * The request is executed immediately.
@@ -491,6 +715,18 @@ export interface SinkListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage>;
+  /**
+   * Retrieve a single target page of SinkInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<SinkPage>) => any
+  ): Promise<ApiResponse<SinkPage>>;
   /**
    * Lists SinkInstance records from the API as a list.
    *
@@ -507,6 +743,24 @@ export interface SinkListInstance {
     params: SinkListInstanceOptions,
     callback?: (error: Error | null, items: SinkInstance[]) => any
   ): Promise<SinkInstance[]>;
+  /**
+   * Lists SinkInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SinkListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<SinkInstance[]>) => any
+  ): Promise<ApiResponse<SinkInstance[]>>;
+  listWithHttpInfo(
+    params: SinkListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<SinkInstance[]>) => any
+  ): Promise<ApiResponse<SinkInstance[]>>;
   /**
    * Retrieve a single page of SinkInstance records from the API.
    *
@@ -525,6 +779,24 @@ export interface SinkListInstance {
     params: SinkListInstancePageOptions,
     callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage>;
+  /**
+   * Retrieve a single page of SinkInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SinkListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<SinkPage>) => any
+  ): Promise<ApiResponse<SinkPage>>;
+  pageWithHttpInfo(
+    params: SinkListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<SinkPage>) => any
+  ): Promise<ApiResponse<SinkPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -600,6 +872,66 @@ export function SinkListInstance(version: V1): SinkListInstance {
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: SinkListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<SinkInstance>) => any
+  ): Promise<ApiResponse<SinkInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["description"] === null || params["description"] === undefined) {
+      throw new Error("Required parameter \"params['description']\" missing.");
+    }
+
+    if (
+      params["sinkConfiguration"] === null ||
+      params["sinkConfiguration"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['sinkConfiguration']\" missing."
+      );
+    }
+
+    if (params["sinkType"] === null || params["sinkType"] === undefined) {
+      throw new Error("Required parameter \"params['sinkType']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Description"] = params["description"];
+
+    data["SinkConfiguration"] = serialize.object(params["sinkConfiguration"]);
+
+    data["SinkType"] = params["sinkType"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<SinkResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SinkInstance> => ({
+          ...response,
+          body: new SinkInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | SinkListInstancePageOptions
@@ -655,9 +987,79 @@ export function SinkListInstance(version: V1): SinkListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new SinkPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | SinkListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<SinkPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<SinkPage>) => any
+  ): Promise<ApiResponse<SinkPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["inUse"] !== undefined)
+      data["InUse"] = serialize.bool(params["inUse"]);
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<SinkPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SinkPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<SinkPage>) => any
+  ): Promise<ApiResponse<SinkPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<SinkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SinkPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

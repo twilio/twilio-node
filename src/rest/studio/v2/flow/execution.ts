@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 import { ExecutionStepListInstance } from "./execution/executionStep";
 
@@ -88,6 +90,7 @@ export interface ExecutionListInstancePageOptions {
   dateCreatedTo?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -110,6 +113,17 @@ export interface ExecutionContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a ExecutionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a ExecutionInstance
    *
    * @param callback - Callback to handle processed record
@@ -119,6 +133,20 @@ export interface ExecutionContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance>;
+
+  /**
+   * Fetch a ExecutionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>>;
 
   /**
    * Update a ExecutionInstance
@@ -132,6 +160,22 @@ export interface ExecutionContext {
     params: ExecutionContextUpdateOptions,
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance>;
+
+  /**
+   * Update a ExecutionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ExecutionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -207,6 +251,30 @@ export class ExecutionContextImpl implements ExecutionContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
@@ -230,6 +298,43 @@ export class ExecutionContextImpl implements ExecutionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ExecutionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExecutionInstance> => ({
+          ...response,
+          body: new ExecutionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -276,6 +381,58 @@ export class ExecutionContextImpl implements ExecutionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: ExecutionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error("Required parameter \"params['status']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Status"] = params["status"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ExecutionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExecutionInstance> => ({
+          ...response,
+          body: new ExecutionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -402,6 +559,19 @@ export class ExecutionInstance {
   }
 
   /**
+   * Remove a ExecutionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a ExecutionInstance
    *
    * @param callback - Callback to handle processed record
@@ -412,6 +582,22 @@ export class ExecutionInstance {
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ExecutionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -432,6 +618,32 @@ export class ExecutionInstance {
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ExecutionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ExecutionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -499,6 +711,22 @@ export interface ExecutionListInstance {
   ): Promise<ExecutionInstance>;
 
   /**
+   * Create a ExecutionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ExecutionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>>;
+
+  /**
    * Streams ExecutionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -521,6 +749,28 @@ export interface ExecutionListInstance {
     callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams ExecutionInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ExecutionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: ExecutionListInstanceEachOptions,
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of ExecutionInstance records from the API.
    *
    * The request is executed immediately.
@@ -532,6 +782,18 @@ export interface ExecutionListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: ExecutionPage) => any
   ): Promise<ExecutionPage>;
+  /**
+   * Retrieve a single target page of ExecutionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+  ): Promise<ApiResponse<ExecutionPage>>;
   /**
    * Lists ExecutionInstance records from the API as a list.
    *
@@ -548,6 +810,30 @@ export interface ExecutionListInstance {
     params: ExecutionListInstanceOptions,
     callback?: (error: Error | null, items: ExecutionInstance[]) => any
   ): Promise<ExecutionInstance[]>;
+  /**
+   * Lists ExecutionInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ExecutionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ExecutionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance[]>>;
+  listWithHttpInfo(
+    params: ExecutionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ExecutionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance[]>>;
   /**
    * Retrieve a single page of ExecutionInstance records from the API.
    *
@@ -566,6 +852,24 @@ export interface ExecutionListInstance {
     params: ExecutionListInstancePageOptions,
     callback?: (error: Error | null, items: ExecutionPage) => any
   ): Promise<ExecutionPage>;
+  /**
+   * Retrieve a single page of ExecutionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ExecutionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+  ): Promise<ApiResponse<ExecutionPage>>;
+  pageWithHttpInfo(
+    params: ExecutionListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+  ): Promise<ApiResponse<ExecutionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -644,6 +948,64 @@ export function ExecutionListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ExecutionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ExecutionInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["to"] === null || params["to"] === undefined) {
+      throw new Error("Required parameter \"params['to']\" missing.");
+    }
+
+    if (params["from"] === null || params["from"] === undefined) {
+      throw new Error("Required parameter \"params['from']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["To"] = params["to"];
+
+    data["From"] = params["from"];
+    if (params["parameters"] !== undefined)
+      data["Parameters"] = serialize.object(params["parameters"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ExecutionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExecutionInstance> => ({
+          ...response,
+          body: new ExecutionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | ExecutionListInstancePageOptions
@@ -705,10 +1067,93 @@ export function ExecutionListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new ExecutionPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ExecutionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ExecutionPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+  ): Promise<ApiResponse<ExecutionPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["dateCreatedFrom"] !== undefined)
+      data["DateCreatedFrom"] = serialize.iso8601DateTime(
+        params["dateCreatedFrom"]
+      );
+    if (params["dateCreatedTo"] !== undefined)
+      data["DateCreatedTo"] = serialize.iso8601DateTime(
+        params["dateCreatedTo"]
+      );
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<ExecutionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ExecutionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<ExecutionPage>) => any
+  ): Promise<ApiResponse<ExecutionPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ExecutionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ExecutionPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

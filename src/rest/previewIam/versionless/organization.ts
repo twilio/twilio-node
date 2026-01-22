@@ -17,6 +17,7 @@ import Versionless from "../Versionless";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { AccountListInstance } from "./organization/account";
 import { RoleAssignmentListInstance } from "./organization/roleAssignment";
 import { UserListInstance } from "./organization/user";

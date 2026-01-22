@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The priority of the notification. Can be: `low` or `high` and the default is `high`. A value of `low` optimizes the client app\'s battery consumption; however, notifications may be delivered with unspecified delay. For FCM and GCM, `low` priority is the same as `Normal` priority. For APNS `low` priority is the same as `5`. A value of `high` sends the notification immediately, and can wake up a sleeping device. For FCM and GCM, `high` is the same as `High` priority. For APNS, `high` is a priority `10`. SMS does not support this property.
@@ -96,6 +97,35 @@ export interface NotificationListInstance {
     params: NotificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
+
+  /**
+   * Create a NotificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
+  /**
+   * Create a NotificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NotificationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -184,6 +214,89 @@ export function NotificationListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | NotificationListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<NotificationInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["title"] !== undefined) data["Title"] = params["title"];
+    if (params["sound"] !== undefined) data["Sound"] = params["sound"];
+    if (params["action"] !== undefined) data["Action"] = params["action"];
+    if (params["data"] !== undefined)
+      data["Data"] = serialize.object(params["data"]);
+    if (params["apn"] !== undefined)
+      data["Apn"] = serialize.object(params["apn"]);
+    if (params["gcm"] !== undefined)
+      data["Gcm"] = serialize.object(params["gcm"]);
+    if (params["sms"] !== undefined)
+      data["Sms"] = serialize.object(params["sms"]);
+    if (params["facebookMessenger"] !== undefined)
+      data["FacebookMessenger"] = serialize.object(params["facebookMessenger"]);
+    if (params["fcm"] !== undefined)
+      data["Fcm"] = serialize.object(params["fcm"]);
+    if (params["segment"] !== undefined)
+      data["Segment"] = serialize.map(params["segment"], (e: string) => e);
+    if (params["alexa"] !== undefined)
+      data["Alexa"] = serialize.object(params["alexa"]);
+    if (params["toBinding"] !== undefined)
+      data["ToBinding"] = serialize.map(params["toBinding"], (e: string) => e);
+    if (params["deliveryCallbackUrl"] !== undefined)
+      data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+    if (params["identity"] !== undefined)
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
+    if (params["tag"] !== undefined)
+      data["Tag"] = serialize.map(params["tag"], (e: string) => e);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NotificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

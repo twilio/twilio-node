@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
@@ -96,6 +97,35 @@ export interface ConversationWithParticipantsListInstance {
       item?: ConversationWithParticipantsInstance
     ) => any
   ): Promise<ConversationWithParticipantsInstance>;
+
+  /**
+   * Create a ConversationWithParticipantsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConversationWithParticipantsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationWithParticipantsInstance>
+    ) => any
+  ): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
+  /**
+   * Create a ConversationWithParticipantsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConversationWithParticipantsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ConversationWithParticipantsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationWithParticipantsInstance>
+    ) => any
+  ): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -179,6 +209,86 @@ export function ConversationWithParticipantsListInstance(
       (payload) =>
         new ConversationWithParticipantsInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | ConversationWithParticipantsListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ConversationWithParticipantsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationWithParticipantsInstance>
+    ) => any
+  ): Promise<ApiResponse<ConversationWithParticipantsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
+    if (params["dateCreated"] !== undefined)
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["messagingServiceSid"] !== undefined)
+      data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
+    if (params["timers.inactive"] !== undefined)
+      data["Timers.Inactive"] = params["timers.inactive"];
+    if (params["timers.closed"] !== undefined)
+      data["Timers.Closed"] = params["timers.closed"];
+    if (params["bindings.email.address"] !== undefined)
+      data["Bindings.Email.Address"] = params["bindings.email.address"];
+    if (params["bindings.email.name"] !== undefined)
+      data["Bindings.Email.Name"] = params["bindings.email.name"];
+    if (params["participant"] !== undefined)
+      data["Participant"] = serialize.map(
+        params["participant"],
+        (e: string) => e
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ConversationWithParticipantsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ConversationWithParticipantsInstance> => ({
+          ...response,
+          body: new ConversationWithParticipantsInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

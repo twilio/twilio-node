@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a WebChannelsInstance
@@ -55,6 +56,22 @@ export interface WebChannelsListInstance {
     params: WebChannelsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance>;
+
+  /**
+   * Create a WebChannelsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebChannelsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: WebChannelsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebChannelsInstance>
+    ) => any
+  ): Promise<ApiResponse<WebChannelsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -110,6 +127,61 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
     operationPromise = operationPromise.then(
       (payload) => new WebChannelsInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: WebChannelsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WebChannelsInstance>
+    ) => any
+  ): Promise<ApiResponse<WebChannelsInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["addressSid"] === null || params["addressSid"] === undefined) {
+      throw new Error("Required parameter \"params['addressSid']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["AddressSid"] = params["addressSid"];
+    if (params["chatFriendlyName"] !== undefined)
+      data["ChatFriendlyName"] = params["chatFriendlyName"];
+    if (params["customerFriendlyName"] !== undefined)
+      data["CustomerFriendlyName"] = params["customerFriendlyName"];
+    if (params["preEngagementData"] !== undefined)
+      data["PreEngagementData"] = params["preEngagementData"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["uiVersion"] !== undefined)
+      headers["Ui-Version"] = params["uiVersion"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<WebChannelsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WebChannelsInstance> => ({
+          ...response,
+          body: new WebChannelsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

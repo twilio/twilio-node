@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface DomainValidateDnContext {
   /**
@@ -29,6 +30,20 @@ export interface DomainValidateDnContext {
   fetch(
     callback?: (error: Error | null, item?: DomainValidateDnInstance) => any
   ): Promise<DomainValidateDnInstance>;
+
+  /**
+   * Fetch a DomainValidateDnInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainValidateDnInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainValidateDnInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainValidateDnInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,6 +91,42 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
           instance._solution.domainSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainValidateDnInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainValidateDnInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DomainValidateDnResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainValidateDnInstance> => ({
+          ...response,
+          body: new DomainValidateDnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -150,6 +201,22 @@ export class DomainValidateDnInstance {
     callback?: (error: Error | null, item?: DomainValidateDnInstance) => any
   ): Promise<DomainValidateDnInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a DomainValidateDnInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainValidateDnInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainValidateDnInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainValidateDnInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

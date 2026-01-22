@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class VideoV1RoomRoomRecordingRuleRules {
   "type"?: string;
@@ -55,6 +56,20 @@ export interface RecordingRulesListInstance {
   ): Promise<RecordingRulesInstance>;
 
   /**
+   * Fetch a RecordingRulesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingRulesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingRulesInstance>>;
+
+  /**
    * Update a RecordingRulesInstance
    *
    * @param callback - Callback to handle processed record
@@ -76,6 +91,35 @@ export interface RecordingRulesListInstance {
     params: RecordingRulesListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance>;
+
+  /**
+   * Update a RecordingRulesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingRulesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingRulesInstance>>;
+  /**
+   * Update a RecordingRulesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingRulesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RecordingRulesListInstanceUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingRulesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -127,6 +171,41 @@ export function RecordingRulesListInstance(
     return operationPromise;
   };
 
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RecordingRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingRulesInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RecordingRulesResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RecordingRulesInstance> => ({
+          ...response,
+          body: new RecordingRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.update = function update(
     params?:
       | RecordingRulesListInstanceUpdateOptions
@@ -165,6 +244,61 @@ export function RecordingRulesListInstance(
           instance._solution.roomSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params?:
+      | RecordingRulesListInstanceUpdateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<RecordingRulesInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RecordingRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingRulesInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["rules"] !== undefined)
+      data["Rules"] = serialize.object(params["rules"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<RecordingRulesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RecordingRulesInstance> => ({
+          ...response,
+          body: new RecordingRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

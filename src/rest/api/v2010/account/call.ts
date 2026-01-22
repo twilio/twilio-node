@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { EventListInstance } from "./call/event";
 import { NotificationListInstance } from "./call/notification";
 import { PaymentListInstance } from "./call/payment";
@@ -236,6 +238,7 @@ export interface CallListInstancePageOptions {
   endTimeAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -265,6 +268,17 @@ export interface CallContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a CallInstance
    *
    * @param callback - Callback to handle processed record
@@ -274,6 +288,17 @@ export interface CallContext {
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
+
+  /**
+   * Fetch a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
 
   /**
    * Update a CallInstance
@@ -297,6 +322,29 @@ export interface CallContext {
     params: CallContextUpdateOptions,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
+
+  /**
+   * Update a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
+  /**
+   * Update a CallInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: CallContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -456,6 +504,30 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
@@ -479,6 +551,40 @@ export class CallContextImpl implements CallContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CallResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CallInstance> => ({
+          ...response,
+          body: new CallInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -540,6 +646,70 @@ export class CallContextImpl implements CallContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | CallContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<CallInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["url"] !== undefined) data["Url"] = params["url"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["fallbackUrl"] !== undefined)
+      data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+      data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+      data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["twiml"] !== undefined)
+      data["Twiml"] = serialize.twiml(params["twiml"]);
+    if (params["timeLimit"] !== undefined)
+      data["TimeLimit"] = params["timeLimit"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<CallResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CallInstance> => ({
+          ...response,
+          body: new CallInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -762,6 +932,19 @@ export class CallInstance {
   }
 
   /**
+   * Remove a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a CallInstance
    *
    * @param callback - Callback to handle processed record
@@ -772,6 +955,19 @@ export class CallInstance {
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -802,6 +998,36 @@ export class CallInstance {
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
+  /**
+   * Update a CallInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: CallContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -934,6 +1160,19 @@ export interface CallListInstance {
   ): Promise<CallInstance>;
 
   /**
+   * Create a CallInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CallListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
+
+  /**
    * Streams CallInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -956,6 +1195,28 @@ export interface CallListInstance {
     callback?: (item: CallInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams CallInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: CallListInstanceEachOptions,
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of CallInstance records from the API.
    *
    * The request is executed immediately.
@@ -967,6 +1228,18 @@ export interface CallListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage>;
+  /**
+   * Retrieve a single target page of CallInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+  ): Promise<ApiResponse<CallPage>>;
   /**
    * Lists CallInstance records from the API as a list.
    *
@@ -983,6 +1256,24 @@ export interface CallListInstance {
     params: CallListInstanceOptions,
     callback?: (error: Error | null, items: CallInstance[]) => any
   ): Promise<CallInstance[]>;
+  /**
+   * Lists CallInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any
+  ): Promise<ApiResponse<CallInstance[]>>;
+  listWithHttpInfo(
+    params: CallListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any
+  ): Promise<ApiResponse<CallInstance[]>>;
   /**
    * Retrieve a single page of CallInstance records from the API.
    *
@@ -1001,6 +1292,24 @@ export interface CallListInstance {
     params: CallListInstancePageOptions,
     callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage>;
+  /**
+   * Retrieve a single page of CallInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+  ): Promise<ApiResponse<CallPage>>;
+  pageWithHttpInfo(
+    params: CallListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+  ): Promise<ApiResponse<CallPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -1149,6 +1458,131 @@ export function CallListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CallListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["to"] === null || params["to"] === undefined) {
+      throw new Error("Required parameter \"params['to']\" missing.");
+    }
+
+    if (params["from"] === null || params["from"] === undefined) {
+      throw new Error("Required parameter \"params['from']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["To"] = params["to"];
+
+    data["From"] = params["from"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["fallbackUrl"] !== undefined)
+      data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+      data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+      data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackEvent"] !== undefined)
+      data["StatusCallbackEvent"] = serialize.map(
+        params["statusCallbackEvent"],
+        (e: string) => e
+      );
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["sendDigits"] !== undefined)
+      data["SendDigits"] = params["sendDigits"];
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    if (params["record"] !== undefined)
+      data["Record"] = serialize.bool(params["record"]);
+    if (params["recordingChannels"] !== undefined)
+      data["RecordingChannels"] = params["recordingChannels"];
+    if (params["recordingStatusCallback"] !== undefined)
+      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    if (params["recordingStatusCallbackMethod"] !== undefined)
+      data["RecordingStatusCallbackMethod"] =
+        params["recordingStatusCallbackMethod"];
+    if (params["sipAuthUsername"] !== undefined)
+      data["SipAuthUsername"] = params["sipAuthUsername"];
+    if (params["sipAuthPassword"] !== undefined)
+      data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["machineDetection"] !== undefined)
+      data["MachineDetection"] = params["machineDetection"];
+    if (params["machineDetectionTimeout"] !== undefined)
+      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    if (params["recordingStatusCallbackEvent"] !== undefined)
+      data["RecordingStatusCallbackEvent"] = serialize.map(
+        params["recordingStatusCallbackEvent"],
+        (e: string) => e
+      );
+    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    if (params["machineDetectionSpeechThreshold"] !== undefined)
+      data["MachineDetectionSpeechThreshold"] =
+        params["machineDetectionSpeechThreshold"];
+    if (params["machineDetectionSpeechEndThreshold"] !== undefined)
+      data["MachineDetectionSpeechEndThreshold"] =
+        params["machineDetectionSpeechEndThreshold"];
+    if (params["machineDetectionSilenceTimeout"] !== undefined)
+      data["MachineDetectionSilenceTimeout"] =
+        params["machineDetectionSilenceTimeout"];
+    if (params["asyncAmd"] !== undefined) data["AsyncAmd"] = params["asyncAmd"];
+    if (params["asyncAmdStatusCallback"] !== undefined)
+      data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
+    if (params["asyncAmdStatusCallbackMethod"] !== undefined)
+      data["AsyncAmdStatusCallbackMethod"] =
+        params["asyncAmdStatusCallbackMethod"];
+    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
+    if (params["callReason"] !== undefined)
+      data["CallReason"] = params["callReason"];
+    if (params["callToken"] !== undefined)
+      data["CallToken"] = params["callToken"];
+    if (params["recordingTrack"] !== undefined)
+      data["RecordingTrack"] = params["recordingTrack"];
+    if (params["timeLimit"] !== undefined)
+      data["TimeLimit"] = params["timeLimit"];
+    if (params["clientNotificationUrl"] !== undefined)
+      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
+    if (params["url"] !== undefined) data["Url"] = params["url"];
+    if (params["twiml"] !== undefined)
+      data["Twiml"] = serialize.twiml(params["twiml"]);
+    if (params["applicationSid"] !== undefined)
+      data["ApplicationSid"] = params["applicationSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CallResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CallInstance> => ({
+          ...response,
+          body: new CallInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | CallListInstancePageOptions
@@ -1218,9 +1652,93 @@ export function CallListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new CallPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CallListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<CallPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+  ): Promise<ApiResponse<CallPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["parentCallSid"] !== undefined)
+      data["ParentCallSid"] = params["parentCallSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["startTime"] !== undefined)
+      data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    if (params["startTimeBefore"] !== undefined)
+      data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
+    if (params["startTimeAfter"] !== undefined)
+      data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
+    if (params["endTime"] !== undefined)
+      data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    if (params["endTimeBefore"] !== undefined)
+      data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
+    if (params["endTimeAfter"] !== undefined)
+      data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<CallPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CallPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<CallPage>) => any
+  ): Promise<ApiResponse<CallPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CallPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CallPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

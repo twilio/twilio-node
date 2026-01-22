@@ -17,6 +17,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export interface BalanceSolution {
   accountSid: string;
@@ -37,6 +38,17 @@ export interface BalanceListInstance {
   fetch(
     callback?: (error: Error | null, item?: BalanceInstance) => any
   ): Promise<BalanceInstance>;
+
+  /**
+   * Fetch a BalanceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BalanceInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<BalanceInstance>) => any
+  ): Promise<ApiResponse<BalanceInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -80,6 +92,38 @@ export function BalanceListInstance(
           instance._solution.accountSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<BalanceInstance>) => any
+  ): Promise<ApiResponse<BalanceInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<BalanceResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<BalanceInstance> => ({
+          ...response,
+          body: new BalanceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

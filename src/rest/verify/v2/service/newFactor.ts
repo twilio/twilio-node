@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class CreateNewPasskeysFactorRequest {
   "friendlyName": string;
@@ -71,6 +72,24 @@ export interface NewFactorListInstance {
     headers?: any,
     callback?: (error: Error | null, item?: NewFactorInstance) => any
   ): Promise<NewFactorInstance>;
+
+  /**
+   * Create a NewFactorInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewFactorInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CreateNewPasskeysFactorRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewFactorInstance>
+    ) => any
+  ): Promise<ApiResponse<NewFactorInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -129,6 +148,56 @@ export function NewFactorListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CreateNewPasskeysFactorRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NewFactorInstance>
+    ) => any
+  ): Promise<ApiResponse<NewFactorInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NewFactorResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewFactorInstance> => ({
+          ...response,
+          body: new NewFactorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

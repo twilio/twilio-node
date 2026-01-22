@@ -17,6 +17,7 @@ import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../../base/ApiResponse";
 import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRegistrations/authRegistrationsCredentialListMapping";
 
 export interface AuthTypeRegistrationsSolution {

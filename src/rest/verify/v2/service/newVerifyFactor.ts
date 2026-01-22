@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class VerifyPasskeysFactorRequest {
   /**
@@ -89,6 +90,24 @@ export interface NewVerifyFactorListInstance {
   ): Promise<NewVerifyFactorInstance>;
 
   /**
+   * Update a NewVerifyFactorInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewVerifyFactorInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: VerifyPasskeysFactorRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewVerifyFactorInstance>
+    ) => any
+  ): Promise<ApiResponse<NewVerifyFactorInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -145,6 +164,56 @@ export function NewVerifyFactorListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: VerifyPasskeysFactorRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NewVerifyFactorInstance>
+    ) => any
+  ): Promise<ApiResponse<NewVerifyFactorInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<NewVerifyFactorResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewVerifyFactorInstance> => ({
+          ...response,
+          body: new NewVerifyFactorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

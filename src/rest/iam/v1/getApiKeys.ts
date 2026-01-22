@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -56,6 +58,7 @@ export interface GetApiKeysListInstancePageOptions {
   accountSid: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -90,6 +93,26 @@ export interface GetApiKeysListInstance {
     callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams GetApiKeysInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { GetApiKeysListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+
+  eachWithHttpInfo(
+    params: GetApiKeysListInstanceEachOptions,
+    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of GetApiKeysInstance records from the API.
    *
    * The request is executed immediately.
@@ -101,6 +124,18 @@ export interface GetApiKeysListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: GetApiKeysPage) => any
   ): Promise<GetApiKeysPage>;
+  /**
+   * Retrieve a single target page of GetApiKeysInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any
+  ): Promise<ApiResponse<GetApiKeysPage>>;
   /**
    * Lists GetApiKeysInstance records from the API as a list.
    *
@@ -115,6 +150,25 @@ export interface GetApiKeysListInstance {
     params: GetApiKeysListInstanceOptions,
     callback?: (error: Error | null, items: GetApiKeysInstance[]) => any
   ): Promise<GetApiKeysInstance[]>;
+  /**
+   * Lists GetApiKeysInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { GetApiKeysListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+
+  listWithHttpInfo(
+    params: GetApiKeysListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<GetApiKeysInstance[]>
+    ) => any
+  ): Promise<ApiResponse<GetApiKeysInstance[]>>;
   /**
    * Retrieve a single page of GetApiKeysInstance records from the API.
    *
@@ -131,6 +185,22 @@ export interface GetApiKeysListInstance {
     params: GetApiKeysListInstancePageOptions,
     callback?: (error: Error | null, items: GetApiKeysPage) => any
   ): Promise<GetApiKeysPage>;
+  /**
+   * Retrieve a single page of GetApiKeysInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { GetApiKeysListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+
+  pageWithHttpInfo(
+    params: GetApiKeysListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any
+  ): Promise<ApiResponse<GetApiKeysPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -199,10 +269,85 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new GetApiKeysPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params: GetApiKeysListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any
+  ): Promise<ApiResponse<GetApiKeysPage>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["accountSid"] === null || params["accountSid"] === undefined) {
+      throw new Error("Required parameter \"params['accountSid']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["AccountSid"] = params["accountSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<GetApiKeysPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new GetApiKeysPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<GetApiKeysPage>) => any
+  ): Promise<ApiResponse<GetApiKeysPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<GetApiKeysPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new GetApiKeysPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

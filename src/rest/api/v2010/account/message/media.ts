@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -68,6 +70,7 @@ export interface MediaListInstancePageOptions {
   dateCreatedAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -87,6 +90,17 @@ export interface MediaContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a MediaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a MediaInstance
    *
    * @param callback - Callback to handle processed record
@@ -96,6 +110,17 @@ export interface MediaContext {
   fetch(
     callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance>;
+
+  /**
+   * Fetch a MediaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MediaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -156,6 +181,30 @@ export class MediaContextImpl implements MediaContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance> {
@@ -180,6 +229,41 @@ export class MediaContextImpl implements MediaContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<MediaResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MediaInstance> => ({
+          ...response,
+          body: new MediaInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.messageSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,6 +377,19 @@ export class MediaInstance {
   }
 
   /**
+   * Remove a MediaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a MediaInstance
    *
    * @param callback - Callback to handle processed record
@@ -303,6 +400,19 @@ export class MediaInstance {
     callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a MediaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MediaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -363,6 +473,28 @@ export interface MediaListInstance {
     callback?: (item: MediaInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams MediaInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MediaListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: MediaInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: MediaListInstanceEachOptions,
+    callback?: (item: MediaInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of MediaInstance records from the API.
    *
    * The request is executed immediately.
@@ -374,6 +506,18 @@ export interface MediaListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage>;
+  /**
+   * Retrieve a single target page of MediaInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<MediaPage>) => any
+  ): Promise<ApiResponse<MediaPage>>;
   /**
    * Lists MediaInstance records from the API as a list.
    *
@@ -390,6 +534,24 @@ export interface MediaListInstance {
     params: MediaListInstanceOptions,
     callback?: (error: Error | null, items: MediaInstance[]) => any
   ): Promise<MediaInstance[]>;
+  /**
+   * Lists MediaInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MediaListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<MediaInstance[]>) => any
+  ): Promise<ApiResponse<MediaInstance[]>>;
+  listWithHttpInfo(
+    params: MediaListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<MediaInstance[]>) => any
+  ): Promise<ApiResponse<MediaInstance[]>>;
   /**
    * Retrieve a single page of MediaInstance records from the API.
    *
@@ -408,6 +570,24 @@ export interface MediaListInstance {
     params: MediaListInstancePageOptions,
     callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage>;
+  /**
+   * Retrieve a single page of MediaInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MediaListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<MediaPage>) => any
+  ): Promise<ApiResponse<MediaPage>>;
+  pageWithHttpInfo(
+    params: MediaListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<MediaPage>) => any
+  ): Promise<ApiResponse<MediaPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -501,9 +681,86 @@ export function MediaListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new MediaPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | MediaListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<MediaPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<MediaPage>) => any
+  ): Promise<ApiResponse<MediaPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["dateCreated"] !== undefined)
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined)
+      data["DateCreated<"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"]
+      );
+    if (params["dateCreatedAfter"] !== undefined)
+      data["DateCreated>"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"]
+      );
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<MediaPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MediaPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<MediaPage>) => any
+  ): Promise<ApiResponse<MediaPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<MediaPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MediaPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

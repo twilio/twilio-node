@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a ApiKeyInstance
@@ -41,6 +42,17 @@ export interface ApiKeyContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a ApiKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a ApiKeyInstance
    *
    * @param callback - Callback to handle processed record
@@ -50,6 +62,17 @@ export interface ApiKeyContext {
   fetch(
     callback?: (error: Error | null, item?: ApiKeyInstance) => any
   ): Promise<ApiKeyInstance>;
+
+  /**
+   * Fetch a ApiKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApiKeyInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>>;
 
   /**
    * Update a ApiKeyInstance
@@ -73,6 +96,29 @@ export interface ApiKeyContext {
     params: ApiKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: ApiKeyInstance) => any
   ): Promise<ApiKeyInstance>;
+
+  /**
+   * Update a ApiKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApiKeyInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>>;
+  /**
+   * Update a ApiKeyInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApiKeyInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ApiKeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -118,6 +164,30 @@ export class ApiKeyContextImpl implements ApiKeyContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: ApiKeyInstance) => any
   ): Promise<ApiKeyInstance> {
@@ -136,6 +206,39 @@ export class ApiKeyContextImpl implements ApiKeyContext {
       (payload) =>
         new ApiKeyInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ApiKeyResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApiKeyInstance> => ({
+          ...response,
+          body: new ApiKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -181,6 +284,58 @@ export class ApiKeyContextImpl implements ApiKeyContext {
       (payload) =>
         new ApiKeyInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | ApiKeyContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["policy"] !== undefined)
+      data["Policy"] = serialize.object(params["policy"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ApiKeyResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApiKeyInstance> => ({
+          ...response,
+          body: new ApiKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -268,6 +423,19 @@ export class ApiKeyInstance {
   }
 
   /**
+   * Remove a ApiKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a ApiKeyInstance
    *
    * @param callback - Callback to handle processed record
@@ -278,6 +446,19 @@ export class ApiKeyInstance {
     callback?: (error: Error | null, item?: ApiKeyInstance) => any
   ): Promise<ApiKeyInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ApiKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApiKeyInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -308,6 +489,36 @@ export class ApiKeyInstance {
     callback?: (error: Error | null, item?: ApiKeyInstance) => any
   ): Promise<ApiKeyInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ApiKeyInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApiKeyInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>>;
+  /**
+   * Update a ApiKeyInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApiKeyInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ApiKeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+  ): Promise<ApiResponse<ApiKeyInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

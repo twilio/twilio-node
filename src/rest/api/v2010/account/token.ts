@@ -17,6 +17,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class ApiV2010AccountTokenIceServers {
   "credential"?: string;
@@ -64,6 +65,29 @@ export interface TokenListInstance {
     params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
+
+  /**
+   * Create a TokenInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TokenInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
+  ): Promise<ApiResponse<TokenInstance>>;
+  /**
+   * Create a TokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TokenInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TokenListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
+  ): Promise<ApiResponse<TokenInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -123,6 +147,54 @@ export function TokenListInstance(
           instance._solution.accountSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | TokenListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<TokenInstance>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any
+  ): Promise<ApiResponse<TokenInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TokenResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TokenInstance> => ({
+          ...response,
+          body: new TokenInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

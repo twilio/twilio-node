@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "type"?: string;
@@ -57,6 +58,20 @@ export interface SubscribeRulesListInstance {
   ): Promise<SubscribeRulesInstance>;
 
   /**
+   * Fetch a SubscribeRulesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SubscribeRulesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SubscribeRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<SubscribeRulesInstance>>;
+
+  /**
    * Update a SubscribeRulesInstance
    *
    * @param callback - Callback to handle processed record
@@ -78,6 +93,35 @@ export interface SubscribeRulesListInstance {
     params: SubscribeRulesListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance>;
+
+  /**
+   * Update a SubscribeRulesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SubscribeRulesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SubscribeRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<SubscribeRulesInstance>>;
+  /**
+   * Update a SubscribeRulesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SubscribeRulesInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SubscribeRulesListInstanceUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SubscribeRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<SubscribeRulesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -135,6 +179,42 @@ export function SubscribeRulesListInstance(
     return operationPromise;
   };
 
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SubscribeRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<SubscribeRulesInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SubscribeRulesResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SubscribeRulesInstance> => ({
+          ...response,
+          body: new SubscribeRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.update = function update(
     params?:
       | SubscribeRulesListInstanceUpdateOptions
@@ -174,6 +254,62 @@ export function SubscribeRulesListInstance(
           instance._solution.participantSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params?:
+      | SubscribeRulesListInstanceUpdateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<SubscribeRulesInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SubscribeRulesInstance>
+    ) => any
+  ): Promise<ApiResponse<SubscribeRulesInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["rules"] !== undefined)
+      data["Rules"] = serialize.object(params["rules"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<SubscribeRulesResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SubscribeRulesInstance> => ({
+          ...response,
+          body: new SubscribeRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

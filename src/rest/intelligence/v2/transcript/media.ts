@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a MediaInstance
@@ -49,6 +50,29 @@ export interface MediaContext {
     params: MediaContextFetchOptions,
     callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance>;
+
+  /**
+   * Fetch a MediaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MediaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>>;
+  /**
+   * Fetch a MediaInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MediaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: MediaContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -108,6 +132,55 @@ export class MediaContextImpl implements MediaContext {
       (payload) =>
         new MediaInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | MediaContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<MediaInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["redacted"] !== undefined)
+      data["Redacted"] = serialize.bool(params["redacted"]);
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<MediaResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MediaInstance> => ({
+          ...response,
+          body: new MediaInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -209,6 +282,36 @@ export class MediaInstance {
     callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a MediaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MediaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>>;
+  /**
+   * Fetch a MediaInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MediaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: MediaContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
+  ): Promise<ApiResponse<MediaInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a ConfiguredPluginInstance
@@ -66,6 +68,7 @@ export interface ConfiguredPluginListInstancePageOptions {
   flexMetadata?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -95,6 +98,35 @@ export interface ConfiguredPluginContext {
     params: ConfiguredPluginContextFetchOptions,
     callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
   ): Promise<ConfiguredPluginInstance>;
+
+  /**
+   * Fetch a ConfiguredPluginInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfiguredPluginInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfiguredPluginInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance>>;
+  /**
+   * Fetch a ConfiguredPluginInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfiguredPluginInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: ConfiguredPluginContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfiguredPluginInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -167,6 +199,61 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
           instance._solution.pluginSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | ConfiguredPluginContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ConfiguredPluginInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfiguredPluginInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ConfiguredPluginResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ConfiguredPluginInstance> => ({
+          ...response,
+          body: new ConfiguredPluginInstance(
+            operationVersion,
+            response.body,
+            instance._solution.configurationSid,
+            instance._solution.pluginSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -352,6 +439,45 @@ export class ConfiguredPluginInstance {
   }
 
   /**
+   * Fetch a ConfiguredPluginInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfiguredPluginInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfiguredPluginInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance>>;
+  /**
+   * Fetch a ConfiguredPluginInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfiguredPluginInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: ConfiguredPluginContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfiguredPluginInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfiguredPluginInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -423,6 +549,34 @@ export interface ConfiguredPluginListInstance {
     ) => void
   ): void;
   /**
+   * Streams ConfiguredPluginInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConfiguredPluginListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: ConfiguredPluginInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: ConfiguredPluginListInstanceEachOptions,
+    callback?: (
+      item: ConfiguredPluginInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of ConfiguredPluginInstance records from the API.
    *
    * The request is executed immediately.
@@ -434,6 +588,21 @@ export interface ConfiguredPluginListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: ConfiguredPluginPage) => any
   ): Promise<ConfiguredPluginPage>;
+  /**
+   * Retrieve a single target page of ConfiguredPluginInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConfiguredPluginPage>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginPage>>;
   /**
    * Lists ConfiguredPluginInstance records from the API as a list.
    *
@@ -450,6 +619,30 @@ export interface ConfiguredPluginListInstance {
     params: ConfiguredPluginListInstanceOptions,
     callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any
   ): Promise<ConfiguredPluginInstance[]>;
+  /**
+   * Lists ConfiguredPluginInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConfiguredPluginListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConfiguredPluginInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance[]>>;
+  listWithHttpInfo(
+    params: ConfiguredPluginListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConfiguredPluginInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginInstance[]>>;
   /**
    * Retrieve a single page of ConfiguredPluginInstance records from the API.
    *
@@ -468,6 +661,30 @@ export interface ConfiguredPluginListInstance {
     params: ConfiguredPluginListInstancePageOptions,
     callback?: (error: Error | null, items: ConfiguredPluginPage) => any
   ): Promise<ConfiguredPluginPage>;
+  /**
+   * Retrieve a single page of ConfiguredPluginInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConfiguredPluginListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConfiguredPluginPage>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginPage>>;
+  pageWithHttpInfo(
+    params: ConfiguredPluginListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConfiguredPluginPage>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -554,10 +771,96 @@ export function ConfiguredPluginListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new ConfiguredPluginPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ConfiguredPluginListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ConfiguredPluginPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConfiguredPluginPage>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<ConfiguredPluginPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConfiguredPluginPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ConfiguredPluginPage>
+    ) => any
+  ): Promise<ApiResponse<ConfiguredPluginPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ConfiguredPluginPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConfiguredPluginPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

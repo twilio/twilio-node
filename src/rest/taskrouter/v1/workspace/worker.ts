@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { ReservationListInstance } from "./worker/reservation";
 import { WorkerChannelListInstance } from "./worker/workerChannel";
 import { WorkerStatisticsListInstance } from "./worker/workerStatistics";
@@ -139,6 +141,7 @@ export interface WorkerListInstancePageOptions {
   ordering?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -174,6 +177,29 @@ export interface WorkerContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a WorkerInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a WorkerInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: WorkerContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a WorkerInstance
    *
    * @param callback - Callback to handle processed record
@@ -183,6 +209,17 @@ export interface WorkerContext {
   fetch(
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
+
+  /**
+   * Fetch a WorkerInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>>;
 
   /**
    * Update a WorkerInstance
@@ -206,6 +243,29 @@ export interface WorkerContext {
     params: WorkerContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
+
+  /**
+   * Update a WorkerInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>>;
+  /**
+   * Update a WorkerInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: WorkerContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -308,6 +368,49 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    params?:
+      | WorkerContextRemoveOptions
+      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
@@ -331,6 +434,40 @@ export class WorkerContextImpl implements WorkerContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkerResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkerInstance> => ({
+          ...response,
+          body: new WorkerInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -389,6 +526,67 @@ export class WorkerContextImpl implements WorkerContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | WorkerContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<WorkerInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["activitySid"] !== undefined)
+      data["ActivitySid"] = params["activitySid"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["rejectPendingReservations"] !== undefined)
+      data["RejectPendingReservations"] = serialize.bool(
+        params["rejectPendingReservations"]
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<WorkerResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkerInstance> => ({
+          ...response,
+          body: new WorkerInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -555,6 +753,36 @@ export class WorkerInstance {
   }
 
   /**
+   * Remove a WorkerInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a WorkerInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: WorkerContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  removeWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(params, callback);
+  }
+
+  /**
    * Fetch a WorkerInstance
    *
    * @param callback - Callback to handle processed record
@@ -565,6 +793,19 @@ export class WorkerInstance {
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a WorkerInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -595,6 +836,36 @@ export class WorkerInstance {
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a WorkerInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>>;
+  /**
+   * Update a WorkerInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: WorkerContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -679,6 +950,19 @@ export interface WorkerListInstance {
   ): Promise<WorkerInstance>;
 
   /**
+   * Create a WorkerInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: WorkerListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>>;
+
+  /**
    * Streams WorkerInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -701,6 +985,28 @@ export interface WorkerListInstance {
     callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams WorkerInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkerListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: WorkerListInstanceEachOptions,
+    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of WorkerInstance records from the API.
    *
    * The request is executed immediately.
@@ -712,6 +1018,18 @@ export interface WorkerListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage>;
+  /**
+   * Retrieve a single target page of WorkerInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<WorkerPage>) => any
+  ): Promise<ApiResponse<WorkerPage>>;
   /**
    * Lists WorkerInstance records from the API as a list.
    *
@@ -728,6 +1046,30 @@ export interface WorkerListInstance {
     params: WorkerListInstanceOptions,
     callback?: (error: Error | null, items: WorkerInstance[]) => any
   ): Promise<WorkerInstance[]>;
+  /**
+   * Lists WorkerInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkerListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WorkerInstance[]>
+    ) => any
+  ): Promise<ApiResponse<WorkerInstance[]>>;
+  listWithHttpInfo(
+    params: WorkerListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WorkerInstance[]>
+    ) => any
+  ): Promise<ApiResponse<WorkerInstance[]>>;
   /**
    * Retrieve a single page of WorkerInstance records from the API.
    *
@@ -746,6 +1088,24 @@ export interface WorkerListInstance {
     params: WorkerListInstancePageOptions,
     callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage>;
+  /**
+   * Retrieve a single page of WorkerInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkerListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<WorkerPage>) => any
+  ): Promise<ApiResponse<WorkerPage>>;
+  pageWithHttpInfo(
+    params: WorkerListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<WorkerPage>) => any
+  ): Promise<ApiResponse<WorkerPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -860,6 +1220,60 @@ export function WorkerListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: WorkerListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<WorkerInstance>) => any
+  ): Promise<ApiResponse<WorkerInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["activitySid"] !== undefined)
+      data["ActivitySid"] = params["activitySid"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<WorkerResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkerInstance> => ({
+          ...response,
+          body: new WorkerInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | WorkerListInstancePageOptions
@@ -927,10 +1341,92 @@ export function WorkerListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new WorkerPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | WorkerListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<WorkerPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<WorkerPage>) => any
+  ): Promise<ApiResponse<WorkerPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["activityName"] !== undefined)
+      data["ActivityName"] = params["activityName"];
+    if (params["activitySid"] !== undefined)
+      data["ActivitySid"] = params["activitySid"];
+    if (params["available"] !== undefined)
+      data["Available"] = params["available"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["targetWorkersExpression"] !== undefined)
+      data["TargetWorkersExpression"] = params["targetWorkersExpression"];
+    if (params["taskQueueName"] !== undefined)
+      data["TaskQueueName"] = params["taskQueueName"];
+    if (params["taskQueueSid"] !== undefined)
+      data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<WorkerPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new WorkerPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<WorkerPage>) => any
+  ): Promise<ApiResponse<WorkerPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<WorkerPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new WorkerPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

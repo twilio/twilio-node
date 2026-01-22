@@ -17,6 +17,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a UserDefinedMessageSubscriptionInstance
@@ -41,6 +42,17 @@ export interface UserDefinedMessageSubscriptionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
+
+  /**
+   * Remove a UserDefinedMessageSubscriptionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -95,6 +107,30 @@ export class UserDefinedMessageSubscriptionContextImpl
         method: "delete",
         headers,
       });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -195,6 +231,19 @@ export class UserDefinedMessageSubscriptionInstance {
   }
 
   /**
+   * Remove a UserDefinedMessageSubscriptionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -242,6 +291,22 @@ export interface UserDefinedMessageSubscriptionListInstance {
       item?: UserDefinedMessageSubscriptionInstance
     ) => any
   ): Promise<UserDefinedMessageSubscriptionInstance>;
+
+  /**
+   * Create a UserDefinedMessageSubscriptionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserDefinedMessageSubscriptionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UserDefinedMessageSubscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -322,6 +387,60 @@ export function UserDefinedMessageSubscriptionListInstance(
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserDefinedMessageSubscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["callback"] === null || params["callback"] === undefined) {
+      throw new Error("Required parameter \"params['callback']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Callback"] = params["callback"];
+    if (params["idempotencyKey"] !== undefined)
+      data["IdempotencyKey"] = params["idempotencyKey"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<UserDefinedMessageSubscriptionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserDefinedMessageSubscriptionInstance> => ({
+          ...response,
+          body: new UserDefinedMessageSubscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

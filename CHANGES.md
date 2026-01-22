@@ -1,6 +1,91 @@
 twilio-node changelog
 =====================
 
+[2026-01-22] Version 5.12.0
+---------------------------
+**Library - Fix**
+- [PR #1169](https://github.com/twilio/twilio-node/pull/1169): upgrade package qs to fix CVE-2025-15284 vulnerability. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Chore**
+- [PR #1167](https://github.com/twilio/twilio-node/pull/1167): add support for response headers. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #1164](https://github.com/twilio/twilio-node/pull/1164): add support for new twilioServiceException. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Feature**
+- [PR #1162](https://github.com/twilio/twilio-node/pull/1162): Token pagination support. Thanks to [@kridai](https://github.com/kridai)!
+
+**Twiml**
+- Added support for <Uri> and <Headers> inside <Dial><Sip>
+
+**Assistants**
+- AI Assistants v1 release
+
+**Autopilot**
+- Remove Export resource from Autopilot Assistant
+- Add dialogue_sid param to Query list resource
+- Add Restore resource to Autopilot Assistant
+- Add one new property in Query i.e dialogue_sid
+- Add Export resource to Autopilot Assistant.
+- Adds two new properties in Assistant i.e needs_model_build and development_stage
+- Add Webhooks resource to Autopilot Assistant.
+- Introduce `autopilot` subdomain with all resources from `preview.understand`
+
+**Compliance**
+- Added the new InventoryComplianceInsights API under version `/v1`.
+
+**Content**
+- changes for adding v2 endpoints
+
+**Marketplace**
+- Initial transition to Marketplace domain
+
+**Memory**
+- # API Changes
+- ## 2026-01-15
+- No path changes (updated metadata only)
+- ## 2026-01-13
+- **Added 1 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (DeleteProfileConversationSummary)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- **Added 2 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Imports` (ListProfileImportsV2, ImportProfilesV2)
+- `/v1/Stores/{storeId}/Profiles/Imports/{importId}` (GetProfileImportV2)
+- ## 2026-01-13
+- No path changes (updated metadata only)
+- ## 2026-01-07
+- No path changes (updated metadata only)
+- ## 2026-01-05
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- **Added 1 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions` (ListObservationRevisions)
+
+**Sender-ids**
+- Added all v2 sender-id-service endpoints
+
+**Trusthub**
+- Add new delete endpoint for compliance_registration.
+
+**Voice**
+- Add ProvisioningStatus public API endpoints.
+
+**Wise_owl**
+- Init API as open-api spec
+- Updated Get Chat, Send Message and Create Chat to include `contexts` in Message, instead of root Chat
+
+**Www**
+- Port APIs from oauth.twilio.com to www.twilio.com
+
+
 [2026-01-07] Version 5.11.2
 ---------------------------
 **Library - Chore**

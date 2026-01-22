@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export type CallSummariesAnsweredBy =
   | "unknown"
@@ -302,6 +304,7 @@ export interface CallSummariesListInstancePageOptions {
   businessProfileType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -344,6 +347,34 @@ export interface CallSummariesListInstance {
     ) => void
   ): void;
   /**
+   * Streams CallSummariesInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallSummariesListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: CallSummariesListInstanceEachOptions,
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of CallSummariesInstance records from the API.
    *
    * The request is executed immediately.
@@ -355,6 +386,21 @@ export interface CallSummariesListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CallSummariesPage) => any
   ): Promise<CallSummariesPage>;
+  /**
+   * Retrieve a single target page of CallSummariesInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesPage>>;
   /**
    * Lists CallSummariesInstance records from the API as a list.
    *
@@ -371,6 +417,30 @@ export interface CallSummariesListInstance {
     params: CallSummariesListInstanceOptions,
     callback?: (error: Error | null, items: CallSummariesInstance[]) => any
   ): Promise<CallSummariesInstance[]>;
+  /**
+   * Lists CallSummariesInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallSummariesListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesInstance[]>>;
+  listWithHttpInfo(
+    params: CallSummariesListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesInstance[]>>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API.
    *
@@ -389,6 +459,30 @@ export interface CallSummariesListInstance {
     params: CallSummariesListInstancePageOptions,
     callback?: (error: Error | null, items: CallSummariesPage) => any
   ): Promise<CallSummariesPage>;
+  /**
+   * Retrieve a single page of CallSummariesInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallSummariesListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesPage>>;
+  pageWithHttpInfo(
+    params: CallSummariesListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -529,10 +623,161 @@ export function CallSummariesListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new CallSummariesPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CallSummariesListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<CallSummariesPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["fromCarrier"] !== undefined)
+      data["FromCarrier"] = params["fromCarrier"];
+    if (params["toCarrier"] !== undefined)
+      data["ToCarrier"] = params["toCarrier"];
+    if (params["fromCountryCode"] !== undefined)
+      data["FromCountryCode"] = params["fromCountryCode"];
+    if (params["toCountryCode"] !== undefined)
+      data["ToCountryCode"] = params["toCountryCode"];
+    if (params["verifiedCaller"] !== undefined)
+      data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
+    if (params["hasTag"] !== undefined)
+      data["HasTag"] = serialize.bool(params["hasTag"]);
+    if (params["startTime"] !== undefined)
+      data["StartTime"] = params["startTime"];
+    if (params["endTime"] !== undefined) data["EndTime"] = params["endTime"];
+    if (params["callType"] !== undefined) data["CallType"] = params["callType"];
+    if (params["callState"] !== undefined)
+      data["CallState"] = params["callState"];
+    if (params["direction"] !== undefined)
+      data["Direction"] = params["direction"];
+    if (params["processingState"] !== undefined)
+      data["ProcessingState"] = params["processingState"];
+    if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];
+    if (params["subaccount"] !== undefined)
+      data["Subaccount"] = params["subaccount"];
+    if (params["abnormalSession"] !== undefined)
+      data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
+    if (params["answeredBy"] !== undefined)
+      data["AnsweredBy"] = params["answeredBy"];
+    if (params["answeredByAnnotation"] !== undefined)
+      data["AnsweredByAnnotation"] = params["answeredByAnnotation"];
+    if (params["connectivityIssueAnnotation"] !== undefined)
+      data["ConnectivityIssueAnnotation"] =
+        params["connectivityIssueAnnotation"];
+    if (params["qualityIssueAnnotation"] !== undefined)
+      data["QualityIssueAnnotation"] = params["qualityIssueAnnotation"];
+    if (params["spamAnnotation"] !== undefined)
+      data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
+    if (params["callScoreAnnotation"] !== undefined)
+      data["CallScoreAnnotation"] = params["callScoreAnnotation"];
+    if (params["brandedEnabled"] !== undefined)
+      data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
+    if (params["voiceIntegrityEnabled"] !== undefined)
+      data["VoiceIntegrityEnabled"] = serialize.bool(
+        params["voiceIntegrityEnabled"]
+      );
+    if (params["brandedBundleSid"] !== undefined)
+      data["BrandedBundleSid"] = params["brandedBundleSid"];
+    if (params["brandedLogo"] !== undefined)
+      data["BrandedLogo"] = serialize.bool(params["brandedLogo"]);
+    if (params["brandedType"] !== undefined)
+      data["BrandedType"] = params["brandedType"];
+    if (params["brandedUseCase"] !== undefined)
+      data["BrandedUseCase"] = params["brandedUseCase"];
+    if (params["brandedCallReason"] !== undefined)
+      data["BrandedCallReason"] = params["brandedCallReason"];
+    if (params["voiceIntegrityBundleSid"] !== undefined)
+      data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
+    if (params["voiceIntegrityUseCase"] !== undefined)
+      data["VoiceIntegrityUseCase"] = params["voiceIntegrityUseCase"];
+    if (params["businessProfileIdentity"] !== undefined)
+      data["BusinessProfileIdentity"] = params["businessProfileIdentity"];
+    if (params["businessProfileIndustry"] !== undefined)
+      data["BusinessProfileIndustry"] = params["businessProfileIndustry"];
+    if (params["businessProfileBundleSid"] !== undefined)
+      data["BusinessProfileBundleSid"] = params["businessProfileBundleSid"];
+    if (params["businessProfileType"] !== undefined)
+      data["BusinessProfileType"] = params["businessProfileType"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<CallSummariesPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CallSummariesPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CallSummariesPage>
+    ) => any
+  ): Promise<ApiResponse<CallSummariesPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CallSummariesPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CallSummariesPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
@@ -56,6 +57,20 @@ export interface RecordingContext {
   ): Promise<RecordingInstance>;
 
   /**
+   * Fetch a RecordingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>>;
+
+  /**
    * Update a RecordingInstance
    *
    * @param callback - Callback to handle processed record
@@ -77,6 +92,35 @@ export interface RecordingContext {
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
+
+  /**
+   * Update a RecordingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>>;
+  /**
+   * Update a RecordingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RecordingContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -132,6 +176,42 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RecordingResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | RecordingContextUpdateOptions
@@ -171,6 +251,59 @@ export class RecordingContextImpl implements RecordingContext {
           instance._solution.trunkSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | RecordingContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<RecordingInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["mode"] !== undefined) data["Mode"] = params["mode"];
+    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<RecordingResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -239,6 +372,22 @@ export class RecordingInstance {
   }
 
   /**
+   * Fetch a RecordingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a RecordingInstance
    *
    * @param callback - Callback to handle processed record
@@ -266,6 +415,45 @@ export class RecordingInstance {
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a RecordingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>>;
+  /**
+   * Update a RecordingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RecordingInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: RecordingContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

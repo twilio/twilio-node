@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to update a TaskChannelInstance
@@ -71,6 +73,7 @@ export interface TaskChannelListInstanceOptions {
 export interface TaskChannelListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -90,6 +93,17 @@ export interface TaskChannelContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a TaskChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a TaskChannelInstance
    *
    * @param callback - Callback to handle processed record
@@ -99,6 +113,20 @@ export interface TaskChannelContext {
   fetch(
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
+
+  /**
+   * Fetch a TaskChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>>;
 
   /**
    * Update a TaskChannelInstance
@@ -122,6 +150,35 @@ export interface TaskChannelContext {
     params: TaskChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
+
+  /**
+   * Update a TaskChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>>;
+  /**
+   * Update a TaskChannelInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TaskChannelContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -172,6 +229,30 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
@@ -195,6 +276,43 @@ export class TaskChannelContextImpl implements TaskChannelContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TaskChannelResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskChannelInstance> => ({
+          ...response,
+          body: new TaskChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -247,6 +365,64 @@ export class TaskChannelContextImpl implements TaskChannelContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | TaskChannelContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<TaskChannelInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["channelOptimizedRouting"] !== undefined)
+      data["ChannelOptimizedRouting"] = serialize.bool(
+        params["channelOptimizedRouting"]
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TaskChannelResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskChannelInstance> => ({
+          ...response,
+          body: new TaskChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -376,6 +552,19 @@ export class TaskChannelInstance {
   }
 
   /**
+   * Remove a TaskChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a TaskChannelInstance
    *
    * @param callback - Callback to handle processed record
@@ -386,6 +575,22 @@ export class TaskChannelInstance {
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a TaskChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -416,6 +621,45 @@ export class TaskChannelInstance {
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a TaskChannelInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>>;
+  /**
+   * Update a TaskChannelInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TaskChannelContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -469,6 +713,22 @@ export interface TaskChannelListInstance {
   ): Promise<TaskChannelInstance>;
 
   /**
+   * Create a TaskChannelInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskChannelInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TaskChannelListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>>;
+
+  /**
    * Streams TaskChannelInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -491,6 +751,28 @@ export interface TaskChannelListInstance {
     callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams TaskChannelInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TaskChannelListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: TaskChannelListInstanceEachOptions,
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of TaskChannelInstance records from the API.
    *
    * The request is executed immediately.
@@ -502,6 +784,18 @@ export interface TaskChannelListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
+  /**
+   * Retrieve a single target page of TaskChannelInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
+  ): Promise<ApiResponse<TaskChannelPage>>;
   /**
    * Lists TaskChannelInstance records from the API as a list.
    *
@@ -518,6 +812,30 @@ export interface TaskChannelListInstance {
     params: TaskChannelListInstanceOptions,
     callback?: (error: Error | null, items: TaskChannelInstance[]) => any
   ): Promise<TaskChannelInstance[]>;
+  /**
+   * Lists TaskChannelInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TaskChannelListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TaskChannelInstance[]>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance[]>>;
+  listWithHttpInfo(
+    params: TaskChannelListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TaskChannelInstance[]>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance[]>>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API.
    *
@@ -536,6 +854,24 @@ export interface TaskChannelListInstance {
     params: TaskChannelListInstancePageOptions,
     callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
+  /**
+   * Retrieve a single page of TaskChannelInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TaskChannelListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
+  ): Promise<ApiResponse<TaskChannelPage>>;
+  pageWithHttpInfo(
+    params: TaskChannelListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
+  ): Promise<ApiResponse<TaskChannelPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -619,6 +955,69 @@ export function TaskChannelListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: TaskChannelListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TaskChannelInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
+      throw new Error("Required parameter \"params['uniqueName']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    data["UniqueName"] = params["uniqueName"];
+    if (params["channelOptimizedRouting"] !== undefined)
+      data["ChannelOptimizedRouting"] = serialize.bool(
+        params["channelOptimizedRouting"]
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TaskChannelResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskChannelInstance> => ({
+          ...response,
+          body: new TaskChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | TaskChannelListInstancePageOptions
@@ -672,10 +1071,88 @@ export function TaskChannelListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new TaskChannelPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TaskChannelListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<TaskChannelPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
+  ): Promise<ApiResponse<TaskChannelPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<TaskChannelPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TaskChannelPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<TaskChannelPage>
+    ) => any
+  ): Promise<ApiResponse<TaskChannelPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TaskChannelPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TaskChannelPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

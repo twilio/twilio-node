@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface OperatorAttachmentContext {
   /**
@@ -31,6 +32,20 @@ export interface OperatorAttachmentContext {
   ): Promise<OperatorAttachmentInstance>;
 
   /**
+   * Create a OperatorAttachmentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OperatorAttachmentInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperatorAttachmentInstance>
+    ) => any
+  ): Promise<ApiResponse<OperatorAttachmentInstance>>;
+
+  /**
    * Remove a OperatorAttachmentInstance
    *
    * @param callback - Callback to handle processed record
@@ -40,6 +55,17 @@ export interface OperatorAttachmentContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
+
+  /**
+   * Remove a OperatorAttachmentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -103,6 +129,43 @@ export class OperatorAttachmentContextImpl
     return operationPromise;
   }
 
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperatorAttachmentInstance>
+    ) => any
+  ): Promise<ApiResponse<OperatorAttachmentInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<OperatorAttachmentResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OperatorAttachmentInstance> => ({
+          ...response,
+          body: new OperatorAttachmentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.operatorSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
@@ -115,6 +178,30 @@ export class OperatorAttachmentContextImpl
         method: "delete",
         headers,
       });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -203,6 +290,22 @@ export class OperatorAttachmentInstance {
   }
 
   /**
+   * Create a OperatorAttachmentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OperatorAttachmentInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperatorAttachmentInstance>
+    ) => any
+  ): Promise<ApiResponse<OperatorAttachmentInstance>> {
+    return this._proxy.createWithHttpInfo(callback);
+  }
+
+  /**
    * Remove a OperatorAttachmentInstance
    *
    * @param callback - Callback to handle processed record
@@ -213,6 +316,19 @@ export class OperatorAttachmentInstance {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
+  }
+
+  /**
+   * Remove a OperatorAttachmentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
   }
 
   /**

@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a FlexUserInstance
@@ -43,6 +44,20 @@ export interface FlexUserContext {
   ): Promise<FlexUserInstance>;
 
   /**
+   * Fetch a FlexUserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>>;
+
+  /**
    * Update a FlexUserInstance
    *
    * @param callback - Callback to handle processed record
@@ -64,6 +79,35 @@ export interface FlexUserContext {
     params: FlexUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
+
+  /**
+   * Update a FlexUserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>>;
+  /**
+   * Update a FlexUserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlexUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -129,6 +173,43 @@ export class FlexUserContextImpl implements FlexUserContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FlexUserResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlexUserInstance> => ({
+          ...response,
+          body: new FlexUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.instanceSid,
+            instance._solution.flexUserSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | FlexUserContextUpdateOptions
@@ -170,6 +251,61 @@ export class FlexUserContextImpl implements FlexUserContext {
           instance._solution.flexUserSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | FlexUserContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<FlexUserInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["userSid"] !== undefined) data["UserSid"] = params["userSid"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FlexUserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlexUserInstance> => ({
+          ...response,
+          body: new FlexUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.instanceSid,
+            instance._solution.flexUserSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -327,6 +463,22 @@ export class FlexUserInstance {
   }
 
   /**
+   * Fetch a FlexUserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a FlexUserInstance
    *
    * @param callback - Callback to handle processed record
@@ -354,6 +506,45 @@ export class FlexUserInstance {
     callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a FlexUserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>>;
+  /**
+   * Update a FlexUserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlexUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexUserInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

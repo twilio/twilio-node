@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a InsightsSessionInstance
@@ -49,6 +50,35 @@ export interface InsightsSessionContext {
     params: InsightsSessionContextCreateOptions,
     callback?: (error: Error | null, item?: InsightsSessionInstance) => any
   ): Promise<InsightsSessionInstance>;
+
+  /**
+   * Create a InsightsSessionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsSessionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSessionInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSessionInstance>>;
+  /**
+   * Create a InsightsSessionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsSessionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: InsightsSessionContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSessionInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSessionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -100,6 +130,56 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
     operationPromise = operationPromise.then(
       (payload) => new InsightsSessionInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  createWithHttpInfo(
+    params?:
+      | InsightsSessionContextCreateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<InsightsSessionInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSessionInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSessionInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<InsightsSessionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InsightsSessionInstance> => ({
+          ...response,
+          body: new InsightsSessionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -201,6 +281,45 @@ export class InsightsSessionInstance {
     callback?: (error: Error | null, item?: InsightsSessionInstance) => any
   ): Promise<InsightsSessionInstance> {
     return this._proxy.create(params, callback);
+  }
+
+  /**
+   * Create a InsightsSessionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsSessionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSessionInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSessionInstance>>;
+  /**
+   * Create a InsightsSessionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsSessionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: InsightsSessionContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSessionInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSessionInstance>>;
+
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSessionInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSessionInstance>> {
+    return this._proxy.createWithHttpInfo(params, callback);
   }
 
   /**

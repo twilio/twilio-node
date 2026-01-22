@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a WorkflowRealTimeStatisticsInstance
@@ -55,6 +56,35 @@ export interface WorkflowRealTimeStatisticsContext {
       item?: WorkflowRealTimeStatisticsInstance
     ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance>;
+
+  /**
+   * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+  /**
+   * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkflowRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -136,6 +166,62 @@ export class WorkflowRealTimeStatisticsContextImpl
           instance._solution.workflowSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | WorkflowRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkflowRealTimeStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkflowRealTimeStatisticsInstance> => ({
+          ...response,
+          body: new WorkflowRealTimeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workflowSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -283,6 +369,45 @@ export class WorkflowRealTimeStatisticsInstance {
     ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+  /**
+   * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkflowRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

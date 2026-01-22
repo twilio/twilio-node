@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export interface KnowledgeStatusContext {
   /**
@@ -29,6 +30,20 @@ export interface KnowledgeStatusContext {
   fetch(
     callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any
   ): Promise<KnowledgeStatusInstance>;
+
+  /**
+   * Fetch a KnowledgeStatusInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed KnowledgeStatusInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<KnowledgeStatusInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,6 +91,42 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
           instance._solution.id
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<KnowledgeStatusInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<KnowledgeStatusResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<KnowledgeStatusInstance> => ({
+          ...response,
+          body: new KnowledgeStatusInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -159,6 +210,22 @@ export class KnowledgeStatusInstance {
     callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any
   ): Promise<KnowledgeStatusInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a KnowledgeStatusInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed KnowledgeStatusInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<KnowledgeStatusInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
