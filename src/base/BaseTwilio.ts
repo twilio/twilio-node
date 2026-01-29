@@ -12,7 +12,6 @@ const util = require("util"); /* jshint ignore:line */
 const RestException = require("../base/RestException"); /* jshint ignore:line */
 
 namespace Twilio {
-
   export interface ClientOpts {
     httpClient?: RequestClient;
     accountSid?: string;
