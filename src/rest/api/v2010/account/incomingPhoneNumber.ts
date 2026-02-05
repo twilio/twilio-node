@@ -725,6 +725,7 @@ interface IncomingPhoneNumberResource {
   emergency_address_status: IncomingPhoneNumberEmergencyAddressStatus;
   bundle_sid: string;
   status: string;
+  type: string;
 }
 
 export class IncomingPhoneNumberInstance {
@@ -771,6 +772,7 @@ export class IncomingPhoneNumberInstance {
     this.emergencyAddressStatus = payload.emergency_address_status;
     this.bundleSid = payload.bundle_sid;
     this.status = payload.status;
+    this.type = payload.type;
 
     this._solution = { accountSid, sid: sid || this.sid };
   }
@@ -893,6 +895,10 @@ export class IncomingPhoneNumberInstance {
    */
   bundleSid: string;
   status: string;
+  /**
+   * The phone number type.
+   */
+  type: string;
 
   private get _proxy(): IncomingPhoneNumberContext {
     this._context =
@@ -1077,6 +1083,7 @@ export class IncomingPhoneNumberInstance {
       emergencyAddressStatus: this.emergencyAddressStatus,
       bundleSid: this.bundleSid,
       status: this.status,
+      type: this.type,
     };
   }
 

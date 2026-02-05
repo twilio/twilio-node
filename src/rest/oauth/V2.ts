@@ -14,6 +14,7 @@
 
 import OauthBase from "../OauthBase";
 import Version from "../../base/Version";
+import { AuthorizeListInstance } from "./v2/authorize";
 import { TokenListInstance } from "./v2/token";
 
 export default class V2 extends Version {
@@ -26,8 +27,16 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** authorize - { Twilio.Oauth.V2.AuthorizeListInstance } resource */
+  protected _authorize?: AuthorizeListInstance;
   /** token - { Twilio.Oauth.V2.TokenListInstance } resource */
   protected _token?: TokenListInstance;
+
+  /** Getter for authorize resource */
+  get authorize(): AuthorizeListInstance {
+    this._authorize = this._authorize || AuthorizeListInstance(this);
+    return this._authorize;
+  }
 
   /** Getter for token resource */
   get token(): TokenListInstance {

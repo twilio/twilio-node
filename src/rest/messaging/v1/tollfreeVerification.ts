@@ -174,13 +174,13 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessContactPhone?: string;
   /** An optional external reference ID supplied by customer and echoed back on status retrieval. */
   externalReferenceId?: string;
-  /** A legally recognized business registration number */
+  /** A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR. */
   businessRegistrationNumber?: string;
-  /** The organizational authority for business registrations */
+  /** The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR. */
   businessRegistrationAuthority?: string;
-  /** Country business is registered in */
+  /** The country where the business is registered. Required for all business types except SOLE_PROPRIETOR. */
   businessRegistrationCountry?: string;
-  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT */
+  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field. */
   businessType?: string;
   /** The E.164 formatted number associated with the business. */
   businessRegistrationPhoneNumber?: string;
