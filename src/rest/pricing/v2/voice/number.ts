@@ -23,15 +23,15 @@ import { ApiResponse } from "../../../../base/ApiResponse";
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
  */
 export class PricingV2VoiceVoiceNumberInboundCallPrice {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "numberType"?: string;
+  "base_price"?: number;
+  "current_price"?: number;
+  "number_type"?: string;
 }
 
 export class PricingV2VoiceVoiceNumberOutboundCallPrices {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "originationPrefixes"?: Array<string>;
+  "base_price"?: number;
+  "current_price"?: number;
+  "origination_prefixes"?: Array<string>;
 }
 
 /**
@@ -230,7 +230,7 @@ interface NumberResource {
   country: string;
   iso_country: string;
   outbound_call_prices: Array<PricingV2VoiceVoiceNumberOutboundCallPrices>;
-  inbound_call_price: PricingV2VoiceVoiceNumberInboundCallPrice;
+  inbound_call_price: PricingV2VoiceVoiceNumberInboundCallPrice | null;
   price_unit: string;
   url: string;
 }
@@ -278,7 +278,7 @@ export class NumberInstance {
    * The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
    */
   outboundCallPrices: Array<PricingV2VoiceVoiceNumberOutboundCallPrices>;
-  inboundCallPrice: PricingV2VoiceVoiceNumberInboundCallPrice;
+  inboundCallPrice: PricingV2VoiceVoiceNumberInboundCallPrice | null;
   /**
    * The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
