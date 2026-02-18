@@ -112,7 +112,7 @@ export class CreateFlexInstanceContextImpl
 
   constructor(protected _version: V1) {
     this._solution = {};
-    this._uri = `/instances`;
+    this._uri = `/Instances`;
   }
 
   create(

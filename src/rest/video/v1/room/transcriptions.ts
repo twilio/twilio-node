@@ -33,6 +33,8 @@ export type TranscriptionsStatus = "started" | "stopped" | "failed";
 export interface TranscriptionsContextUpdateOptions {
   /**  */
   status?: TranscriptionsStatus;
+  /** A collection of properties that describe transcription behaviour. */
+  configuration?: object;
 }
 
 /**
@@ -273,6 +275,8 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     let data: any = {};
 
     if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -326,6 +330,8 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     let data: any = {};
 
     if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

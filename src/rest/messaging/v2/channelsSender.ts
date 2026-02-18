@@ -114,7 +114,7 @@ export class MessagingV2ChannelsSenderProfile {
    */
   "accentColor"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+   * The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
    */
   "vertical"?: string | null;
   /**
@@ -172,7 +172,7 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    */
   "accentColor"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+   * The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
    */
   "vertical"?: string | null;
   /**
