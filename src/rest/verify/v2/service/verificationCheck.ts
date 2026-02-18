@@ -256,7 +256,7 @@ export function VerificationCheckListInstance(
   return instance;
 }
 
-interface VerificationCheckPayload extends VerificationCheckResource {}
+interface VerificationCheckPayload extends VerificationCheckResource { }
 
 interface VerificationCheckResource {
   sid: string;
@@ -264,7 +264,7 @@ interface VerificationCheckResource {
   account_sid: string;
   to: string;
   channel: VerificationCheckChannel;
-  status: string;
+  status: 'pending' | 'approved' | 'canceled' | 'max_attempts_reached' | 'deleted' | 'failed' | 'expired';
   valid: boolean;
   amount: string;
   payee: string;
@@ -313,7 +313,7 @@ export class VerificationCheckInstance {
   /**
    * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
    */
-  status: string;
+  status: VerificationCheckResource['status'];
   /**
    * Use \"status\" instead. Legacy property indicating whether the verification was successful.
    */
