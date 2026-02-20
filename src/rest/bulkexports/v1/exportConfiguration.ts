@@ -486,16 +486,20 @@ export class ExportConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      enabled: this.enabled,
-      webhookUrl: this.webhookUrl,
-      webhookMethod: this.webhookMethod,
-      resourceType: this.resourceType,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        enabled: this.enabled,
+        webhookUrl: this.webhookUrl,
+        webhookMethod: this.webhookMethod,
+        resourceType: this.resourceType,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

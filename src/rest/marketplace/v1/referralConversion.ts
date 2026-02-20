@@ -21,6 +21,10 @@ import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CreateReferralConversionRequest {
   "referralAccountSid"?: string;
+
+  constructor(payload) {
+    this.referralAccountSid = payload["referral_account_sid"];
+  }
 }
 
 /**
@@ -202,12 +206,16 @@ export class ReferralConversionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      convertedAccountSid: this.convertedAccountSid,
-    };
+    return JSON.stringify(
+      {
+        convertedAccountSid: this.convertedAccountSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -28,6 +28,11 @@ export class OverridesRequest {
    * The reason for the override
    */
   "reason"?: string;
+
+  constructor(payload) {
+    this.lineType = payload["line_type"];
+    this.reason = payload["reason"];
+  }
 }
 
 /**
@@ -910,26 +915,30 @@ export class LookupOverrideInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      phoneNumber: this.phoneNumber,
-      originalLineType: this.originalLineType,
-      overriddenLineType: this.overriddenLineType,
-      overrideReason: this.overrideReason,
-      overrideTimestamp: this.overrideTimestamp,
-      overriddenByAccountSid: this.overriddenByAccountSid,
-      code: this.code,
-      message: this.message,
-      moreInfo: this.moreInfo,
-      status: this.status,
-      field: this.field,
-      limit: this.limit,
-      bucket: this.bucket,
-      owner: this.owner,
-      ttl: this.ttl,
-    };
+    return JSON.stringify(
+      {
+        phoneNumber: this.phoneNumber,
+        originalLineType: this.originalLineType,
+        overriddenLineType: this.overriddenLineType,
+        overrideReason: this.overrideReason,
+        overrideTimestamp: this.overrideTimestamp,
+        overriddenByAccountSid: this.overriddenByAccountSid,
+        code: this.code,
+        message: this.message,
+        moreInfo: this.moreInfo,
+        status: this.status,
+        field: this.field,
+        limit: this.limit,
+        bucket: this.bucket,
+        owner: this.owner,
+        ttl: this.ttl,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -470,20 +470,24 @@ export class MetricInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      timestamp: this.timestamp,
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      edge: this.edge,
-      direction: this.direction,
-      carrierEdge: this.carrierEdge,
-      sipEdge: this.sipEdge,
-      sdkEdge: this.sdkEdge,
-      clientEdge: this.clientEdge,
-    };
+    return JSON.stringify(
+      {
+        timestamp: this.timestamp,
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        edge: this.edge,
+        direction: this.direction,
+        carrierEdge: this.carrierEdge,
+        sipEdge: this.sipEdge,
+        sdkEdge: this.sdkEdge,
+        clientEdge: this.clientEdge,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

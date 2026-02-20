@@ -983,34 +983,38 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      defaultServiceRoleSid: this.defaultServiceRoleSid,
-      defaultChannelRoleSid: this.defaultChannelRoleSid,
-      defaultChannelCreatorRoleSid: this.defaultChannelCreatorRoleSid,
-      readStatusEnabled: this.readStatusEnabled,
-      reachabilityEnabled: this.reachabilityEnabled,
-      typingIndicatorTimeout: this.typingIndicatorTimeout,
-      consumptionReportInterval: this.consumptionReportInterval,
-      limits: this.limits,
-      preWebhookUrl: this.preWebhookUrl,
-      postWebhookUrl: this.postWebhookUrl,
-      webhookMethod: this.webhookMethod,
-      webhookFilters: this.webhookFilters,
-      preWebhookRetryCount: this.preWebhookRetryCount,
-      postWebhookRetryCount: this.postWebhookRetryCount,
-      notifications: this.notifications,
-      media: this.media,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        defaultServiceRoleSid: this.defaultServiceRoleSid,
+        defaultChannelRoleSid: this.defaultChannelRoleSid,
+        defaultChannelCreatorRoleSid: this.defaultChannelCreatorRoleSid,
+        readStatusEnabled: this.readStatusEnabled,
+        reachabilityEnabled: this.reachabilityEnabled,
+        typingIndicatorTimeout: this.typingIndicatorTimeout,
+        consumptionReportInterval: this.consumptionReportInterval,
+        limits: this.limits,
+        preWebhookUrl: this.preWebhookUrl,
+        postWebhookUrl: this.postWebhookUrl,
+        webhookMethod: this.webhookMethod,
+        webhookFilters: this.webhookFilters,
+        preWebhookRetryCount: this.preWebhookRetryCount,
+        postWebhookRetryCount: this.postWebhookRetryCount,
+        notifications: this.notifications,
+        media: this.media,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

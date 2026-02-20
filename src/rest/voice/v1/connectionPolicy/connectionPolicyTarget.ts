@@ -722,22 +722,26 @@ export class ConnectionPolicyTargetInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      connectionPolicySid: this.connectionPolicySid,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      target: this.target,
-      priority: this.priority,
-      weight: this.weight,
-      enabled: this.enabled,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        connectionPolicySid: this.connectionPolicySid,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        target: this.target,
+        priority: this.priority,
+        weight: this.weight,
+        enabled: this.enabled,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

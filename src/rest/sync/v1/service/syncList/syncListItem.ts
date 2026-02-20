@@ -824,22 +824,26 @@ export class SyncListItemInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      index: this.index,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      listSid: this.listSid,
-      url: this.url,
-      revision: this.revision,
-      data: this.data,
-      dateExpires: this.dateExpires,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      createdBy: this.createdBy,
-    };
+    return JSON.stringify(
+      {
+        index: this.index,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        listSid: this.listSid,
+        url: this.url,
+        revision: this.revision,
+        data: this.data,
+        dateExpires: this.dateExpires,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        createdBy: this.createdBy,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

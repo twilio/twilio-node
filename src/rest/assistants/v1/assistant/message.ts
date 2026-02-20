@@ -40,6 +40,14 @@ export class AssistantsV1ServiceAssistantSendMessageRequest {
    * one of the modes \'chat\', \'email\' or \'voice\'
    */
   "mode"?: string;
+
+  constructor(payload) {
+    this.identity = payload["identity"];
+    this.sessionId = payload["session_id"];
+    this.body = payload["body"];
+    this.webhook = payload["webhook"];
+    this.mode = payload["mode"];
+  }
 }
 
 /**
@@ -266,18 +274,22 @@ export class MessageInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      status: this.status,
-      flagged: this.flagged,
-      aborted: this.aborted,
-      sessionId: this.sessionId,
-      accountSid: this.accountSid,
-      body: this.body,
-      error: this.error,
-    };
+    return JSON.stringify(
+      {
+        status: this.status,
+        flagged: this.flagged,
+        aborted: this.aborted,
+        sessionId: this.sessionId,
+        accountSid: this.accountSid,
+        body: this.body,
+        error: this.error,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

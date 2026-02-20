@@ -321,20 +321,24 @@ export class UsageInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      simSid: this.simSid,
-      simUniqueName: this.simUniqueName,
-      accountSid: this.accountSid,
-      period: this.period,
-      commandsUsage: this.commandsUsage,
-      commandsCosts: this.commandsCosts,
-      dataUsage: this.dataUsage,
-      dataCosts: this.dataCosts,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        simSid: this.simSid,
+        simUniqueName: this.simUniqueName,
+        accountSid: this.accountSid,
+        period: this.period,
+        commandsUsage: this.commandsUsage,
+        commandsCosts: this.commandsCosts,
+        dataUsage: this.dataUsage,
+        dataCosts: this.dataCosts,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

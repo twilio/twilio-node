@@ -486,22 +486,26 @@ export class LegacyContentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      language: this.language,
-      variables: this.variables,
-      types: this.types,
-      legacyTemplateName: this.legacyTemplateName,
-      legacyBody: this.legacyBody,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        language: this.language,
+        variables: this.variables,
+        types: this.types,
+        legacyTemplateName: this.legacyTemplateName,
+        legacyBody: this.legacyBody,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

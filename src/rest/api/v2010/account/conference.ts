@@ -676,23 +676,27 @@ export class ConferenceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      apiVersion: this.apiVersion,
-      friendlyName: this.friendlyName,
-      region: this.region,
-      sid: this.sid,
-      status: this.status,
-      uri: this.uri,
-      subresourceUris: this.subresourceUris,
-      reasonConferenceEnded: this.reasonConferenceEnded,
-      callSidEndingConference: this.callSidEndingConference,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        apiVersion: this.apiVersion,
+        friendlyName: this.friendlyName,
+        region: this.region,
+        sid: this.sid,
+        status: this.status,
+        uri: this.uri,
+        subresourceUris: this.subresourceUris,
+        reasonConferenceEnded: this.reasonConferenceEnded,
+        callSidEndingConference: this.callSidEndingConference,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

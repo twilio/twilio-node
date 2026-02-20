@@ -430,18 +430,22 @@ export class IpAccessControlListMappingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      domainSid: this.domainSid,
-      friendlyName: this.friendlyName,
-      sid: this.sid,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        domainSid: this.domainSid,
+        friendlyName: this.friendlyName,
+        sid: this.sid,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

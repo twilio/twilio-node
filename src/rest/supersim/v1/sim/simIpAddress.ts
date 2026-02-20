@@ -433,13 +433,17 @@ export class SimIpAddressInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      ipAddress: this.ipAddress,
-      ipAddressVersion: this.ipAddressVersion,
-    };
+    return JSON.stringify(
+      {
+        ipAddress: this.ipAddress,
+        ipAddressVersion: this.ipAddressVersion,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

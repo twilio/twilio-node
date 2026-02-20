@@ -406,25 +406,29 @@ export class ConversationWithParticipantsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      messagingServiceSid: this.messagingServiceSid,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      uniqueName: this.uniqueName,
-      attributes: this.attributes,
-      state: this.state,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      timers: this.timers,
-      links: this.links,
-      bindings: this.bindings,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        messagingServiceSid: this.messagingServiceSid,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        uniqueName: this.uniqueName,
+        attributes: this.attributes,
+        state: this.state,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        timers: this.timers,
+        links: this.links,
+        bindings: this.bindings,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

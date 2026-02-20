@@ -326,19 +326,23 @@ export class AuthorizedConnectAppInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      connectAppCompanyName: this.connectAppCompanyName,
-      connectAppDescription: this.connectAppDescription,
-      connectAppFriendlyName: this.connectAppFriendlyName,
-      connectAppHomepageUrl: this.connectAppHomepageUrl,
-      connectAppSid: this.connectAppSid,
-      permissions: this.permissions,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        connectAppCompanyName: this.connectAppCompanyName,
+        connectAppDescription: this.connectAppDescription,
+        connectAppFriendlyName: this.connectAppFriendlyName,
+        connectAppHomepageUrl: this.connectAppHomepageUrl,
+        connectAppSid: this.connectAppSid,
+        permissions: this.permissions,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

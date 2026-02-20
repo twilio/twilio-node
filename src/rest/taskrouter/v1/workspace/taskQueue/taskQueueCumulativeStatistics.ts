@@ -526,33 +526,37 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      avgTaskAcceptanceTime: this.avgTaskAcceptanceTime,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      reservationsCreated: this.reservationsCreated,
-      reservationsAccepted: this.reservationsAccepted,
-      reservationsRejected: this.reservationsRejected,
-      reservationsTimedOut: this.reservationsTimedOut,
-      reservationsCanceled: this.reservationsCanceled,
-      reservationsRescinded: this.reservationsRescinded,
-      splitByWaitTime: this.splitByWaitTime,
-      taskQueueSid: this.taskQueueSid,
-      waitDurationUntilAccepted: this.waitDurationUntilAccepted,
-      waitDurationUntilCanceled: this.waitDurationUntilCanceled,
-      waitDurationInQueueUntilAccepted: this.waitDurationInQueueUntilAccepted,
-      tasksCanceled: this.tasksCanceled,
-      tasksCompleted: this.tasksCompleted,
-      tasksDeleted: this.tasksDeleted,
-      tasksEntered: this.tasksEntered,
-      tasksMoved: this.tasksMoved,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        avgTaskAcceptanceTime: this.avgTaskAcceptanceTime,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        reservationsCreated: this.reservationsCreated,
+        reservationsAccepted: this.reservationsAccepted,
+        reservationsRejected: this.reservationsRejected,
+        reservationsTimedOut: this.reservationsTimedOut,
+        reservationsCanceled: this.reservationsCanceled,
+        reservationsRescinded: this.reservationsRescinded,
+        splitByWaitTime: this.splitByWaitTime,
+        taskQueueSid: this.taskQueueSid,
+        waitDurationUntilAccepted: this.waitDurationUntilAccepted,
+        waitDurationUntilCanceled: this.waitDurationUntilCanceled,
+        waitDurationInQueueUntilAccepted: this.waitDurationInQueueUntilAccepted,
+        tasksCanceled: this.tasksCanceled,
+        tasksCompleted: this.tasksCompleted,
+        tasksDeleted: this.tasksDeleted,
+        tasksEntered: this.tasksEntered,
+        tasksMoved: this.tasksMoved,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

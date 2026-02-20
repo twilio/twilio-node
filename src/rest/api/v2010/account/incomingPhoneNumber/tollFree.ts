@@ -908,45 +908,49 @@ export class TollFreeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      addressSid: this.addressSid,
-      addressRequirements: this.addressRequirements,
-      apiVersion: this.apiVersion,
-      beta: this.beta,
-      capabilities: this.capabilities,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      identitySid: this.identitySid,
-      phoneNumber: this.phoneNumber,
-      origin: this.origin,
-      sid: this.sid,
-      smsApplicationSid: this.smsApplicationSid,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      trunkSid: this.trunkSid,
-      uri: this.uri,
-      voiceReceiveMode: this.voiceReceiveMode,
-      voiceApplicationSid: this.voiceApplicationSid,
-      voiceCallerIdLookup: this.voiceCallerIdLookup,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceUrl: this.voiceUrl,
-      emergencyStatus: this.emergencyStatus,
-      emergencyAddressSid: this.emergencyAddressSid,
-      emergencyAddressStatus: this.emergencyAddressStatus,
-      bundleSid: this.bundleSid,
-      status: this.status,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        addressSid: this.addressSid,
+        addressRequirements: this.addressRequirements,
+        apiVersion: this.apiVersion,
+        beta: this.beta,
+        capabilities: this.capabilities,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        identitySid: this.identitySid,
+        phoneNumber: this.phoneNumber,
+        origin: this.origin,
+        sid: this.sid,
+        smsApplicationSid: this.smsApplicationSid,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        trunkSid: this.trunkSid,
+        uri: this.uri,
+        voiceReceiveMode: this.voiceReceiveMode,
+        voiceApplicationSid: this.voiceApplicationSid,
+        voiceCallerIdLookup: this.voiceCallerIdLookup,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceUrl: this.voiceUrl,
+        emergencyStatus: this.emergencyStatus,
+        emergencyAddressSid: this.emergencyAddressSid,
+        emergencyAddressStatus: this.emergencyAddressStatus,
+        bundleSid: this.bundleSid,
+        status: this.status,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

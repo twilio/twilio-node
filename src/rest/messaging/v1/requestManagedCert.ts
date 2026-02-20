@@ -263,20 +263,24 @@ export class RequestManagedCertInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      domainSid: this.domainSid,
-      dateUpdated: this.dateUpdated,
-      dateCreated: this.dateCreated,
-      dateExpires: this.dateExpires,
-      domainName: this.domainName,
-      certificateSid: this.certificateSid,
-      url: this.url,
-      managed: this.managed,
-      requesting: this.requesting,
-    };
+    return JSON.stringify(
+      {
+        domainSid: this.domainSid,
+        dateUpdated: this.dateUpdated,
+        dateCreated: this.dateCreated,
+        dateExpires: this.dateExpires,
+        domainName: this.domainName,
+        certificateSid: this.certificateSid,
+        url: this.url,
+        managed: this.managed,
+        requesting: this.requesting,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

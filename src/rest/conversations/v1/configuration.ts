@@ -471,18 +471,22 @@ export class ConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      defaultChatServiceSid: this.defaultChatServiceSid,
-      defaultMessagingServiceSid: this.defaultMessagingServiceSid,
-      defaultInactiveTimer: this.defaultInactiveTimer,
-      defaultClosedTimer: this.defaultClosedTimer,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        defaultChatServiceSid: this.defaultChatServiceSid,
+        defaultMessagingServiceSid: this.defaultMessagingServiceSid,
+        defaultInactiveTimer: this.defaultInactiveTimer,
+        defaultClosedTimer: this.defaultClosedTimer,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

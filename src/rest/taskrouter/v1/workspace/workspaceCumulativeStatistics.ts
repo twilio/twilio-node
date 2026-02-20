@@ -508,32 +508,36 @@ export class WorkspaceCumulativeStatisticsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      avgTaskAcceptanceTime: this.avgTaskAcceptanceTime,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      reservationsCreated: this.reservationsCreated,
-      reservationsAccepted: this.reservationsAccepted,
-      reservationsRejected: this.reservationsRejected,
-      reservationsTimedOut: this.reservationsTimedOut,
-      reservationsCanceled: this.reservationsCanceled,
-      reservationsRescinded: this.reservationsRescinded,
-      splitByWaitTime: this.splitByWaitTime,
-      waitDurationUntilAccepted: this.waitDurationUntilAccepted,
-      waitDurationUntilCanceled: this.waitDurationUntilCanceled,
-      tasksCanceled: this.tasksCanceled,
-      tasksCompleted: this.tasksCompleted,
-      tasksCreated: this.tasksCreated,
-      tasksDeleted: this.tasksDeleted,
-      tasksMoved: this.tasksMoved,
-      tasksTimedOutInWorkflow: this.tasksTimedOutInWorkflow,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        avgTaskAcceptanceTime: this.avgTaskAcceptanceTime,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        reservationsCreated: this.reservationsCreated,
+        reservationsAccepted: this.reservationsAccepted,
+        reservationsRejected: this.reservationsRejected,
+        reservationsTimedOut: this.reservationsTimedOut,
+        reservationsCanceled: this.reservationsCanceled,
+        reservationsRescinded: this.reservationsRescinded,
+        splitByWaitTime: this.splitByWaitTime,
+        waitDurationUntilAccepted: this.waitDurationUntilAccepted,
+        waitDurationUntilCanceled: this.waitDurationUntilCanceled,
+        tasksCanceled: this.tasksCanceled,
+        tasksCompleted: this.tasksCompleted,
+        tasksCreated: this.tasksCreated,
+        tasksDeleted: this.tasksDeleted,
+        tasksMoved: this.tasksMoved,
+        tasksTimedOutInWorkflow: this.tasksTimedOutInWorkflow,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

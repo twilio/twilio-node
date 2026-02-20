@@ -680,22 +680,26 @@ export class ExportCustomJobInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      friendlyName: this.friendlyName,
-      resourceType: this.resourceType,
-      startDay: this.startDay,
-      endDay: this.endDay,
-      webhookUrl: this.webhookUrl,
-      webhookMethod: this.webhookMethod,
-      email: this.email,
-      jobSid: this.jobSid,
-      details: this.details,
-      jobQueuePosition: this.jobQueuePosition,
-      estimatedCompletionTime: this.estimatedCompletionTime,
-    };
+    return JSON.stringify(
+      {
+        friendlyName: this.friendlyName,
+        resourceType: this.resourceType,
+        startDay: this.startDay,
+        endDay: this.endDay,
+        webhookUrl: this.webhookUrl,
+        webhookMethod: this.webhookMethod,
+        email: this.email,
+        jobSid: this.jobSid,
+        details: this.details,
+        jobQueuePosition: this.jobQueuePosition,
+        estimatedCompletionTime: this.estimatedCompletionTime,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

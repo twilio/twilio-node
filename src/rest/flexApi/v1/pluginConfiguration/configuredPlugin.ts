@@ -480,27 +480,31 @@ export class ConfiguredPluginInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      configurationSid: this.configurationSid,
-      pluginSid: this.pluginSid,
-      pluginVersionSid: this.pluginVersionSid,
-      phase: this.phase,
-      pluginUrl: this.pluginUrl,
-      uniqueName: this.uniqueName,
-      friendlyName: this.friendlyName,
-      description: this.description,
-      pluginArchived: this.pluginArchived,
-      version: this.version,
-      changelog: this.changelog,
-      pluginVersionArchived: this.pluginVersionArchived,
-      _private: this._private,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        configurationSid: this.configurationSid,
+        pluginSid: this.pluginSid,
+        pluginVersionSid: this.pluginVersionSid,
+        phase: this.phase,
+        pluginUrl: this.pluginUrl,
+        uniqueName: this.uniqueName,
+        friendlyName: this.friendlyName,
+        description: this.description,
+        pluginArchived: this.pluginArchived,
+        version: this.version,
+        changelog: this.changelog,
+        pluginVersionArchived: this.pluginVersionArchived,
+        _private: this._private,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

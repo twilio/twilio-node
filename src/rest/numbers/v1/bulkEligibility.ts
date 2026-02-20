@@ -251,18 +251,22 @@ export class BulkEligibilityInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      requestId: this.requestId,
-      url: this.url,
-      results: this.results,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateCompleted: this.dateCompleted,
-    };
+    return JSON.stringify(
+      {
+        requestId: this.requestId,
+        url: this.url,
+        results: this.results,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateCompleted: this.dateCompleted,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

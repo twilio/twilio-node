@@ -600,38 +600,42 @@ export class ConferenceParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      participantSid: this.participantSid,
-      label: this.label,
-      conferenceSid: this.conferenceSid,
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      callDirection: this.callDirection,
-      from: this.from,
-      to: this.to,
-      callStatus: this.callStatus,
-      countryCode: this.countryCode,
-      isModerator: this.isModerator,
-      joinTime: this.joinTime,
-      leaveTime: this.leaveTime,
-      durationSeconds: this.durationSeconds,
-      outboundQueueLength: this.outboundQueueLength,
-      outboundTimeInQueue: this.outboundTimeInQueue,
-      jitterBufferSize: this.jitterBufferSize,
-      isCoach: this.isCoach,
-      coachedParticipants: this.coachedParticipants,
-      participantRegion: this.participantRegion,
-      conferenceRegion: this.conferenceRegion,
-      callType: this.callType,
-      processingState: this.processingState,
-      properties: this.properties,
-      events: this.events,
-      metrics: this.metrics,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        participantSid: this.participantSid,
+        label: this.label,
+        conferenceSid: this.conferenceSid,
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        callDirection: this.callDirection,
+        from: this.from,
+        to: this.to,
+        callStatus: this.callStatus,
+        countryCode: this.countryCode,
+        isModerator: this.isModerator,
+        joinTime: this.joinTime,
+        leaveTime: this.leaveTime,
+        durationSeconds: this.durationSeconds,
+        outboundQueueLength: this.outboundQueueLength,
+        outboundTimeInQueue: this.outboundTimeInQueue,
+        jitterBufferSize: this.jitterBufferSize,
+        isCoach: this.isCoach,
+        coachedParticipants: this.coachedParticipants,
+        participantRegion: this.participantRegion,
+        conferenceRegion: this.conferenceRegion,
+        callType: this.callType,
+        processingState: this.processingState,
+        properties: this.properties,
+        events: this.events,
+        metrics: this.metrics,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

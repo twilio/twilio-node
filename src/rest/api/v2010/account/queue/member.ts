@@ -476,17 +476,21 @@ export class MemberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      callSid: this.callSid,
-      dateEnqueued: this.dateEnqueued,
-      position: this.position,
-      uri: this.uri,
-      waitTime: this.waitTime,
-      queueSid: this.queueSid,
-    };
+    return JSON.stringify(
+      {
+        callSid: this.callSid,
+        dateEnqueued: this.dateEnqueued,
+        position: this.position,
+        uri: this.uri,
+        waitTime: this.waitTime,
+        queueSid: this.queueSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

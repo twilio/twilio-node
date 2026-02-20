@@ -702,22 +702,26 @@ export class ConnectAppInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      authorizeRedirectUrl: this.authorizeRedirectUrl,
-      companyName: this.companyName,
-      deauthorizeCallbackMethod: this.deauthorizeCallbackMethod,
-      deauthorizeCallbackUrl: this.deauthorizeCallbackUrl,
-      description: this.description,
-      friendlyName: this.friendlyName,
-      homepageUrl: this.homepageUrl,
-      permissions: this.permissions,
-      sid: this.sid,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        authorizeRedirectUrl: this.authorizeRedirectUrl,
+        companyName: this.companyName,
+        deauthorizeCallbackMethod: this.deauthorizeCallbackMethod,
+        deauthorizeCallbackUrl: this.deauthorizeCallbackUrl,
+        description: this.description,
+        friendlyName: this.friendlyName,
+        homepageUrl: this.homepageUrl,
+        permissions: this.permissions,
+        sid: this.sid,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

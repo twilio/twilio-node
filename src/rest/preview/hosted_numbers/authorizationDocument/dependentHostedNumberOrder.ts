@@ -662,33 +662,37 @@ export class DependentHostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
-      addressSid: this.addressSid,
-      signingDocumentSid: this.signingDocumentSid,
-      phoneNumber: this.phoneNumber,
-      capabilities: this.capabilities,
-      friendlyName: this.friendlyName,
-      uniqueName: this.uniqueName,
-      status: this.status,
-      failureReason: this.failureReason,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      verificationAttempts: this.verificationAttempts,
-      email: this.email,
-      ccEmails: this.ccEmails,
-      verificationType: this.verificationType,
-      verificationDocumentSid: this.verificationDocumentSid,
-      extension: this.extension,
-      callDelay: this.callDelay,
-      verificationCode: this.verificationCode,
-      verificationCallSids: this.verificationCallSids,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+        addressSid: this.addressSid,
+        signingDocumentSid: this.signingDocumentSid,
+        phoneNumber: this.phoneNumber,
+        capabilities: this.capabilities,
+        friendlyName: this.friendlyName,
+        uniqueName: this.uniqueName,
+        status: this.status,
+        failureReason: this.failureReason,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        verificationAttempts: this.verificationAttempts,
+        email: this.email,
+        ccEmails: this.ccEmails,
+        verificationType: this.verificationType,
+        verificationDocumentSid: this.verificationDocumentSid,
+        extension: this.extension,
+        callDelay: this.callDelay,
+        verificationCode: this.verificationCode,
+        verificationCallSids: this.verificationCallSids,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

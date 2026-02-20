@@ -482,24 +482,28 @@ export class ParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      sessionSid: this.sessionSid,
-      serviceSid: this.serviceSid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      identifier: this.identifier,
-      proxyIdentifier: this.proxyIdentifier,
-      proxyIdentifierSid: this.proxyIdentifierSid,
-      dateDeleted: this.dateDeleted,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        sessionSid: this.sessionSid,
+        serviceSid: this.serviceSid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        identifier: this.identifier,
+        proxyIdentifier: this.proxyIdentifier,
+        proxyIdentifierSid: this.proxyIdentifierSid,
+        dateDeleted: this.dateDeleted,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

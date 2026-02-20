@@ -454,20 +454,24 @@ export class PolicyInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      accountSid: this.accountSid,
-      userSid: this.userSid,
-      type: this.type,
-      policyDetails: this.policyDetails,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        id: this.id,
+        name: this.name,
+        description: this.description,
+        accountSid: this.accountSid,
+        userSid: this.userSid,
+        type: this.type,
+        policyDetails: this.policyDetails,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

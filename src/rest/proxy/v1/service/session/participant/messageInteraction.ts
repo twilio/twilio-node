@@ -446,31 +446,35 @@ export class MessageInteractionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      sessionSid: this.sessionSid,
-      serviceSid: this.serviceSid,
-      accountSid: this.accountSid,
-      data: this.data,
-      type: this.type,
-      participantSid: this.participantSid,
-      inboundParticipantSid: this.inboundParticipantSid,
-      inboundResourceSid: this.inboundResourceSid,
-      inboundResourceStatus: this.inboundResourceStatus,
-      inboundResourceType: this.inboundResourceType,
-      inboundResourceUrl: this.inboundResourceUrl,
-      outboundParticipantSid: this.outboundParticipantSid,
-      outboundResourceSid: this.outboundResourceSid,
-      outboundResourceStatus: this.outboundResourceStatus,
-      outboundResourceType: this.outboundResourceType,
-      outboundResourceUrl: this.outboundResourceUrl,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        sessionSid: this.sessionSid,
+        serviceSid: this.serviceSid,
+        accountSid: this.accountSid,
+        data: this.data,
+        type: this.type,
+        participantSid: this.participantSid,
+        inboundParticipantSid: this.inboundParticipantSid,
+        inboundResourceSid: this.inboundResourceSid,
+        inboundResourceStatus: this.inboundResourceStatus,
+        inboundResourceType: this.inboundResourceType,
+        inboundResourceUrl: this.inboundResourceUrl,
+        outboundParticipantSid: this.outboundParticipantSid,
+        outboundResourceSid: this.outboundResourceSid,
+        outboundResourceStatus: this.outboundResourceStatus,
+        outboundResourceType: this.outboundResourceType,
+        outboundResourceUrl: this.outboundResourceUrl,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

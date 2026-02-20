@@ -674,24 +674,28 @@ export class MessageInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      attributes: this.attributes,
-      serviceSid: this.serviceSid,
-      to: this.to,
-      channelSid: this.channelSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      wasEdited: this.wasEdited,
-      from: this.from,
-      body: this.body,
-      index: this.index,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        attributes: this.attributes,
+        serviceSid: this.serviceSid,
+        to: this.to,
+        channelSid: this.channelSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        wasEdited: this.wasEdited,
+        from: this.from,
+        body: this.body,
+        index: this.index,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

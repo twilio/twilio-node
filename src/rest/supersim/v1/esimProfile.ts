@@ -372,25 +372,29 @@ export class EsimProfileInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      iccid: this.iccid,
-      simSid: this.simSid,
-      status: this.status,
-      eid: this.eid,
-      smdpPlusAddress: this.smdpPlusAddress,
-      matchingId: this.matchingId,
-      activationCode: this.activationCode,
-      errorCode: this.errorCode,
-      errorMessage: this.errorMessage,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        iccid: this.iccid,
+        simSid: this.simSid,
+        status: this.status,
+        eid: this.eid,
+        smdpPlusAddress: this.smdpPlusAddress,
+        matchingId: this.matchingId,
+        activationCode: this.activationCode,
+        errorCode: this.errorCode,
+        errorMessage: this.errorMessage,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

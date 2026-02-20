@@ -551,21 +551,25 @@ export class ContentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      language: this.language,
-      variables: this.variables,
-      types: this.types,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        language: this.language,
+        variables: this.variables,
+        types: this.types,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -240,16 +240,20 @@ export class SchemaInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      id: this.id,
-      url: this.url,
-      links: this.links,
-      latestVersionDateCreated: this.latestVersionDateCreated,
-      latestVersion: this.latestVersion,
-    };
+    return JSON.stringify(
+      {
+        id: this.id,
+        url: this.url,
+        links: this.links,
+        latestVersionDateCreated: this.latestVersionDateCreated,
+        latestVersion: this.latestVersion,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

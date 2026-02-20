@@ -387,28 +387,32 @@ export class NotificationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      callSid: this.callSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      errorCode: this.errorCode,
-      log: this.log,
-      messageDate: this.messageDate,
-      messageText: this.messageText,
-      moreInfo: this.moreInfo,
-      requestMethod: this.requestMethod,
-      requestUrl: this.requestUrl,
-      requestVariables: this.requestVariables,
-      responseBody: this.responseBody,
-      responseHeaders: this.responseHeaders,
-      sid: this.sid,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        callSid: this.callSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        errorCode: this.errorCode,
+        log: this.log,
+        messageDate: this.messageDate,
+        messageText: this.messageText,
+        moreInfo: this.moreInfo,
+        requestMethod: this.requestMethod,
+        requestUrl: this.requestUrl,
+        requestVariables: this.requestVariables,
+        responseBody: this.responseBody,
+        responseHeaders: this.responseHeaders,
+        sid: this.sid,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

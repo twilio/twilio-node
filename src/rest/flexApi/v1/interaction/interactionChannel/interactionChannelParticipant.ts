@@ -404,17 +404,21 @@ export class InteractionChannelParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      type: this.type,
-      interactionSid: this.interactionSid,
-      channelSid: this.channelSid,
-      url: this.url,
-      routingProperties: this.routingProperties,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        type: this.type,
+        interactionSid: this.interactionSid,
+        channelSid: this.channelSid,
+        url: this.url,
+        routingProperties: this.routingProperties,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

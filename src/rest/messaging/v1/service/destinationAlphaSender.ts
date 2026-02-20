@@ -436,20 +436,24 @@ export class DestinationAlphaSenderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      alphaSender: this.alphaSender,
-      capabilities: this.capabilities,
-      url: this.url,
-      isoCountryCode: this.isoCountryCode,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        alphaSender: this.alphaSender,
+        capabilities: this.capabilities,
+        url: this.url,
+        isoCountryCode: this.isoCountryCode,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

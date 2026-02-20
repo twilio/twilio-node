@@ -370,24 +370,28 @@ export class IpCommandInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      simSid: this.simSid,
-      simIccid: this.simIccid,
-      status: this.status,
-      direction: this.direction,
-      deviceIp: this.deviceIp,
-      devicePort: this.devicePort,
-      payloadType: this.payloadType,
-      payload: this.payload,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        simSid: this.simSid,
+        simIccid: this.simIccid,
+        status: this.status,
+        direction: this.direction,
+        deviceIp: this.deviceIp,
+        devicePort: this.devicePort,
+        payloadType: this.payloadType,
+        payload: this.payload,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

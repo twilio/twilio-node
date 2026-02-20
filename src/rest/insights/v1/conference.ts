@@ -498,34 +498,38 @@ export class ConferenceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      conferenceSid: this.conferenceSid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      createTime: this.createTime,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      durationSeconds: this.durationSeconds,
-      connectDurationSeconds: this.connectDurationSeconds,
-      status: this.status,
-      maxParticipants: this.maxParticipants,
-      maxConcurrentParticipants: this.maxConcurrentParticipants,
-      uniqueParticipants: this.uniqueParticipants,
-      endReason: this.endReason,
-      endedBy: this.endedBy,
-      mixerRegion: this.mixerRegion,
-      mixerRegionRequested: this.mixerRegionRequested,
-      recordingEnabled: this.recordingEnabled,
-      detectedIssues: this.detectedIssues,
-      tags: this.tags,
-      tagInfo: this.tagInfo,
-      processingState: this.processingState,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        conferenceSid: this.conferenceSid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        createTime: this.createTime,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        durationSeconds: this.durationSeconds,
+        connectDurationSeconds: this.connectDurationSeconds,
+        status: this.status,
+        maxParticipants: this.maxParticipants,
+        maxConcurrentParticipants: this.maxConcurrentParticipants,
+        uniqueParticipants: this.uniqueParticipants,
+        endReason: this.endReason,
+        endedBy: this.endedBy,
+        mixerRegion: this.mixerRegion,
+        mixerRegionRequested: this.mixerRegionRequested,
+        recordingEnabled: this.recordingEnabled,
+        detectedIssues: this.detectedIssues,
+        tags: this.tags,
+        tagInfo: this.tagInfo,
+        processingState: this.processingState,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

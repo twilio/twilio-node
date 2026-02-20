@@ -326,19 +326,23 @@ export class TrustProductsEvaluationsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      policySid: this.policySid,
-      trustProductSid: this.trustProductSid,
-      status: this.status,
-      results: this.results,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        policySid: this.policySid,
+        trustProductSid: this.trustProductSid,
+        status: this.status,
+        results: this.results,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

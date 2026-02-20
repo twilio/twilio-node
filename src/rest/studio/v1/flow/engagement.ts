@@ -476,22 +476,26 @@ export class EngagementInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      flowSid: this.flowSid,
-      contactSid: this.contactSid,
-      contactChannelAddress: this.contactChannelAddress,
-      context: this.context,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        flowSid: this.flowSid,
+        contactSid: this.contactSid,
+        contactChannelAddress: this.contactChannelAddress,
+        context: this.context,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

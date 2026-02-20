@@ -673,23 +673,27 @@ export class ParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      roomSid: this.roomSid,
-      accountSid: this.accountSid,
-      status: this.status,
-      identity: this.identity,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        roomSid: this.roomSid,
+        accountSid: this.accountSid,
+        status: this.status,
+        identity: this.identity,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

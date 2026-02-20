@@ -792,29 +792,33 @@ export class TrunkInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      domainName: this.domainName,
-      disasterRecoveryMethod: this.disasterRecoveryMethod,
-      disasterRecoveryUrl: this.disasterRecoveryUrl,
-      friendlyName: this.friendlyName,
-      secure: this.secure,
-      recording: this.recording,
-      transferMode: this.transferMode,
-      transferCallerId: this.transferCallerId,
-      cnamLookupEnabled: this.cnamLookupEnabled,
-      authType: this.authType,
-      symmetricRtpEnabled: this.symmetricRtpEnabled,
-      authTypeSet: this.authTypeSet,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        domainName: this.domainName,
+        disasterRecoveryMethod: this.disasterRecoveryMethod,
+        disasterRecoveryUrl: this.disasterRecoveryUrl,
+        friendlyName: this.friendlyName,
+        secure: this.secure,
+        recording: this.recording,
+        transferMode: this.transferMode,
+        transferCallerId: this.transferCallerId,
+        cnamLookupEnabled: this.cnamLookupEnabled,
+        authType: this.authType,
+        symmetricRtpEnabled: this.symmetricRtpEnabled,
+        authTypeSet: this.authTypeSet,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

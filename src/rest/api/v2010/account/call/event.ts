@@ -407,13 +407,17 @@ export class EventInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      request: this.request,
-      response: this.response,
-    };
+    return JSON.stringify(
+      {
+        request: this.request,
+        response: this.response,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

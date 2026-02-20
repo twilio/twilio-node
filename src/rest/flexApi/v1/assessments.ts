@@ -459,25 +459,29 @@ export class AssessmentsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      assessmentSid: this.assessmentSid,
-      offset: this.offset,
-      report: this.report,
-      weight: this.weight,
-      agentId: this.agentId,
-      segmentId: this.segmentId,
-      userName: this.userName,
-      userEmail: this.userEmail,
-      answerText: this.answerText,
-      answerId: this.answerId,
-      assessment: this.assessment,
-      timestamp: this.timestamp,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        assessmentSid: this.assessmentSid,
+        offset: this.offset,
+        report: this.report,
+        weight: this.weight,
+        agentId: this.agentId,
+        segmentId: this.segmentId,
+        userName: this.userName,
+        userEmail: this.userEmail,
+        answerText: this.answerText,
+        answerId: this.answerId,
+        assessment: this.assessment,
+        timestamp: this.timestamp,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -738,29 +738,33 @@ export class UserConversationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      conversationSid: this.conversationSid,
-      unreadMessagesCount: this.unreadMessagesCount,
-      lastReadMessageIndex: this.lastReadMessageIndex,
-      participantSid: this.participantSid,
-      userSid: this.userSid,
-      friendlyName: this.friendlyName,
-      conversationState: this.conversationState,
-      timers: this.timers,
-      attributes: this.attributes,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      createdBy: this.createdBy,
-      notificationLevel: this.notificationLevel,
-      uniqueName: this.uniqueName,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        conversationSid: this.conversationSid,
+        unreadMessagesCount: this.unreadMessagesCount,
+        lastReadMessageIndex: this.lastReadMessageIndex,
+        participantSid: this.participantSid,
+        userSid: this.userSid,
+        friendlyName: this.friendlyName,
+        conversationState: this.conversationState,
+        timers: this.timers,
+        attributes: this.attributes,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        createdBy: this.createdBy,
+        notificationLevel: this.notificationLevel,
+        uniqueName: this.uniqueName,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

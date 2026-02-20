@@ -453,31 +453,35 @@ export class NotificationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      dateCreated: this.dateCreated,
-      identities: this.identities,
-      tags: this.tags,
-      segments: this.segments,
-      priority: this.priority,
-      ttl: this.ttl,
-      title: this.title,
-      body: this.body,
-      sound: this.sound,
-      action: this.action,
-      data: this.data,
-      apn: this.apn,
-      gcm: this.gcm,
-      fcm: this.fcm,
-      sms: this.sms,
-      facebookMessenger: this.facebookMessenger,
-      alexa: this.alexa,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        dateCreated: this.dateCreated,
+        identities: this.identities,
+        tags: this.tags,
+        segments: this.segments,
+        priority: this.priority,
+        ttl: this.ttl,
+        title: this.title,
+        body: this.body,
+        sound: this.sound,
+        action: this.action,
+        data: this.data,
+        apn: this.apn,
+        gcm: this.gcm,
+        fcm: this.fcm,
+        sms: this.sms,
+        facebookMessenger: this.facebookMessenger,
+        alexa: this.alexa,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

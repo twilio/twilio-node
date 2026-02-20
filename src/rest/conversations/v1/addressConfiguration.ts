@@ -755,21 +755,25 @@ export class AddressConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      type: this.type,
-      address: this.address,
-      friendlyName: this.friendlyName,
-      autoCreation: this.autoCreation,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      addressCountry: this.addressCountry,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        type: this.type,
+        address: this.address,
+        friendlyName: this.friendlyName,
+        autoCreation: this.autoCreation,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        addressCountry: this.addressCountry,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

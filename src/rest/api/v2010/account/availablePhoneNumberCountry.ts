@@ -461,16 +461,20 @@ export class AvailablePhoneNumberCountryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      countryCode: this.countryCode,
-      country: this.country,
-      uri: this.uri,
-      beta: this.beta,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        countryCode: this.countryCode,
+        country: this.country,
+        uri: this.uri,
+        beta: this.beta,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

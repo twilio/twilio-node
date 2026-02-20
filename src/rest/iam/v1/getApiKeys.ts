@@ -409,16 +409,20 @@ export class GetApiKeysInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      flags: this.flags,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        flags: this.flags,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

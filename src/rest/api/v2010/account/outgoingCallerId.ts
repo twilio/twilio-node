@@ -643,18 +643,22 @@ export class OutgoingCallerIdInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      accountSid: this.accountSid,
-      phoneNumber: this.phoneNumber,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        accountSid: this.accountSid,
+        phoneNumber: this.phoneNumber,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

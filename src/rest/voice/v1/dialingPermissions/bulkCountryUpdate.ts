@@ -213,13 +213,17 @@ export class BulkCountryUpdateInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      updateCount: this.updateCount,
-      updateRequest: this.updateRequest,
-    };
+    return JSON.stringify(
+      {
+        updateCount: this.updateCount,
+        updateRequest: this.updateRequest,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

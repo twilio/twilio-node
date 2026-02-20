@@ -780,23 +780,27 @@ export class MemberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      channelSid: this.channelSid,
-      serviceSid: this.serviceSid,
-      identity: this.identity,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      roleSid: this.roleSid,
-      lastConsumedMessageIndex: this.lastConsumedMessageIndex,
-      lastConsumptionTimestamp: this.lastConsumptionTimestamp,
-      url: this.url,
-      attributes: this.attributes,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        channelSid: this.channelSid,
+        serviceSid: this.serviceSid,
+        identity: this.identity,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        roleSid: this.roleSid,
+        lastConsumedMessageIndex: this.lastConsumedMessageIndex,
+        lastConsumptionTimestamp: this.lastConsumptionTimestamp,
+        url: this.url,
+        attributes: this.attributes,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -311,20 +311,24 @@ export class NotificationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entitySid: this.entitySid,
-      identity: this.identity,
-      challengeSid: this.challengeSid,
-      priority: this.priority,
-      ttl: this.ttl,
-      dateCreated: this.dateCreated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entitySid: this.entitySid,
+        identity: this.identity,
+        challengeSid: this.challengeSid,
+        priority: this.priority,
+        ttl: this.ttl,
+        dateCreated: this.dateCreated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

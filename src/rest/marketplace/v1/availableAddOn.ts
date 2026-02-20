@@ -313,18 +313,22 @@ export class AvailableAddOnInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      description: this.description,
-      pricingType: this.pricingType,
-      configurationSchema: this.configurationSchema,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        description: this.description,
+        pricingType: this.pricingType,
+        configurationSchema: this.configurationSchema,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

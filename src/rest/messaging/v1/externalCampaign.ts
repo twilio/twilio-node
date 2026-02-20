@@ -251,16 +251,20 @@ export class ExternalCampaignInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      campaignId: this.campaignId,
-      messagingServiceSid: this.messagingServiceSid,
-      dateCreated: this.dateCreated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        campaignId: this.campaignId,
+        messagingServiceSid: this.messagingServiceSid,
+        dateCreated: this.dateCreated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -306,20 +306,24 @@ export class EventTypeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      type: this.type,
-      schemaId: this.schemaId,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      description: this.description,
-      status: this.status,
-      documentationUrl: this.documentationUrl,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        type: this.type,
+        schemaId: this.schemaId,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        description: this.description,
+        status: this.status,
+        documentationUrl: this.documentationUrl,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -665,21 +665,25 @@ export class TaskChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      workspaceSid: this.workspaceSid,
-      channelOptimizedRouting: this.channelOptimizedRouting,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        workspaceSid: this.workspaceSid,
+        channelOptimizedRouting: this.channelOptimizedRouting,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

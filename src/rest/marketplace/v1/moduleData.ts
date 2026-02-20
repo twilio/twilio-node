@@ -362,21 +362,25 @@ export class ModuleDataInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      url: this.url,
-      sid: this.sid,
-      description: this.description,
-      support: this.support,
-      policies: this.policies,
-      moduleInfo: this.moduleInfo,
-      documentation: this.documentation,
-      configuration: this.configuration,
-      pricing: this.pricing,
-      listings: this.listings,
-    };
+    return JSON.stringify(
+      {
+        url: this.url,
+        sid: this.sid,
+        description: this.description,
+        support: this.support,
+        policies: this.policies,
+        moduleInfo: this.moduleInfo,
+        documentation: this.documentation,
+        configuration: this.configuration,
+        pricing: this.pricing,
+        listings: this.listings,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

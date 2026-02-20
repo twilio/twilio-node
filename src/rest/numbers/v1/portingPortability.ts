@@ -390,20 +390,24 @@ export class PortingPortabilityInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      phoneNumber: this.phoneNumber,
-      accountSid: this.accountSid,
-      portable: this.portable,
-      pinAndAccountNumberRequired: this.pinAndAccountNumberRequired,
-      notPortableReason: this.notPortableReason,
-      notPortableReasonCode: this.notPortableReasonCode,
-      numberType: this.numberType,
-      country: this.country,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        phoneNumber: this.phoneNumber,
+        accountSid: this.accountSid,
+        portable: this.portable,
+        pinAndAccountNumberRequired: this.pinAndAccountNumberRequired,
+        notPortableReason: this.notPortableReason,
+        notPortableReasonCode: this.notPortableReasonCode,
+        numberType: this.numberType,
+        country: this.country,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -393,17 +393,21 @@ export class WorkflowStatisticsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      cumulative: this.cumulative,
-      realtime: this.realtime,
-      workflowSid: this.workflowSid,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        cumulative: this.cumulative,
+        realtime: this.realtime,
+        workflowSid: this.workflowSid,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

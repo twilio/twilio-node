@@ -460,22 +460,26 @@ export class PluginVersionsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      pluginSid: this.pluginSid,
-      accountSid: this.accountSid,
-      version: this.version,
-      pluginUrl: this.pluginUrl,
-      changelog: this.changelog,
-      _private: this._private,
-      archived: this.archived,
-      validated: this.validated,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        pluginSid: this.pluginSid,
+        accountSid: this.accountSid,
+        version: this.version,
+        pluginUrl: this.pluginUrl,
+        changelog: this.changelog,
+        _private: this._private,
+        archived: this.archived,
+        validated: this.validated,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

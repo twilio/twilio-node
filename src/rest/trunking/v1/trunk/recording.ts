@@ -459,13 +459,17 @@ export class RecordingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      mode: this.mode,
-      trim: this.trim,
-    };
+    return JSON.stringify(
+      {
+        mode: this.mode,
+        trim: this.trim,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

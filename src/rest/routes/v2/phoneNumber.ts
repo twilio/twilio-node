@@ -490,19 +490,23 @@ export class PhoneNumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      phoneNumber: this.phoneNumber,
-      url: this.url,
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      voiceRegion: this.voiceRegion,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        phoneNumber: this.phoneNumber,
+        url: this.url,
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        voiceRegion: this.voiceRegion,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -46,6 +46,15 @@ export class KnowledgeV1ServiceCreateKnowledgeRequest {
    * The embedding model to be used for the knowledge source. It\'s required for \'Database\' type but disallowed for other types.
    */
   "embeddingModel"?: string;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.knowledgeSourceDetails = payload["knowledge_source_details"];
+    this.name = payload["name"];
+    this.policy = payload["policy"];
+    this.type = payload["type"];
+    this.embeddingModel = payload["embedding_model"];
+  }
 }
 
 export class KnowledgeV1ServiceCreatePolicyRequest {
@@ -66,6 +75,14 @@ export class KnowledgeV1ServiceCreatePolicyRequest {
    * The description of the policy.
    */
   "type"?: string;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.id = payload["id"];
+    this.name = payload["name"];
+    this.policyDetails = payload["policy_details"];
+    this.type = payload["type"];
+  }
 }
 
 export class KnowledgeV1ServiceUpdateKnowledgeRequest {
@@ -90,6 +107,15 @@ export class KnowledgeV1ServiceUpdateKnowledgeRequest {
    * The embedding model to be used for the knowledge source. It\'s only applicable to \'Database\' type.
    */
   "embeddingModel"?: string;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.knowledgeSourceDetails = payload["knowledge_source_details"];
+    this.name = payload["name"];
+    this.policy = payload["policy"];
+    this.type = payload["type"];
+    this.embeddingModel = payload["embedding_model"];
+  }
 }
 
 /**
@@ -754,22 +780,26 @@ export class KnowledgeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      description: this.description,
-      id: this.id,
-      accountSid: this.accountSid,
-      knowledgeSourceDetails: this.knowledgeSourceDetails,
-      name: this.name,
-      status: this.status,
-      type: this.type,
-      url: this.url,
-      embeddingModel: this.embeddingModel,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        description: this.description,
+        id: this.id,
+        accountSid: this.accountSid,
+        knowledgeSourceDetails: this.knowledgeSourceDetails,
+        name: this.name,
+        status: this.status,
+        type: this.type,
+        url: this.url,
+        embeddingModel: this.embeddingModel,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

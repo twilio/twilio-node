@@ -768,36 +768,40 @@ export class HostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
-      addressSid: this.addressSid,
-      signingDocumentSid: this.signingDocumentSid,
-      phoneNumber: this.phoneNumber,
-      capabilities: this.capabilities,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      failureReason: this.failureReason,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      email: this.email,
-      ccEmails: this.ccEmails,
-      url: this.url,
-      contactTitle: this.contactTitle,
-      contactPhoneNumber: this.contactPhoneNumber,
-      bulkHostingRequestSid: this.bulkHostingRequestSid,
-      nextStep: this.nextStep,
-      verificationAttempts: this.verificationAttempts,
-      verificationCallSids: this.verificationCallSids,
-      verificationCallDelay: this.verificationCallDelay,
-      verificationCallExtension: this.verificationCallExtension,
-      verificationCode: this.verificationCode,
-      verificationType: this.verificationType,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+        addressSid: this.addressSid,
+        signingDocumentSid: this.signingDocumentSid,
+        phoneNumber: this.phoneNumber,
+        capabilities: this.capabilities,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        failureReason: this.failureReason,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        email: this.email,
+        ccEmails: this.ccEmails,
+        url: this.url,
+        contactTitle: this.contactTitle,
+        contactPhoneNumber: this.contactPhoneNumber,
+        bulkHostingRequestSid: this.bulkHostingRequestSid,
+        nextStep: this.nextStep,
+        verificationAttempts: this.verificationAttempts,
+        verificationCallSids: this.verificationCallSids,
+        verificationCallDelay: this.verificationCallDelay,
+        verificationCallExtension: this.verificationCallExtension,
+        verificationCode: this.verificationCode,
+        verificationType: this.verificationType,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

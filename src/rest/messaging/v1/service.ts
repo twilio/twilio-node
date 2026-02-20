@@ -925,34 +925,38 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      inboundRequestUrl: this.inboundRequestUrl,
-      inboundMethod: this.inboundMethod,
-      fallbackUrl: this.fallbackUrl,
-      fallbackMethod: this.fallbackMethod,
-      statusCallback: this.statusCallback,
-      stickySender: this.stickySender,
-      mmsConverter: this.mmsConverter,
-      smartEncoding: this.smartEncoding,
-      scanMessageContent: this.scanMessageContent,
-      fallbackToLongCode: this.fallbackToLongCode,
-      areaCodeGeomatch: this.areaCodeGeomatch,
-      synchronousValidation: this.synchronousValidation,
-      validityPeriod: this.validityPeriod,
-      url: this.url,
-      links: this.links,
-      usecase: this.usecase,
-      usAppToPersonRegistered: this.usAppToPersonRegistered,
-      useInboundWebhookOnNumber: this.useInboundWebhookOnNumber,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        inboundRequestUrl: this.inboundRequestUrl,
+        inboundMethod: this.inboundMethod,
+        fallbackUrl: this.fallbackUrl,
+        fallbackMethod: this.fallbackMethod,
+        statusCallback: this.statusCallback,
+        stickySender: this.stickySender,
+        mmsConverter: this.mmsConverter,
+        smartEncoding: this.smartEncoding,
+        scanMessageContent: this.scanMessageContent,
+        fallbackToLongCode: this.fallbackToLongCode,
+        areaCodeGeomatch: this.areaCodeGeomatch,
+        synchronousValidation: this.synchronousValidation,
+        validityPeriod: this.validityPeriod,
+        url: this.url,
+        links: this.links,
+        usecase: this.usecase,
+        usAppToPersonRegistered: this.usAppToPersonRegistered,
+        useInboundWebhookOnNumber: this.useInboundWebhookOnNumber,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

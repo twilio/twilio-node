@@ -33,6 +33,13 @@ export class CreateShortCodeApplicationRequest {
   "isoCountry": string;
   "businessInformation": CreateShortCodeApplicationRequestBusinessInformation;
   "setup": CreateShortCodeApplicationRequestSetup;
+
+  constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
+    this.isoCountry = payload["iso_country"];
+    this.businessInformation = payload["business_information"];
+    this.setup = payload["setup"];
+  }
 }
 
 /**
@@ -43,10 +50,18 @@ export class CreateShortCodeApplicationRequestBusinessInformation {
    * The Compliance Profile SID for the customer-facing business profile.
    */
   "customerFacingProfile": string;
+
+  constructor(payload) {
+    this.customerFacingProfile = payload["customer_facing_profile"];
+  }
 }
 
 export class CreateShortCodeApplicationRequestSetup {
   "chargesApply": boolean;
+
+  constructor(payload) {
+    this.chargesApply = payload["charges_apply"];
+  }
 }
 
 /**
@@ -319,17 +334,21 @@ export class ApplicationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      bundleSid: this.bundleSid,
-      applicationRequirementsSid: this.applicationRequirementsSid,
-      friendlyName: this.friendlyName,
-      isoCountry: this.isoCountry,
-      state: this.state,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        bundleSid: this.bundleSid,
+        applicationRequirementsSid: this.applicationRequirementsSid,
+        friendlyName: this.friendlyName,
+        isoCountry: this.isoCountry,
+        state: this.state,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

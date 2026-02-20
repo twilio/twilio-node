@@ -334,20 +334,24 @@ export class PublishedTrackInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      participantSid: this.participantSid,
-      roomSid: this.roomSid,
-      name: this.name,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      enabled: this.enabled,
-      kind: this.kind,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        participantSid: this.participantSid,
+        roomSid: this.roomSid,
+        name: this.name,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        enabled: this.enabled,
+        kind: this.kind,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

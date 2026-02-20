@@ -493,19 +493,23 @@ export class SettingsUpdateInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      iccid: this.iccid,
-      simSid: this.simSid,
-      status: this.status,
-      packages: this.packages,
-      dateCompleted: this.dateCompleted,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        iccid: this.iccid,
+        simSid: this.simSid,
+        status: this.status,
+        packages: this.packages,
+        dateCompleted: this.dateCompleted,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

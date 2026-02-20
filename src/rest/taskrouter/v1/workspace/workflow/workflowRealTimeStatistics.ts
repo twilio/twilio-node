@@ -413,20 +413,24 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      longestTaskWaitingAge: this.longestTaskWaitingAge,
-      longestTaskWaitingSid: this.longestTaskWaitingSid,
-      tasksByPriority: this.tasksByPriority,
-      tasksByStatus: this.tasksByStatus,
-      totalTasks: this.totalTasks,
-      workflowSid: this.workflowSid,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        longestTaskWaitingAge: this.longestTaskWaitingAge,
+        longestTaskWaitingSid: this.longestTaskWaitingSid,
+        tasksByPriority: this.tasksByPriority,
+        tasksByStatus: this.tasksByStatus,
+        totalTasks: this.totalTasks,
+        workflowSid: this.workflowSid,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

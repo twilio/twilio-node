@@ -756,25 +756,29 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      webhookUrl: this.webhookUrl,
-      webhooksFromRestEnabled: this.webhooksFromRestEnabled,
-      reachabilityWebhooksEnabled: this.reachabilityWebhooksEnabled,
-      aclEnabled: this.aclEnabled,
-      reachabilityDebouncingEnabled: this.reachabilityDebouncingEnabled,
-      reachabilityDebouncingWindow: this.reachabilityDebouncingWindow,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        webhookUrl: this.webhookUrl,
+        webhooksFromRestEnabled: this.webhooksFromRestEnabled,
+        reachabilityWebhooksEnabled: this.reachabilityWebhooksEnabled,
+        aclEnabled: this.aclEnabled,
+        reachabilityDebouncingEnabled: this.reachabilityDebouncingEnabled,
+        reachabilityDebouncingWindow: this.reachabilityDebouncingWindow,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

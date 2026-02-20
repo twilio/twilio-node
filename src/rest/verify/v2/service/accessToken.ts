@@ -295,21 +295,25 @@ export class AccessTokenInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entityIdentity: this.entityIdentity,
-      factorType: this.factorType,
-      factorFriendlyName: this.factorFriendlyName,
-      token: this.token,
-      url: this.url,
-      ttl: this.ttl,
-      dateCreated: this.dateCreated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entityIdentity: this.entityIdentity,
+        factorType: this.factorType,
+        factorFriendlyName: this.factorFriendlyName,
+        token: this.token,
+        url: this.url,
+        ttl: this.ttl,
+        dateCreated: this.dateCreated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

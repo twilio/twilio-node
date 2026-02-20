@@ -1096,37 +1096,41 @@ export class CallInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      parentCallSid: this.parentCallSid,
-      accountSid: this.accountSid,
-      to: this.to,
-      toFormatted: this.toFormatted,
-      from: this.from,
-      fromFormatted: this.fromFormatted,
-      phoneNumberSid: this.phoneNumberSid,
-      status: this.status,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      price: this.price,
-      priceUnit: this.priceUnit,
-      direction: this.direction,
-      answeredBy: this.answeredBy,
-      apiVersion: this.apiVersion,
-      forwardedFrom: this.forwardedFrom,
-      groupSid: this.groupSid,
-      callerName: this.callerName,
-      queueTime: this.queueTime,
-      trunkSid: this.trunkSid,
-      uri: this.uri,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        parentCallSid: this.parentCallSid,
+        accountSid: this.accountSid,
+        to: this.to,
+        toFormatted: this.toFormatted,
+        from: this.from,
+        fromFormatted: this.fromFormatted,
+        phoneNumberSid: this.phoneNumberSid,
+        status: this.status,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        price: this.price,
+        priceUnit: this.priceUnit,
+        direction: this.direction,
+        answeredBy: this.answeredBy,
+        apiVersion: this.apiVersion,
+        forwardedFrom: this.forwardedFrom,
+        groupSid: this.groupSid,
+        callerName: this.callerName,
+        queueTime: this.queueTime,
+        trunkSid: this.trunkSid,
+        uri: this.uri,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

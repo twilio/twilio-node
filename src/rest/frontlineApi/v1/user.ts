@@ -454,18 +454,22 @@ export class UserInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      identity: this.identity,
-      friendlyName: this.friendlyName,
-      avatar: this.avatar,
-      state: this.state,
-      isAvailable: this.isAvailable,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        identity: this.identity,
+        friendlyName: this.friendlyName,
+        avatar: this.avatar,
+        state: this.state,
+        isAvailable: this.isAvailable,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -523,32 +523,36 @@ export class CompositionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateCompleted: this.dateCompleted,
-      dateDeleted: this.dateDeleted,
-      sid: this.sid,
-      roomSid: this.roomSid,
-      audioSources: this.audioSources,
-      audioSourcesExcluded: this.audioSourcesExcluded,
-      videoLayout: this.videoLayout,
-      resolution: this.resolution,
-      trim: this.trim,
-      format: this.format,
-      bitrate: this.bitrate,
-      size: this.size,
-      duration: this.duration,
-      mediaExternalLocation: this.mediaExternalLocation,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateCompleted: this.dateCompleted,
+        dateDeleted: this.dateDeleted,
+        sid: this.sid,
+        roomSid: this.roomSid,
+        audioSources: this.audioSources,
+        audioSourcesExcluded: this.audioSourcesExcluded,
+        videoLayout: this.videoLayout,
+        resolution: this.resolution,
+        trim: this.trim,
+        format: this.format,
+        bitrate: this.bitrate,
+        size: this.size,
+        duration: this.duration,
+        mediaExternalLocation: this.mediaExternalLocation,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

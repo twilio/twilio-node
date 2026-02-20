@@ -484,15 +484,19 @@ export class InsightsConversationsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountId: this.accountId,
-      conversationId: this.conversationId,
-      segmentCount: this.segmentCount,
-      segments: this.segments,
-    };
+    return JSON.stringify(
+      {
+        accountId: this.accountId,
+        conversationId: this.conversationId,
+        segmentCount: this.segmentCount,
+        segments: this.segments,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

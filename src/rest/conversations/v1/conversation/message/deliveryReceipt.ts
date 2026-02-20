@@ -351,22 +351,26 @@ export class DeliveryReceiptInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      conversationSid: this.conversationSid,
-      sid: this.sid,
-      messageSid: this.messageSid,
-      channelMessageSid: this.channelMessageSid,
-      participantSid: this.participantSid,
-      status: this.status,
-      errorCode: this.errorCode,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        conversationSid: this.conversationSid,
+        sid: this.sid,
+        messageSid: this.messageSid,
+        channelMessageSid: this.channelMessageSid,
+        participantSid: this.participantSid,
+        status: this.status,
+        errorCode: this.errorCode,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

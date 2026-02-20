@@ -656,20 +656,24 @@ export class ActivityInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      available: this.available,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      sid: this.sid,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        available: this.available,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        sid: this.sid,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

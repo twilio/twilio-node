@@ -232,12 +232,16 @@ export class EligibilityInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      results: this.results,
-    };
+    return JSON.stringify(
+      {
+        results: this.results,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

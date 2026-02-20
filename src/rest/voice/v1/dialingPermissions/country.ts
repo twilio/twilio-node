@@ -351,20 +351,24 @@ export class CountryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      isoCode: this.isoCode,
-      name: this.name,
-      continent: this.continent,
-      countryCodes: this.countryCodes,
-      lowRiskNumbersEnabled: this.lowRiskNumbersEnabled,
-      highRiskSpecialNumbersEnabled: this.highRiskSpecialNumbersEnabled,
-      highRiskTollfraudNumbersEnabled: this.highRiskTollfraudNumbersEnabled,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        isoCode: this.isoCode,
+        name: this.name,
+        continent: this.continent,
+        countryCodes: this.countryCodes,
+        lowRiskNumbersEnabled: this.lowRiskNumbersEnabled,
+        highRiskSpecialNumbersEnabled: this.highRiskSpecialNumbersEnabled,
+        highRiskTollfraudNumbersEnabled: this.highRiskTollfraudNumbersEnabled,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

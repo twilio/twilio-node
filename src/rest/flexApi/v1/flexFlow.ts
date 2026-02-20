@@ -797,25 +797,29 @@ export class FlexFlowInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      chatServiceSid: this.chatServiceSid,
-      channelType: this.channelType,
-      contactIdentity: this.contactIdentity,
-      enabled: this.enabled,
-      integrationType: this.integrationType,
-      integration: this.integration,
-      longLived: this.longLived,
-      janitorEnabled: this.janitorEnabled,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        chatServiceSid: this.chatServiceSid,
+        channelType: this.channelType,
+        contactIdentity: this.contactIdentity,
+        enabled: this.enabled,
+        integrationType: this.integrationType,
+        integration: this.integration,
+        longLived: this.longLived,
+        janitorEnabled: this.janitorEnabled,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

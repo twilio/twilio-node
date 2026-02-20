@@ -665,24 +665,28 @@ export class TollFreeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      friendlyName: this.friendlyName,
-      phoneNumber: this.phoneNumber,
-      lata: this.lata,
-      locality: this.locality,
-      rateCenter: this.rateCenter,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      region: this.region,
-      postalCode: this.postalCode,
-      isoCountry: this.isoCountry,
-      addressRequirements: this.addressRequirements,
-      beta: this.beta,
-      capabilities: this.capabilities,
-    };
+    return JSON.stringify(
+      {
+        friendlyName: this.friendlyName,
+        phoneNumber: this.phoneNumber,
+        lata: this.lata,
+        locality: this.locality,
+        rateCenter: this.rateCenter,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        region: this.region,
+        postalCode: this.postalCode,
+        isoCountry: this.isoCountry,
+        addressRequirements: this.addressRequirements,
+        beta: this.beta,
+        capabilities: this.capabilities,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

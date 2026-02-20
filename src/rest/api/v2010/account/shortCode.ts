@@ -603,23 +603,27 @@ export class ShortCodeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      shortCode: this.shortCode,
-      sid: this.sid,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        shortCode: this.shortCode,
+        sid: this.sid,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

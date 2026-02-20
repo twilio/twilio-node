@@ -602,20 +602,24 @@ export class SinkInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      description: this.description,
-      sid: this.sid,
-      sinkConfiguration: this.sinkConfiguration,
-      sinkType: this.sinkType,
-      status: this.status,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        description: this.description,
+        sid: this.sid,
+        sinkConfiguration: this.sinkConfiguration,
+        sinkType: this.sinkType,
+        status: this.status,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

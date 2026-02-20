@@ -823,22 +823,26 @@ export class SyncMapItemInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      key: this.key,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      mapSid: this.mapSid,
-      url: this.url,
-      revision: this.revision,
-      data: this.data,
-      dateExpires: this.dateExpires,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      createdBy: this.createdBy,
-    };
+    return JSON.stringify(
+      {
+        key: this.key,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        mapSid: this.mapSid,
+        url: this.url,
+        revision: this.revision,
+        data: this.data,
+        dateExpires: this.dateExpires,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        createdBy: this.createdBy,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

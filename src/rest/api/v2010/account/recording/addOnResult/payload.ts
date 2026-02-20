@@ -464,22 +464,26 @@ export class PayloadInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      addOnResultSid: this.addOnResultSid,
-      accountSid: this.accountSid,
-      label: this.label,
-      addOnSid: this.addOnSid,
-      addOnConfigurationSid: this.addOnConfigurationSid,
-      contentType: this.contentType,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      referenceSid: this.referenceSid,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        addOnResultSid: this.addOnResultSid,
+        accountSid: this.accountSid,
+        label: this.label,
+        addOnSid: this.addOnSid,
+        addOnConfigurationSid: this.addOnConfigurationSid,
+        contentType: this.contentType,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        referenceSid: this.referenceSid,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

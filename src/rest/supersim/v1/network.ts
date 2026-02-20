@@ -280,16 +280,20 @@ export class NetworkInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      url: this.url,
-      isoCountry: this.isoCountry,
-      identifiers: this.identifiers,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        url: this.url,
+        isoCountry: this.isoCountry,
+        identifiers: this.identifiers,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

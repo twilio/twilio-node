@@ -374,22 +374,26 @@ export class VerificationAttemptInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      verificationSid: this.verificationSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      conversionStatus: this.conversionStatus,
-      channel: this.channel,
-      price: this.price,
-      channelData: this.channelData,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        verificationSid: this.verificationSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        conversionStatus: this.conversionStatus,
+        channel: this.channel,
+        price: this.price,
+        channelData: this.channelData,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

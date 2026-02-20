@@ -667,19 +667,23 @@ export class WebhookInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      conversationSid: this.conversationSid,
-      target: this.target,
-      url: this.url,
-      configuration: this.configuration,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        conversationSid: this.conversationSid,
+        target: this.target,
+        url: this.url,
+        configuration: this.configuration,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

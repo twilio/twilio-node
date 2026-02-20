@@ -439,19 +439,23 @@ export class RecordingSettingsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      awsCredentialsSid: this.awsCredentialsSid,
-      awsS3Url: this.awsS3Url,
-      awsStorageEnabled: this.awsStorageEnabled,
-      encryptionKeySid: this.encryptionKeySid,
-      encryptionEnabled: this.encryptionEnabled,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        awsCredentialsSid: this.awsCredentialsSid,
+        awsS3Url: this.awsS3Url,
+        awsStorageEnabled: this.awsStorageEnabled,
+        encryptionKeySid: this.encryptionKeySid,
+        encryptionEnabled: this.encryptionEnabled,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

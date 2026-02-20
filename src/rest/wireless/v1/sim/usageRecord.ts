@@ -472,16 +472,20 @@ export class UsageRecordInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      simSid: this.simSid,
-      accountSid: this.accountSid,
-      period: this.period,
-      commands: this.commands,
-      data: this.data,
-    };
+    return JSON.stringify(
+      {
+        simSid: this.simSid,
+        accountSid: this.accountSid,
+        period: this.period,
+        commands: this.commands,
+        data: this.data,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

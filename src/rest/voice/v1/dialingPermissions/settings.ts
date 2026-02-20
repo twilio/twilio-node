@@ -423,13 +423,17 @@ export class SettingsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      dialingPermissionsInheritance: this.dialingPermissionsInheritance,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        dialingPermissionsInheritance: this.dialingPermissionsInheritance,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

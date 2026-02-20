@@ -345,14 +345,18 @@ export class LinkshorteningMessagingServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      domainSid: this.domainSid,
-      messagingServiceSid: this.messagingServiceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        domainSid: this.domainSid,
+        messagingServiceSid: this.messagingServiceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

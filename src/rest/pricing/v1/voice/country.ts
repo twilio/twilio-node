@@ -26,6 +26,12 @@ export class PricingV1VoiceVoiceCountryInstanceInboundCallPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.numberType = payload["number_type"];
+  }
 }
 
 export class PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices {
@@ -33,6 +39,13 @@ export class PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "friendlyName"?: string;
+
+  constructor(payload) {
+    this.prefixes = payload["prefixes"];
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.friendlyName = payload["friendly_name"];
+  }
 }
 
 /**
@@ -220,8 +233,22 @@ export class CountryInstance {
   ) {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
-    this.outboundPrefixPrices = payload.outbound_prefix_prices;
-    this.inboundCallPrices = payload.inbound_call_prices;
+    this.outboundPrefixPrices =
+      payload.outbound_prefix_prices !== null
+        ? payload.outbound_prefix_prices.map(
+            (payload: any) =>
+              new PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices(
+                payload
+              )
+          )
+        : null;
+    this.inboundCallPrices =
+      payload.inbound_call_prices !== null
+        ? payload.inbound_call_prices.map(
+            (payload: any) =>
+              new PricingV1VoiceVoiceCountryInstanceInboundCallPrices(payload)
+          )
+        : null;
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
@@ -289,17 +316,21 @@ export class CountryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      country: this.country,
-      isoCountry: this.isoCountry,
-      outboundPrefixPrices: this.outboundPrefixPrices,
-      inboundCallPrices: this.inboundCallPrices,
-      priceUnit: this.priceUnit,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        country: this.country,
+        isoCountry: this.isoCountry,
+        outboundPrefixPrices: this.outboundPrefixPrices,
+        inboundCallPrices: this.inboundCallPrices,
+        priceUnit: this.priceUnit,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

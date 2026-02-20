@@ -22,6 +22,11 @@ import { ApiResponse } from "../../../../base/ApiResponse";
 export class CreatePasskeysChallengeRequest {
   "identity"?: string;
   "factorSid"?: string;
+
+  constructor(payload) {
+    this.identity = payload["identity"];
+    this.factorSid = payload["factor_sid"];
+  }
 }
 
 /**
@@ -393,30 +398,34 @@ export class NewChallengeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      options: this.options,
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entitySid: this.entitySid,
-      identity: this.identity,
-      factorSid: this.factorSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      dateResponded: this.dateResponded,
-      expirationDate: this.expirationDate,
-      status: this.status,
-      respondedReason: this.respondedReason,
-      details: this.details,
-      hiddenDetails: this.hiddenDetails,
-      metadata: this.metadata,
-      factorType: this.factorType,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        options: this.options,
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entitySid: this.entitySid,
+        identity: this.identity,
+        factorSid: this.factorSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        dateResponded: this.dateResponded,
+        expirationDate: this.expirationDate,
+        status: this.status,
+        respondedReason: this.respondedReason,
+        details: this.details,
+        hiddenDetails: this.hiddenDetails,
+        metadata: this.metadata,
+        factorType: this.factorType,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

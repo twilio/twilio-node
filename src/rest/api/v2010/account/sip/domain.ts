@@ -853,32 +853,36 @@ export class DomainInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      authType: this.authType,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      domainName: this.domainName,
-      friendlyName: this.friendlyName,
-      sid: this.sid,
-      uri: this.uri,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceStatusCallbackMethod: this.voiceStatusCallbackMethod,
-      voiceStatusCallbackUrl: this.voiceStatusCallbackUrl,
-      voiceUrl: this.voiceUrl,
-      subresourceUris: this.subresourceUris,
-      sipRegistration: this.sipRegistration,
-      emergencyCallingEnabled: this.emergencyCallingEnabled,
-      secure: this.secure,
-      byocTrunkSid: this.byocTrunkSid,
-      emergencyCallerSid: this.emergencyCallerSid,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        authType: this.authType,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        domainName: this.domainName,
+        friendlyName: this.friendlyName,
+        sid: this.sid,
+        uri: this.uri,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceStatusCallbackMethod: this.voiceStatusCallbackMethod,
+        voiceStatusCallbackUrl: this.voiceStatusCallbackUrl,
+        voiceUrl: this.voiceUrl,
+        subresourceUris: this.subresourceUris,
+        sipRegistration: this.sipRegistration,
+        emergencyCallingEnabled: this.emergencyCallingEnabled,
+        secure: this.secure,
+        byocTrunkSid: this.byocTrunkSid,
+        emergencyCallerSid: this.emergencyCallerSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

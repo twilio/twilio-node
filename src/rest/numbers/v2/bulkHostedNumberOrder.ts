@@ -407,20 +407,24 @@ export class BulkHostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      bulkHostingSid: this.bulkHostingSid,
-      requestStatus: this.requestStatus,
-      friendlyName: this.friendlyName,
-      notificationEmail: this.notificationEmail,
-      dateCreated: this.dateCreated,
-      dateCompleted: this.dateCompleted,
-      url: this.url,
-      totalCount: this.totalCount,
-      results: this.results,
-    };
+    return JSON.stringify(
+      {
+        bulkHostingSid: this.bulkHostingSid,
+        requestStatus: this.requestStatus,
+        friendlyName: this.friendlyName,
+        notificationEmail: this.notificationEmail,
+        dateCreated: this.dateCreated,
+        dateCompleted: this.dateCompleted,
+        url: this.url,
+        totalCount: this.totalCount,
+        results: this.results,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

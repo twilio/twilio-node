@@ -508,20 +508,24 @@ export class DomainConfigInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      domainSid: this.domainSid,
-      configSid: this.configSid,
-      fallbackUrl: this.fallbackUrl,
-      callbackUrl: this.callbackUrl,
-      continueOnFailure: this.continueOnFailure,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      disableHttps: this.disableHttps,
-    };
+    return JSON.stringify(
+      {
+        domainSid: this.domainSid,
+        configSid: this.configSid,
+        fallbackUrl: this.fallbackUrl,
+        callbackUrl: this.callbackUrl,
+        continueOnFailure: this.continueOnFailure,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        disableHttps: this.disableHttps,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

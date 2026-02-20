@@ -729,26 +729,30 @@ export class ByocTrunkInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      voiceUrl: this.voiceUrl,
-      voiceMethod: this.voiceMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      statusCallbackUrl: this.statusCallbackUrl,
-      statusCallbackMethod: this.statusCallbackMethod,
-      cnamLookupEnabled: this.cnamLookupEnabled,
-      connectionPolicySid: this.connectionPolicySid,
-      fromDomainSid: this.fromDomainSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        voiceUrl: this.voiceUrl,
+        voiceMethod: this.voiceMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        statusCallbackUrl: this.statusCallbackUrl,
+        statusCallbackMethod: this.statusCallbackMethod,
+        cnamLookupEnabled: this.cnamLookupEnabled,
+        connectionPolicySid: this.connectionPolicySid,
+        fromDomainSid: this.fromDomainSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -181,13 +181,17 @@ export class BrandRegistrationOtpInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      brandRegistrationSid: this.brandRegistrationSid,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        brandRegistrationSid: this.brandRegistrationSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
