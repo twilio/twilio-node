@@ -230,8 +230,7 @@ export class EvaluationInstance {
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
     this.bundleSid = payload.bundle_sid;
-    this.status =
-      payload.status !== null ? new EvaluationEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.results = payload.results;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;

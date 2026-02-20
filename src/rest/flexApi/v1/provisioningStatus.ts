@@ -157,10 +157,7 @@ export class ProvisioningStatusInstance {
   protected _context?: ProvisioningStatusContext;
 
   constructor(protected _version: V1, payload: ProvisioningStatusResource) {
-    this.status =
-      payload.status !== null
-        ? new ProvisioningStatusEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.url = payload.url;
 
     this._solution = {};

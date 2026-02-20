@@ -377,14 +377,8 @@ export class AnnotationInstance {
   ) {
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.answeredBy =
-      payload.answered_by !== null
-        ? new AnnotationEnumAnsweredBy(payload.answered_by)
-        : null;
-    this.connectivityIssue =
-      payload.connectivity_issue !== null
-        ? new AnnotationEnumConnectivityIssue(payload.connectivity_issue)
-        : null;
+    this.answeredBy = payload.answered_by;
+    this.connectivityIssue = payload.connectivity_issue;
     this.qualityIssues = payload.quality_issues;
     this.spam = payload.spam;
     this.callScore = deserialize.integer(payload.call_score);

@@ -267,12 +267,7 @@ export class DeliveryReceiptInstance {
     this.sid = payload.sid;
     this.channelMessageSid = payload.channel_message_sid;
     this.participantSid = payload.participant_sid;
-    this.status =
-      payload.status !== null
-        ? new ServiceConversationMessageReceiptEnumDeliveryStatus(
-            payload.status
-          )
-        : null;
+    this.status = payload.status;
     this.errorCode = deserialize.integer(payload.error_code);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

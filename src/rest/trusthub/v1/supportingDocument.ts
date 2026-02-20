@@ -481,10 +481,7 @@ export class SupportingDocumentInstance {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.mimeType = payload.mime_type;
-    this.status =
-      payload.status !== null
-        ? new SupportingDocumentEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.type = payload.type;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

@@ -506,19 +506,13 @@ export class UserConversationInstance {
     this.participantSid = payload.participant_sid;
     this.userSid = payload.user_sid;
     this.friendlyName = payload.friendly_name;
-    this.conversationState =
-      payload.conversation_state !== null
-        ? new UserConversationEnumState(payload.conversation_state)
-        : null;
+    this.conversationState = payload.conversation_state;
     this.timers = payload.timers;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
-    this.notificationLevel =
-      payload.notification_level !== null
-        ? new UserConversationEnumNotificationLevel(payload.notification_level)
-        : null;
+    this.notificationLevel = payload.notification_level;
     this.uniqueName = payload.unique_name;
     this.url = payload.url;
     this.links = payload.links;

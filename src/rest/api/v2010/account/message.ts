@@ -614,10 +614,7 @@ export class MessageInstance {
   ) {
     this.body = payload.body;
     this.numSegments = payload.num_segments;
-    this.direction =
-      payload.direction !== null
-        ? new MessageEnumDirection(payload.direction)
-        : null;
+    this.direction = payload.direction;
     this.from = payload.from;
     this.to = payload.to;
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -626,8 +623,7 @@ export class MessageInstance {
     this.uri = payload.uri;
     this.accountSid = payload.account_sid;
     this.numMedia = payload.num_media;
-    this.status =
-      payload.status !== null ? new MessageEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.messagingServiceSid = payload.messaging_service_sid;
     this.sid = payload.sid;
     this.dateSent = deserialize.rfc2822DateTime(payload.date_sent);

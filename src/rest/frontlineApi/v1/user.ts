@@ -326,8 +326,7 @@ export class UserInstance {
     this.identity = payload.identity;
     this.friendlyName = payload.friendly_name;
     this.avatar = payload.avatar;
-    this.state =
-      payload.state !== null ? new UserEnumStateType(payload.state) : null;
+    this.state = payload.state;
     this.isAvailable = payload.is_available;
     this.url = payload.url;
 

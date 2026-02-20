@@ -512,12 +512,7 @@ export class ConnectAppInstance {
     this.description = payload.description;
     this.friendlyName = payload.friendly_name;
     this.homepageUrl = payload.homepage_url;
-    this.permissions =
-      payload.permissions !== null
-        ? payload.permissions.map(
-            (payload: any) => new ConnectAppEnumPermission(payload)
-          )
-        : null;
+    this.permissions = payload.permissions;
     this.sid = payload.sid;
     this.uri = payload.uri;
 

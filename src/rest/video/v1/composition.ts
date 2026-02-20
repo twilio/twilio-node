@@ -355,10 +355,7 @@ export class CompositionInstance {
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.status =
-      payload.status !== null
-        ? new CompositionEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
     this.dateDeleted = deserialize.iso8601DateTime(payload.date_deleted);
@@ -369,10 +366,7 @@ export class CompositionInstance {
     this.videoLayout = payload.video_layout;
     this.resolution = payload.resolution;
     this.trim = payload.trim;
-    this.format =
-      payload.format !== null
-        ? new CompositionEnumFormat(payload.format)
-        : null;
+    this.format = payload.format;
     this.bitrate = deserialize.integer(payload.bitrate);
     this.size = payload.size;
     this.duration = deserialize.integer(payload.duration);

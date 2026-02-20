@@ -491,10 +491,7 @@ export class ParticipantConversationInstance {
       payload.conversation_date_updated
     );
     this.conversationCreatedBy = payload.conversation_created_by;
-    this.conversationState =
-      payload.conversation_state !== null
-        ? new ParticipantConversationEnumState(payload.conversation_state)
-        : null;
+    this.conversationState = payload.conversation_state;
     this.conversationTimers = payload.conversation_timers;
     this.links = payload.links;
   }

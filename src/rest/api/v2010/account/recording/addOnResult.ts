@@ -334,10 +334,7 @@ export class AddOnResultInstance {
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
-    this.status =
-      payload.status !== null
-        ? new RecordingAddOnResultEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.addOnSid = payload.add_on_sid;
     this.addOnConfigurationSid = payload.add_on_configuration_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

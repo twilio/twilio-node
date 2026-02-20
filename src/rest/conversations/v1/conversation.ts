@@ -673,8 +673,7 @@ export class ConversationInstance {
     this.friendlyName = payload.friendly_name;
     this.uniqueName = payload.unique_name;
     this.attributes = payload.attributes;
-    this.state =
-      payload.state !== null ? new ConversationEnumState(payload.state) : null;
+    this.state = payload.state;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.timers = payload.timers;

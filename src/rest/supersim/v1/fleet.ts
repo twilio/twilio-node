@@ -431,10 +431,7 @@ export class FleetInstance {
     this.url = payload.url;
     this.dataEnabled = payload.data_enabled;
     this.dataLimit = deserialize.integer(payload.data_limit);
-    this.dataMetering =
-      payload.data_metering !== null
-        ? new FleetEnumDataMetering(payload.data_metering)
-        : null;
+    this.dataMetering = payload.data_metering;
     this.smsCommandsEnabled = payload.sms_commands_enabled;
     this.smsCommandsUrl = payload.sms_commands_url;
     this.smsCommandsMethod = payload.sms_commands_method;

@@ -609,10 +609,7 @@ export class HostedNumberOrderInstance {
     this.capabilities = payload.capabilities;
     this.friendlyName = payload.friendly_name;
     this.uniqueName = payload.unique_name;
-    this.status =
-      payload.status !== null
-        ? new HostedNumberOrderEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -622,10 +619,7 @@ export class HostedNumberOrderInstance {
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
     this.url = payload.url;
-    this.verificationType =
-      payload.verification_type !== null
-        ? new HostedNumberOrderEnumVerificationType(payload.verification_type)
-        : null;
+    this.verificationType = payload.verification_type;
     this.verificationDocumentSid = payload.verification_document_sid;
     this.extension = payload.extension;
     this.callDelay = deserialize.integer(payload.call_delay);

@@ -405,14 +405,8 @@ export class InteractionTransferInstance {
     this.interactionSid = payload.interaction_sid;
     this.channelSid = payload.channel_sid;
     this.executionSid = payload.execution_sid;
-    this.type =
-      payload.type !== null
-        ? new InteractionTransferEnumTransferType(payload.type)
-        : null;
-    this.status =
-      payload.status !== null
-        ? new InteractionTransferEnumTransferStatus(payload.status)
-        : null;
+    this.type = payload.type;
+    this.status = payload.status;
     this.from = payload.from;
     this.to = payload.to;
     this.noteSid = payload.note_sid;

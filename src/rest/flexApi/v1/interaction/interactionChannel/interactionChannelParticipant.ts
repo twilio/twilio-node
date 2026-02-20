@@ -309,10 +309,7 @@ export class InteractionChannelParticipantInstance {
     sid?: string
   ) {
     this.sid = payload.sid;
-    this.type =
-      payload.type !== null
-        ? new InteractionChannelParticipantEnumType(payload.type)
-        : null;
+    this.type = payload.type;
     this.interactionSid = payload.interaction_sid;
     this.channelSid = payload.channel_sid;
     this.url = payload.url;

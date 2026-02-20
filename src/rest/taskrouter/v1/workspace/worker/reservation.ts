@@ -773,10 +773,7 @@ export class ReservationInstance {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.reservationStatus =
-      payload.reservation_status !== null
-        ? new WorkerReservationEnumStatus(payload.reservation_status)
-        : null;
+    this.reservationStatus = payload.reservation_status;
     this.sid = payload.sid;
     this.taskSid = payload.task_sid;
     this.workerName = payload.worker_name;

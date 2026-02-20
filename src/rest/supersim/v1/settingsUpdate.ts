@@ -453,10 +453,7 @@ export class SettingsUpdateInstance {
     this.sid = payload.sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;
-    this.status =
-      payload.status !== null
-        ? new SettingsUpdateEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.packages = payload.packages;
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

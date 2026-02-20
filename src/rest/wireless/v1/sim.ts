@@ -598,12 +598,8 @@ export class SimInstance {
     this.friendlyName = payload.friendly_name;
     this.iccid = payload.iccid;
     this.eId = payload.e_id;
-    this.status =
-      payload.status !== null ? new SimEnumStatus(payload.status) : null;
-    this.resetStatus =
-      payload.reset_status !== null
-        ? new SimEnumResetStatus(payload.reset_status)
-        : null;
+    this.status = payload.status;
+    this.resetStatus = payload.reset_status;
     this.commandsCallbackUrl = payload.commands_callback_url;
     this.commandsCallbackMethod = payload.commands_callback_method;
     this.smsFallbackMethod = payload.sms_fallback_method;

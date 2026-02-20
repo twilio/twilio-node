@@ -413,10 +413,7 @@ export class TranscriptionsInstance {
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
     this.sourceSid = payload.source_sid;
-    this.status =
-      payload.status !== null
-        ? new RoomTranscriptionsEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);

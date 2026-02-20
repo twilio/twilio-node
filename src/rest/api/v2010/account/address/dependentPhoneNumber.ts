@@ -507,12 +507,7 @@ export class DependentPhoneNumberInstance {
     this.smsFallbackUrl = payload.sms_fallback_url;
     this.smsMethod = payload.sms_method;
     this.smsUrl = payload.sms_url;
-    this.addressRequirements =
-      payload.address_requirements !== null
-        ? new DependentPhoneNumberEnumAddressRequirement(
-            payload.address_requirements
-          )
-        : null;
+    this.addressRequirements = payload.address_requirements;
     this.capabilities = payload.capabilities;
     this.statusCallback = payload.status_callback;
     this.statusCallbackMethod = payload.status_callback_method;
@@ -520,10 +515,7 @@ export class DependentPhoneNumberInstance {
     this.smsApplicationSid = payload.sms_application_sid;
     this.voiceApplicationSid = payload.voice_application_sid;
     this.trunkSid = payload.trunk_sid;
-    this.emergencyStatus =
-      payload.emergency_status !== null
-        ? new DependentPhoneNumberEnumEmergencyStatus(payload.emergency_status)
-        : null;
+    this.emergencyStatus = payload.emergency_status;
     this.emergencyAddressSid = payload.emergency_address_sid;
     this.uri = payload.uri;
   }

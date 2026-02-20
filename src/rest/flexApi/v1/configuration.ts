@@ -436,10 +436,7 @@ export class ConfigurationInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.attributes = payload.attributes;
-    this.status =
-      payload.status !== null
-        ? new ConfigurationEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.taskrouterWorkspaceSid = payload.taskrouter_workspace_sid;
     this.taskrouterTargetWorkflowSid = payload.taskrouter_target_workflow_sid;
     this.taskrouterTargetTaskqueueSid = payload.taskrouter_target_taskqueue_sid;

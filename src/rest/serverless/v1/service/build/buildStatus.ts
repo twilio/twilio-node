@@ -184,10 +184,7 @@ export class BuildStatusInstance {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
-    this.status =
-      payload.status !== null
-        ? new BuildStatusEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.url = payload.url;
 
     this._solution = { serviceSid, sid };

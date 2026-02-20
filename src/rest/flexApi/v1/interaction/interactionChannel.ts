@@ -439,14 +439,8 @@ export class InteractionChannelInstance {
   ) {
     this.sid = payload.sid;
     this.interactionSid = payload.interaction_sid;
-    this.type =
-      payload.type !== null
-        ? new InteractionChannelEnumType(payload.type)
-        : null;
-    this.status =
-      payload.status !== null
-        ? new InteractionChannelEnumChannelStatus(payload.status)
-        : null;
+    this.type = payload.type;
+    this.status = payload.status;
     this.errorCode = deserialize.integer(payload.error_code);
     this.errorMessage = payload.error_message;
     this.url = payload.url;

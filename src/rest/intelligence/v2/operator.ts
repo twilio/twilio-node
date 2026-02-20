@@ -239,10 +239,7 @@ export class OperatorInstance {
     this.author = payload.author;
     this.operatorType = payload.operator_type;
     this.version = deserialize.integer(payload.version);
-    this.availability =
-      payload.availability !== null
-        ? new OperatorEnumAvailability(payload.availability)
-        : null;
+    this.availability = payload.availability;
     this.config = payload.config;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

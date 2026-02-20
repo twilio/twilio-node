@@ -499,15 +499,10 @@ export class WebhookInstance {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.eventTypes = payload.event_types;
-    this.status =
-      payload.status !== null ? new WebhookEnumStatus(payload.status) : null;
-    this.version =
-      payload.version !== null ? new WebhookEnumVersion(payload.version) : null;
+    this.status = payload.status;
+    this.version = payload.version;
     this.webhookUrl = payload.webhook_url;
-    this.webhookMethod =
-      payload.webhook_method !== null
-        ? new WebhookEnumMethods(payload.webhook_method)
-        : null;
+    this.webhookMethod = payload.webhook_method;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;

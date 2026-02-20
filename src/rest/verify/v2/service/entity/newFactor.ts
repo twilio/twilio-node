@@ -347,14 +347,8 @@ export class NewFactorInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;
-    this.status =
-      payload.status !== null
-        ? new NewFactorEnumFactorStatuses(payload.status)
-        : null;
-    this.factorType =
-      payload.factor_type !== null
-        ? new NewFactorEnumFactorTypes(payload.factor_type)
-        : null;
+    this.status = payload.status;
+    this.factorType = payload.factor_type;
     this.config = payload.config;
     this.metadata = payload.metadata;
     this.url = payload.url;

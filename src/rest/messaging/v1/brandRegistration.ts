@@ -395,25 +395,14 @@ export class BrandRegistrationInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.brandType = payload.brand_type;
-    this.status =
-      payload.status !== null
-        ? new BrandRegistrationsEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.tcrId = payload.tcr_id;
     this.failureReason = payload.failure_reason;
     this.errors = payload.errors;
     this.url = payload.url;
     this.brandScore = deserialize.integer(payload.brand_score);
-    this.brandFeedback =
-      payload.brand_feedback !== null
-        ? payload.brand_feedback.map(
-            (payload: any) => new BrandRegistrationsEnumBrandFeedback(payload)
-          )
-        : null;
-    this.identityStatus =
-      payload.identity_status !== null
-        ? new BrandRegistrationsEnumIdentityStatus(payload.identity_status)
-        : null;
+    this.brandFeedback = payload.brand_feedback;
+    this.identityStatus = payload.identity_status;
     this.russell3000 = payload.russell_3000;
     this.governmentEntity = payload.government_entity;
     this.taxExemptStatus = payload.tax_exempt_status;

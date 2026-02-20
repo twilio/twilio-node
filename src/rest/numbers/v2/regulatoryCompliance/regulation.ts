@@ -311,10 +311,7 @@ export class RegulationInstance {
     this.friendlyName = payload.friendly_name;
     this.isoCountry = payload.iso_country;
     this.numberType = payload.number_type;
-    this.endUserType =
-      payload.end_user_type !== null
-        ? new RegulationEnumEndUserType(payload.end_user_type)
-        : null;
+    this.endUserType = payload.end_user_type;
     this.requirements = payload.requirements;
     this.url = payload.url;
 

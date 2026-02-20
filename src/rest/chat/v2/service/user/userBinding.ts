@@ -324,10 +324,7 @@ export class UserBindingInstance {
     this.identity = payload.identity;
     this.userSid = payload.user_sid;
     this.credentialSid = payload.credential_sid;
-    this.bindingType =
-      payload.binding_type !== null
-        ? new UserBindingEnumBindingType(payload.binding_type)
-        : null;
+    this.bindingType = payload.binding_type;
     this.messageTypes = payload.message_types;
     this.url = payload.url;
 

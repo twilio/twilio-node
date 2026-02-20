@@ -290,14 +290,8 @@ export class VerificationAttemptInstance {
     this.verificationSid = payload.verification_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.conversionStatus =
-      payload.conversion_status !== null
-        ? new VerificationAttemptEnumConversionStatus(payload.conversion_status)
-        : null;
-    this.channel =
-      payload.channel !== null
-        ? new VerificationAttemptEnumChannels(payload.channel)
-        : null;
+    this.conversionStatus = payload.conversion_status;
+    this.channel = payload.channel;
     this.price = payload.price;
     this.channelData = payload.channel_data;
     this.url = payload.url;

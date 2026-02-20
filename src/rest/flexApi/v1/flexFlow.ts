@@ -600,16 +600,10 @@ export class FlexFlowInstance {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.chatServiceSid = payload.chat_service_sid;
-    this.channelType =
-      payload.channel_type !== null
-        ? new FlexFlowEnumChannelType(payload.channel_type)
-        : null;
+    this.channelType = payload.channel_type;
     this.contactIdentity = payload.contact_identity;
     this.enabled = payload.enabled;
-    this.integrationType =
-      payload.integration_type !== null
-        ? new FlexFlowEnumIntegrationType(payload.integration_type)
-        : null;
+    this.integrationType = payload.integration_type;
     this.integration = payload.integration;
     this.longLived = payload.long_lived;
     this.janitorEnabled = payload.janitor_enabled;

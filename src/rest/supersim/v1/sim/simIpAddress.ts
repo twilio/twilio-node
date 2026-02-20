@@ -421,10 +421,7 @@ export class SimIpAddressInstance {
     simSid: string
   ) {
     this.ipAddress = payload.ip_address;
-    this.ipAddressVersion =
-      payload.ip_address_version !== null
-        ? new SimIpAddressEnumIpAddressVersion(payload.ip_address_version)
-        : null;
+    this.ipAddressVersion = payload.ip_address_version;
   }
 
   /**

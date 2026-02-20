@@ -557,10 +557,7 @@ export class CompositionHookInstance {
     this.videoLayout = payload.video_layout;
     this.resolution = payload.resolution;
     this.trim = payload.trim;
-    this.format =
-      payload.format !== null
-        ? new CompositionHookEnumFormat(payload.format)
-        : null;
+    this.format = payload.format;
     this.statusCallback = payload.status_callback;
     this.statusCallbackMethod = payload.status_callback_method;
     this.url = payload.url;

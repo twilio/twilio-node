@@ -353,39 +353,21 @@ export class ConferenceInstance {
     this.connectDurationSeconds = deserialize.integer(
       payload.connect_duration_seconds
     );
-    this.status =
-      payload.status !== null
-        ? new ConferenceEnumConferenceStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.maxParticipants = deserialize.integer(payload.max_participants);
     this.maxConcurrentParticipants = deserialize.integer(
       payload.max_concurrent_participants
     );
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
-    this.endReason =
-      payload.end_reason !== null
-        ? new ConferenceEnumConferenceEndReason(payload.end_reason)
-        : null;
+    this.endReason = payload.end_reason;
     this.endedBy = payload.ended_by;
-    this.mixerRegion =
-      payload.mixer_region !== null
-        ? new ConferenceEnumRegion(payload.mixer_region)
-        : null;
-    this.mixerRegionRequested =
-      payload.mixer_region_requested !== null
-        ? new ConferenceEnumRegion(payload.mixer_region_requested)
-        : null;
+    this.mixerRegion = payload.mixer_region;
+    this.mixerRegionRequested = payload.mixer_region_requested;
     this.recordingEnabled = payload.recording_enabled;
     this.detectedIssues = payload.detected_issues;
-    this.tags =
-      payload.tags !== null
-        ? payload.tags.map((payload: any) => new ConferenceEnumTag(payload))
-        : null;
+    this.tags = payload.tags;
     this.tagInfo = payload.tag_info;
-    this.processingState =
-      payload.processing_state !== null
-        ? new ConferenceEnumProcessingState(payload.processing_state)
-        : null;
+    this.processingState = payload.processing_state;
     this.url = payload.url;
     this.links = payload.links;
 

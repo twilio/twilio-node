@@ -296,8 +296,7 @@ export class FlowInstance {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
-    this.status =
-      payload.status !== null ? new FlowEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.version = deserialize.integer(payload.version);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

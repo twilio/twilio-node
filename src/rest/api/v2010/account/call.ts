@@ -785,8 +785,7 @@ export class CallInstance {
     this.from = payload.from;
     this.fromFormatted = payload.from_formatted;
     this.phoneNumberSid = payload.phone_number_sid;
-    this.status =
-      payload.status !== null ? new CallEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.startTime = deserialize.rfc2822DateTime(payload.start_time);
     this.endTime = deserialize.rfc2822DateTime(payload.end_time);
     this.duration = payload.duration;

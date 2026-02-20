@@ -434,8 +434,7 @@ export class SimInstance {
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
     this.iccid = payload.iccid;
-    this.status =
-      payload.status !== null ? new SimEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.fleetSid = payload.fleet_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

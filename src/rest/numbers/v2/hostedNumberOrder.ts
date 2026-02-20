@@ -540,10 +540,7 @@ export class HostedNumberOrderInstance {
     this.phoneNumber = payload.phone_number;
     this.capabilities = payload.capabilities;
     this.friendlyName = payload.friendly_name;
-    this.status =
-      payload.status !== null
-        ? new HostedNumberOrderEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -563,10 +560,7 @@ export class HostedNumberOrderInstance {
     );
     this.verificationCallExtension = payload.verification_call_extension;
     this.verificationCode = payload.verification_code;
-    this.verificationType =
-      payload.verification_type !== null
-        ? new HostedNumberOrderEnumVerificationType(payload.verification_type)
-        : null;
+    this.verificationType = payload.verification_type;
 
     this._solution = { sid: sid || this.sid };
   }

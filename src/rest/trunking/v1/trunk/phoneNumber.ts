@@ -323,10 +323,7 @@ export class PhoneNumberInstance {
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.addressRequirements =
-      payload.address_requirements !== null
-        ? new PhoneNumberEnumAddressRequirement(payload.address_requirements)
-        : null;
+    this.addressRequirements = payload.address_requirements;
     this.apiVersion = payload.api_version;
     this.beta = payload.beta;
     this.capabilities = payload.capabilities;

@@ -318,17 +318,11 @@ export class WebhookInstance {
 
   constructor(protected _version: V1, payload: WebhookResource) {
     this.accountSid = payload.account_sid;
-    this.method =
-      payload.method !== null
-        ? new ConfigurationWebhookEnumMethod(payload.method)
-        : null;
+    this.method = payload.method;
     this.filters = payload.filters;
     this.preWebhookUrl = payload.pre_webhook_url;
     this.postWebhookUrl = payload.post_webhook_url;
-    this.target =
-      payload.target !== null
-        ? new ConfigurationWebhookEnumTarget(payload.target)
-        : null;
+    this.target = payload.target;
     this.url = payload.url;
 
     this._solution = {};

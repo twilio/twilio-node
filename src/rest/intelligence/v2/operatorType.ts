@@ -249,19 +249,10 @@ export class OperatorTypeInstance {
     this.friendlyName = payload.friendly_name;
     this.description = payload.description;
     this.docsLink = payload.docs_link;
-    this.outputType =
-      payload.output_type !== null
-        ? new OperatorTypeEnumOutputType(payload.output_type)
-        : null;
+    this.outputType = payload.output_type;
     this.supportedLanguages = payload.supported_languages;
-    this.provider =
-      payload.provider !== null
-        ? new OperatorTypeEnumProvider(payload.provider)
-        : null;
-    this.availability =
-      payload.availability !== null
-        ? new OperatorTypeEnumAvailability(payload.availability)
-        : null;
+    this.provider = payload.provider;
+    this.availability = payload.availability;
     this.configurable = payload.configurable;
     this.configSchema = payload.config_schema;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

@@ -448,12 +448,8 @@ export class SinkInstance {
     this.description = payload.description;
     this.sid = payload.sid;
     this.sinkConfiguration = payload.sink_configuration;
-    this.sinkType =
-      payload.sink_type !== null
-        ? new SinkEnumSinkType(payload.sink_type)
-        : null;
-    this.status =
-      payload.status !== null ? new SinkEnumStatus(payload.status) : null;
+    this.sinkType = payload.sink_type;
+    this.status = payload.status;
     this.url = payload.url;
     this.links = payload.links;
 

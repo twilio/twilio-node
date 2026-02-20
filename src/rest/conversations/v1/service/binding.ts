@@ -309,10 +309,7 @@ export class BindingInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.endpoint = payload.endpoint;
     this.identity = payload.identity;
-    this.bindingType =
-      payload.binding_type !== null
-        ? new ServiceBindingEnumBindingType(payload.binding_type)
-        : null;
+    this.bindingType = payload.binding_type;
     this.messageTypes = payload.message_types;
     this.url = payload.url;
 

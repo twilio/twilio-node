@@ -625,11 +625,9 @@ export class AccountInstance {
     this.friendlyName = payload.friendly_name;
     this.ownerAccountSid = payload.owner_account_sid;
     this.sid = payload.sid;
-    this.status =
-      payload.status !== null ? new AccountEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.subresourceUris = payload.subresource_uris;
-    this.type =
-      payload.type !== null ? new AccountEnumType(payload.type) : null;
+    this.type = payload.type;
     this.uri = payload.uri;
 
     this._solution = { sid: sid || this.sid };

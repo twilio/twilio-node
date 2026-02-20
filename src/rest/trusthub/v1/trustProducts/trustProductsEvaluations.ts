@@ -248,10 +248,7 @@ export class TrustProductsEvaluationsInstance {
     this.accountSid = payload.account_sid;
     this.policySid = payload.policy_sid;
     this.trustProductSid = payload.trust_product_sid;
-    this.status =
-      payload.status !== null
-        ? new TrustProductEvaluationEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.results = payload.results;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;

@@ -650,10 +650,7 @@ export class ServiceInstance {
     this.stickySender = payload.sticky_sender;
     this.mmsConverter = payload.mms_converter;
     this.smartEncoding = payload.smart_encoding;
-    this.scanMessageContent =
-      payload.scan_message_content !== null
-        ? new ServiceEnumScanMessageContent(payload.scan_message_content)
-        : null;
+    this.scanMessageContent = payload.scan_message_content;
     this.fallbackToLongCode = payload.fallback_to_long_code;
     this.areaCodeGeomatch = payload.area_code_geomatch;
     this.synchronousValidation = payload.synchronous_validation;

@@ -465,11 +465,9 @@ export class RecordingInstance {
     this.sid = payload.sid;
     this.price = payload.price;
     this.priceUnit = payload.price_unit;
-    this.status =
-      payload.status !== null ? new RecordingEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.channels = deserialize.integer(payload.channels);
-    this.source =
-      payload.source !== null ? new RecordingEnumSource(payload.source) : null;
+    this.source = payload.source;
     this.errorCode = deserialize.integer(payload.error_code);
     this.uri = payload.uri;
     this.encryptionDetails = payload.encryption_details;

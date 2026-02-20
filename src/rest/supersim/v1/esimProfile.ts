@@ -265,10 +265,7 @@ export class EsimProfileInstance {
     this.accountSid = payload.account_sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;
-    this.status =
-      payload.status !== null
-        ? new EsimProfileEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.eid = payload.eid;
     this.smdpPlusAddress = payload.smdp_plus_address;
     this.matchingId = payload.matching_id;

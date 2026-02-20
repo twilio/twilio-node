@@ -270,10 +270,7 @@ export class BulkHostedNumberOrderInstance {
     bulkHostingSid?: string
   ) {
     this.bulkHostingSid = payload.bulk_hosting_sid;
-    this.requestStatus =
-      payload.request_status !== null
-        ? new BulkHostedNumberOrderEnumRequestStatus(payload.request_status)
-        : null;
+    this.requestStatus = payload.request_status;
     this.friendlyName = payload.friendly_name;
     this.notificationEmail = payload.notification_email;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

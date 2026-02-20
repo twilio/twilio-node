@@ -496,8 +496,7 @@ export class CredentialInstance {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
-    this.type =
-      payload.type !== null ? new CredentialEnumPushType(payload.type) : null;
+    this.type = payload.type;
     this.sandbox = payload.sandbox;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

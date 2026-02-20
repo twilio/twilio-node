@@ -274,18 +274,11 @@ export class IpCommandInstance {
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
     this.simIccid = payload.sim_iccid;
-    this.status =
-      payload.status !== null ? new IpCommandEnumStatus(payload.status) : null;
-    this.direction =
-      payload.direction !== null
-        ? new IpCommandEnumDirection(payload.direction)
-        : null;
+    this.status = payload.status;
+    this.direction = payload.direction;
     this.deviceIp = payload.device_ip;
     this.devicePort = deserialize.integer(payload.device_port);
-    this.payloadType =
-      payload.payload_type !== null
-        ? new IpCommandEnumPayloadType(payload.payload_type)
-        : null;
+    this.payloadType = payload.payload_type;
     this.payload = payload.payload;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

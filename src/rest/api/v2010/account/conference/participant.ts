@@ -683,10 +683,7 @@ export class ParticipantInstance {
     this.muted = payload.muted;
     this.hold = payload.hold;
     this.startConferenceOnEnter = payload.start_conference_on_enter;
-    this.status =
-      payload.status !== null
-        ? new ParticipantEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 

@@ -619,10 +619,7 @@ export class WorkspaceInstance {
     this.sid = payload.sid;
     this.timeoutActivityName = payload.timeout_activity_name;
     this.timeoutActivitySid = payload.timeout_activity_sid;
-    this.prioritizeQueueOrder =
-      payload.prioritize_queue_order !== null
-        ? new WorkspaceEnumQueueOrder(payload.prioritize_queue_order)
-        : null;
+    this.prioritizeQueueOrder = payload.prioritize_queue_order;
     this.url = payload.url;
     this.links = payload.links;
 

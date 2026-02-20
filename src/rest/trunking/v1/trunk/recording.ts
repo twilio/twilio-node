@@ -342,14 +342,8 @@ export class RecordingInstance {
     payload: RecordingResource,
     trunkSid: string
   ) {
-    this.mode =
-      payload.mode !== null
-        ? new RecordingEnumRecordingMode(payload.mode)
-        : null;
-    this.trim =
-      payload.trim !== null
-        ? new RecordingEnumRecordingTrim(payload.trim)
-        : null;
+    this.mode = payload.mode;
+    this.trim = payload.trim;
 
     this._solution = { trunkSid };
   }

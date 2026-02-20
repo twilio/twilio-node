@@ -474,10 +474,7 @@ export class ParticipantInstance {
     this.sid = payload.sid;
     this.roomSid = payload.room_sid;
     this.accountSid = payload.account_sid;
-    this.status =
-      payload.status !== null
-        ? new RoomParticipantEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.identity = payload.identity;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

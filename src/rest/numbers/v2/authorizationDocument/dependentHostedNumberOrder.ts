@@ -539,10 +539,7 @@ export class DependentHostedNumberOrderInstance {
     this.phoneNumber = payload.phone_number;
     this.capabilities = payload.capabilities;
     this.friendlyName = payload.friendly_name;
-    this.status =
-      payload.status !== null
-        ? new DependentHostedNumberOrderEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

@@ -503,15 +503,9 @@ export class RecordingInstance {
     this.sid = payload.sid;
     this.price = payload.price;
     this.priceUnit = payload.price_unit;
-    this.status =
-      payload.status !== null
-        ? new ConferenceRecordingEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.channels = deserialize.integer(payload.channels);
-    this.source =
-      payload.source !== null
-        ? new ConferenceRecordingEnumSource(payload.source)
-        : null;
+    this.source = payload.source;
     this.errorCode = deserialize.integer(payload.error_code);
     this.encryptionDetails = payload.encryption_details;
     this.uri = payload.uri;

@@ -522,12 +522,10 @@ export class SessionInstance {
     );
     this.dateExpiry = deserialize.iso8601DateTime(payload.date_expiry);
     this.uniqueName = payload.unique_name;
-    this.status =
-      payload.status !== null ? new SessionEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.closedReason = payload.closed_reason;
     this.ttl = deserialize.integer(payload.ttl);
-    this.mode =
-      payload.mode !== null ? new SessionEnumMode(payload.mode) : null;
+    this.mode = payload.mode;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;

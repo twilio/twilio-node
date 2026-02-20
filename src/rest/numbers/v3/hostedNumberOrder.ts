@@ -342,10 +342,7 @@ export class HostedNumberOrderInstance {
     this.capabilities = payload.capabilities;
     this.friendlyName = payload.friendlyName;
     this.uniqueName = payload.uniqueName;
-    this.status =
-      payload.status !== null
-        ? new HostedNumberOrderEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.failureReason = payload.failureReason;
     this.dateCreated = deserialize.iso8601DateTime(payload.dateCreated);
     this.dateUpdated = deserialize.iso8601DateTime(payload.dateUpdated);
@@ -355,10 +352,7 @@ export class HostedNumberOrderInstance {
     this.email = payload.email;
     this.ccEmails = payload.ccEmails;
     this.url = payload.url;
-    this.verificationType =
-      payload.verificationType !== null
-        ? new HostedNumberOrderEnumVerificationType(payload.verificationType)
-        : null;
+    this.verificationType = payload.verificationType;
     this.verificationDocumentSid = payload.verificationDocumentSid;
     this.extension = payload.extension;
     this.callDelay = deserialize.integer(payload.callDelay);

@@ -467,8 +467,7 @@ export class FlowInstance {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.definition = payload.definition;
-    this.status =
-      payload.status !== null ? new FlowEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.revision = deserialize.integer(payload.revision);
     this.commitMessage = payload.commit_message;
     this.valid = payload.valid;

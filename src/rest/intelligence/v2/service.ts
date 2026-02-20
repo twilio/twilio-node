@@ -518,10 +518,7 @@ export class ServiceInstance {
     this.uniqueName = payload.unique_name;
     this.url = payload.url;
     this.webhookUrl = payload.webhook_url;
-    this.webhookHttpMethod =
-      payload.webhook_http_method !== null
-        ? new ServiceEnumHttpMethod(payload.webhook_http_method)
-        : null;
+    this.webhookHttpMethod = payload.webhook_http_method;
     this.readOnlyAttachedOperatorSids =
       payload.read_only_attached_operator_sids;
     this.version = deserialize.integer(payload.version);

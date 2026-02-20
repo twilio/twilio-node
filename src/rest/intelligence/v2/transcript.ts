@@ -416,8 +416,7 @@ export class TranscriptInstance {
     this.sid = payload.sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.status =
-      payload.status !== null ? new TranscriptEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.channel = payload.channel;
     this.dataLogging = payload.data_logging;
     this.languageCode = payload.language_code;

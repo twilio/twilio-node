@@ -554,14 +554,8 @@ export class TrunkInstance {
     this.friendlyName = payload.friendly_name;
     this.secure = payload.secure;
     this.recording = payload.recording;
-    this.transferMode =
-      payload.transfer_mode !== null
-        ? new TrunkEnumTransferSetting(payload.transfer_mode)
-        : null;
-    this.transferCallerId =
-      payload.transfer_caller_id !== null
-        ? new TrunkEnumTransferCallerId(payload.transfer_caller_id)
-        : null;
+    this.transferMode = payload.transfer_mode;
+    this.transferCallerId = payload.transfer_caller_id;
     this.cnamLookupEnabled = payload.cnam_lookup_enabled;
     this.authType = payload.auth_type;
     this.symmetricRtpEnabled = payload.symmetric_rtp_enabled;

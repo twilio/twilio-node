@@ -483,10 +483,7 @@ export class SupportingDocumentInstance {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.mimeType = payload.mime_type;
-    this.status =
-      payload.status !== null
-        ? new SupportingDocumentEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.failureReason = payload.failure_reason;
     this.errors = payload.errors;
     this.type = payload.type;

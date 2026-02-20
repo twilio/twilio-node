@@ -443,10 +443,7 @@ export class BillingPeriodInstance {
     this.simSid = payload.sim_sid;
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
-    this.periodType =
-      payload.period_type !== null
-        ? new BillingPeriodEnumBpType(payload.period_type)
-        : null;
+    this.periodType = payload.period_type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }

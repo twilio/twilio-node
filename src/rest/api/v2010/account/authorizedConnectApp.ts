@@ -241,12 +241,7 @@ export class AuthorizedConnectAppInstance {
     this.connectAppFriendlyName = payload.connect_app_friendly_name;
     this.connectAppHomepageUrl = payload.connect_app_homepage_url;
     this.connectAppSid = payload.connect_app_sid;
-    this.permissions =
-      payload.permissions !== null
-        ? payload.permissions.map(
-            (payload: any) => new AuthorizedConnectAppEnumPermission(payload)
-          )
-        : null;
+    this.permissions = payload.permissions;
     this.uri = payload.uri;
 
     this._solution = {

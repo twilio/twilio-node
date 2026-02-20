@@ -589,10 +589,7 @@ export class TaskQueueInstance {
     this.reservationActivityName = payload.reservation_activity_name;
     this.sid = payload.sid;
     this.targetWorkers = payload.target_workers;
-    this.taskOrder =
-      payload.task_order !== null
-        ? new TaskQueueEnumTaskOrder(payload.task_order)
-        : null;
+    this.taskOrder = payload.task_order;
     this.url = payload.url;
     this.workspaceSid = payload.workspace_sid;
     this.links = payload.links;

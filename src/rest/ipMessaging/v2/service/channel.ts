@@ -637,8 +637,7 @@ export class ChannelInstance {
     this.friendlyName = payload.friendly_name;
     this.uniqueName = payload.unique_name;
     this.attributes = payload.attributes;
-    this.type =
-      payload.type !== null ? new ChannelEnumChannelType(payload.type) : null;
+    this.type = payload.type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;

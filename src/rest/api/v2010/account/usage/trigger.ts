@@ -510,15 +510,9 @@ export class TriggerInstance {
     this.dateFired = deserialize.rfc2822DateTime(payload.date_fired);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;
-    this.recurring =
-      payload.recurring !== null
-        ? new UsageTriggerEnumRecurring(payload.recurring)
-        : null;
+    this.recurring = payload.recurring;
     this.sid = payload.sid;
-    this.triggerBy =
-      payload.trigger_by !== null
-        ? new UsageTriggerEnumTriggerField(payload.trigger_by)
-        : null;
+    this.triggerBy = payload.trigger_by;
     this.triggerValue = payload.trigger_value;
     this.uri = payload.uri;
     this.usageCategory = payload.usage_category;

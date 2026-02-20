@@ -437,8 +437,7 @@ export class EndUserInstance {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
-    this.type =
-      payload.type !== null ? new EndUserEnumType(payload.type) : null;
+    this.type = payload.type;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

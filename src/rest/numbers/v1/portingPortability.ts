@@ -267,10 +267,7 @@ export class PortingPortabilityInstance {
     this.notPortableReasonCode = deserialize.integer(
       payload.not_portable_reason_code
     );
-    this.numberType =
-      payload.number_type !== null
-        ? new PortingPortabilityEnumNumberType(payload.number_type)
-        : null;
+    this.numberType = payload.number_type;
     this.country = payload.country;
     this.url = payload.url;
 

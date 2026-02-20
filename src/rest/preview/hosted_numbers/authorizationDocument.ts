@@ -488,10 +488,7 @@ export class AuthorizationDocumentInstance {
   ) {
     this.sid = payload.sid;
     this.addressSid = payload.address_sid;
-    this.status =
-      payload.status !== null
-        ? new AuthorizationDocumentEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

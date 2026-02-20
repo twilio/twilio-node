@@ -265,10 +265,7 @@ export class FunctionVersionInstance {
     this.serviceSid = payload.service_sid;
     this.functionSid = payload.function_sid;
     this.path = payload.path;
-    this.visibility =
-      payload.visibility !== null
-        ? new FunctionVersionEnumVisibility(payload.visibility)
-        : null;
+    this.visibility = payload.visibility;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
     this.links = payload.links;

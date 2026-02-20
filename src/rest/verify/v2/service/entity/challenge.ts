@@ -497,21 +497,12 @@ export class ChallengeInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateResponded = deserialize.iso8601DateTime(payload.date_responded);
     this.expirationDate = deserialize.iso8601DateTime(payload.expiration_date);
-    this.status =
-      payload.status !== null
-        ? new ChallengeEnumChallengeStatuses(payload.status)
-        : null;
-    this.respondedReason =
-      payload.responded_reason !== null
-        ? new ChallengeEnumChallengeReasons(payload.responded_reason)
-        : null;
+    this.status = payload.status;
+    this.respondedReason = payload.responded_reason;
     this.details = payload.details;
     this.hiddenDetails = payload.hidden_details;
     this.metadata = payload.metadata;
-    this.factorType =
-      payload.factor_type !== null
-        ? new ChallengeEnumFactorTypes(payload.factor_type)
-        : null;
+    this.factorType = payload.factor_type;
     this.url = payload.url;
     this.links = payload.links;
 

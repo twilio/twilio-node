@@ -305,29 +305,16 @@ export class MessageInteractionInstance {
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
     this.data = payload.data;
-    this.type =
-      payload.type !== null
-        ? new MessageInteractionEnumType(payload.type)
-        : null;
+    this.type = payload.type;
     this.participantSid = payload.participant_sid;
     this.inboundParticipantSid = payload.inbound_participant_sid;
     this.inboundResourceSid = payload.inbound_resource_sid;
-    this.inboundResourceStatus =
-      payload.inbound_resource_status !== null
-        ? new MessageInteractionEnumResourceStatus(
-            payload.inbound_resource_status
-          )
-        : null;
+    this.inboundResourceStatus = payload.inbound_resource_status;
     this.inboundResourceType = payload.inbound_resource_type;
     this.inboundResourceUrl = payload.inbound_resource_url;
     this.outboundParticipantSid = payload.outbound_participant_sid;
     this.outboundResourceSid = payload.outbound_resource_sid;
-    this.outboundResourceStatus =
-      payload.outbound_resource_status !== null
-        ? new MessageInteractionEnumResourceStatus(
-            payload.outbound_resource_status
-          )
-        : null;
+    this.outboundResourceStatus = payload.outbound_resource_status;
     this.outboundResourceType = payload.outbound_resource_type;
     this.outboundResourceUrl = payload.outbound_resource_url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

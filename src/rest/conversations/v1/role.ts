@@ -409,8 +409,7 @@ export class RoleInstance {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
     this.friendlyName = payload.friendly_name;
-    this.type =
-      payload.type !== null ? new RoleEnumRoleType(payload.type) : null;
+    this.type = payload.type;
     this.permissions = payload.permissions;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

@@ -498,16 +498,10 @@ export class ConferenceInstance {
     this.friendlyName = payload.friendly_name;
     this.region = payload.region;
     this.sid = payload.sid;
-    this.status =
-      payload.status !== null ? new ConferenceEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.uri = payload.uri;
     this.subresourceUris = payload.subresource_uris;
-    this.reasonConferenceEnded =
-      payload.reason_conference_ended !== null
-        ? new ConferenceEnumReasonConferenceEnded(
-            payload.reason_conference_ended
-          )
-        : null;
+    this.reasonConferenceEnded = payload.reason_conference_ended;
     this.callSidEndingConference = payload.call_sid_ending_conference;
 
     this._solution = { accountSid, sid: sid || this.sid };

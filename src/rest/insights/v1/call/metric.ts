@@ -428,12 +428,8 @@ export class MetricInstance {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.edge =
-      payload.edge !== null ? new MetricEnumTwilioEdge(payload.edge) : null;
-    this.direction =
-      payload.direction !== null
-        ? new MetricEnumStreamDirection(payload.direction)
-        : null;
+    this.edge = payload.edge;
+    this.direction = payload.direction;
     this.carrierEdge = payload.carrier_edge;
     this.sipEdge = payload.sip_edge;
     this.sdkEdge = payload.sdk_edge;

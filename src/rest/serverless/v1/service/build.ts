@@ -335,13 +335,11 @@ export class BuildInstance {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
-    this.status =
-      payload.status !== null ? new BuildEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.assetVersions = payload.asset_versions;
     this.functionVersions = payload.function_versions;
     this.dependencies = payload.dependencies;
-    this.runtime =
-      payload.runtime !== null ? new BuildEnumRuntime(payload.runtime) : null;
+    this.runtime = payload.runtime;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;

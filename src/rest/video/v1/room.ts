@@ -450,8 +450,7 @@ export class RoomInstance {
 
   constructor(protected _version: V1, payload: RoomResource, sid?: string) {
     this.sid = payload.sid;
-    this.status =
-      payload.status !== null ? new RoomEnumRoomStatus(payload.status) : null;
+    this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.accountSid = payload.account_sid;
@@ -461,8 +460,7 @@ export class RoomInstance {
     this.statusCallbackMethod = payload.status_callback_method;
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.duration = deserialize.integer(payload.duration);
-    this.type =
-      payload.type !== null ? new RoomEnumRoomType(payload.type) : null;
+    this.type = payload.type;
     this.maxParticipants = deserialize.integer(payload.max_participants);
     this.maxParticipantDuration = deserialize.integer(
       payload.max_participant_duration
@@ -471,12 +469,7 @@ export class RoomInstance {
       payload.max_concurrent_published_tracks
     );
     this.recordParticipantsOnConnect = payload.record_participants_on_connect;
-    this.videoCodecs =
-      payload.video_codecs !== null
-        ? payload.video_codecs.map(
-            (payload: any) => new RoomEnumVideoCodec(payload)
-          )
-        : null;
+    this.videoCodecs = payload.video_codecs;
     this.mediaRegion = payload.media_region;
     this.audioOnly = payload.audio_only;
     this.emptyRoomTimeout = deserialize.integer(payload.empty_room_timeout);

@@ -914,18 +914,12 @@ export class TollfreeVerificationInstance {
     this.useCaseSummary = payload.use_case_summary;
     this.productionMessageSample = payload.production_message_sample;
     this.optInImageUrls = payload.opt_in_image_urls;
-    this.optInType =
-      payload.opt_in_type !== null
-        ? new TollfreeVerificationEnumOptInType(payload.opt_in_type)
-        : null;
+    this.optInType = payload.opt_in_type;
     this.messageVolume = payload.message_volume;
     this.additionalInformation = payload.additional_information;
     this.tollfreePhoneNumberSid = payload.tollfree_phone_number_sid;
     this.tollfreePhoneNumber = payload.tollfree_phone_number;
-    this.status =
-      payload.status !== null
-        ? new TollfreeVerificationEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.url = payload.url;
     this.rejectionReason = payload.rejection_reason;
     this.errorCode = deserialize.integer(payload.error_code);
@@ -933,16 +927,9 @@ export class TollfreeVerificationInstance {
     this.editAllowed = payload.edit_allowed;
     this.businessRegistrationNumber = payload.business_registration_number;
     this.businessRegistrationAuthority =
-      payload.business_registration_authority !== null
-        ? new TollfreeVerificationEnumBusinessRegistrationAuthority(
-            payload.business_registration_authority
-          )
-        : null;
+      payload.business_registration_authority;
     this.businessRegistrationCountry = payload.business_registration_country;
-    this.businessType =
-      payload.business_type !== null
-        ? new TollfreeVerificationEnumBusinessType(payload.business_type)
-        : null;
+    this.businessType = payload.business_type;
     this.businessRegistrationPhoneNumber =
       payload.business_registration_phone_number;
     this.doingBusinessAs = payload.doing_business_as;
@@ -956,10 +943,7 @@ export class TollfreeVerificationInstance {
     this.resourceLinks = payload.resource_links;
     this.externalReferenceId = payload.external_reference_id;
     this.vettingId = payload.vetting_id;
-    this.vettingProvider =
-      payload.vetting_provider !== null
-        ? new TollfreeVerificationEnumVettingProvider(payload.vetting_provider)
-        : null;
+    this.vettingProvider = payload.vetting_provider;
     this.vettingIdExpiration = deserialize.iso8601DateTime(
       payload.vetting_id_expiration
     );

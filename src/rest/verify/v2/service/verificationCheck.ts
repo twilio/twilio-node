@@ -283,10 +283,7 @@ export class VerificationCheckInstance {
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
     this.to = payload.to;
-    this.channel =
-      payload.channel !== null
-        ? new VerificationCheckEnumChannel(payload.channel)
-        : null;
+    this.channel = payload.channel;
     this.status = payload.status;
     this.valid = payload.valid;
     this.amount = payload.amount;

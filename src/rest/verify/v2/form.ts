@@ -162,10 +162,7 @@ export class FormInstance {
     payload: FormResource,
     formType?: FormFormTypes
   ) {
-    this.formType =
-      payload.form_type !== null
-        ? new FormEnumFormTypes(payload.form_type)
-        : null;
+    this.formType = payload.form_type;
     this.forms = payload.forms;
     this.formMeta = payload.form_meta;
     this.url = payload.url;

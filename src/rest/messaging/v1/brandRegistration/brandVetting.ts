@@ -249,10 +249,7 @@ export class BrandVettingInstance {
     this.vettingId = payload.vetting_id;
     this.vettingClass = payload.vetting_class;
     this.vettingStatus = payload.vetting_status;
-    this.vettingProvider =
-      payload.vetting_provider !== null
-        ? new BrandVettingEnumVettingProvider(payload.vetting_provider)
-        : null;
+    this.vettingProvider = payload.vetting_provider;
     this.url = payload.url;
 
     this._solution = {

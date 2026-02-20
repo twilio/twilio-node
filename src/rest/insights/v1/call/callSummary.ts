@@ -283,22 +283,10 @@ export class CallSummaryInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
-    this.callType =
-      payload.call_type !== null
-        ? new SummaryEnumCallType(payload.call_type)
-        : null;
-    this.callState =
-      payload.call_state !== null
-        ? new SummaryEnumCallState(payload.call_state)
-        : null;
-    this.answeredBy =
-      payload.answered_by !== null
-        ? new SummaryEnumAnsweredBy(payload.answered_by)
-        : null;
-    this.processingState =
-      payload.processing_state !== null
-        ? new SummaryEnumProcessingState(payload.processing_state)
-        : null;
+    this.callType = payload.call_type;
+    this.callState = payload.call_state;
+    this.answeredBy = payload.answered_by;
+    this.processingState = payload.processing_state;
     this.createdTime = deserialize.iso8601DateTime(payload.created_time);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);

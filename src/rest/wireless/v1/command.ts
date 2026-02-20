@@ -341,21 +341,11 @@ export class CommandInstance {
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
     this.command = payload.command;
-    this.commandMode =
-      payload.command_mode !== null
-        ? new CommandEnumCommandMode(payload.command_mode)
-        : null;
-    this.transport =
-      payload.transport !== null
-        ? new CommandEnumTransport(payload.transport)
-        : null;
+    this.commandMode = payload.command_mode;
+    this.transport = payload.transport;
     this.deliveryReceiptRequested = payload.delivery_receipt_requested;
-    this.status =
-      payload.status !== null ? new CommandEnumStatus(payload.status) : null;
-    this.direction =
-      payload.direction !== null
-        ? new CommandEnumDirection(payload.direction)
-        : null;
+    this.status = payload.status;
+    this.direction = payload.direction;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;

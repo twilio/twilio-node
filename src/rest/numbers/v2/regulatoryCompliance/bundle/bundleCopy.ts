@@ -580,8 +580,7 @@ export class BundleCopyInstance {
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
     this.friendlyName = payload.friendly_name;
-    this.status =
-      payload.status !== null ? new BundleCopyEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
     this.email = payload.email;
     this.statusCallback = payload.status_callback;

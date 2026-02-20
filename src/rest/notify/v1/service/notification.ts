@@ -357,10 +357,7 @@ export class NotificationInstance {
     this.identities = payload.identities;
     this.tags = payload.tags;
     this.segments = payload.segments;
-    this.priority =
-      payload.priority !== null
-        ? new NotificationEnumPriority(payload.priority)
-        : null;
+    this.priority = payload.priority;
     this.ttl = deserialize.integer(payload.ttl);
     this.title = payload.title;
     this.body = payload.body;

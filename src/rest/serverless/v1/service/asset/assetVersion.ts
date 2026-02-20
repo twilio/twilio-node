@@ -244,10 +244,7 @@ export class AssetVersionInstance {
     this.serviceSid = payload.service_sid;
     this.assetSid = payload.asset_sid;
     this.path = payload.path;
-    this.visibility =
-      payload.visibility !== null
-        ? new AssetVersionEnumVisibility(payload.visibility)
-        : null;
+    this.visibility = payload.visibility;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 

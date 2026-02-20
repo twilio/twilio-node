@@ -252,10 +252,7 @@ export class FeedbackInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.messageSid = payload.message_sid;
-    this.outcome =
-      payload.outcome !== null
-        ? new MessageFeedbackEnumOutcome(payload.outcome)
-        : null;
+    this.outcome = payload.outcome;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;

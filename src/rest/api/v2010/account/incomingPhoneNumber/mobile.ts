@@ -741,12 +741,7 @@ export class MobileInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;
-    this.addressRequirements =
-      payload.address_requirements !== null
-        ? new IncomingPhoneNumberMobileEnumAddressRequirement(
-            payload.address_requirements
-          )
-        : null;
+    this.addressRequirements = payload.address_requirements;
     this.apiVersion = payload.api_version;
     this.beta = payload.beta;
     this.capabilities = payload.capabilities;
@@ -766,31 +761,16 @@ export class MobileInstance {
     this.statusCallbackMethod = payload.status_callback_method;
     this.trunkSid = payload.trunk_sid;
     this.uri = payload.uri;
-    this.voiceReceiveMode =
-      payload.voice_receive_mode !== null
-        ? new IncomingPhoneNumberMobileEnumVoiceReceiveMode(
-            payload.voice_receive_mode
-          )
-        : null;
+    this.voiceReceiveMode = payload.voice_receive_mode;
     this.voiceApplicationSid = payload.voice_application_sid;
     this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
     this.voiceFallbackMethod = payload.voice_fallback_method;
     this.voiceFallbackUrl = payload.voice_fallback_url;
     this.voiceMethod = payload.voice_method;
     this.voiceUrl = payload.voice_url;
-    this.emergencyStatus =
-      payload.emergency_status !== null
-        ? new IncomingPhoneNumberMobileEnumEmergencyStatus(
-            payload.emergency_status
-          )
-        : null;
+    this.emergencyStatus = payload.emergency_status;
     this.emergencyAddressSid = payload.emergency_address_sid;
-    this.emergencyAddressStatus =
-      payload.emergency_address_status !== null
-        ? new IncomingPhoneNumberMobileEnumEmergencyAddressStatus(
-            payload.emergency_address_status
-          )
-        : null;
+    this.emergencyAddressStatus = payload.emergency_address_status;
     this.bundleSid = payload.bundle_sid;
     this.status = payload.status;
   }

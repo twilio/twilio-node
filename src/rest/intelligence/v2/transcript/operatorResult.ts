@@ -323,10 +323,7 @@ export class OperatorResultInstance {
     transcriptSid: string,
     operatorSid?: string
   ) {
-    this.operatorType =
-      payload.operator_type !== null
-        ? new OperatorResultEnumOperatorType(payload.operator_type)
-        : null;
+    this.operatorType = payload.operator_type;
     this.name = payload.name;
     this.operatorSid = payload.operator_sid;
     this.extractMatch = payload.extract_match;

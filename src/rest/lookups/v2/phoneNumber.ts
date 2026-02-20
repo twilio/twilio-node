@@ -475,12 +475,7 @@ export class PhoneNumberInstance {
     this.phoneNumber = payload.phone_number;
     this.nationalFormat = payload.national_format;
     this.valid = payload.valid;
-    this.validationErrors =
-      payload.validation_errors !== null
-        ? payload.validation_errors.map(
-            (payload: any) => new ValidationError(payload)
-          )
-        : null;
+    this.validationErrors = payload.validation_errors;
     this.callerName =
       payload.caller_name !== null
         ? new CallerNameInfo(payload.caller_name)

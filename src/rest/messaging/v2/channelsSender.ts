@@ -872,10 +872,7 @@ export class ChannelsSenderInstance {
     sid?: string
   ) {
     this.sid = payload.sid;
-    this.status =
-      payload.status !== null
-        ? new ChannelsSenderEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.senderId = payload.sender_id;
     this.configuration =
       payload.configuration !== null

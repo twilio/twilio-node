@@ -428,10 +428,7 @@ export class UserChannelInstance {
     this.serviceSid = payload.service_sid;
     this.channelSid = payload.channel_sid;
     this.memberSid = payload.member_sid;
-    this.status =
-      payload.status !== null
-        ? new UserChannelEnumChannelStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.lastConsumedMessageIndex = deserialize.integer(
       payload.last_consumed_message_index
     );

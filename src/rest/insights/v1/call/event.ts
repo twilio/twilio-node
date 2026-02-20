@@ -409,11 +409,9 @@ export class EventInstance {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.edge =
-      payload.edge !== null ? new EventEnumTwilioEdge(payload.edge) : null;
+    this.edge = payload.edge;
     this.group = payload.group;
-    this.level =
-      payload.level !== null ? new EventEnumLevel(payload.level) : null;
+    this.level = payload.level;
     this.name = payload.name;
     this.carrierEdge = payload.carrier_edge;
     this.sipEdge = payload.sip_edge;

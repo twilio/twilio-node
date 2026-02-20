@@ -341,10 +341,7 @@ export class WebhookInstance {
     this.preWebhookUrl = payload.pre_webhook_url;
     this.postWebhookUrl = payload.post_webhook_url;
     this.filters = payload.filters;
-    this.method =
-      payload.method !== null
-        ? new ServiceWebhookConfigurationEnumMethod(payload.method)
-        : null;
+    this.method = payload.method;
     this.url = payload.url;
 
     this._solution = { chatServiceSid };

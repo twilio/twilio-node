@@ -248,10 +248,7 @@ export class CustomerProfilesEvaluationsInstance {
     this.accountSid = payload.account_sid;
     this.policySid = payload.policy_sid;
     this.customerProfileSid = payload.customer_profile_sid;
-    this.status =
-      payload.status !== null
-        ? new CustomerProfileEvaluationEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.results = payload.results;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;

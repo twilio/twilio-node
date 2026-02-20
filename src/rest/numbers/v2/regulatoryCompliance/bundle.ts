@@ -84,8 +84,6 @@ export interface BundleListInstanceCreateOptions {
 export interface BundleListInstanceEachOptions {
   /** The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details. */
   status?: BundleStatus;
-  /** A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`. */
-  bundleSids?: string;
   /** The string that you assigned to describe the resource. The column can contain 255 variable characters. */
   friendlyName?: string;
   /** The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource. */
@@ -94,8 +92,6 @@ export interface BundleListInstanceEachOptions {
   isoCountry?: string;
   /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
-  /** The end user type of the regulation of the Bundle. Can be `business` or `individual`. */
-  endUserType?: "business" | "individual";
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
   /** Can be `valid-until` or `date-updated`. Defaults to `date-created`. */
@@ -124,8 +120,6 @@ export interface BundleListInstanceEachOptions {
 export interface BundleListInstanceOptions {
   /** The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details. */
   status?: BundleStatus;
-  /** A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`. */
-  bundleSids?: string;
   /** The string that you assigned to describe the resource. The column can contain 255 variable characters. */
   friendlyName?: string;
   /** The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource. */
@@ -134,8 +128,6 @@ export interface BundleListInstanceOptions {
   isoCountry?: string;
   /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
-  /** The end user type of the regulation of the Bundle. Can be `business` or `individual`. */
-  endUserType?: "business" | "individual";
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
   /** Can be `valid-until` or `date-updated`. Defaults to `date-created`. */
@@ -160,8 +152,6 @@ export interface BundleListInstanceOptions {
 export interface BundleListInstancePageOptions {
   /** The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details. */
   status?: BundleStatus;
-  /** A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`. */
-  bundleSids?: string;
   /** The string that you assigned to describe the resource. The column can contain 255 variable characters. */
   friendlyName?: string;
   /** The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource. */
@@ -170,8 +160,6 @@ export interface BundleListInstancePageOptions {
   isoCountry?: string;
   /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
-  /** The end user type of the regulation of the Bundle. Can be `business` or `individual`. */
-  endUserType?: "business" | "individual";
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
   /** Can be `valid-until` or `date-updated`. Defaults to `date-created`. */
@@ -592,8 +580,7 @@ export class BundleInstance {
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
     this.friendlyName = payload.friendly_name;
-    this.status =
-      payload.status !== null ? new BundleEnumStatus(payload.status) : null;
+    this.status = payload.status;
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
     this.email = payload.email;
     this.statusCallback = payload.status_callback;
@@ -1167,8 +1154,6 @@ export function BundleListInstance(version: V2): BundleListInstance {
     let data: any = {};
 
     if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["bundleSids"] !== undefined)
-      data["BundleSids"] = params["bundleSids"];
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
     if (params["regulationSid"] !== undefined)
@@ -1177,8 +1162,6 @@ export function BundleListInstance(version: V2): BundleListInstance {
       data["IsoCountry"] = params["isoCountry"];
     if (params["numberType"] !== undefined)
       data["NumberType"] = params["numberType"];
-    if (params["endUserType"] !== undefined)
-      data["EndUserType"] = params["endUserType"];
     if (params["hasValidUntilDate"] !== undefined)
       data["HasValidUntilDate"] = serialize.bool(params["hasValidUntilDate"]);
     if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];
@@ -1257,8 +1240,6 @@ export function BundleListInstance(version: V2): BundleListInstance {
     let data: any = {};
 
     if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["bundleSids"] !== undefined)
-      data["BundleSids"] = params["bundleSids"];
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
     if (params["regulationSid"] !== undefined)
@@ -1267,8 +1248,6 @@ export function BundleListInstance(version: V2): BundleListInstance {
       data["IsoCountry"] = params["isoCountry"];
     if (params["numberType"] !== undefined)
       data["NumberType"] = params["numberType"];
-    if (params["endUserType"] !== undefined)
-      data["EndUserType"] = params["endUserType"];
     if (params["hasValidUntilDate"] !== undefined)
       data["HasValidUntilDate"] = serialize.bool(params["hasValidUntilDate"]);
     if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];

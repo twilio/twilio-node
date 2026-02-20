@@ -288,10 +288,7 @@ export class TranscriptionInstance {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.name = payload.name;
-    this.status =
-      payload.status !== null
-        ? new RealtimeTranscriptionEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 

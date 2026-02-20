@@ -664,10 +664,7 @@ export class TaskInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.age = deserialize.integer(payload.age);
-    this.assignmentStatus =
-      payload.assignment_status !== null
-        ? new TaskEnumStatus(payload.assignment_status)
-        : null;
+    this.assignmentStatus = payload.assignment_status;
     this.attributes = payload.attributes;
     this.addons = payload.addons;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

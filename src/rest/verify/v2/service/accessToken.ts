@@ -204,10 +204,7 @@ export class AccessTokenInstance {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
     this.entityIdentity = payload.entity_identity;
-    this.factorType =
-      payload.factor_type !== null
-        ? new AccessTokenEnumFactorTypes(payload.factor_type)
-        : null;
+    this.factorType = payload.factor_type;
     this.factorFriendlyName = payload.factor_friendly_name;
     this.token = payload.token;
     this.url = payload.url;

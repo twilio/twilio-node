@@ -307,10 +307,7 @@ export class BindingInstance {
     this.endpoint = payload.endpoint;
     this.identity = payload.identity;
     this.credentialSid = payload.credential_sid;
-    this.bindingType =
-      payload.binding_type !== null
-        ? new BindingEnumBindingType(payload.binding_type)
-        : null;
+    this.bindingType = payload.binding_type;
     this.messageTypes = payload.message_types;
     this.url = payload.url;
     this.links = payload.links;

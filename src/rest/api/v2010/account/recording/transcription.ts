@@ -319,10 +319,7 @@ export class TranscriptionInstance {
     this.priceUnit = payload.price_unit;
     this.recordingSid = payload.recording_sid;
     this.sid = payload.sid;
-    this.status =
-      payload.status !== null
-        ? new RecordingTranscriptionEnumStatus(payload.status)
-        : null;
+    this.status = payload.status;
     this.transcriptionText = payload.transcription_text;
     this.type = payload.type;
     this.uri = payload.uri;

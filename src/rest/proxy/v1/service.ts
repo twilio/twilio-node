@@ -522,16 +522,8 @@ export class ServiceInstance {
     this.chatInstanceSid = payload.chat_instance_sid;
     this.callbackUrl = payload.callback_url;
     this.defaultTtl = deserialize.integer(payload.default_ttl);
-    this.numberSelectionBehavior =
-      payload.number_selection_behavior !== null
-        ? new ServiceEnumNumberSelectionBehavior(
-            payload.number_selection_behavior
-          )
-        : null;
-    this.geoMatchLevel =
-      payload.geo_match_level !== null
-        ? new ServiceEnumGeoMatchLevel(payload.geo_match_level)
-        : null;
+    this.numberSelectionBehavior = payload.number_selection_behavior;
+    this.geoMatchLevel = payload.geo_match_level;
     this.interceptCallbackUrl = payload.intercept_callback_url;
     this.outOfSessionCallbackUrl = payload.out_of_session_callback_url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
