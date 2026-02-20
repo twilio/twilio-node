@@ -250,7 +250,10 @@ export class PublishedTrackInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.enabled = payload.enabled;
-    this.kind = payload.kind;
+    this.kind =
+      payload.kind !== null
+        ? new RoomParticipantPublishedTrackEnumKind(payload.kind)
+        : null;
     this.url = payload.url;
 
     this._solution = { roomSid, participantSid, sid: sid || this.sid };
@@ -334,20 +337,24 @@ export class PublishedTrackInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      participantSid: this.participantSid,
-      roomSid: this.roomSid,
-      name: this.name,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      enabled: this.enabled,
-      kind: this.kind,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        participantSid: this.participantSid,
+        roomSid: this.roomSid,
+        name: this.name,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        enabled: this.enabled,
+        kind: this.kind,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

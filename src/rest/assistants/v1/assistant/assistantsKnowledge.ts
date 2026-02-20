@@ -422,22 +422,26 @@ export class AssistantsKnowledgeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      description: this.description,
-      id: this.id,
-      accountSid: this.accountSid,
-      knowledgeSourceDetails: this.knowledgeSourceDetails,
-      name: this.name,
-      status: this.status,
-      type: this.type,
-      url: this.url,
-      embeddingModel: this.embeddingModel,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        description: this.description,
+        id: this.id,
+        accountSid: this.accountSid,
+        knowledgeSourceDetails: this.knowledgeSourceDetails,
+        name: this.name,
+        status: this.status,
+        type: this.type,
+        url: this.url,
+        embeddingModel: this.embeddingModel,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

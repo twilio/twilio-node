@@ -22,12 +22,23 @@ import { ApiResponse } from "../../../base/ApiResponse";
 export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.callForwardingEnabled = payload["call_forwarding_enabled"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class CallerNameInfo {
   "callerName"?: string;
   "callerType"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.callerName = payload["caller_name"];
+    this.callerType = payload["caller_type"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class IdentityMatchInfo {
@@ -43,17 +54,43 @@ export class IdentityMatchInfo {
   "summaryScore"?: number;
   "errorCode"?: number;
   "errorMessage"?: string;
+
+  constructor(payload) {
+    this.firstNameMatch = payload["first_name_match"];
+    this.lastNameMatch = payload["last_name_match"];
+    this.addressLinesMatch = payload["address_lines_match"];
+    this.cityMatch = payload["city_match"];
+    this.stateMatch = payload["state_match"];
+    this.postalCodeMatch = payload["postal_code_match"];
+    this.addressCountryMatch = payload["address_country_match"];
+    this.nationalIdMatch = payload["national_id_match"];
+    this.dateOfBirthMatch = payload["date_of_birth_match"];
+    this.summaryScore = payload["summary_score"];
+    this.errorCode = payload["error_code"];
+    this.errorMessage = payload["error_message"];
+  }
 }
 
 export class LastSimSwapInfo {
   "lastSimSwapDate"?: Date;
   "swappedPeriod"?: string;
   "swappedInPeriod"?: boolean;
+
+  constructor(payload) {
+    this.lastSimSwapDate = payload["last_sim_swap_date"];
+    this.swappedPeriod = payload["swapped_period"];
+    this.swappedInPeriod = payload["swapped_in_period"];
+  }
 }
 
 export class LineStatusInfo {
   "status"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.status = payload["status"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class LineTypeIntelligenceInfo {
@@ -62,12 +99,26 @@ export class LineTypeIntelligenceInfo {
   "carrierName"?: string;
   "type"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.mobileCountryCode = payload["mobile_country_code"];
+    this.mobileNetworkCode = payload["mobile_network_code"];
+    this.carrierName = payload["carrier_name"];
+    this.type = payload["type"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class ReassignedNumberInfo {
   "lastVerifiedDate"?: string;
   "isNumberReassigned"?: string;
   "errorCode"?: string;
+
+  constructor(payload) {
+    this.lastVerifiedDate = payload["last_verified_date"];
+    this.isNumberReassigned = payload["is_number_reassigned"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class SimSwapInfo {
@@ -76,6 +127,14 @@ export class SimSwapInfo {
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.lastSimSwap = payload["last_sim_swap"];
+    this.carrierName = payload["carrier_name"];
+    this.mobileCountryCode = payload["mobile_country_code"];
+    this.mobileNetworkCode = payload["mobile_network_code"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class SmsPumpingRiskInfo {
@@ -85,6 +144,15 @@ export class SmsPumpingRiskInfo {
   "numberBlockedLast3Months"?: boolean;
   "smsPumpingRiskScore"?: number;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.carrierRiskCategory = payload["carrier_risk_category"];
+    this.numberBlocked = payload["number_blocked"];
+    this.numberBlockedDate = payload["number_blocked_date"];
+    this.numberBlockedLast3Months = payload["number_blocked_last_3_months"];
+    this.smsPumpingRiskScore = payload["sms_pumping_risk_score"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 /**
@@ -407,15 +475,42 @@ export class PhoneNumberInstance {
     this.phoneNumber = payload.phone_number;
     this.nationalFormat = payload.national_format;
     this.valid = payload.valid;
-    this.validationErrors = payload.validation_errors;
-    this.callerName = payload.caller_name;
-    this.simSwap = payload.sim_swap;
-    this.callForwarding = payload.call_forwarding;
-    this.lineTypeIntelligence = payload.line_type_intelligence;
-    this.lineStatus = payload.line_status;
-    this.identityMatch = payload.identity_match;
-    this.reassignedNumber = payload.reassigned_number;
-    this.smsPumpingRisk = payload.sms_pumping_risk;
+    this.validationErrors =
+      payload.validation_errors !== null
+        ? payload.validation_errors.map(
+            (payload: any) => new ValidationError(payload)
+          )
+        : null;
+    this.callerName =
+      payload.caller_name !== null
+        ? new CallerNameInfo(payload.caller_name)
+        : null;
+    this.simSwap =
+      payload.sim_swap !== null ? new SimSwapInfo(payload.sim_swap) : null;
+    this.callForwarding =
+      payload.call_forwarding !== null
+        ? new CallForwardingInfo(payload.call_forwarding)
+        : null;
+    this.lineTypeIntelligence =
+      payload.line_type_intelligence !== null
+        ? new LineTypeIntelligenceInfo(payload.line_type_intelligence)
+        : null;
+    this.lineStatus =
+      payload.line_status !== null
+        ? new LineStatusInfo(payload.line_status)
+        : null;
+    this.identityMatch =
+      payload.identity_match !== null
+        ? new IdentityMatchInfo(payload.identity_match)
+        : null;
+    this.reassignedNumber =
+      payload.reassigned_number !== null
+        ? new ReassignedNumberInfo(payload.reassigned_number)
+        : null;
+    this.smsPumpingRisk =
+      payload.sms_pumping_risk !== null
+        ? new SmsPumpingRiskInfo(payload.sms_pumping_risk)
+        : null;
     this.phoneNumberQualityScore = payload.phone_number_quality_score;
     this.preFill = payload.pre_fill;
     this.url = payload.url;
@@ -547,28 +642,32 @@ export class PhoneNumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      callingCountryCode: this.callingCountryCode,
-      countryCode: this.countryCode,
-      phoneNumber: this.phoneNumber,
-      nationalFormat: this.nationalFormat,
-      valid: this.valid,
-      validationErrors: this.validationErrors,
-      callerName: this.callerName,
-      simSwap: this.simSwap,
-      callForwarding: this.callForwarding,
-      lineTypeIntelligence: this.lineTypeIntelligence,
-      lineStatus: this.lineStatus,
-      identityMatch: this.identityMatch,
-      reassignedNumber: this.reassignedNumber,
-      smsPumpingRisk: this.smsPumpingRisk,
-      phoneNumberQualityScore: this.phoneNumberQualityScore,
-      preFill: this.preFill,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        callingCountryCode: this.callingCountryCode,
+        countryCode: this.countryCode,
+        phoneNumber: this.phoneNumber,
+        nationalFormat: this.nationalFormat,
+        valid: this.valid,
+        validationErrors: this.validationErrors,
+        callerName: this.callerName,
+        simSwap: this.simSwap,
+        callForwarding: this.callForwarding,
+        lineTypeIntelligence: this.lineTypeIntelligence,
+        lineStatus: this.lineStatus,
+        identityMatch: this.identityMatch,
+        reassignedNumber: this.reassignedNumber,
+        smsPumpingRisk: this.smsPumpingRisk,
+        phoneNumberQualityScore: this.phoneNumberQualityScore,
+        preFill: this.preFill,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

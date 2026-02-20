@@ -335,11 +335,13 @@ export class BuildInstance {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new BuildEnumStatus(payload.status) : null;
     this.assetVersions = payload.asset_versions;
     this.functionVersions = payload.function_versions;
     this.dependencies = payload.dependencies;
-    this.runtime = payload.runtime;
+    this.runtime =
+      payload.runtime !== null ? new BuildEnumRuntime(payload.runtime) : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -461,23 +463,27 @@ export class BuildInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      status: this.status,
-      assetVersions: this.assetVersions,
-      functionVersions: this.functionVersions,
-      dependencies: this.dependencies,
-      runtime: this.runtime,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        status: this.status,
+        assetVersions: this.assetVersions,
+        functionVersions: this.functionVersions,
+        dependencies: this.dependencies,
+        runtime: this.runtime,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

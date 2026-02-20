@@ -339,16 +339,22 @@ export class RecordingInstance {
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new RecordingEnumStatus(payload.status) : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.sid = payload.sid;
     this.sourceSid = payload.source_sid;
     this.size = payload.size;
     this.url = payload.url;
-    this.type = payload.type;
+    this.type =
+      payload.type !== null ? new RecordingEnumType(payload.type) : null;
     this.duration = deserialize.integer(payload.duration);
-    this.containerFormat = payload.container_format;
-    this.codec = payload.codec;
+    this.containerFormat =
+      payload.container_format !== null
+        ? new RecordingEnumFormat(payload.container_format)
+        : null;
+    this.codec =
+      payload.codec !== null ? new RecordingEnumCodec(payload.codec) : null;
     this.groupingSids = payload.grouping_sids;
     this.trackName = payload.track_name;
     this.offset = payload.offset;
@@ -486,29 +492,33 @@ export class RecordingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      sid: this.sid,
-      sourceSid: this.sourceSid,
-      size: this.size,
-      url: this.url,
-      type: this.type,
-      duration: this.duration,
-      containerFormat: this.containerFormat,
-      codec: this.codec,
-      groupingSids: this.groupingSids,
-      trackName: this.trackName,
-      offset: this.offset,
-      mediaExternalLocation: this.mediaExternalLocation,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        sid: this.sid,
+        sourceSid: this.sourceSid,
+        size: this.size,
+        url: this.url,
+        type: this.type,
+        duration: this.duration,
+        containerFormat: this.containerFormat,
+        codec: this.codec,
+        groupingSids: this.groupingSids,
+        trackName: this.trackName,
+        offset: this.offset,
+        mediaExternalLocation: this.mediaExternalLocation,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

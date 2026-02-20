@@ -436,7 +436,10 @@ export class ConfigurationInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.attributes = payload.attributes;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new ConfigurationEnumStatus(payload.status)
+        : null;
     this.taskrouterWorkspaceSid = payload.taskrouter_workspace_sid;
     this.taskrouterTargetWorkflowSid = payload.taskrouter_target_workflow_sid;
     this.taskrouterTargetTaskqueueSid = payload.taskrouter_target_taskqueue_sid;
@@ -830,60 +833,64 @@ export class ConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      attributes: this.attributes,
-      status: this.status,
-      taskrouterWorkspaceSid: this.taskrouterWorkspaceSid,
-      taskrouterTargetWorkflowSid: this.taskrouterTargetWorkflowSid,
-      taskrouterTargetTaskqueueSid: this.taskrouterTargetTaskqueueSid,
-      taskrouterTaskqueues: this.taskrouterTaskqueues,
-      taskrouterSkills: this.taskrouterSkills,
-      taskrouterWorkerChannels: this.taskrouterWorkerChannels,
-      taskrouterWorkerAttributes: this.taskrouterWorkerAttributes,
-      taskrouterOfflineActivitySid: this.taskrouterOfflineActivitySid,
-      runtimeDomain: this.runtimeDomain,
-      messagingServiceInstanceSid: this.messagingServiceInstanceSid,
-      chatServiceInstanceSid: this.chatServiceInstanceSid,
-      flexServiceInstanceSid: this.flexServiceInstanceSid,
-      flexInstanceSid: this.flexInstanceSid,
-      uiLanguage: this.uiLanguage,
-      uiAttributes: this.uiAttributes,
-      uiDependencies: this.uiDependencies,
-      uiVersion: this.uiVersion,
-      serviceVersion: this.serviceVersion,
-      callRecordingEnabled: this.callRecordingEnabled,
-      callRecordingWebhookUrl: this.callRecordingWebhookUrl,
-      crmEnabled: this.crmEnabled,
-      crmType: this.crmType,
-      crmCallbackUrl: this.crmCallbackUrl,
-      crmFallbackUrl: this.crmFallbackUrl,
-      crmAttributes: this.crmAttributes,
-      publicAttributes: this.publicAttributes,
-      pluginServiceEnabled: this.pluginServiceEnabled,
-      pluginServiceAttributes: this.pluginServiceAttributes,
-      integrations: this.integrations,
-      outboundCallFlows: this.outboundCallFlows,
-      serverlessServiceSids: this.serverlessServiceSids,
-      queueStatsConfiguration: this.queueStatsConfiguration,
-      notifications: this.notifications,
-      markdown: this.markdown,
-      url: this.url,
-      flexInsightsHr: this.flexInsightsHr,
-      flexInsightsDrilldown: this.flexInsightsDrilldown,
-      flexUrl: this.flexUrl,
-      channelConfigs: this.channelConfigs,
-      debuggerIntegration: this.debuggerIntegration,
-      flexUiStatusReport: this.flexUiStatusReport,
-      agentConvEndMethods: this.agentConvEndMethods,
-      citrixVoiceVdi: this.citrixVoiceVdi,
-      offlineConfig: this.offlineConfig,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        attributes: this.attributes,
+        status: this.status,
+        taskrouterWorkspaceSid: this.taskrouterWorkspaceSid,
+        taskrouterTargetWorkflowSid: this.taskrouterTargetWorkflowSid,
+        taskrouterTargetTaskqueueSid: this.taskrouterTargetTaskqueueSid,
+        taskrouterTaskqueues: this.taskrouterTaskqueues,
+        taskrouterSkills: this.taskrouterSkills,
+        taskrouterWorkerChannels: this.taskrouterWorkerChannels,
+        taskrouterWorkerAttributes: this.taskrouterWorkerAttributes,
+        taskrouterOfflineActivitySid: this.taskrouterOfflineActivitySid,
+        runtimeDomain: this.runtimeDomain,
+        messagingServiceInstanceSid: this.messagingServiceInstanceSid,
+        chatServiceInstanceSid: this.chatServiceInstanceSid,
+        flexServiceInstanceSid: this.flexServiceInstanceSid,
+        flexInstanceSid: this.flexInstanceSid,
+        uiLanguage: this.uiLanguage,
+        uiAttributes: this.uiAttributes,
+        uiDependencies: this.uiDependencies,
+        uiVersion: this.uiVersion,
+        serviceVersion: this.serviceVersion,
+        callRecordingEnabled: this.callRecordingEnabled,
+        callRecordingWebhookUrl: this.callRecordingWebhookUrl,
+        crmEnabled: this.crmEnabled,
+        crmType: this.crmType,
+        crmCallbackUrl: this.crmCallbackUrl,
+        crmFallbackUrl: this.crmFallbackUrl,
+        crmAttributes: this.crmAttributes,
+        publicAttributes: this.publicAttributes,
+        pluginServiceEnabled: this.pluginServiceEnabled,
+        pluginServiceAttributes: this.pluginServiceAttributes,
+        integrations: this.integrations,
+        outboundCallFlows: this.outboundCallFlows,
+        serverlessServiceSids: this.serverlessServiceSids,
+        queueStatsConfiguration: this.queueStatsConfiguration,
+        notifications: this.notifications,
+        markdown: this.markdown,
+        url: this.url,
+        flexInsightsHr: this.flexInsightsHr,
+        flexInsightsDrilldown: this.flexInsightsDrilldown,
+        flexUrl: this.flexUrl,
+        channelConfigs: this.channelConfigs,
+        debuggerIntegration: this.debuggerIntegration,
+        flexUiStatusReport: this.flexUiStatusReport,
+        agentConvEndMethods: this.agentConvEndMethods,
+        citrixVoiceVdi: this.citrixVoiceVdi,
+        offlineConfig: this.offlineConfig,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

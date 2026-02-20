@@ -539,7 +539,10 @@ export class DependentHostedNumberOrderInstance {
     this.phoneNumber = payload.phone_number;
     this.capabilities = payload.capabilities;
     this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new DependentHostedNumberOrderEnumStatus(payload.status)
+        : null;
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -619,29 +622,33 @@ export class DependentHostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      bulkHostingRequestSid: this.bulkHostingRequestSid,
-      nextStep: this.nextStep,
-      accountSid: this.accountSid,
-      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
-      addressSid: this.addressSid,
-      signingDocumentSid: this.signingDocumentSid,
-      phoneNumber: this.phoneNumber,
-      capabilities: this.capabilities,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      failureReason: this.failureReason,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      email: this.email,
-      ccEmails: this.ccEmails,
-      contactTitle: this.contactTitle,
-      contactPhoneNumber: this.contactPhoneNumber,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        bulkHostingRequestSid: this.bulkHostingRequestSid,
+        nextStep: this.nextStep,
+        accountSid: this.accountSid,
+        incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+        addressSid: this.addressSid,
+        signingDocumentSid: this.signingDocumentSid,
+        phoneNumber: this.phoneNumber,
+        capabilities: this.capabilities,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        failureReason: this.failureReason,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        email: this.email,
+        ccEmails: this.ccEmails,
+        contactTitle: this.contactTitle,
+        contactPhoneNumber: this.contactPhoneNumber,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

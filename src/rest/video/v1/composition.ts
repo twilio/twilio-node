@@ -355,7 +355,10 @@ export class CompositionInstance {
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new CompositionEnumStatus(payload.status)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
     this.dateDeleted = deserialize.iso8601DateTime(payload.date_deleted);
@@ -366,7 +369,10 @@ export class CompositionInstance {
     this.videoLayout = payload.video_layout;
     this.resolution = payload.resolution;
     this.trim = payload.trim;
-    this.format = payload.format;
+    this.format =
+      payload.format !== null
+        ? new CompositionEnumFormat(payload.format)
+        : null;
     this.bitrate = deserialize.integer(payload.bitrate);
     this.size = payload.size;
     this.duration = deserialize.integer(payload.duration);
@@ -523,32 +529,36 @@ export class CompositionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateCompleted: this.dateCompleted,
-      dateDeleted: this.dateDeleted,
-      sid: this.sid,
-      roomSid: this.roomSid,
-      audioSources: this.audioSources,
-      audioSourcesExcluded: this.audioSourcesExcluded,
-      videoLayout: this.videoLayout,
-      resolution: this.resolution,
-      trim: this.trim,
-      format: this.format,
-      bitrate: this.bitrate,
-      size: this.size,
-      duration: this.duration,
-      mediaExternalLocation: this.mediaExternalLocation,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateCompleted: this.dateCompleted,
+        dateDeleted: this.dateDeleted,
+        sid: this.sid,
+        roomSid: this.roomSid,
+        audioSources: this.audioSources,
+        audioSourcesExcluded: this.audioSourcesExcluded,
+        videoLayout: this.videoLayout,
+        resolution: this.resolution,
+        trim: this.trim,
+        format: this.format,
+        bitrate: this.bitrate,
+        size: this.size,
+        duration: this.duration,
+        mediaExternalLocation: this.mediaExternalLocation,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

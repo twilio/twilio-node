@@ -507,7 +507,12 @@ export class DependentPhoneNumberInstance {
     this.smsFallbackUrl = payload.sms_fallback_url;
     this.smsMethod = payload.sms_method;
     this.smsUrl = payload.sms_url;
-    this.addressRequirements = payload.address_requirements;
+    this.addressRequirements =
+      payload.address_requirements !== null
+        ? new DependentPhoneNumberEnumAddressRequirement(
+            payload.address_requirements
+          )
+        : null;
     this.capabilities = payload.capabilities;
     this.statusCallback = payload.status_callback;
     this.statusCallbackMethod = payload.status_callback_method;
@@ -515,7 +520,10 @@ export class DependentPhoneNumberInstance {
     this.smsApplicationSid = payload.sms_application_sid;
     this.voiceApplicationSid = payload.voice_application_sid;
     this.trunkSid = payload.trunk_sid;
-    this.emergencyStatus = payload.emergency_status;
+    this.emergencyStatus =
+      payload.emergency_status !== null
+        ? new DependentPhoneNumberEnumEmergencyStatus(payload.emergency_status)
+        : null;
     this.emergencyAddressSid = payload.emergency_address_sid;
     this.uri = payload.uri;
   }
@@ -622,37 +630,41 @@ export class DependentPhoneNumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      phoneNumber: this.phoneNumber,
-      voiceUrl: this.voiceUrl,
-      voiceMethod: this.voiceMethod,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceCallerIdLookup: this.voiceCallerIdLookup,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      addressRequirements: this.addressRequirements,
-      capabilities: this.capabilities,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      apiVersion: this.apiVersion,
-      smsApplicationSid: this.smsApplicationSid,
-      voiceApplicationSid: this.voiceApplicationSid,
-      trunkSid: this.trunkSid,
-      emergencyStatus: this.emergencyStatus,
-      emergencyAddressSid: this.emergencyAddressSid,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        phoneNumber: this.phoneNumber,
+        voiceUrl: this.voiceUrl,
+        voiceMethod: this.voiceMethod,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceCallerIdLookup: this.voiceCallerIdLookup,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        addressRequirements: this.addressRequirements,
+        capabilities: this.capabilities,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        apiVersion: this.apiVersion,
+        smsApplicationSid: this.smsApplicationSid,
+        voiceApplicationSid: this.voiceApplicationSid,
+        trunkSid: this.trunkSid,
+        emergencyStatus: this.emergencyStatus,
+        emergencyAddressSid: this.emergencyAddressSid,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

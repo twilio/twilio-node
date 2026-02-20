@@ -614,7 +614,10 @@ export class MessageInstance {
   ) {
     this.body = payload.body;
     this.numSegments = payload.num_segments;
-    this.direction = payload.direction;
+    this.direction =
+      payload.direction !== null
+        ? new MessageEnumDirection(payload.direction)
+        : null;
     this.from = payload.from;
     this.to = payload.to;
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -623,7 +626,8 @@ export class MessageInstance {
     this.uri = payload.uri;
     this.accountSid = payload.account_sid;
     this.numMedia = payload.num_media;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new MessageEnumStatus(payload.status) : null;
     this.messagingServiceSid = payload.messaging_service_sid;
     this.sid = payload.sid;
     this.dateSent = deserialize.rfc2822DateTime(payload.date_sent);
@@ -851,31 +855,35 @@ export class MessageInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      body: this.body,
-      numSegments: this.numSegments,
-      direction: this.direction,
-      from: this.from,
-      to: this.to,
-      dateUpdated: this.dateUpdated,
-      price: this.price,
-      errorMessage: this.errorMessage,
-      uri: this.uri,
-      accountSid: this.accountSid,
-      numMedia: this.numMedia,
-      status: this.status,
-      messagingServiceSid: this.messagingServiceSid,
-      sid: this.sid,
-      dateSent: this.dateSent,
-      dateCreated: this.dateCreated,
-      errorCode: this.errorCode,
-      priceUnit: this.priceUnit,
-      apiVersion: this.apiVersion,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        body: this.body,
+        numSegments: this.numSegments,
+        direction: this.direction,
+        from: this.from,
+        to: this.to,
+        dateUpdated: this.dateUpdated,
+        price: this.price,
+        errorMessage: this.errorMessage,
+        uri: this.uri,
+        accountSid: this.accountSid,
+        numMedia: this.numMedia,
+        status: this.status,
+        messagingServiceSid: this.messagingServiceSid,
+        sid: this.sid,
+        dateSent: this.dateSent,
+        dateCreated: this.dateCreated,
+        errorCode: this.errorCode,
+        priceUnit: this.priceUnit,
+        apiVersion: this.apiVersion,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -442,29 +442,33 @@ export class PortingPortInPhoneNumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      portInRequestSid: this.portInRequestSid,
-      phoneNumberSid: this.phoneNumberSid,
-      url: this.url,
-      accountSid: this.accountSid,
-      phoneNumberType: this.phoneNumberType,
-      dateCreated: this.dateCreated,
-      country: this.country,
-      missingRequiredFields: this.missingRequiredFields,
-      lastUpdated: this.lastUpdated,
-      phoneNumber: this.phoneNumber,
-      portable: this.portable,
-      notPortabilityReason: this.notPortabilityReason,
-      notPortabilityReasonCode: this.notPortabilityReasonCode,
-      portInPhoneNumberStatus: this.portInPhoneNumberStatus,
-      portOutPin: this.portOutPin,
-      rejectionReason: this.rejectionReason,
-      rejectionReasonCode: this.rejectionReasonCode,
-      portDate: this.portDate,
-    };
+    return JSON.stringify(
+      {
+        portInRequestSid: this.portInRequestSid,
+        phoneNumberSid: this.phoneNumberSid,
+        url: this.url,
+        accountSid: this.accountSid,
+        phoneNumberType: this.phoneNumberType,
+        dateCreated: this.dateCreated,
+        country: this.country,
+        missingRequiredFields: this.missingRequiredFields,
+        lastUpdated: this.lastUpdated,
+        phoneNumber: this.phoneNumber,
+        portable: this.portable,
+        notPortabilityReason: this.notPortabilityReason,
+        notPortabilityReasonCode: this.notPortabilityReasonCode,
+        portInPhoneNumberStatus: this.portInPhoneNumberStatus,
+        portOutPin: this.portOutPin,
+        rejectionReason: this.rejectionReason,
+        rejectionReasonCode: this.rejectionReasonCode,
+        portDate: this.portDate,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

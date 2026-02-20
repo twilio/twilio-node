@@ -617,19 +617,23 @@ export class IpRecordInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      ipAddress: this.ipAddress,
-      cidrPrefixLength: this.cidrPrefixLength,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        ipAddress: this.ipAddress,
+        cidrPrefixLength: this.cidrPrefixLength,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

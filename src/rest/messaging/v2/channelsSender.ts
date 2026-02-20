@@ -56,6 +56,13 @@ export class MessagingV2ChannelsSenderConfiguration {
    * The SID of the Twilio Voice application.
    */
   "voiceApplicationSid"?: string | null;
+
+  constructor(payload) {
+    this.wabaId = payload["waba_id"];
+    this.verificationMethod = payload["verification_method"];
+    this.verificationCode = payload["verification_code"];
+    this.voiceApplicationSid = payload["voice_application_sid"];
+  }
 }
 
 export class MessagingV2ChannelsSenderOfflineReasonsItems {
@@ -71,6 +78,12 @@ export class MessagingV2ChannelsSenderOfflineReasonsItems {
    * The URL to get more information about the error.
    */
   "moreInfo"?: string | null;
+
+  constructor(payload) {
+    this.code = payload["code"];
+    this.message = payload["message"];
+    this.moreInfo = payload["more_info"];
+  }
 }
 
 /**
@@ -114,7 +127,7 @@ export class MessagingV2ChannelsSenderProfile {
    */
   "accentColor"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+   * The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
    */
   "vertical"?: string | null;
   /**
@@ -129,6 +142,22 @@ export class MessagingV2ChannelsSenderProfile {
    * The phone numbers of the sender.
    */
   "phoneNumbers"?: any | null;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.about = payload["about"];
+    this.address = payload["address"];
+    this.description = payload["description"];
+    this.logoUrl = payload["logo_url"];
+    this.bannerUrl = payload["banner_url"];
+    this.privacyUrl = payload["privacy_url"];
+    this.termsOfServiceUrl = payload["terms_of_service_url"];
+    this.accentColor = payload["accent_color"];
+    this.vertical = payload["vertical"];
+    this.websites = payload["websites"];
+    this.emails = payload["emails"];
+    this.phoneNumbers = payload["phone_numbers"];
+  }
 }
 
 /**
@@ -172,7 +201,7 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    */
   "accentColor"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+   * The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
    */
   "vertical"?: string | null;
   /**
@@ -187,21 +216,52 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    * The phone numbers of the sender.
    */
   "phoneNumbers"?: Array<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> | null;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.about = payload["about"];
+    this.address = payload["address"];
+    this.description = payload["description"];
+    this.logoUrl = payload["logo_url"];
+    this.bannerUrl = payload["banner_url"];
+    this.privacyUrl = payload["privacy_url"];
+    this.termsOfServiceUrl = payload["terms_of_service_url"];
+    this.accentColor = payload["accent_color"];
+    this.vertical = payload["vertical"];
+    this.websites = payload["websites"];
+    this.emails = payload["emails"];
+    this.phoneNumbers = payload["phone_numbers"];
+  }
 }
 
 export class MessagingV2ChannelsSenderProfileGenericResponseEmails {
   "email"?: string;
   "label"?: string;
+
+  constructor(payload) {
+    this.email = payload["email"];
+    this.label = payload["label"];
+  }
 }
 
 export class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers {
   "phoneNumber"?: string;
   "label"?: string;
+
+  constructor(payload) {
+    this.phoneNumber = payload["phone_number"];
+    this.label = payload["label"];
+  }
 }
 
 export class MessagingV2ChannelsSenderProfileGenericResponseWebsites {
   "website"?: string;
   "label"?: string;
+
+  constructor(payload) {
+    this.website = payload["website"];
+    this.label = payload["label"];
+  }
 }
 
 /**
@@ -216,6 +276,11 @@ export class MessagingV2ChannelsSenderProperties {
    * The messaging limit of the sender.
    */
   "messagingLimit"?: string | null;
+
+  constructor(payload) {
+    this.qualityRating = payload["quality_rating"];
+    this.messagingLimit = payload["messaging_limit"];
+  }
 }
 
 export class MessagingV2ChannelsSenderRequestsCreate {
@@ -226,12 +291,25 @@ export class MessagingV2ChannelsSenderRequestsCreate {
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
   "webhook"?: MessagingV2ChannelsSenderWebhook | null;
   "profile"?: MessagingV2ChannelsSenderProfile | null;
+
+  constructor(payload) {
+    this.senderId = payload["sender_id"];
+    this.configuration = payload["configuration"];
+    this.webhook = payload["webhook"];
+    this.profile = payload["profile"];
+  }
 }
 
 export class MessagingV2ChannelsSenderRequestsUpdate {
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
   "webhook"?: MessagingV2ChannelsSenderWebhook | null;
   "profile"?: MessagingV2ChannelsSenderProfile | null;
+
+  constructor(payload) {
+    this.configuration = payload["configuration"];
+    this.webhook = payload["webhook"];
+    this.profile = payload["profile"];
+  }
 }
 
 /**
@@ -262,6 +340,15 @@ export class MessagingV2ChannelsSenderWebhook {
    * The HTTP method for the status callback.
    */
   "statusCallbackMethod"?: string | null;
+
+  constructor(payload) {
+    this.callbackUrl = payload["callback_url"];
+    this.callbackMethod = payload["callback_method"];
+    this.fallbackUrl = payload["fallback_url"];
+    this.fallbackMethod = payload["fallback_method"];
+    this.statusCallbackUrl = payload["status_callback_url"];
+    this.statusCallbackMethod = payload["status_callback_method"];
+  }
 }
 
 export class MessagingV2RcsCarrier {
@@ -270,6 +357,11 @@ export class MessagingV2RcsCarrier {
    */
   "name"?: string;
   "status"?: MessagingV2RcsCarrierStatus;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.status = payload["status"];
+  }
 }
 
 /**
@@ -294,6 +386,13 @@ export class MessagingV2RcsComplianceCountryResponse {
   "registrationSid"?: string;
   "status"?: MessagingV2RcsCountryStatus;
   "carriers"?: Array<MessagingV2RcsCarrier>;
+
+  constructor(payload) {
+    this.country = payload["country"];
+    this.registrationSid = payload["registration_sid"];
+    this.status = payload["status"];
+    this.carriers = payload["carriers"];
+  }
 }
 
 /**
@@ -308,6 +407,11 @@ export class MessagingV2RcsComplianceResponse {
    * A list of country-specific compliance details.
    */
   "countries"?: Array<MessagingV2RcsComplianceCountryResponse>;
+
+  constructor(payload) {
+    this.registrationSid = payload["registration_sid"];
+    this.countries = payload["countries"];
+  }
 }
 
 /**
@@ -768,14 +872,38 @@ export class ChannelsSenderInstance {
     sid?: string
   ) {
     this.sid = payload.sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new ChannelsSenderEnumStatus(payload.status)
+        : null;
     this.senderId = payload.sender_id;
-    this.configuration = payload.configuration;
-    this.webhook = payload.webhook;
-    this.profile = payload.profile;
-    this.properties = payload.properties;
-    this.offlineReasons = payload.offline_reasons;
-    this.compliance = payload.compliance;
+    this.configuration =
+      payload.configuration !== null
+        ? new MessagingV2ChannelsSenderConfiguration(payload.configuration)
+        : null;
+    this.webhook =
+      payload.webhook !== null
+        ? new MessagingV2ChannelsSenderWebhook(payload.webhook)
+        : null;
+    this.profile =
+      payload.profile !== null
+        ? new MessagingV2ChannelsSenderProfileGenericResponse(payload.profile)
+        : null;
+    this.properties =
+      payload.properties !== null
+        ? new MessagingV2ChannelsSenderProperties(payload.properties)
+        : null;
+    this.offlineReasons =
+      payload.offline_reasons !== null
+        ? payload.offline_reasons.map(
+            (payload: any) =>
+              new MessagingV2ChannelsSenderOfflineReasonsItems(payload)
+          )
+        : null;
+    this.compliance =
+      payload.compliance !== null
+        ? new MessagingV2RcsComplianceResponse(payload.compliance)
+        : null;
     this.url = payload.url;
 
     this._solution = { sid: sid || this.sid };
@@ -942,21 +1070,25 @@ export class ChannelsSenderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      status: this.status,
-      senderId: this.senderId,
-      configuration: this.configuration,
-      webhook: this.webhook,
-      profile: this.profile,
-      properties: this.properties,
-      offlineReasons: this.offlineReasons,
-      compliance: this.compliance,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        status: this.status,
+        senderId: this.senderId,
+        configuration: this.configuration,
+        webhook: this.webhook,
+        profile: this.profile,
+        properties: this.properties,
+        offlineReasons: this.offlineReasons,
+        compliance: this.compliance,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

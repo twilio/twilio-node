@@ -264,8 +264,12 @@ export class SmsCommandInstance {
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
     this.payload = payload.payload;
-    this.status = payload.status;
-    this.direction = payload.direction;
+    this.status =
+      payload.status !== null ? new SmsCommandEnumStatus(payload.status) : null;
+    this.direction =
+      payload.direction !== null
+        ? new SmsCommandEnumDirection(payload.direction)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -343,20 +347,24 @@ export class SmsCommandInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      simSid: this.simSid,
-      payload: this.payload,
-      status: this.status,
-      direction: this.direction,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        simSid: this.simSid,
+        payload: this.payload,
+        status: this.status,
+        direction: this.direction,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

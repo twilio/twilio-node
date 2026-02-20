@@ -264,21 +264,25 @@ export class DomainCertsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      domainSid: this.domainSid,
-      dateUpdated: this.dateUpdated,
-      dateExpires: this.dateExpires,
-      dateCreated: this.dateCreated,
-      domainName: this.domainName,
-      certificateSid: this.certificateSid,
-      managed: this.managed,
-      requesting: this.requesting,
-      url: this.url,
-      certInValidation: this.certInValidation,
-    };
+    return JSON.stringify(
+      {
+        domainSid: this.domainSid,
+        dateUpdated: this.dateUpdated,
+        dateExpires: this.dateExpires,
+        dateCreated: this.dateCreated,
+        domainName: this.domainName,
+        certificateSid: this.certificateSid,
+        managed: this.managed,
+        requesting: this.requesting,
+        url: this.url,
+        certInValidation: this.certInValidation,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

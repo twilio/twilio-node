@@ -522,8 +522,16 @@ export class ServiceInstance {
     this.chatInstanceSid = payload.chat_instance_sid;
     this.callbackUrl = payload.callback_url;
     this.defaultTtl = deserialize.integer(payload.default_ttl);
-    this.numberSelectionBehavior = payload.number_selection_behavior;
-    this.geoMatchLevel = payload.geo_match_level;
+    this.numberSelectionBehavior =
+      payload.number_selection_behavior !== null
+        ? new ServiceEnumNumberSelectionBehavior(
+            payload.number_selection_behavior
+          )
+        : null;
+    this.geoMatchLevel =
+      payload.geo_match_level !== null
+        ? new ServiceEnumGeoMatchLevel(payload.geo_match_level)
+        : null;
     this.interceptCallbackUrl = payload.intercept_callback_url;
     this.outOfSessionCallbackUrl = payload.out_of_session_callback_url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -721,25 +729,29 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      chatInstanceSid: this.chatInstanceSid,
-      callbackUrl: this.callbackUrl,
-      defaultTtl: this.defaultTtl,
-      numberSelectionBehavior: this.numberSelectionBehavior,
-      geoMatchLevel: this.geoMatchLevel,
-      interceptCallbackUrl: this.interceptCallbackUrl,
-      outOfSessionCallbackUrl: this.outOfSessionCallbackUrl,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        chatInstanceSid: this.chatInstanceSid,
+        callbackUrl: this.callbackUrl,
+        defaultTtl: this.defaultTtl,
+        numberSelectionBehavior: this.numberSelectionBehavior,
+        geoMatchLevel: this.geoMatchLevel,
+        interceptCallbackUrl: this.interceptCallbackUrl,
+        outOfSessionCallbackUrl: this.outOfSessionCallbackUrl,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -275,15 +275,19 @@ export class PortingWebhookConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      url: this.url,
-      portInTargetUrl: this.portInTargetUrl,
-      portOutTargetUrl: this.portOutTargetUrl,
-      notificationsOf: this.notificationsOf,
-    };
+    return JSON.stringify(
+      {
+        url: this.url,
+        portInTargetUrl: this.portInTargetUrl,
+        portOutTargetUrl: this.portOutTargetUrl,
+        notificationsOf: this.notificationsOf,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

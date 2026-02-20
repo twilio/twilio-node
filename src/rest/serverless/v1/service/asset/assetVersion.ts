@@ -244,7 +244,10 @@ export class AssetVersionInstance {
     this.serviceSid = payload.service_sid;
     this.assetSid = payload.asset_sid;
     this.path = payload.path;
-    this.visibility = payload.visibility;
+    this.visibility =
+      payload.visibility !== null
+        ? new AssetVersionEnumVisibility(payload.visibility)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
@@ -325,19 +328,23 @@ export class AssetVersionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      assetSid: this.assetSid,
-      path: this.path,
-      visibility: this.visibility,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        assetSid: this.assetSid,
+        path: this.path,
+        visibility: this.visibility,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -696,19 +696,23 @@ export class SigningRequestConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      logoSid: this.logoSid,
-      friendlyName: this.friendlyName,
-      product: this.product,
-      country: this.country,
-      emailSubject: this.emailSubject,
-      emailMessage: this.emailMessage,
-      urlRedirection: this.urlRedirection,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        logoSid: this.logoSid,
+        friendlyName: this.friendlyName,
+        product: this.product,
+        country: this.country,
+        emailSubject: this.emailSubject,
+        emailMessage: this.emailMessage,
+        urlRedirection: this.urlRedirection,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

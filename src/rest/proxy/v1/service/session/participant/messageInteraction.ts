@@ -305,16 +305,29 @@ export class MessageInteractionInstance {
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
     this.data = payload.data;
-    this.type = payload.type;
+    this.type =
+      payload.type !== null
+        ? new MessageInteractionEnumType(payload.type)
+        : null;
     this.participantSid = payload.participant_sid;
     this.inboundParticipantSid = payload.inbound_participant_sid;
     this.inboundResourceSid = payload.inbound_resource_sid;
-    this.inboundResourceStatus = payload.inbound_resource_status;
+    this.inboundResourceStatus =
+      payload.inbound_resource_status !== null
+        ? new MessageInteractionEnumResourceStatus(
+            payload.inbound_resource_status
+          )
+        : null;
     this.inboundResourceType = payload.inbound_resource_type;
     this.inboundResourceUrl = payload.inbound_resource_url;
     this.outboundParticipantSid = payload.outbound_participant_sid;
     this.outboundResourceSid = payload.outbound_resource_sid;
-    this.outboundResourceStatus = payload.outbound_resource_status;
+    this.outboundResourceStatus =
+      payload.outbound_resource_status !== null
+        ? new MessageInteractionEnumResourceStatus(
+            payload.outbound_resource_status
+          )
+        : null;
     this.outboundResourceType = payload.outbound_resource_type;
     this.outboundResourceUrl = payload.outbound_resource_url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -446,31 +459,35 @@ export class MessageInteractionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      sessionSid: this.sessionSid,
-      serviceSid: this.serviceSid,
-      accountSid: this.accountSid,
-      data: this.data,
-      type: this.type,
-      participantSid: this.participantSid,
-      inboundParticipantSid: this.inboundParticipantSid,
-      inboundResourceSid: this.inboundResourceSid,
-      inboundResourceStatus: this.inboundResourceStatus,
-      inboundResourceType: this.inboundResourceType,
-      inboundResourceUrl: this.inboundResourceUrl,
-      outboundParticipantSid: this.outboundParticipantSid,
-      outboundResourceSid: this.outboundResourceSid,
-      outboundResourceStatus: this.outboundResourceStatus,
-      outboundResourceType: this.outboundResourceType,
-      outboundResourceUrl: this.outboundResourceUrl,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        sessionSid: this.sessionSid,
+        serviceSid: this.serviceSid,
+        accountSid: this.accountSid,
+        data: this.data,
+        type: this.type,
+        participantSid: this.participantSid,
+        inboundParticipantSid: this.inboundParticipantSid,
+        inboundResourceSid: this.inboundResourceSid,
+        inboundResourceStatus: this.inboundResourceStatus,
+        inboundResourceType: this.inboundResourceType,
+        inboundResourceUrl: this.inboundResourceUrl,
+        outboundParticipantSid: this.outboundParticipantSid,
+        outboundResourceSid: this.outboundResourceSid,
+        outboundResourceStatus: this.outboundResourceStatus,
+        outboundResourceType: this.outboundResourceType,
+        outboundResourceUrl: this.outboundResourceUrl,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

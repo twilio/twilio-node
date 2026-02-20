@@ -428,8 +428,12 @@ export class MetricInstance {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.edge = payload.edge;
-    this.direction = payload.direction;
+    this.edge =
+      payload.edge !== null ? new MetricEnumTwilioEdge(payload.edge) : null;
+    this.direction =
+      payload.direction !== null
+        ? new MetricEnumStreamDirection(payload.direction)
+        : null;
     this.carrierEdge = payload.carrier_edge;
     this.sipEdge = payload.sip_edge;
     this.sdkEdge = payload.sdk_edge;
@@ -470,20 +474,24 @@ export class MetricInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      timestamp: this.timestamp,
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      edge: this.edge,
-      direction: this.direction,
-      carrierEdge: this.carrierEdge,
-      sipEdge: this.sipEdge,
-      sdkEdge: this.sdkEdge,
-      clientEdge: this.clientEdge,
-    };
+    return JSON.stringify(
+      {
+        timestamp: this.timestamp,
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        edge: this.edge,
+        direction: this.direction,
+        carrierEdge: this.carrierEdge,
+        sipEdge: this.sipEdge,
+        sdkEdge: this.sdkEdge,
+        clientEdge: this.clientEdge,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

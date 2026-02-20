@@ -698,27 +698,31 @@ export class RatePlanInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      dataEnabled: this.dataEnabled,
-      dataMetering: this.dataMetering,
-      dataLimit: this.dataLimit,
-      messagingEnabled: this.messagingEnabled,
-      voiceEnabled: this.voiceEnabled,
-      nationalRoamingEnabled: this.nationalRoamingEnabled,
-      nationalRoamingDataLimit: this.nationalRoamingDataLimit,
-      internationalRoaming: this.internationalRoaming,
-      internationalRoamingDataLimit: this.internationalRoamingDataLimit,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        dataEnabled: this.dataEnabled,
+        dataMetering: this.dataMetering,
+        dataLimit: this.dataLimit,
+        messagingEnabled: this.messagingEnabled,
+        voiceEnabled: this.voiceEnabled,
+        nationalRoamingEnabled: this.nationalRoamingEnabled,
+        nationalRoamingDataLimit: this.nationalRoamingDataLimit,
+        internationalRoaming: this.internationalRoaming,
+        internationalRoamingDataLimit: this.internationalRoamingDataLimit,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -292,16 +292,20 @@ export class AccountInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      ownerSid: this.ownerSid,
-      dateCreated: this.dateCreated,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        ownerSid: this.ownerSid,
+        dateCreated: this.dateCreated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -527,15 +527,19 @@ export class ComplianceTollfreeInquiriesInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      inquiryId: this.inquiryId,
-      inquirySessionToken: this.inquirySessionToken,
-      registrationId: this.registrationId,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        inquiryId: this.inquiryId,
+        inquirySessionToken: this.inquirySessionToken,
+        registrationId: this.registrationId,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

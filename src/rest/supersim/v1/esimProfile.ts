@@ -265,7 +265,10 @@ export class EsimProfileInstance {
     this.accountSid = payload.account_sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new EsimProfileEnumStatus(payload.status)
+        : null;
     this.eid = payload.eid;
     this.smdpPlusAddress = payload.smdp_plus_address;
     this.matchingId = payload.matching_id;
@@ -372,25 +375,29 @@ export class EsimProfileInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      iccid: this.iccid,
-      simSid: this.simSid,
-      status: this.status,
-      eid: this.eid,
-      smdpPlusAddress: this.smdpPlusAddress,
-      matchingId: this.matchingId,
-      activationCode: this.activationCode,
-      errorCode: this.errorCode,
-      errorMessage: this.errorMessage,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        iccid: this.iccid,
+        simSid: this.simSid,
+        status: this.status,
+        eid: this.eid,
+        smdpPlusAddress: this.smdpPlusAddress,
+        matchingId: this.matchingId,
+        activationCode: this.activationCode,
+        errorCode: this.errorCode,
+        errorMessage: this.errorMessage,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -283,7 +283,10 @@ export class VerificationCheckInstance {
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
     this.to = payload.to;
-    this.channel = payload.channel;
+    this.channel =
+      payload.channel !== null
+        ? new VerificationCheckEnumChannel(payload.channel)
+        : null;
     this.status = payload.status;
     this.valid = payload.valid;
     this.amount = payload.amount;
@@ -342,23 +345,27 @@ export class VerificationCheckInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      serviceSid: this.serviceSid,
-      accountSid: this.accountSid,
-      to: this.to,
-      channel: this.channel,
-      status: this.status,
-      valid: this.valid,
-      amount: this.amount,
-      payee: this.payee,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      snaAttemptsErrorCodes: this.snaAttemptsErrorCodes,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        serviceSid: this.serviceSid,
+        accountSid: this.accountSid,
+        to: this.to,
+        channel: this.channel,
+        status: this.status,
+        valid: this.valid,
+        amount: this.amount,
+        payee: this.payee,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        snaAttemptsErrorCodes: this.snaAttemptsErrorCodes,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

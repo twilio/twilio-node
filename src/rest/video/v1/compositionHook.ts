@@ -557,7 +557,10 @@ export class CompositionHookInstance {
     this.videoLayout = payload.video_layout;
     this.resolution = payload.resolution;
     this.trim = payload.trim;
-    this.format = payload.format;
+    this.format =
+      payload.format !== null
+        ? new CompositionHookEnumFormat(payload.format)
+        : null;
     this.statusCallback = payload.status_callback;
     this.statusCallbackMethod = payload.status_callback_method;
     this.url = payload.url;
@@ -734,26 +737,30 @@ export class CompositionHookInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      enabled: this.enabled,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      audioSources: this.audioSources,
-      audioSourcesExcluded: this.audioSourcesExcluded,
-      videoLayout: this.videoLayout,
-      resolution: this.resolution,
-      trim: this.trim,
-      format: this.format,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        enabled: this.enabled,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        audioSources: this.audioSources,
+        audioSourcesExcluded: this.audioSourcesExcluded,
+        videoLayout: this.videoLayout,
+        resolution: this.resolution,
+        trim: this.trim,
+        format: this.format,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

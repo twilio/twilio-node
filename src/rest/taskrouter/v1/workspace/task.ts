@@ -664,7 +664,10 @@ export class TaskInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.age = deserialize.integer(payload.age);
-    this.assignmentStatus = payload.assignment_status;
+    this.assignmentStatus =
+      payload.assignment_status !== null
+        ? new TaskEnumStatus(payload.assignment_status)
+        : null;
     this.attributes = payload.attributes;
     this.addons = payload.addons;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -955,35 +958,39 @@ export class TaskInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      age: this.age,
-      assignmentStatus: this.assignmentStatus,
-      attributes: this.attributes,
-      addons: this.addons,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      taskQueueEnteredDate: this.taskQueueEnteredDate,
-      priority: this.priority,
-      reason: this.reason,
-      sid: this.sid,
-      taskQueueSid: this.taskQueueSid,
-      taskQueueFriendlyName: this.taskQueueFriendlyName,
-      taskChannelSid: this.taskChannelSid,
-      taskChannelUniqueName: this.taskChannelUniqueName,
-      timeout: this.timeout,
-      workflowSid: this.workflowSid,
-      workflowFriendlyName: this.workflowFriendlyName,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-      links: this.links,
-      virtualStartTime: this.virtualStartTime,
-      ignoreCapacity: this.ignoreCapacity,
-      routingTarget: this.routingTarget,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        age: this.age,
+        assignmentStatus: this.assignmentStatus,
+        attributes: this.attributes,
+        addons: this.addons,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        taskQueueEnteredDate: this.taskQueueEnteredDate,
+        priority: this.priority,
+        reason: this.reason,
+        sid: this.sid,
+        taskQueueSid: this.taskQueueSid,
+        taskQueueFriendlyName: this.taskQueueFriendlyName,
+        taskChannelSid: this.taskChannelSid,
+        taskChannelUniqueName: this.taskChannelUniqueName,
+        timeout: this.timeout,
+        workflowSid: this.workflowSid,
+        workflowFriendlyName: this.workflowFriendlyName,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+        links: this.links,
+        virtualStartTime: this.virtualStartTime,
+        ignoreCapacity: this.ignoreCapacity,
+        routingTarget: this.routingTarget,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

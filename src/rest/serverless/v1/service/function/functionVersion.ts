@@ -265,7 +265,10 @@ export class FunctionVersionInstance {
     this.serviceSid = payload.service_sid;
     this.functionSid = payload.function_sid;
     this.path = payload.path;
-    this.visibility = payload.visibility;
+    this.visibility =
+      payload.visibility !== null
+        ? new FunctionVersionEnumVisibility(payload.visibility)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
     this.links = payload.links;
@@ -355,20 +358,24 @@ export class FunctionVersionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      functionSid: this.functionSid,
-      path: this.path,
-      visibility: this.visibility,
-      dateCreated: this.dateCreated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        functionSid: this.functionSid,
+        path: this.path,
+        visibility: this.visibility,
+        dateCreated: this.dateCreated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

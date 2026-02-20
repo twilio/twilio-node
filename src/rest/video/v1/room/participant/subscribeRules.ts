@@ -26,6 +26,15 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "track"?: string;
   "kind"?: string;
   "priority"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.all = payload["all"];
+    this.publisher = payload["publisher"];
+    this.track = payload["track"];
+    this.kind = payload["kind"];
+    this.priority = payload["priority"];
+  }
 }
 
 /**
@@ -351,7 +360,15 @@ export class SubscribeRulesInstance {
   ) {
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;
-    this.rules = payload.rules;
+    this.rules =
+      payload.rules !== null
+        ? payload.rules.map(
+            (payload: any) =>
+              new VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules(
+                payload
+              )
+          )
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }
@@ -380,16 +397,20 @@ export class SubscribeRulesInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      participantSid: this.participantSid,
-      roomSid: this.roomSid,
-      rules: this.rules,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        participantSid: this.participantSid,
+        roomSid: this.roomSid,
+        rules: this.rules,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -344,7 +344,10 @@ export class AuthorizationDocumentInstance {
   ) {
     this.sid = payload.sid;
     this.addressSid = payload.address_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new AuthorizationDocumentEnumStatus(payload.status)
+        : null;
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -458,20 +461,24 @@ export class AuthorizationDocumentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      addressSid: this.addressSid,
-      status: this.status,
-      email: this.email,
-      ccEmails: this.ccEmails,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        addressSid: this.addressSid,
+        status: this.status,
+        email: this.email,
+        ccEmails: this.ccEmails,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

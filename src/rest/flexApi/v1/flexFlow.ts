@@ -600,10 +600,16 @@ export class FlexFlowInstance {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.chatServiceSid = payload.chat_service_sid;
-    this.channelType = payload.channel_type;
+    this.channelType =
+      payload.channel_type !== null
+        ? new FlexFlowEnumChannelType(payload.channel_type)
+        : null;
     this.contactIdentity = payload.contact_identity;
     this.enabled = payload.enabled;
-    this.integrationType = payload.integration_type;
+    this.integrationType =
+      payload.integration_type !== null
+        ? new FlexFlowEnumIntegrationType(payload.integration_type)
+        : null;
     this.integration = payload.integration;
     this.longLived = payload.long_lived;
     this.janitorEnabled = payload.janitor_enabled;
@@ -797,25 +803,29 @@ export class FlexFlowInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      chatServiceSid: this.chatServiceSid,
-      channelType: this.channelType,
-      contactIdentity: this.contactIdentity,
-      enabled: this.enabled,
-      integrationType: this.integrationType,
-      integration: this.integration,
-      longLived: this.longLived,
-      janitorEnabled: this.janitorEnabled,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        chatServiceSid: this.chatServiceSid,
+        channelType: this.channelType,
+        contactIdentity: this.contactIdentity,
+        enabled: this.enabled,
+        integrationType: this.integrationType,
+        integration: this.integration,
+        longLived: this.longLived,
+        janitorEnabled: this.janitorEnabled,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

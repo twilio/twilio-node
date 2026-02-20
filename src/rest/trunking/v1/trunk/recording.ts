@@ -342,8 +342,14 @@ export class RecordingInstance {
     payload: RecordingResource,
     trunkSid: string
   ) {
-    this.mode = payload.mode;
-    this.trim = payload.trim;
+    this.mode =
+      payload.mode !== null
+        ? new RecordingEnumRecordingMode(payload.mode)
+        : null;
+    this.trim =
+      payload.trim !== null
+        ? new RecordingEnumRecordingTrim(payload.trim)
+        : null;
 
     this._solution = { trunkSid };
   }
@@ -459,13 +465,17 @@ export class RecordingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      mode: this.mode,
-      trim: this.trim,
-    };
+    return JSON.stringify(
+      {
+        mode: this.mode,
+        trim: this.trim,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

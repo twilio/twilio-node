@@ -443,7 +443,10 @@ export class BillingPeriodInstance {
     this.simSid = payload.sim_sid;
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
-    this.periodType = payload.period_type;
+    this.periodType =
+      payload.period_type !== null
+        ? new BillingPeriodEnumBpType(payload.period_type)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }
@@ -481,19 +484,23 @@ export class BillingPeriodInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      simSid: this.simSid,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      periodType: this.periodType,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        simSid: this.simSid,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        periodType: this.periodType,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

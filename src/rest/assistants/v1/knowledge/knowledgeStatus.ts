@@ -231,15 +231,19 @@ export class KnowledgeStatusInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      status: this.status,
-      lastStatus: this.lastStatus,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        status: this.status,
+        lastStatus: this.lastStatus,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

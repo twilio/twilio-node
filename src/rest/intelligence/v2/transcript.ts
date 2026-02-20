@@ -416,7 +416,8 @@ export class TranscriptInstance {
     this.sid = payload.sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new TranscriptEnumStatus(payload.status) : null;
     this.channel = payload.channel;
     this.dataLogging = payload.data_logging;
     this.languageCode = payload.language_code;
@@ -587,27 +588,31 @@ export class TranscriptInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      sid: this.sid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      status: this.status,
-      channel: this.channel,
-      dataLogging: this.dataLogging,
-      languageCode: this.languageCode,
-      customerKey: this.customerKey,
-      mediaStartTime: this.mediaStartTime,
-      duration: this.duration,
-      url: this.url,
-      redaction: this.redaction,
-      encryptionCredentialSid: this.encryptionCredentialSid,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        sid: this.sid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        status: this.status,
+        channel: this.channel,
+        dataLogging: this.dataLogging,
+        languageCode: this.languageCode,
+        customerKey: this.customerKey,
+        mediaStartTime: this.mediaStartTime,
+        duration: this.duration,
+        url: this.url,
+        redaction: this.redaction,
+        encryptionCredentialSid: this.encryptionCredentialSid,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -358,20 +358,24 @@ export class AssignedAddOnExtensionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      resourceSid: this.resourceSid,
-      assignedAddOnSid: this.assignedAddOnSid,
-      friendlyName: this.friendlyName,
-      productName: this.productName,
-      uniqueName: this.uniqueName,
-      uri: this.uri,
-      enabled: this.enabled,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        resourceSid: this.resourceSid,
+        assignedAddOnSid: this.assignedAddOnSid,
+        friendlyName: this.friendlyName,
+        productName: this.productName,
+        uniqueName: this.uniqueName,
+        uri: this.uri,
+        enabled: this.enabled,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

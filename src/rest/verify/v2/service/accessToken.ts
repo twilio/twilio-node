@@ -204,7 +204,10 @@ export class AccessTokenInstance {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
     this.entityIdentity = payload.entity_identity;
-    this.factorType = payload.factor_type;
+    this.factorType =
+      payload.factor_type !== null
+        ? new AccessTokenEnumFactorTypes(payload.factor_type)
+        : null;
     this.factorFriendlyName = payload.factor_friendly_name;
     this.token = payload.token;
     this.url = payload.url;
@@ -295,21 +298,25 @@ export class AccessTokenInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entityIdentity: this.entityIdentity,
-      factorType: this.factorType,
-      factorFriendlyName: this.factorFriendlyName,
-      token: this.token,
-      url: this.url,
-      ttl: this.ttl,
-      dateCreated: this.dateCreated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entityIdentity: this.entityIdentity,
+        factorType: this.factorType,
+        factorFriendlyName: this.factorFriendlyName,
+        token: this.token,
+        url: this.url,
+        ttl: this.ttl,
+        dateCreated: this.dateCreated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

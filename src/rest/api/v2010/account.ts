@@ -625,9 +625,11 @@ export class AccountInstance {
     this.friendlyName = payload.friendly_name;
     this.ownerAccountSid = payload.owner_account_sid;
     this.sid = payload.sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new AccountEnumStatus(payload.status) : null;
     this.subresourceUris = payload.subresource_uris;
-    this.type = payload.type;
+    this.type =
+      payload.type !== null ? new AccountEnumType(payload.type) : null;
     this.uri = payload.uri;
 
     this._solution = { sid: sid || this.sid };
@@ -932,21 +934,25 @@ export class AccountInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      authToken: this.authToken,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      ownerAccountSid: this.ownerAccountSid,
-      sid: this.sid,
-      status: this.status,
-      subresourceUris: this.subresourceUris,
-      type: this.type,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        authToken: this.authToken,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        ownerAccountSid: this.ownerAccountSid,
+        sid: this.sid,
+        status: this.status,
+        subresourceUris: this.subresourceUris,
+        type: this.type,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -523,8 +523,14 @@ export class FactorInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
-    this.factorType = payload.factor_type;
+    this.status =
+      payload.status !== null
+        ? new FactorEnumFactorStatuses(payload.status)
+        : null;
+    this.factorType =
+      payload.factor_type !== null
+        ? new FactorEnumFactorTypes(payload.factor_type)
+        : null;
     this.config = payload.config;
     this.metadata = payload.metadata;
     this.url = payload.url;
@@ -706,24 +712,28 @@ export class FactorInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entitySid: this.entitySid,
-      identity: this.identity,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      factorType: this.factorType,
-      config: this.config,
-      metadata: this.metadata,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entitySid: this.entitySid,
+        identity: this.identity,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        factorType: this.factorType,
+        config: this.config,
+        metadata: this.metadata,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -650,7 +650,10 @@ export class ServiceInstance {
     this.stickySender = payload.sticky_sender;
     this.mmsConverter = payload.mms_converter;
     this.smartEncoding = payload.smart_encoding;
-    this.scanMessageContent = payload.scan_message_content;
+    this.scanMessageContent =
+      payload.scan_message_content !== null
+        ? new ServiceEnumScanMessageContent(payload.scan_message_content)
+        : null;
     this.fallbackToLongCode = payload.fallback_to_long_code;
     this.areaCodeGeomatch = payload.area_code_geomatch;
     this.synchronousValidation = payload.synchronous_validation;
@@ -925,34 +928,38 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      inboundRequestUrl: this.inboundRequestUrl,
-      inboundMethod: this.inboundMethod,
-      fallbackUrl: this.fallbackUrl,
-      fallbackMethod: this.fallbackMethod,
-      statusCallback: this.statusCallback,
-      stickySender: this.stickySender,
-      mmsConverter: this.mmsConverter,
-      smartEncoding: this.smartEncoding,
-      scanMessageContent: this.scanMessageContent,
-      fallbackToLongCode: this.fallbackToLongCode,
-      areaCodeGeomatch: this.areaCodeGeomatch,
-      synchronousValidation: this.synchronousValidation,
-      validityPeriod: this.validityPeriod,
-      url: this.url,
-      links: this.links,
-      usecase: this.usecase,
-      usAppToPersonRegistered: this.usAppToPersonRegistered,
-      useInboundWebhookOnNumber: this.useInboundWebhookOnNumber,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        inboundRequestUrl: this.inboundRequestUrl,
+        inboundMethod: this.inboundMethod,
+        fallbackUrl: this.fallbackUrl,
+        fallbackMethod: this.fallbackMethod,
+        statusCallback: this.statusCallback,
+        stickySender: this.stickySender,
+        mmsConverter: this.mmsConverter,
+        smartEncoding: this.smartEncoding,
+        scanMessageContent: this.scanMessageContent,
+        fallbackToLongCode: this.fallbackToLongCode,
+        areaCodeGeomatch: this.areaCodeGeomatch,
+        synchronousValidation: this.synchronousValidation,
+        validityPeriod: this.validityPeriod,
+        url: this.url,
+        links: this.links,
+        usecase: this.usecase,
+        usAppToPersonRegistered: this.usAppToPersonRegistered,
+        useInboundWebhookOnNumber: this.useInboundWebhookOnNumber,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -445,19 +445,23 @@ export class PluginConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      name: this.name,
-      description: this.description,
-      archived: this.archived,
-      dateCreated: this.dateCreated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        name: this.name,
+        description: this.description,
+        archived: this.archived,
+        dateCreated: this.dateCreated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

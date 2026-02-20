@@ -439,8 +439,14 @@ export class InteractionChannelInstance {
   ) {
     this.sid = payload.sid;
     this.interactionSid = payload.interaction_sid;
-    this.type = payload.type;
-    this.status = payload.status;
+    this.type =
+      payload.type !== null
+        ? new InteractionChannelEnumType(payload.type)
+        : null;
+    this.status =
+      payload.status !== null
+        ? new InteractionChannelEnumChannelStatus(payload.status)
+        : null;
     this.errorCode = deserialize.integer(payload.error_code);
     this.errorMessage = payload.error_message;
     this.url = payload.url;
@@ -580,19 +586,23 @@ export class InteractionChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      interactionSid: this.interactionSid,
-      type: this.type,
-      status: this.status,
-      errorCode: this.errorCode,
-      errorMessage: this.errorMessage,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        interactionSid: this.interactionSid,
+        type: this.type,
+        status: this.status,
+        errorCode: this.errorCode,
+        errorMessage: this.errorMessage,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

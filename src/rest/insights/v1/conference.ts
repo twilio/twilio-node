@@ -353,21 +353,39 @@ export class ConferenceInstance {
     this.connectDurationSeconds = deserialize.integer(
       payload.connect_duration_seconds
     );
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new ConferenceEnumConferenceStatus(payload.status)
+        : null;
     this.maxParticipants = deserialize.integer(payload.max_participants);
     this.maxConcurrentParticipants = deserialize.integer(
       payload.max_concurrent_participants
     );
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
-    this.endReason = payload.end_reason;
+    this.endReason =
+      payload.end_reason !== null
+        ? new ConferenceEnumConferenceEndReason(payload.end_reason)
+        : null;
     this.endedBy = payload.ended_by;
-    this.mixerRegion = payload.mixer_region;
-    this.mixerRegionRequested = payload.mixer_region_requested;
+    this.mixerRegion =
+      payload.mixer_region !== null
+        ? new ConferenceEnumRegion(payload.mixer_region)
+        : null;
+    this.mixerRegionRequested =
+      payload.mixer_region_requested !== null
+        ? new ConferenceEnumRegion(payload.mixer_region_requested)
+        : null;
     this.recordingEnabled = payload.recording_enabled;
     this.detectedIssues = payload.detected_issues;
-    this.tags = payload.tags;
+    this.tags =
+      payload.tags !== null
+        ? payload.tags.map((payload: any) => new ConferenceEnumTag(payload))
+        : null;
     this.tagInfo = payload.tag_info;
-    this.processingState = payload.processing_state;
+    this.processingState =
+      payload.processing_state !== null
+        ? new ConferenceEnumProcessingState(payload.processing_state)
+        : null;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -498,34 +516,38 @@ export class ConferenceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      conferenceSid: this.conferenceSid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      createTime: this.createTime,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      durationSeconds: this.durationSeconds,
-      connectDurationSeconds: this.connectDurationSeconds,
-      status: this.status,
-      maxParticipants: this.maxParticipants,
-      maxConcurrentParticipants: this.maxConcurrentParticipants,
-      uniqueParticipants: this.uniqueParticipants,
-      endReason: this.endReason,
-      endedBy: this.endedBy,
-      mixerRegion: this.mixerRegion,
-      mixerRegionRequested: this.mixerRegionRequested,
-      recordingEnabled: this.recordingEnabled,
-      detectedIssues: this.detectedIssues,
-      tags: this.tags,
-      tagInfo: this.tagInfo,
-      processingState: this.processingState,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        conferenceSid: this.conferenceSid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        createTime: this.createTime,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        durationSeconds: this.durationSeconds,
+        connectDurationSeconds: this.connectDurationSeconds,
+        status: this.status,
+        maxParticipants: this.maxParticipants,
+        maxConcurrentParticipants: this.maxConcurrentParticipants,
+        uniqueParticipants: this.uniqueParticipants,
+        endReason: this.endReason,
+        endedBy: this.endedBy,
+        mixerRegion: this.mixerRegion,
+        mixerRegionRequested: this.mixerRegionRequested,
+        recordingEnabled: this.recordingEnabled,
+        detectedIssues: this.detectedIssues,
+        tags: this.tags,
+        tagInfo: this.tagInfo,
+        processingState: this.processingState,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

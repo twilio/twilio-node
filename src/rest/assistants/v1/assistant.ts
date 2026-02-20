@@ -41,6 +41,14 @@ export class AssistantsV1ServiceCreateAssistantRequest {
    */
   "personalityPrompt"?: string;
   "segmentCredential"?: AssistantsV1ServiceSegmentCredential;
+
+  constructor(payload) {
+    this.customerAi = payload["customer_ai"];
+    this.name = payload["name"];
+    this.owner = payload["owner"];
+    this.personalityPrompt = payload["personality_prompt"];
+    this.segmentCredential = payload["segment_credential"];
+  }
 }
 
 export class AssistantsV1ServiceCustomerAi {
@@ -52,6 +60,12 @@ export class AssistantsV1ServiceCustomerAi {
    * True if the personalization engine is enabled.
    */
   "personalizationEngineEnabled": boolean;
+
+  constructor(payload) {
+    this.perceptionEngineEnabled = payload["perception_engine_enabled"];
+    this.personalizationEngineEnabled =
+      payload["personalization_engine_enabled"];
+  }
 }
 
 export class AssistantsV1ServiceKnowledge {
@@ -99,6 +113,20 @@ export class AssistantsV1ServiceKnowledge {
    * The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   "dateUpdated": Date;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.id = payload["id"];
+    this.accountSid = payload["account_sid"];
+    this.knowledgeSourceDetails = payload["knowledge_source_details"];
+    this.name = payload["name"];
+    this.status = payload["status"];
+    this.type = payload["type"];
+    this.url = payload["url"];
+    this.embeddingModel = payload["embedding_model"];
+    this.dateCreated = payload["date_created"];
+    this.dateUpdated = payload["date_updated"];
+  }
 }
 
 export class AssistantsV1ServiceSegmentCredential {
@@ -114,6 +142,12 @@ export class AssistantsV1ServiceSegmentCredential {
    * The write key.
    */
   "writeKey"?: string;
+
+  constructor(payload) {
+    this.profileApiKey = payload["profile_api_key"];
+    this.spaceId = payload["space_id"];
+    this.writeKey = payload["write_key"];
+  }
 }
 
 export class AssistantsV1ServiceTool {
@@ -161,6 +195,20 @@ export class AssistantsV1ServiceTool {
    * The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   "dateUpdated": Date;
+
+  constructor(payload) {
+    this.accountSid = payload["account_sid"];
+    this.description = payload["description"];
+    this.enabled = payload["enabled"];
+    this.id = payload["id"];
+    this.meta = payload["meta"];
+    this.name = payload["name"];
+    this.requiresAuth = payload["requires_auth"];
+    this.type = payload["type"];
+    this.url = payload["url"];
+    this.dateCreated = payload["date_created"];
+    this.dateUpdated = payload["date_updated"];
+  }
 }
 
 export class AssistantsV1ServiceUpdateAssistantRequest {
@@ -178,6 +226,14 @@ export class AssistantsV1ServiceUpdateAssistantRequest {
    */
   "personalityPrompt"?: string;
   "segmentCredential"?: AssistantsV1ServiceSegmentCredential;
+
+  constructor(payload) {
+    this.customerAi = payload["customer_ai"];
+    this.name = payload["name"];
+    this.owner = payload["owner"];
+    this.personalityPrompt = payload["personality_prompt"];
+    this.segmentCredential = payload["segment_credential"];
+  }
 }
 
 /**
@@ -652,8 +708,18 @@ export class AssistantInstance {
     this.personalityPrompt = payload.personality_prompt;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.knowledge = payload.knowledge;
-    this.tools = payload.tools;
+    this.knowledge =
+      payload.knowledge !== null
+        ? payload.knowledge.map(
+            (payload: any) => new AssistantsV1ServiceKnowledge(payload)
+          )
+        : null;
+    this.tools =
+      payload.tools !== null
+        ? payload.tools.map(
+            (payload: any) => new AssistantsV1ServiceTool(payload)
+          )
+        : null;
 
     this._solution = { id: id || this.id };
   }
@@ -873,23 +939,27 @@ export class AssistantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      customerAi: this.customerAi,
-      id: this.id,
-      model: this.model,
-      name: this.name,
-      owner: this.owner,
-      url: this.url,
-      personalityPrompt: this.personalityPrompt,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      knowledge: this.knowledge,
-      tools: this.tools,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        customerAi: this.customerAi,
+        id: this.id,
+        model: this.model,
+        name: this.name,
+        owner: this.owner,
+        url: this.url,
+        personalityPrompt: this.personalityPrompt,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        knowledge: this.knowledge,
+        tools: this.tools,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

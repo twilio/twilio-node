@@ -356,23 +356,27 @@ export class LogInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      environmentSid: this.environmentSid,
-      buildSid: this.buildSid,
-      deploymentSid: this.deploymentSid,
-      functionSid: this.functionSid,
-      requestSid: this.requestSid,
-      level: this.level,
-      message: this.message,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        environmentSid: this.environmentSid,
+        buildSid: this.buildSid,
+        deploymentSid: this.deploymentSid,
+        functionSid: this.functionSid,
+        requestSid: this.requestSid,
+        level: this.level,
+        message: this.message,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

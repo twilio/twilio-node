@@ -249,7 +249,10 @@ export class BrandVettingInstance {
     this.vettingId = payload.vetting_id;
     this.vettingClass = payload.vetting_class;
     this.vettingStatus = payload.vetting_status;
-    this.vettingProvider = payload.vetting_provider;
+    this.vettingProvider =
+      payload.vetting_provider !== null
+        ? new BrandVettingEnumVettingProvider(payload.vetting_provider)
+        : null;
     this.url = payload.url;
 
     this._solution = {
@@ -339,21 +342,25 @@ export class BrandVettingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      brandSid: this.brandSid,
-      brandVettingSid: this.brandVettingSid,
-      dateUpdated: this.dateUpdated,
-      dateCreated: this.dateCreated,
-      vettingId: this.vettingId,
-      vettingClass: this.vettingClass,
-      vettingStatus: this.vettingStatus,
-      vettingProvider: this.vettingProvider,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        brandSid: this.brandSid,
+        brandVettingSid: this.brandVettingSid,
+        dateUpdated: this.dateUpdated,
+        dateCreated: this.dateCreated,
+        vettingId: this.vettingId,
+        vettingClass: this.vettingClass,
+        vettingStatus: this.vettingStatus,
+        vettingProvider: this.vettingProvider,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

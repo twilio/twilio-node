@@ -493,22 +493,26 @@ export class EnvironmentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      buildSid: this.buildSid,
-      uniqueName: this.uniqueName,
-      domainSuffix: this.domainSuffix,
-      domainName: this.domainName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        buildSid: this.buildSid,
+        uniqueName: this.uniqueName,
+        domainSuffix: this.domainSuffix,
+        domainName: this.domainName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

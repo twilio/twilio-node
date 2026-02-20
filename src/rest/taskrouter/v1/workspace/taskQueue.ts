@@ -589,7 +589,10 @@ export class TaskQueueInstance {
     this.reservationActivityName = payload.reservation_activity_name;
     this.sid = payload.sid;
     this.targetWorkers = payload.target_workers;
-    this.taskOrder = payload.task_order;
+    this.taskOrder =
+      payload.task_order !== null
+        ? new TaskQueueEnumTaskOrder(payload.task_order)
+        : null;
     this.url = payload.url;
     this.workspaceSid = payload.workspace_sid;
     this.links = payload.links;
@@ -814,26 +817,30 @@ export class TaskQueueInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      assignmentActivitySid: this.assignmentActivitySid,
-      assignmentActivityName: this.assignmentActivityName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      maxReservedWorkers: this.maxReservedWorkers,
-      reservationActivitySid: this.reservationActivitySid,
-      reservationActivityName: this.reservationActivityName,
-      sid: this.sid,
-      targetWorkers: this.targetWorkers,
-      taskOrder: this.taskOrder,
-      url: this.url,
-      workspaceSid: this.workspaceSid,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        assignmentActivitySid: this.assignmentActivitySid,
+        assignmentActivityName: this.assignmentActivityName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        maxReservedWorkers: this.maxReservedWorkers,
+        reservationActivitySid: this.reservationActivitySid,
+        reservationActivityName: this.reservationActivityName,
+        sid: this.sid,
+        targetWorkers: this.targetWorkers,
+        taskOrder: this.taskOrder,
+        url: this.url,
+        workspaceSid: this.workspaceSid,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -498,10 +498,16 @@ export class ConferenceInstance {
     this.friendlyName = payload.friendly_name;
     this.region = payload.region;
     this.sid = payload.sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new ConferenceEnumStatus(payload.status) : null;
     this.uri = payload.uri;
     this.subresourceUris = payload.subresource_uris;
-    this.reasonConferenceEnded = payload.reason_conference_ended;
+    this.reasonConferenceEnded =
+      payload.reason_conference_ended !== null
+        ? new ConferenceEnumReasonConferenceEnded(
+            payload.reason_conference_ended
+          )
+        : null;
     this.callSidEndingConference = payload.call_sid_ending_conference;
 
     this._solution = { accountSid, sid: sid || this.sid };
@@ -676,23 +682,27 @@ export class ConferenceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      apiVersion: this.apiVersion,
-      friendlyName: this.friendlyName,
-      region: this.region,
-      sid: this.sid,
-      status: this.status,
-      uri: this.uri,
-      subresourceUris: this.subresourceUris,
-      reasonConferenceEnded: this.reasonConferenceEnded,
-      callSidEndingConference: this.callSidEndingConference,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        apiVersion: this.apiVersion,
+        friendlyName: this.friendlyName,
+        region: this.region,
+        sid: this.sid,
+        status: this.status,
+        uri: this.uri,
+        subresourceUris: this.subresourceUris,
+        reasonConferenceEnded: this.reasonConferenceEnded,
+        callSidEndingConference: this.callSidEndingConference,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

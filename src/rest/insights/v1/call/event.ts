@@ -409,9 +409,11 @@ export class EventInstance {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.edge = payload.edge;
+    this.edge =
+      payload.edge !== null ? new EventEnumTwilioEdge(payload.edge) : null;
     this.group = payload.group;
-    this.level = payload.level;
+    this.level =
+      payload.level !== null ? new EventEnumLevel(payload.level) : null;
     this.name = payload.name;
     this.carrierEdge = payload.carrier_edge;
     this.sipEdge = payload.sip_edge;
@@ -461,22 +463,26 @@ export class EventInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      timestamp: this.timestamp,
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      edge: this.edge,
-      group: this.group,
-      level: this.level,
-      name: this.name,
-      carrierEdge: this.carrierEdge,
-      sipEdge: this.sipEdge,
-      sdkEdge: this.sdkEdge,
-      clientEdge: this.clientEdge,
-    };
+    return JSON.stringify(
+      {
+        timestamp: this.timestamp,
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        edge: this.edge,
+        group: this.group,
+        level: this.level,
+        name: this.name,
+        carrierEdge: this.carrierEdge,
+        sipEdge: this.sipEdge,
+        sdkEdge: this.sdkEdge,
+        clientEdge: this.clientEdge,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

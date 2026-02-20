@@ -341,7 +341,10 @@ export class WebhookInstance {
     this.preWebhookUrl = payload.pre_webhook_url;
     this.postWebhookUrl = payload.post_webhook_url;
     this.filters = payload.filters;
-    this.method = payload.method;
+    this.method =
+      payload.method !== null
+        ? new ServiceWebhookConfigurationEnumMethod(payload.method)
+        : null;
     this.url = payload.url;
 
     this._solution = { chatServiceSid };
@@ -469,18 +472,22 @@ export class WebhookInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      preWebhookUrl: this.preWebhookUrl,
-      postWebhookUrl: this.postWebhookUrl,
-      filters: this.filters,
-      method: this.method,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        preWebhookUrl: this.preWebhookUrl,
+        postWebhookUrl: this.postWebhookUrl,
+        filters: this.filters,
+        method: this.method,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -230,14 +230,18 @@ export class OperatorAttachmentsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      serviceSid: this.serviceSid,
-      operatorSids: this.operatorSids,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        serviceSid: this.serviceSid,
+        operatorSids: this.operatorSids,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

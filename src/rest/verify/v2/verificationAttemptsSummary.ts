@@ -397,16 +397,20 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      totalAttempts: this.totalAttempts,
-      totalConverted: this.totalConverted,
-      totalUnconverted: this.totalUnconverted,
-      conversionRatePercentage: this.conversionRatePercentage,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        totalAttempts: this.totalAttempts,
+        totalConverted: this.totalConverted,
+        totalUnconverted: this.totalUnconverted,
+        conversionRatePercentage: this.conversionRatePercentage,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

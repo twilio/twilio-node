@@ -497,12 +497,21 @@ export class ChallengeInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateResponded = deserialize.iso8601DateTime(payload.date_responded);
     this.expirationDate = deserialize.iso8601DateTime(payload.expiration_date);
-    this.status = payload.status;
-    this.respondedReason = payload.responded_reason;
+    this.status =
+      payload.status !== null
+        ? new ChallengeEnumChallengeStatuses(payload.status)
+        : null;
+    this.respondedReason =
+      payload.responded_reason !== null
+        ? new ChallengeEnumChallengeReasons(payload.responded_reason)
+        : null;
     this.details = payload.details;
     this.hiddenDetails = payload.hidden_details;
     this.metadata = payload.metadata;
-    this.factorType = payload.factor_type;
+    this.factorType =
+      payload.factor_type !== null
+        ? new ChallengeEnumFactorTypes(payload.factor_type)
+        : null;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -693,29 +702,33 @@ export class ChallengeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entitySid: this.entitySid,
-      identity: this.identity,
-      factorSid: this.factorSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      dateResponded: this.dateResponded,
-      expirationDate: this.expirationDate,
-      status: this.status,
-      respondedReason: this.respondedReason,
-      details: this.details,
-      hiddenDetails: this.hiddenDetails,
-      metadata: this.metadata,
-      factorType: this.factorType,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entitySid: this.entitySid,
+        identity: this.identity,
+        factorSid: this.factorSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        dateResponded: this.dateResponded,
+        expirationDate: this.expirationDate,
+        status: this.status,
+        respondedReason: this.respondedReason,
+        details: this.details,
+        hiddenDetails: this.hiddenDetails,
+        metadata: this.metadata,
+        factorType: this.factorType,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -241,7 +241,12 @@ export class AuthorizedConnectAppInstance {
     this.connectAppFriendlyName = payload.connect_app_friendly_name;
     this.connectAppHomepageUrl = payload.connect_app_homepage_url;
     this.connectAppSid = payload.connect_app_sid;
-    this.permissions = payload.permissions;
+    this.permissions =
+      payload.permissions !== null
+        ? payload.permissions.map(
+            (payload: any) => new AuthorizedConnectAppEnumPermission(payload)
+          )
+        : null;
     this.uri = payload.uri;
 
     this._solution = {
@@ -326,19 +331,23 @@ export class AuthorizedConnectAppInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      connectAppCompanyName: this.connectAppCompanyName,
-      connectAppDescription: this.connectAppDescription,
-      connectAppFriendlyName: this.connectAppFriendlyName,
-      connectAppHomepageUrl: this.connectAppHomepageUrl,
-      connectAppSid: this.connectAppSid,
-      permissions: this.permissions,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        connectAppCompanyName: this.connectAppCompanyName,
+        connectAppDescription: this.connectAppDescription,
+        connectAppFriendlyName: this.connectAppFriendlyName,
+        connectAppHomepageUrl: this.connectAppHomepageUrl,
+        connectAppSid: this.connectAppSid,
+        permissions: this.permissions,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

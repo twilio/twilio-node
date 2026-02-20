@@ -465,19 +465,23 @@ export class SentenceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      mediaChannel: this.mediaChannel,
-      sentenceIndex: this.sentenceIndex,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      transcript: this.transcript,
-      sid: this.sid,
-      confidence: this.confidence,
-      words: this.words,
-    };
+    return JSON.stringify(
+      {
+        mediaChannel: this.mediaChannel,
+        sentenceIndex: this.sentenceIndex,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        transcript: this.transcript,
+        sid: this.sid,
+        confidence: this.confidence,
+        words: this.words,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

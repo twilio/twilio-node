@@ -377,8 +377,14 @@ export class AnnotationInstance {
   ) {
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.answeredBy = payload.answered_by;
-    this.connectivityIssue = payload.connectivity_issue;
+    this.answeredBy =
+      payload.answered_by !== null
+        ? new AnnotationEnumAnsweredBy(payload.answered_by)
+        : null;
+    this.connectivityIssue =
+      payload.connectivity_issue !== null
+        ? new AnnotationEnumConnectivityIssue(payload.connectivity_issue)
+        : null;
     this.qualityIssues = payload.quality_issues;
     this.spam = payload.spam;
     this.callScore = deserialize.integer(payload.call_score);
@@ -529,21 +535,25 @@ export class AnnotationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      answeredBy: this.answeredBy,
-      connectivityIssue: this.connectivityIssue,
-      qualityIssues: this.qualityIssues,
-      spam: this.spam,
-      callScore: this.callScore,
-      comment: this.comment,
-      incident: this.incident,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        answeredBy: this.answeredBy,
+        connectivityIssue: this.connectivityIssue,
+        qualityIssues: this.qualityIssues,
+        spam: this.spam,
+        callScore: this.callScore,
+        comment: this.comment,
+        incident: this.incident,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

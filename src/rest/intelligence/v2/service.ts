@@ -518,7 +518,10 @@ export class ServiceInstance {
     this.uniqueName = payload.unique_name;
     this.url = payload.url;
     this.webhookUrl = payload.webhook_url;
-    this.webhookHttpMethod = payload.webhook_http_method;
+    this.webhookHttpMethod =
+      payload.webhook_http_method !== null
+        ? new ServiceEnumHttpMethod(payload.webhook_http_method)
+        : null;
     this.readOnlyAttachedOperatorSids =
       payload.read_only_attached_operator_sids;
     this.version = deserialize.integer(payload.version);
@@ -715,28 +718,32 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      autoRedaction: this.autoRedaction,
-      mediaRedaction: this.mediaRedaction,
-      autoTranscribe: this.autoTranscribe,
-      dataLogging: this.dataLogging,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      languageCode: this.languageCode,
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      url: this.url,
-      webhookUrl: this.webhookUrl,
-      webhookHttpMethod: this.webhookHttpMethod,
-      readOnlyAttachedOperatorSids: this.readOnlyAttachedOperatorSids,
-      version: this.version,
-      encryptionCredentialSid: this.encryptionCredentialSid,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        autoRedaction: this.autoRedaction,
+        mediaRedaction: this.mediaRedaction,
+        autoTranscribe: this.autoTranscribe,
+        dataLogging: this.dataLogging,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        languageCode: this.languageCode,
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        url: this.url,
+        webhookUrl: this.webhookUrl,
+        webhookHttpMethod: this.webhookHttpMethod,
+        readOnlyAttachedOperatorSids: this.readOnlyAttachedOperatorSids,
+        version: this.version,
+        encryptionCredentialSid: this.encryptionCredentialSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -481,7 +481,10 @@ export class SupportingDocumentInstance {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.mimeType = payload.mime_type;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new SupportingDocumentEnumStatus(payload.status)
+        : null;
     this.type = payload.type;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -663,21 +666,25 @@ export class SupportingDocumentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      mimeType: this.mimeType,
-      status: this.status,
-      type: this.type,
-      attributes: this.attributes,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        mimeType: this.mimeType,
+        status: this.status,
+        type: this.type,
+        attributes: this.attributes,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

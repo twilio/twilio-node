@@ -395,14 +395,25 @@ export class BrandRegistrationInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.brandType = payload.brand_type;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new BrandRegistrationsEnumStatus(payload.status)
+        : null;
     this.tcrId = payload.tcr_id;
     this.failureReason = payload.failure_reason;
     this.errors = payload.errors;
     this.url = payload.url;
     this.brandScore = deserialize.integer(payload.brand_score);
-    this.brandFeedback = payload.brand_feedback;
-    this.identityStatus = payload.identity_status;
+    this.brandFeedback =
+      payload.brand_feedback !== null
+        ? payload.brand_feedback.map(
+            (payload: any) => new BrandRegistrationsEnumBrandFeedback(payload)
+          )
+        : null;
+    this.identityStatus =
+      payload.identity_status !== null
+        ? new BrandRegistrationsEnumIdentityStatus(payload.identity_status)
+        : null;
     this.russell3000 = payload.russell_3000;
     this.governmentEntity = payload.government_entity;
     this.taxExemptStatus = payload.tax_exempt_status;
@@ -571,32 +582,36 @@ export class BrandRegistrationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      customerProfileBundleSid: this.customerProfileBundleSid,
-      a2pProfileBundleSid: this.a2pProfileBundleSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      brandType: this.brandType,
-      status: this.status,
-      tcrId: this.tcrId,
-      failureReason: this.failureReason,
-      errors: this.errors,
-      url: this.url,
-      brandScore: this.brandScore,
-      brandFeedback: this.brandFeedback,
-      identityStatus: this.identityStatus,
-      russell3000: this.russell3000,
-      governmentEntity: this.governmentEntity,
-      taxExemptStatus: this.taxExemptStatus,
-      skipAutomaticSecVet: this.skipAutomaticSecVet,
-      mock: this.mock,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        customerProfileBundleSid: this.customerProfileBundleSid,
+        a2pProfileBundleSid: this.a2pProfileBundleSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        brandType: this.brandType,
+        status: this.status,
+        tcrId: this.tcrId,
+        failureReason: this.failureReason,
+        errors: this.errors,
+        url: this.url,
+        brandScore: this.brandScore,
+        brandFeedback: this.brandFeedback,
+        identityStatus: this.identityStatus,
+        russell3000: this.russell3000,
+        governmentEntity: this.governmentEntity,
+        taxExemptStatus: this.taxExemptStatus,
+        skipAutomaticSecVet: this.skipAutomaticSecVet,
+        mock: this.mock,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

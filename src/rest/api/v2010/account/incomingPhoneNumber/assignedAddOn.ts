@@ -464,22 +464,26 @@ export class AssignedAddOnInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      resourceSid: this.resourceSid,
-      friendlyName: this.friendlyName,
-      description: this.description,
-      configuration: this.configuration,
-      uniqueName: this.uniqueName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      uri: this.uri,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        resourceSid: this.resourceSid,
+        friendlyName: this.friendlyName,
+        description: this.description,
+        configuration: this.configuration,
+        uniqueName: this.uniqueName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        uri: this.uri,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

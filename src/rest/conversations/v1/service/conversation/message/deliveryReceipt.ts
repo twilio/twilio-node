@@ -267,7 +267,12 @@ export class DeliveryReceiptInstance {
     this.sid = payload.sid;
     this.channelMessageSid = payload.channel_message_sid;
     this.participantSid = payload.participant_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new ServiceConversationMessageReceiptEnumDeliveryStatus(
+            payload.status
+          )
+        : null;
     this.errorCode = deserialize.integer(payload.error_code);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -372,23 +377,27 @@ export class DeliveryReceiptInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      conversationSid: this.conversationSid,
-      messageSid: this.messageSid,
-      sid: this.sid,
-      channelMessageSid: this.channelMessageSid,
-      participantSid: this.participantSid,
-      status: this.status,
-      errorCode: this.errorCode,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        conversationSid: this.conversationSid,
+        messageSid: this.messageSid,
+        sid: this.sid,
+        channelMessageSid: this.channelMessageSid,
+        participantSid: this.participantSid,
+        status: this.status,
+        errorCode: this.errorCode,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

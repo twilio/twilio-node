@@ -326,7 +326,8 @@ export class UserInstance {
     this.identity = payload.identity;
     this.friendlyName = payload.friendly_name;
     this.avatar = payload.avatar;
-    this.state = payload.state;
+    this.state =
+      payload.state !== null ? new UserEnumStateType(payload.state) : null;
     this.isAvailable = payload.is_available;
     this.url = payload.url;
 
@@ -454,18 +455,22 @@ export class UserInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      identity: this.identity,
-      friendlyName: this.friendlyName,
-      avatar: this.avatar,
-      state: this.state,
-      isAvailable: this.isAvailable,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        identity: this.identity,
+        friendlyName: this.friendlyName,
+        avatar: this.avatar,
+        state: this.state,
+        isAvailable: this.isAvailable,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

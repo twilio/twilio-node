@@ -334,7 +334,10 @@ export class AddOnResultInstance {
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new RecordingAddOnResultEnumStatus(payload.status)
+        : null;
     this.addOnSid = payload.add_on_sid;
     this.addOnConfigurationSid = payload.add_on_configuration_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -461,21 +464,25 @@ export class AddOnResultInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      status: this.status,
-      addOnSid: this.addOnSid,
-      addOnConfigurationSid: this.addOnConfigurationSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      dateCompleted: this.dateCompleted,
-      referenceSid: this.referenceSid,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        status: this.status,
+        addOnSid: this.addOnSid,
+        addOnConfigurationSid: this.addOnConfigurationSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        dateCompleted: this.dateCompleted,
+        referenceSid: this.referenceSid,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -444,23 +444,27 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      activityDurations: this.activityDurations,
-      reservationsCreated: this.reservationsCreated,
-      reservationsAccepted: this.reservationsAccepted,
-      reservationsRejected: this.reservationsRejected,
-      reservationsTimedOut: this.reservationsTimedOut,
-      reservationsCanceled: this.reservationsCanceled,
-      reservationsRescinded: this.reservationsRescinded,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        activityDurations: this.activityDurations,
+        reservationsCreated: this.reservationsCreated,
+        reservationsAccepted: this.reservationsAccepted,
+        reservationsRejected: this.reservationsRejected,
+        reservationsTimedOut: this.reservationsTimedOut,
+        reservationsCanceled: this.reservationsCanceled,
+        reservationsRescinded: this.reservationsRescinded,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

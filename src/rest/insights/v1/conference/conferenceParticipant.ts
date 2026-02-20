@@ -387,10 +387,16 @@ export class ConferenceParticipantInstance {
     this.conferenceSid = payload.conference_sid;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
-    this.callDirection = payload.call_direction;
+    this.callDirection =
+      payload.call_direction !== null
+        ? new ConferenceParticipantEnumCallDirection(payload.call_direction)
+        : null;
     this.from = payload.from;
     this.to = payload.to;
-    this.callStatus = payload.call_status;
+    this.callStatus =
+      payload.call_status !== null
+        ? new ConferenceParticipantEnumCallStatus(payload.call_status)
+        : null;
     this.countryCode = payload.country_code;
     this.isModerator = payload.is_moderator;
     this.joinTime = deserialize.iso8601DateTime(payload.join_time);
@@ -402,13 +408,30 @@ export class ConferenceParticipantInstance {
     this.outboundTimeInQueue = deserialize.integer(
       payload.outbound_time_in_queue
     );
-    this.jitterBufferSize = payload.jitter_buffer_size;
+    this.jitterBufferSize =
+      payload.jitter_buffer_size !== null
+        ? new ConferenceParticipantEnumJitterBufferSize(
+            payload.jitter_buffer_size
+          )
+        : null;
     this.isCoach = payload.is_coach;
     this.coachedParticipants = payload.coached_participants;
-    this.participantRegion = payload.participant_region;
-    this.conferenceRegion = payload.conference_region;
-    this.callType = payload.call_type;
-    this.processingState = payload.processing_state;
+    this.participantRegion =
+      payload.participant_region !== null
+        ? new ConferenceParticipantEnumRegion(payload.participant_region)
+        : null;
+    this.conferenceRegion =
+      payload.conference_region !== null
+        ? new ConferenceParticipantEnumRegion(payload.conference_region)
+        : null;
+    this.callType =
+      payload.call_type !== null
+        ? new ConferenceParticipantEnumCallType(payload.call_type)
+        : null;
+    this.processingState =
+      payload.processing_state !== null
+        ? new ConferenceParticipantEnumProcessingState(payload.processing_state)
+        : null;
     this.properties = payload.properties;
     this.events = payload.events;
     this.metrics = payload.metrics;
@@ -600,38 +623,42 @@ export class ConferenceParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      participantSid: this.participantSid,
-      label: this.label,
-      conferenceSid: this.conferenceSid,
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      callDirection: this.callDirection,
-      from: this.from,
-      to: this.to,
-      callStatus: this.callStatus,
-      countryCode: this.countryCode,
-      isModerator: this.isModerator,
-      joinTime: this.joinTime,
-      leaveTime: this.leaveTime,
-      durationSeconds: this.durationSeconds,
-      outboundQueueLength: this.outboundQueueLength,
-      outboundTimeInQueue: this.outboundTimeInQueue,
-      jitterBufferSize: this.jitterBufferSize,
-      isCoach: this.isCoach,
-      coachedParticipants: this.coachedParticipants,
-      participantRegion: this.participantRegion,
-      conferenceRegion: this.conferenceRegion,
-      callType: this.callType,
-      processingState: this.processingState,
-      properties: this.properties,
-      events: this.events,
-      metrics: this.metrics,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        participantSid: this.participantSid,
+        label: this.label,
+        conferenceSid: this.conferenceSid,
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        callDirection: this.callDirection,
+        from: this.from,
+        to: this.to,
+        callStatus: this.callStatus,
+        countryCode: this.countryCode,
+        isModerator: this.isModerator,
+        joinTime: this.joinTime,
+        leaveTime: this.leaveTime,
+        durationSeconds: this.durationSeconds,
+        outboundQueueLength: this.outboundQueueLength,
+        outboundTimeInQueue: this.outboundTimeInQueue,
+        jitterBufferSize: this.jitterBufferSize,
+        isCoach: this.isCoach,
+        coachedParticipants: this.coachedParticipants,
+        participantRegion: this.participantRegion,
+        conferenceRegion: this.conferenceRegion,
+        callType: this.callType,
+        processingState: this.processingState,
+        properties: this.properties,
+        events: this.events,
+        metrics: this.metrics,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -434,7 +434,8 @@ export class SimInstance {
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
     this.iccid = payload.iccid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new SimEnumStatus(payload.status) : null;
     this.fleetSid = payload.fleet_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -588,21 +589,25 @@ export class SimInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      iccid: this.iccid,
-      status: this.status,
-      fleetSid: this.fleetSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        iccid: this.iccid,
+        status: this.status,
+        fleetSid: this.fleetSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

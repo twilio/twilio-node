@@ -741,7 +741,12 @@ export class MobileInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;
-    this.addressRequirements = payload.address_requirements;
+    this.addressRequirements =
+      payload.address_requirements !== null
+        ? new IncomingPhoneNumberMobileEnumAddressRequirement(
+            payload.address_requirements
+          )
+        : null;
     this.apiVersion = payload.api_version;
     this.beta = payload.beta;
     this.capabilities = payload.capabilities;
@@ -761,16 +766,31 @@ export class MobileInstance {
     this.statusCallbackMethod = payload.status_callback_method;
     this.trunkSid = payload.trunk_sid;
     this.uri = payload.uri;
-    this.voiceReceiveMode = payload.voice_receive_mode;
+    this.voiceReceiveMode =
+      payload.voice_receive_mode !== null
+        ? new IncomingPhoneNumberMobileEnumVoiceReceiveMode(
+            payload.voice_receive_mode
+          )
+        : null;
     this.voiceApplicationSid = payload.voice_application_sid;
     this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
     this.voiceFallbackMethod = payload.voice_fallback_method;
     this.voiceFallbackUrl = payload.voice_fallback_url;
     this.voiceMethod = payload.voice_method;
     this.voiceUrl = payload.voice_url;
-    this.emergencyStatus = payload.emergency_status;
+    this.emergencyStatus =
+      payload.emergency_status !== null
+        ? new IncomingPhoneNumberMobileEnumEmergencyStatus(
+            payload.emergency_status
+          )
+        : null;
     this.emergencyAddressSid = payload.emergency_address_sid;
-    this.emergencyAddressStatus = payload.emergency_address_status;
+    this.emergencyAddressStatus =
+      payload.emergency_address_status !== null
+        ? new IncomingPhoneNumberMobileEnumEmergencyAddressStatus(
+            payload.emergency_address_status
+          )
+        : null;
     this.bundleSid = payload.bundle_sid;
     this.status = payload.status;
   }
@@ -897,45 +917,49 @@ export class MobileInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      addressSid: this.addressSid,
-      addressRequirements: this.addressRequirements,
-      apiVersion: this.apiVersion,
-      beta: this.beta,
-      capabilities: this.capabilities,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      identitySid: this.identitySid,
-      phoneNumber: this.phoneNumber,
-      origin: this.origin,
-      sid: this.sid,
-      smsApplicationSid: this.smsApplicationSid,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      trunkSid: this.trunkSid,
-      uri: this.uri,
-      voiceReceiveMode: this.voiceReceiveMode,
-      voiceApplicationSid: this.voiceApplicationSid,
-      voiceCallerIdLookup: this.voiceCallerIdLookup,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceUrl: this.voiceUrl,
-      emergencyStatus: this.emergencyStatus,
-      emergencyAddressSid: this.emergencyAddressSid,
-      emergencyAddressStatus: this.emergencyAddressStatus,
-      bundleSid: this.bundleSid,
-      status: this.status,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        addressSid: this.addressSid,
+        addressRequirements: this.addressRequirements,
+        apiVersion: this.apiVersion,
+        beta: this.beta,
+        capabilities: this.capabilities,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        identitySid: this.identitySid,
+        phoneNumber: this.phoneNumber,
+        origin: this.origin,
+        sid: this.sid,
+        smsApplicationSid: this.smsApplicationSid,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        trunkSid: this.trunkSid,
+        uri: this.uri,
+        voiceReceiveMode: this.voiceReceiveMode,
+        voiceApplicationSid: this.voiceApplicationSid,
+        voiceCallerIdLookup: this.voiceCallerIdLookup,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceUrl: this.voiceUrl,
+        emergencyStatus: this.emergencyStatus,
+        emergencyAddressSid: this.emergencyAddressSid,
+        emergencyAddressStatus: this.emergencyAddressStatus,
+        bundleSid: this.bundleSid,
+        status: this.status,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

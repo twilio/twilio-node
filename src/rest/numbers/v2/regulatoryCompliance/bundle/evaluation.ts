@@ -230,7 +230,8 @@ export class EvaluationInstance {
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
     this.bundleSid = payload.bundle_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new EvaluationEnumStatus(payload.status) : null;
     this.results = payload.results;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
@@ -305,19 +306,23 @@ export class EvaluationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      regulationSid: this.regulationSid,
-      bundleSid: this.bundleSid,
-      status: this.status,
-      results: this.results,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        regulationSid: this.regulationSid,
+        bundleSid: this.bundleSid,
+        status: this.status,
+        results: this.results,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

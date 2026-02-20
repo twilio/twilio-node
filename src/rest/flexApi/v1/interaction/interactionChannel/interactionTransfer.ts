@@ -405,8 +405,14 @@ export class InteractionTransferInstance {
     this.interactionSid = payload.interaction_sid;
     this.channelSid = payload.channel_sid;
     this.executionSid = payload.execution_sid;
-    this.type = payload.type;
-    this.status = payload.status;
+    this.type =
+      payload.type !== null
+        ? new InteractionTransferEnumTransferType(payload.type)
+        : null;
+    this.status =
+      payload.status !== null
+        ? new InteractionTransferEnumTransferStatus(payload.status)
+        : null;
     this.from = payload.from;
     this.to = payload.to;
     this.noteSid = payload.note_sid;
@@ -587,26 +593,30 @@ export class InteractionTransferInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      instanceSid: this.instanceSid,
-      accountSid: this.accountSid,
-      interactionSid: this.interactionSid,
-      channelSid: this.channelSid,
-      executionSid: this.executionSid,
-      type: this.type,
-      status: this.status,
-      from: this.from,
-      to: this.to,
-      noteSid: this.noteSid,
-      summarySid: this.summarySid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        instanceSid: this.instanceSid,
+        accountSid: this.accountSid,
+        interactionSid: this.interactionSid,
+        channelSid: this.channelSid,
+        executionSid: this.executionSid,
+        type: this.type,
+        status: this.status,
+        from: this.from,
+        to: this.to,
+        noteSid: this.noteSid,
+        summarySid: this.summarySid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

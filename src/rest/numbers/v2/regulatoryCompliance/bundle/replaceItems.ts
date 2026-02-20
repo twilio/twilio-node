@@ -240,7 +240,10 @@ export class ReplaceItemsInstance {
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
     this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new ReplaceItemsEnumStatus(payload.status)
+        : null;
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
     this.email = payload.email;
     this.statusCallback = payload.status_callback;
@@ -289,21 +292,25 @@ export class ReplaceItemsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      regulationSid: this.regulationSid,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      validUntil: this.validUntil,
-      email: this.email,
-      statusCallback: this.statusCallback,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        regulationSid: this.regulationSid,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        validUntil: this.validUntil,
+        email: this.email,
+        statusCallback: this.statusCallback,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

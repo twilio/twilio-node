@@ -532,26 +532,30 @@ export class YesterdayInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      asOf: this.asOf,
-      category: this.category,
-      count: this.count,
-      countUnit: this.countUnit,
-      description: this.description,
-      endDate: this.endDate,
-      price: this.price,
-      priceUnit: this.priceUnit,
-      startDate: this.startDate,
-      subresourceUris: this.subresourceUris,
-      uri: this.uri,
-      usage: this.usage,
-      usageUnit: this.usageUnit,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        asOf: this.asOf,
+        category: this.category,
+        count: this.count,
+        countUnit: this.countUnit,
+        description: this.description,
+        endDate: this.endDate,
+        price: this.price,
+        priceUnit: this.priceUnit,
+        startDate: this.startDate,
+        subresourceUris: this.subresourceUris,
+        uri: this.uri,
+        usage: this.usage,
+        usageUnit: this.usageUnit,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -285,17 +285,21 @@ export class DayInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      redirectTo: this.redirectTo,
-      day: this.day,
-      size: this.size,
-      createDate: this.createDate,
-      friendlyName: this.friendlyName,
-      resourceType: this.resourceType,
-    };
+    return JSON.stringify(
+      {
+        redirectTo: this.redirectTo,
+        day: this.day,
+        size: this.size,
+        createDate: this.createDate,
+        friendlyName: this.friendlyName,
+        resourceType: this.resourceType,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

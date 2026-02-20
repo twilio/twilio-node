@@ -873,39 +873,43 @@ export class UsAppToPersonInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      brandRegistrationSid: this.brandRegistrationSid,
-      messagingServiceSid: this.messagingServiceSid,
-      description: this.description,
-      messageSamples: this.messageSamples,
-      usAppToPersonUsecase: this.usAppToPersonUsecase,
-      hasEmbeddedLinks: this.hasEmbeddedLinks,
-      hasEmbeddedPhone: this.hasEmbeddedPhone,
-      subscriberOptIn: this.subscriberOptIn,
-      ageGated: this.ageGated,
-      directLending: this.directLending,
-      campaignStatus: this.campaignStatus,
-      campaignId: this.campaignId,
-      isExternallyRegistered: this.isExternallyRegistered,
-      rateLimits: this.rateLimits,
-      messageFlow: this.messageFlow,
-      optInMessage: this.optInMessage,
-      optOutMessage: this.optOutMessage,
-      helpMessage: this.helpMessage,
-      optInKeywords: this.optInKeywords,
-      optOutKeywords: this.optOutKeywords,
-      helpKeywords: this.helpKeywords,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      mock: this.mock,
-      errors: this.errors,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        brandRegistrationSid: this.brandRegistrationSid,
+        messagingServiceSid: this.messagingServiceSid,
+        description: this.description,
+        messageSamples: this.messageSamples,
+        usAppToPersonUsecase: this.usAppToPersonUsecase,
+        hasEmbeddedLinks: this.hasEmbeddedLinks,
+        hasEmbeddedPhone: this.hasEmbeddedPhone,
+        subscriberOptIn: this.subscriberOptIn,
+        ageGated: this.ageGated,
+        directLending: this.directLending,
+        campaignStatus: this.campaignStatus,
+        campaignId: this.campaignId,
+        isExternallyRegistered: this.isExternallyRegistered,
+        rateLimits: this.rateLimits,
+        messageFlow: this.messageFlow,
+        optInMessage: this.optInMessage,
+        optOutMessage: this.optOutMessage,
+        helpMessage: this.helpMessage,
+        optInKeywords: this.optInKeywords,
+        optOutKeywords: this.optOutKeywords,
+        helpKeywords: this.helpKeywords,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        mock: this.mock,
+        errors: this.errors,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

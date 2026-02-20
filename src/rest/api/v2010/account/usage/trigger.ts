@@ -510,9 +510,15 @@ export class TriggerInstance {
     this.dateFired = deserialize.rfc2822DateTime(payload.date_fired);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.friendlyName = payload.friendly_name;
-    this.recurring = payload.recurring;
+    this.recurring =
+      payload.recurring !== null
+        ? new UsageTriggerEnumRecurring(payload.recurring)
+        : null;
     this.sid = payload.sid;
-    this.triggerBy = payload.trigger_by;
+    this.triggerBy =
+      payload.trigger_by !== null
+        ? new UsageTriggerEnumTriggerField(payload.trigger_by)
+        : null;
     this.triggerValue = payload.trigger_value;
     this.uri = payload.uri;
     this.usageCategory = payload.usage_category;
@@ -706,27 +712,31 @@ export class TriggerInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      callbackMethod: this.callbackMethod,
-      callbackUrl: this.callbackUrl,
-      currentValue: this.currentValue,
-      dateCreated: this.dateCreated,
-      dateFired: this.dateFired,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      recurring: this.recurring,
-      sid: this.sid,
-      triggerBy: this.triggerBy,
-      triggerValue: this.triggerValue,
-      uri: this.uri,
-      usageCategory: this.usageCategory,
-      usageRecordUri: this.usageRecordUri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        callbackMethod: this.callbackMethod,
+        callbackUrl: this.callbackUrl,
+        currentValue: this.currentValue,
+        dateCreated: this.dateCreated,
+        dateFired: this.dateFired,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        recurring: this.recurring,
+        sid: this.sid,
+        triggerBy: this.triggerBy,
+        triggerValue: this.triggerValue,
+        uri: this.uri,
+        usageCategory: this.usageCategory,
+        usageRecordUri: this.usageRecordUri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -1055,32 +1055,36 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      codeLength: this.codeLength,
-      lookupEnabled: this.lookupEnabled,
-      psd2Enabled: this.psd2Enabled,
-      skipSmsToLandlines: this.skipSmsToLandlines,
-      dtmfInputRequired: this.dtmfInputRequired,
-      ttsName: this.ttsName,
-      doNotShareWarningEnabled: this.doNotShareWarningEnabled,
-      customCodeEnabled: this.customCodeEnabled,
-      push: this.push,
-      totp: this.totp,
-      defaultTemplateSid: this.defaultTemplateSid,
-      whatsapp: this.whatsapp,
-      passkeys: this.passkeys,
-      verifyEventSubscriptionEnabled: this.verifyEventSubscriptionEnabled,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        codeLength: this.codeLength,
+        lookupEnabled: this.lookupEnabled,
+        psd2Enabled: this.psd2Enabled,
+        skipSmsToLandlines: this.skipSmsToLandlines,
+        dtmfInputRequired: this.dtmfInputRequired,
+        ttsName: this.ttsName,
+        doNotShareWarningEnabled: this.doNotShareWarningEnabled,
+        customCodeEnabled: this.customCodeEnabled,
+        push: this.push,
+        totp: this.totp,
+        defaultTemplateSid: this.defaultTemplateSid,
+        whatsapp: this.whatsapp,
+        passkeys: this.passkeys,
+        verifyEventSubscriptionEnabled: this.verifyEventSubscriptionEnabled,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

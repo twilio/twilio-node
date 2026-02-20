@@ -341,11 +341,21 @@ export class CommandInstance {
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
     this.command = payload.command;
-    this.commandMode = payload.command_mode;
-    this.transport = payload.transport;
+    this.commandMode =
+      payload.command_mode !== null
+        ? new CommandEnumCommandMode(payload.command_mode)
+        : null;
+    this.transport =
+      payload.transport !== null
+        ? new CommandEnumTransport(payload.transport)
+        : null;
     this.deliveryReceiptRequested = payload.delivery_receipt_requested;
-    this.status = payload.status;
-    this.direction = payload.direction;
+    this.status =
+      payload.status !== null ? new CommandEnumStatus(payload.status) : null;
+    this.direction =
+      payload.direction !== null
+        ? new CommandEnumDirection(payload.direction)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -452,23 +462,27 @@ export class CommandInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      simSid: this.simSid,
-      command: this.command,
-      commandMode: this.commandMode,
-      transport: this.transport,
-      deliveryReceiptRequested: this.deliveryReceiptRequested,
-      status: this.status,
-      direction: this.direction,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        simSid: this.simSid,
+        command: this.command,
+        commandMode: this.commandMode,
+        transport: this.transport,
+        deliveryReceiptRequested: this.deliveryReceiptRequested,
+        status: this.status,
+        direction: this.direction,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

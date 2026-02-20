@@ -499,18 +499,22 @@ export class InteractionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      channel: this.channel,
-      routing: this.routing,
-      url: this.url,
-      links: this.links,
-      interactionContextSid: this.interactionContextSid,
-      webhookTtid: this.webhookTtid,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        channel: this.channel,
+        routing: this.routing,
+        url: this.url,
+        links: this.links,
+        interactionContextSid: this.interactionContextSid,
+        webhookTtid: this.webhookTtid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

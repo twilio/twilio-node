@@ -309,7 +309,10 @@ export class InteractionChannelParticipantInstance {
     sid?: string
   ) {
     this.sid = payload.sid;
-    this.type = payload.type;
+    this.type =
+      payload.type !== null
+        ? new InteractionChannelParticipantEnumType(payload.type)
+        : null;
     this.interactionSid = payload.interaction_sid;
     this.channelSid = payload.channel_sid;
     this.url = payload.url;
@@ -404,17 +407,21 @@ export class InteractionChannelParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      type: this.type,
-      interactionSid: this.interactionSid,
-      channelSid: this.channelSid,
-      url: this.url,
-      routingProperties: this.routingProperties,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        type: this.type,
+        interactionSid: this.interactionSid,
+        channelSid: this.channelSid,
+        url: this.url,
+        routingProperties: this.routingProperties,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

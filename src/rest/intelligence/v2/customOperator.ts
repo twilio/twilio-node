@@ -486,7 +486,10 @@ export class CustomOperatorInstance {
     this.author = payload.author;
     this.operatorType = payload.operator_type;
     this.version = deserialize.integer(payload.version);
-    this.availability = payload.availability;
+    this.availability =
+      payload.availability !== null
+        ? new CustomOperatorEnumAvailability(payload.availability)
+        : null;
     this.config = payload.config;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -652,23 +655,27 @@ export class CustomOperatorInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      description: this.description,
-      author: this.author,
-      operatorType: this.operatorType,
-      version: this.version,
-      availability: this.availability,
-      config: this.config,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        description: this.description,
+        author: this.author,
+        operatorType: this.operatorType,
+        version: this.version,
+        availability: this.availability,
+        config: this.config,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

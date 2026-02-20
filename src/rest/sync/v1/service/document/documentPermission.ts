@@ -634,19 +634,23 @@ export class DocumentPermissionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      documentSid: this.documentSid,
-      identity: this.identity,
-      read: this.read,
-      write: this.write,
-      manage: this.manage,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        documentSid: this.documentSid,
+        identity: this.identity,
+        read: this.read,
+        write: this.write,
+        manage: this.manage,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -303,12 +303,24 @@ export class RoomInstance {
     this.roomName = payload.room_name;
     this.createTime = deserialize.iso8601DateTime(payload.create_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
-    this.roomType = payload.room_type;
-    this.roomStatus = payload.room_status;
+    this.roomType =
+      payload.room_type !== null
+        ? new VideoRoomSummaryEnumRoomType(payload.room_type)
+        : null;
+    this.roomStatus =
+      payload.room_status !== null
+        ? new VideoRoomSummaryEnumRoomStatus(payload.room_status)
+        : null;
     this.statusCallback = payload.status_callback;
     this.statusCallbackMethod = payload.status_callback_method;
-    this.createdMethod = payload.created_method;
-    this.endReason = payload.end_reason;
+    this.createdMethod =
+      payload.created_method !== null
+        ? new VideoRoomSummaryEnumCreatedMethod(payload.created_method)
+        : null;
+    this.endReason =
+      payload.end_reason !== null
+        ? new VideoRoomSummaryEnumEndReason(payload.end_reason)
+        : null;
     this.maxParticipants = deserialize.integer(payload.max_participants);
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
     this.uniqueParticipantIdentities = deserialize.integer(
@@ -320,14 +332,28 @@ export class RoomInstance {
     this.maxConcurrentParticipants = deserialize.integer(
       payload.max_concurrent_participants
     );
-    this.codecs = payload.codecs;
-    this.mediaRegion = payload.media_region;
+    this.codecs =
+      payload.codecs !== null
+        ? payload.codecs.map(
+            (payload: any) => new VideoRoomSummaryEnumCodec(payload)
+          )
+        : null;
+    this.mediaRegion =
+      payload.media_region !== null
+        ? new VideoRoomSummaryEnumTwilioRealm(payload.media_region)
+        : null;
     this.durationSec = payload.duration_sec;
     this.totalParticipantDurationSec = payload.total_participant_duration_sec;
     this.totalRecordingDurationSec = payload.total_recording_duration_sec;
-    this.processingState = payload.processing_state;
+    this.processingState =
+      payload.processing_state !== null
+        ? new VideoRoomSummaryEnumProcessingState(payload.processing_state)
+        : null;
     this.recordingEnabled = payload.recording_enabled;
-    this.edgeLocation = payload.edge_location;
+    this.edgeLocation =
+      payload.edge_location !== null
+        ? new VideoRoomSummaryEnumEdgeLocation(payload.edge_location)
+        : null;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -461,37 +487,41 @@ export class RoomInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      roomSid: this.roomSid,
-      roomName: this.roomName,
-      createTime: this.createTime,
-      endTime: this.endTime,
-      roomType: this.roomType,
-      roomStatus: this.roomStatus,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      createdMethod: this.createdMethod,
-      endReason: this.endReason,
-      maxParticipants: this.maxParticipants,
-      uniqueParticipants: this.uniqueParticipants,
-      uniqueParticipantIdentities: this.uniqueParticipantIdentities,
-      concurrentParticipants: this.concurrentParticipants,
-      maxConcurrentParticipants: this.maxConcurrentParticipants,
-      codecs: this.codecs,
-      mediaRegion: this.mediaRegion,
-      durationSec: this.durationSec,
-      totalParticipantDurationSec: this.totalParticipantDurationSec,
-      totalRecordingDurationSec: this.totalRecordingDurationSec,
-      processingState: this.processingState,
-      recordingEnabled: this.recordingEnabled,
-      edgeLocation: this.edgeLocation,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        roomSid: this.roomSid,
+        roomName: this.roomName,
+        createTime: this.createTime,
+        endTime: this.endTime,
+        roomType: this.roomType,
+        roomStatus: this.roomStatus,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        createdMethod: this.createdMethod,
+        endReason: this.endReason,
+        maxParticipants: this.maxParticipants,
+        uniqueParticipants: this.uniqueParticipants,
+        uniqueParticipantIdentities: this.uniqueParticipantIdentities,
+        concurrentParticipants: this.concurrentParticipants,
+        maxConcurrentParticipants: this.maxConcurrentParticipants,
+        codecs: this.codecs,
+        mediaRegion: this.mediaRegion,
+        durationSec: this.durationSec,
+        totalParticipantDurationSec: this.totalParticipantDurationSec,
+        totalRecordingDurationSec: this.totalRecordingDurationSec,
+        processingState: this.processingState,
+        recordingEnabled: this.recordingEnabled,
+        edgeLocation: this.edgeLocation,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

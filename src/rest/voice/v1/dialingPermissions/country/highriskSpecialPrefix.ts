@@ -457,12 +457,16 @@ export class HighriskSpecialPrefixInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      prefix: this.prefix,
-    };
+    return JSON.stringify(
+      {
+        prefix: this.prefix,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

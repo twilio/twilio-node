@@ -160,13 +160,13 @@ export interface CallListInstanceEachOptions {
   parentCallSid?: string;
   /** The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`. */
   status?: CallStatus;
-  /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date. */
+  /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. */
   startTime?: Date;
   /** Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date. */
   startTimeBefore?: Date;
   /** Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date. */
   startTimeAfter?: Date;
-  /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date. */
+  /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. */
   endTime?: Date;
   /** Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date. */
   endTimeBefore?: Date;
@@ -194,13 +194,13 @@ export interface CallListInstanceOptions {
   parentCallSid?: string;
   /** The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`. */
   status?: CallStatus;
-  /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date. */
+  /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. */
   startTime?: Date;
   /** Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date. */
   startTimeBefore?: Date;
   /** Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date. */
   startTimeAfter?: Date;
-  /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date. */
+  /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. */
   endTime?: Date;
   /** Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date. */
   endTimeBefore?: Date;
@@ -224,13 +224,13 @@ export interface CallListInstancePageOptions {
   parentCallSid?: string;
   /** The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`. */
   status?: CallStatus;
-  /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date. */
+  /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. */
   startTime?: Date;
   /** Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date. */
   startTimeBefore?: Date;
   /** Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date. */
   startTimeAfter?: Date;
-  /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date. */
+  /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. */
   endTime?: Date;
   /** Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date. */
   endTimeBefore?: Date;
@@ -785,7 +785,8 @@ export class CallInstance {
     this.from = payload.from;
     this.fromFormatted = payload.from_formatted;
     this.phoneNumberSid = payload.phone_number_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new CallEnumStatus(payload.status) : null;
     this.startTime = deserialize.rfc2822DateTime(payload.start_time);
     this.endTime = deserialize.rfc2822DateTime(payload.end_time);
     this.duration = payload.duration;
@@ -1096,37 +1097,41 @@ export class CallInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      parentCallSid: this.parentCallSid,
-      accountSid: this.accountSid,
-      to: this.to,
-      toFormatted: this.toFormatted,
-      from: this.from,
-      fromFormatted: this.fromFormatted,
-      phoneNumberSid: this.phoneNumberSid,
-      status: this.status,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      price: this.price,
-      priceUnit: this.priceUnit,
-      direction: this.direction,
-      answeredBy: this.answeredBy,
-      apiVersion: this.apiVersion,
-      forwardedFrom: this.forwardedFrom,
-      groupSid: this.groupSid,
-      callerName: this.callerName,
-      queueTime: this.queueTime,
-      trunkSid: this.trunkSid,
-      uri: this.uri,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        parentCallSid: this.parentCallSid,
+        accountSid: this.accountSid,
+        to: this.to,
+        toFormatted: this.toFormatted,
+        from: this.from,
+        fromFormatted: this.fromFormatted,
+        phoneNumberSid: this.phoneNumberSid,
+        status: this.status,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        price: this.price,
+        priceUnit: this.priceUnit,
+        direction: this.direction,
+        answeredBy: this.answeredBy,
+        apiVersion: this.apiVersion,
+        forwardedFrom: this.forwardedFrom,
+        groupSid: this.groupSid,
+        callerName: this.callerName,
+        queueTime: this.queueTime,
+        trunkSid: this.trunkSid,
+        uri: this.uri,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

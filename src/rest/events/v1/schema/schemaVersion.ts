@@ -288,16 +288,20 @@ export class SchemaVersionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      id: this.id,
-      schemaVersion: this.schemaVersion,
-      dateCreated: this.dateCreated,
-      url: this.url,
-      raw: this.raw,
-    };
+    return JSON.stringify(
+      {
+        id: this.id,
+        schemaVersion: this.schemaVersion,
+        dateCreated: this.dateCreated,
+        url: this.url,
+        raw: this.raw,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

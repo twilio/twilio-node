@@ -33,6 +33,8 @@ export type TranscriptionsStatus = "started" | "stopped" | "failed";
 export interface TranscriptionsContextUpdateOptions {
   /**  */
   status?: TranscriptionsStatus;
+  /** A collection of properties that describe transcription behaviour. */
+  configuration?: object;
 }
 
 /**
@@ -273,6 +275,8 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     let data: any = {};
 
     if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -326,6 +330,8 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     let data: any = {};
 
     if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -407,7 +413,10 @@ export class TranscriptionsInstance {
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
     this.sourceSid = payload.source_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new RoomTranscriptionsEnumStatus(payload.status)
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
@@ -577,23 +586,27 @@ export class TranscriptionsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      ttid: this.ttid,
-      accountSid: this.accountSid,
-      roomSid: this.roomSid,
-      sourceSid: this.sourceSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      url: this.url,
-      configuration: this.configuration,
-    };
+    return JSON.stringify(
+      {
+        ttid: this.ttid,
+        accountSid: this.accountSid,
+        roomSid: this.roomSid,
+        sourceSid: this.sourceSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        url: this.url,
+        configuration: this.configuration,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

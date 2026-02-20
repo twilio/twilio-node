@@ -517,13 +517,21 @@ export class UserConversationInstance {
     this.participantSid = payload.participant_sid;
     this.userSid = payload.user_sid;
     this.friendlyName = payload.friendly_name;
-    this.conversationState = payload.conversation_state;
+    this.conversationState =
+      payload.conversation_state !== null
+        ? new ServiceUserConversationEnumState(payload.conversation_state)
+        : null;
     this.timers = payload.timers;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
-    this.notificationLevel = payload.notification_level;
+    this.notificationLevel =
+      payload.notification_level !== null
+        ? new ServiceUserConversationEnumNotificationLevel(
+            payload.notification_level
+          )
+        : null;
     this.uniqueName = payload.unique_name;
     this.url = payload.url;
     this.links = payload.links;
@@ -738,29 +746,33 @@ export class UserConversationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      conversationSid: this.conversationSid,
-      unreadMessagesCount: this.unreadMessagesCount,
-      lastReadMessageIndex: this.lastReadMessageIndex,
-      participantSid: this.participantSid,
-      userSid: this.userSid,
-      friendlyName: this.friendlyName,
-      conversationState: this.conversationState,
-      timers: this.timers,
-      attributes: this.attributes,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      createdBy: this.createdBy,
-      notificationLevel: this.notificationLevel,
-      uniqueName: this.uniqueName,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        conversationSid: this.conversationSid,
+        unreadMessagesCount: this.unreadMessagesCount,
+        lastReadMessageIndex: this.lastReadMessageIndex,
+        participantSid: this.participantSid,
+        userSid: this.userSid,
+        friendlyName: this.friendlyName,
+        conversationState: this.conversationState,
+        timers: this.timers,
+        attributes: this.attributes,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        createdBy: this.createdBy,
+        notificationLevel: this.notificationLevel,
+        uniqueName: this.uniqueName,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

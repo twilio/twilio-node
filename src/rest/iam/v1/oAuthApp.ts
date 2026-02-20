@@ -27,6 +27,16 @@ export class IamV1AccountVendorOauthAppCreateRequest {
   "clientSid"?: string | null;
   "policy"?: IamV1OrganizationVendoroauthappPolicy;
   "accessTokenTtl"?: number;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.friendlyName = payload["friendly_name"];
+    this.ownerSid = payload["owner_sid"];
+    this.description = payload["description"];
+    this.clientSid = payload["client_sid"];
+    this.policy = payload["policy"];
+    this.accessTokenTtl = payload["access_token_ttl"];
+  }
 }
 
 export class IamV1AccountVendorOauthAppUpdateRequest {
@@ -35,6 +45,14 @@ export class IamV1AccountVendorOauthAppUpdateRequest {
   "description"?: string | null;
   "policy"?: IamV1OrganizationVendorOauthAppUpdateRequestPolicy | null;
   "accessTokenTtl"?: number | null;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.friendlyName = payload["friendly_name"];
+    this.description = payload["description"];
+    this.policy = payload["policy"];
+    this.accessTokenTtl = payload["access_token_ttl"];
+  }
 }
 
 export class IamV1OrganizationVendorOauthAppUpdateRequestPolicy {
@@ -46,6 +64,11 @@ export class IamV1OrganizationVendorOauthAppUpdateRequestPolicy {
    * Set of permissions explicitly denied
    */
   "deny"?: Array<string>;
+
+  constructor(payload) {
+    this.allow = payload["allow"];
+    this.deny = payload["deny"];
+  }
 }
 
 export class IamV1OrganizationVendoroauthappPolicy {
@@ -57,6 +80,11 @@ export class IamV1OrganizationVendoroauthappPolicy {
    * Set of permissions explicitly denied
    */
   "deny"?: Array<string>;
+
+  constructor(payload) {
+    this.allow = payload["allow"];
+    this.deny = payload["deny"];
+  }
 }
 
 /**
@@ -336,7 +364,10 @@ export class OAuthAppInstance {
     this.createdBy = payload.created_by;
     this.secret = payload.secret;
     this.status = payload.status;
-    this.policy = payload.policy;
+    this.policy =
+      payload.policy !== null
+        ? new IamV1OrganizationVendoroauthappPolicy(payload.policy)
+        : null;
     this.accessTokenTtl = deserialize.integer(payload.access_token_ttl);
     this.code = payload.code;
     this.message = payload.message;
@@ -454,24 +485,28 @@ export class OAuthAppInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      type: this.type,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      description: this.description,
-      dateCreated: this.dateCreated,
-      createdBy: this.createdBy,
-      secret: this.secret,
-      status: this.status,
-      policy: this.policy,
-      accessTokenTtl: this.accessTokenTtl,
-      code: this.code,
-      message: this.message,
-      moreInfo: this.moreInfo,
-    };
+    return JSON.stringify(
+      {
+        type: this.type,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        description: this.description,
+        dateCreated: this.dateCreated,
+        createdBy: this.createdBy,
+        secret: this.secret,
+        status: this.status,
+        policy: this.policy,
+        accessTokenTtl: this.accessTokenTtl,
+        code: this.code,
+        message: this.message,
+        moreInfo: this.moreInfo,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

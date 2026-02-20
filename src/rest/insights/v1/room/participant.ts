@@ -268,14 +268,28 @@ export class ParticipantInstance {
     this.durationSec = payload.duration_sec;
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
-    this.status = payload.status;
-    this.codecs = payload.codecs;
+    this.status =
+      payload.status !== null
+        ? new VideoParticipantSummaryEnumRoomStatus(payload.status)
+        : null;
+    this.codecs =
+      payload.codecs !== null
+        ? payload.codecs.map(
+            (payload: any) => new VideoParticipantSummaryEnumCodec(payload)
+          )
+        : null;
     this.endReason = payload.end_reason;
     this.errorCode = deserialize.integer(payload.error_code);
     this.errorCodeUrl = payload.error_code_url;
-    this.mediaRegion = payload.media_region;
+    this.mediaRegion =
+      payload.media_region !== null
+        ? new VideoParticipantSummaryEnumTwilioRealm(payload.media_region)
+        : null;
     this.properties = payload.properties;
-    this.edgeLocation = payload.edge_location;
+    this.edgeLocation =
+      payload.edge_location !== null
+        ? new VideoParticipantSummaryEnumEdgeLocation(payload.edge_location)
+        : null;
     this.publisherInfo = payload.publisher_info;
     this.url = payload.url;
 
@@ -388,28 +402,32 @@ export class ParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      participantSid: this.participantSid,
-      participantIdentity: this.participantIdentity,
-      joinTime: this.joinTime,
-      leaveTime: this.leaveTime,
-      durationSec: this.durationSec,
-      accountSid: this.accountSid,
-      roomSid: this.roomSid,
-      status: this.status,
-      codecs: this.codecs,
-      endReason: this.endReason,
-      errorCode: this.errorCode,
-      errorCodeUrl: this.errorCodeUrl,
-      mediaRegion: this.mediaRegion,
-      properties: this.properties,
-      edgeLocation: this.edgeLocation,
-      publisherInfo: this.publisherInfo,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        participantSid: this.participantSid,
+        participantIdentity: this.participantIdentity,
+        joinTime: this.joinTime,
+        leaveTime: this.leaveTime,
+        durationSec: this.durationSec,
+        accountSid: this.accountSid,
+        roomSid: this.roomSid,
+        status: this.status,
+        codecs: this.codecs,
+        endReason: this.endReason,
+        errorCode: this.errorCode,
+        errorCodeUrl: this.errorCodeUrl,
+        mediaRegion: this.mediaRegion,
+        properties: this.properties,
+        edgeLocation: this.edgeLocation,
+        publisherInfo: this.publisherInfo,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

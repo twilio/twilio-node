@@ -619,7 +619,10 @@ export class WorkspaceInstance {
     this.sid = payload.sid;
     this.timeoutActivityName = payload.timeout_activity_name;
     this.timeoutActivitySid = payload.timeout_activity_sid;
-    this.prioritizeQueueOrder = payload.prioritize_queue_order;
+    this.prioritizeQueueOrder =
+      payload.prioritize_queue_order !== null
+        ? new WorkspaceEnumQueueOrder(payload.prioritize_queue_order)
+        : null;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -888,26 +891,30 @@ export class WorkspaceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      defaultActivityName: this.defaultActivityName,
-      defaultActivitySid: this.defaultActivitySid,
-      eventCallbackUrl: this.eventCallbackUrl,
-      eventsFilter: this.eventsFilter,
-      friendlyName: this.friendlyName,
-      multiTaskEnabled: this.multiTaskEnabled,
-      sid: this.sid,
-      timeoutActivityName: this.timeoutActivityName,
-      timeoutActivitySid: this.timeoutActivitySid,
-      prioritizeQueueOrder: this.prioritizeQueueOrder,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        defaultActivityName: this.defaultActivityName,
+        defaultActivitySid: this.defaultActivitySid,
+        eventCallbackUrl: this.eventCallbackUrl,
+        eventsFilter: this.eventsFilter,
+        friendlyName: this.friendlyName,
+        multiTaskEnabled: this.multiTaskEnabled,
+        sid: this.sid,
+        timeoutActivityName: this.timeoutActivityName,
+        timeoutActivitySid: this.timeoutActivitySid,
+        prioritizeQueueOrder: this.prioritizeQueueOrder,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -431,7 +431,10 @@ export class FleetInstance {
     this.url = payload.url;
     this.dataEnabled = payload.data_enabled;
     this.dataLimit = deserialize.integer(payload.data_limit);
-    this.dataMetering = payload.data_metering;
+    this.dataMetering =
+      payload.data_metering !== null
+        ? new FleetEnumDataMetering(payload.data_metering)
+        : null;
     this.smsCommandsEnabled = payload.sms_commands_enabled;
     this.smsCommandsUrl = payload.sms_commands_url;
     this.smsCommandsMethod = payload.sms_commands_method;
@@ -595,26 +598,30 @@ export class FleetInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      dataEnabled: this.dataEnabled,
-      dataLimit: this.dataLimit,
-      dataMetering: this.dataMetering,
-      smsCommandsEnabled: this.smsCommandsEnabled,
-      smsCommandsUrl: this.smsCommandsUrl,
-      smsCommandsMethod: this.smsCommandsMethod,
-      networkAccessProfileSid: this.networkAccessProfileSid,
-      ipCommandsUrl: this.ipCommandsUrl,
-      ipCommandsMethod: this.ipCommandsMethod,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        dataEnabled: this.dataEnabled,
+        dataLimit: this.dataLimit,
+        dataMetering: this.dataMetering,
+        smsCommandsEnabled: this.smsCommandsEnabled,
+        smsCommandsUrl: this.smsCommandsUrl,
+        smsCommandsMethod: this.smsCommandsMethod,
+        networkAccessProfileSid: this.networkAccessProfileSid,
+        ipCommandsUrl: this.ipCommandsUrl,
+        ipCommandsMethod: this.ipCommandsMethod,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

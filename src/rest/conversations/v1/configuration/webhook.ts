@@ -318,11 +318,17 @@ export class WebhookInstance {
 
   constructor(protected _version: V1, payload: WebhookResource) {
     this.accountSid = payload.account_sid;
-    this.method = payload.method;
+    this.method =
+      payload.method !== null
+        ? new ConfigurationWebhookEnumMethod(payload.method)
+        : null;
     this.filters = payload.filters;
     this.preWebhookUrl = payload.pre_webhook_url;
     this.postWebhookUrl = payload.post_webhook_url;
-    this.target = payload.target;
+    this.target =
+      payload.target !== null
+        ? new ConfigurationWebhookEnumTarget(payload.target)
+        : null;
     this.url = payload.url;
 
     this._solution = {};
@@ -445,18 +451,22 @@ export class WebhookInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      method: this.method,
-      filters: this.filters,
-      preWebhookUrl: this.preWebhookUrl,
-      postWebhookUrl: this.postWebhookUrl,
-      target: this.target,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        method: this.method,
+        filters: this.filters,
+        preWebhookUrl: this.preWebhookUrl,
+        postWebhookUrl: this.postWebhookUrl,
+        target: this.target,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

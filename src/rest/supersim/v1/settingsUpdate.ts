@@ -453,7 +453,10 @@ export class SettingsUpdateInstance {
     this.sid = payload.sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new SettingsUpdateEnumStatus(payload.status)
+        : null;
     this.packages = payload.packages;
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -493,19 +496,23 @@ export class SettingsUpdateInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      iccid: this.iccid,
-      simSid: this.simSid,
-      status: this.status,
-      packages: this.packages,
-      dateCompleted: this.dateCompleted,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        iccid: this.iccid,
+        simSid: this.simSid,
+        status: this.status,
+        packages: this.packages,
+        dateCompleted: this.dateCompleted,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

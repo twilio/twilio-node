@@ -655,7 +655,8 @@ export class StreamInstance {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.name = payload.name;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new StreamEnumStatus(payload.status) : null;
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
@@ -743,18 +744,22 @@ export class StreamInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      callSid: this.callSid,
-      name: this.name,
-      status: this.status,
-      dateUpdated: this.dateUpdated,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        callSid: this.callSid,
+        name: this.name,
+        status: this.status,
+        dateUpdated: this.dateUpdated,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -21,6 +21,10 @@ import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CreateInstanceRequestBody {
   "conversation"?: CreateInstanceRequestBodyConversation;
+
+  constructor(payload) {
+    this.conversation = payload["Conversation"];
+  }
 }
 
 export class CreateInstanceRequestBodyConversation {
@@ -28,6 +32,10 @@ export class CreateInstanceRequestBodyConversation {
    * Set newly created conversation service as the default conversation service
    */
   "_default"?: boolean;
+
+  constructor(payload) {
+    this._default = payload["Default"];
+  }
 }
 
 /**
@@ -112,7 +120,7 @@ export class CreateFlexInstanceContextImpl
 
   constructor(protected _version: V1) {
     this._solution = {};
-    this._uri = `/instances`;
+    this._uri = `/Instances`;
   }
 
   create(
@@ -341,16 +349,20 @@ export class CreateFlexInstanceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      flexInstanceSid: this.flexInstanceSid,
-      accountSid: this.accountSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        flexInstanceSid: this.flexInstanceSid,
+        accountSid: this.accountSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

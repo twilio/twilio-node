@@ -418,18 +418,22 @@ export class MediaInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      contentType: this.contentType,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      parentSid: this.parentSid,
-      sid: this.sid,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        contentType: this.contentType,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        parentSid: this.parentSid,
+        sid: this.sid,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

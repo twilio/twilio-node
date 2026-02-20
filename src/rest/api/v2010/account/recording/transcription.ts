@@ -319,7 +319,10 @@ export class TranscriptionInstance {
     this.priceUnit = payload.price_unit;
     this.recordingSid = payload.recording_sid;
     this.sid = payload.sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new RecordingTranscriptionEnumStatus(payload.status)
+        : null;
     this.transcriptionText = payload.transcription_text;
     this.type = payload.type;
     this.uri = payload.uri;
@@ -447,24 +450,28 @@ export class TranscriptionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      duration: this.duration,
-      price: this.price,
-      priceUnit: this.priceUnit,
-      recordingSid: this.recordingSid,
-      sid: this.sid,
-      status: this.status,
-      transcriptionText: this.transcriptionText,
-      type: this.type,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        duration: this.duration,
+        price: this.price,
+        priceUnit: this.priceUnit,
+        recordingSid: this.recordingSid,
+        sid: this.sid,
+        status: this.status,
+        transcriptionText: this.transcriptionText,
+        type: this.type,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

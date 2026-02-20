@@ -270,7 +270,10 @@ export class BulkHostedNumberOrderInstance {
     bulkHostingSid?: string
   ) {
     this.bulkHostingSid = payload.bulk_hosting_sid;
-    this.requestStatus = payload.request_status;
+    this.requestStatus =
+      payload.request_status !== null
+        ? new BulkHostedNumberOrderEnumRequestStatus(payload.request_status)
+        : null;
     this.friendlyName = payload.friendly_name;
     this.notificationEmail = payload.notification_email;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -407,20 +410,24 @@ export class BulkHostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      bulkHostingSid: this.bulkHostingSid,
-      requestStatus: this.requestStatus,
-      friendlyName: this.friendlyName,
-      notificationEmail: this.notificationEmail,
-      dateCreated: this.dateCreated,
-      dateCompleted: this.dateCompleted,
-      url: this.url,
-      totalCount: this.totalCount,
-      results: this.results,
-    };
+    return JSON.stringify(
+      {
+        bulkHostingSid: this.bulkHostingSid,
+        requestStatus: this.requestStatus,
+        friendlyName: this.friendlyName,
+        notificationEmail: this.notificationEmail,
+        dateCreated: this.dateCreated,
+        dateCompleted: this.dateCompleted,
+        url: this.url,
+        totalCount: this.totalCount,
+        results: this.results,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

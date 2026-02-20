@@ -303,12 +303,16 @@ export class DeactivationsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      redirectTo: this.redirectTo,
-    };
+    return JSON.stringify(
+      {
+        redirectTo: this.redirectTo,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

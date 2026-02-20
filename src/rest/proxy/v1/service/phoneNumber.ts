@@ -665,23 +665,27 @@ export class PhoneNumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      phoneNumber: this.phoneNumber,
-      friendlyName: this.friendlyName,
-      isoCountry: this.isoCountry,
-      capabilities: this.capabilities,
-      url: this.url,
-      isReserved: this.isReserved,
-      inUse: this.inUse,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        phoneNumber: this.phoneNumber,
+        friendlyName: this.friendlyName,
+        isoCountry: this.isoCountry,
+        capabilities: this.capabilities,
+        url: this.url,
+        isReserved: this.isReserved,
+        inUse: this.inUse,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

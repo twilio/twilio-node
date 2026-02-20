@@ -562,7 +562,10 @@ export class DependentHostedNumberOrderInstance {
     this.capabilities = payload.capabilities;
     this.friendlyName = payload.friendly_name;
     this.uniqueName = payload.unique_name;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new DependentHostedNumberOrderEnumStatus(payload.status)
+        : null;
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -571,7 +574,12 @@ export class DependentHostedNumberOrderInstance {
     );
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
-    this.verificationType = payload.verification_type;
+    this.verificationType =
+      payload.verification_type !== null
+        ? new DependentHostedNumberOrderEnumVerificationType(
+            payload.verification_type
+          )
+        : null;
     this.verificationDocumentSid = payload.verification_document_sid;
     this.extension = payload.extension;
     this.callDelay = deserialize.integer(payload.call_delay);
@@ -662,33 +670,37 @@ export class DependentHostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
-      addressSid: this.addressSid,
-      signingDocumentSid: this.signingDocumentSid,
-      phoneNumber: this.phoneNumber,
-      capabilities: this.capabilities,
-      friendlyName: this.friendlyName,
-      uniqueName: this.uniqueName,
-      status: this.status,
-      failureReason: this.failureReason,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      verificationAttempts: this.verificationAttempts,
-      email: this.email,
-      ccEmails: this.ccEmails,
-      verificationType: this.verificationType,
-      verificationDocumentSid: this.verificationDocumentSid,
-      extension: this.extension,
-      callDelay: this.callDelay,
-      verificationCode: this.verificationCode,
-      verificationCallSids: this.verificationCallSids,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+        addressSid: this.addressSid,
+        signingDocumentSid: this.signingDocumentSid,
+        phoneNumber: this.phoneNumber,
+        capabilities: this.capabilities,
+        friendlyName: this.friendlyName,
+        uniqueName: this.uniqueName,
+        status: this.status,
+        failureReason: this.failureReason,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        verificationAttempts: this.verificationAttempts,
+        email: this.email,
+        ccEmails: this.ccEmails,
+        verificationType: this.verificationType,
+        verificationDocumentSid: this.verificationDocumentSid,
+        extension: this.extension,
+        callDelay: this.callDelay,
+        verificationCode: this.verificationCode,
+        verificationCallSids: this.verificationCallSids,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -647,20 +647,24 @@ export class QueueInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      dateUpdated: this.dateUpdated,
-      currentSize: this.currentSize,
-      friendlyName: this.friendlyName,
-      uri: this.uri,
-      accountSid: this.accountSid,
-      averageWaitTime: this.averageWaitTime,
-      sid: this.sid,
-      dateCreated: this.dateCreated,
-      maxSize: this.maxSize,
-    };
+    return JSON.stringify(
+      {
+        dateUpdated: this.dateUpdated,
+        currentSize: this.currentSize,
+        friendlyName: this.friendlyName,
+        uri: this.uri,
+        accountSid: this.accountSid,
+        averageWaitTime: this.averageWaitTime,
+        sid: this.sid,
+        dateCreated: this.dateCreated,
+        maxSize: this.maxSize,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

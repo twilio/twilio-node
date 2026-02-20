@@ -252,7 +252,10 @@ export class FeedbackInstance {
   ) {
     this.accountSid = payload.account_sid;
     this.messageSid = payload.message_sid;
-    this.outcome = payload.outcome;
+    this.outcome =
+      payload.outcome !== null
+        ? new MessageFeedbackEnumOutcome(payload.outcome)
+        : null;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
@@ -283,17 +286,21 @@ export class FeedbackInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      messageSid: this.messageSid,
-      outcome: this.outcome,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        messageSid: this.messageSid,
+        outcome: this.outcome,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

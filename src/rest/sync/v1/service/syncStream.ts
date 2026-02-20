@@ -674,21 +674,25 @@ export class SyncStreamInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      url: this.url,
-      links: this.links,
-      dateExpires: this.dateExpires,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      createdBy: this.createdBy,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        url: this.url,
+        links: this.links,
+        dateExpires: this.dateExpires,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        createdBy: this.createdBy,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

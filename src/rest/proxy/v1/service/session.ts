@@ -522,10 +522,12 @@ export class SessionInstance {
     );
     this.dateExpiry = deserialize.iso8601DateTime(payload.date_expiry);
     this.uniqueName = payload.unique_name;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null ? new SessionEnumStatus(payload.status) : null;
     this.closedReason = payload.closed_reason;
     this.ttl = deserialize.integer(payload.ttl);
-    this.mode = payload.mode;
+    this.mode =
+      payload.mode !== null ? new SessionEnumMode(payload.mode) : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -733,27 +735,31 @@ export class SessionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      serviceSid: this.serviceSid,
-      accountSid: this.accountSid,
-      dateStarted: this.dateStarted,
-      dateEnded: this.dateEnded,
-      dateLastInteraction: this.dateLastInteraction,
-      dateExpiry: this.dateExpiry,
-      uniqueName: this.uniqueName,
-      status: this.status,
-      closedReason: this.closedReason,
-      ttl: this.ttl,
-      mode: this.mode,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        serviceSid: this.serviceSid,
+        accountSid: this.accountSid,
+        dateStarted: this.dateStarted,
+        dateEnded: this.dateEnded,
+        dateLastInteraction: this.dateLastInteraction,
+        dateExpiry: this.dateExpiry,
+        uniqueName: this.uniqueName,
+        status: this.status,
+        closedReason: this.closedReason,
+        ttl: this.ttl,
+        mode: this.mode,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

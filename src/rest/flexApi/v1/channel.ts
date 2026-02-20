@@ -397,19 +397,23 @@ export class ChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      flexFlowSid: this.flexFlowSid,
-      sid: this.sid,
-      userSid: this.userSid,
-      taskSid: this.taskSid,
-      url: this.url,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        flexFlowSid: this.flexFlowSid,
+        sid: this.sid,
+        userSid: this.userSid,
+        taskSid: this.taskSid,
+        url: this.url,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

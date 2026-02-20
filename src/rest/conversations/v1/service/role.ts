@@ -431,7 +431,8 @@ export class RoleInstance {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
     this.friendlyName = payload.friendly_name;
-    this.type = payload.type;
+    this.type =
+      payload.type !== null ? new ServiceRoleEnumRoleType(payload.type) : null;
     this.permissions = payload.permissions;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -580,20 +581,24 @@ export class RoleInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      friendlyName: this.friendlyName,
-      type: this.type,
-      permissions: this.permissions,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        friendlyName: this.friendlyName,
+        type: this.type,
+        permissions: this.permissions,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

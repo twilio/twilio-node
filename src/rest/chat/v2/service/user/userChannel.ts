@@ -568,7 +568,10 @@ export class UserChannelInstance {
     this.channelSid = payload.channel_sid;
     this.userSid = payload.user_sid;
     this.memberSid = payload.member_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new UserChannelEnumChannelStatus(payload.status)
+        : null;
     this.lastConsumedMessageIndex = deserialize.integer(
       payload.last_consumed_message_index
     );
@@ -577,7 +580,10 @@ export class UserChannelInstance {
     );
     this.links = payload.links;
     this.url = payload.url;
-    this.notificationLevel = payload.notification_level;
+    this.notificationLevel =
+      payload.notification_level !== null
+        ? new UserChannelEnumNotificationLevel(payload.notification_level)
+        : null;
 
     this._solution = {
       serviceSid,
@@ -798,22 +804,26 @@ export class UserChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      channelSid: this.channelSid,
-      userSid: this.userSid,
-      memberSid: this.memberSid,
-      status: this.status,
-      lastConsumedMessageIndex: this.lastConsumedMessageIndex,
-      unreadMessagesCount: this.unreadMessagesCount,
-      links: this.links,
-      url: this.url,
-      notificationLevel: this.notificationLevel,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        channelSid: this.channelSid,
+        userSid: this.userSid,
+        memberSid: this.memberSid,
+        status: this.status,
+        lastConsumedMessageIndex: this.lastConsumedMessageIndex,
+        unreadMessagesCount: this.unreadMessagesCount,
+        links: this.links,
+        url: this.url,
+        notificationLevel: this.notificationLevel,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

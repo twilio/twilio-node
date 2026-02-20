@@ -554,8 +554,14 @@ export class TrunkInstance {
     this.friendlyName = payload.friendly_name;
     this.secure = payload.secure;
     this.recording = payload.recording;
-    this.transferMode = payload.transfer_mode;
-    this.transferCallerId = payload.transfer_caller_id;
+    this.transferMode =
+      payload.transfer_mode !== null
+        ? new TrunkEnumTransferSetting(payload.transfer_mode)
+        : null;
+    this.transferCallerId =
+      payload.transfer_caller_id !== null
+        ? new TrunkEnumTransferCallerId(payload.transfer_caller_id)
+        : null;
     this.cnamLookupEnabled = payload.cnam_lookup_enabled;
     this.authType = payload.auth_type;
     this.symmetricRtpEnabled = payload.symmetric_rtp_enabled;
@@ -792,29 +798,33 @@ export class TrunkInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      domainName: this.domainName,
-      disasterRecoveryMethod: this.disasterRecoveryMethod,
-      disasterRecoveryUrl: this.disasterRecoveryUrl,
-      friendlyName: this.friendlyName,
-      secure: this.secure,
-      recording: this.recording,
-      transferMode: this.transferMode,
-      transferCallerId: this.transferCallerId,
-      cnamLookupEnabled: this.cnamLookupEnabled,
-      authType: this.authType,
-      symmetricRtpEnabled: this.symmetricRtpEnabled,
-      authTypeSet: this.authTypeSet,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        domainName: this.domainName,
+        disasterRecoveryMethod: this.disasterRecoveryMethod,
+        disasterRecoveryUrl: this.disasterRecoveryUrl,
+        friendlyName: this.friendlyName,
+        secure: this.secure,
+        recording: this.recording,
+        transferMode: this.transferMode,
+        transferCallerId: this.transferCallerId,
+        cnamLookupEnabled: this.cnamLookupEnabled,
+        authType: this.authType,
+        symmetricRtpEnabled: this.symmetricRtpEnabled,
+        authTypeSet: this.authTypeSet,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

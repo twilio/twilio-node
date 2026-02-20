@@ -267,7 +267,10 @@ export class PortingPortabilityInstance {
     this.notPortableReasonCode = deserialize.integer(
       payload.not_portable_reason_code
     );
-    this.numberType = payload.number_type;
+    this.numberType =
+      payload.number_type !== null
+        ? new PortingPortabilityEnumNumberType(payload.number_type)
+        : null;
     this.country = payload.country;
     this.url = payload.url;
 
@@ -390,20 +393,24 @@ export class PortingPortabilityInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      phoneNumber: this.phoneNumber,
-      accountSid: this.accountSid,
-      portable: this.portable,
-      pinAndAccountNumberRequired: this.pinAndAccountNumberRequired,
-      notPortableReason: this.notPortableReason,
-      notPortableReasonCode: this.notPortableReasonCode,
-      numberType: this.numberType,
-      country: this.country,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        phoneNumber: this.phoneNumber,
+        accountSid: this.accountSid,
+        portable: this.portable,
+        pinAndAccountNumberRequired: this.pinAndAccountNumberRequired,
+        notPortableReason: this.notPortableReason,
+        notPortableReasonCode: this.notPortableReasonCode,
+        numberType: this.numberType,
+        country: this.country,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

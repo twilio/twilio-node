@@ -248,7 +248,10 @@ export class CustomerProfilesEvaluationsInstance {
     this.accountSid = payload.account_sid;
     this.policySid = payload.policy_sid;
     this.customerProfileSid = payload.customer_profile_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new CustomerProfileEvaluationEnumStatus(payload.status)
+        : null;
     this.results = payload.results;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
@@ -326,19 +329,23 @@ export class CustomerProfilesEvaluationsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      policySid: this.policySid,
-      customerProfileSid: this.customerProfileSid,
-      status: this.status,
-      results: this.results,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        policySid: this.policySid,
+        customerProfileSid: this.customerProfileSid,
+        status: this.status,
+        results: this.results,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

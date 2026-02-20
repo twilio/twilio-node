@@ -421,7 +421,10 @@ export class SimIpAddressInstance {
     simSid: string
   ) {
     this.ipAddress = payload.ip_address;
-    this.ipAddressVersion = payload.ip_address_version;
+    this.ipAddressVersion =
+      payload.ip_address_version !== null
+        ? new SimIpAddressEnumIpAddressVersion(payload.ip_address_version)
+        : null;
   }
 
   /**
@@ -433,13 +436,17 @@ export class SimIpAddressInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      ipAddress: this.ipAddress,
-      ipAddressVersion: this.ipAddressVersion,
-    };
+    return JSON.stringify(
+      {
+        ipAddress: this.ipAddress,
+        ipAddressVersion: this.ipAddressVersion,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

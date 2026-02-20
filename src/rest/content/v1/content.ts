@@ -27,6 +27,11 @@ import { ApprovalFetchListInstance } from "./content/approvalFetch";
 export class AuthenticationAction {
   "type": AuthenticationActionType;
   "copyCodeText": string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.copyCodeText = payload["copy_code_text"];
+  }
 }
 
 export type AuthenticationActionType = "COPY_CODE";
@@ -38,6 +43,15 @@ export class CallToActionAction {
   "phone"?: string;
   "code"?: string;
   "id"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.title = payload["title"];
+    this.url = payload["url"];
+    this.phone = payload["phone"];
+    this.code = payload["code"];
+    this.id = payload["id"];
+  }
 }
 
 export type CallToActionActionType =
@@ -55,6 +69,16 @@ export class CardAction {
   "id"?: string;
   "code"?: string;
   "webviewSize"?: WebviewSizeType;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.title = payload["title"];
+    this.url = payload["url"];
+    this.phone = payload["phone"];
+    this.id = payload["id"];
+    this.code = payload["code"];
+    this.webviewSize = payload["webview_size"];
+  }
 }
 
 export type CardActionType =
@@ -70,6 +94,14 @@ export class CarouselAction {
   "url"?: string;
   "phone"?: string;
   "id"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.title = payload["title"];
+    this.url = payload["url"];
+    this.phone = payload["phone"];
+    this.id = payload["id"];
+  }
 }
 
 export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
@@ -79,6 +111,13 @@ export class CarouselCard {
   "body": string;
   "media": string;
   "actions": Array<CarouselAction>;
+
+  constructor(payload) {
+    this.title = payload["title"];
+    this.body = payload["body"];
+    this.media = payload["media"];
+    this.actions = payload["actions"];
+  }
 }
 
 export class CatalogItem {
@@ -88,6 +127,15 @@ export class CatalogItem {
   "mediaUrl"?: string;
   "price"?: number;
   "description"?: string;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.sectionTitle = payload["section_title"];
+    this.name = payload["name"];
+    this.mediaUrl = payload["media_url"];
+    this.price = payload["price"];
+    this.description = payload["description"];
+  }
 }
 
 /**
@@ -107,6 +155,13 @@ export class ContentCreateRequest {
    */
   "language": string;
   "types": Types;
+
+  constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
+    this.variables = payload["variables"];
+    this.language = payload["language"];
+    this.types = payload["types"];
+  }
 }
 
 /**
@@ -126,6 +181,13 @@ export class ContentUpdateRequest {
    */
   "language"?: string;
   "types": Types;
+
+  constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
+    this.variables = payload["variables"];
+    this.language = payload["language"];
+    this.types = payload["types"];
+  }
 }
 
 export class FlowsPage {
@@ -134,23 +196,48 @@ export class FlowsPage {
   "title": string;
   "subtitle"?: string;
   "layout": Array<FlowsPageComponent>;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.nextPageId = payload["next_page_id"];
+    this.title = payload["title"];
+    this.subtitle = payload["subtitle"];
+    this.layout = payload["layout"];
+  }
 }
 
 export class FlowsPageComponent {
   "label"?: string;
   "type": string;
+
+  constructor(payload) {
+    this.label = payload["label"];
+    this.type = payload["type"];
+  }
 }
 
 export class ListItem {
   "id": string;
   "item": string;
   "description"?: string;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.item = payload["item"];
+    this.description = payload["description"];
+  }
 }
 
 export class QuickReplyAction {
   "type"?: QuickReplyActionType;
   "title": string;
   "id"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.title = payload["title"];
+    this.id = payload["id"];
+  }
 }
 
 export type QuickReplyActionType = "QUICK_REPLY";
@@ -161,6 +248,11 @@ export type QuickReplyActionType = "QUICK_REPLY";
 export class TwilioCallToAction {
   "body": string;
   "actions": Array<CallToActionAction>;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.actions = payload["actions"];
+  }
 }
 
 /**
@@ -171,6 +263,13 @@ export class TwilioCard {
   "subtitle"?: string;
   "media"?: Array<string>;
   "actions"?: Array<CardAction>;
+
+  constructor(payload) {
+    this.title = payload["title"];
+    this.subtitle = payload["subtitle"];
+    this.media = payload["media"];
+    this.actions = payload["actions"];
+  }
 }
 
 /**
@@ -179,6 +278,11 @@ export class TwilioCard {
 export class TwilioCarousel {
   "body": string;
   "cards": Array<CarouselCard>;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.cards = payload["cards"];
+  }
 }
 
 /**
@@ -191,6 +295,15 @@ export class TwilioCatalog {
   "id"?: string;
   "items"?: Array<CatalogItem>;
   "dynamicItems"?: string;
+
+  constructor(payload) {
+    this.title = payload["title"];
+    this.body = payload["body"];
+    this.subtitle = payload["subtitle"];
+    this.id = payload["id"];
+    this.items = payload["items"];
+    this.dynamicItems = payload["dynamic_items"];
+  }
 }
 
 /**
@@ -203,6 +316,15 @@ export class TwilioFlows {
   "mediaUrl"?: string;
   "pages": Array<FlowsPage>;
   "type": string;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.buttonText = payload["button_text"];
+    this.subtitle = payload["subtitle"];
+    this.mediaUrl = payload["media_url"];
+    this.pages = payload["pages"];
+    this.type = payload["type"];
+  }
 }
 
 /**
@@ -212,6 +334,12 @@ export class TwilioListPicker {
   "body": string;
   "button": string;
   "items": Array<ListItem>;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.button = payload["button"];
+    this.items = payload["items"];
+  }
 }
 
 /**
@@ -223,6 +351,14 @@ export class TwilioLocation {
   "label"?: string;
   "id"?: string;
   "address"?: string;
+
+  constructor(payload) {
+    this.latitude = payload["latitude"];
+    this.longitude = payload["longitude"];
+    this.label = payload["label"];
+    this.id = payload["id"];
+    this.address = payload["address"];
+  }
 }
 
 /**
@@ -231,6 +367,11 @@ export class TwilioLocation {
 export class TwilioMedia {
   "body"?: string;
   "media": Array<string>;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.media = payload["media"];
+  }
 }
 
 /**
@@ -239,6 +380,11 @@ export class TwilioMedia {
 export class TwilioQuickReply {
   "body": string;
   "actions": Array<QuickReplyAction>;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.actions = payload["actions"];
+  }
 }
 
 /**
@@ -248,6 +394,12 @@ export class TwilioSchedule {
   "id": string;
   "title": string;
   "timeSlots": string;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.title = payload["title"];
+    this.timeSlots = payload["timeSlots"];
+  }
 }
 
 /**
@@ -255,6 +407,10 @@ export class TwilioSchedule {
  */
 export class TwilioText {
   "body": string;
+
+  constructor(payload) {
+    this.body = payload["body"];
+  }
 }
 
 /**
@@ -275,6 +431,23 @@ export class Types {
   "whatsappCard"?: WhatsappCard | null;
   "whatsappAuthentication"?: WhatsappAuthentication | null;
   "whatsappFlows"?: WhatsappFlows | null;
+
+  constructor(payload) {
+    this.twilioText = payload["twilio/text"];
+    this.twilioMedia = payload["twilio/media"];
+    this.twilioLocation = payload["twilio/location"];
+    this.twilioListPicker = payload["twilio/list-picker"];
+    this.twilioCallToAction = payload["twilio/call-to-action"];
+    this.twilioQuickReply = payload["twilio/quick-reply"];
+    this.twilioCard = payload["twilio/card"];
+    this.twilioCatalog = payload["twilio/catalog"];
+    this.twilioCarousel = payload["twilio/carousel"];
+    this.twilioFlows = payload["twilio/flows"];
+    this.twilioSchedule = payload["twilio/schedule"];
+    this.whatsappCard = payload["whatsapp/card"];
+    this.whatsappAuthentication = payload["whatsapp/authentication"];
+    this.whatsappFlows = payload["whatsapp/flows"];
+  }
 }
 
 export type WebviewSizeType = "TALL" | "FULL" | "HALF" | "NONE";
@@ -286,6 +459,12 @@ export class WhatsappAuthentication {
   "addSecurityRecommendation"?: boolean;
   "codeExpirationMinutes"?: number;
   "actions": Array<AuthenticationAction>;
+
+  constructor(payload) {
+    this.addSecurityRecommendation = payload["add_security_recommendation"];
+    this.codeExpirationMinutes = payload["code_expiration_minutes"];
+    this.actions = payload["actions"];
+  }
 }
 
 /**
@@ -297,6 +476,14 @@ export class WhatsappCard {
   "media"?: Array<string>;
   "headerText"?: string;
   "actions"?: Array<CardAction>;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.footer = payload["footer"];
+    this.media = payload["media"];
+    this.headerText = payload["header_text"];
+    this.actions = payload["actions"];
+  }
 }
 
 /**
@@ -311,6 +498,17 @@ export class WhatsappFlows {
   "flowToken"?: string;
   "flowFirstPageId"?: string;
   "isFlowFirstPageEndpoint"?: boolean;
+
+  constructor(payload) {
+    this.body = payload["body"];
+    this.buttonText = payload["button_text"];
+    this.subtitle = payload["subtitle"];
+    this.mediaUrl = payload["media_url"];
+    this.flowId = payload["flow_id"];
+    this.flowToken = payload["flow_token"];
+    this.flowFirstPageId = payload["flow_first_page_id"];
+    this.isFlowFirstPageEndpoint = payload["is_flow_first_page_endpoint"];
+  }
 }
 
 /**
@@ -887,21 +1085,25 @@ export class ContentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      language: this.language,
-      variables: this.variables,
-      types: this.types,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        language: this.language,
+        variables: this.variables,
+        types: this.types,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

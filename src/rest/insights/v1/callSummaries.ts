@@ -831,10 +831,22 @@ export class CallSummariesInstance {
   constructor(protected _version: V1, payload: CallSummariesResource) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
-    this.answeredBy = payload.answered_by;
-    this.callType = payload.call_type;
-    this.callState = payload.call_state;
-    this.processingState = payload.processing_state;
+    this.answeredBy =
+      payload.answered_by !== null
+        ? new CallSummariesEnumAnsweredBy(payload.answered_by)
+        : null;
+    this.callType =
+      payload.call_type !== null
+        ? new CallSummariesEnumCallType(payload.call_type)
+        : null;
+    this.callState =
+      payload.call_state !== null
+        ? new CallSummariesEnumCallState(payload.call_state)
+        : null;
+    this.processingState =
+      payload.processing_state !== null
+        ? new CallSummariesEnumProcessingState(payload.processing_state)
+        : null;
     this.createdTime = deserialize.iso8601DateTime(payload.created_time);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
@@ -935,34 +947,38 @@ export class CallSummariesInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      callSid: this.callSid,
-      answeredBy: this.answeredBy,
-      callType: this.callType,
-      callState: this.callState,
-      processingState: this.processingState,
-      createdTime: this.createdTime,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      connectDuration: this.connectDuration,
-      from: this.from,
-      to: this.to,
-      carrierEdge: this.carrierEdge,
-      clientEdge: this.clientEdge,
-      sdkEdge: this.sdkEdge,
-      sipEdge: this.sipEdge,
-      tags: this.tags,
-      url: this.url,
-      attributes: this.attributes,
-      properties: this.properties,
-      trust: this.trust,
-      annotation: this.annotation,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        callSid: this.callSid,
+        answeredBy: this.answeredBy,
+        callType: this.callType,
+        callState: this.callState,
+        processingState: this.processingState,
+        createdTime: this.createdTime,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        connectDuration: this.connectDuration,
+        from: this.from,
+        to: this.to,
+        carrierEdge: this.carrierEdge,
+        clientEdge: this.clientEdge,
+        sdkEdge: this.sdkEdge,
+        sipEdge: this.sipEdge,
+        tags: this.tags,
+        url: this.url,
+        attributes: this.attributes,
+        properties: this.properties,
+        trust: this.trust,
+        annotation: this.annotation,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

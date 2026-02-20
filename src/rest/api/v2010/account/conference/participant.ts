@@ -683,7 +683,10 @@ export class ParticipantInstance {
     this.muted = payload.muted;
     this.hold = payload.hold;
     this.startConferenceOnEnter = payload.start_conference_on_enter;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new ParticipantEnumStatus(payload.status)
+        : null;
     this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 
@@ -891,26 +894,30 @@ export class ParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      callSid: this.callSid,
-      label: this.label,
-      callSidToCoach: this.callSidToCoach,
-      coaching: this.coaching,
-      conferenceSid: this.conferenceSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      endConferenceOnExit: this.endConferenceOnExit,
-      muted: this.muted,
-      hold: this.hold,
-      startConferenceOnEnter: this.startConferenceOnEnter,
-      status: this.status,
-      queueTime: this.queueTime,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        callSid: this.callSid,
+        label: this.label,
+        callSidToCoach: this.callSidToCoach,
+        coaching: this.coaching,
+        conferenceSid: this.conferenceSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        endConferenceOnExit: this.endConferenceOnExit,
+        muted: this.muted,
+        hold: this.hold,
+        startConferenceOnEnter: this.startConferenceOnEnter,
+        status: this.status,
+        queueTime: this.queueTime,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

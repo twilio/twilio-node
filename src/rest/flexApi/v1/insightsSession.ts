@@ -325,16 +325,20 @@ export class InsightsSessionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      workspaceId: this.workspaceId,
-      sessionExpiry: this.sessionExpiry,
-      sessionId: this.sessionId,
-      baseUrl: this.baseUrl,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        workspaceId: this.workspaceId,
+        sessionExpiry: this.sessionExpiry,
+        sessionId: this.sessionId,
+        baseUrl: this.baseUrl,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

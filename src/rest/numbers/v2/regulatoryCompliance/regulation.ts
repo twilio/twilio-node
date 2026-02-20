@@ -311,7 +311,10 @@ export class RegulationInstance {
     this.friendlyName = payload.friendly_name;
     this.isoCountry = payload.iso_country;
     this.numberType = payload.number_type;
-    this.endUserType = payload.end_user_type;
+    this.endUserType =
+      payload.end_user_type !== null
+        ? new RegulationEnumEndUserType(payload.end_user_type)
+        : null;
     this.requirements = payload.requirements;
     this.url = payload.url;
 
@@ -423,18 +426,22 @@ export class RegulationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      isoCountry: this.isoCountry,
-      numberType: this.numberType,
-      endUserType: this.endUserType,
-      requirements: this.requirements,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        isoCountry: this.isoCountry,
+        numberType: this.numberType,
+        endUserType: this.endUserType,
+        requirements: this.requirements,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

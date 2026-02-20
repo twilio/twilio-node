@@ -598,8 +598,12 @@ export class SimInstance {
     this.friendlyName = payload.friendly_name;
     this.iccid = payload.iccid;
     this.eId = payload.e_id;
-    this.status = payload.status;
-    this.resetStatus = payload.reset_status;
+    this.status =
+      payload.status !== null ? new SimEnumStatus(payload.status) : null;
+    this.resetStatus =
+      payload.reset_status !== null
+        ? new SimEnumResetStatus(payload.reset_status)
+        : null;
     this.commandsCallbackUrl = payload.commands_callback_url;
     this.commandsCallbackMethod = payload.commands_callback_method;
     this.smsFallbackMethod = payload.sms_fallback_method;
@@ -845,35 +849,39 @@ export class SimInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      ratePlanSid: this.ratePlanSid,
-      friendlyName: this.friendlyName,
-      iccid: this.iccid,
-      eId: this.eId,
-      status: this.status,
-      resetStatus: this.resetStatus,
-      commandsCallbackUrl: this.commandsCallbackUrl,
-      commandsCallbackMethod: this.commandsCallbackMethod,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceUrl: this.voiceUrl,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-      ipAddress: this.ipAddress,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        ratePlanSid: this.ratePlanSid,
+        friendlyName: this.friendlyName,
+        iccid: this.iccid,
+        eId: this.eId,
+        status: this.status,
+        resetStatus: this.resetStatus,
+        commandsCallbackUrl: this.commandsCallbackUrl,
+        commandsCallbackMethod: this.commandsCallbackMethod,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceUrl: this.voiceUrl,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+        ipAddress: this.ipAddress,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

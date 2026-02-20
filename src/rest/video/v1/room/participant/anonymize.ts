@@ -190,7 +190,10 @@ export class AnonymizeInstance {
     this.sid = payload.sid;
     this.roomSid = payload.room_sid;
     this.accountSid = payload.account_sid;
-    this.status = payload.status;
+    this.status =
+      payload.status !== null
+        ? new RoomParticipantAnonymizeEnumStatus(payload.status)
+        : null;
     this.identity = payload.identity;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -287,22 +290,26 @@ export class AnonymizeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      roomSid: this.roomSid,
-      accountSid: this.accountSid,
-      status: this.status,
-      identity: this.identity,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        roomSid: this.roomSid,
+        accountSid: this.accountSid,
+        status: this.status,
+        identity: this.identity,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -24,6 +24,13 @@ export class ApiV2010AccountTokenIceServers {
   "username"?: string;
   "url"?: string;
   "urls"?: string;
+
+  constructor(payload) {
+    this.credential = payload["credential"];
+    this.username = payload["username"];
+    this.url = payload["url"];
+    this.urls = payload["urls"];
+  }
 }
 
 /**
@@ -238,7 +245,12 @@ export class TokenInstance {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.iceServers = payload.ice_servers;
+    this.iceServers =
+      payload.ice_servers !== null
+        ? payload.ice_servers.map(
+            (payload: any) => new ApiV2010AccountTokenIceServers(payload)
+          )
+        : null;
     this.password = payload.password;
     this.ttl = payload.ttl;
     this.username = payload.username;
@@ -276,18 +288,22 @@ export class TokenInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      iceServers: this.iceServers,
-      password: this.password,
-      ttl: this.ttl,
-      username: this.username,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        iceServers: this.iceServers,
+        password: this.password,
+        ttl: this.ttl,
+        username: this.username,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
