@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export interface ApprovalFetchContext {
   /**
@@ -29,6 +30,20 @@ export interface ApprovalFetchContext {
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance>;
+
+  /**
+   * Fetch a ApprovalFetchInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApprovalFetchInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApprovalFetchInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalFetchInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,6 +91,42 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApprovalFetchInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalFetchInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ApprovalFetchResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApprovalFetchInstance> => ({
+          ...response,
+          body: new ApprovalFetchInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -159,6 +210,22 @@ export class ApprovalFetchInstance {
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ApprovalFetchInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApprovalFetchInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApprovalFetchInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalFetchInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

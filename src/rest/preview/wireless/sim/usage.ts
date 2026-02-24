@@ -17,6 +17,7 @@ import Wireless from "../../Wireless";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a UsageInstance
@@ -51,6 +52,29 @@ export interface UsageContext {
     params: UsageContextFetchOptions,
     callback?: (error: Error | null, item?: UsageInstance) => any
   ): Promise<UsageInstance>;
+
+  /**
+   * Fetch a UsageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsageInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+  ): Promise<ApiResponse<UsageInstance>>;
+  /**
+   * Fetch a UsageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsageInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: UsageContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+  ): Promise<ApiResponse<UsageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -110,6 +134,55 @@ export class UsageContextImpl implements UsageContext {
       (payload) =>
         new UsageInstance(operationVersion, payload, instance._solution.simSid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | UsageContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<UsageInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+  ): Promise<ApiResponse<UsageInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["end"] !== undefined) data["End"] = params["end"];
+    if (params["start"] !== undefined) data["Start"] = params["start"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UsageResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UsageInstance> => ({
+          ...response,
+          body: new UsageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.simSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -213,6 +286,36 @@ export class UsageInstance {
     callback?: (error: Error | null, item?: UsageInstance) => any
   ): Promise<UsageInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a UsageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsageInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+  ): Promise<ApiResponse<UsageInstance>>;
+  /**
+   * Fetch a UsageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsageInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: UsageContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+  ): Promise<ApiResponse<UsageInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+  ): Promise<ApiResponse<UsageInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

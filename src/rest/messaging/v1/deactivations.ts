@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a DeactivationsInstance
@@ -49,6 +50,35 @@ export interface DeactivationsContext {
     params: DeactivationsContextFetchOptions,
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
   ): Promise<DeactivationsInstance>;
+
+  /**
+   * Fetch a DeactivationsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DeactivationsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DeactivationsInstance>
+    ) => any
+  ): Promise<ApiResponse<DeactivationsInstance>>;
+  /**
+   * Fetch a DeactivationsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DeactivationsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: DeactivationsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DeactivationsInstance>
+    ) => any
+  ): Promise<ApiResponse<DeactivationsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -101,6 +131,57 @@ export class DeactivationsContextImpl implements DeactivationsContext {
     operationPromise = operationPromise.then(
       (payload) => new DeactivationsInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | DeactivationsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<DeactivationsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DeactivationsInstance>
+    ) => any
+  ): Promise<ApiResponse<DeactivationsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["date"] !== undefined)
+      data["Date"] = serialize.iso8601Date(params["date"]);
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DeactivationsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DeactivationsInstance> => ({
+          ...response,
+          body: new DeactivationsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -178,6 +259,45 @@ export class DeactivationsInstance {
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
   ): Promise<DeactivationsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a DeactivationsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DeactivationsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DeactivationsInstance>
+    ) => any
+  ): Promise<ApiResponse<DeactivationsInstance>>;
+  /**
+   * Fetch a DeactivationsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DeactivationsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: DeactivationsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DeactivationsInstance>
+    ) => any
+  ): Promise<ApiResponse<DeactivationsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DeactivationsInstance>
+    ) => any
+  ): Promise<ApiResponse<DeactivationsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

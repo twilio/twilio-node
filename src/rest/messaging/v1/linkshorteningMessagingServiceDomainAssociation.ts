@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface LinkshorteningMessagingServiceDomainAssociationContext {
   /**
@@ -32,6 +33,22 @@ export interface LinkshorteningMessagingServiceDomainAssociationContext {
       item?: LinkshorteningMessagingServiceDomainAssociationInstance
     ) => any
   ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance>;
+
+  /**
+   * Fetch a LinkshorteningMessagingServiceDomainAssociationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed LinkshorteningMessagingServiceDomainAssociationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+    ) => any
+  ): Promise<
+    ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+  >;
 
   /**
    * Provide a user-friendly representation
@@ -84,6 +101,44 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl
           instance._solution.messagingServiceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+    ) => any
+  ): Promise<
+    ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+  > {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<LinkshorteningMessagingServiceDomainAssociationResource>(
+        { uri: instance._uri, method: "get", headers }
+      )
+      .then(
+        (
+          response
+        ): ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance> => ({
+          ...response,
+          body: new LinkshorteningMessagingServiceDomainAssociationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -167,6 +222,24 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
     ) => any
   ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a LinkshorteningMessagingServiceDomainAssociationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed LinkshorteningMessagingServiceDomainAssociationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+    ) => any
+  ): Promise<
+    ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+  > {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

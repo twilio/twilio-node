@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CreateReferralConversionRequest {
   "referralAccountSid"?: string;
@@ -51,6 +52,24 @@ export interface ReferralConversionListInstance {
     headers?: any,
     callback?: (error: Error | null, item?: ReferralConversionInstance) => any
   ): Promise<ReferralConversionInstance>;
+
+  /**
+   * Create a ReferralConversionInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ReferralConversionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CreateReferralConversionRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReferralConversionInstance>
+    ) => any
+  ): Promise<ApiResponse<ReferralConversionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -99,6 +118,52 @@ export function ReferralConversionListInstance(
     operationPromise = operationPromise.then(
       (payload) => new ReferralConversionInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CreateReferralConversionRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReferralConversionInstance>
+    ) => any
+  ): Promise<ApiResponse<ReferralConversionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ReferralConversionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ReferralConversionInstance> => ({
+          ...response,
+          body: new ReferralConversionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

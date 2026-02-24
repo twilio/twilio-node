@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a AssessmentsInstance
@@ -103,6 +105,7 @@ export interface AssessmentsListInstancePageOptions {
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -122,6 +125,22 @@ export interface AssessmentsContext {
     params: AssessmentsContextUpdateOptions,
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance>;
+
+  /**
+   * Update a AssessmentsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssessmentsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: AssessmentsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -198,6 +217,71 @@ export class AssessmentsContextImpl implements AssessmentsContext {
           instance._solution.assessmentSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: AssessmentsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["offset"] === null || params["offset"] === undefined) {
+      throw new Error("Required parameter \"params['offset']\" missing.");
+    }
+
+    if (params["answerText"] === null || params["answerText"] === undefined) {
+      throw new Error("Required parameter \"params['answerText']\" missing.");
+    }
+
+    if (params["answerId"] === null || params["answerId"] === undefined) {
+      throw new Error("Required parameter \"params['answerId']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Offset"] = params["offset"];
+
+    data["AnswerText"] = params["answerText"];
+
+    data["AnswerId"] = params["answerId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AssessmentsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AssessmentsInstance> => ({
+          ...response,
+          body: new AssessmentsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.assessmentSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -347,6 +431,32 @@ export class AssessmentsInstance {
   }
 
   /**
+   * Update a AssessmentsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssessmentsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: AssessmentsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -399,6 +509,22 @@ export interface AssessmentsListInstance {
   ): Promise<AssessmentsInstance>;
 
   /**
+   * Create a AssessmentsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssessmentsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: AssessmentsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance>>;
+
+  /**
    * Streams AssessmentsInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -421,6 +547,28 @@ export interface AssessmentsListInstance {
     callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams AssessmentsInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssessmentsListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: AssessmentsListInstanceEachOptions,
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of AssessmentsInstance records from the API.
    *
    * The request is executed immediately.
@@ -432,6 +580,18 @@ export interface AssessmentsListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage>;
+  /**
+   * Retrieve a single target page of AssessmentsInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
+  ): Promise<ApiResponse<AssessmentsPage>>;
   /**
    * Lists AssessmentsInstance records from the API as a list.
    *
@@ -448,6 +608,30 @@ export interface AssessmentsListInstance {
     params: AssessmentsListInstanceOptions,
     callback?: (error: Error | null, items: AssessmentsInstance[]) => any
   ): Promise<AssessmentsInstance[]>;
+  /**
+   * Lists AssessmentsInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssessmentsListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssessmentsInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance[]>>;
+  listWithHttpInfo(
+    params: AssessmentsListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssessmentsInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance[]>>;
   /**
    * Retrieve a single page of AssessmentsInstance records from the API.
    *
@@ -466,6 +650,24 @@ export interface AssessmentsListInstance {
     params: AssessmentsListInstancePageOptions,
     callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage>;
+  /**
+   * Retrieve a single page of AssessmentsInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssessmentsListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
+  ): Promise<ApiResponse<AssessmentsPage>>;
+  pageWithHttpInfo(
+    params: AssessmentsListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
+  ): Promise<ApiResponse<AssessmentsPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -589,6 +791,116 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AssessmentsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssessmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["categorySid"] === null || params["categorySid"] === undefined) {
+      throw new Error("Required parameter \"params['categorySid']\" missing.");
+    }
+
+    if (
+      params["categoryName"] === null ||
+      params["categoryName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['categoryName']\" missing.");
+    }
+
+    if (params["segmentId"] === null || params["segmentId"] === undefined) {
+      throw new Error("Required parameter \"params['segmentId']\" missing.");
+    }
+
+    if (params["agentId"] === null || params["agentId"] === undefined) {
+      throw new Error("Required parameter \"params['agentId']\" missing.");
+    }
+
+    if (params["offset"] === null || params["offset"] === undefined) {
+      throw new Error("Required parameter \"params['offset']\" missing.");
+    }
+
+    if (params["metricId"] === null || params["metricId"] === undefined) {
+      throw new Error("Required parameter \"params['metricId']\" missing.");
+    }
+
+    if (params["metricName"] === null || params["metricName"] === undefined) {
+      throw new Error("Required parameter \"params['metricName']\" missing.");
+    }
+
+    if (params["answerText"] === null || params["answerText"] === undefined) {
+      throw new Error("Required parameter \"params['answerText']\" missing.");
+    }
+
+    if (params["answerId"] === null || params["answerId"] === undefined) {
+      throw new Error("Required parameter \"params['answerId']\" missing.");
+    }
+
+    if (
+      params["questionnaireSid"] === null ||
+      params["questionnaireSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['questionnaireSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["CategorySid"] = params["categorySid"];
+
+    data["CategoryName"] = params["categoryName"];
+
+    data["SegmentId"] = params["segmentId"];
+
+    data["AgentId"] = params["agentId"];
+
+    data["Offset"] = params["offset"];
+
+    data["MetricId"] = params["metricId"];
+
+    data["MetricName"] = params["metricName"];
+
+    data["AnswerText"] = params["answerText"];
+
+    data["AnswerId"] = params["answerId"];
+
+    data["QuestionnaireSid"] = params["questionnaireSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AssessmentsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AssessmentsInstance> => ({
+          ...response,
+          body: new AssessmentsInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | AssessmentsListInstancePageOptions
@@ -646,10 +958,92 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new AssessmentsPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AssessmentsListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<AssessmentsPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
+  ): Promise<ApiResponse<AssessmentsPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["segmentId"] !== undefined)
+      data["SegmentId"] = params["segmentId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<AssessmentsPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AssessmentsPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<AssessmentsPage>
+    ) => any
+  ): Promise<ApiResponse<AssessmentsPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AssessmentsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssessmentsPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { AnnotationListInstance } from "./call/annotation";
 import { CallSummaryListInstance } from "./call/callSummary";
 import { EventListInstance } from "./call/event";
@@ -38,6 +39,17 @@ export interface CallContext {
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
+
+  /**
+   * Fetch a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -120,6 +132,39 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CallResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CallInstance> => ({
+          ...response,
+          body: new CallInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -175,6 +220,19 @@ export class CallInstance {
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a CallInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+  ): Promise<ApiResponse<CallInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

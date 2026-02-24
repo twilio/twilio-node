@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export type CallSummaryAnsweredBy =
   | "unknown"
@@ -77,6 +78,35 @@ export interface CallSummaryContext {
     params: CallSummaryContextFetchOptions,
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance>;
+
+  /**
+   * Fetch a CallSummaryInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallSummaryInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CallSummaryInstance>
+    ) => any
+  ): Promise<ApiResponse<CallSummaryInstance>>;
+  /**
+   * Fetch a CallSummaryInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallSummaryInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: CallSummaryContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CallSummaryInstance>
+    ) => any
+  ): Promise<ApiResponse<CallSummaryInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -140,6 +170,58 @@ export class CallSummaryContextImpl implements CallSummaryContext {
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | CallSummaryContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CallSummaryInstance>
+    ) => any
+  ): Promise<ApiResponse<CallSummaryInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["processingState"] !== undefined)
+      data["ProcessingState"] = params["processingState"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CallSummaryResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CallSummaryInstance> => ({
+          ...response,
+          body: new CallSummaryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -342,6 +424,45 @@ export class CallSummaryInstance {
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a CallSummaryInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallSummaryInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CallSummaryInstance>
+    ) => any
+  ): Promise<ApiResponse<CallSummaryInstance>>;
+  /**
+   * Fetch a CallSummaryInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CallSummaryInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: CallSummaryContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CallSummaryInstance>
+    ) => any
+  ): Promise<ApiResponse<CallSummaryInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CallSummaryInstance>
+    ) => any
+  ): Promise<ApiResponse<CallSummaryInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

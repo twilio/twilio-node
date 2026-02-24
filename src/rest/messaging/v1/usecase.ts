@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface UsecaseSolution {}
 
@@ -35,6 +36,17 @@ export interface UsecaseListInstance {
   fetch(
     callback?: (error: Error | null, item?: UsecaseInstance) => any
   ): Promise<UsecaseInstance>;
+
+  /**
+   * Fetch a UsecaseInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsecaseInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UsecaseInstance>) => any
+  ): Promise<ApiResponse<UsecaseInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -66,6 +78,34 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
     operationPromise = operationPromise.then(
       (payload) => new UsecaseInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<UsecaseInstance>) => any
+  ): Promise<ApiResponse<UsecaseInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UsecaseResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UsecaseInstance> => ({
+          ...response,
+          body: new UsecaseInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

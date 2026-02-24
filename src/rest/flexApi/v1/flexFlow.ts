@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If `channelType` is `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task Channel to Programmable Chat.
@@ -151,6 +153,7 @@ export interface FlexFlowListInstancePageOptions {
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -170,6 +173,17 @@ export interface FlexFlowContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a FlexFlowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a FlexFlowInstance
    *
    * @param callback - Callback to handle processed record
@@ -179,6 +193,20 @@ export interface FlexFlowContext {
   fetch(
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance>;
+
+  /**
+   * Fetch a FlexFlowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>>;
 
   /**
    * Update a FlexFlowInstance
@@ -202,6 +230,35 @@ export interface FlexFlowContext {
     params: FlexFlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance>;
+
+  /**
+   * Update a FlexFlowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>>;
+  /**
+   * Update a FlexFlowInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlexFlowContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -247,6 +304,30 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
@@ -265,6 +346,42 @@ export class FlexFlowContextImpl implements FlexFlowContext {
       (payload) =>
         new FlexFlowInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FlexFlowResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlexFlowInstance> => ({
+          ...response,
+          body: new FlexFlowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -342,6 +459,93 @@ export class FlexFlowContextImpl implements FlexFlowContext {
       (payload) =>
         new FlexFlowInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | FlexFlowContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<FlexFlowInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["chatServiceSid"] !== undefined)
+      data["ChatServiceSid"] = params["chatServiceSid"];
+    if (params["channelType"] !== undefined)
+      data["ChannelType"] = params["channelType"];
+    if (params["contactIdentity"] !== undefined)
+      data["ContactIdentity"] = params["contactIdentity"];
+    if (params["enabled"] !== undefined)
+      data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["integrationType"] !== undefined)
+      data["IntegrationType"] = params["integrationType"];
+    if (params["integration.flowSid"] !== undefined)
+      data["Integration.FlowSid"] = params["integration.flowSid"];
+    if (params["integration.url"] !== undefined)
+      data["Integration.Url"] = params["integration.url"];
+    if (params["integration.workspaceSid"] !== undefined)
+      data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+    if (params["integration.workflowSid"] !== undefined)
+      data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+    if (params["integration.channel"] !== undefined)
+      data["Integration.Channel"] = params["integration.channel"];
+    if (params["integration.timeout"] !== undefined)
+      data["Integration.Timeout"] = params["integration.timeout"];
+    if (params["integration.priority"] !== undefined)
+      data["Integration.Priority"] = params["integration.priority"];
+    if (params["integration.creationOnMessage"] !== undefined)
+      data["Integration.CreationOnMessage"] = serialize.bool(
+        params["integration.creationOnMessage"]
+      );
+    if (params["longLived"] !== undefined)
+      data["LongLived"] = serialize.bool(params["longLived"]);
+    if (params["janitorEnabled"] !== undefined)
+      data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+    if (params["integration.retryCount"] !== undefined)
+      data["Integration.RetryCount"] = params["integration.retryCount"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FlexFlowResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlexFlowInstance> => ({
+          ...response,
+          body: new FlexFlowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -480,6 +684,19 @@ export class FlexFlowInstance {
   }
 
   /**
+   * Remove a FlexFlowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a FlexFlowInstance
    *
    * @param callback - Callback to handle processed record
@@ -490,6 +707,22 @@ export class FlexFlowInstance {
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a FlexFlowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -520,6 +753,45 @@ export class FlexFlowInstance {
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a FlexFlowInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>>;
+  /**
+   * Update a FlexFlowInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlexFlowContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -575,6 +847,22 @@ export interface FlexFlowListInstance {
   ): Promise<FlexFlowInstance>;
 
   /**
+   * Create a FlexFlowInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexFlowInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: FlexFlowListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>>;
+
+  /**
    * Streams FlexFlowInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -597,6 +885,28 @@ export interface FlexFlowListInstance {
     callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams FlexFlowInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FlexFlowListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: FlexFlowListInstanceEachOptions,
+    callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of FlexFlowInstance records from the API.
    *
    * The request is executed immediately.
@@ -608,6 +918,18 @@ export interface FlexFlowListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage>;
+  /**
+   * Retrieve a single target page of FlexFlowInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<FlexFlowPage>) => any
+  ): Promise<ApiResponse<FlexFlowPage>>;
   /**
    * Lists FlexFlowInstance records from the API as a list.
    *
@@ -624,6 +946,30 @@ export interface FlexFlowListInstance {
     params: FlexFlowListInstanceOptions,
     callback?: (error: Error | null, items: FlexFlowInstance[]) => any
   ): Promise<FlexFlowInstance[]>;
+  /**
+   * Lists FlexFlowInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FlexFlowListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlexFlowInstance[]>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance[]>>;
+  listWithHttpInfo(
+    params: FlexFlowListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlexFlowInstance[]>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance[]>>;
   /**
    * Retrieve a single page of FlexFlowInstance records from the API.
    *
@@ -642,6 +988,24 @@ export interface FlexFlowListInstance {
     params: FlexFlowListInstancePageOptions,
     callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage>;
+  /**
+   * Retrieve a single page of FlexFlowInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FlexFlowListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<FlexFlowPage>) => any
+  ): Promise<ApiResponse<FlexFlowPage>>;
+  pageWithHttpInfo(
+    params: FlexFlowListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<FlexFlowPage>) => any
+  ): Promise<ApiResponse<FlexFlowPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -750,6 +1114,102 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: FlexFlowListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlexFlowInstance>
+    ) => any
+  ): Promise<ApiResponse<FlexFlowInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    if (
+      params["chatServiceSid"] === null ||
+      params["chatServiceSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['chatServiceSid']\" missing."
+      );
+    }
+
+    if (params["channelType"] === null || params["channelType"] === undefined) {
+      throw new Error("Required parameter \"params['channelType']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    data["ChatServiceSid"] = params["chatServiceSid"];
+
+    data["ChannelType"] = params["channelType"];
+    if (params["contactIdentity"] !== undefined)
+      data["ContactIdentity"] = params["contactIdentity"];
+    if (params["enabled"] !== undefined)
+      data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["integrationType"] !== undefined)
+      data["IntegrationType"] = params["integrationType"];
+    if (params["integration.flowSid"] !== undefined)
+      data["Integration.FlowSid"] = params["integration.flowSid"];
+    if (params["integration.url"] !== undefined)
+      data["Integration.Url"] = params["integration.url"];
+    if (params["integration.workspaceSid"] !== undefined)
+      data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+    if (params["integration.workflowSid"] !== undefined)
+      data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+    if (params["integration.channel"] !== undefined)
+      data["Integration.Channel"] = params["integration.channel"];
+    if (params["integration.timeout"] !== undefined)
+      data["Integration.Timeout"] = params["integration.timeout"];
+    if (params["integration.priority"] !== undefined)
+      data["Integration.Priority"] = params["integration.priority"];
+    if (params["integration.creationOnMessage"] !== undefined)
+      data["Integration.CreationOnMessage"] = serialize.bool(
+        params["integration.creationOnMessage"]
+      );
+    if (params["longLived"] !== undefined)
+      data["LongLived"] = serialize.bool(params["longLived"]);
+    if (params["janitorEnabled"] !== undefined)
+      data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+    if (params["integration.retryCount"] !== undefined)
+      data["Integration.RetryCount"] = params["integration.retryCount"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<FlexFlowResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlexFlowInstance> => ({
+          ...response,
+          body: new FlexFlowInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | FlexFlowListInstancePageOptions
@@ -805,10 +1265,83 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new FlexFlowPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | FlexFlowListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<FlexFlowPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<FlexFlowPage>) => any
+  ): Promise<ApiResponse<FlexFlowPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<FlexFlowPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FlexFlowPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<FlexFlowPage>) => any
+  ): Promise<ApiResponse<FlexFlowPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<FlexFlowPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FlexFlowPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

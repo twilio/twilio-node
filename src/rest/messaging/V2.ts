@@ -15,6 +15,7 @@
 import MessagingBase from "../MessagingBase";
 import Version from "../../base/Version";
 import { ChannelsSenderListInstance } from "./v2/channelsSender";
+import { DomainCertsListInstance } from "./v2/domainCerts";
 import { TypingIndicatorListInstance } from "./v2/typingIndicator";
 
 export default class V2 extends Version {
@@ -29,6 +30,8 @@ export default class V2 extends Version {
 
   /** channelsSenders - { Twilio.Messaging.V2.ChannelsSenderListInstance } resource */
   protected _channelsSenders?: ChannelsSenderListInstance;
+  /** domainCerts - { Twilio.Messaging.V2.DomainCertsListInstance } resource */
+  protected _domainCerts?: DomainCertsListInstance;
   /** typingIndicator - { Twilio.Messaging.V2.TypingIndicatorListInstance } resource */
   protected _typingIndicator?: TypingIndicatorListInstance;
 
@@ -37,6 +40,12 @@ export default class V2 extends Version {
     this._channelsSenders =
       this._channelsSenders || ChannelsSenderListInstance(this);
     return this._channelsSenders;
+  }
+
+  /** Getter for domainCerts resource */
+  get domainCerts(): DomainCertsListInstance {
+    this._domainCerts = this._domainCerts || DomainCertsListInstance(this);
+    return this._domainCerts;
   }
 
   /** Getter for typingIndicator resource */

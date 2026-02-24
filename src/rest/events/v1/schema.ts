@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { SchemaVersionListInstance } from "./schema/schemaVersion";
 
 export interface SchemaContext {
@@ -32,6 +33,17 @@ export interface SchemaContext {
   fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any
   ): Promise<SchemaInstance>;
+
+  /**
+   * Fetch a SchemaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SchemaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any
+  ): Promise<ApiResponse<SchemaInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -84,6 +96,39 @@ export class SchemaContextImpl implements SchemaContext {
       (payload) =>
         new SchemaInstance(operationVersion, payload, instance._solution.id)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any
+  ): Promise<ApiResponse<SchemaInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SchemaResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SchemaInstance> => ({
+          ...response,
+          body: new SchemaInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -170,6 +215,19 @@ export class SchemaInstance {
     callback?: (error: Error | null, item?: SchemaInstance) => any
   ): Promise<SchemaInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a SchemaInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SchemaInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any
+  ): Promise<ApiResponse<SchemaInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

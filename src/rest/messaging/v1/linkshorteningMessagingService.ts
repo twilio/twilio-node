@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface LinkshorteningMessagingServiceContext {
   /**
@@ -34,6 +35,20 @@ export interface LinkshorteningMessagingServiceContext {
   ): Promise<LinkshorteningMessagingServiceInstance>;
 
   /**
+   * Create a LinkshorteningMessagingServiceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed LinkshorteningMessagingServiceInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>
+    ) => any
+  ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>>;
+
+  /**
    * Remove a LinkshorteningMessagingServiceInstance
    *
    * @param callback - Callback to handle processed record
@@ -43,6 +58,17 @@ export interface LinkshorteningMessagingServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
+
+  /**
+   * Remove a LinkshorteningMessagingServiceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -113,6 +139,43 @@ export class LinkshorteningMessagingServiceContextImpl
     return operationPromise;
   }
 
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>
+    ) => any
+  ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<LinkshorteningMessagingServiceResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<LinkshorteningMessagingServiceInstance> => ({
+          ...response,
+          body: new LinkshorteningMessagingServiceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
@@ -125,6 +188,30 @@ export class LinkshorteningMessagingServiceContextImpl
         method: "delete",
         headers,
       });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -214,6 +301,22 @@ export class LinkshorteningMessagingServiceInstance {
   }
 
   /**
+   * Create a LinkshorteningMessagingServiceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed LinkshorteningMessagingServiceInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>
+    ) => any
+  ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
+    return this._proxy.createWithHttpInfo(callback);
+  }
+
+  /**
    * Remove a LinkshorteningMessagingServiceInstance
    *
    * @param callback - Callback to handle processed record
@@ -224,6 +327,19 @@ export class LinkshorteningMessagingServiceInstance {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
+  }
+
+  /**
+   * Remove a LinkshorteningMessagingServiceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
   }
 
   /**

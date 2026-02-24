@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to update a OriginationUrlInstance
@@ -84,6 +86,7 @@ export interface OriginationUrlListInstanceOptions {
 export interface OriginationUrlListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -103,6 +106,17 @@ export interface OriginationUrlContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a OriginationUrlInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a OriginationUrlInstance
    *
    * @param callback - Callback to handle processed record
@@ -112,6 +126,20 @@ export interface OriginationUrlContext {
   fetch(
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance>;
+
+  /**
+   * Fetch a OriginationUrlInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>>;
 
   /**
    * Update a OriginationUrlInstance
@@ -135,6 +163,35 @@ export interface OriginationUrlContext {
     params: OriginationUrlContextUpdateOptions,
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance>;
+
+  /**
+   * Update a OriginationUrlInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>>;
+  /**
+   * Update a OriginationUrlInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: OriginationUrlContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -185,6 +242,30 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
@@ -208,6 +289,43 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<OriginationUrlResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OriginationUrlInstance> => ({
+          ...response,
+          body: new OriginationUrlInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -261,6 +379,68 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | OriginationUrlContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<OriginationUrlInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["weight"] !== undefined) data["Weight"] = params["weight"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["enabled"] !== undefined)
+      data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["sipUrl"] !== undefined) data["SipUrl"] = params["sipUrl"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<OriginationUrlResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OriginationUrlInstance> => ({
+          ...response,
+          body: new OriginationUrlInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -396,6 +576,19 @@ export class OriginationUrlInstance {
   }
 
   /**
+   * Remove a OriginationUrlInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a OriginationUrlInstance
    *
    * @param callback - Callback to handle processed record
@@ -406,6 +599,22 @@ export class OriginationUrlInstance {
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a OriginationUrlInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -436,6 +645,45 @@ export class OriginationUrlInstance {
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a OriginationUrlInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>>;
+  /**
+   * Update a OriginationUrlInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: OriginationUrlContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -490,6 +738,22 @@ export interface OriginationUrlListInstance {
   ): Promise<OriginationUrlInstance>;
 
   /**
+   * Create a OriginationUrlInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OriginationUrlInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: OriginationUrlListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>>;
+
+  /**
    * Streams OriginationUrlInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -518,6 +782,34 @@ export interface OriginationUrlListInstance {
     ) => void
   ): void;
   /**
+   * Streams OriginationUrlInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { OriginationUrlListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: OriginationUrlInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: OriginationUrlListInstanceEachOptions,
+    callback?: (
+      item: OriginationUrlInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
    *
    * The request is executed immediately.
@@ -529,6 +821,21 @@ export interface OriginationUrlListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage>;
+  /**
+   * Retrieve a single target page of OriginationUrlInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlPage>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlPage>>;
   /**
    * Lists OriginationUrlInstance records from the API as a list.
    *
@@ -545,6 +852,30 @@ export interface OriginationUrlListInstance {
     params: OriginationUrlListInstanceOptions,
     callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
   ): Promise<OriginationUrlInstance[]>;
+  /**
+   * Lists OriginationUrlInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { OriginationUrlListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlInstance[]>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance[]>>;
+  listWithHttpInfo(
+    params: OriginationUrlListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlInstance[]>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance[]>>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
    *
@@ -563,6 +894,30 @@ export interface OriginationUrlListInstance {
     params: OriginationUrlListInstancePageOptions,
     callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage>;
+  /**
+   * Retrieve a single page of OriginationUrlInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { OriginationUrlListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlPage>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlPage>>;
+  pageWithHttpInfo(
+    params: OriginationUrlListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlPage>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -660,6 +1015,83 @@ export function OriginationUrlListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: OriginationUrlListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlInstance>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["weight"] === null || params["weight"] === undefined) {
+      throw new Error("Required parameter \"params['weight']\" missing.");
+    }
+
+    if (params["priority"] === null || params["priority"] === undefined) {
+      throw new Error("Required parameter \"params['priority']\" missing.");
+    }
+
+    if (params["enabled"] === null || params["enabled"] === undefined) {
+      throw new Error("Required parameter \"params['enabled']\" missing.");
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    if (params["sipUrl"] === null || params["sipUrl"] === undefined) {
+      throw new Error("Required parameter \"params['sipUrl']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Weight"] = params["weight"];
+
+    data["Priority"] = params["priority"];
+
+    data["Enabled"] = serialize.bool(params["enabled"]);
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    data["SipUrl"] = params["sipUrl"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<OriginationUrlResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OriginationUrlInstance> => ({
+          ...response,
+          body: new OriginationUrlInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | OriginationUrlListInstancePageOptions
@@ -713,10 +1145,91 @@ export function OriginationUrlListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new OriginationUrlPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | OriginationUrlListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<OriginationUrlPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OriginationUrlPage>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<OriginationUrlPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OriginationUrlPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<OriginationUrlPage>
+    ) => any
+  ): Promise<ApiResponse<OriginationUrlPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<OriginationUrlPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new OriginationUrlPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

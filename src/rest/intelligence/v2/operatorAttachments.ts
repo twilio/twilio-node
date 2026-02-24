@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface OperatorAttachmentsContext {
   /**
@@ -29,6 +30,20 @@ export interface OperatorAttachmentsContext {
   fetch(
     callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any
   ): Promise<OperatorAttachmentsInstance>;
+
+  /**
+   * Fetch a OperatorAttachmentsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OperatorAttachmentsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperatorAttachmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<OperatorAttachmentsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -78,6 +93,42 @@ export class OperatorAttachmentsContextImpl
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperatorAttachmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<OperatorAttachmentsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<OperatorAttachmentsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OperatorAttachmentsInstance> => ({
+          ...response,
+          body: new OperatorAttachmentsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -158,6 +209,22 @@ export class OperatorAttachmentsInstance {
     callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any
   ): Promise<OperatorAttachmentsInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a OperatorAttachmentsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OperatorAttachmentsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperatorAttachmentsInstance>
+    ) => any
+  ): Promise<ApiResponse<OperatorAttachmentsInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

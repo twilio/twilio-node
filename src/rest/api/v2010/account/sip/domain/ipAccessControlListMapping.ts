@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a IpAccessControlListMappingInstance
@@ -60,6 +62,7 @@ export interface IpAccessControlListMappingListInstanceOptions {
 export interface IpAccessControlListMappingListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -79,6 +82,17 @@ export interface IpAccessControlListMappingContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a IpAccessControlListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
@@ -91,6 +105,20 @@ export interface IpAccessControlListMappingContext {
       item?: IpAccessControlListMappingInstance
     ) => any
   ): Promise<IpAccessControlListMappingInstance>;
+
+  /**
+   * Fetch a IpAccessControlListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed IpAccessControlListMappingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IpAccessControlListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -153,6 +181,30 @@ export class IpAccessControlListMappingContextImpl
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (
       error: Error | null,
@@ -180,6 +232,44 @@ export class IpAccessControlListMappingContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IpAccessControlListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<IpAccessControlListMappingResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<IpAccessControlListMappingInstance> => ({
+          ...response,
+          body: new IpAccessControlListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,6 +383,19 @@ export class IpAccessControlListMappingInstance {
   }
 
   /**
+   * Remove a IpAccessControlListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
@@ -306,6 +409,22 @@ export class IpAccessControlListMappingInstance {
     ) => any
   ): Promise<IpAccessControlListMappingInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a IpAccessControlListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed IpAccessControlListMappingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IpAccessControlListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -360,6 +479,22 @@ export interface IpAccessControlListMappingListInstance {
   ): Promise<IpAccessControlListMappingInstance>;
 
   /**
+   * Create a IpAccessControlListMappingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed IpAccessControlListMappingInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: IpAccessControlListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IpAccessControlListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance>>;
+
+  /**
    * Streams IpAccessControlListMappingInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -388,6 +523,34 @@ export interface IpAccessControlListMappingListInstance {
     ) => void
   ): void;
   /**
+   * Streams IpAccessControlListMappingInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IpAccessControlListMappingListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: IpAccessControlListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: IpAccessControlListMappingListInstanceEachOptions,
+    callback?: (
+      item: IpAccessControlListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of IpAccessControlListMappingInstance records from the API.
    *
    * The request is executed immediately.
@@ -402,6 +565,21 @@ export interface IpAccessControlListMappingListInstance {
       items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage>;
+  /**
+   * Retrieve a single target page of IpAccessControlListMappingInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingPage>>;
   /**
    * Lists IpAccessControlListMappingInstance records from the API as a list.
    *
@@ -424,6 +602,30 @@ export interface IpAccessControlListMappingListInstance {
       items: IpAccessControlListMappingInstance[]
     ) => any
   ): Promise<IpAccessControlListMappingInstance[]>;
+  /**
+   * Lists IpAccessControlListMappingInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IpAccessControlListMappingListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingInstance[]>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance[]>>;
+  listWithHttpInfo(
+    params: IpAccessControlListMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingInstance[]>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance[]>>;
   /**
    * Retrieve a single page of IpAccessControlListMappingInstance records from the API.
    *
@@ -448,6 +650,30 @@ export interface IpAccessControlListMappingListInstance {
       items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage>;
+  /**
+   * Retrieve a single page of IpAccessControlListMappingInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IpAccessControlListMappingListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingPage>>;
+  pageWithHttpInfo(
+    params: IpAccessControlListMappingListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -538,6 +764,62 @@ export function IpAccessControlListMappingListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: IpAccessControlListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["ipAccessControlListSid"] === null ||
+      params["ipAccessControlListSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['ipAccessControlListSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["IpAccessControlListSid"] = params["ipAccessControlListSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<IpAccessControlListMappingResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<IpAccessControlListMappingInstance> => ({
+          ...response,
+          body: new IpAccessControlListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | IpAccessControlListMappingListInstancePageOptions
@@ -601,7 +883,6 @@ export function IpAccessControlListMappingListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new IpAccessControlListMappingPage(
@@ -609,6 +890,91 @@ export function IpAccessControlListMappingListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | IpAccessControlListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<IpAccessControlListMappingPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IpAccessControlListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<IpAccessControlListMappingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new IpAccessControlListMappingPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<IpAccessControlListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<IpAccessControlListMappingPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<IpAccessControlListMappingPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new IpAccessControlListMappingPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

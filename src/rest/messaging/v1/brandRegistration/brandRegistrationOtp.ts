@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export interface BrandRegistrationOtpSolution {
   brandRegistrationSid: string;
@@ -37,6 +38,20 @@ export interface BrandRegistrationOtpListInstance {
   create(
     callback?: (error: Error | null, item?: BrandRegistrationOtpInstance) => any
   ): Promise<BrandRegistrationOtpInstance>;
+
+  /**
+   * Create a BrandRegistrationOtpInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BrandRegistrationOtpInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BrandRegistrationOtpInstance>
+    ) => any
+  ): Promise<ApiResponse<BrandRegistrationOtpInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -80,6 +95,41 @@ export function BrandRegistrationOtpListInstance(
           instance._solution.brandRegistrationSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BrandRegistrationOtpInstance>
+    ) => any
+  ): Promise<ApiResponse<BrandRegistrationOtpInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BrandRegistrationOtpResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<BrandRegistrationOtpInstance> => ({
+          ...response,
+          body: new BrandRegistrationOtpInstance(
+            operationVersion,
+            response.body,
+            instance._solution.brandRegistrationSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

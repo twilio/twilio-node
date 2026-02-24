@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a WorkerStatisticsInstance
@@ -55,6 +56,35 @@ export interface WorkerStatisticsContext {
     params: WorkerStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance>;
+
+  /**
+   * Fetch a WorkerStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkerStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkerStatisticsInstance>>;
+  /**
+   * Fetch a WorkerStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkerStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkerStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkerStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -129,6 +159,67 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
           instance._solution.workerSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | WorkerStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<WorkerStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkerStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkerStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkerStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkerStatisticsInstance> => ({
+          ...response,
+          body: new WorkerStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workerSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -240,6 +331,45 @@ export class WorkerStatisticsInstance {
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a WorkerStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkerStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkerStatisticsInstance>>;
+  /**
+   * Fetch a WorkerStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkerStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkerStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkerStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkerStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkerStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkerStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The HTTP method to be used when sending a webhook request.
@@ -57,6 +58,17 @@ export interface WebhookContext {
   ): Promise<WebhookInstance>;
 
   /**
+   * Fetch a WebhookInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebhookInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>>;
+
+  /**
    * Update a WebhookInstance
    *
    * @param callback - Callback to handle processed record
@@ -78,6 +90,29 @@ export interface WebhookContext {
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
+
+  /**
+   * Update a WebhookInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebhookInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>>;
+  /**
+   * Update a WebhookInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebhookInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: WebhookContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -114,6 +149,35 @@ export class WebhookContextImpl implements WebhookContext {
     operationPromise = operationPromise.then(
       (payload) => new WebhookInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WebhookResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WebhookInstance> => ({
+          ...response,
+          body: new WebhookInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -162,6 +226,58 @@ export class WebhookContextImpl implements WebhookContext {
     operationPromise = operationPromise.then(
       (payload) => new WebhookInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<WebhookInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["filters"] !== undefined)
+      data["Filters"] = serialize.map(params["filters"], (e: string) => e);
+    if (params["preWebhookUrl"] !== undefined)
+      data["PreWebhookUrl"] = params["preWebhookUrl"];
+    if (params["postWebhookUrl"] !== undefined)
+      data["PostWebhookUrl"] = params["postWebhookUrl"];
+    if (params["target"] !== undefined) data["Target"] = params["target"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<WebhookResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WebhookInstance> => ({
+          ...response,
+          body: new WebhookInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -254,6 +370,19 @@ export class WebhookInstance {
   }
 
   /**
+   * Fetch a WebhookInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebhookInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a WebhookInstance
    *
    * @param callback - Callback to handle processed record
@@ -281,6 +410,36 @@ export class WebhookInstance {
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a WebhookInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebhookInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>>;
+  /**
+   * Update a WebhookInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WebhookInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: WebhookContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+  ): Promise<ApiResponse<WebhookInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

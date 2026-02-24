@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a EligibilityInstance
@@ -57,6 +58,37 @@ export interface EligibilityListInstance {
     headers?: any,
     callback?: (error: Error | null, item?: EligibilityInstance) => any
   ): Promise<EligibilityInstance>;
+
+  /**
+   * Create a EligibilityInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EligibilityInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EligibilityInstance>
+    ) => any
+  ): Promise<ApiResponse<EligibilityInstance>>;
+  /**
+   * Create a EligibilityInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EligibilityInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EligibilityInstance>
+    ) => any
+  ): Promise<ApiResponse<EligibilityInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -108,6 +140,57 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
     operationPromise = operationPromise.then(
       (payload) => new EligibilityInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | object
+      | ((error: Error | null, items: ApiResponse<EligibilityInstance>) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EligibilityInstance>
+    ) => any
+  ): Promise<ApiResponse<EligibilityInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<EligibilityResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<EligibilityInstance> => ({
+          ...response,
+          body: new EligibilityInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

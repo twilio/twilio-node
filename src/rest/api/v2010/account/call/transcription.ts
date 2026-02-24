@@ -17,6 +17,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The status - one of `stopped`, `in-flight`
@@ -71,8 +72,10 @@ export interface TranscriptionListInstanceCreateOptions {
   hints?: string;
   /** The provider will add punctuation to recognition result */
   enableAutomaticPunctuation?: boolean;
-  /** The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators . */
+  /** The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators */
   intelligenceService?: string;
+  /** Whether the callback includes raw provider data. */
+  enableProviderData?: boolean;
 }
 
 export interface TranscriptionContext {
@@ -88,6 +91,22 @@ export interface TranscriptionContext {
     params: TranscriptionContextUpdateOptions,
     callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
+
+  /**
+   * Update a TranscriptionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TranscriptionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -167,6 +186,59 @@ export class TranscriptionContextImpl implements TranscriptionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: TranscriptionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error("Required parameter \"params['status']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Status"] = params["status"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TranscriptionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -279,6 +351,32 @@ export class TranscriptionInstance {
   }
 
   /**
+   * Update a TranscriptionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TranscriptionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -335,6 +433,35 @@ export interface TranscriptionListInstance {
     params: TranscriptionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
+
+  /**
+   * Create a TranscriptionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>>;
+  /**
+   * Create a TranscriptionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TranscriptionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TranscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -408,6 +535,8 @@ export function TranscriptionListInstance(
       );
     if (params["intelligenceService"] !== undefined)
       data["IntelligenceService"] = params["intelligenceService"];
+    if (params["enableProviderData"] !== undefined)
+      data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -430,6 +559,89 @@ export function TranscriptionListInstance(
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | TranscriptionListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<TranscriptionInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptionInstance>
+    ) => any
+  ): Promise<ApiResponse<TranscriptionInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["name"] !== undefined) data["Name"] = params["name"];
+    if (params["track"] !== undefined) data["Track"] = params["track"];
+    if (params["statusCallbackUrl"] !== undefined)
+      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["inboundTrackLabel"] !== undefined)
+      data["InboundTrackLabel"] = params["inboundTrackLabel"];
+    if (params["outboundTrackLabel"] !== undefined)
+      data["OutboundTrackLabel"] = params["outboundTrackLabel"];
+    if (params["partialResults"] !== undefined)
+      data["PartialResults"] = serialize.bool(params["partialResults"]);
+    if (params["languageCode"] !== undefined)
+      data["LanguageCode"] = params["languageCode"];
+    if (params["transcriptionEngine"] !== undefined)
+      data["TranscriptionEngine"] = params["transcriptionEngine"];
+    if (params["profanityFilter"] !== undefined)
+      data["ProfanityFilter"] = serialize.bool(params["profanityFilter"]);
+    if (params["speechModel"] !== undefined)
+      data["SpeechModel"] = params["speechModel"];
+    if (params["hints"] !== undefined) data["Hints"] = params["hints"];
+    if (params["enableAutomaticPunctuation"] !== undefined)
+      data["EnableAutomaticPunctuation"] = serialize.bool(
+        params["enableAutomaticPunctuation"]
+      );
+    if (params["intelligenceService"] !== undefined)
+      data["IntelligenceService"] = params["intelligenceService"];
+    if (params["enableProviderData"] !== undefined)
+      data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TranscriptionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

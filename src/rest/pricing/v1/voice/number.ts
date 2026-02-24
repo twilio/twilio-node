@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.
@@ -46,6 +47,17 @@ export interface NumberContext {
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
+
+  /**
+   * Fetch a NumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -89,6 +101,39 @@ export class NumberContextImpl implements NumberContext {
       (payload) =>
         new NumberInstance(operationVersion, payload, instance._solution.number)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<NumberResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NumberInstance> => ({
+          ...response,
+          body: new NumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.number
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -184,6 +229,19 @@ export class NumberInstance {
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a NumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

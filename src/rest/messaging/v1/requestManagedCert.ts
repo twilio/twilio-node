@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface RequestManagedCertContext {
   /**
@@ -29,6 +30,20 @@ export interface RequestManagedCertContext {
   update(
     callback?: (error: Error | null, item?: RequestManagedCertInstance) => any
   ): Promise<RequestManagedCertInstance>;
+
+  /**
+   * Update a RequestManagedCertInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RequestManagedCertInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RequestManagedCertInstance>
+    ) => any
+  ): Promise<ApiResponse<RequestManagedCertInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -78,6 +93,42 @@ export class RequestManagedCertContextImpl
           instance._solution.domainSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RequestManagedCertInstance>
+    ) => any
+  ): Promise<ApiResponse<RequestManagedCertInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<RequestManagedCertResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<RequestManagedCertInstance> => ({
+          ...response,
+          body: new RequestManagedCertInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -191,6 +242,22 @@ export class RequestManagedCertInstance {
     callback?: (error: Error | null, item?: RequestManagedCertInstance) => any
   ): Promise<RequestManagedCertInstance> {
     return this._proxy.update(callback);
+  }
+
+  /**
+   * Update a RequestManagedCertInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RequestManagedCertInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RequestManagedCertInstance>
+    ) => any
+  ): Promise<ApiResponse<RequestManagedCertInstance>> {
+    return this._proxy.updateWithHttpInfo(callback);
   }
 
   /**

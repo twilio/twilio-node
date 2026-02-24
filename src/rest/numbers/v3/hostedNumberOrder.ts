@@ -17,6 +17,7 @@ import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { PhoneNumberCapabilities } from "../../../interfaces";
 
 export type HostedNumberOrderStatus =
@@ -92,6 +93,22 @@ export interface HostedNumberOrderListInstance {
     params: HostedNumberOrderListInstanceCreateOptions,
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
+
+  /**
+   * Create a HostedNumberOrderInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -179,6 +196,91 @@ export function HostedNumberOrderListInstance(
     operationPromise = operationPromise.then(
       (payload) => new HostedNumberOrderInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderInstance>
+    ) => any
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
+    }
+
+    if (
+      params["smsCapability"] === null ||
+      params["smsCapability"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['smsCapability']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["phoneNumber"] = params["phoneNumber"];
+
+    data["smsCapability"] = serialize.bool(params["smsCapability"]);
+    if (params["accountSid"] !== undefined)
+      data["accountSid"] = params["accountSid"];
+    if (params["friendlyName"] !== undefined)
+      data["friendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+      data["uniqueName"] = params["uniqueName"];
+    if (params["ccEmails"] !== undefined)
+      data["ccEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
+    if (params["smsUrl"] !== undefined) data["smsUrl"] = params["smsUrl"];
+    if (params["smsMethod"] !== undefined)
+      data["smsMethod"] = params["smsMethod"];
+    if (params["smsFallbackUrl"] !== undefined)
+      data["smsFallbackUrl"] = params["smsFallbackUrl"];
+    if (params["smsFallbackMethod"] !== undefined)
+      data["smsFallbackMethod"] = params["smsFallbackMethod"];
+    if (params["statusCallbackUrl"] !== undefined)
+      data["statusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["statusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["smsApplicationSid"] !== undefined)
+      data["smsApplicationSid"] = params["smsApplicationSid"];
+    if (params["addressSid"] !== undefined)
+      data["addressSid"] = params["addressSid"];
+    if (params["email"] !== undefined) data["email"] = params["email"];
+    if (params["verificationType"] !== undefined)
+      data["verificationType"] = params["verificationType"];
+    if (params["verificationDocumentSid"] !== undefined)
+      data["verificationDocumentSid"] = params["verificationDocumentSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<HostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<HostedNumberOrderInstance> => ({
+          ...response,
+          body: new HostedNumberOrderInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

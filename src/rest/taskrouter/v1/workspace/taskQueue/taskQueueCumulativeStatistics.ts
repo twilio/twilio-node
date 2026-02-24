@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a TaskQueueCumulativeStatisticsInstance
@@ -63,6 +64,35 @@ export interface TaskQueueCumulativeStatisticsContext {
       item?: TaskQueueCumulativeStatisticsInstance
     ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
+
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: TaskQueueCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -151,6 +181,69 @@ export class TaskQueueCumulativeStatisticsContextImpl
           instance._solution.taskQueueSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | TaskQueueCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["splitByWaitTime"] !== undefined)
+      data["SplitByWaitTime"] = params["splitByWaitTime"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TaskQueueCumulativeStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TaskQueueCumulativeStatisticsInstance> => ({
+          ...response,
+          body: new TaskQueueCumulativeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.taskQueueSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -389,6 +482,45 @@ export class TaskQueueCumulativeStatisticsInstance {
     ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: TaskQueueCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

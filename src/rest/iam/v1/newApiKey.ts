@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export type NewApiKeyKeytype = "restricted";
 
@@ -53,6 +54,22 @@ export interface NewApiKeyListInstance {
     params: NewApiKeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewApiKeyInstance) => any
   ): Promise<NewApiKeyInstance>;
+
+  /**
+   * Create a NewApiKeyInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewApiKeyInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NewApiKeyListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewApiKeyInstance>
+    ) => any
+  ): Promise<ApiResponse<NewApiKeyInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -104,6 +121,57 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
     operationPromise = operationPromise.then(
       (payload) => new NewApiKeyInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NewApiKeyListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NewApiKeyInstance>
+    ) => any
+  ): Promise<ApiResponse<NewApiKeyInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["accountSid"] === null || params["accountSid"] === undefined) {
+      throw new Error("Required parameter \"params['accountSid']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["AccountSid"] = params["accountSid"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["keyType"] !== undefined) data["KeyType"] = params["keyType"];
+    if (params["policy"] !== undefined)
+      data["Policy"] = serialize.object(params["policy"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NewApiKeyResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewApiKeyInstance> => ({
+          ...response,
+          body: new NewApiKeyInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

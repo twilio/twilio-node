@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a CredentialListMappingInstance
@@ -60,6 +62,7 @@ export interface CredentialListMappingListInstanceOptions {
 export interface CredentialListMappingListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -79,6 +82,17 @@ export interface CredentialListMappingContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a CredentialListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a CredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
@@ -91,6 +105,20 @@ export interface CredentialListMappingContext {
       item?: CredentialListMappingInstance
     ) => any
   ): Promise<CredentialListMappingInstance>;
+
+  /**
+   * Fetch a CredentialListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CredentialListMappingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -153,6 +181,30 @@ export class CredentialListMappingContextImpl
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (
       error: Error | null,
@@ -180,6 +232,44 @@ export class CredentialListMappingContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CredentialListMappingResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CredentialListMappingInstance> => ({
+          ...response,
+          body: new CredentialListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,6 +383,19 @@ export class CredentialListMappingInstance {
   }
 
   /**
+   * Remove a CredentialListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a CredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
@@ -306,6 +409,22 @@ export class CredentialListMappingInstance {
     ) => any
   ): Promise<CredentialListMappingInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a CredentialListMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CredentialListMappingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -360,6 +479,22 @@ export interface CredentialListMappingListInstance {
   ): Promise<CredentialListMappingInstance>;
 
   /**
+   * Create a CredentialListMappingInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CredentialListMappingInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CredentialListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance>>;
+
+  /**
    * Streams CredentialListMappingInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -388,6 +523,34 @@ export interface CredentialListMappingListInstance {
     ) => void
   ): void;
   /**
+   * Streams CredentialListMappingInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CredentialListMappingListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: CredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: CredentialListMappingListInstanceEachOptions,
+    callback?: (
+      item: CredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of CredentialListMappingInstance records from the API.
    *
    * The request is executed immediately.
@@ -399,6 +562,21 @@ export interface CredentialListMappingListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage>;
+  /**
+   * Retrieve a single target page of CredentialListMappingInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingPage>>;
   /**
    * Lists CredentialListMappingInstance records from the API as a list.
    *
@@ -422,6 +600,30 @@ export interface CredentialListMappingListInstance {
     ) => any
   ): Promise<CredentialListMappingInstance[]>;
   /**
+   * Lists CredentialListMappingInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CredentialListMappingListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance[]>>;
+  listWithHttpInfo(
+    params: CredentialListMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance[]>>;
+  /**
    * Retrieve a single page of CredentialListMappingInstance records from the API.
    *
    * The request is executed immediately.
@@ -439,6 +641,30 @@ export interface CredentialListMappingListInstance {
     params: CredentialListMappingListInstancePageOptions,
     callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage>;
+  /**
+   * Retrieve a single page of CredentialListMappingInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CredentialListMappingListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingPage>>;
+  pageWithHttpInfo(
+    params: CredentialListMappingListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -529,6 +755,62 @@ export function CredentialListMappingListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["credentialListSid"] === null ||
+      params["credentialListSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['credentialListSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["CredentialListSid"] = params["credentialListSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CredentialListMappingResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CredentialListMappingInstance> => ({
+          ...response,
+          body: new CredentialListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | CredentialListMappingListInstancePageOptions
@@ -586,7 +868,6 @@ export function CredentialListMappingListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new CredentialListMappingPage(
@@ -594,6 +875,91 @@ export function CredentialListMappingListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CredentialListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<CredentialListMappingPage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CredentialListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<CredentialListMappingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CredentialListMappingPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CredentialListMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CredentialListMappingPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CredentialListMappingPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CredentialListMappingPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

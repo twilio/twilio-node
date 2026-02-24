@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The status of the Flex onboarding. Can be: `ok`, `inprogress`,`notstarted`.
@@ -64,6 +65,35 @@ export interface ConfigurationContext {
   ): Promise<ConfigurationInstance>;
 
   /**
+   * Fetch a ConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+  /**
+   * Fetch a ConfigurationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: ConfigurationContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+
+  /**
    * Update a ConfigurationInstance
    *
    * @param callback - Callback to handle processed record
@@ -87,6 +117,37 @@ export interface ConfigurationContext {
     headers?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
+
+  /**
+   * Update a ConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+  /**
+   * Update a ConfigurationInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -147,6 +208,57 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    params?:
+      | ConfigurationContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ConfigurationInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["uiVersion"] !== undefined)
+      data["UiVersion"] = params["uiVersion"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ConfigurationResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | object
@@ -184,6 +296,61 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     operationPromise = operationPromise.then(
       (payload) => new ConfigurationInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | object
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ConfigurationInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -549,6 +716,45 @@ export class ConfigurationInstance {
   }
 
   /**
+   * Fetch a ConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+  /**
+   * Fetch a ConfigurationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: ConfigurationContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
+  }
+
+  /**
    * Update a ConfigurationInstance
    *
    * @param callback - Callback to handle processed record
@@ -578,6 +784,47 @@ export class ConfigurationInstance {
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+  /**
+   * Update a ConfigurationInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

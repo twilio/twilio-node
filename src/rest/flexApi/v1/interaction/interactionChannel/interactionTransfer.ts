@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The status of the Transfer. Can be: `active`, `completed`, `failed`.
@@ -60,6 +61,20 @@ export interface InteractionTransferContext {
   ): Promise<InteractionTransferInstance>;
 
   /**
+   * Fetch a InteractionTransferInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
+
+  /**
    * Update a InteractionTransferInstance
    *
    * @param callback - Callback to handle processed record
@@ -83,6 +98,37 @@ export interface InteractionTransferContext {
     headers?: any,
     callback?: (error: Error | null, item?: InteractionTransferInstance) => any
   ): Promise<InteractionTransferInstance>;
+
+  /**
+   * Update a InteractionTransferInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
+  /**
+   * Update a InteractionTransferInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -157,6 +203,44 @@ export class InteractionTransferContextImpl
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InteractionTransferResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InteractionTransferInstance> => ({
+          ...response,
+          body: new InteractionTransferInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | object
@@ -201,6 +285,67 @@ export class InteractionTransferContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | object
+      | ((
+          error: Error | null,
+          item?: ApiResponse<InteractionTransferInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<InteractionTransferResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InteractionTransferInstance> => ({
+          ...response,
+          body: new InteractionTransferInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -351,6 +496,22 @@ export class InteractionTransferInstance {
   }
 
   /**
+   * Fetch a InteractionTransferInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a InteractionTransferInstance
    *
    * @param callback - Callback to handle processed record
@@ -380,6 +541,47 @@ export class InteractionTransferInstance {
     callback?: (error: Error | null, item?: InteractionTransferInstance) => any
   ): Promise<InteractionTransferInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a InteractionTransferInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
+  /**
+   * Update a InteractionTransferInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -449,6 +651,37 @@ export interface InteractionTransferListInstance {
     headers?: any,
     callback?: (error: Error | null, item?: InteractionTransferInstance) => any
   ): Promise<InteractionTransferInstance>;
+
+  /**
+   * Create a InteractionTransferInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
+  /**
+   * Create a InteractionTransferInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InteractionTransferInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -528,6 +761,65 @@ export function InteractionTransferListInstance(
           instance._solution.channelSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | object
+      | ((
+          error: Error | null,
+          items: ApiResponse<InteractionTransferInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionTransferInstance>
+    ) => any
+  ): Promise<ApiResponse<InteractionTransferInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<InteractionTransferResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InteractionTransferInstance> => ({
+          ...response,
+          body: new InteractionTransferInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

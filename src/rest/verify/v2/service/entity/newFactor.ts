@@ -17,6 +17,7 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The Status of this Factor. One of `unverified` or `verified`.
@@ -88,6 +89,22 @@ export interface NewFactorListInstance {
     params: NewFactorListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewFactorInstance) => any
   ): Promise<NewFactorInstance>;
+
+  /**
+   * Create a NewFactorInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewFactorInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NewFactorListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewFactorInstance>
+    ) => any
+  ): Promise<ApiResponse<NewFactorInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -186,6 +203,91 @@ export function NewFactorListInstance(
           instance._solution.identity
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NewFactorListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NewFactorInstance>
+    ) => any
+  ): Promise<ApiResponse<NewFactorInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    if (params["factorType"] === null || params["factorType"] === undefined) {
+      throw new Error("Required parameter \"params['factorType']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    data["FactorType"] = params["factorType"];
+    if (params["binding.alg"] !== undefined)
+      data["Binding.Alg"] = params["binding.alg"];
+    if (params["binding.publicKey"] !== undefined)
+      data["Binding.PublicKey"] = params["binding.publicKey"];
+    if (params["config.appId"] !== undefined)
+      data["Config.AppId"] = params["config.appId"];
+    if (params["config.notificationPlatform"] !== undefined)
+      data["Config.NotificationPlatform"] =
+        params["config.notificationPlatform"];
+    if (params["config.notificationToken"] !== undefined)
+      data["Config.NotificationToken"] = params["config.notificationToken"];
+    if (params["config.sdkVersion"] !== undefined)
+      data["Config.SdkVersion"] = params["config.sdkVersion"];
+    if (params["binding.secret"] !== undefined)
+      data["Binding.Secret"] = params["binding.secret"];
+    if (params["config.timeStep"] !== undefined)
+      data["Config.TimeStep"] = params["config.timeStep"];
+    if (params["config.skew"] !== undefined)
+      data["Config.Skew"] = params["config.skew"];
+    if (params["config.codeLength"] !== undefined)
+      data["Config.CodeLength"] = params["config.codeLength"];
+    if (params["config.alg"] !== undefined)
+      data["Config.Alg"] = params["config.alg"];
+    if (params["metadata"] !== undefined)
+      data["Metadata"] = serialize.object(params["metadata"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NewFactorResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewFactorInstance> => ({
+          ...response,
+          body: new NewFactorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.identity
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

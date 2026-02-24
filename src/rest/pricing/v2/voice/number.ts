@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
@@ -64,6 +65,29 @@ export interface NumberContext {
     params: NumberContextFetchOptions,
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
+
+  /**
+   * Fetch a NumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>>;
+  /**
+   * Fetch a NumberInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: NumberContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -127,6 +151,55 @@ export class NumberContextImpl implements NumberContext {
           instance._solution.destinationNumber
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | NumberContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<NumberInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["originationNumber"] !== undefined)
+      data["OriginationNumber"] = params["originationNumber"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<NumberResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NumberInstance> => ({
+          ...response,
+          body: new NumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.destinationNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -250,6 +323,36 @@ export class NumberInstance {
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a NumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>>;
+  /**
+   * Fetch a NumberInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: NumberContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+  ): Promise<ApiResponse<NumberInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

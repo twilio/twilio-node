@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The verification method used. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna`, or `rcs`.
@@ -96,6 +97,20 @@ export interface VerificationContext {
   ): Promise<VerificationInstance>;
 
   /**
+   * Fetch a VerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>>;
+
+  /**
    * Update a VerificationInstance
    *
    * @param params - Parameter for request
@@ -107,6 +122,22 @@ export interface VerificationContext {
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
+
+  /**
+   * Update a VerificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: VerificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -168,6 +199,43 @@ export class VerificationContextImpl implements VerificationContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<VerificationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<VerificationInstance> => ({
+          ...response,
+          body: new VerificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
@@ -206,6 +274,58 @@ export class VerificationContextImpl implements VerificationContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: VerificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error("Required parameter \"params['status']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Status"] = params["status"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<VerificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<VerificationInstance> => ({
+          ...response,
+          body: new VerificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -360,6 +480,22 @@ export class VerificationInstance {
   }
 
   /**
+   * Fetch a VerificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a VerificationInstance
    *
    * @param params - Parameter for request
@@ -377,6 +513,32 @@ export class VerificationInstance {
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a VerificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: VerificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -433,6 +595,22 @@ export interface VerificationListInstance {
     params: VerificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
+
+  /**
+   * Create a VerificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: VerificationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -532,6 +710,93 @@ export function VerificationListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: VerificationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<VerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["to"] === null || params["to"] === undefined) {
+      throw new Error("Required parameter \"params['to']\" missing.");
+    }
+
+    if (params["channel"] === null || params["channel"] === undefined) {
+      throw new Error("Required parameter \"params['channel']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["To"] = params["to"];
+
+    data["Channel"] = params["channel"];
+    if (params["customFriendlyName"] !== undefined)
+      data["CustomFriendlyName"] = params["customFriendlyName"];
+    if (params["customMessage"] !== undefined)
+      data["CustomMessage"] = params["customMessage"];
+    if (params["sendDigits"] !== undefined)
+      data["SendDigits"] = params["sendDigits"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
+    if (params["customCode"] !== undefined)
+      data["CustomCode"] = params["customCode"];
+    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
+    if (params["rateLimits"] !== undefined)
+      data["RateLimits"] = serialize.object(params["rateLimits"]);
+    if (params["channelConfiguration"] !== undefined)
+      data["ChannelConfiguration"] = serialize.object(
+        params["channelConfiguration"]
+      );
+    if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
+    if (params["templateSid"] !== undefined)
+      data["TemplateSid"] = params["templateSid"];
+    if (params["templateCustomSubstitutions"] !== undefined)
+      data["TemplateCustomSubstitutions"] =
+        params["templateCustomSubstitutions"];
+    if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
+    if (params["enableSnaClientToken"] !== undefined)
+      data["EnableSnaClientToken"] = serialize.bool(
+        params["enableSnaClientToken"]
+      );
+    if (params["riskCheck"] !== undefined)
+      data["RiskCheck"] = params["riskCheck"];
+    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<VerificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<VerificationInstance> => ({
+          ...response,
+          body: new VerificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

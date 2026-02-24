@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a TrunkInstance
@@ -41,6 +42,17 @@ export interface TrunkContext {
   ): Promise<TrunkInstance>;
 
   /**
+   * Fetch a TrunkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TrunkInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>>;
+
+  /**
    * Update a TrunkInstance
    *
    * @param callback - Callback to handle processed record
@@ -62,6 +74,29 @@ export interface TrunkContext {
     params: TrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
+
+  /**
+   * Update a TrunkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TrunkInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>>;
+  /**
+   * Update a TrunkInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TrunkInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -117,6 +152,39 @@ export class TrunkContextImpl implements TrunkContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TrunkResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TrunkInstance> => ({
+          ...response,
+          body: new TrunkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sipTrunkDomain
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | TrunkContextUpdateOptions
@@ -158,6 +226,58 @@ export class TrunkContextImpl implements TrunkContext {
           instance._solution.sipTrunkDomain
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<TrunkInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["voiceRegion"] !== undefined)
+      data["VoiceRegion"] = params["voiceRegion"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TrunkResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TrunkInstance> => ({
+          ...response,
+          body: new TrunkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sipTrunkDomain
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -268,6 +388,19 @@ export class TrunkInstance {
   }
 
   /**
+   * Fetch a TrunkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TrunkInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a TrunkInstance
    *
    * @param callback - Callback to handle processed record
@@ -295,6 +428,36 @@ export class TrunkInstance {
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a TrunkInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TrunkInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>>;
+  /**
+   * Update a TrunkInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TrunkInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
+  ): Promise<ApiResponse<TrunkInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

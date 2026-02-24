@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -50,6 +52,7 @@ export interface EndUserTypeListInstanceOptions {
 export interface EndUserTypeListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -67,6 +70,20 @@ export interface EndUserTypeContext {
   fetch(
     callback?: (error: Error | null, item?: EndUserTypeInstance) => any
   ): Promise<EndUserTypeInstance>;
+
+  /**
+   * Fetch a EndUserTypeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EndUserTypeInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EndUserTypeInstance>
+    ) => any
+  ): Promise<ApiResponse<EndUserTypeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -114,6 +131,42 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EndUserTypeInstance>
+    ) => any
+  ): Promise<ApiResponse<EndUserTypeInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<EndUserTypeResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<EndUserTypeInstance> => ({
+          ...response,
+          body: new EndUserTypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -208,6 +261,22 @@ export class EndUserTypeInstance {
   }
 
   /**
+   * Fetch a EndUserTypeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EndUserTypeInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EndUserTypeInstance>
+    ) => any
+  ): Promise<ApiResponse<EndUserTypeInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -260,6 +329,28 @@ export interface EndUserTypeListInstance {
     callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams EndUserTypeInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EndUserTypeListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: EndUserTypeListInstanceEachOptions,
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of EndUserTypeInstance records from the API.
    *
    * The request is executed immediately.
@@ -271,6 +362,18 @@ export interface EndUserTypeListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage>;
+  /**
+   * Retrieve a single target page of EndUserTypeInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+  ): Promise<ApiResponse<EndUserTypePage>>;
   /**
    * Lists EndUserTypeInstance records from the API as a list.
    *
@@ -287,6 +390,30 @@ export interface EndUserTypeListInstance {
     params: EndUserTypeListInstanceOptions,
     callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
   ): Promise<EndUserTypeInstance[]>;
+  /**
+   * Lists EndUserTypeInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EndUserTypeListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EndUserTypeInstance[]>
+    ) => any
+  ): Promise<ApiResponse<EndUserTypeInstance[]>>;
+  listWithHttpInfo(
+    params: EndUserTypeListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EndUserTypeInstance[]>
+    ) => any
+  ): Promise<ApiResponse<EndUserTypeInstance[]>>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API.
    *
@@ -305,6 +432,24 @@ export interface EndUserTypeListInstance {
     params: EndUserTypeListInstancePageOptions,
     callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage>;
+  /**
+   * Retrieve a single page of EndUserTypeInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EndUserTypeListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+  ): Promise<ApiResponse<EndUserTypePage>>;
+  pageWithHttpInfo(
+    params: EndUserTypeListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+  ): Promise<ApiResponse<EndUserTypePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -377,10 +522,88 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new EndUserTypePage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | EndUserTypeListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<EndUserTypePage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+  ): Promise<ApiResponse<EndUserTypePage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<EndUserTypePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EndUserTypePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<EndUserTypePage>
+    ) => any
+  ): Promise<ApiResponse<EndUserTypePage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<EndUserTypePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EndUserTypePage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

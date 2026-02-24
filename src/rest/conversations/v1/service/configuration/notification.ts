@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to update a NotificationInstance
@@ -63,6 +64,20 @@ export interface NotificationContext {
   ): Promise<NotificationInstance>;
 
   /**
+   * Fetch a NotificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
+
+  /**
    * Update a NotificationInstance
    *
    * @param callback - Callback to handle processed record
@@ -84,6 +99,35 @@ export interface NotificationContext {
     params: NotificationContextUpdateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
+
+  /**
+   * Update a NotificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
+  /**
+   * Update a NotificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: NotificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -131,6 +175,42 @@ export class NotificationContextImpl implements NotificationContext {
           instance._solution.chatServiceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<NotificationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -214,6 +294,98 @@ export class NotificationContextImpl implements NotificationContext {
           instance._solution.chatServiceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | NotificationContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<NotificationInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["logEnabled"] !== undefined)
+      data["LogEnabled"] = serialize.bool(params["logEnabled"]);
+    if (params["newMessage.enabled"] !== undefined)
+      data["NewMessage.Enabled"] = serialize.bool(params["newMessage.enabled"]);
+    if (params["newMessage.template"] !== undefined)
+      data["NewMessage.Template"] = params["newMessage.template"];
+    if (params["newMessage.sound"] !== undefined)
+      data["NewMessage.Sound"] = params["newMessage.sound"];
+    if (params["newMessage.badgeCountEnabled"] !== undefined)
+      data["NewMessage.BadgeCountEnabled"] = serialize.bool(
+        params["newMessage.badgeCountEnabled"]
+      );
+    if (params["addedToConversation.enabled"] !== undefined)
+      data["AddedToConversation.Enabled"] = serialize.bool(
+        params["addedToConversation.enabled"]
+      );
+    if (params["addedToConversation.template"] !== undefined)
+      data["AddedToConversation.Template"] =
+        params["addedToConversation.template"];
+    if (params["addedToConversation.sound"] !== undefined)
+      data["AddedToConversation.Sound"] = params["addedToConversation.sound"];
+    if (params["removedFromConversation.enabled"] !== undefined)
+      data["RemovedFromConversation.Enabled"] = serialize.bool(
+        params["removedFromConversation.enabled"]
+      );
+    if (params["removedFromConversation.template"] !== undefined)
+      data["RemovedFromConversation.Template"] =
+        params["removedFromConversation.template"];
+    if (params["removedFromConversation.sound"] !== undefined)
+      data["RemovedFromConversation.Sound"] =
+        params["removedFromConversation.sound"];
+    if (params["newMessage.withMedia.enabled"] !== undefined)
+      data["NewMessage.WithMedia.Enabled"] = serialize.bool(
+        params["newMessage.withMedia.enabled"]
+      );
+    if (params["newMessage.withMedia.template"] !== undefined)
+      data["NewMessage.WithMedia.Template"] =
+        params["newMessage.withMedia.template"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<NotificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -318,6 +490,22 @@ export class NotificationInstance {
   }
 
   /**
+   * Fetch a NotificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a NotificationInstance
    *
    * @param callback - Callback to handle processed record
@@ -345,6 +533,45 @@ export class NotificationInstance {
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a NotificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
+  /**
+   * Update a NotificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: NotificationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

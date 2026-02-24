@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a EncryptedSentencesInstance
@@ -49,6 +50,35 @@ export interface EncryptedSentencesContext {
     params: EncryptedSentencesContextFetchOptions,
     callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
   ): Promise<EncryptedSentencesInstance>;
+
+  /**
+   * Fetch a EncryptedSentencesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedSentencesInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+  /**
+   * Fetch a EncryptedSentencesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: EncryptedSentencesContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedSentencesInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -114,6 +144,61 @@ export class EncryptedSentencesContextImpl
           instance._solution.transcriptSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | EncryptedSentencesContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<EncryptedSentencesInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedSentencesInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedSentencesInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["redacted"] !== undefined)
+      data["Redacted"] = serialize.bool(params["redacted"]);
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<EncryptedSentencesResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<EncryptedSentencesInstance> => ({
+          ...response,
+          body: new EncryptedSentencesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.transcriptSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -205,6 +290,45 @@ export class EncryptedSentencesInstance {
     callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
   ): Promise<EncryptedSentencesInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a EncryptedSentencesInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedSentencesInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+  /**
+   * Fetch a EncryptedSentencesInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: EncryptedSentencesContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedSentencesInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedSentencesInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedSentencesInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

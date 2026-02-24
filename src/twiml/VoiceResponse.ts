@@ -3009,6 +3009,30 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to uri
+   */
+  export interface SipUriAttributes {
+    /** password - The password for authentication */
+    password?: string;
+    /** priority - The priority of this SIP URI */
+    priority?: string;
+    /** username - The username for authentication */
+    username?: string;
+    /** weight - The weight of this SIP URI */
+    weight?: string;
+  }
+
+  /**
+   * Attributes to pass to header
+   */
+  export interface HeaderAttributes {
+    /** name - The name of the custom header */
+    name?: string;
+    /** value - The value of the custom header */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -3809,13 +3833,13 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param sipUrl - SIP URL
      */
-    sip(sipUrl: string): VoiceResponse.Sip;
+    sip(sipUrl?: string): VoiceResponse.Sip;
     sip(
-      attributes: VoiceResponse.SipAttributes,
-      sipUrl: string
+      attributes?: VoiceResponse.SipAttributes,
+      sipUrl?: string
     ): VoiceResponse.Sip;
     sip(
-      attributes: VoiceResponse.SipAttributes | string,
+      attributes?: VoiceResponse.SipAttributes | string,
       sipUrl?: string
     ): VoiceResponse.Sip {
       if (typeof attributes === "string") {
@@ -3977,6 +4001,38 @@ namespace VoiceResponse {
       return new VoiceResponse.Parameter(
         this.hangup.ele("Parameter", attributes)
       );
+    }
+  }
+
+  export class Header extends TwiML {
+    header: XMLElement;
+    /**
+     * A custom SIP header to include in the request
+     */
+    constructor(header: XMLElement) {
+      super();
+      this.header = header;
+      this._propertyName = "header";
+    }
+  }
+
+  export class Headers extends TwiML {
+    headers: XMLElement;
+    /**
+     * The SIP headers to include in the request
+     */
+    constructor(headers: XMLElement) {
+      super();
+      this.headers = headers;
+      this._propertyName = "headers";
+    }
+    /**
+     * A custom SIP header to include in the request
+     *
+     * @param attributes - TwiML attributes
+     */
+    header(attributes?: VoiceResponse.HeaderAttributes): VoiceResponse.Header {
+      return new VoiceResponse.Header(this.headers.ele("Header", attributes));
     }
   }
 
@@ -4511,6 +4567,51 @@ namespace VoiceResponse {
       super();
       this.sip = sip;
       this._propertyName = "sip";
+    }
+    /**
+     * The SIP headers to include in the request
+     *
+     * @param attributes - TwiML attributes
+     */
+    headers(attributes?: object): VoiceResponse.Headers {
+      return new VoiceResponse.Headers(this.sip.ele("Headers", attributes));
+    }
+    /**
+     * The SIP URI to dial. Multiple Uri elements can be provided, in which case they
+     * will be attempted in priority order. URIs with the same priority will be
+     * selected proportionally based on its weight.
+     *
+     * @param attributes - TwiML attributes
+     * @param sipUrl - The SIP URI
+     */
+    uri(sipUrl?: string): VoiceResponse.SipUri;
+    uri(
+      attributes?: VoiceResponse.SipUriAttributes,
+      sipUrl?: string
+    ): VoiceResponse.SipUri;
+    uri(
+      attributes?: VoiceResponse.SipUriAttributes | string,
+      sipUrl?: string
+    ): VoiceResponse.SipUri {
+      if (typeof attributes === "string") {
+        sipUrl = attributes;
+        attributes = {};
+      }
+      return new VoiceResponse.SipUri(this.sip.ele("Uri", attributes, sipUrl));
+    }
+  }
+
+  export class SipUri extends TwiML {
+    sipUri: XMLElement;
+    /**
+     * The SIP URI to dial. Multiple Uri elements can be provided, in which case they
+     * will be attempted in priority order. URIs with the same priority will be
+     * selected proportionally based on its weight.
+     */
+    constructor(sipUri: XMLElement) {
+      super();
+      this.sipUri = sipUri;
+      this._propertyName = "sipUri";
     }
   }
 

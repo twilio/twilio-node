@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 export type MessageOrderType = "asc" | "desc";
 
@@ -79,7 +81,7 @@ export interface MessageListInstanceCreateOptions {
 export interface MessageListInstanceEachOptions {
   /**  */
   order?: MessageOrderType;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
@@ -95,7 +97,7 @@ export interface MessageListInstanceEachOptions {
 export interface MessageListInstanceOptions {
   /**  */
   order?: MessageOrderType;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -107,8 +109,9 @@ export interface MessageListInstanceOptions {
 export interface MessageListInstancePageOptions {
   /**  */
   order?: MessageOrderType;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -140,6 +143,29 @@ export interface MessageContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a MessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: MessageContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
@@ -149,6 +175,17 @@ export interface MessageContext {
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
+
+  /**
+   * Fetch a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
 
   /**
    * Update a MessageInstance
@@ -172,6 +209,29 @@ export interface MessageContext {
     params: MessageContextUpdateOptions,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
+
+  /**
+   * Update a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
+  /**
+   * Update a MessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: MessageContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -247,6 +307,49 @@ export class MessageContextImpl implements MessageContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    params?:
+      | MessageContextRemoveOptions
+      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
@@ -271,6 +374,41 @@ export class MessageContextImpl implements MessageContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<MessageResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -330,6 +468,68 @@ export class MessageContextImpl implements MessageContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | MessageContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<MessageInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["dateCreated"] !== undefined)
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["lastUpdatedBy"] !== undefined)
+      data["LastUpdatedBy"] = params["lastUpdatedBy"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<MessageResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -466,6 +666,36 @@ export class MessageInstance {
   }
 
   /**
+   * Remove a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a MessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: MessageContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  removeWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(params, callback);
+  }
+
+  /**
    * Fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
@@ -476,6 +706,19 @@ export class MessageInstance {
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -506,6 +749,36 @@ export class MessageInstance {
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
+  /**
+   * Update a MessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: MessageContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -576,6 +849,29 @@ export interface MessageListInstance {
   ): Promise<MessageInstance>;
 
   /**
+   * Create a MessageInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
+  /**
+   * Create a MessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed MessageInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: MessageListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>>;
+
+  /**
    * Streams MessageInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -598,6 +894,28 @@ export interface MessageListInstance {
     callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams MessageInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: MessageListInstanceEachOptions,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of MessageInstance records from the API.
    *
    * The request is executed immediately.
@@ -609,6 +927,18 @@ export interface MessageListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
+  /**
+   * Retrieve a single target page of MessageInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
+  ): Promise<ApiResponse<MessagePage>>;
   /**
    * Lists MessageInstance records from the API as a list.
    *
@@ -625,6 +955,30 @@ export interface MessageListInstance {
     params: MessageListInstanceOptions,
     callback?: (error: Error | null, items: MessageInstance[]) => any
   ): Promise<MessageInstance[]>;
+  /**
+   * Lists MessageInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MessageInstance[]>>;
+  listWithHttpInfo(
+    params: MessageListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MessageInstance[]>>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    *
@@ -643,6 +997,24 @@ export interface MessageListInstance {
     params: MessageListInstancePageOptions,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
+  /**
+   * Retrieve a single page of MessageInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
+  ): Promise<ApiResponse<MessagePage>>;
+  pageWithHttpInfo(
+    params: MessageListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
+  ): Promise<ApiResponse<MessagePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -732,6 +1104,67 @@ export function MessageListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | MessageListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<MessageInstance>) => any),
+    callback?: (error: Error | null, items: ApiResponse<MessageInstance>) => any
+  ): Promise<ApiResponse<MessageInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["dateCreated"] !== undefined)
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["lastUpdatedBy"] !== undefined)
+      data["LastUpdatedBy"] = params["lastUpdatedBy"];
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["mediaSid"] !== undefined) data["MediaSid"] = params["mediaSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<MessageResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | MessageListInstancePageOptions
@@ -786,10 +1219,78 @@ export function MessageListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new MessagePage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | MessageListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<MessagePage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
+  ): Promise<ApiResponse<MessagePage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<MessagePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MessagePage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<MessagePage>) => any
+  ): Promise<ApiResponse<MessagePage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<MessagePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MessagePage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

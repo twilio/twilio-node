@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { UserConversationListInstance } from "./user/userConversation";
 
 export type UserWebhookEnabledType = "true" | "false";
@@ -90,6 +92,7 @@ export interface UserListInstanceOptions {
 export interface UserListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -123,6 +126,29 @@ export interface UserContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: UserContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a UserInstance
    *
    * @param callback - Callback to handle processed record
@@ -132,6 +158,17 @@ export interface UserContext {
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
+
+  /**
+   * Fetch a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Update a UserInstance
@@ -155,6 +192,29 @@ export interface UserContext {
     params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
+
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -233,6 +293,49 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    params?:
+      | UserContextRemoveOptions
+      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
@@ -256,6 +359,40 @@ export class UserContextImpl implements UserContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -309,6 +446,62 @@ export class UserContextImpl implements UserContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<UserInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -470,6 +663,36 @@ export class UserInstance {
   }
 
   /**
+   * Remove a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: UserContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  removeWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(params, callback);
+  }
+
+  /**
    * Fetch a UserInstance
    *
    * @param callback - Callback to handle processed record
@@ -480,6 +703,19 @@ export class UserInstance {
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -510,6 +746,36 @@ export class UserInstance {
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -573,6 +839,19 @@ export interface UserListInstance {
   ): Promise<UserInstance>;
 
   /**
+   * Create a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: UserListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  /**
    * Streams UserInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -595,6 +874,28 @@ export interface UserListInstance {
     callback?: (item: UserInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams UserInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: UserListInstanceEachOptions,
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of UserInstance records from the API.
    *
    * The request is executed immediately.
@@ -606,6 +907,18 @@ export interface UserListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
+  /**
+   * Retrieve a single target page of UserInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>>;
   /**
    * Lists UserInstance records from the API as a list.
    *
@@ -622,6 +935,24 @@ export interface UserListInstance {
     params: UserListInstanceOptions,
     callback?: (error: Error | null, items: UserInstance[]) => any
   ): Promise<UserInstance[]>;
+  /**
+   * Lists UserInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
+  ): Promise<ApiResponse<UserInstance[]>>;
+  listWithHttpInfo(
+    params: UserListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
+  ): Promise<ApiResponse<UserInstance[]>>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    *
@@ -640,6 +971,24 @@ export interface UserListInstance {
     params: UserListInstancePageOptions,
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
+  /**
+   * Retrieve a single page of UserInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>>;
+  pageWithHttpInfo(
+    params: UserListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -717,6 +1066,60 @@ export function UserListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: UserListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error("Required parameter \"params['identity']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Identity"] = params["identity"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | UserListInstancePageOptions
@@ -769,9 +1172,76 @@ export function UserListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) => new UserPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | UserListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<UserPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<UserPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UserPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<UserPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UserPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

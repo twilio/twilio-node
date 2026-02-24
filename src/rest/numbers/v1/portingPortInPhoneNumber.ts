@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface PortingPortInPhoneNumberContext {
   /**
@@ -31,6 +32,17 @@ export interface PortingPortInPhoneNumberContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a PortingPortInPhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a PortingPortInPhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
@@ -43,6 +55,20 @@ export interface PortingPortInPhoneNumberContext {
       item?: PortingPortInPhoneNumberInstance
     ) => any
   ): Promise<PortingPortInPhoneNumberInstance>;
+
+  /**
+   * Fetch a PortingPortInPhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortInPhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInPhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortInPhoneNumberInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -99,6 +125,30 @@ export class PortingPortInPhoneNumberContextImpl
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (
       error: Error | null,
@@ -125,6 +175,43 @@ export class PortingPortInPhoneNumberContextImpl
           instance._solution.phoneNumberSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInPhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortInPhoneNumberInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PortingPortInPhoneNumberResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<PortingPortInPhoneNumberInstance> => ({
+          ...response,
+          body: new PortingPortInPhoneNumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.portInRequestSid,
+            instance._solution.phoneNumberSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -308,6 +395,19 @@ export class PortingPortInPhoneNumberInstance {
   }
 
   /**
+   * Remove a PortingPortInPhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a PortingPortInPhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
@@ -321,6 +421,22 @@ export class PortingPortInPhoneNumberInstance {
     ) => any
   ): Promise<PortingPortInPhoneNumberInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a PortingPortInPhoneNumberInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortInPhoneNumberInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInPhoneNumberInstance>
+    ) => any
+  ): Promise<ApiResponse<PortingPortInPhoneNumberInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

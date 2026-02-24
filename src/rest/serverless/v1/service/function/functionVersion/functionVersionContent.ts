@@ -17,6 +17,7 @@ import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 export interface FunctionVersionContentContext {
   /**
@@ -32,6 +33,20 @@ export interface FunctionVersionContentContext {
       item?: FunctionVersionContentInstance
     ) => any
   ): Promise<FunctionVersionContentInstance>;
+
+  /**
+   * Fetch a FunctionVersionContentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionVersionContentInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionVersionContentInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionContentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -101,6 +116,44 @@ export class FunctionVersionContentContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionVersionContentInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionContentInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FunctionVersionContentResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FunctionVersionContentInstance> => ({
+          ...response,
+          body: new FunctionVersionContentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.functionSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -204,6 +257,22 @@ export class FunctionVersionContentInstance {
     ) => any
   ): Promise<FunctionVersionContentInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a FunctionVersionContentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionVersionContentInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionVersionContentInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionVersionContentInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

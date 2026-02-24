@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a BulkContactsInstance
@@ -45,6 +46,22 @@ export interface BulkContactsListInstance {
     params: BulkContactsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BulkContactsInstance) => any
   ): Promise<BulkContactsInstance>;
+
+  /**
+   * Create a BulkContactsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkContactsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: BulkContactsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkContactsInstance>
+    ) => any
+  ): Promise<ApiResponse<BulkContactsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -95,6 +112,54 @@ export function BulkContactsListInstance(
     operationPromise = operationPromise.then(
       (payload) => new BulkContactsInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: BulkContactsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BulkContactsInstance>
+    ) => any
+  ): Promise<ApiResponse<BulkContactsInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["items"] === null || params["items"] === undefined) {
+      throw new Error("Required parameter \"params['items']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Items"] = serialize.map(params["items"], (e: any) =>
+      serialize.object(e)
+    );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BulkContactsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<BulkContactsInstance> => ({
+          ...response,
+          body: new BulkContactsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

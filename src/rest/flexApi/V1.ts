@@ -17,6 +17,7 @@ import Version from "../../base/Version";
 import { AssessmentsListInstance } from "./v1/assessments";
 import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
+import { CreateFlexInstanceListInstance } from "./v1/createFlexInstance";
 import { FlexFlowListInstance } from "./v1/flexFlow";
 import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
 import { InsightsConversationsListInstance } from "./v1/insightsConversations";
@@ -54,6 +55,8 @@ export default class V1 extends Version {
   protected _channel?: ChannelListInstance;
   /** configuration - { Twilio.FlexApi.V1.ConfigurationListInstance } resource */
   protected _configuration?: ConfigurationListInstance;
+  /** createFlexInstance - { Twilio.FlexApi.V1.CreateFlexInstanceListInstance } resource */
+  protected _createFlexInstance?: CreateFlexInstanceListInstance;
   /** flexFlow - { Twilio.FlexApi.V1.FlexFlowListInstance } resource */
   protected _flexFlow?: FlexFlowListInstance;
   /** insightsAssessmentsComment - { Twilio.FlexApi.V1.InsightsAssessmentsCommentListInstance } resource */
@@ -112,6 +115,13 @@ export default class V1 extends Version {
     this._configuration =
       this._configuration || ConfigurationListInstance(this);
     return this._configuration;
+  }
+
+  /** Getter for createFlexInstance resource */
+  get createFlexInstance(): CreateFlexInstanceListInstance {
+    this._createFlexInstance =
+      this._createFlexInstance || CreateFlexInstanceListInstance(this);
+    return this._createFlexInstance;
   }
 
   /** Getter for flexFlow resource */

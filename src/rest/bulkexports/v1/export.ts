@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 import { DayListInstance } from "./export/day";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 import { JobListInstance } from "./export/job";
@@ -35,6 +36,17 @@ export interface ExportContext {
   fetch(
     callback?: (error: Error | null, item?: ExportInstance) => any
   ): Promise<ExportInstance>;
+
+  /**
+   * Fetch a ExportInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
+  ): Promise<ApiResponse<ExportInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -98,6 +110,39 @@ export class ExportContextImpl implements ExportContext {
           instance._solution.resourceType
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
+  ): Promise<ApiResponse<ExportInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ExportResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExportInstance> => ({
+          ...response,
+          body: new ExportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.resourceType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -175,6 +220,19 @@ export class ExportInstance {
     callback?: (error: Error | null, item?: ExportInstance) => any
   ): Promise<ExportInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ExportInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
+  ): Promise<ApiResponse<ExportInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

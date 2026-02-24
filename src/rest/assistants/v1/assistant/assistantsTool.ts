@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -53,6 +55,7 @@ export interface AssistantsToolListInstanceOptions {
 export interface AssistantsToolListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -72,6 +75,20 @@ export interface AssistantsToolContext {
   ): Promise<AssistantsToolInstance>;
 
   /**
+   * Create a AssistantsToolInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssistantsToolInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssistantsToolInstance>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolInstance>>;
+
+  /**
    * Remove a AssistantsToolInstance
    *
    * @param callback - Callback to handle processed record
@@ -81,6 +98,17 @@ export interface AssistantsToolContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
+
+  /**
+   * Remove a AssistantsToolInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -141,6 +169,42 @@ export class AssistantsToolContextImpl implements AssistantsToolContext {
     return operationPromise;
   }
 
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssistantsToolInstance>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolInstance>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AssistantsToolResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AssistantsToolInstance> => ({
+          ...response,
+          body: new AssistantsToolInstance(
+            operationVersion,
+            response.body,
+            instance._solution.assistantId,
+            instance._solution.id
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
@@ -153,6 +217,30 @@ export class AssistantsToolContextImpl implements AssistantsToolContext {
         method: "delete",
         headers,
       });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -288,6 +376,22 @@ export class AssistantsToolInstance {
   }
 
   /**
+   * Create a AssistantsToolInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssistantsToolInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssistantsToolInstance>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolInstance>> {
+    return this._proxy.createWithHttpInfo(callback);
+  }
+
+  /**
    * Remove a AssistantsToolInstance
    *
    * @param callback - Callback to handle processed record
@@ -298,6 +402,19 @@ export class AssistantsToolInstance {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
+  }
+
+  /**
+   * Remove a AssistantsToolInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
   }
 
   /**
@@ -367,6 +484,34 @@ export interface AssistantsToolListInstance {
     ) => void
   ): void;
   /**
+   * Streams AssistantsToolInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssistantsToolListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: AssistantsToolInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: AssistantsToolListInstanceEachOptions,
+    callback?: (
+      item: AssistantsToolInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of AssistantsToolInstance records from the API.
    *
    * The request is executed immediately.
@@ -378,6 +523,21 @@ export interface AssistantsToolListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: AssistantsToolPage) => any
   ): Promise<AssistantsToolPage>;
+  /**
+   * Retrieve a single target page of AssistantsToolInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolPage>>;
   /**
    * Lists AssistantsToolInstance records from the API as a list.
    *
@@ -394,6 +554,30 @@ export interface AssistantsToolListInstance {
     params: AssistantsToolListInstanceOptions,
     callback?: (error: Error | null, items: AssistantsToolInstance[]) => any
   ): Promise<AssistantsToolInstance[]>;
+  /**
+   * Lists AssistantsToolInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssistantsToolListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolInstance[]>>;
+  listWithHttpInfo(
+    params: AssistantsToolListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolInstance[]>>;
   /**
    * Retrieve a single page of AssistantsToolInstance records from the API.
    *
@@ -412,6 +596,30 @@ export interface AssistantsToolListInstance {
     params: AssistantsToolListInstancePageOptions,
     callback?: (error: Error | null, items: AssistantsToolPage) => any
   ): Promise<AssistantsToolPage>;
+  /**
+   * Retrieve a single page of AssistantsToolInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssistantsToolListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolPage>>;
+  pageWithHttpInfo(
+    params: AssistantsToolListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -491,10 +699,91 @@ export function AssistantsToolListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new AssistantsToolPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AssistantsToolListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<AssistantsToolPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<AssistantsToolPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AssistantsToolPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<AssistantsToolPage>
+    ) => any
+  ): Promise<ApiResponse<AssistantsToolPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AssistantsToolPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssistantsToolPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

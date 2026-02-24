@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a StreamMessageInstance
@@ -48,6 +49,22 @@ export interface StreamMessageListInstance {
     params: StreamMessageListInstanceCreateOptions,
     callback?: (error: Error | null, item?: StreamMessageInstance) => any
   ): Promise<StreamMessageInstance>;
+
+  /**
+   * Create a StreamMessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed StreamMessageInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: StreamMessageListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<StreamMessageInstance>
+    ) => any
+  ): Promise<ApiResponse<StreamMessageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -112,6 +129,57 @@ export function StreamMessageListInstance(
           instance._solution.streamSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: StreamMessageListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<StreamMessageInstance>
+    ) => any
+  ): Promise<ApiResponse<StreamMessageInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["data"] === null || params["data"] === undefined) {
+      throw new Error("Required parameter \"params['data']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Data"] = serialize.object(params["data"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<StreamMessageResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<StreamMessageInstance> => ({
+          ...response,
+          body: new StreamMessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.streamSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

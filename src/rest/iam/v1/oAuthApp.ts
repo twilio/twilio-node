@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export class IamV1AccountVendorOauthAppCreateRequest {
   "type"?: string;
@@ -87,6 +88,17 @@ export interface OAuthAppContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a OAuthAppInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Update a OAuthAppInstance
    *
    * @param params - Body for request
@@ -100,6 +112,24 @@ export interface OAuthAppContext {
     headers?: any,
     callback?: (error: Error | null, item?: OAuthAppInstance) => any
   ): Promise<OAuthAppInstance>;
+
+  /**
+   * Update a OAuthAppInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OAuthAppInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>
+    ) => any
+  ): Promise<ApiResponse<OAuthAppInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -145,6 +175,30 @@ export class OAuthAppContextImpl implements OAuthAppContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params: IamV1AccountVendorOauthAppUpdateRequest,
     headers?: any,
@@ -178,6 +232,57 @@ export class OAuthAppContextImpl implements OAuthAppContext {
       (payload) =>
         new OAuthAppInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>
+    ) => any
+  ): Promise<ApiResponse<OAuthAppInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<OAuthAppResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OAuthAppInstance> => ({
+          ...response,
+          body: new OAuthAppInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -284,6 +389,19 @@ export class OAuthAppInstance {
   }
 
   /**
+   * Remove a OAuthAppInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Update a OAuthAppInstance
    *
    * @param params - Body for request
@@ -303,6 +421,34 @@ export class OAuthAppInstance {
     callback?: (error: Error | null, item?: OAuthAppInstance) => any
   ): Promise<OAuthAppInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a OAuthAppInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OAuthAppInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>
+    ) => any
+  ): Promise<ApiResponse<OAuthAppInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>
+    ) => any
+  ): Promise<ApiResponse<OAuthAppInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -359,6 +505,24 @@ export interface OAuthAppListInstance {
   ): Promise<OAuthAppInstance>;
 
   /**
+   * Create a OAuthAppInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed OAuthAppInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: IamV1AccountVendorOauthAppCreateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>
+    ) => any
+  ): Promise<ApiResponse<OAuthAppInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -407,6 +571,52 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
     operationPromise = operationPromise.then(
       (payload) => new OAuthAppInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: IamV1AccountVendorOauthAppCreateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OAuthAppInstance>
+    ) => any
+  ): Promise<ApiResponse<OAuthAppInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<OAuthAppResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<OAuthAppInstance> => ({
+          ...response,
+          body: new OAuthAppInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

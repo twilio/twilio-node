@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 export interface EngagementContextContext {
   /**
@@ -29,6 +30,20 @@ export interface EngagementContextContext {
   fetch(
     callback?: (error: Error | null, item?: EngagementContextInstance) => any
   ): Promise<EngagementContextInstance>;
+
+  /**
+   * Fetch a EngagementContextInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EngagementContextInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EngagementContextInstance>
+    ) => any
+  ): Promise<ApiResponse<EngagementContextInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -82,6 +97,43 @@ export class EngagementContextContextImpl implements EngagementContextContext {
           instance._solution.engagementSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EngagementContextInstance>
+    ) => any
+  ): Promise<ApiResponse<EngagementContextInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<EngagementContextResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<EngagementContextInstance> => ({
+          ...response,
+          body: new EngagementContextInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid,
+            instance._solution.engagementSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -176,6 +228,22 @@ export class EngagementContextInstance {
     callback?: (error: Error | null, item?: EngagementContextInstance) => any
   ): Promise<EngagementContextInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a EngagementContextInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EngagementContextInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EngagementContextInstance>
+    ) => any
+  ): Promise<ApiResponse<EngagementContextInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

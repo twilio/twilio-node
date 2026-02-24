@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a TokenInstance
@@ -59,6 +60,19 @@ export interface TokenListInstance {
     params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
+
+  /**
+   * Create a TokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TokenInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: TokenListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
+  ): Promise<ApiResponse<TokenInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -120,6 +134,64 @@ export function TokenListInstance(version: V1): TokenListInstance {
     operationPromise = operationPromise.then(
       (payload) => new TokenInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: TokenListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any
+  ): Promise<ApiResponse<TokenInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["grantType"] === null || params["grantType"] === undefined) {
+      throw new Error("Required parameter \"params['grantType']\" missing.");
+    }
+
+    if (params["clientId"] === null || params["clientId"] === undefined) {
+      throw new Error("Required parameter \"params['clientId']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["grant_type"] = params["grantType"];
+
+    data["client_id"] = params["clientId"];
+    if (params["clientSecret"] !== undefined)
+      data["client_secret"] = params["clientSecret"];
+    if (params["code"] !== undefined) data["code"] = params["code"];
+    if (params["redirectUri"] !== undefined)
+      data["redirect_uri"] = params["redirectUri"];
+    if (params["audience"] !== undefined) data["audience"] = params["audience"];
+    if (params["refreshToken"] !== undefined)
+      data["refresh_token"] = params["refreshToken"];
+    if (params["scope"] !== undefined) data["scope"] = params["scope"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TokenResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<TokenInstance> => ({
+          ...response,
+          body: new TokenInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

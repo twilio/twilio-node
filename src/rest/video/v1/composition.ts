@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The container format of the composition\'s media files as specified in the POST request that created the Composition resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information.
@@ -112,6 +114,7 @@ export interface CompositionListInstancePageOptions {
   roomSid?: string;
   /** How many resources to return in each list page. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -131,6 +134,17 @@ export interface CompositionContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a CompositionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a CompositionInstance
    *
    * @param callback - Callback to handle processed record
@@ -140,6 +154,20 @@ export interface CompositionContext {
   fetch(
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance>;
+
+  /**
+   * Fetch a CompositionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CompositionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionInstance>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -185,6 +213,30 @@ export class CompositionContextImpl implements CompositionContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance> {
@@ -207,6 +259,42 @@ export class CompositionContextImpl implements CompositionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionInstance>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CompositionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CompositionInstance> => ({
+          ...response,
+          body: new CompositionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -391,6 +479,19 @@ export class CompositionInstance {
   }
 
   /**
+   * Remove a CompositionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a CompositionInstance
    *
    * @param callback - Callback to handle processed record
@@ -401,6 +502,22 @@ export class CompositionInstance {
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a CompositionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CompositionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionInstance>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -463,6 +580,22 @@ export interface CompositionListInstance {
   ): Promise<CompositionInstance>;
 
   /**
+   * Create a CompositionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CompositionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CompositionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionInstance>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance>>;
+
+  /**
    * Streams CompositionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -485,6 +618,28 @@ export interface CompositionListInstance {
     callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams CompositionInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CompositionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: CompositionListInstanceEachOptions,
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of CompositionInstance records from the API.
    *
    * The request is executed immediately.
@@ -496,6 +651,18 @@ export interface CompositionListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage>;
+  /**
+   * Retrieve a single target page of CompositionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+  ): Promise<ApiResponse<CompositionPage>>;
   /**
    * Lists CompositionInstance records from the API as a list.
    *
@@ -512,6 +679,30 @@ export interface CompositionListInstance {
     params: CompositionListInstanceOptions,
     callback?: (error: Error | null, items: CompositionInstance[]) => any
   ): Promise<CompositionInstance[]>;
+  /**
+   * Lists CompositionInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CompositionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance[]>>;
+  listWithHttpInfo(
+    params: CompositionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance[]>>;
   /**
    * Retrieve a single page of CompositionInstance records from the API.
    *
@@ -530,6 +721,24 @@ export interface CompositionListInstance {
     params: CompositionListInstancePageOptions,
     callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage>;
+  /**
+   * Retrieve a single page of CompositionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CompositionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+  ): Promise<ApiResponse<CompositionPage>>;
+  pageWithHttpInfo(
+    params: CompositionListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+  ): Promise<ApiResponse<CompositionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -609,6 +818,73 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CompositionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionInstance>
+    ) => any
+  ): Promise<ApiResponse<CompositionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["roomSid"] === null || params["roomSid"] === undefined) {
+      throw new Error("Required parameter \"params['roomSid']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["RoomSid"] = params["roomSid"];
+    if (params["videoLayout"] !== undefined)
+      data["VideoLayout"] = serialize.object(params["videoLayout"]);
+    if (params["audioSources"] !== undefined)
+      data["AudioSources"] = serialize.map(
+        params["audioSources"],
+        (e: string) => e
+      );
+    if (params["audioSourcesExcluded"] !== undefined)
+      data["AudioSourcesExcluded"] = serialize.map(
+        params["audioSourcesExcluded"],
+        (e: string) => e
+      );
+    if (params["resolution"] !== undefined)
+      data["Resolution"] = params["resolution"];
+    if (params["format"] !== undefined) data["Format"] = params["format"];
+    if (params["statusCallback"] !== undefined)
+      data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["trim"] !== undefined)
+      data["Trim"] = serialize.bool(params["trim"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CompositionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CompositionInstance> => ({
+          ...response,
+          body: new CompositionInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | CompositionListInstancePageOptions
@@ -672,10 +948,98 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new CompositionPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CompositionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<CompositionPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+  ): Promise<ApiResponse<CompositionPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["dateCreatedAfter"] !== undefined)
+      data["DateCreatedAfter"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"]
+      );
+    if (params["dateCreatedBefore"] !== undefined)
+      data["DateCreatedBefore"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"]
+      );
+    if (params["roomSid"] !== undefined) data["RoomSid"] = params["roomSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<CompositionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CompositionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CompositionPage>
+    ) => any
+  ): Promise<ApiResponse<CompositionPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CompositionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CompositionPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

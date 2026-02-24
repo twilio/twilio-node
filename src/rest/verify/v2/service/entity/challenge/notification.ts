@@ -17,6 +17,7 @@ import V2 from "../../../../V2";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a NotificationInstance
@@ -59,6 +60,35 @@ export interface NotificationListInstance {
     params: NotificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
+
+  /**
+   * Create a NotificationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
+  /**
+   * Create a NotificationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NotificationInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: NotificationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -130,6 +160,62 @@ export function NotificationListInstance(
           instance._solution.challengeSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | NotificationListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<NotificationInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationInstance>
+    ) => any
+  ): Promise<ApiResponse<NotificationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NotificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.identity,
+            instance._solution.challengeSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

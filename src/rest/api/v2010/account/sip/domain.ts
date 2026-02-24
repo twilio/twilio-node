@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 import { AuthTypesListInstance } from "./domain/authTypes";
 import { CredentialListMappingListInstance } from "./domain/credentialListMapping";
 import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControlListMapping";
@@ -116,6 +118,7 @@ export interface DomainListInstanceOptions {
 export interface DomainListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -139,6 +142,17 @@ export interface DomainContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a DomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a DomainInstance
    *
    * @param callback - Callback to handle processed record
@@ -148,6 +162,17 @@ export interface DomainContext {
   fetch(
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
+
+  /**
+   * Fetch a DomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>>;
 
   /**
    * Update a DomainInstance
@@ -171,6 +196,29 @@ export interface DomainContext {
     params: DomainContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
+
+  /**
+   * Update a DomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>>;
+  /**
+   * Update a DomainInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: DomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -258,6 +306,30 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
@@ -281,6 +353,40 @@ export class DomainContextImpl implements DomainContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DomainResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainInstance> => ({
+          ...response,
+          body: new DomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -354,6 +460,82 @@ export class DomainContextImpl implements DomainContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | DomainContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<DomainInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceFallbackMethod"] !== undefined)
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceMethod"] !== undefined)
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceStatusCallbackMethod"] !== undefined)
+      data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
+    if (params["voiceStatusCallbackUrl"] !== undefined)
+      data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
+    if (params["sipRegistration"] !== undefined)
+      data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
+    if (params["domainName"] !== undefined)
+      data["DomainName"] = params["domainName"];
+    if (params["emergencyCallingEnabled"] !== undefined)
+      data["EmergencyCallingEnabled"] = serialize.bool(
+        params["emergencyCallingEnabled"]
+      );
+    if (params["secure"] !== undefined)
+      data["Secure"] = serialize.bool(params["secure"]);
+    if (params["byocTrunkSid"] !== undefined)
+      data["ByocTrunkSid"] = params["byocTrunkSid"];
+    if (params["emergencyCallerSid"] !== undefined)
+      data["EmergencyCallerSid"] = params["emergencyCallerSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<DomainResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainInstance> => ({
+          ...response,
+          body: new DomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -549,6 +731,19 @@ export class DomainInstance {
   }
 
   /**
+   * Remove a DomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a DomainInstance
    *
    * @param callback - Callback to handle processed record
@@ -559,6 +754,19 @@ export class DomainInstance {
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a DomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -589,6 +797,36 @@ export class DomainInstance {
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a DomainInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>>;
+  /**
+   * Update a DomainInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: DomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -674,6 +912,19 @@ export interface DomainListInstance {
   ): Promise<DomainInstance>;
 
   /**
+   * Create a DomainInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: DomainListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>>;
+
+  /**
    * Streams DomainInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -696,6 +947,28 @@ export interface DomainListInstance {
     callback?: (item: DomainInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams DomainInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DomainListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: DomainListInstanceEachOptions,
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of DomainInstance records from the API.
    *
    * The request is executed immediately.
@@ -707,6 +980,18 @@ export interface DomainListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
+  /**
+   * Retrieve a single target page of DomainInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+  ): Promise<ApiResponse<DomainPage>>;
   /**
    * Lists DomainInstance records from the API as a list.
    *
@@ -723,6 +1008,30 @@ export interface DomainListInstance {
     params: DomainListInstanceOptions,
     callback?: (error: Error | null, items: DomainInstance[]) => any
   ): Promise<DomainInstance[]>;
+  /**
+   * Lists DomainInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DomainListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DomainInstance[]>
+    ) => any
+  ): Promise<ApiResponse<DomainInstance[]>>;
+  listWithHttpInfo(
+    params: DomainListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DomainInstance[]>
+    ) => any
+  ): Promise<ApiResponse<DomainInstance[]>>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
    *
@@ -741,6 +1050,24 @@ export interface DomainListInstance {
     params: DomainListInstancePageOptions,
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
+  /**
+   * Retrieve a single page of DomainInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DomainListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+  ): Promise<ApiResponse<DomainPage>>;
+  pageWithHttpInfo(
+    params: DomainListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+  ): Promise<ApiResponse<DomainPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -836,6 +1163,78 @@ export function DomainListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: DomainListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<DomainInstance>) => any
+  ): Promise<ApiResponse<DomainInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["domainName"] === null || params["domainName"] === undefined) {
+      throw new Error("Required parameter \"params['domainName']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["DomainName"] = params["domainName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
+    if (params["voiceMethod"] !== undefined)
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["voiceStatusCallbackUrl"] !== undefined)
+      data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
+    if (params["voiceStatusCallbackMethod"] !== undefined)
+      data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
+    if (params["sipRegistration"] !== undefined)
+      data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
+    if (params["emergencyCallingEnabled"] !== undefined)
+      data["EmergencyCallingEnabled"] = serialize.bool(
+        params["emergencyCallingEnabled"]
+      );
+    if (params["secure"] !== undefined)
+      data["Secure"] = serialize.bool(params["secure"]);
+    if (params["byocTrunkSid"] !== undefined)
+      data["ByocTrunkSid"] = params["byocTrunkSid"];
+    if (params["emergencyCallerSid"] !== undefined)
+      data["EmergencyCallerSid"] = params["emergencyCallerSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<DomainResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainInstance> => ({
+          ...response,
+          body: new DomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | DomainListInstancePageOptions
@@ -888,10 +1287,77 @@ export function DomainListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new DomainPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | DomainListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<DomainPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+  ): Promise<ApiResponse<DomainPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<DomainPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new DomainPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<DomainPage>) => any
+  ): Promise<ApiResponse<DomainPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<DomainPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DomainPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to update a ExportConfigurationInstance
@@ -43,6 +44,20 @@ export interface ExportConfigurationContext {
   ): Promise<ExportConfigurationInstance>;
 
   /**
+   * Fetch a ExportConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportConfigurationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>>;
+
+  /**
    * Update a ExportConfigurationInstance
    *
    * @param callback - Callback to handle processed record
@@ -64,6 +79,35 @@ export interface ExportConfigurationContext {
     params: ExportConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance>;
+
+  /**
+   * Update a ExportConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>>;
+  /**
+   * Update a ExportConfigurationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ExportConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -121,6 +165,42 @@ export class ExportConfigurationContextImpl
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ExportConfigurationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExportConfigurationInstance> => ({
+          ...response,
+          body: new ExportConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.resourceType
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | ExportConfigurationContextUpdateOptions
@@ -164,6 +244,66 @@ export class ExportConfigurationContextImpl
           instance._solution.resourceType
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | ExportConfigurationContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ExportConfigurationInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["enabled"] !== undefined)
+      data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["webhookUrl"] !== undefined)
+      data["WebhookUrl"] = params["webhookUrl"];
+    if (params["webhookMethod"] !== undefined)
+      data["WebhookMethod"] = params["webhookMethod"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ExportConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExportConfigurationInstance> => ({
+          ...response,
+          body: new ExportConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.resourceType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -259,6 +399,22 @@ export class ExportConfigurationInstance {
   }
 
   /**
+   * Fetch a ExportConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportConfigurationInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a ExportConfigurationInstance
    *
    * @param callback - Callback to handle processed record
@@ -286,6 +442,45 @@ export class ExportConfigurationInstance {
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ExportConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>>;
+  /**
+   * Update a ExportConfigurationInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExportConfigurationInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ExportConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExportConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ExportConfigurationInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

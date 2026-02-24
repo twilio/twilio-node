@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to update a FlowTestUserInstance
@@ -39,6 +40,20 @@ export interface FlowTestUserContext {
   ): Promise<FlowTestUserInstance>;
 
   /**
+   * Fetch a FlowTestUserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlowTestUserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>>;
+
+  /**
    * Update a FlowTestUserInstance
    *
    * @param params - Parameter for request
@@ -50,6 +65,22 @@ export interface FlowTestUserContext {
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance>;
+
+  /**
+   * Update a FlowTestUserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlowTestUserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlowTestUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -105,6 +136,42 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FlowTestUserResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlowTestUserInstance> => ({
+          ...response,
+          body: new FlowTestUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
@@ -142,6 +209,57 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: FlowTestUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["testUsers"] === null || params["testUsers"] === undefined) {
+      throw new Error("Required parameter \"params['testUsers']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["TestUsers"] = serialize.map(params["testUsers"], (e: string) => e);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FlowTestUserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FlowTestUserInstance> => ({
+          ...response,
+          body: new FlowTestUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -222,6 +340,22 @@ export class FlowTestUserInstance {
   }
 
   /**
+   * Fetch a FlowTestUserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlowTestUserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a FlowTestUserInstance
    *
    * @param params - Parameter for request
@@ -239,6 +373,32 @@ export class FlowTestUserInstance {
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a FlowTestUserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlowTestUserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FlowTestUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowTestUserInstance>
+    ) => any
+  ): Promise<ApiResponse<FlowTestUserInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

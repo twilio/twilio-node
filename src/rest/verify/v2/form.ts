@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The Type of this Form. Currently only `form-push` is supported.
@@ -34,6 +35,17 @@ export interface FormContext {
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
   ): Promise<FormInstance>;
+
+  /**
+   * Fetch a FormInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FormInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FormInstance>) => any
+  ): Promise<ApiResponse<FormInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -77,6 +89,39 @@ export class FormContextImpl implements FormContext {
       (payload) =>
         new FormInstance(operationVersion, payload, instance._solution.formType)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FormInstance>) => any
+  ): Promise<ApiResponse<FormInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FormResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FormInstance> => ({
+          ...response,
+          body: new FormInstance(
+            operationVersion,
+            response.body,
+            instance._solution.formType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -157,6 +202,19 @@ export class FormInstance {
     callback?: (error: Error | null, item?: FormInstance) => any
   ): Promise<FormInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a FormInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FormInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FormInstance>) => any
+  ): Promise<ApiResponse<FormInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

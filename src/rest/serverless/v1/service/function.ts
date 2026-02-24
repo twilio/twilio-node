@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 import { FunctionVersionListInstance } from "./function/functionVersion";
 
 /**
@@ -66,6 +68,7 @@ export interface FunctionListInstanceOptions {
 export interface FunctionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -87,6 +90,17 @@ export interface FunctionContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a FunctionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a FunctionInstance
    *
    * @param callback - Callback to handle processed record
@@ -96,6 +110,20 @@ export interface FunctionContext {
   fetch(
     callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance>;
+
+  /**
+   * Fetch a FunctionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>>;
 
   /**
    * Update a FunctionInstance
@@ -109,6 +137,22 @@ export interface FunctionContext {
     params: FunctionContextUpdateOptions,
     callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance>;
+
+  /**
+   * Update a FunctionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FunctionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -172,6 +216,30 @@ export class FunctionContextImpl implements FunctionContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance> {
@@ -195,6 +263,43 @@ export class FunctionContextImpl implements FunctionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FunctionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FunctionInstance> => ({
+          ...response,
+          body: new FunctionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,6 +349,61 @@ export class FunctionContextImpl implements FunctionContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params: FunctionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FunctionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FunctionInstance> => ({
+          ...response,
+          body: new FunctionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -361,6 +521,19 @@ export class FunctionInstance {
   }
 
   /**
+   * Remove a FunctionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a FunctionInstance
    *
    * @param callback - Callback to handle processed record
@@ -371,6 +544,22 @@ export class FunctionInstance {
     callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a FunctionInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -391,6 +580,32 @@ export class FunctionInstance {
     callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a FunctionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: FunctionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -449,6 +664,22 @@ export interface FunctionListInstance {
   ): Promise<FunctionInstance>;
 
   /**
+   * Create a FunctionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FunctionInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: FunctionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>>;
+
+  /**
    * Streams FunctionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -471,6 +702,28 @@ export interface FunctionListInstance {
     callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams FunctionInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: FunctionListInstanceEachOptions,
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of FunctionInstance records from the API.
    *
    * The request is executed immediately.
@@ -482,6 +735,18 @@ export interface FunctionListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: FunctionPage) => any
   ): Promise<FunctionPage>;
+  /**
+   * Retrieve a single target page of FunctionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+  ): Promise<ApiResponse<FunctionPage>>;
   /**
    * Lists FunctionInstance records from the API as a list.
    *
@@ -498,6 +763,30 @@ export interface FunctionListInstance {
     params: FunctionListInstanceOptions,
     callback?: (error: Error | null, items: FunctionInstance[]) => any
   ): Promise<FunctionInstance[]>;
+  /**
+   * Lists FunctionInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance[]>>;
+  listWithHttpInfo(
+    params: FunctionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionInstance[]>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance[]>>;
   /**
    * Retrieve a single page of FunctionInstance records from the API.
    *
@@ -516,6 +805,24 @@ export interface FunctionListInstance {
     params: FunctionListInstancePageOptions,
     callback?: (error: Error | null, items: FunctionPage) => any
   ): Promise<FunctionPage>;
+  /**
+   * Retrieve a single page of FunctionInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+  ): Promise<ApiResponse<FunctionPage>>;
+  pageWithHttpInfo(
+    params: FunctionListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+  ): Promise<ApiResponse<FunctionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -589,6 +896,59 @@ export function FunctionListInstance(
     return operationPromise;
   };
 
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: FunctionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FunctionInstance>
+    ) => any
+  ): Promise<ApiResponse<FunctionInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<FunctionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<FunctionInstance> => ({
+          ...response,
+          body: new FunctionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.page = function page(
     params?:
       | FunctionListInstancePageOptions
@@ -642,10 +1002,81 @@ export function FunctionListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new FunctionPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | FunctionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<FunctionPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+  ): Promise<ApiResponse<FunctionPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<FunctionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FunctionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<FunctionPage>) => any
+  ): Promise<ApiResponse<FunctionPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<FunctionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FunctionPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

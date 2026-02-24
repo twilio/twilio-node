@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a EncryptedOperatorResultsInstance
@@ -55,6 +56,35 @@ export interface EncryptedOperatorResultsContext {
       item?: EncryptedOperatorResultsInstance
     ) => any
   ): Promise<EncryptedOperatorResultsInstance>;
+
+  /**
+   * Fetch a EncryptedOperatorResultsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedOperatorResultsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
+  /**
+   * Fetch a EncryptedOperatorResultsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedOperatorResultsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: EncryptedOperatorResultsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -123,6 +153,61 @@ export class EncryptedOperatorResultsContextImpl
           instance._solution.transcriptSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | EncryptedOperatorResultsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<EncryptedOperatorResultsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedOperatorResultsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["redacted"] !== undefined)
+      data["Redacted"] = serialize.bool(params["redacted"]);
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<EncryptedOperatorResultsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<EncryptedOperatorResultsInstance> => ({
+          ...response,
+          body: new EncryptedOperatorResultsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.transcriptSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -224,6 +309,45 @@ export class EncryptedOperatorResultsInstance {
     ) => any
   ): Promise<EncryptedOperatorResultsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a EncryptedOperatorResultsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedOperatorResultsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
+  /**
+   * Fetch a EncryptedOperatorResultsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EncryptedOperatorResultsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: EncryptedOperatorResultsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
+  ): Promise<ApiResponse<EncryptedOperatorResultsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

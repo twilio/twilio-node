@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to create a ExternalCampaignInstance
@@ -49,6 +50,22 @@ export interface ExternalCampaignListInstance {
     params: ExternalCampaignListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ExternalCampaignInstance) => any
   ): Promise<ExternalCampaignInstance>;
+
+  /**
+   * Create a ExternalCampaignInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExternalCampaignInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ExternalCampaignListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExternalCampaignInstance>
+    ) => any
+  ): Promise<ApiResponse<ExternalCampaignInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -110,6 +127,65 @@ export function ExternalCampaignListInstance(
     operationPromise = operationPromise.then(
       (payload) => new ExternalCampaignInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ExternalCampaignListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ExternalCampaignInstance>
+    ) => any
+  ): Promise<ApiResponse<ExternalCampaignInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["campaignId"] === null || params["campaignId"] === undefined) {
+      throw new Error("Required parameter \"params['campaignId']\" missing.");
+    }
+
+    if (
+      params["messagingServiceSid"] === null ||
+      params["messagingServiceSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messagingServiceSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["CampaignId"] = params["campaignId"];
+
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["cnpMigration"] !== undefined)
+      data["CnpMigration"] = serialize.bool(params["cnpMigration"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ExternalCampaignResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExternalCampaignInstance> => ({
+          ...response,
+          body: new ExternalCampaignInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

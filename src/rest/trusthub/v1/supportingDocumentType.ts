@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to each
@@ -53,6 +55,7 @@ export interface SupportingDocumentTypeListInstanceOptions {
 export interface SupportingDocumentTypeListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -73,6 +76,20 @@ export interface SupportingDocumentTypeContext {
       item?: SupportingDocumentTypeInstance
     ) => any
   ): Promise<SupportingDocumentTypeInstance>;
+
+  /**
+   * Fetch a SupportingDocumentTypeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SupportingDocumentTypeInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SupportingDocumentTypeInstance>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -125,6 +142,42 @@ export class SupportingDocumentTypeContextImpl
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SupportingDocumentTypeInstance>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypeInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SupportingDocumentTypeResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SupportingDocumentTypeInstance> => ({
+          ...response,
+          body: new SupportingDocumentTypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -222,6 +275,22 @@ export class SupportingDocumentTypeInstance {
   }
 
   /**
+   * Fetch a SupportingDocumentTypeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SupportingDocumentTypeInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SupportingDocumentTypeInstance>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypeInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -280,6 +349,34 @@ export interface SupportingDocumentTypeListInstance {
     ) => void
   ): void;
   /**
+   * Streams SupportingDocumentTypeInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SupportingDocumentTypeListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (
+      item: SupportingDocumentTypeInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: SupportingDocumentTypeListInstanceEachOptions,
+    callback?: (
+      item: SupportingDocumentTypeInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of SupportingDocumentTypeInstance records from the API.
    *
    * The request is executed immediately.
@@ -291,6 +388,21 @@ export interface SupportingDocumentTypeListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
   ): Promise<SupportingDocumentTypePage>;
+  /**
+   * Retrieve a single target page of SupportingDocumentTypeInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SupportingDocumentTypePage>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypePage>>;
   /**
    * Lists SupportingDocumentTypeInstance records from the API as a list.
    *
@@ -314,6 +426,30 @@ export interface SupportingDocumentTypeListInstance {
     ) => any
   ): Promise<SupportingDocumentTypeInstance[]>;
   /**
+   * Lists SupportingDocumentTypeInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SupportingDocumentTypeListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SupportingDocumentTypeInstance[]>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypeInstance[]>>;
+  listWithHttpInfo(
+    params: SupportingDocumentTypeListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SupportingDocumentTypeInstance[]>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypeInstance[]>>;
+  /**
    * Retrieve a single page of SupportingDocumentTypeInstance records from the API.
    *
    * The request is executed immediately.
@@ -331,6 +467,30 @@ export interface SupportingDocumentTypeListInstance {
     params: SupportingDocumentTypeListInstancePageOptions,
     callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
   ): Promise<SupportingDocumentTypePage>;
+  /**
+   * Retrieve a single page of SupportingDocumentTypeInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SupportingDocumentTypeListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SupportingDocumentTypePage>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypePage>>;
+  pageWithHttpInfo(
+    params: SupportingDocumentTypeListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SupportingDocumentTypePage>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -410,7 +570,6 @@ export function SupportingDocumentTypeListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new SupportingDocumentTypePage(
@@ -418,6 +577,91 @@ export function SupportingDocumentTypeListInstance(
           payload,
           instance._solution
         )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | SupportingDocumentTypeListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<SupportingDocumentTypePage>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SupportingDocumentTypePage>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypePage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<SupportingDocumentTypePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SupportingDocumentTypePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<SupportingDocumentTypePage>
+    ) => any
+  ): Promise<ApiResponse<SupportingDocumentTypePage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<SupportingDocumentTypePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SupportingDocumentTypePage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to update a SettingsInstance
@@ -37,6 +38,20 @@ export interface SettingsContext {
   fetch(
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance>;
+
+  /**
+   * Fetch a SettingsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>>;
 
   /**
    * Update a SettingsInstance
@@ -60,6 +75,35 @@ export interface SettingsContext {
     params: SettingsContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance>;
+
+  /**
+   * Update a SettingsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>>;
+  /**
+   * Update a SettingsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SettingsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -104,6 +148,38 @@ export class SettingsContextImpl implements SettingsContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SettingsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SettingsInstance> => ({
+          ...response,
+          body: new SettingsInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | SettingsContextUpdateOptions
@@ -140,6 +216,57 @@ export class SettingsContextImpl implements SettingsContext {
     operationPromise = operationPromise.then(
       (payload) => new SettingsInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<SettingsInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["dialingPermissionsInheritance"] !== undefined)
+      data["DialingPermissionsInheritance"] = serialize.bool(
+        params["dialingPermissionsInheritance"]
+      );
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<SettingsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SettingsInstance> => ({
+          ...response,
+          body: new SettingsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -209,6 +336,22 @@ export class SettingsInstance {
   }
 
   /**
+   * Fetch a SettingsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a SettingsInstance
    *
    * @param callback - Callback to handle processed record
@@ -236,6 +379,45 @@ export class SettingsInstance {
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a SettingsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>>;
+  /**
+   * Update a SettingsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SettingsInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: SettingsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>
+    ) => any
+  ): Promise<ApiResponse<SettingsInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

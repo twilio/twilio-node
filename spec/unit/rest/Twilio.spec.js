@@ -128,31 +128,6 @@ describe("client", () => {
           .then(() => scope.done());
       });
     });
-
-    it("should not change the value of edge and region", () => {
-      client = new Twilio("ACXXXXXXXX", "test-password");
-      client.region = "us1";
-      client.edge = "sydney";
-      expect(client.region).toEqual("us1");
-      expect(client.edge).toEqual("sydney");
-    });
-
-    it("should not change the value of edge", () => {
-      client = new Twilio("ACXXXXXXXX", "test-password", { edge: "dublin" });
-      expect(client.edge).toEqual("dublin");
-    });
-
-    it("should use edge set in request function when region is given", () => {
-      client = new Twilio("ACXXXXXXXX", "test-password", { region: "au1" });
-      expect(client.region).toEqual("au1");
-      const scope = nock("https://api.sydney.au1.twilio.com")
-        .get("/")
-        .reply(200, "test response");
-      client
-        .request({ method: "GET", uri: "https://api.twilio.com" })
-        .then(() => scope.done());
-      expect(client.edge).toEqual("sydney");
-    });
   });
 
   describe("adding user agent extensions", () => {

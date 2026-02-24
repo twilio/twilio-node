@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a InsightsSettingsCommentInstance
@@ -61,6 +62,35 @@ export interface InsightsSettingsCommentListInstance {
       item?: InsightsSettingsCommentInstance
     ) => any
   ): Promise<InsightsSettingsCommentInstance>;
+
+  /**
+   * Fetch a InsightsSettingsCommentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsSettingsCommentInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSettingsCommentInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
+  /**
+   * Fetch a InsightsSettingsCommentInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed InsightsSettingsCommentInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: InsightsSettingsCommentListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSettingsCommentInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -113,6 +143,58 @@ export function InsightsSettingsCommentListInstance(
       (payload) =>
         new InsightsSettingsCommentInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | InsightsSettingsCommentListInstanceFetchOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<InsightsSettingsCommentInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsSettingsCommentInstance>
+    ) => any
+  ): Promise<ApiResponse<InsightsSettingsCommentInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InsightsSettingsCommentResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<InsightsSettingsCommentInstance> => ({
+          ...response,
+          body: new InsightsSettingsCommentInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

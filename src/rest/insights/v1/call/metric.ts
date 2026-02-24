@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
 
@@ -71,6 +73,7 @@ export interface MetricListInstancePageOptions {
   direction?: MetricStreamDirection;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -109,6 +112,28 @@ export interface MetricListInstance {
     callback?: (item: MetricInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams MetricInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MetricListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: MetricListInstanceEachOptions,
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of MetricInstance records from the API.
    *
    * The request is executed immediately.
@@ -120,6 +145,18 @@ export interface MetricListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
+  /**
+   * Retrieve a single target page of MetricInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<MetricPage>) => any
+  ): Promise<ApiResponse<MetricPage>>;
   /**
    * Lists MetricInstance records from the API as a list.
    *
@@ -136,6 +173,30 @@ export interface MetricListInstance {
     params: MetricListInstanceOptions,
     callback?: (error: Error | null, items: MetricInstance[]) => any
   ): Promise<MetricInstance[]>;
+  /**
+   * Lists MetricInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MetricListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MetricInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MetricInstance[]>>;
+  listWithHttpInfo(
+    params: MetricListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MetricInstance[]>
+    ) => any
+  ): Promise<ApiResponse<MetricInstance[]>>;
   /**
    * Retrieve a single page of MetricInstance records from the API.
    *
@@ -154,6 +215,24 @@ export interface MetricListInstance {
     params: MetricListInstancePageOptions,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
+  /**
+   * Retrieve a single page of MetricInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MetricListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<MetricPage>) => any
+  ): Promise<ApiResponse<MetricPage>>;
+  pageWithHttpInfo(
+    params: MetricListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<MetricPage>) => any
+  ): Promise<ApiResponse<MetricPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -231,10 +310,80 @@ export function MetricListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new MetricPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | MetricListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<MetricPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<MetricPage>) => any
+  ): Promise<ApiResponse<MetricPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["edge"] !== undefined) data["Edge"] = params["edge"];
+    if (params["direction"] !== undefined)
+      data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<MetricPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MetricPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<MetricPage>) => any
+  ): Promise<ApiResponse<MetricPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<MetricPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MetricPage(instance._version, response, instance._solution),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

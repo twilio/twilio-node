@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Email Provisioning Status
@@ -38,6 +39,20 @@ export interface ProvisioningStatusContext {
   fetch(
     callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance>;
+
+  /**
+   * Fetch a ProvisioningStatusInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ProvisioningStatusInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProvisioningStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<ProvisioningStatusInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,6 +91,38 @@ export class ProvisioningStatusContextImpl
     operationPromise = operationPromise.then(
       (payload) => new ProvisioningStatusInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProvisioningStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<ProvisioningStatusInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ProvisioningStatusResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ProvisioningStatusInstance> => ({
+          ...response,
+          body: new ProvisioningStatusInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -139,6 +186,22 @@ export class ProvisioningStatusInstance {
     callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ProvisioningStatusInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ProvisioningStatusInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProvisioningStatusInstance>
+    ) => any
+  ): Promise<ApiResponse<ProvisioningStatusInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

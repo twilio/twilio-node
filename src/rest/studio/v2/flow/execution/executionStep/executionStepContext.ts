@@ -17,6 +17,7 @@ import V2 from "../../../../V2";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { ApiResponse } from "../../../../../../base/ApiResponse";
 
 export interface ExecutionStepContextContext {
   /**
@@ -29,6 +30,20 @@ export interface ExecutionStepContextContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
   ): Promise<ExecutionStepContextInstance>;
+
+  /**
+   * Fetch a ExecutionStepContextInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionStepContextInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionStepContextInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionStepContextInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -95,6 +110,44 @@ export class ExecutionStepContextContextImpl
           instance._solution.stepSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionStepContextInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionStepContextInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ExecutionStepContextResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ExecutionStepContextInstance> => ({
+          ...response,
+          body: new ExecutionStepContextInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid,
+            instance._solution.executionSid,
+            instance._solution.stepSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -197,6 +250,22 @@ export class ExecutionStepContextInstance {
     callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
   ): Promise<ExecutionStepContextInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ExecutionStepContextInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ExecutionStepContextInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ExecutionStepContextInstance>
+    ) => any
+  ): Promise<ApiResponse<ExecutionStepContextInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

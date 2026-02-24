@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`.
@@ -77,6 +78,35 @@ export interface VerificationCheckListInstance {
     params: VerificationCheckListInstanceCreateOptions,
     callback?: (error: Error | null, item?: VerificationCheckInstance) => any
   ): Promise<VerificationCheckInstance>;
+
+  /**
+   * Create a VerificationCheckInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationCheckInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationCheckInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationCheckInstance>>;
+  /**
+   * Create a VerificationCheckInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed VerificationCheckInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: VerificationCheckListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VerificationCheckInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationCheckInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -143,6 +173,67 @@ export function VerificationCheckListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | VerificationCheckListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<VerificationCheckInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<VerificationCheckInstance>
+    ) => any
+  ): Promise<ApiResponse<VerificationCheckInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["code"] !== undefined) data["Code"] = params["code"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["verificationSid"] !== undefined)
+      data["VerificationSid"] = params["verificationSid"];
+    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
+    if (params["snaClientToken"] !== undefined)
+      data["SnaClientToken"] = params["snaClientToken"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<VerificationCheckResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<VerificationCheckInstance> => ({
+          ...response,
+          body: new VerificationCheckInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

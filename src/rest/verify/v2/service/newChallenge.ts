@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class CreatePasskeysChallengeRequest {
   "identity"?: string;
@@ -46,6 +47,24 @@ export interface NewChallengeContext {
     headers?: any,
     callback?: (error: Error | null, item?: NewChallengeInstance) => any
   ): Promise<NewChallengeInstance>;
+
+  /**
+   * Create a NewChallengeInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewChallengeInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CreatePasskeysChallengeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<NewChallengeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -108,6 +127,57 @@ export class NewChallengeContextImpl implements NewChallengeContext {
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  createWithHttpInfo(
+    params: CreatePasskeysChallengeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<NewChallengeInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<NewChallengeResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<NewChallengeInstance> => ({
+          ...response,
+          body: new NewChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -290,6 +360,34 @@ export class NewChallengeInstance {
     callback?: (error: Error | null, item?: NewChallengeInstance) => any
   ): Promise<NewChallengeInstance> {
     return this._proxy.create(params, callback);
+  }
+
+  /**
+   * Create a NewChallengeInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewChallengeInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: CreatePasskeysChallengeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<NewChallengeInstance>>;
+
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<NewChallengeInstance>> {
+    return this._proxy.createWithHttpInfo(params, callback);
   }
 
   /**

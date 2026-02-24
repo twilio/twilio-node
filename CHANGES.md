@@ -1,6 +1,175 @@
 twilio-node changelog
 =====================
 
+[2026-02-18] Version 5.12.2
+---------------------------
+**Api**
+- Remove inequality examples from Calls StartTime and EndTime filter descriptions
+
+**Memory**
+- ## 2026-02-06
+- Minor updates (formatting, metadata)
+- ## 2026-02-06
+- Minor updates (formatting, metadata)
+- ## 2026-02-06
+- ## 2026-01-23
+- ## 2026-01-23
+- **Added 3 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Imports` (ListProfileImportsV2, CreateProfilesImportV2)
+- `/v1/Stores/{storeId}/Profiles/Imports/{importId}` (FetchProfileImportV2)
+- **Removed 6 path(s)**:
+- `/v1/KnowledgeBases/{kbId}/Knowledge` (ListKnowledge, CreateKnowledge)
+- `/v1/KnowledgeBases/{kbId}/Search` (KnowledgeSearch)
+- `/v1/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}` (RetrieveKnowledge, PatchKnowledge, DeleteKnowledge)
+- `/v1/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks` (ListKnowledgeChunks)
+- `/v1/ControlPlane/KnowledgeBases` (ListKnowledgeBases, CreateKnowledgeBase)
+- `/v1/ControlPlane/KnowledgeBases/{kbId}` (GetKnowledgeBase, UpdateKnowledgeBase, DeleteKnowledgeBase)
+- ## 2026-01-05
+- ## 2026-01-05
+- Initial release with 26 paths and 48 operations
+
+
+[2026-02-05] Version 5.12.1
+---------------------------
+**Library - Chore**
+- [PR #1170](https://github.com/twilio/twilio-node/pull/1170): Regional API domain processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Twiml**
+- Add `recording_configuration` attribute to `<Recording>` noun
+
+**Api**
+- Clarify the behavior of date filters with the Calls API
+- Added Phone Number `type` property to `/IncomingPhoneNumbers` resource
+
+**Memory**
+- ## 2026-01-23
+- No path changes (updated metadata only)
+- ## 2026-01-22
+- No path changes (updated metadata only)
+- ## 2026-01-22
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}` (added delete)
+
+
+[2026-01-22] Version 5.12.0
+---------------------------
+**Library - Fix**
+- [PR #1169](https://github.com/twilio/twilio-node/pull/1169): upgrade package qs to fix CVE-2025-15284 vulnerability. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Chore**
+- [PR #1167](https://github.com/twilio/twilio-node/pull/1167): add support for response headers. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #1164](https://github.com/twilio/twilio-node/pull/1164): add support for new twilioServiceException. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Feature**
+- [PR #1162](https://github.com/twilio/twilio-node/pull/1162): Token pagination support. Thanks to [@kridai](https://github.com/kridai)!
+
+**Twiml**
+- Added support for <Uri> and <Headers> inside <Dial><Sip>
+
+**Assistants**
+- AI Assistants v1 release
+
+**Autopilot**
+- Remove Export resource from Autopilot Assistant
+- Add dialogue_sid param to Query list resource
+- Add Restore resource to Autopilot Assistant
+- Add one new property in Query i.e dialogue_sid
+- Add Export resource to Autopilot Assistant.
+- Adds two new properties in Assistant i.e needs_model_build and development_stage
+- Add Webhooks resource to Autopilot Assistant.
+- Introduce `autopilot` subdomain with all resources from `preview.understand`
+
+**Compliance**
+- Added the new InventoryComplianceInsights API under version `/v1`.
+
+**Content**
+- changes for adding v2 endpoints
+
+**Marketplace**
+- Initial transition to Marketplace domain
+
+**Memory**
+- # API Changes
+- ## 2026-01-15
+- No path changes (updated metadata only)
+- ## 2026-01-13
+- **Added 1 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (DeleteProfileConversationSummary)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- **Added 2 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Imports` (ListProfileImportsV2, ImportProfilesV2)
+- `/v1/Stores/{storeId}/Profiles/Imports/{importId}` (GetProfileImportV2)
+- ## 2026-01-13
+- No path changes (updated metadata only)
+- ## 2026-01-07
+- No path changes (updated metadata only)
+- ## 2026-01-05
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- **Added 1 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions` (ListObservationRevisions)
+
+**Sender-ids**
+- Added all v2 sender-id-service endpoints
+
+**Trusthub**
+- Add new delete endpoint for compliance_registration.
+
+**Voice**
+- Add ProvisioningStatus public API endpoints.
+
+**Wise_owl**
+- Init API as open-api spec
+- Updated Get Chat, Send Message and Create Chat to include `contexts` in Message, instead of root Chat
+
+**Www**
+- Port APIs from oauth.twilio.com to www.twilio.com
+
+
+[2026-01-07] Version 5.11.2
+---------------------------
+**Library - Chore**
+- [PR #1161](https://github.com/twilio/twilio-node/pull/1161): reinstate npm install before npm publish. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Added optional parameter `clientNotificationUrl` for create call api
+- Added optional parameter `clientNotificationUrl` for create participant api
+
+
+[2025-12-18] Version 5.11.1
+---------------------------
+**Library - Chore**
+- [PR #1161](https://github.com/twilio/twilio-node/pull/1161): reinstate npm install before npm publish. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+[2025-12-17] Version 5.11.0
+---------------------------
+**Library - Chore**
+- [PR #1155](https://github.com/twilio/twilio-node/pull/1155): Add trusted publisher. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #1156](https://github.com/twilio/twilio-node/pull/1156): allow 2XX response for delete. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Feature**
+- [PR #1151](https://github.com/twilio/twilio-node/pull/1151): Add patch functionality. Thanks to [@kridai](https://github.com/kridai)!
+
+**Trunking**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+
+**Trusthub**
+- Added new parameters in in toll-free initialize api payload.
+- Remove the invalid status transition to Draft from the examples
+- Change the value of email to a valid one in the examples.
+
+
 [2025-12-03] Version 5.10.7
 ---------------------------
 **Library - Chore**

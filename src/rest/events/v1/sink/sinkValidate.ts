@@ -17,6 +17,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a SinkValidateInstance
@@ -47,6 +48,22 @@ export interface SinkValidateListInstance {
     params: SinkValidateListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SinkValidateInstance) => any
   ): Promise<SinkValidateInstance>;
+
+  /**
+   * Create a SinkValidateInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SinkValidateInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SinkValidateInstance>
+    ) => any
+  ): Promise<ApiResponse<SinkValidateInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -105,6 +122,56 @@ export function SinkValidateListInstance(
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SinkValidateInstance>
+    ) => any
+  ): Promise<ApiResponse<SinkValidateInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["testId"] === null || params["testId"] === undefined) {
+      throw new Error("Required parameter \"params['testId']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["TestId"] = params["testId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<SinkValidateResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<SinkValidateInstance> => ({
+          ...response,
+          body: new SinkValidateInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

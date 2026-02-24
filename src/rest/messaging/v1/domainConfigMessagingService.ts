@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export interface DomainConfigMessagingServiceContext {
   /**
@@ -32,6 +33,20 @@ export interface DomainConfigMessagingServiceContext {
       item?: DomainConfigMessagingServiceInstance
     ) => any
   ): Promise<DomainConfigMessagingServiceInstance>;
+
+  /**
+   * Fetch a DomainConfigMessagingServiceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainConfigMessagingServiceInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainConfigMessagingServiceInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainConfigMessagingServiceInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -84,6 +99,42 @@ export class DomainConfigMessagingServiceContextImpl
           instance._solution.messagingServiceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainConfigMessagingServiceInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainConfigMessagingServiceInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DomainConfigMessagingServiceResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DomainConfigMessagingServiceInstance> => ({
+          ...response,
+          body: new DomainConfigMessagingServiceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -203,6 +254,22 @@ export class DomainConfigMessagingServiceInstance {
     ) => any
   ): Promise<DomainConfigMessagingServiceInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a DomainConfigMessagingServiceInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainConfigMessagingServiceInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainConfigMessagingServiceInstance>
+    ) => any
+  ): Promise<ApiResponse<DomainConfigMessagingServiceInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**

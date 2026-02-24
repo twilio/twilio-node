@@ -17,6 +17,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export class ApprovePasskeysChallengeRequest {
   /**
@@ -93,6 +94,24 @@ export interface ApproveChallengeListInstance {
   ): Promise<ApproveChallengeInstance>;
 
   /**
+   * Update a ApproveChallengeInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApproveChallengeInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ApprovePasskeysChallengeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApproveChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<ApproveChallengeInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -149,6 +168,56 @@ export function ApproveChallengeListInstance(
           instance._solution.serviceSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: ApprovePasskeysChallengeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApproveChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<ApproveChallengeInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ApproveChallengeResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApproveChallengeInstance> => ({
+          ...response,
+          body: new ApproveChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

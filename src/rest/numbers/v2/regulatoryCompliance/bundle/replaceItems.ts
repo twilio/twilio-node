@@ -17,6 +17,7 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * The verification status of the Bundle resource.
@@ -58,6 +59,22 @@ export interface ReplaceItemsListInstance {
     params: ReplaceItemsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ReplaceItemsInstance) => any
   ): Promise<ReplaceItemsInstance>;
+
+  /**
+   * Create a ReplaceItemsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ReplaceItemsInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ReplaceItemsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReplaceItemsInstance>
+    ) => any
+  ): Promise<ApiResponse<ReplaceItemsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -121,6 +138,61 @@ export function ReplaceItemsListInstance(
           instance._solution.bundleSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ReplaceItemsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReplaceItemsInstance>
+    ) => any
+  ): Promise<ApiResponse<ReplaceItemsInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["fromBundleSid"] === null ||
+      params["fromBundleSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['fromBundleSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["FromBundleSid"] = params["fromBundleSid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ReplaceItemsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ReplaceItemsInstance> => ({
+          ...response,
+          body: new ReplaceItemsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The status of the sender.
@@ -112,7 +114,7 @@ export class MessagingV2ChannelsSenderProfile {
    */
   "accentColor"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+   * The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
    */
   "vertical"?: string | null;
   /**
@@ -170,7 +172,7 @@ export class MessagingV2ChannelsSenderProfileGenericResponse {
    */
   "accentColor"?: string | null;
   /**
-   * The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+   * The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
    */
   "vertical"?: string | null;
   /**
@@ -371,6 +373,7 @@ export interface ChannelsSenderListInstancePageOptions {
   channel: string;
   /** The number of items to return per page. For WhatsApp, the default is `20`. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -390,6 +393,17 @@ export interface ChannelsSenderContext {
   ): Promise<boolean>;
 
   /**
+   * Remove a ChannelsSenderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a ChannelsSenderInstance
    *
    * @param callback - Callback to handle processed record
@@ -399,6 +413,20 @@ export interface ChannelsSenderContext {
   fetch(
     callback?: (error: Error | null, item?: ChannelsSenderInstance) => any
   ): Promise<ChannelsSenderInstance>;
+
+  /**
+   * Fetch a ChannelsSenderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>>;
 
   /**
    * Update a ChannelsSenderInstance
@@ -424,6 +452,37 @@ export interface ChannelsSenderContext {
     headers?: any,
     callback?: (error: Error | null, item?: ChannelsSenderInstance) => any
   ): Promise<ChannelsSenderInstance>;
+
+  /**
+   * Update a ChannelsSenderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>>;
+  /**
+   * Update a ChannelsSenderInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: MessagingV2ChannelsSenderRequestsUpdate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -469,6 +528,30 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
     return operationPromise;
   }
 
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   fetch(
     callback?: (error: Error | null, item?: ChannelsSenderInstance) => any
   ): Promise<ChannelsSenderInstance> {
@@ -491,6 +574,42 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ChannelsSenderResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ChannelsSenderInstance> => ({
+          ...response,
+          body: new ChannelsSenderInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -541,6 +660,65 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
           instance._solution.sid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | MessagingV2ChannelsSenderRequestsUpdate
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ChannelsSenderInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ChannelsSenderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ChannelsSenderInstance> => ({
+          ...response,
+          body: new ChannelsSenderInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -647,6 +825,19 @@ export class ChannelsSenderInstance {
   }
 
   /**
+   * Remove a ChannelsSenderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
+  }
+
+  /**
    * Fetch a ChannelsSenderInstance
    *
    * @param callback - Callback to handle processed record
@@ -657,6 +848,22 @@ export class ChannelsSenderInstance {
     callback?: (error: Error | null, item?: ChannelsSenderInstance) => any
   ): Promise<ChannelsSenderInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a ChannelsSenderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
   }
 
   /**
@@ -689,6 +896,47 @@ export class ChannelsSenderInstance {
     callback?: (error: Error | null, item?: ChannelsSenderInstance) => any
   ): Promise<ChannelsSenderInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a ChannelsSenderInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>>;
+  /**
+   * Update a ChannelsSenderInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: MessagingV2ChannelsSenderRequestsUpdate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**
@@ -742,6 +990,24 @@ export interface ChannelsSenderListInstance {
   ): Promise<ChannelsSenderInstance>;
 
   /**
+   * Create a ChannelsSenderInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelsSenderInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: MessagingV2ChannelsSenderRequestsCreate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>>;
+
+  /**
    * Streams ChannelsSenderInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -765,6 +1031,29 @@ export interface ChannelsSenderListInstance {
     ) => void
   ): void;
   /**
+   * Streams ChannelsSenderInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ChannelsSenderListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+
+  eachWithHttpInfo(
+    params: ChannelsSenderListInstanceEachOptions,
+    callback?: (
+      item: ChannelsSenderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
    * Retrieve a single target page of ChannelsSenderInstance records from the API.
    *
    * The request is executed immediately.
@@ -776,6 +1065,21 @@ export interface ChannelsSenderListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: ChannelsSenderPage) => any
   ): Promise<ChannelsSenderPage>;
+  /**
+   * Retrieve a single target page of ChannelsSenderInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChannelsSenderPage>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderPage>>;
   /**
    * Lists ChannelsSenderInstance records from the API as a list.
    *
@@ -790,6 +1094,25 @@ export interface ChannelsSenderListInstance {
     params: ChannelsSenderListInstanceOptions,
     callback?: (error: Error | null, items: ChannelsSenderInstance[]) => any
   ): Promise<ChannelsSenderInstance[]>;
+  /**
+   * Lists ChannelsSenderInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ChannelsSenderListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+
+  listWithHttpInfo(
+    params: ChannelsSenderListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChannelsSenderInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance[]>>;
   /**
    * Retrieve a single page of ChannelsSenderInstance records from the API.
    *
@@ -806,6 +1129,25 @@ export interface ChannelsSenderListInstance {
     params: ChannelsSenderListInstancePageOptions,
     callback?: (error: Error | null, items: ChannelsSenderPage) => any
   ): Promise<ChannelsSenderPage>;
+  /**
+   * Retrieve a single page of ChannelsSenderInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ChannelsSenderListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+
+  pageWithHttpInfo(
+    params: ChannelsSenderListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChannelsSenderPage>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -858,6 +1200,52 @@ export function ChannelsSenderListInstance(
     operationPromise = operationPromise.then(
       (payload) => new ChannelsSenderInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: MessagingV2ChannelsSenderRequestsCreate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChannelsSenderInstance>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ChannelsSenderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ChannelsSenderInstance> => ({
+          ...response,
+          body: new ChannelsSenderInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -919,10 +1307,91 @@ export function ChannelsSenderListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new ChannelsSenderPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params: ChannelsSenderListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChannelsSenderPage>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderPage>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["channel"] === null || params["channel"] === undefined) {
+      throw new Error("Required parameter \"params['channel']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Channel"] = params["channel"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<ChannelsSenderPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ChannelsSenderPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ChannelsSenderPage>
+    ) => any
+  ): Promise<ApiResponse<ChannelsSenderPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ChannelsSenderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChannelsSenderPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;

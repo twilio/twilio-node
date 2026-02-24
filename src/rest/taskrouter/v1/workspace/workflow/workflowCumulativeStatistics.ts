@@ -17,6 +17,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to fetch a WorkflowCumulativeStatisticsInstance
@@ -63,6 +64,35 @@ export interface WorkflowCumulativeStatisticsContext {
       item?: WorkflowCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance>;
+
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkflowCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -151,6 +181,69 @@ export class WorkflowCumulativeStatisticsContextImpl
           instance._solution.workflowSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    params?:
+      | WorkflowCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["splitByWaitTime"] !== undefined)
+      data["SplitByWaitTime"] = params["splitByWaitTime"];
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkflowCumulativeStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<WorkflowCumulativeStatisticsInstance> => ({
+          ...response,
+          body: new WorkflowCumulativeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workflowSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -390,6 +483,45 @@ export class WorkflowCumulativeStatisticsInstance {
     ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: WorkflowCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+    ) => any
+  ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>> {
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**

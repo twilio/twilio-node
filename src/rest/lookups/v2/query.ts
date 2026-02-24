@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
@@ -192,6 +193,31 @@ export interface QueryListInstance {
   ): Promise<QueryInstance>;
 
   /**
+   * Create a QueryInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed QueryInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
+  ): Promise<ApiResponse<QueryInstance>>;
+  /**
+   * Create a QueryInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed QueryInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: LookupRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
+  ): Promise<ApiResponse<QueryInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -241,6 +267,54 @@ export function QueryListInstance(version: V2): QueryListInstance {
     operationPromise = operationPromise.then(
       (payload) => new QueryInstance(operationVersion, payload)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | LookupRequest
+      | ((error: Error | null, items: ApiResponse<QueryInstance>) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any
+  ): Promise<ApiResponse<QueryInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<QueryResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<QueryInstance> => ({
+          ...response,
+          body: new QueryInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

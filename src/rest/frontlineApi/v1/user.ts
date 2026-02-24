@@ -17,6 +17,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * Current state of this user. Can be either `active` or `deactivated` and defaults to `active`
@@ -50,6 +51,17 @@ export interface UserContext {
   ): Promise<UserInstance>;
 
   /**
+   * Fetch a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  /**
    * Update a UserInstance
    *
    * @param callback - Callback to handle processed record
@@ -71,6 +83,29 @@ export interface UserContext {
     params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
+
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -122,6 +157,39 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | UserContextUpdateOptions
@@ -161,6 +229,60 @@ export class UserContextImpl implements UserContext {
       (payload) =>
         new UserInstance(operationVersion, payload, instance._solution.sid)
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  updateWithHttpInfo(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<UserInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["avatar"] !== undefined) data["Avatar"] = params["avatar"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
+    if (params["isAvailable"] !== undefined)
+      data["IsAvailable"] = serialize.bool(params["isAvailable"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -257,6 +379,19 @@ export class UserInstance {
   }
 
   /**
+   * Fetch a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Update a UserInstance
    *
    * @param callback - Callback to handle processed record
@@ -284,6 +419,36 @@ export class UserInstance {
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+  /**
+   * Update a UserInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

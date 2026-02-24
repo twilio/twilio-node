@@ -17,6 +17,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+import { ApiResponse } from "../../../../../base/ApiResponse";
 
 /**
  * Options to pass to create a UserDefinedMessageInstance
@@ -50,6 +51,22 @@ export interface UserDefinedMessageListInstance {
     params: UserDefinedMessageListInstanceCreateOptions,
     callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
   ): Promise<UserDefinedMessageInstance>;
+
+  /**
+   * Create a UserDefinedMessageInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserDefinedMessageInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: UserDefinedMessageListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UserDefinedMessageInstance>
+    ) => any
+  ): Promise<ApiResponse<UserDefinedMessageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -116,6 +133,59 @@ export function UserDefinedMessageListInstance(
           instance._solution.callSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: UserDefinedMessageListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserDefinedMessageInstance>
+    ) => any
+  ): Promise<ApiResponse<UserDefinedMessageInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["content"] === null || params["content"] === undefined) {
+      throw new Error("Required parameter \"params['content']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Content"] = params["content"];
+    if (params["idempotencyKey"] !== undefined)
+      data["IdempotencyKey"] = params["idempotencyKey"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<UserDefinedMessageResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserDefinedMessageInstance> => ({
+          ...response,
+          body: new UserDefinedMessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

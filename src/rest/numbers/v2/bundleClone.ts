@@ -17,6 +17,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
  * The verification status of the Bundle resource.
@@ -54,6 +55,22 @@ export interface BundleCloneContext {
     params: BundleCloneContextCreateOptions,
     callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance>;
+
+  /**
+   * Create a BundleCloneInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BundleCloneInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: BundleCloneContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
+  ): Promise<ApiResponse<BundleCloneInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -125,6 +142,66 @@ export class BundleCloneContextImpl implements BundleCloneContext {
           instance._solution.bundleSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  createWithHttpInfo(
+    params: BundleCloneContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
+  ): Promise<ApiResponse<BundleCloneInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["targetAccountSid"] === null ||
+      params["targetAccountSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['targetAccountSid']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["TargetAccountSid"] = params["targetAccountSid"];
+    if (params["moveToDraft"] !== undefined)
+      data["MoveToDraft"] = serialize.bool(params["moveToDraft"]);
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BundleCloneResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<BundleCloneInstance> => ({
+          ...response,
+          body: new BundleCloneInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -254,6 +331,32 @@ export class BundleCloneInstance {
     callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance> {
     return this._proxy.create(params, callback);
+  }
+
+  /**
+   * Create a BundleCloneInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BundleCloneInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: BundleCloneContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
+  ): Promise<ApiResponse<BundleCloneInstance>>;
+
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
+  ): Promise<ApiResponse<BundleCloneInstance>> {
+    return this._proxy.createWithHttpInfo(params, callback);
   }
 
   /**

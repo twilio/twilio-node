@@ -13,12 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { ApiResponse } from "../../../../base/ApiResponse";
 
 export type ParticipantCodec = "VP8" | "H264" | "VP9" | "opus";
 
@@ -81,6 +83,7 @@ export interface ParticipantListInstanceOptions {
 export interface ParticipantListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -98,6 +101,20 @@ export interface ParticipantContext {
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
+
+  /**
+   * Fetch a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -151,6 +168,43 @@ export class ParticipantContextImpl implements ParticipantContext {
           instance._solution.participantSid
         )
     );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ParticipantResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -316,6 +370,22 @@ export class ParticipantInstance {
   }
 
   /**
+   * Fetch a ParticipantInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ParticipantInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ParticipantInstance>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -382,6 +452,28 @@ export interface ParticipantListInstance {
     callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
   ): void;
   /**
+   * Streams ParticipantInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: ParticipantListInstanceEachOptions,
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
    * The request is executed immediately.
@@ -393,6 +485,18 @@ export interface ParticipantListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -409,6 +513,30 @@ export interface ParticipantListInstance {
     params: ParticipantListInstanceOptions,
     callback?: (error: Error | null, items: ParticipantInstance[]) => any
   ): Promise<ParticipantInstance[]>;
+  /**
+   * Lists ParticipantInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance[]>>;
+  listWithHttpInfo(
+    params: ParticipantListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantInstance[]>
+    ) => any
+  ): Promise<ApiResponse<ParticipantInstance[]>>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -427,6 +555,24 @@ export interface ParticipantListInstance {
     params: ParticipantListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>>;
+  pageWithHttpInfo(
+    params: ParticipantListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -507,10 +653,88 @@ export function ParticipantListInstance(
       method: "get",
       uri: targetUrl,
     });
-
     let pagePromise = operationPromise.then(
       (payload) =>
         new ParticipantPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ParticipantListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+  ): Promise<ApiResponse<ParticipantPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<ParticipantPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ParticipantPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ParticipantPage>
+    ) => any
+  ): Promise<ApiResponse<ParticipantPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          instance._version,
+          response,
+          instance._solution
+        ),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
