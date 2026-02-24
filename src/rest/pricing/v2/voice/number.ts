@@ -261,14 +261,16 @@ export class NumberInstance {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
     this.outboundCallPrices =
-      payload.outbound_call_prices !== null
+      payload.outbound_call_prices !== null &&
+      payload.outbound_call_prices !== undefined
         ? payload.outbound_call_prices.map(
             (payload: any) =>
               new PricingV2VoiceVoiceNumberOutboundCallPrices(payload)
           )
         : null;
     this.inboundCallPrice =
-      payload.inbound_call_price !== null
+      payload.inbound_call_price !== null &&
+      payload.inbound_call_price !== undefined
         ? new PricingV2VoiceVoiceNumberInboundCallPrice(
             payload.inbound_call_price
           )

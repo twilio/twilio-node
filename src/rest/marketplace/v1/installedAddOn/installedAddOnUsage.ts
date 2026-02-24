@@ -247,7 +247,7 @@ export class InstalledAddOnUsageInstance {
   ) {
     this.totalSubmitted = payload.total_submitted;
     this.billableItems =
-      payload.billable_items !== null
+      payload.billable_items !== null && payload.billable_items !== undefined
         ? payload.billable_items.map(
             (payload: any) =>
               new MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(

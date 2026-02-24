@@ -591,16 +591,22 @@ export class UserInstance {
     this.externalId = payload.externalId;
     this.userName = payload.userName;
     this.displayName = payload.displayName;
-    this.name = payload.name !== null ? new ScimName(payload.name) : null;
+    this.name =
+      payload.name !== null && payload.name !== undefined
+        ? new ScimName(payload.name)
+        : null;
     this.emails =
-      payload.emails !== null
+      payload.emails !== null && payload.emails !== undefined
         ? payload.emails.map((payload: any) => new ScimEmailAddress(payload))
         : null;
     this.active = payload.active;
     this.locale = payload.locale;
     this.timezone = payload.timezone;
     this.schemas = payload.schemas;
-    this.meta = payload.meta !== null ? new ScimMeta(payload.meta) : null;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new ScimMeta(payload.meta)
+        : null;
     this.detail = payload.detail;
     this.scimType = payload.scimType;
     this.status = payload.status;

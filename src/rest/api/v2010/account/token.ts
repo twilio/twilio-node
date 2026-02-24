@@ -246,7 +246,7 @@ export class TokenInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.iceServers =
-      payload.ice_servers !== null
+      payload.ice_servers !== null && payload.ice_servers !== undefined
         ? payload.ice_servers.map(
             (payload: any) => new ApiV2010AccountTokenIceServers(payload)
           )

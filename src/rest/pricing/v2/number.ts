@@ -265,7 +265,8 @@ export class NumberInstance {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
     this.terminatingPrefixPrices =
-      payload.terminating_prefix_prices !== null
+      payload.terminating_prefix_prices !== null &&
+      payload.terminating_prefix_prices !== undefined
         ? payload.terminating_prefix_prices.map(
             (payload: any) =>
               new PricingV2TrunkingCountryInstanceTerminatingPrefixPrices(
@@ -274,7 +275,8 @@ export class NumberInstance {
           )
         : null;
     this.originatingCallPrice =
-      payload.originating_call_price !== null
+      payload.originating_call_price !== null &&
+      payload.originating_call_price !== undefined
         ? new PricingV2TrunkingNumberOriginatingCallPrice(
             payload.originating_call_price
           )

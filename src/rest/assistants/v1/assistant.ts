@@ -709,13 +709,13 @@ export class AssistantInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.knowledge =
-      payload.knowledge !== null
+      payload.knowledge !== null && payload.knowledge !== undefined
         ? payload.knowledge.map(
             (payload: any) => new AssistantsV1ServiceKnowledge(payload)
           )
         : null;
     this.tools =
-      payload.tools !== null
+      payload.tools !== null && payload.tools !== undefined
         ? payload.tools.map(
             (payload: any) => new AssistantsV1ServiceTool(payload)
           )

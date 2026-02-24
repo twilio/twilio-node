@@ -470,7 +470,7 @@ interface QueryResource {
 export class QueryInstance {
   constructor(protected _version: V2, payload: QueryResource) {
     this.phoneNumbers =
-      payload.phone_numbers !== null
+      payload.phone_numbers !== null && payload.phone_numbers !== undefined
         ? payload.phone_numbers.map(
             (payload: any) => new LookupBatchResponse(payload)
           )

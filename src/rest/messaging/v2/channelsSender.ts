@@ -875,30 +875,30 @@ export class ChannelsSenderInstance {
     this.status = payload.status;
     this.senderId = payload.sender_id;
     this.configuration =
-      payload.configuration !== null
+      payload.configuration !== null && payload.configuration !== undefined
         ? new MessagingV2ChannelsSenderConfiguration(payload.configuration)
         : null;
     this.webhook =
-      payload.webhook !== null
+      payload.webhook !== null && payload.webhook !== undefined
         ? new MessagingV2ChannelsSenderWebhook(payload.webhook)
         : null;
     this.profile =
-      payload.profile !== null
+      payload.profile !== null && payload.profile !== undefined
         ? new MessagingV2ChannelsSenderProfileGenericResponse(payload.profile)
         : null;
     this.properties =
-      payload.properties !== null
+      payload.properties !== null && payload.properties !== undefined
         ? new MessagingV2ChannelsSenderProperties(payload.properties)
         : null;
     this.offlineReasons =
-      payload.offline_reasons !== null
+      payload.offline_reasons !== null && payload.offline_reasons !== undefined
         ? payload.offline_reasons.map(
             (payload: any) =>
               new MessagingV2ChannelsSenderOfflineReasonsItems(payload)
           )
         : null;
     this.compliance =
-      payload.compliance !== null
+      payload.compliance !== null && payload.compliance !== undefined
         ? new MessagingV2RcsComplianceResponse(payload.compliance)
         : null;
     this.url = payload.url;

@@ -246,7 +246,8 @@ export class CountryInstance {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
     this.outboundSmsPrices =
-      payload.outbound_sms_prices !== null
+      payload.outbound_sms_prices !== null &&
+      payload.outbound_sms_prices !== undefined
         ? payload.outbound_sms_prices.map(
             (payload: any) =>
               new PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices(
@@ -255,7 +256,8 @@ export class CountryInstance {
           )
         : null;
     this.inboundSmsPrices =
-      payload.inbound_sms_prices !== null
+      payload.inbound_sms_prices !== null &&
+      payload.inbound_sms_prices !== undefined
         ? payload.inbound_sms_prices.map(
             (payload: any) =>
               new PricingV1MessagingMessagingCountryInstanceInboundSmsPrices(

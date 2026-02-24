@@ -365,7 +365,7 @@ export class OAuthAppInstance {
     this.secret = payload.secret;
     this.status = payload.status;
     this.policy =
-      payload.policy !== null
+      payload.policy !== null && payload.policy !== undefined
         ? new IamV1OrganizationVendoroauthappPolicy(payload.policy)
         : null;
     this.accessTokenTtl = deserialize.integer(payload.access_token_ttl);

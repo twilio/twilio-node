@@ -244,7 +244,7 @@ interface RateLimitResource {
 export class RateLimitInstance {
   constructor(protected _version: V2, payload: RateLimitResource) {
     this.rateLimits =
-      payload.rate_limits !== null
+      payload.rate_limits !== null && payload.rate_limits !== undefined
         ? payload.rate_limits.map(
             (payload: any) => new RateLimitResponse(payload)
           )

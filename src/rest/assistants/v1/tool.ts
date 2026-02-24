@@ -606,7 +606,7 @@ export class ToolInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.policies =
-      payload.policies !== null
+      payload.policies !== null && payload.policies !== undefined
         ? payload.policies.map(
             (payload: any) => new AssistantsV1ServicePolicy(payload)
           )

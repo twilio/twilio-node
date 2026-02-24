@@ -219,7 +219,8 @@ export class CountryInstance {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
     this.phoneNumberPrices =
-      payload.phone_number_prices !== null
+      payload.phone_number_prices !== null &&
+      payload.phone_number_prices !== undefined
         ? payload.phone_number_prices.map(
             (payload: any) =>
               new PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices(

@@ -192,13 +192,15 @@ export class NumberInstance {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
     this.outboundCallPrice =
-      payload.outbound_call_price !== null
+      payload.outbound_call_price !== null &&
+      payload.outbound_call_price !== undefined
         ? new PricingV1VoiceVoiceNumberOutboundCallPrice(
             payload.outbound_call_price
           )
         : null;
     this.inboundCallPrice =
-      payload.inbound_call_price !== null
+      payload.inbound_call_price !== null &&
+      payload.inbound_call_price !== undefined
         ? new PricingV1VoiceVoiceNumberInboundCallPrice(
             payload.inbound_call_price
           )

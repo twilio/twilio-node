@@ -496,13 +496,14 @@ export class PortingPortInInstance {
     this.portInRequestStatus = payload.port_in_request_status;
     this.orderCancellationReason = payload.order_cancellation_reason;
     this.losingCarrierInformation =
-      payload.losing_carrier_information !== null
+      payload.losing_carrier_information !== null &&
+      payload.losing_carrier_information !== undefined
         ? new NumbersV1PortingLosingCarrierInformation(
             payload.losing_carrier_information
           )
         : null;
     this.phoneNumbers =
-      payload.phone_numbers !== null
+      payload.phone_numbers !== null && payload.phone_numbers !== undefined
         ? payload.phone_numbers.map(
             (payload: any) =>
               new NumbersV1PortingPortInPhoneNumberResult(payload)

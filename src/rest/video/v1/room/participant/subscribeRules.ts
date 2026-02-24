@@ -361,7 +361,7 @@ export class SubscribeRulesInstance {
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;
     this.rules =
-      payload.rules !== null
+      payload.rules !== null && payload.rules !== undefined
         ? payload.rules.map(
             (payload: any) =>
               new VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules(

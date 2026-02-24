@@ -477,33 +477,38 @@ export class PhoneNumberInstance {
     this.valid = payload.valid;
     this.validationErrors = payload.validation_errors;
     this.callerName =
-      payload.caller_name !== null
+      payload.caller_name !== null && payload.caller_name !== undefined
         ? new CallerNameInfo(payload.caller_name)
         : null;
     this.simSwap =
-      payload.sim_swap !== null ? new SimSwapInfo(payload.sim_swap) : null;
+      payload.sim_swap !== null && payload.sim_swap !== undefined
+        ? new SimSwapInfo(payload.sim_swap)
+        : null;
     this.callForwarding =
-      payload.call_forwarding !== null
+      payload.call_forwarding !== null && payload.call_forwarding !== undefined
         ? new CallForwardingInfo(payload.call_forwarding)
         : null;
     this.lineTypeIntelligence =
-      payload.line_type_intelligence !== null
+      payload.line_type_intelligence !== null &&
+      payload.line_type_intelligence !== undefined
         ? new LineTypeIntelligenceInfo(payload.line_type_intelligence)
         : null;
     this.lineStatus =
-      payload.line_status !== null
+      payload.line_status !== null && payload.line_status !== undefined
         ? new LineStatusInfo(payload.line_status)
         : null;
     this.identityMatch =
-      payload.identity_match !== null
+      payload.identity_match !== null && payload.identity_match !== undefined
         ? new IdentityMatchInfo(payload.identity_match)
         : null;
     this.reassignedNumber =
-      payload.reassigned_number !== null
+      payload.reassigned_number !== null &&
+      payload.reassigned_number !== undefined
         ? new ReassignedNumberInfo(payload.reassigned_number)
         : null;
     this.smsPumpingRisk =
-      payload.sms_pumping_risk !== null
+      payload.sms_pumping_risk !== null &&
+      payload.sms_pumping_risk !== undefined
         ? new SmsPumpingRiskInfo(payload.sms_pumping_risk)
         : null;
     this.phoneNumberQualityScore = payload.phone_number_quality_score;
