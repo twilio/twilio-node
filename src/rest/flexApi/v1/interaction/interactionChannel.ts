@@ -580,19 +580,23 @@ export class InteractionChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      interactionSid: this.interactionSid,
-      type: this.type,
-      status: this.status,
-      errorCode: this.errorCode,
-      errorMessage: this.errorMessage,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        interactionSid: this.interactionSid,
+        type: this.type,
+        status: this.status,
+        errorCode: this.errorCode,
+        errorMessage: this.errorMessage,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

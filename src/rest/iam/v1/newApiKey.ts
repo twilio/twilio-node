@@ -243,17 +243,21 @@ export class NewApiKeyInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      secret: this.secret,
-      policy: this.policy,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        secret: this.secret,
+        policy: this.policy,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

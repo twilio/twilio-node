@@ -529,21 +529,25 @@ export class AnnotationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      callSid: this.callSid,
-      accountSid: this.accountSid,
-      answeredBy: this.answeredBy,
-      connectivityIssue: this.connectivityIssue,
-      qualityIssues: this.qualityIssues,
-      spam: this.spam,
-      callScore: this.callScore,
-      comment: this.comment,
-      incident: this.incident,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        callSid: this.callSid,
+        accountSid: this.accountSid,
+        answeredBy: this.answeredBy,
+        connectivityIssue: this.connectivityIssue,
+        qualityIssues: this.qualityIssues,
+        spam: this.spam,
+        callScore: this.callScore,
+        comment: this.comment,
+        incident: this.incident,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

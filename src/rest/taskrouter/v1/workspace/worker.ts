@@ -892,24 +892,28 @@ export class WorkerInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      activityName: this.activityName,
-      activitySid: this.activitySid,
-      attributes: this.attributes,
-      available: this.available,
-      dateCreated: this.dateCreated,
-      dateStatusChanged: this.dateStatusChanged,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      sid: this.sid,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        activityName: this.activityName,
+        activitySid: this.activitySid,
+        attributes: this.attributes,
+        available: this.available,
+        dateCreated: this.dateCreated,
+        dateStatusChanged: this.dateStatusChanged,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        sid: this.sid,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

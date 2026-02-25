@@ -706,27 +706,31 @@ export class TriggerInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      callbackMethod: this.callbackMethod,
-      callbackUrl: this.callbackUrl,
-      currentValue: this.currentValue,
-      dateCreated: this.dateCreated,
-      dateFired: this.dateFired,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      recurring: this.recurring,
-      sid: this.sid,
-      triggerBy: this.triggerBy,
-      triggerValue: this.triggerValue,
-      uri: this.uri,
-      usageCategory: this.usageCategory,
-      usageRecordUri: this.usageRecordUri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        callbackMethod: this.callbackMethod,
+        callbackUrl: this.callbackUrl,
+        currentValue: this.currentValue,
+        dateCreated: this.dateCreated,
+        dateFired: this.dateFired,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        recurring: this.recurring,
+        sid: this.sid,
+        triggerBy: this.triggerBy,
+        triggerValue: this.triggerValue,
+        uri: this.uri,
+        usageCategory: this.usageCategory,
+        usageRecordUri: this.usageRecordUri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

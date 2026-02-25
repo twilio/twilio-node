@@ -201,12 +201,16 @@ export class BulkContactsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      items: this.items,
-    };
+    return JSON.stringify(
+      {
+        items: this.items,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -431,18 +431,22 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      customerProfileSid: this.customerProfileSid,
-      accountSid: this.accountSid,
-      channelEndpointType: this.channelEndpointType,
-      channelEndpointSid: this.channelEndpointSid,
-      dateCreated: this.dateCreated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        customerProfileSid: this.customerProfileSid,
+        accountSid: this.accountSid,
+        channelEndpointType: this.channelEndpointType,
+        channelEndpointSid: this.channelEndpointSid,
+        dateCreated: this.dateCreated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -819,35 +819,39 @@ export class ServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      apnCredentialSid: this.apnCredentialSid,
-      gcmCredentialSid: this.gcmCredentialSid,
-      fcmCredentialSid: this.fcmCredentialSid,
-      messagingServiceSid: this.messagingServiceSid,
-      facebookMessengerPageId: this.facebookMessengerPageId,
-      defaultApnNotificationProtocolVersion:
-        this.defaultApnNotificationProtocolVersion,
-      defaultGcmNotificationProtocolVersion:
-        this.defaultGcmNotificationProtocolVersion,
-      defaultFcmNotificationProtocolVersion:
-        this.defaultFcmNotificationProtocolVersion,
-      logEnabled: this.logEnabled,
-      url: this.url,
-      links: this.links,
-      alexaSkillId: this.alexaSkillId,
-      defaultAlexaNotificationProtocolVersion:
-        this.defaultAlexaNotificationProtocolVersion,
-      deliveryCallbackUrl: this.deliveryCallbackUrl,
-      deliveryCallbackEnabled: this.deliveryCallbackEnabled,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        apnCredentialSid: this.apnCredentialSid,
+        gcmCredentialSid: this.gcmCredentialSid,
+        fcmCredentialSid: this.fcmCredentialSid,
+        messagingServiceSid: this.messagingServiceSid,
+        facebookMessengerPageId: this.facebookMessengerPageId,
+        defaultApnNotificationProtocolVersion:
+          this.defaultApnNotificationProtocolVersion,
+        defaultGcmNotificationProtocolVersion:
+          this.defaultGcmNotificationProtocolVersion,
+        defaultFcmNotificationProtocolVersion:
+          this.defaultFcmNotificationProtocolVersion,
+        logEnabled: this.logEnabled,
+        url: this.url,
+        links: this.links,
+        alexaSkillId: this.alexaSkillId,
+        defaultAlexaNotificationProtocolVersion:
+          this.defaultAlexaNotificationProtocolVersion,
+        deliveryCallbackUrl: this.deliveryCallbackUrl,
+        deliveryCallbackEnabled: this.deliveryCallbackEnabled,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

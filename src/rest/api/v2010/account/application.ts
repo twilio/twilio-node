@@ -848,32 +848,36 @@ export class ApplicationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      messageStatusCallback: this.messageStatusCallback,
-      sid: this.sid,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsStatusCallback: this.smsStatusCallback,
-      smsUrl: this.smsUrl,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      uri: this.uri,
-      voiceCallerIdLookup: this.voiceCallerIdLookup,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceUrl: this.voiceUrl,
-      publicApplicationConnectEnabled: this.publicApplicationConnectEnabled,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        messageStatusCallback: this.messageStatusCallback,
+        sid: this.sid,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsStatusCallback: this.smsStatusCallback,
+        smsUrl: this.smsUrl,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        uri: this.uri,
+        voiceCallerIdLookup: this.voiceCallerIdLookup,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceUrl: this.voiceUrl,
+        publicApplicationConnectEnabled: this.publicApplicationConnectEnabled,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

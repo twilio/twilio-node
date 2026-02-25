@@ -561,27 +561,31 @@ export class ParticipantConversationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      chatServiceSid: this.chatServiceSid,
-      participantSid: this.participantSid,
-      participantUserSid: this.participantUserSid,
-      participantIdentity: this.participantIdentity,
-      participantMessagingBinding: this.participantMessagingBinding,
-      conversationSid: this.conversationSid,
-      conversationUniqueName: this.conversationUniqueName,
-      conversationFriendlyName: this.conversationFriendlyName,
-      conversationAttributes: this.conversationAttributes,
-      conversationDateCreated: this.conversationDateCreated,
-      conversationDateUpdated: this.conversationDateUpdated,
-      conversationCreatedBy: this.conversationCreatedBy,
-      conversationState: this.conversationState,
-      conversationTimers: this.conversationTimers,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        chatServiceSid: this.chatServiceSid,
+        participantSid: this.participantSid,
+        participantUserSid: this.participantUserSid,
+        participantIdentity: this.participantIdentity,
+        participantMessagingBinding: this.participantMessagingBinding,
+        conversationSid: this.conversationSid,
+        conversationUniqueName: this.conversationUniqueName,
+        conversationFriendlyName: this.conversationFriendlyName,
+        conversationAttributes: this.conversationAttributes,
+        conversationDateCreated: this.conversationDateCreated,
+        conversationDateUpdated: this.conversationDateUpdated,
+        conversationCreatedBy: this.conversationCreatedBy,
+        conversationState: this.conversationState,
+        conversationTimers: this.conversationTimers,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -211,12 +211,16 @@ export class TypingIndicatorInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      success: this.success,
-    };
+    return JSON.stringify(
+      {
+        success: this.success,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

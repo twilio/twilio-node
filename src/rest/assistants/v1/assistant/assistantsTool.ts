@@ -420,22 +420,26 @@ export class AssistantsToolInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      description: this.description,
-      enabled: this.enabled,
-      id: this.id,
-      meta: this.meta,
-      name: this.name,
-      requiresAuth: this.requiresAuth,
-      type: this.type,
-      url: this.url,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        description: this.description,
+        enabled: this.enabled,
+        id: this.id,
+        meta: this.meta,
+        name: this.name,
+        requiresAuth: this.requiresAuth,
+        type: this.type,
+        url: this.url,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

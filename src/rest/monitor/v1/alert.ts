@@ -363,30 +363,34 @@ export class AlertInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      alertText: this.alertText,
-      apiVersion: this.apiVersion,
-      dateCreated: this.dateCreated,
-      dateGenerated: this.dateGenerated,
-      dateUpdated: this.dateUpdated,
-      errorCode: this.errorCode,
-      logLevel: this.logLevel,
-      moreInfo: this.moreInfo,
-      requestMethod: this.requestMethod,
-      requestUrl: this.requestUrl,
-      requestVariables: this.requestVariables,
-      resourceSid: this.resourceSid,
-      responseBody: this.responseBody,
-      responseHeaders: this.responseHeaders,
-      sid: this.sid,
-      url: this.url,
-      requestHeaders: this.requestHeaders,
-      serviceSid: this.serviceSid,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        alertText: this.alertText,
+        apiVersion: this.apiVersion,
+        dateCreated: this.dateCreated,
+        dateGenerated: this.dateGenerated,
+        dateUpdated: this.dateUpdated,
+        errorCode: this.errorCode,
+        logLevel: this.logLevel,
+        moreInfo: this.moreInfo,
+        requestMethod: this.requestMethod,
+        requestUrl: this.requestUrl,
+        requestVariables: this.requestVariables,
+        resourceSid: this.resourceSid,
+        responseBody: this.responseBody,
+        responseHeaders: this.responseHeaders,
+        sid: this.sid,
+        url: this.url,
+        requestHeaders: this.requestHeaders,
+        serviceSid: this.serviceSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

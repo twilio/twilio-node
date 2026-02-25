@@ -26,6 +26,12 @@ export class PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.numberType = payload["number_type"];
+  }
 }
 
 /**
@@ -212,7 +218,16 @@ export class CountryInstance {
   ) {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
-    this.phoneNumberPrices = payload.phone_number_prices;
+    this.phoneNumberPrices =
+      payload.phone_number_prices !== null &&
+      payload.phone_number_prices !== undefined
+        ? payload.phone_number_prices.map(
+            (payload: any) =>
+              new PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices(
+                payload
+              )
+          )
+        : null;
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
@@ -276,16 +291,20 @@ export class CountryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      country: this.country,
-      isoCountry: this.isoCountry,
-      phoneNumberPrices: this.phoneNumberPrices,
-      priceUnit: this.priceUnit,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        country: this.country,
+        isoCountry: this.isoCountry,
+        phoneNumberPrices: this.phoneNumberPrices,
+        priceUnit: this.priceUnit,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

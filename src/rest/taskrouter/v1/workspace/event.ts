@@ -420,28 +420,32 @@ export class EventInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      actorSid: this.actorSid,
-      actorType: this.actorType,
-      actorUrl: this.actorUrl,
-      description: this.description,
-      eventData: this.eventData,
-      eventDate: this.eventDate,
-      eventDateMs: this.eventDateMs,
-      eventType: this.eventType,
-      resourceSid: this.resourceSid,
-      resourceType: this.resourceType,
-      resourceUrl: this.resourceUrl,
-      sid: this.sid,
-      source: this.source,
-      sourceIpAddress: this.sourceIpAddress,
-      url: this.url,
-      workspaceSid: this.workspaceSid,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        actorSid: this.actorSid,
+        actorType: this.actorType,
+        actorUrl: this.actorUrl,
+        description: this.description,
+        eventData: this.eventData,
+        eventDate: this.eventDate,
+        eventDateMs: this.eventDateMs,
+        eventType: this.eventType,
+        resourceSid: this.resourceSid,
+        resourceType: this.resourceType,
+        resourceUrl: this.resourceUrl,
+        sid: this.sid,
+        source: this.source,
+        sourceIpAddress: this.sourceIpAddress,
+        url: this.url,
+        workspaceSid: this.workspaceSid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

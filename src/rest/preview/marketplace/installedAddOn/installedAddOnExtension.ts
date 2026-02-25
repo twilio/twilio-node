@@ -513,18 +513,22 @@ export class InstalledAddOnExtensionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      installedAddOnSid: this.installedAddOnSid,
-      friendlyName: this.friendlyName,
-      productName: this.productName,
-      uniqueName: this.uniqueName,
-      enabled: this.enabled,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        installedAddOnSid: this.installedAddOnSid,
+        friendlyName: this.friendlyName,
+        productName: this.productName,
+        uniqueName: this.uniqueName,
+        enabled: this.enabled,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -932,21 +932,25 @@ export class AccountInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      authToken: this.authToken,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      ownerAccountSid: this.ownerAccountSid,
-      sid: this.sid,
-      status: this.status,
-      subresourceUris: this.subresourceUris,
-      type: this.type,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        authToken: this.authToken,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        ownerAccountSid: this.ownerAccountSid,
+        sid: this.sid,
+        status: this.status,
+        subresourceUris: this.subresourceUris,
+        type: this.type,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

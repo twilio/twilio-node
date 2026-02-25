@@ -783,24 +783,28 @@ export class WorkflowInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      assignmentCallbackUrl: this.assignmentCallbackUrl,
-      configuration: this.configuration,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      documentContentType: this.documentContentType,
-      fallbackAssignmentCallbackUrl: this.fallbackAssignmentCallbackUrl,
-      friendlyName: this.friendlyName,
-      sid: this.sid,
-      taskReservationTimeout: this.taskReservationTimeout,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        assignmentCallbackUrl: this.assignmentCallbackUrl,
+        configuration: this.configuration,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        documentContentType: this.documentContentType,
+        fallbackAssignmentCallbackUrl: this.fallbackAssignmentCallbackUrl,
+        friendlyName: this.friendlyName,
+        sid: this.sid,
+        taskReservationTimeout: this.taskReservationTimeout,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

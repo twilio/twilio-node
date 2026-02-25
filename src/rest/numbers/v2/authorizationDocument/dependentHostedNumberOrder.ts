@@ -619,29 +619,33 @@ export class DependentHostedNumberOrderInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      bulkHostingRequestSid: this.bulkHostingRequestSid,
-      nextStep: this.nextStep,
-      accountSid: this.accountSid,
-      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
-      addressSid: this.addressSid,
-      signingDocumentSid: this.signingDocumentSid,
-      phoneNumber: this.phoneNumber,
-      capabilities: this.capabilities,
-      friendlyName: this.friendlyName,
-      status: this.status,
-      failureReason: this.failureReason,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      email: this.email,
-      ccEmails: this.ccEmails,
-      contactTitle: this.contactTitle,
-      contactPhoneNumber: this.contactPhoneNumber,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        bulkHostingRequestSid: this.bulkHostingRequestSid,
+        nextStep: this.nextStep,
+        accountSid: this.accountSid,
+        incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+        addressSid: this.addressSid,
+        signingDocumentSid: this.signingDocumentSid,
+        phoneNumber: this.phoneNumber,
+        capabilities: this.capabilities,
+        friendlyName: this.friendlyName,
+        status: this.status,
+        failureReason: this.failureReason,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        email: this.email,
+        ccEmails: this.ccEmails,
+        contactTitle: this.contactTitle,
+        contactPhoneNumber: this.contactPhoneNumber,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -587,26 +587,30 @@ export class InteractionTransferInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      instanceSid: this.instanceSid,
-      accountSid: this.accountSid,
-      interactionSid: this.interactionSid,
-      channelSid: this.channelSid,
-      executionSid: this.executionSid,
-      type: this.type,
-      status: this.status,
-      from: this.from,
-      to: this.to,
-      noteSid: this.noteSid,
-      summarySid: this.summarySid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        instanceSid: this.instanceSid,
+        accountSid: this.accountSid,
+        interactionSid: this.interactionSid,
+        channelSid: this.channelSid,
+        executionSid: this.executionSid,
+        type: this.type,
+        status: this.status,
+        from: this.from,
+        to: this.to,
+        noteSid: this.noteSid,
+        summarySid: this.summarySid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

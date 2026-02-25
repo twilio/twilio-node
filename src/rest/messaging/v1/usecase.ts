@@ -147,12 +147,16 @@ export class UsecaseInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      usecases: this.usecases,
-    };
+    return JSON.stringify(
+      {
+        usecases: this.usecases,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

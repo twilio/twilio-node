@@ -35,6 +35,12 @@ export class PublicApiCreateRoleAssignmentRequest {
    * Twilio Sid representing identity of this assignment
    */
   "identity": string;
+
+  constructor(payload) {
+    this.roleSid = payload["role_sid"];
+    this.scope = payload["scope"];
+    this.identity = payload["identity"];
+  }
 }
 
 /**
@@ -320,19 +326,23 @@ export class RoleAssignmentInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      roleSid: this.roleSid,
-      scope: this.scope,
-      identity: this.identity,
-      code: this.code,
-      message: this.message,
-      moreInfo: this.moreInfo,
-      status: this.status,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        roleSid: this.roleSid,
+        scope: this.scope,
+        identity: this.identity,
+        code: this.code,
+        message: this.message,
+        moreInfo: this.moreInfo,
+        status: this.status,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

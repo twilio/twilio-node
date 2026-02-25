@@ -25,6 +25,14 @@ export class VideoV1RoomRoomRecordingRuleRules {
   "publisher"?: string;
   "track"?: string;
   "kind"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.all = payload["all"];
+    this.publisher = payload["publisher"];
+    this.track = payload["track"];
+    this.kind = payload["kind"];
+  }
 }
 
 /**
@@ -337,7 +345,12 @@ export class RecordingRulesInstance {
     roomSid: string
   ) {
     this.roomSid = payload.room_sid;
-    this.rules = payload.rules;
+    this.rules =
+      payload.rules !== null && payload.rules !== undefined
+        ? payload.rules.map(
+            (payload: any) => new VideoV1RoomRoomRecordingRuleRules(payload)
+          )
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }
@@ -362,15 +375,19 @@ export class RecordingRulesInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      roomSid: this.roomSid,
-      rules: this.rules,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        roomSid: this.roomSid,
+        rules: this.rules,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

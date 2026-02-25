@@ -44,6 +44,15 @@ export class NumbersV1PortingAddress {
    * The country, ex: USA.
    */
   "country": string;
+
+  constructor(payload) {
+    this.street = payload["street"];
+    this.street2 = payload["street_2"];
+    this.city = payload["city"];
+    this.state = payload["state"];
+    this.zip = payload["zip"];
+    this.country = payload["country"];
+  }
 }
 
 export class NumbersV1PortingLosingCarrierInformation {
@@ -80,6 +89,23 @@ export class NumbersV1PortingLosingCarrierInformation {
   "subMunicipality"?: string;
   "building"?: string;
   "katakanaName"?: string;
+
+  constructor(payload) {
+    this.customerName = payload["customer_name"];
+    this.accountNumber = payload["account_number"];
+    this.accountTelephoneNumber = payload["account_telephone_number"];
+    this.addressSid = payload["address_sid"];
+    this.address = payload["address"];
+    this.authorizedRepresentative = payload["authorized_representative"];
+    this.authorizedRepresentativeEmail =
+      payload["authorized_representative_email"];
+    this.customerType = payload["customer_type"];
+    this.authorizedRepresentativeKatakana =
+      payload["authorized_representative_katakana"];
+    this.subMunicipality = payload["sub_municipality"];
+    this.building = payload["building"];
+    this.katakanaName = payload["katakana_name"];
+  }
 }
 
 export class NumbersV1PortingPortInCreate {
@@ -124,6 +150,21 @@ export class NumbersV1PortingPortInCreate {
    * Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
    */
   "autoCancelApprovalNumbers"?: string | null;
+
+  constructor(payload) {
+    this.accountSid = payload["account_sid"];
+    this.documents = payload["documents"];
+    this.phoneNumbers = payload["phone_numbers"];
+    this.losingCarrierInformation = payload["losing_carrier_information"];
+    this.notificationEmails = payload["notification_emails"];
+    this.targetPortInDate = payload["target_port_in_date"];
+    this.targetPortInTimeRangeStart =
+      payload["target_port_in_time_range_start"];
+    this.targetPortInTimeRangeEnd = payload["target_port_in_time_range_end"];
+    this.bundleSid = payload["bundle_sid"];
+    this.portabilityAdvanceCarrier = payload["portability_advance_carrier"];
+    this.autoCancelApprovalNumbers = payload["auto_cancel_approval_numbers"];
+  }
 }
 
 export class NumbersV1PortingPortInCreatePhoneNumbers {
@@ -135,6 +176,11 @@ export class NumbersV1PortingPortInCreatePhoneNumbers {
    * Some losing carriers require a PIN to authorize the port of a phone number. If the phone number is a US mobile phone number, the PIN is mandatory to process a porting request. Other carriers and number types may also require a PIN, you\'ll need to contact the losing carrier to determine what your phone number\'s PIN is.
    */
   "pin"?: string;
+
+  constructor(payload) {
+    this.phoneNumber = payload["phone_number"];
+    this.pin = payload["pin"];
+  }
 }
 
 export class NumbersV1PortingPortInPhoneNumberResult {
@@ -183,6 +229,23 @@ export class NumbersV1PortingPortInPhoneNumberResult {
    */
   "statusLastTimeUpdatedTimestamp"?: string | null;
   "externalPortingVendorPhoneNumberId"?: string | null;
+
+  constructor(payload) {
+    this.notPortabilityReason = payload["not_portability_reason"];
+    this.notPortabilityReasonCode = payload["not_portability_reason_code"];
+    this.numberType = payload["number_type"];
+    this.phoneNumber = payload["phone_number"];
+    this.portDate = payload["port_date"];
+    this.portInPhoneNumberSid = payload["port_in_phone_number_sid"];
+    this.portInPhoneNumberStatus = payload["port_in_phone_number_status"];
+    this.portable = payload["portable"];
+    this.rejectionReason = payload["rejection_reason"];
+    this.rejectionReasonCode = payload["rejection_reason_code"];
+    this.statusLastTimeUpdatedTimestamp =
+      payload["status_last_time_updated_timestamp"];
+    this.externalPortingVendorPhoneNumberId =
+      payload["external_porting_vendor_phone_number_id"];
+  }
 }
 
 /**
@@ -432,8 +495,20 @@ export class PortingPortInInstance {
     this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
     this.portInRequestStatus = payload.port_in_request_status;
     this.orderCancellationReason = payload.order_cancellation_reason;
-    this.losingCarrierInformation = payload.losing_carrier_information;
-    this.phoneNumbers = payload.phone_numbers;
+    this.losingCarrierInformation =
+      payload.losing_carrier_information !== null &&
+      payload.losing_carrier_information !== undefined
+        ? new NumbersV1PortingLosingCarrierInformation(
+            payload.losing_carrier_information
+          )
+        : null;
+    this.phoneNumbers =
+      payload.phone_numbers !== null && payload.phone_numbers !== undefined
+        ? payload.phone_numbers.map(
+            (payload: any) =>
+              new NumbersV1PortingPortInPhoneNumberResult(payload)
+          )
+        : null;
     this.bundleSid = payload.bundle_sid;
     this.portabilityAdvanceCarrier = payload.portability_advance_carrier;
     this.autoCancelApprovalNumbers = payload.auto_cancel_approval_numbers;
@@ -576,29 +651,33 @@ export class PortingPortInInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      portInRequestSid: this.portInRequestSid,
-      url: this.url,
-      accountSid: this.accountSid,
-      notificationEmails: this.notificationEmails,
-      targetPortInDate: this.targetPortInDate,
-      targetPortInTimeRangeStart: this.targetPortInTimeRangeStart,
-      targetPortInTimeRangeEnd: this.targetPortInTimeRangeEnd,
-      portInRequestStatus: this.portInRequestStatus,
-      orderCancellationReason: this.orderCancellationReason,
-      losingCarrierInformation: this.losingCarrierInformation,
-      phoneNumbers: this.phoneNumbers,
-      bundleSid: this.bundleSid,
-      portabilityAdvanceCarrier: this.portabilityAdvanceCarrier,
-      autoCancelApprovalNumbers: this.autoCancelApprovalNumbers,
-      documents: this.documents,
-      dateCreated: this.dateCreated,
-      supportTicketId: this.supportTicketId,
-      signatureRequestUrl: this.signatureRequestUrl,
-    };
+    return JSON.stringify(
+      {
+        portInRequestSid: this.portInRequestSid,
+        url: this.url,
+        accountSid: this.accountSid,
+        notificationEmails: this.notificationEmails,
+        targetPortInDate: this.targetPortInDate,
+        targetPortInTimeRangeStart: this.targetPortInTimeRangeStart,
+        targetPortInTimeRangeEnd: this.targetPortInTimeRangeEnd,
+        portInRequestStatus: this.portInRequestStatus,
+        orderCancellationReason: this.orderCancellationReason,
+        losingCarrierInformation: this.losingCarrierInformation,
+        phoneNumbers: this.phoneNumbers,
+        bundleSid: this.bundleSid,
+        portabilityAdvanceCarrier: this.portabilityAdvanceCarrier,
+        autoCancelApprovalNumbers: this.autoCancelApprovalNumbers,
+        documents: this.documents,
+        dateCreated: this.dateCreated,
+        supportTicketId: this.supportTicketId,
+        signatureRequestUrl: this.signatureRequestUrl,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

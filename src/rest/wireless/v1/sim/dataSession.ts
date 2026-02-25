@@ -503,27 +503,31 @@ export class DataSessionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      simSid: this.simSid,
-      accountSid: this.accountSid,
-      radioLink: this.radioLink,
-      operatorMcc: this.operatorMcc,
-      operatorMnc: this.operatorMnc,
-      operatorCountry: this.operatorCountry,
-      operatorName: this.operatorName,
-      cellId: this.cellId,
-      cellLocationEstimate: this.cellLocationEstimate,
-      packetsUploaded: this.packetsUploaded,
-      packetsDownloaded: this.packetsDownloaded,
-      lastUpdated: this.lastUpdated,
-      start: this.start,
-      end: this.end,
-      imei: this.imei,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        simSid: this.simSid,
+        accountSid: this.accountSid,
+        radioLink: this.radioLink,
+        operatorMcc: this.operatorMcc,
+        operatorMnc: this.operatorMnc,
+        operatorCountry: this.operatorCountry,
+        operatorName: this.operatorName,
+        cellId: this.cellId,
+        cellLocationEstimate: this.cellLocationEstimate,
+        packetsUploaded: this.packetsUploaded,
+        packetsDownloaded: this.packetsDownloaded,
+        lastUpdated: this.lastUpdated,
+        start: this.start,
+        end: this.end,
+        imei: this.imei,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

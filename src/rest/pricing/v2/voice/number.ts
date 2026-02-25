@@ -26,12 +26,24 @@ export class PricingV2VoiceVoiceNumberInboundCallPrice {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.numberType = payload["number_type"];
+  }
 }
 
 export class PricingV2VoiceVoiceNumberOutboundCallPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "originationPrefixes"?: Array<string>;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.originationPrefixes = payload["origination_prefixes"];
+  }
 }
 
 /**
@@ -248,8 +260,21 @@ export class NumberInstance {
     this.originationNumber = payload.origination_number;
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
-    this.outboundCallPrices = payload.outbound_call_prices;
-    this.inboundCallPrice = payload.inbound_call_price;
+    this.outboundCallPrices =
+      payload.outbound_call_prices !== null &&
+      payload.outbound_call_prices !== undefined
+        ? payload.outbound_call_prices.map(
+            (payload: any) =>
+              new PricingV2VoiceVoiceNumberOutboundCallPrices(payload)
+          )
+        : null;
+    this.inboundCallPrice =
+      payload.inbound_call_price !== null &&
+      payload.inbound_call_price !== undefined
+        ? new PricingV2VoiceVoiceNumberInboundCallPrice(
+            payload.inbound_call_price
+          )
+        : null;
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
@@ -358,19 +383,23 @@ export class NumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      destinationNumber: this.destinationNumber,
-      originationNumber: this.originationNumber,
-      country: this.country,
-      isoCountry: this.isoCountry,
-      outboundCallPrices: this.outboundCallPrices,
-      inboundCallPrice: this.inboundCallPrice,
-      priceUnit: this.priceUnit,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        destinationNumber: this.destinationNumber,
+        originationNumber: this.originationNumber,
+        country: this.country,
+        isoCountry: this.isoCountry,
+        outboundCallPrices: this.outboundCallPrices,
+        inboundCallPrice: this.inboundCallPrice,
+        priceUnit: this.priceUnit,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

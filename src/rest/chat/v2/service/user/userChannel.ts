@@ -798,22 +798,26 @@ export class UserChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      channelSid: this.channelSid,
-      userSid: this.userSid,
-      memberSid: this.memberSid,
-      status: this.status,
-      lastConsumedMessageIndex: this.lastConsumedMessageIndex,
-      unreadMessagesCount: this.unreadMessagesCount,
-      links: this.links,
-      url: this.url,
-      notificationLevel: this.notificationLevel,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        channelSid: this.channelSid,
+        userSid: this.userSid,
+        memberSid: this.memberSid,
+        status: this.status,
+        lastConsumedMessageIndex: this.lastConsumedMessageIndex,
+        unreadMessagesCount: this.unreadMessagesCount,
+        links: this.links,
+        url: this.url,
+        notificationLevel: this.notificationLevel,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

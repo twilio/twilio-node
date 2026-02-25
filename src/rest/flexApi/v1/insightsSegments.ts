@@ -585,33 +585,37 @@ export class InsightsSegmentsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      segmentId: this.segmentId,
-      externalId: this.externalId,
-      queue: this.queue,
-      externalContact: this.externalContact,
-      externalSegmentLinkId: this.externalSegmentLinkId,
-      date: this.date,
-      accountId: this.accountId,
-      externalSegmentLink: this.externalSegmentLink,
-      agentId: this.agentId,
-      agentPhone: this.agentPhone,
-      agentName: this.agentName,
-      agentTeamName: this.agentTeamName,
-      agentTeamNameInHierarchy: this.agentTeamNameInHierarchy,
-      agentLink: this.agentLink,
-      customerPhone: this.customerPhone,
-      customerName: this.customerName,
-      customerLink: this.customerLink,
-      segmentRecordingOffset: this.segmentRecordingOffset,
-      media: this.media,
-      assessmentType: this.assessmentType,
-      assessmentPercentage: this.assessmentPercentage,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        segmentId: this.segmentId,
+        externalId: this.externalId,
+        queue: this.queue,
+        externalContact: this.externalContact,
+        externalSegmentLinkId: this.externalSegmentLinkId,
+        date: this.date,
+        accountId: this.accountId,
+        externalSegmentLink: this.externalSegmentLink,
+        agentId: this.agentId,
+        agentPhone: this.agentPhone,
+        agentName: this.agentName,
+        agentTeamName: this.agentTeamName,
+        agentTeamNameInHierarchy: this.agentTeamNameInHierarchy,
+        agentLink: this.agentLink,
+        customerPhone: this.customerPhone,
+        customerName: this.customerName,
+        customerLink: this.customerLink,
+        segmentRecordingOffset: this.segmentRecordingOffset,
+        media: this.media,
+        assessmentType: this.assessmentType,
+        assessmentPercentage: this.assessmentPercentage,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

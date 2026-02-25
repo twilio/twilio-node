@@ -242,12 +242,16 @@ export class FlowValidateInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      valid: this.valid,
-    };
+    return JSON.stringify(
+      {
+        valid: this.valid,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

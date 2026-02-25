@@ -349,25 +349,29 @@ export class OperatorTypeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      name: this.name,
-      sid: this.sid,
-      friendlyName: this.friendlyName,
-      description: this.description,
-      docsLink: this.docsLink,
-      outputType: this.outputType,
-      supportedLanguages: this.supportedLanguages,
-      provider: this.provider,
-      availability: this.availability,
-      configurable: this.configurable,
-      configSchema: this.configSchema,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        name: this.name,
+        sid: this.sid,
+        friendlyName: this.friendlyName,
+        description: this.description,
+        docsLink: this.docsLink,
+        outputType: this.outputType,
+        supportedLanguages: this.supportedLanguages,
+        provider: this.provider,
+        availability: this.availability,
+        configurable: this.configurable,
+        configSchema: this.configSchema,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

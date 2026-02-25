@@ -550,26 +550,30 @@ export class FlexUserInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      instanceSid: this.instanceSid,
-      userSid: this.userSid,
-      flexUserSid: this.flexUserSid,
-      workerSid: this.workerSid,
-      workspaceSid: this.workspaceSid,
-      flexTeamSid: this.flexTeamSid,
-      username: this.username,
-      email: this.email,
-      locale: this.locale,
-      roles: this.roles,
-      createdDate: this.createdDate,
-      updatedDate: this.updatedDate,
-      version: this.version,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        instanceSid: this.instanceSid,
+        userSid: this.userSid,
+        flexUserSid: this.flexUserSid,
+        workerSid: this.workerSid,
+        workspaceSid: this.workspaceSid,
+        flexTeamSid: this.flexTeamSid,
+        username: this.username,
+        email: this.email,
+        locale: this.locale,
+        roles: this.roles,
+        createdDate: this.createdDate,
+        updatedDate: this.updatedDate,
+        version: this.version,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

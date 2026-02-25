@@ -480,13 +480,17 @@ export class SafelistInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      phoneNumber: this.phoneNumber,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        phoneNumber: this.phoneNumber,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

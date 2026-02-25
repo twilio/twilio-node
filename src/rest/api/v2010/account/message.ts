@@ -851,31 +851,35 @@ export class MessageInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      body: this.body,
-      numSegments: this.numSegments,
-      direction: this.direction,
-      from: this.from,
-      to: this.to,
-      dateUpdated: this.dateUpdated,
-      price: this.price,
-      errorMessage: this.errorMessage,
-      uri: this.uri,
-      accountSid: this.accountSid,
-      numMedia: this.numMedia,
-      status: this.status,
-      messagingServiceSid: this.messagingServiceSid,
-      sid: this.sid,
-      dateSent: this.dateSent,
-      dateCreated: this.dateCreated,
-      errorCode: this.errorCode,
-      priceUnit: this.priceUnit,
-      apiVersion: this.apiVersion,
-      subresourceUris: this.subresourceUris,
-    };
+    return JSON.stringify(
+      {
+        body: this.body,
+        numSegments: this.numSegments,
+        direction: this.direction,
+        from: this.from,
+        to: this.to,
+        dateUpdated: this.dateUpdated,
+        price: this.price,
+        errorMessage: this.errorMessage,
+        uri: this.uri,
+        accountSid: this.accountSid,
+        numMedia: this.numMedia,
+        status: this.status,
+        messagingServiceSid: this.messagingServiceSid,
+        sid: this.sid,
+        dateSent: this.dateSent,
+        dateCreated: this.dateCreated,
+        errorCode: this.errorCode,
+        priceUnit: this.priceUnit,
+        apiVersion: this.apiVersion,
+        subresourceUris: this.subresourceUris,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

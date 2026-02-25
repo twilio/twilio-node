@@ -512,17 +512,21 @@ export class PortingAllPortInInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      portInRequestSid: this.portInRequestSid,
-      portInRequestStatus: this.portInRequestStatus,
-      statusLastUpdatedTimestamp: this.statusLastUpdatedTimestamp,
-      phoneNumbersRequested: this.phoneNumbersRequested,
-      phoneNumbersPorted: this.phoneNumbersPorted,
-      suggestedAction: this.suggestedAction,
-    };
+    return JSON.stringify(
+      {
+        portInRequestSid: this.portInRequestSid,
+        portInRequestStatus: this.portInRequestStatus,
+        statusLastUpdatedTimestamp: this.statusLastUpdatedTimestamp,
+        phoneNumbersRequested: this.phoneNumbersRequested,
+        phoneNumbersPorted: this.phoneNumbersPorted,
+        suggestedAction: this.suggestedAction,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

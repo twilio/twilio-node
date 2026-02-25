@@ -488,28 +488,32 @@ export class RoomRecordingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      sid: this.sid,
-      sourceSid: this.sourceSid,
-      size: this.size,
-      url: this.url,
-      type: this.type,
-      duration: this.duration,
-      containerFormat: this.containerFormat,
-      codec: this.codec,
-      groupingSids: this.groupingSids,
-      trackName: this.trackName,
-      offset: this.offset,
-      mediaExternalLocation: this.mediaExternalLocation,
-      roomSid: this.roomSid,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        sid: this.sid,
+        sourceSid: this.sourceSid,
+        size: this.size,
+        url: this.url,
+        type: this.type,
+        duration: this.duration,
+        containerFormat: this.containerFormat,
+        codec: this.codec,
+        groupingSids: this.groupingSids,
+        trackName: this.trackName,
+        offset: this.offset,
+        mediaExternalLocation: this.mediaExternalLocation,
+        roomSid: this.roomSid,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

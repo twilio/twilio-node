@@ -374,16 +374,20 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      activityStatistics: this.activityStatistics,
-      totalWorkers: this.totalWorkers,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        activityStatistics: this.activityStatistics,
+        totalWorkers: this.totalWorkers,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

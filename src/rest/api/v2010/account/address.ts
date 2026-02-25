@@ -767,27 +767,31 @@ export class AddressInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      city: this.city,
-      customerName: this.customerName,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      isoCountry: this.isoCountry,
-      postalCode: this.postalCode,
-      region: this.region,
-      sid: this.sid,
-      street: this.street,
-      uri: this.uri,
-      emergencyEnabled: this.emergencyEnabled,
-      validated: this.validated,
-      verified: this.verified,
-      streetSecondary: this.streetSecondary,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        city: this.city,
+        customerName: this.customerName,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        isoCountry: this.isoCountry,
+        postalCode: this.postalCode,
+        region: this.region,
+        sid: this.sid,
+        street: this.street,
+        uri: this.uri,
+        emergencyEnabled: this.emergencyEnabled,
+        validated: this.validated,
+        verified: this.verified,
+        streetSecondary: this.streetSecondary,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

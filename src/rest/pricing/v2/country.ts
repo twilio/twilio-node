@@ -26,6 +26,12 @@ export class PricingV2TrunkingCountryInstanceOriginatingCallPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.numberType = payload["number_type"];
+  }
 }
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
@@ -34,6 +40,14 @@ export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "friendlyName"?: string;
+
+  constructor(payload) {
+    this.originationPrefixes = payload["origination_prefixes"];
+    this.destinationPrefixes = payload["destination_prefixes"];
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.friendlyName = payload["friendly_name"];
+  }
 }
 
 /**
@@ -221,8 +235,24 @@ export class CountryInstance {
   ) {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
-    this.terminatingPrefixPrices = payload.terminating_prefix_prices;
-    this.originatingCallPrices = payload.originating_call_prices;
+    this.terminatingPrefixPrices =
+      payload.terminating_prefix_prices !== null &&
+      payload.terminating_prefix_prices !== undefined
+        ? payload.terminating_prefix_prices.map(
+            (payload: any) =>
+              new PricingV2TrunkingCountryInstanceTerminatingPrefixPrices(
+                payload
+              )
+          )
+        : null;
+    this.originatingCallPrices =
+      payload.originating_call_prices !== null &&
+      payload.originating_call_prices !== undefined
+        ? payload.originating_call_prices.map(
+            (payload: any) =>
+              new PricingV2TrunkingCountryInstanceOriginatingCallPrices(payload)
+          )
+        : null;
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
@@ -290,17 +320,21 @@ export class CountryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      country: this.country,
-      isoCountry: this.isoCountry,
-      terminatingPrefixPrices: this.terminatingPrefixPrices,
-      originatingCallPrices: this.originatingCallPrices,
-      priceUnit: this.priceUnit,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        country: this.country,
+        isoCountry: this.isoCountry,
+        terminatingPrefixPrices: this.terminatingPrefixPrices,
+        originatingCallPrices: this.originatingCallPrices,
+        priceUnit: this.priceUnit,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

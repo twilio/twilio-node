@@ -283,17 +283,21 @@ export class FeedbackInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      messageSid: this.messageSid,
-      outcome: this.outcome,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        messageSid: this.messageSid,
+        outcome: this.outcome,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

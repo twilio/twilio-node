@@ -594,24 +594,28 @@ export class WorkerChannelInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      assignedTasks: this.assignedTasks,
-      available: this.available,
-      availableCapacityPercentage: this.availableCapacityPercentage,
-      configuredCapacity: this.configuredCapacity,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sid: this.sid,
-      taskChannelSid: this.taskChannelSid,
-      taskChannelUniqueName: this.taskChannelUniqueName,
-      workerSid: this.workerSid,
-      workspaceSid: this.workspaceSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        assignedTasks: this.assignedTasks,
+        available: this.available,
+        availableCapacityPercentage: this.availableCapacityPercentage,
+        configuredCapacity: this.configuredCapacity,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sid: this.sid,
+        taskChannelSid: this.taskChannelSid,
+        taskChannelUniqueName: this.taskChannelUniqueName,
+        workerSid: this.workerSid,
+        workspaceSid: this.workspaceSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

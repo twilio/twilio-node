@@ -271,16 +271,20 @@ export class ValidationRequestInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      callSid: this.callSid,
-      friendlyName: this.friendlyName,
-      phoneNumber: this.phoneNumber,
-      validationCode: this.validationCode,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        callSid: this.callSid,
+        friendlyName: this.friendlyName,
+        phoneNumber: this.phoneNumber,
+        validationCode: this.validationCode,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

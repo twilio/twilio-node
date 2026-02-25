@@ -388,28 +388,32 @@ export class ParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      participantSid: this.participantSid,
-      participantIdentity: this.participantIdentity,
-      joinTime: this.joinTime,
-      leaveTime: this.leaveTime,
-      durationSec: this.durationSec,
-      accountSid: this.accountSid,
-      roomSid: this.roomSid,
-      status: this.status,
-      codecs: this.codecs,
-      endReason: this.endReason,
-      errorCode: this.errorCode,
-      errorCodeUrl: this.errorCodeUrl,
-      mediaRegion: this.mediaRegion,
-      properties: this.properties,
-      edgeLocation: this.edgeLocation,
-      publisherInfo: this.publisherInfo,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        participantSid: this.participantSid,
+        participantIdentity: this.participantIdentity,
+        joinTime: this.joinTime,
+        leaveTime: this.leaveTime,
+        durationSec: this.durationSec,
+        accountSid: this.accountSid,
+        roomSid: this.roomSid,
+        status: this.status,
+        codecs: this.codecs,
+        endReason: this.endReason,
+        errorCode: this.errorCode,
+        errorCodeUrl: this.errorCodeUrl,
+        mediaRegion: this.mediaRegion,
+        properties: this.properties,
+        edgeLocation: this.edgeLocation,
+        publisherInfo: this.publisherInfo,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

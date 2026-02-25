@@ -275,20 +275,24 @@ export class DomainConfigMessagingServiceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      domainSid: this.domainSid,
-      configSid: this.configSid,
-      messagingServiceSid: this.messagingServiceSid,
-      fallbackUrl: this.fallbackUrl,
-      callbackUrl: this.callbackUrl,
-      continueOnFailure: this.continueOnFailure,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        domainSid: this.domainSid,
+        configSid: this.configSid,
+        messagingServiceSid: this.messagingServiceSid,
+        fallbackUrl: this.fallbackUrl,
+        callbackUrl: this.callbackUrl,
+        continueOnFailure: this.continueOnFailure,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

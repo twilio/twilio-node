@@ -335,23 +335,27 @@ export class FlowRevisionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      friendlyName: this.friendlyName,
-      definition: this.definition,
-      status: this.status,
-      revision: this.revision,
-      commitMessage: this.commitMessage,
-      valid: this.valid,
-      errors: this.errors,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        friendlyName: this.friendlyName,
+        definition: this.definition,
+        status: this.status,
+        revision: this.revision,
+        commitMessage: this.commitMessage,
+        valid: this.valid,
+        errors: this.errors,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

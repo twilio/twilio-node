@@ -315,17 +315,21 @@ export class AvailableAddOnExtensionInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      availableAddOnSid: this.availableAddOnSid,
-      friendlyName: this.friendlyName,
-      productName: this.productName,
-      uniqueName: this.uniqueName,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        availableAddOnSid: this.availableAddOnSid,
+        friendlyName: this.friendlyName,
+        productName: this.productName,
+        uniqueName: this.uniqueName,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

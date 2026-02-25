@@ -488,27 +488,31 @@ export class OperatorResultInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      operatorType: this.operatorType,
-      name: this.name,
-      operatorSid: this.operatorSid,
-      extractMatch: this.extractMatch,
-      matchProbability: this.matchProbability,
-      normalizedResult: this.normalizedResult,
-      utteranceResults: this.utteranceResults,
-      utteranceMatch: this.utteranceMatch,
-      predictedLabel: this.predictedLabel,
-      predictedProbability: this.predictedProbability,
-      labelProbabilities: this.labelProbabilities,
-      extractResults: this.extractResults,
-      textGenerationResults: this.textGenerationResults,
-      jsonResults: this.jsonResults,
-      transcriptSid: this.transcriptSid,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        operatorType: this.operatorType,
+        name: this.name,
+        operatorSid: this.operatorSid,
+        extractMatch: this.extractMatch,
+        matchProbability: this.matchProbability,
+        normalizedResult: this.normalizedResult,
+        utteranceResults: this.utteranceResults,
+        utteranceMatch: this.utteranceMatch,
+        predictedLabel: this.predictedLabel,
+        predictedProbability: this.predictedProbability,
+        labelProbabilities: this.labelProbabilities,
+        extractResults: this.extractResults,
+        textGenerationResults: this.textGenerationResults,
+        jsonResults: this.jsonResults,
+        transcriptSid: this.transcriptSid,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

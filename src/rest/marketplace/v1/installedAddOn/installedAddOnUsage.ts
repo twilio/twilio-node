@@ -25,6 +25,11 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
    */
   "totalSubmitted"?: number;
   "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
+
+  constructor(payload) {
+    this.totalSubmitted = payload["total_submitted"];
+    this.billableItems = payload["billable_items"];
+  }
 }
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
@@ -40,6 +45,12 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
    * Whether the billing event was successfully generated for this Billable Item.
    */
   "submitted"?: boolean;
+
+  constructor(payload) {
+    this.quantity = payload["quantity"];
+    this.sid = payload["sid"];
+    this.submitted = payload["submitted"];
+  }
 }
 
 /**
@@ -235,7 +246,15 @@ export class InstalledAddOnUsageInstance {
     installedAddOnSid: string
   ) {
     this.totalSubmitted = payload.total_submitted;
-    this.billableItems = payload.billable_items;
+    this.billableItems =
+      payload.billable_items !== null && payload.billable_items !== undefined
+        ? payload.billable_items.map(
+            (payload: any) =>
+              new MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(
+                payload
+              )
+          )
+        : null;
   }
 
   /**
@@ -247,13 +266,17 @@ export class InstalledAddOnUsageInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      totalSubmitted: this.totalSubmitted,
-      billableItems: this.billableItems,
-    };
+    return JSON.stringify(
+      {
+        totalSubmitted: this.totalSubmitted,
+        billableItems: this.billableItems,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

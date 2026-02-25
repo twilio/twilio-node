@@ -544,26 +544,30 @@ export class VerificationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      serviceSid: this.serviceSid,
-      accountSid: this.accountSid,
-      to: this.to,
-      channel: this.channel,
-      status: this.status,
-      valid: this.valid,
-      lookup: this.lookup,
-      amount: this.amount,
-      payee: this.payee,
-      sendCodeAttempts: this.sendCodeAttempts,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      sna: this.sna,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        serviceSid: this.serviceSid,
+        accountSid: this.accountSid,
+        to: this.to,
+        channel: this.channel,
+        status: this.status,
+        valid: this.valid,
+        lookup: this.lookup,
+        amount: this.amount,
+        payee: this.payee,
+        sendCodeAttempts: this.sendCodeAttempts,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        sna: this.sna,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

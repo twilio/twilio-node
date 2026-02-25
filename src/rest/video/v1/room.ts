@@ -675,35 +675,39 @@ export class RoomInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      accountSid: this.accountSid,
-      enableTurn: this.enableTurn,
-      uniqueName: this.uniqueName,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      endTime: this.endTime,
-      duration: this.duration,
-      type: this.type,
-      maxParticipants: this.maxParticipants,
-      maxParticipantDuration: this.maxParticipantDuration,
-      maxConcurrentPublishedTracks: this.maxConcurrentPublishedTracks,
-      recordParticipantsOnConnect: this.recordParticipantsOnConnect,
-      videoCodecs: this.videoCodecs,
-      mediaRegion: this.mediaRegion,
-      audioOnly: this.audioOnly,
-      emptyRoomTimeout: this.emptyRoomTimeout,
-      unusedRoomTimeout: this.unusedRoomTimeout,
-      largeRoom: this.largeRoom,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        accountSid: this.accountSid,
+        enableTurn: this.enableTurn,
+        uniqueName: this.uniqueName,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        endTime: this.endTime,
+        duration: this.duration,
+        type: this.type,
+        maxParticipants: this.maxParticipants,
+        maxParticipantDuration: this.maxParticipantDuration,
+        maxConcurrentPublishedTracks: this.maxConcurrentPublishedTracks,
+        recordParticipantsOnConnect: this.recordParticipantsOnConnect,
+        videoCodecs: this.videoCodecs,
+        mediaRegion: this.mediaRegion,
+        audioOnly: this.audioOnly,
+        emptyRoomTimeout: this.emptyRoomTimeout,
+        unusedRoomTimeout: this.unusedRoomTimeout,
+        largeRoom: this.largeRoom,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

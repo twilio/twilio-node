@@ -40,6 +40,14 @@ export class AssistantsV1ServiceCreatePolicyRequest {
    * The description of the policy.
    */
   "type"?: string;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.id = payload["id"];
+    this.name = payload["name"];
+    this.policyDetails = payload["policy_details"];
+    this.type = payload["type"];
+  }
 }
 
 export class AssistantsV1ServiceCreateToolRequest {
@@ -68,6 +76,16 @@ export class AssistantsV1ServiceCreateToolRequest {
    * The description of the tool.
    */
   "type": string;
+
+  constructor(payload) {
+    this.assistantId = payload["assistant_id"];
+    this.description = payload["description"];
+    this.enabled = payload["enabled"];
+    this.meta = payload["meta"];
+    this.name = payload["name"];
+    this.policy = payload["policy"];
+    this.type = payload["type"];
+  }
 }
 
 export class AssistantsV1ServicePolicy {
@@ -107,6 +125,18 @@ export class AssistantsV1ServicePolicy {
    * The date and time in GMT when the Policy was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   "dateUpdated"?: Date;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.name = payload["name"];
+    this.description = payload["description"];
+    this.accountSid = payload["account_sid"];
+    this.userSid = payload["user_sid"];
+    this.type = payload["type"];
+    this.policyDetails = payload["policy_details"];
+    this.dateCreated = payload["date_created"];
+    this.dateUpdated = payload["date_updated"];
+  }
 }
 
 export class AssistantsV1ServiceUpdateToolRequest {
@@ -135,6 +165,16 @@ export class AssistantsV1ServiceUpdateToolRequest {
    * The type of the tool.
    */
   "type"?: string;
+
+  constructor(payload) {
+    this.assistantId = payload["assistant_id"];
+    this.description = payload["description"];
+    this.enabled = payload["enabled"];
+    this.meta = payload["meta"];
+    this.name = payload["name"];
+    this.policy = payload["policy"];
+    this.type = payload["type"];
+  }
 }
 
 /**
@@ -565,7 +605,12 @@ export class ToolInstance {
     this.url = payload.url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.policies = payload.policies;
+    this.policies =
+      payload.policies !== null && payload.policies !== undefined
+        ? payload.policies.map(
+            (payload: any) => new AssistantsV1ServicePolicy(payload)
+          )
+        : null;
 
     this._solution = { id: id || this.id };
   }
@@ -744,23 +789,27 @@ export class ToolInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      description: this.description,
-      enabled: this.enabled,
-      id: this.id,
-      meta: this.meta,
-      name: this.name,
-      requiresAuth: this.requiresAuth,
-      type: this.type,
-      url: this.url,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      policies: this.policies,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        description: this.description,
+        enabled: this.enabled,
+        id: this.id,
+        meta: this.meta,
+        name: this.name,
+        requiresAuth: this.requiresAuth,
+        type: this.type,
+        url: this.url,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        policies: this.policies,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

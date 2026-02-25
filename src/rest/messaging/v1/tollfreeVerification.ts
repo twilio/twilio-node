@@ -23,6 +23,39 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
+ * The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+ */
+export type TollfreeVerificationBusinessRegistrationAuthority =
+  | "EIN"
+  | "CBN"
+  | "CRN"
+  | "PROVINCIAL_NUMBER"
+  | "VAT"
+  | "ACN"
+  | "ABN"
+  | "BRN"
+  | "SIREN"
+  | "SIRET"
+  | "NZBN"
+  | "USt-IdNr"
+  | "CIF"
+  | "NIF"
+  | "CNPJ"
+  | "UID"
+  | "NEQ"
+  | "OTHER";
+
+/**
+ * The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+ */
+export type TollfreeVerificationBusinessType =
+  | "PRIVATE_PROFIT"
+  | "PUBLIC_PROFIT"
+  | "SOLE_PROPRIETOR"
+  | "NON_PROFIT"
+  | "GOVERNMENT";
+
+/**
  * Describe how a user opts-in to text messages.
  */
 export type TollfreeVerificationOptInType =
@@ -58,7 +91,7 @@ export interface TollfreeVerificationContextUpdateOptions {
   businessWebsite?: string;
   /** The email address to receive the notification about the verification result. . */
   notificationEmail?: string;
-  /** The category of the use case for the Tollfree Number. List as many are applicable.. */
+  /** The category of the use case for the Tollfree Number. List as many as are applicable. */
   useCaseCategories?: Array<string>;
   /** Use this to further explain how messaging is used by the business or organization. */
   useCaseSummary?: string;
@@ -94,14 +127,14 @@ export interface TollfreeVerificationContextUpdateOptions {
   businessContactPhone?: string;
   /** Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to \\\'Website fixed\\\'. */
   editReason?: string;
-  /** A legaly recognized business registration number */
+  /** A legally recognized business registration number */
   businessRegistrationNumber?: string;
-  /** The organizational authority for business registrations */
-  businessRegistrationAuthority?: string;
+  /**  */
+  businessRegistrationAuthority?: TollfreeVerificationBusinessRegistrationAuthority;
   /** Country business is registered in */
   businessRegistrationCountry?: string;
-  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT */
-  businessType?: string;
+  /**  */
+  businessType?: TollfreeVerificationBusinessType;
   /** The E.164 formatted number associated with the business. */
   businessRegistrationPhoneNumber?: string;
   /** Trade name, sub entity, or downstream business name of business being submitted for verification */
@@ -134,7 +167,7 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessWebsite: string;
   /** The email address to receive the notification about the verification result. . */
   notificationEmail: string;
-  /** The category of the use case for the Tollfree Number. List as many are applicable.. */
+  /** The category of the use case for the Tollfree Number. List as many as are applicable. */
   useCaseCategories: Array<string>;
   /** Use this to further explain how messaging is used by the business or organization. */
   useCaseSummary: string;
@@ -176,12 +209,12 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   externalReferenceId?: string;
   /** A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR. */
   businessRegistrationNumber?: string;
-  /** The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR. */
-  businessRegistrationAuthority?: string;
+  /**  */
+  businessRegistrationAuthority?: TollfreeVerificationBusinessRegistrationAuthority;
   /** The country where the business is registered. Required for all business types except SOLE_PROPRIETOR. */
   businessRegistrationCountry?: string;
-  /** The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field. */
-  businessType?: string;
+  /**  */
+  businessType?: TollfreeVerificationBusinessType;
   /** The E.164 formatted number associated with the business. */
   businessRegistrationPhoneNumber?: string;
   /** Trade name, sub entity, or downstream business name of business being submitted for verification */
@@ -829,9 +862,9 @@ interface TollfreeVerificationResource {
   edit_expiration: Date;
   edit_allowed: boolean;
   business_registration_number: string;
-  business_registration_authority: string;
+  business_registration_authority: TollfreeVerificationBusinessRegistrationAuthority;
   business_registration_country: string;
-  business_type: string;
+  business_type: TollfreeVerificationBusinessType;
   business_registration_phone_number: string;
   doing_business_as: string;
   opt_in_confirmation_message: string;
@@ -999,7 +1032,7 @@ export class TollfreeVerificationInstance {
    */
   notificationEmail: string;
   /**
-   * The category of the use case for the Tollfree Number. List as many are applicable..
+   * The category of the use case for the Tollfree Number. List as many as are applicable.
    */
   useCaseCategories: Array<string>;
   /**
@@ -1056,18 +1089,12 @@ export class TollfreeVerificationInstance {
    * A legally recognized business registration number
    */
   businessRegistrationNumber: string;
-  /**
-   * The organizational authority for business registrations
-   */
-  businessRegistrationAuthority: string;
+  businessRegistrationAuthority: TollfreeVerificationBusinessRegistrationAuthority;
   /**
    * Country business is registered in
    */
   businessRegistrationCountry: string;
-  /**
-   * The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
-   */
-  businessType: string;
+  businessType: TollfreeVerificationBusinessType;
   /**
    * The E.164 formatted number associated with the business.
    */
@@ -1250,64 +1277,68 @@ export class TollfreeVerificationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      customerProfileSid: this.customerProfileSid,
-      trustProductSid: this.trustProductSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      regulatedItemSid: this.regulatedItemSid,
-      businessName: this.businessName,
-      businessStreetAddress: this.businessStreetAddress,
-      businessStreetAddress2: this.businessStreetAddress2,
-      businessCity: this.businessCity,
-      businessStateProvinceRegion: this.businessStateProvinceRegion,
-      businessPostalCode: this.businessPostalCode,
-      businessCountry: this.businessCountry,
-      businessWebsite: this.businessWebsite,
-      businessContactFirstName: this.businessContactFirstName,
-      businessContactLastName: this.businessContactLastName,
-      businessContactEmail: this.businessContactEmail,
-      businessContactPhone: this.businessContactPhone,
-      notificationEmail: this.notificationEmail,
-      useCaseCategories: this.useCaseCategories,
-      useCaseSummary: this.useCaseSummary,
-      productionMessageSample: this.productionMessageSample,
-      optInImageUrls: this.optInImageUrls,
-      optInType: this.optInType,
-      messageVolume: this.messageVolume,
-      additionalInformation: this.additionalInformation,
-      tollfreePhoneNumberSid: this.tollfreePhoneNumberSid,
-      tollfreePhoneNumber: this.tollfreePhoneNumber,
-      status: this.status,
-      url: this.url,
-      rejectionReason: this.rejectionReason,
-      errorCode: this.errorCode,
-      editExpiration: this.editExpiration,
-      editAllowed: this.editAllowed,
-      businessRegistrationNumber: this.businessRegistrationNumber,
-      businessRegistrationAuthority: this.businessRegistrationAuthority,
-      businessRegistrationCountry: this.businessRegistrationCountry,
-      businessType: this.businessType,
-      businessRegistrationPhoneNumber: this.businessRegistrationPhoneNumber,
-      doingBusinessAs: this.doingBusinessAs,
-      optInConfirmationMessage: this.optInConfirmationMessage,
-      helpMessageSample: this.helpMessageSample,
-      privacyPolicyUrl: this.privacyPolicyUrl,
-      termsAndConditionsUrl: this.termsAndConditionsUrl,
-      ageGatedContent: this.ageGatedContent,
-      optInKeywords: this.optInKeywords,
-      rejectionReasons: this.rejectionReasons,
-      resourceLinks: this.resourceLinks,
-      externalReferenceId: this.externalReferenceId,
-      vettingId: this.vettingId,
-      vettingProvider: this.vettingProvider,
-      vettingIdExpiration: this.vettingIdExpiration,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        customerProfileSid: this.customerProfileSid,
+        trustProductSid: this.trustProductSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        regulatedItemSid: this.regulatedItemSid,
+        businessName: this.businessName,
+        businessStreetAddress: this.businessStreetAddress,
+        businessStreetAddress2: this.businessStreetAddress2,
+        businessCity: this.businessCity,
+        businessStateProvinceRegion: this.businessStateProvinceRegion,
+        businessPostalCode: this.businessPostalCode,
+        businessCountry: this.businessCountry,
+        businessWebsite: this.businessWebsite,
+        businessContactFirstName: this.businessContactFirstName,
+        businessContactLastName: this.businessContactLastName,
+        businessContactEmail: this.businessContactEmail,
+        businessContactPhone: this.businessContactPhone,
+        notificationEmail: this.notificationEmail,
+        useCaseCategories: this.useCaseCategories,
+        useCaseSummary: this.useCaseSummary,
+        productionMessageSample: this.productionMessageSample,
+        optInImageUrls: this.optInImageUrls,
+        optInType: this.optInType,
+        messageVolume: this.messageVolume,
+        additionalInformation: this.additionalInformation,
+        tollfreePhoneNumberSid: this.tollfreePhoneNumberSid,
+        tollfreePhoneNumber: this.tollfreePhoneNumber,
+        status: this.status,
+        url: this.url,
+        rejectionReason: this.rejectionReason,
+        errorCode: this.errorCode,
+        editExpiration: this.editExpiration,
+        editAllowed: this.editAllowed,
+        businessRegistrationNumber: this.businessRegistrationNumber,
+        businessRegistrationAuthority: this.businessRegistrationAuthority,
+        businessRegistrationCountry: this.businessRegistrationCountry,
+        businessType: this.businessType,
+        businessRegistrationPhoneNumber: this.businessRegistrationPhoneNumber,
+        doingBusinessAs: this.doingBusinessAs,
+        optInConfirmationMessage: this.optInConfirmationMessage,
+        helpMessageSample: this.helpMessageSample,
+        privacyPolicyUrl: this.privacyPolicyUrl,
+        termsAndConditionsUrl: this.termsAndConditionsUrl,
+        ageGatedContent: this.ageGatedContent,
+        optInKeywords: this.optInKeywords,
+        rejectionReasons: this.rejectionReasons,
+        resourceLinks: this.resourceLinks,
+        externalReferenceId: this.externalReferenceId,
+        vettingId: this.vettingId,
+        vettingProvider: this.vettingProvider,
+        vettingIdExpiration: this.vettingIdExpiration,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -22,12 +22,23 @@ import { ApiResponse } from "../../../base/ApiResponse";
 export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.callForwardingEnabled = payload["call_forwarding_enabled"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class CallerNameInfo {
   "callerName"?: string;
   "callerType"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.callerName = payload["caller_name"];
+    this.callerType = payload["caller_type"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class IdentityMatchInfo {
@@ -43,6 +54,21 @@ export class IdentityMatchInfo {
   "summaryScore"?: number;
   "errorCode"?: number;
   "errorMessage"?: string;
+
+  constructor(payload) {
+    this.firstNameMatch = payload["first_name_match"];
+    this.lastNameMatch = payload["last_name_match"];
+    this.addressLinesMatch = payload["address_lines_match"];
+    this.cityMatch = payload["city_match"];
+    this.stateMatch = payload["state_match"];
+    this.postalCodeMatch = payload["postal_code_match"];
+    this.addressCountryMatch = payload["address_country_match"];
+    this.nationalIdMatch = payload["national_id_match"];
+    this.dateOfBirthMatch = payload["date_of_birth_match"];
+    this.summaryScore = payload["summary_score"];
+    this.errorCode = payload["error_code"];
+    this.errorMessage = payload["error_message"];
+  }
 }
 
 export class IdentityMatchParameters {
@@ -56,17 +82,41 @@ export class IdentityMatchParameters {
   "addressCountryCode"?: string;
   "nationalId"?: string;
   "dateOfBirth"?: string;
+
+  constructor(payload) {
+    this.firstName = payload["first_name"];
+    this.lastName = payload["last_name"];
+    this.addressLine1 = payload["address_line1"];
+    this.addressLine2 = payload["address_line2"];
+    this.city = payload["city"];
+    this.state = payload["state"];
+    this.postalCode = payload["postal_code"];
+    this.addressCountryCode = payload["address_country_code"];
+    this.nationalId = payload["national_id"];
+    this.dateOfBirth = payload["date_of_birth"];
+  }
 }
 
 export class LastSimSwapInfo {
   "lastSimSwapDate"?: Date;
   "swappedPeriod"?: string;
   "swappedInPeriod"?: boolean;
+
+  constructor(payload) {
+    this.lastSimSwapDate = payload["last_sim_swap_date"];
+    this.swappedPeriod = payload["swapped_period"];
+    this.swappedInPeriod = payload["swapped_in_period"];
+  }
 }
 
 export class LineStatusInfo {
   "status"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.status = payload["status"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class LineTypeIntelligenceInfo {
@@ -75,6 +125,14 @@ export class LineTypeIntelligenceInfo {
   "carrierName"?: string;
   "type"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.mobileCountryCode = payload["mobile_country_code"];
+    this.mobileNetworkCode = payload["mobile_network_code"];
+    this.carrierName = payload["carrier_name"];
+    this.type = payload["type"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class LookupBatchRequest {
@@ -88,6 +146,16 @@ export class LookupBatchRequest {
   "identityMatch"?: IdentityMatchParameters;
   "reassignedNumber"?: ReassignedNumberParameters;
   "smsPumpingRisk"?: RiskParameters;
+
+  constructor(payload) {
+    this.correlationId = payload["correlation_id"];
+    this.phoneNumber = payload["phone_number"];
+    this.fields = payload["fields"];
+    this.countryCode = payload["country_code"];
+    this.identityMatch = payload["identity_match"];
+    this.reassignedNumber = payload["reassigned_number"];
+    this.smsPumpingRisk = payload["sms_pumping_risk"];
+  }
 }
 
 export class LookupBatchResponse {
@@ -115,24 +183,63 @@ export class LookupBatchResponse {
   "smsPumpingRisk"?: SmsPumpingRiskInfo;
   "phoneNumberQualityScore"?: any | null;
   "preFill"?: any | null;
+
+  constructor(payload) {
+    this.correlationId = payload["correlation_id"];
+    this.twilioErrorCode = payload["twilio_error_code"];
+    this.callingCountryCode = payload["calling_country_code"];
+    this.countryCode = payload["country_code"];
+    this.phoneNumber = payload["phone_number"];
+    this.nationalFormat = payload["national_format"];
+    this.valid = payload["valid"];
+    this.validationErrors = payload["validation_errors"];
+    this.callerName = payload["caller_name"];
+    this.simSwap = payload["sim_swap"];
+    this.callForwarding = payload["call_forwarding"];
+    this.lineTypeIntelligence = payload["line_type_intelligence"];
+    this.lineStatus = payload["line_status"];
+    this.identityMatch = payload["identity_match"];
+    this.reassignedNumber = payload["reassigned_number"];
+    this.smsPumpingRisk = payload["sms_pumping_risk"];
+    this.phoneNumberQualityScore = payload["phone_number_quality_score"];
+    this.preFill = payload["pre_fill"];
+  }
 }
 
 export class LookupRequest {
   "phoneNumbers"?: Array<LookupBatchRequest>;
+
+  constructor(payload) {
+    this.phoneNumbers = payload["phone_numbers"];
+  }
 }
 
 export class ReassignedNumberInfo {
   "lastVerifiedDate"?: string;
   "isNumberReassigned"?: string;
   "errorCode"?: string;
+
+  constructor(payload) {
+    this.lastVerifiedDate = payload["last_verified_date"];
+    this.isNumberReassigned = payload["is_number_reassigned"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class ReassignedNumberParameters {
   "lastVerifiedDate"?: string;
+
+  constructor(payload) {
+    this.lastVerifiedDate = payload["last_verified_date"];
+  }
 }
 
 export class RiskParameters {
   "partnerSubId"?: string;
+
+  constructor(payload) {
+    this.partnerSubId = payload["partner_sub_id"];
+  }
 }
 
 export class SimSwapInfo {
@@ -141,6 +248,14 @@ export class SimSwapInfo {
   "mobileCountryCode"?: string;
   "mobileNetworkCode"?: string;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.lastSimSwap = payload["last_sim_swap"];
+    this.carrierName = payload["carrier_name"];
+    this.mobileCountryCode = payload["mobile_country_code"];
+    this.mobileNetworkCode = payload["mobile_network_code"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 export class SmsPumpingRiskInfo {
@@ -150,6 +265,15 @@ export class SmsPumpingRiskInfo {
   "numberBlockedLast3Months"?: boolean;
   "smsPumpingRiskScore"?: number;
   "errorCode"?: number;
+
+  constructor(payload) {
+    this.carrierRiskCategory = payload["carrier_risk_category"];
+    this.numberBlocked = payload["number_blocked"];
+    this.numberBlockedDate = payload["number_blocked_date"];
+    this.numberBlockedLast3Months = payload["number_blocked_last_3_months"];
+    this.smsPumpingRiskScore = payload["sms_pumping_risk_score"];
+    this.errorCode = payload["error_code"];
+  }
 }
 
 /**
@@ -345,7 +469,12 @@ interface QueryResource {
 
 export class QueryInstance {
   constructor(protected _version: V2, payload: QueryResource) {
-    this.phoneNumbers = payload.phone_numbers;
+    this.phoneNumbers =
+      payload.phone_numbers !== null && payload.phone_numbers !== undefined
+        ? payload.phone_numbers.map(
+            (payload: any) => new LookupBatchResponse(payload)
+          )
+        : null;
   }
 
   phoneNumbers: Array<LookupBatchResponse>;
@@ -353,12 +482,16 @@ export class QueryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      phoneNumbers: this.phoneNumbers,
-    };
+    return JSON.stringify(
+      {
+        phoneNumbers: this.phoneNumbers,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

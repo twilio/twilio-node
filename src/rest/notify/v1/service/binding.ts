@@ -482,25 +482,29 @@ export class BindingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      credentialSid: this.credentialSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      notificationProtocolVersion: this.notificationProtocolVersion,
-      endpoint: this.endpoint,
-      identity: this.identity,
-      bindingType: this.bindingType,
-      address: this.address,
-      tags: this.tags,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        credentialSid: this.credentialSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        notificationProtocolVersion: this.notificationProtocolVersion,
+        endpoint: this.endpoint,
+        identity: this.identity,
+        bindingType: this.bindingType,
+        address: this.address,
+        tags: this.tags,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

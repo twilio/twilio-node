@@ -31,6 +31,11 @@ export class ContentApprovalRequest {
    * A WhatsApp recognized template category.
    */
   "category": string;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.category = payload["category"];
+  }
 }
 
 /**
@@ -247,17 +252,21 @@ export class ApprovalCreateInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      name: this.name,
-      category: this.category,
-      contentType: this.contentType,
-      status: this.status,
-      rejectionReason: this.rejectionReason,
-      allowCategoryChange: this.allowCategoryChange,
-    };
+    return JSON.stringify(
+      {
+        name: this.name,
+        category: this.category,
+        contentType: this.contentType,
+        status: this.status,
+        rejectionReason: this.rejectionReason,
+        allowCategoryChange: this.allowCategoryChange,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

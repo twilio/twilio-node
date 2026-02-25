@@ -222,15 +222,19 @@ export class DomainValidateDnInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      domainSid: this.domainSid,
-      isValid: this.isValid,
-      reason: this.reason,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        domainSid: this.domainSid,
+        isValid: this.isValid,
+        reason: this.reason,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -31,6 +31,11 @@ export class RateLimitRequest {
    * Time to live of the rule
    */
   "ttl"?: number;
+
+  constructor(payload) {
+    this.limit = payload["limit"];
+    this.ttl = payload["ttl"];
+  }
 }
 
 /**
@@ -600,20 +605,24 @@ export class BucketInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      code: this.code,
-      message: this.message,
-      moreInfo: this.moreInfo,
-      status: this.status,
-      field: this.field,
-      limit: this.limit,
-      bucket: this.bucket,
-      owner: this.owner,
-      ttl: this.ttl,
-    };
+    return JSON.stringify(
+      {
+        code: this.code,
+        message: this.message,
+        moreInfo: this.moreInfo,
+        status: this.status,
+        field: this.field,
+        limit: this.limit,
+        bucket: this.bucket,
+        owner: this.owner,
+        ttl: this.ttl,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -743,18 +743,22 @@ export class SiprecInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      callSid: this.callSid,
-      name: this.name,
-      status: this.status,
-      dateUpdated: this.dateUpdated,
-      uri: this.uri,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        callSid: this.callSid,
+        name: this.name,
+        status: this.status,
+        dateUpdated: this.dateUpdated,
+        uri: this.uri,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

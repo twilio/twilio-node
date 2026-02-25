@@ -520,37 +520,41 @@ export class PhoneNumberInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      addressRequirements: this.addressRequirements,
-      apiVersion: this.apiVersion,
-      beta: this.beta,
-      capabilities: this.capabilities,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      friendlyName: this.friendlyName,
-      links: this.links,
-      phoneNumber: this.phoneNumber,
-      sid: this.sid,
-      smsApplicationSid: this.smsApplicationSid,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      trunkSid: this.trunkSid,
-      url: this.url,
-      voiceApplicationSid: this.voiceApplicationSid,
-      voiceCallerIdLookup: this.voiceCallerIdLookup,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceUrl: this.voiceUrl,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        addressRequirements: this.addressRequirements,
+        apiVersion: this.apiVersion,
+        beta: this.beta,
+        capabilities: this.capabilities,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        friendlyName: this.friendlyName,
+        links: this.links,
+        phoneNumber: this.phoneNumber,
+        sid: this.sid,
+        smsApplicationSid: this.smsApplicationSid,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        trunkSid: this.trunkSid,
+        url: this.url,
+        voiceApplicationSid: this.voiceApplicationSid,
+        voiceCallerIdLookup: this.voiceCallerIdLookup,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceUrl: this.voiceUrl,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -542,22 +542,26 @@ export class UsageRecordInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      simSid: this.simSid,
-      networkSid: this.networkSid,
-      fleetSid: this.fleetSid,
-      isoCountry: this.isoCountry,
-      period: this.period,
-      dataUpload: this.dataUpload,
-      dataDownload: this.dataDownload,
-      dataTotal: this.dataTotal,
-      dataTotalBilled: this.dataTotalBilled,
-      billedUnit: this.billedUnit,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        simSid: this.simSid,
+        networkSid: this.networkSid,
+        fleetSid: this.fleetSid,
+        isoCountry: this.isoCountry,
+        period: this.period,
+        dataUpload: this.dataUpload,
+        dataDownload: this.dataDownload,
+        dataTotal: this.dataTotal,
+        dataTotalBilled: this.dataTotalBilled,
+        billedUnit: this.billedUnit,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

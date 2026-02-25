@@ -39,6 +39,13 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
    * The text to be given as feedback.
    */
   "text"?: string;
+
+  constructor(payload) {
+    this.messageId = payload["message_id"];
+    this.score = payload["score"];
+    this.sessionId = payload["session_id"];
+    this.text = payload["text"];
+  }
 }
 
 /**
@@ -605,21 +612,25 @@ export class FeedbackInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      assistantId: this.assistantId,
-      id: this.id,
-      accountSid: this.accountSid,
-      userSid: this.userSid,
-      messageId: this.messageId,
-      score: this.score,
-      sessionId: this.sessionId,
-      text: this.text,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-    };
+    return JSON.stringify(
+      {
+        assistantId: this.assistantId,
+        id: this.id,
+        accountSid: this.accountSid,
+        userSid: this.userSid,
+        messageId: this.messageId,
+        score: this.score,
+        sessionId: this.sessionId,
+        text: this.text,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

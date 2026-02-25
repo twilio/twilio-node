@@ -511,18 +511,23 @@ export class ConfigurationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      chatServiceSid: this.chatServiceSid,
-      defaultConversationCreatorRoleSid: this.defaultConversationCreatorRoleSid,
-      defaultConversationRoleSid: this.defaultConversationRoleSid,
-      defaultChatServiceRoleSid: this.defaultChatServiceRoleSid,
-      url: this.url,
-      links: this.links,
-      reachabilityEnabled: this.reachabilityEnabled,
-    };
+    return JSON.stringify(
+      {
+        chatServiceSid: this.chatServiceSid,
+        defaultConversationCreatorRoleSid:
+          this.defaultConversationCreatorRoleSid,
+        defaultConversationRoleSid: this.defaultConversationRoleSid,
+        defaultChatServiceRoleSid: this.defaultChatServiceRoleSid,
+        url: this.url,
+        links: this.links,
+        reachabilityEnabled: this.reachabilityEnabled,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

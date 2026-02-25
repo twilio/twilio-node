@@ -37,6 +37,14 @@ export class ApprovePasskeysChallengeRequest {
    */
   "type"?: string;
   "response": ApprovePasskeysChallengeRequestResponse;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.rawId = payload["rawId"];
+    this.authenticatorAttachment = payload["authenticatorAttachment"];
+    this.type = payload["type"];
+    this.response = payload["response"];
+  }
 }
 
 /**
@@ -59,6 +67,13 @@ export class ApprovePasskeysChallengeRequestResponse {
    * The user handle stored in the authenticator, specified as `user.id` in the options passed to the originating `navigator.credentials.create()` call. This property should contain a base64url-encoded entity SID.
    */
   "userHandle"?: string;
+
+  constructor(payload) {
+    this.authenticatorData = payload["authenticatorData"];
+    this.clientDataJSON = payload["clientDataJSON"];
+    this.signature = payload["signature"];
+    this.userHandle = payload["userHandle"];
+  }
 }
 
 /**
@@ -371,30 +386,34 @@ export class ApproveChallengeInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      options: this.options,
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      entitySid: this.entitySid,
-      identity: this.identity,
-      factorSid: this.factorSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      dateResponded: this.dateResponded,
-      expirationDate: this.expirationDate,
-      status: this.status,
-      respondedReason: this.respondedReason,
-      details: this.details,
-      hiddenDetails: this.hiddenDetails,
-      metadata: this.metadata,
-      factorType: this.factorType,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        options: this.options,
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        entitySid: this.entitySid,
+        identity: this.identity,
+        factorSid: this.factorSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        dateResponded: this.dateResponded,
+        expirationDate: this.expirationDate,
+        status: this.status,
+        respondedReason: this.respondedReason,
+        details: this.details,
+        hiddenDetails: this.hiddenDetails,
+        metadata: this.metadata,
+        factorType: this.factorType,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

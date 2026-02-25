@@ -637,33 +637,37 @@ export class SimInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      uniqueName: this.uniqueName,
-      accountSid: this.accountSid,
-      ratePlanSid: this.ratePlanSid,
-      friendlyName: this.friendlyName,
-      iccid: this.iccid,
-      eId: this.eId,
-      status: this.status,
-      commandsCallbackUrl: this.commandsCallbackUrl,
-      commandsCallbackMethod: this.commandsCallbackMethod,
-      smsFallbackMethod: this.smsFallbackMethod,
-      smsFallbackUrl: this.smsFallbackUrl,
-      smsMethod: this.smsMethod,
-      smsUrl: this.smsUrl,
-      voiceFallbackMethod: this.voiceFallbackMethod,
-      voiceFallbackUrl: this.voiceFallbackUrl,
-      voiceMethod: this.voiceMethod,
-      voiceUrl: this.voiceUrl,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        uniqueName: this.uniqueName,
+        accountSid: this.accountSid,
+        ratePlanSid: this.ratePlanSid,
+        friendlyName: this.friendlyName,
+        iccid: this.iccid,
+        eId: this.eId,
+        status: this.status,
+        commandsCallbackUrl: this.commandsCallbackUrl,
+        commandsCallbackMethod: this.commandsCallbackMethod,
+        smsFallbackMethod: this.smsFallbackMethod,
+        smsFallbackUrl: this.smsFallbackUrl,
+        smsMethod: this.smsMethod,
+        smsUrl: this.smsUrl,
+        voiceFallbackMethod: this.voiceFallbackMethod,
+        voiceFallbackUrl: this.voiceFallbackUrl,
+        voiceMethod: this.voiceMethod,
+        voiceUrl: this.voiceUrl,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -220,15 +220,19 @@ export class FormInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      formType: this.formType,
-      forms: this.forms,
-      formMeta: this.formMeta,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        formType: this.formType,
+        forms: this.forms,
+        formMeta: this.formMeta,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

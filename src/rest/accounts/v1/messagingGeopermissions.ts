@@ -378,12 +378,16 @@ export class MessagingGeopermissionsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      permissions: this.permissions,
-    };
+    return JSON.stringify(
+      {
+        permissions: this.permissions,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -583,23 +583,27 @@ export class TranscriptionsInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      ttid: this.ttid,
-      accountSid: this.accountSid,
-      roomSid: this.roomSid,
-      sourceSid: this.sourceSid,
-      status: this.status,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      duration: this.duration,
-      url: this.url,
-      configuration: this.configuration,
-    };
+    return JSON.stringify(
+      {
+        ttid: this.ttid,
+        accountSid: this.accountSid,
+        roomSid: this.roomSid,
+        sourceSid: this.sourceSid,
+        status: this.status,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        duration: this.duration,
+        url: this.url,
+        configuration: this.configuration,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

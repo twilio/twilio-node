@@ -671,30 +671,34 @@ export class RecordingInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      apiVersion: this.apiVersion,
-      callSid: this.callSid,
-      conferenceSid: this.conferenceSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      startTime: this.startTime,
-      duration: this.duration,
-      sid: this.sid,
-      price: this.price,
-      priceUnit: this.priceUnit,
-      status: this.status,
-      channels: this.channels,
-      source: this.source,
-      errorCode: this.errorCode,
-      uri: this.uri,
-      encryptionDetails: this.encryptionDetails,
-      subresourceUris: this.subresourceUris,
-      mediaUrl: this.mediaUrl,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        apiVersion: this.apiVersion,
+        callSid: this.callSid,
+        conferenceSid: this.conferenceSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        startTime: this.startTime,
+        duration: this.duration,
+        sid: this.sid,
+        price: this.price,
+        priceUnit: this.priceUnit,
+        status: this.status,
+        channels: this.channels,
+        source: this.source,
+        errorCode: this.errorCode,
+        uri: this.uri,
+        encryptionDetails: this.encryptionDetails,
+        subresourceUris: this.subresourceUris,
+        mediaUrl: this.mediaUrl,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -26,6 +26,12 @@ export class PricingV1MessagingMessagingCountryInstanceInboundSmsPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.numberType = payload["number_type"];
+  }
 }
 
 export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
@@ -33,12 +39,25 @@ export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
   "mcc"?: string;
   "mnc"?: string;
   "prices"?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices>;
+
+  constructor(payload) {
+    this.carrier = payload["carrier"];
+    this.mcc = payload["mcc"];
+    this.mnc = payload["mnc"];
+    this.prices = payload["prices"];
+  }
 }
 
 export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+
+  constructor(payload) {
+    this.basePrice = payload["base_price"];
+    this.currentPrice = payload["current_price"];
+    this.numberType = payload["number_type"];
+  }
 }
 
 /**
@@ -226,8 +245,26 @@ export class CountryInstance {
   ) {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
-    this.outboundSmsPrices = payload.outbound_sms_prices;
-    this.inboundSmsPrices = payload.inbound_sms_prices;
+    this.outboundSmsPrices =
+      payload.outbound_sms_prices !== null &&
+      payload.outbound_sms_prices !== undefined
+        ? payload.outbound_sms_prices.map(
+            (payload: any) =>
+              new PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices(
+                payload
+              )
+          )
+        : null;
+    this.inboundSmsPrices =
+      payload.inbound_sms_prices !== null &&
+      payload.inbound_sms_prices !== undefined
+        ? payload.inbound_sms_prices.map(
+            (payload: any) =>
+              new PricingV1MessagingMessagingCountryInstanceInboundSmsPrices(
+                payload
+              )
+          )
+        : null;
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
@@ -295,17 +332,21 @@ export class CountryInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      country: this.country,
-      isoCountry: this.isoCountry,
-      outboundSmsPrices: this.outboundSmsPrices,
-      inboundSmsPrices: this.inboundSmsPrices,
-      priceUnit: this.priceUnit,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        country: this.country,
+        isoCountry: this.isoCountry,
+        outboundSmsPrices: this.outboundSmsPrices,
+        inboundSmsPrices: this.inboundSmsPrices,
+        priceUnit: this.priceUnit,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

@@ -689,25 +689,29 @@ export class UserInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      serviceSid: this.serviceSid,
-      attributes: this.attributes,
-      friendlyName: this.friendlyName,
-      roleSid: this.roleSid,
-      identity: this.identity,
-      isOnline: this.isOnline,
-      isNotifiable: this.isNotifiable,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      joinedChannelsCount: this.joinedChannelsCount,
-      links: this.links,
-      url: this.url,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        serviceSid: this.serviceSid,
+        attributes: this.attributes,
+        friendlyName: this.friendlyName,
+        roleSid: this.roleSid,
+        identity: this.identity,
+        isOnline: this.isOnline,
+        isNotifiable: this.isNotifiable,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        joinedChannelsCount: this.joinedChannelsCount,
+        links: this.links,
+        url: this.url,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

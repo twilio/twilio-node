@@ -461,37 +461,41 @@ export class RoomInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      roomSid: this.roomSid,
-      roomName: this.roomName,
-      createTime: this.createTime,
-      endTime: this.endTime,
-      roomType: this.roomType,
-      roomStatus: this.roomStatus,
-      statusCallback: this.statusCallback,
-      statusCallbackMethod: this.statusCallbackMethod,
-      createdMethod: this.createdMethod,
-      endReason: this.endReason,
-      maxParticipants: this.maxParticipants,
-      uniqueParticipants: this.uniqueParticipants,
-      uniqueParticipantIdentities: this.uniqueParticipantIdentities,
-      concurrentParticipants: this.concurrentParticipants,
-      maxConcurrentParticipants: this.maxConcurrentParticipants,
-      codecs: this.codecs,
-      mediaRegion: this.mediaRegion,
-      durationSec: this.durationSec,
-      totalParticipantDurationSec: this.totalParticipantDurationSec,
-      totalRecordingDurationSec: this.totalRecordingDurationSec,
-      processingState: this.processingState,
-      recordingEnabled: this.recordingEnabled,
-      edgeLocation: this.edgeLocation,
-      url: this.url,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        roomSid: this.roomSid,
+        roomName: this.roomName,
+        createTime: this.createTime,
+        endTime: this.endTime,
+        roomType: this.roomType,
+        roomStatus: this.roomStatus,
+        statusCallback: this.statusCallback,
+        statusCallbackMethod: this.statusCallbackMethod,
+        createdMethod: this.createdMethod,
+        endReason: this.endReason,
+        maxParticipants: this.maxParticipants,
+        uniqueParticipants: this.uniqueParticipants,
+        uniqueParticipantIdentities: this.uniqueParticipantIdentities,
+        concurrentParticipants: this.concurrentParticipants,
+        maxConcurrentParticipants: this.maxConcurrentParticipants,
+        codecs: this.codecs,
+        mediaRegion: this.mediaRegion,
+        durationSec: this.durationSec,
+        totalParticipantDurationSec: this.totalParticipantDurationSec,
+        totalRecordingDurationSec: this.totalRecordingDurationSec,
+        processingState: this.processingState,
+        recordingEnabled: this.recordingEnabled,
+        edgeLocation: this.edgeLocation,
+        url: this.url,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

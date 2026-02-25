@@ -181,14 +181,18 @@ export class BalanceInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      balance: this.balance,
-      currency: this.currency,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        balance: this.balance,
+        currency: this.currency,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

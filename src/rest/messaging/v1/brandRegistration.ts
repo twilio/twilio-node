@@ -571,32 +571,36 @@ export class BrandRegistrationInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      sid: this.sid,
-      accountSid: this.accountSid,
-      customerProfileBundleSid: this.customerProfileBundleSid,
-      a2pProfileBundleSid: this.a2pProfileBundleSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      brandType: this.brandType,
-      status: this.status,
-      tcrId: this.tcrId,
-      failureReason: this.failureReason,
-      errors: this.errors,
-      url: this.url,
-      brandScore: this.brandScore,
-      brandFeedback: this.brandFeedback,
-      identityStatus: this.identityStatus,
-      russell3000: this.russell3000,
-      governmentEntity: this.governmentEntity,
-      taxExemptStatus: this.taxExemptStatus,
-      skipAutomaticSecVet: this.skipAutomaticSecVet,
-      mock: this.mock,
-      links: this.links,
-    };
+    return JSON.stringify(
+      {
+        sid: this.sid,
+        accountSid: this.accountSid,
+        customerProfileBundleSid: this.customerProfileBundleSid,
+        a2pProfileBundleSid: this.a2pProfileBundleSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        brandType: this.brandType,
+        status: this.status,
+        tcrId: this.tcrId,
+        failureReason: this.failureReason,
+        errors: this.errors,
+        url: this.url,
+        brandScore: this.brandScore,
+        brandFeedback: this.brandFeedback,
+        identityStatus: this.identityStatus,
+        russell3000: this.russell3000,
+        governmentEntity: this.governmentEntity,
+        taxExemptStatus: this.taxExemptStatus,
+        skipAutomaticSecVet: this.skipAutomaticSecVet,
+        mock: this.mock,
+        links: this.links,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {

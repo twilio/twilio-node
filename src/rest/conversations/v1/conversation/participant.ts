@@ -837,23 +837,27 @@ export class ParticipantInstance {
   /**
    * Provide a user-friendly representation
    *
-   * @returns Object
+   * @returns String
    */
   toJSON() {
-    return {
-      accountSid: this.accountSid,
-      conversationSid: this.conversationSid,
-      sid: this.sid,
-      identity: this.identity,
-      attributes: this.attributes,
-      messagingBinding: this.messagingBinding,
-      roleSid: this.roleSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
-      url: this.url,
-      lastReadMessageIndex: this.lastReadMessageIndex,
-      lastReadTimestamp: this.lastReadTimestamp,
-    };
+    return JSON.stringify(
+      {
+        accountSid: this.accountSid,
+        conversationSid: this.conversationSid,
+        sid: this.sid,
+        identity: this.identity,
+        attributes: this.attributes,
+        messagingBinding: this.messagingBinding,
+        roleSid: this.roleSid,
+        dateCreated: this.dateCreated,
+        dateUpdated: this.dateUpdated,
+        url: this.url,
+        lastReadMessageIndex: this.lastReadMessageIndex,
+        lastReadTimestamp: this.lastReadTimestamp,
+      },
+      null,
+      2
+    );
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
