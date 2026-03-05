@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import SupersimBase from "../SupersimBase";
-import Version from "../../base/Version";
-import { EsimProfileListInstance } from "./v1/esimProfile";
-import { FleetListInstance } from "./v1/fleet";
-import { IpCommandListInstance } from "./v1/ipCommand";
-import { NetworkListInstance } from "./v1/network";
-import { NetworkAccessProfileListInstance } from "./v1/networkAccessProfile";
-import { SettingsUpdateListInstance } from "./v1/settingsUpdate";
-import { SimListInstance } from "./v1/sim";
-import { SmsCommandListInstance } from "./v1/smsCommand";
-import { UsageRecordListInstance } from "./v1/usageRecord";
+import { SupersimBase } from "../SupersimBase.js";
+import { Version } from "../../base/Version.js";
+import { EsimProfileListInstance } from "./v1/esimProfile.js";
+import { FleetListInstance } from "./v1/fleet.js";
+import { IpCommandListInstance } from "./v1/ipCommand.js";
+import { NetworkListInstance } from "./v1/network.js";
+import { NetworkAccessProfileListInstance } from "./v1/networkAccessProfile.js";
+import { SettingsUpdateListInstance } from "./v1/settingsUpdate.js";
+import { SimListInstance } from "./v1/sim.js";
+import { SmsCommandListInstance } from "./v1/smsCommand.js";
+import { UsageRecordListInstance } from "./v1/usageRecord.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Supersim
    *

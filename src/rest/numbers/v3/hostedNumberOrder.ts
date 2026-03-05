@@ -13,12 +13,12 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V3 from "../V3";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { PhoneNumberCapabilities } from "../../../interfaces";
+import { V3 } from "../V3.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { PhoneNumberCapabilities } from "../../../interfaces.js";
 
 export type HostedNumberOrderStatus =
   | "twilio-processing"

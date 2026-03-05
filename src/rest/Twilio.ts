@@ -9,77 +9,73 @@
  * Do not edit the class manually.
  */
 
-import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio";
-import Accounts from "./Accounts";
-import Api from "./Api";
-import Assistants from "./Assistants";
-import Bulkexports from "./Bulkexports";
-import Chat from "./Chat";
-import Content from "./Content";
-import Conversations from "./Conversations";
-import Events from "./Events";
-import FlexApi from "./FlexApi";
-import FrontlineApi from "./FrontlineApi";
-import PreviewIam from "./PreviewIam";
-import Iam from "./Iam";
-import Insights from "./Insights";
-import Intelligence from "./Intelligence";
-import IpMessaging from "./IpMessaging";
-import Knowledge from "./Knowledge";
-import Lookups from "./Lookups";
-import Marketplace from "./Marketplace";
-import Messaging from "./Messaging";
-import Monitor from "./Monitor";
-import Notify from "./Notify";
-import Numbers from "./Numbers";
-import Oauth from "./Oauth";
-import Preview from "./Preview";
-import Pricing from "./Pricing";
-import Proxy from "./Proxy";
-import Routes from "./Routes";
-import Serverless from "./Serverless";
-import Studio from "./Studio";
-import Supersim from "./Supersim";
-import Sync from "./Sync";
-import Taskrouter from "./Taskrouter";
-import Trunking from "./Trunking";
-import Trusthub from "./Trusthub";
-import Verify from "./Verify";
-import Video from "./Video";
-import Voice from "./Voice";
-import Wireless from "./Wireless";
-import { AddressListInstance } from "./api/v2010/account/address";
-import { ApplicationListInstance } from "./api/v2010/account/application";
-import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp";
-import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry";
-import { BalanceListInstance } from "./api/v2010/account/balance";
-import { CallListInstance } from "./api/v2010/account/call";
-import { ConferenceListInstance } from "./api/v2010/account/conference";
-import { ConnectAppListInstance } from "./api/v2010/account/connectApp";
-import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber";
-import { KeyListInstance } from "./api/v2010/account/key";
-import { MessageListInstance } from "./api/v2010/account/message";
-import { NewKeyListInstance } from "./api/v2010/account/newKey";
-import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey";
-import { NotificationListInstance } from "./api/v2010/account/notification";
-import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId";
-import { QueueListInstance } from "./api/v2010/account/queue";
-import { RecordingListInstance } from "./api/v2010/account/recording";
-import { ShortCodeListInstance } from "./api/v2010/account/shortCode";
-import { SigningKeyListInstance } from "./api/v2010/account/signingKey";
-import { SipListInstance } from "./api/v2010/account/sip";
-import { TokenListInstance } from "./api/v2010/account/token";
-import { TranscriptionListInstance } from "./api/v2010/account/transcription";
-import { UsageListInstance } from "./api/v2010/account/usage";
-import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest";
-
-/* jshint ignore:start */
+import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio.js";
+import { Accounts } from "./Accounts.js";
+import { Api } from "./Api.js";
+import { Assistants } from "./Assistants.js";
+import { Bulkexports } from "./Bulkexports.js";
+import { Chat } from "./Chat.js";
+import { Content } from "./Content.js";
+import { Conversations } from "./Conversations.js";
+import { Events } from "./Events.js";
+import { FlexApi } from "./FlexApi.js";
+import { FrontlineApi } from "./FrontlineApi.js";
+import { PreviewIam } from "./PreviewIam.js";
+import { Iam } from "./Iam.js";
+import { Insights } from "./Insights.js";
+import { Intelligence } from "./Intelligence.js";
+import { IpMessaging } from "./IpMessaging.js";
+import { Knowledge } from "./Knowledge.js";
+import { Lookups } from "./Lookups.js";
+import { Marketplace } from "./Marketplace.js";
+import { Messaging } from "./Messaging.js";
+import { Monitor } from "./Monitor.js";
+import { Notify } from "./Notify.js";
+import { Numbers } from "./Numbers.js";
+import { Oauth } from "./Oauth.js";
+import { Preview } from "./Preview.js";
+import { Pricing } from "./Pricing.js";
+import { Proxy } from "./Proxy.js";
+import { Routes } from "./Routes.js";
+import { Serverless } from "./Serverless.js";
+import { Studio } from "./Studio.js";
+import { Supersim } from "./Supersim.js";
+import { Sync } from "./Sync.js";
+import { Taskrouter } from "./Taskrouter.js";
+import { Trunking } from "./Trunking.js";
+import { Trusthub } from "./Trusthub.js";
+import { Verify } from "./Verify.js";
+import { Video } from "./Video.js";
+import { Voice } from "./Voice.js";
+import { Wireless } from "./Wireless.js";
+import type { AddressListInstance } from "./api/v2010/account/address.js";
+import type { ApplicationListInstance } from "./api/v2010/account/application.js";
+import type { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp.js";
+import type { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry.js";
+import type { BalanceListInstance } from "./api/v2010/account/balance.js";
+import type { CallListInstance } from "./api/v2010/account/call.js";
+import type { ConferenceListInstance } from "./api/v2010/account/conference.js";
+import type { ConnectAppListInstance } from "./api/v2010/account/connectApp.js";
+import type { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber.js";
+import type { KeyListInstance } from "./api/v2010/account/key.js";
+import type { MessageListInstance } from "./api/v2010/account/message.js";
+import type { NewKeyListInstance } from "./api/v2010/account/newKey.js";
+import type { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey.js";
+import type { NotificationListInstance } from "./api/v2010/account/notification.js";
+import type { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId.js";
+import type { QueueListInstance } from "./api/v2010/account/queue.js";
+import type { RecordingListInstance } from "./api/v2010/account/recording.js";
+import type { ShortCodeListInstance } from "./api/v2010/account/shortCode.js";
+import type { SigningKeyListInstance } from "./api/v2010/account/signingKey.js";
+import type { SipListInstance } from "./api/v2010/account/sip.js";
+import type { TokenListInstance } from "./api/v2010/account/token.js";
+import type { TranscriptionListInstance } from "./api/v2010/account/transcription.js";
+import type { UsageListInstance } from "./api/v2010/account/usage.js";
+import type { ValidationRequestListInstance } from "./api/v2010/account/validationRequest.js";
 /**
  * Twilio Client to interact with the Rest API
  */
-/* jshint ignore:end */
-
-class Twilio extends Client {
+export class Twilio extends Client {
   /** (Twilio.Accounts) - accounts domain */
   _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
@@ -156,8 +152,6 @@ class Twilio extends Client {
   _voice?: Voice;
   /** (Twilio.Wireless) - wireless domain */
   _wireless?: Wireless;
-
-  /* jshint ignore:start */
   /**
    * Creates a new instance of Twilio Client
    *
@@ -169,7 +163,6 @@ class Twilio extends Client {
    *
    * @returns A new instance of Twilio client
    */
-  /* jshint ignore:end */
   constructor(username?: string, password?: string, opts?: ClientOpts) {
     super(username, password, opts);
 
@@ -219,199 +212,199 @@ class Twilio extends Client {
   /** Getter for (Twilio.Accounts) domain */
   get accounts(): Accounts {
     return (
-      this._accounts ?? (this._accounts = new (require("./Accounts"))(this))
+      this._accounts ?? (this._accounts = new Accounts(this))
     );
   }
   /** Getter for (Twilio.Api) domain */
   get api(): Api {
-    return this._api ?? (this._api = new (require("./Api"))(this));
+    return this._api ?? (this._api = new Api(this));
   }
   /** Getter for (Twilio.Assistants) domain */
   get assistants(): Assistants {
     return (
       this._assistants ??
-      (this._assistants = new (require("./Assistants"))(this))
+      (this._assistants = new Assistants(this))
     );
   }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
     return (
       this._bulkexports ??
-      (this._bulkexports = new (require("./Bulkexports"))(this))
+      (this._bulkexports = new Bulkexports(this))
     );
   }
   /** Getter for (Twilio.Chat) domain */
   get chat(): Chat {
-    return this._chat ?? (this._chat = new (require("./Chat"))(this));
+    return this._chat ?? (this._chat = new Chat(this));
   }
   /** Getter for (Twilio.Content) domain */
   get content(): Content {
-    return this._content ?? (this._content = new (require("./Content"))(this));
+    return this._content ?? (this._content = new Content(this));
   }
   /** Getter for (Twilio.Conversations) domain */
   get conversations(): Conversations {
     return (
       this._conversations ??
-      (this._conversations = new (require("./Conversations"))(this))
+      (this._conversations = new Conversations(this))
     );
   }
   /** Getter for (Twilio.Events) domain */
   get events(): Events {
-    return this._events ?? (this._events = new (require("./Events"))(this));
+    return this._events ?? (this._events = new Events(this));
   }
   /** Getter for (Twilio.FlexApi) domain */
   get flexApi(): FlexApi {
-    return this._flexApi ?? (this._flexApi = new (require("./FlexApi"))(this));
+    return this._flexApi ?? (this._flexApi = new FlexApi(this));
   }
   /** Getter for (Twilio.FrontlineApi) domain */
   get frontlineApi(): FrontlineApi {
     return (
       this._frontlineApi ??
-      (this._frontlineApi = new (require("./FrontlineApi"))(this))
+      (this._frontlineApi = new FrontlineApi(this))
     );
   }
   /** Getter for (Twilio.PreviewIam) domain */
   get previewIam(): PreviewIam {
     return (
       this._previewIam ??
-      (this._previewIam = new (require("./PreviewIam"))(this))
+      (this._previewIam = new PreviewIam(this))
     );
   }
   /** Getter for (Twilio.Iam) domain */
   get iam(): Iam {
-    return this._iam ?? (this._iam = new (require("./Iam"))(this));
+    return this._iam ?? (this._iam = new Iam(this));
   }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {
     return (
-      this._insights ?? (this._insights = new (require("./Insights"))(this))
+      this._insights ?? (this._insights = new Insights(this))
     );
   }
   /** Getter for (Twilio.Intelligence) domain */
   get intelligence(): Intelligence {
     return (
       this._intelligence ??
-      (this._intelligence = new (require("./Intelligence"))(this))
+      (this._intelligence = new Intelligence(this))
     );
   }
   /** Getter for (Twilio.IpMessaging) domain */
   get ipMessaging(): IpMessaging {
     return (
       this._ipMessaging ??
-      (this._ipMessaging = new (require("./IpMessaging"))(this))
+      (this._ipMessaging = new IpMessaging(this))
     );
   }
   /** Getter for (Twilio.Knowledge) domain */
   get knowledge(): Knowledge {
     return (
-      this._knowledge ?? (this._knowledge = new (require("./Knowledge"))(this))
+      this._knowledge ?? (this._knowledge = new Knowledge(this))
     );
   }
   /** Getter for (Twilio.Lookups) domain */
   get lookups(): Lookups {
-    return this._lookups ?? (this._lookups = new (require("./Lookups"))(this));
+    return this._lookups ?? (this._lookups = new Lookups(this));
   }
   /** Getter for (Twilio.Marketplace) domain */
   get marketplace(): Marketplace {
     return (
       this._marketplace ??
-      (this._marketplace = new (require("./Marketplace"))(this))
+      (this._marketplace = new Marketplace(this))
     );
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {
     return (
-      this._messaging ?? (this._messaging = new (require("./Messaging"))(this))
+      this._messaging ?? (this._messaging = new Messaging(this))
     );
   }
   /** Getter for (Twilio.Monitor) domain */
   get monitor(): Monitor {
-    return this._monitor ?? (this._monitor = new (require("./Monitor"))(this));
+    return this._monitor ?? (this._monitor = new Monitor(this));
   }
   /** Getter for (Twilio.Notify) domain */
   get notify(): Notify {
-    return this._notify ?? (this._notify = new (require("./Notify"))(this));
+    return this._notify ?? (this._notify = new Notify(this));
   }
   /** Getter for (Twilio.Numbers) domain */
   get numbers(): Numbers {
-    return this._numbers ?? (this._numbers = new (require("./Numbers"))(this));
+    return this._numbers ?? (this._numbers = new Numbers(this));
   }
   /** Getter for (Twilio.Oauth) domain */
   get oauth(): Oauth {
-    return this._oauth ?? (this._oauth = new (require("./Oauth"))(this));
+    return this._oauth ?? (this._oauth = new Oauth(this));
   }
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {
-    return this._preview ?? (this._preview = new (require("./Preview"))(this));
+    return this._preview ?? (this._preview = new Preview(this));
   }
   /** Getter for (Twilio.Pricing) domain */
   get pricing(): Pricing {
-    return this._pricing ?? (this._pricing = new (require("./Pricing"))(this));
+    return this._pricing ?? (this._pricing = new Pricing(this));
   }
   /** Getter for (Twilio.Proxy) domain */
   get proxy(): Proxy {
-    return this._proxy ?? (this._proxy = new (require("./Proxy"))(this));
+    return this._proxy ?? (this._proxy = new Proxy(this));
   }
   /** Getter for (Twilio.Routes) domain */
   get routes(): Routes {
-    return this._routes ?? (this._routes = new (require("./Routes"))(this));
+    return this._routes ?? (this._routes = new Routes(this));
   }
   /** Getter for (Twilio.Serverless) domain */
   get serverless(): Serverless {
     return (
       this._serverless ??
-      (this._serverless = new (require("./Serverless"))(this))
+      (this._serverless = new Serverless(this))
     );
   }
   /** Getter for (Twilio.Studio) domain */
   get studio(): Studio {
-    return this._studio ?? (this._studio = new (require("./Studio"))(this));
+    return this._studio ?? (this._studio = new Studio(this));
   }
   /** Getter for (Twilio.Supersim) domain */
   get supersim(): Supersim {
     return (
-      this._supersim ?? (this._supersim = new (require("./Supersim"))(this))
+      this._supersim ?? (this._supersim = new Supersim(this))
     );
   }
   /** Getter for (Twilio.Sync) domain */
   get sync(): Sync {
-    return this._sync ?? (this._sync = new (require("./Sync"))(this));
+    return this._sync ?? (this._sync = new Sync(this));
   }
   /** Getter for (Twilio.Taskrouter) domain */
   get taskrouter(): Taskrouter {
     return (
       this._taskrouter ??
-      (this._taskrouter = new (require("./Taskrouter"))(this))
+      (this._taskrouter = new Taskrouter(this))
     );
   }
   /** Getter for (Twilio.Trunking) domain */
   get trunking(): Trunking {
     return (
-      this._trunking ?? (this._trunking = new (require("./Trunking"))(this))
+      this._trunking ?? (this._trunking = new Trunking(this))
     );
   }
   /** Getter for (Twilio.Trusthub) domain */
   get trusthub(): Trusthub {
     return (
-      this._trusthub ?? (this._trusthub = new (require("./Trusthub"))(this))
+      this._trusthub ?? (this._trusthub = new Trusthub(this))
     );
   }
   /** Getter for (Twilio.Verify) domain */
   get verify(): Verify {
-    return this._verify ?? (this._verify = new (require("./Verify"))(this));
+    return this._verify ?? (this._verify = new Verify(this));
   }
   /** Getter for (Twilio.Video) domain */
   get video(): Video {
-    return this._video ?? (this._video = new (require("./Video"))(this));
+    return this._video ?? (this._video = new Video(this));
   }
   /** Getter for (Twilio.Voice) domain */
   get voice(): Voice {
-    return this._voice ?? (this._voice = new (require("./Voice"))(this));
+    return this._voice ?? (this._voice = new Voice(this));
   }
   /** Getter for (Twilio.Wireless) domain */
   get wireless(): Wireless {
     return (
-      this._wireless ?? (this._wireless = new (require("./Wireless"))(this))
+      this._wireless ?? (this._wireless = new Wireless(this))
     );
   }
 
@@ -513,9 +506,5 @@ class Twilio extends Client {
   }
 }
 
-namespace Twilio {
-  export interface RequestClientOptions extends ClientOpts {}
-  export interface RequestOptions extends RequestOpts {}
-}
-
-export = Twilio;
+export interface RequestClientOptions extends ClientOpts {}
+export interface RequestOptions extends RequestOpts {}

@@ -1,5 +1,3 @@
-import IamBase from "./IamBase";
+import { IamBase } from "./IamBase.js";
 
-class Iam extends IamBase {}
-
-export = Iam;
+export class Iam extends IamBase {}

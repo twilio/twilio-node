@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import KnowledgeBase from "../KnowledgeBase";
-import Version from "../../base/Version";
-import { KnowledgeListInstance } from "./v1/knowledge";
+import { KnowledgeBase } from "../KnowledgeBase.js";
+import { Version } from "../../base/Version.js";
+import { KnowledgeListInstance } from "./v1/knowledge.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Knowledge
    *

@@ -14,18 +14,18 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { TaskQueueBulkRealTimeStatisticsListInstance } from "./taskQueue/taskQueueBulkRealTimeStatistics";
-import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
-import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
-import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
-import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { TaskQueueBulkRealTimeStatisticsListInstance } from "./taskQueue/taskQueueBulkRealTimeStatistics.js";
+import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics.js";
+import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics.js";
+import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics.js";
+import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics.js";
 
 /**
  * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or `FIFO` to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.

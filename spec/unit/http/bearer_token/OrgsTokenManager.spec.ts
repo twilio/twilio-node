@@ -1,16 +1,5 @@
-import OrgsTokenManager from "../../../../src/http/bearer_token/OrgsTokenManager";
-import axios from "axios";
-import { jest } from "@jest/globals";
-
-function createMockAxios(promiseHandler: Promise<any>) {
-  const instance = () => promiseHandler;
-  instance.defaults = {
-    headers: {
-      post: {},
-    },
-  };
-  return instance;
-}
+import { vi, MockInstance } from "vitest";
+import { OrgsTokenManager } from "../../../../src/http/bearer_token/OrgsTokenManager";
 
 describe("OrgsTokenManager constructor", function () {
   const clientId = "clientId";
@@ -25,30 +14,29 @@ describe("OrgsTokenManager constructor", function () {
 
   const params = orgsTokenManager.getParams();
 
-  let createSpy: jest.Spied<any>;
+  let fetchSpy: MockInstance<typeof global.fetch>;
   const initialHttpProxyValue = process.env.HTTP_PROXY;
 
   beforeEach(() => {
-    createSpy = jest.spyOn(axios, "create");
-    createSpy.mockReturnValue(
-      createMockAxios(
-        Promise.resolve({
+    fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          access_token: "accessTokenValue",
+          expires_in: 86400,
+          id_token: null,
+          refresh_token: null,
+          token_type: "Bearer",
+        }),
+        {
           status: 200,
-          data: {
-            access_token: "accessTokenValue",
-            expires_in: 86400,
-            id_token: null,
-            refresh_token: null,
-            token_type: "Bearer",
-          },
-        })
+          headers: { "Content-Type": "application/json" },
+        }
       )
     );
   });
 
   afterEach(() => {
-    createSpy.mockRestore();
-
+    fetchSpy.mockRestore();
     if (initialHttpProxyValue) {
       process.env.HTTP_PROXY = initialHttpProxyValue;
     } else {
@@ -78,35 +66,32 @@ describe("OrgsTokenManager with error response", function () {
   const clientId = "clientId";
   const clientSecret = "clientSecret";
   const grantType = "client_credentials";
-
-  const orgsTokenManager = new OrgsTokenManager({
-    grantType: grantType,
-    clientId: clientId,
-    clientSecret: clientSecret,
-  });
-
-  const params = orgsTokenManager.getParams();
-
-  let createSpy: jest.Spied<any>;
   const initialHttpProxyValue = process.env.HTTP_PROXY;
 
+  let fetchSpy: MockInstance<typeof global.fetch>;
+  let orgsTokenManager: OrgsTokenManager;
+
   beforeEach(() => {
-    createSpy = jest.spyOn(axios, "create");
-    createSpy.mockReturnValue(
-      createMockAxios(
-        Promise.resolve({
+    orgsTokenManager = new OrgsTokenManager({
+      grantType: grantType,
+      clientId: clientId,
+      clientSecret: clientSecret,
+    });
+    fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          message: "Token error",
+        }),
+        {
           status: 400,
-          data: {
-            message: "Token error",
-          },
-        })
+          headers: { "Content-Type": "application/json" },
+        }
       )
     );
   });
 
   afterEach(() => {
-    createSpy.mockRestore();
-
+    fetchSpy.mockRestore();
     if (initialHttpProxyValue) {
       process.env.HTTP_PROXY = initialHttpProxyValue;
     } else {

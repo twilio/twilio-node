@@ -1,5 +1,3 @@
-import AssistantsBase from "./AssistantsBase";
+import { AssistantsBase } from "./AssistantsBase.js";
 
-class Assistants extends AssistantsBase {}
-
-export = Assistants;
+export class Assistants extends AssistantsBase {}

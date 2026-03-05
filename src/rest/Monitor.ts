@@ -1,8 +1,8 @@
-import { AlertListInstance } from "./monitor/v1/alert";
-import { EventListInstance } from "./monitor/v1/event";
-import MonitorBase from "./MonitorBase";
+import { AlertListInstance } from "./monitor/v1/alert.js";
+import { EventListInstance } from "./monitor/v1/event.js";
+import { MonitorBase } from "./MonitorBase.js";
 
-class Monitor extends MonitorBase {
+export class Monitor extends MonitorBase {
   /**
    * @deprecated - Use v1.alerts instead
    */
@@ -19,5 +19,3 @@ class Monitor extends MonitorBase {
     return this.v1.events;
   }
 }
-
-export = Monitor;

@@ -1,4 +1,5 @@
-jest.setTimeout(15000);
+import { vi } from "vitest";
+vi.setConfig({ testTimeout: 15000 });
 
 import twilio from "twilio";
 

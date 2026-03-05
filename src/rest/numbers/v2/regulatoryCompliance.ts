@@ -13,17 +13,17 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { BundleListInstance } from "./regulatoryCompliance/bundle";
-import { EndUserListInstance } from "./regulatoryCompliance/endUser";
-import { EndUserTypeListInstance } from "./regulatoryCompliance/endUserType";
-import { RegulationListInstance } from "./regulatoryCompliance/regulation";
-import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
-import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
+import { V2 } from "../V2.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { BundleListInstance } from "./regulatoryCompliance/bundle.js";
+import { EndUserListInstance } from "./regulatoryCompliance/endUser.js";
+import { EndUserTypeListInstance } from "./regulatoryCompliance/endUserType.js";
+import { RegulationListInstance } from "./regulatoryCompliance/regulation.js";
+import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument.js";
+import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType.js";
 
 /**
  * The type of End User the regulation requires - can be `individual` or `business`.

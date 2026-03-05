@@ -9,12 +9,12 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V1 from "./numbers/V1";
-import V2 from "./numbers/V2";
-import V3 from "./numbers/V3";
+import { Domain } from "../base/Domain.js";
+import { V1 } from "./numbers/V1.js";
+import { V2 } from "./numbers/V2.js";
+import { V3 } from "./numbers/V3.js";
 
-class NumbersBase extends Domain {
+export class NumbersBase extends Domain {
   _v1?: V1;
   _v2?: V2;
   _v3?: V3;
@@ -41,5 +41,3 @@ class NumbersBase extends Domain {
     return this._v3;
   }
 }
-
-export = NumbersBase;

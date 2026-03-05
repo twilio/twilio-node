@@ -9,10 +9,10 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V1 from "./sync/V1";
+import { Domain } from "../base/Domain.js";
+import { V1 } from "./sync/V1.js";
 
-class SyncBase extends Domain {
+export class SyncBase extends Domain {
   _v1?: V1;
 
   /**
@@ -29,5 +29,3 @@ class SyncBase extends Domain {
     return this._v1;
   }
 }
-
-export = SyncBase;

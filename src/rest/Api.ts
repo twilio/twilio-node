@@ -1,31 +1,31 @@
-import { AccountContext, AccountListInstance } from "./api/v2010/account";
-import { AddressListInstance } from "./api/v2010/account/address";
-import { ApplicationListInstance } from "./api/v2010/account/application";
-import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp";
-import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry";
-import { BalanceListInstance } from "./api/v2010/account/balance";
-import { CallListInstance } from "./api/v2010/account/call";
-import { ConferenceListInstance } from "./api/v2010/account/conference";
-import { ConnectAppListInstance } from "./api/v2010/account/connectApp";
-import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber";
-import { KeyListInstance } from "./api/v2010/account/key";
-import { MessageListInstance } from "./api/v2010/account/message";
-import { NewKeyListInstance } from "./api/v2010/account/newKey";
-import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey";
-import { NotificationListInstance } from "./api/v2010/account/notification";
-import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId";
-import { QueueListInstance } from "./api/v2010/account/queue";
-import { RecordingListInstance } from "./api/v2010/account/recording";
-import { ShortCodeListInstance } from "./api/v2010/account/shortCode";
-import { SigningKeyListInstance } from "./api/v2010/account/signingKey";
-import { SipListInstance } from "./api/v2010/account/sip";
-import { TokenListInstance } from "./api/v2010/account/token";
-import { TranscriptionListInstance } from "./api/v2010/account/transcription";
-import { UsageListInstance } from "./api/v2010/account/usage";
-import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest";
-import ApiBase from "./ApiBase";
+import { AccountContext, AccountListInstance } from "./api/v2010/account.js";
+import { AddressListInstance } from "./api/v2010/account/address.js";
+import { ApplicationListInstance } from "./api/v2010/account/application.js";
+import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp.js";
+import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry.js";
+import { BalanceListInstance } from "./api/v2010/account/balance.js";
+import { CallListInstance } from "./api/v2010/account/call.js";
+import { ConferenceListInstance } from "./api/v2010/account/conference.js";
+import { ConnectAppListInstance } from "./api/v2010/account/connectApp.js";
+import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber.js";
+import { KeyListInstance } from "./api/v2010/account/key.js";
+import { MessageListInstance } from "./api/v2010/account/message.js";
+import { NewKeyListInstance } from "./api/v2010/account/newKey.js";
+import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey.js";
+import { NotificationListInstance } from "./api/v2010/account/notification.js";
+import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId.js";
+import { QueueListInstance } from "./api/v2010/account/queue.js";
+import { RecordingListInstance } from "./api/v2010/account/recording.js";
+import { ShortCodeListInstance } from "./api/v2010/account/shortCode.js";
+import { SigningKeyListInstance } from "./api/v2010/account/signingKey.js";
+import { SipListInstance } from "./api/v2010/account/sip.js";
+import { TokenListInstance } from "./api/v2010/account/token.js";
+import { TranscriptionListInstance } from "./api/v2010/account/transcription.js";
+import { UsageListInstance } from "./api/v2010/account/usage.js";
+import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest.js";
+import { ApiBase } from "./ApiBase.js";
 
-class Api extends ApiBase {
+export class Api extends ApiBase {
   get account(): AccountContext {
     return this.v2010.account;
   }
@@ -244,5 +244,3 @@ class Api extends ApiBase {
     return this.account.validationRequests;
   }
 }
-
-export = Api;

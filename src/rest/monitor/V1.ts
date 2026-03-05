@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import MonitorBase from "../MonitorBase";
-import Version from "../../base/Version";
-import { AlertListInstance } from "./v1/alert";
-import { EventListInstance } from "./v1/event";
+import { MonitorBase } from "../MonitorBase.js";
+import { Version } from "../../base/Version.js";
+import { AlertListInstance } from "./v1/alert.js";
+import { EventListInstance } from "./v1/event.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Monitor
    *

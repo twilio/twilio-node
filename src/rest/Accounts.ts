@@ -1,9 +1,9 @@
-import { AuthTokenPromotionListInstance } from "./accounts/v1/authTokenPromotion";
-import { CredentialListInstance } from "./accounts/v1/credential";
-import { SecondaryAuthTokenListInstance } from "./accounts/v1/secondaryAuthToken";
-import AccountsBase from "./AccountsBase";
+import { AuthTokenPromotionListInstance } from "./accounts/v1/authTokenPromotion.js";
+import { CredentialListInstance } from "./accounts/v1/credential.js";
+import { SecondaryAuthTokenListInstance } from "./accounts/v1/secondaryAuthToken.js";
+import { AccountsBase } from "./AccountsBase.js";
 
-class Accounts extends AccountsBase {
+export class Accounts extends AccountsBase {
   /**
    * @deprecated - Use v1.authTokenPromotion; instead
    */
@@ -32,5 +32,3 @@ class Accounts extends AccountsBase {
     return this.v1.secondaryAuthToken;
   }
 }
-
-export = Accounts;

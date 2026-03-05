@@ -1,5 +1,5 @@
-import twilio from "../../../../src";
-import RequestClient from "../../../../src/base/RequestClient";
+import { ValidationToken } from "../../../../src/jwt/validation/ValidationToken";
+import { RequestClient } from '../../../../src/base/RequestClient';
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
@@ -16,7 +16,7 @@ describe("ValidationToken", function () {
   });
 
   function getToken(alg) {
-    return new twilio.jwt.ValidationToken({
+    return new ValidationToken({
       accountSid: accountSid,
       credentialSid: credentialSid,
       signingKey: signingKey,
@@ -27,14 +27,14 @@ describe("ValidationToken", function () {
 
   describe("constructor", function () {
     it("should require accountSid", function () {
-      expect(() => new twilio.jwt.ValidationToken({})).toThrow(
+      expect(() => new ValidationToken({})).toThrow(
         new Error("accountSid is required")
       );
     });
     it("should require credentialSid", function () {
       expect(
         () =>
-          new twilio.jwt.ValidationToken({
+          new ValidationToken({
             accountSid: accountSid,
           })
       ).toThrow(new Error("credentialSid is required"));
@@ -42,7 +42,7 @@ describe("ValidationToken", function () {
     it("should require signingKey", function () {
       expect(
         () =>
-          new twilio.jwt.ValidationToken({
+          new ValidationToken({
             accountSid: accountSid,
             credentialSid: credentialSid,
           })
@@ -51,7 +51,7 @@ describe("ValidationToken", function () {
     it("should require privateKey", function () {
       expect(
         () =>
-          new twilio.jwt.ValidationToken({
+          new ValidationToken({
             accountSid: accountSid,
             credentialSid: credentialSid,
             signingKey: signingKey,
@@ -375,8 +375,8 @@ describe("ValidationToken", function () {
     });
   });
 
-  describe("ValidationInterceptor", function () {
-    it("should add Twilio-Client-Validation header to the request", function () {
+  describe("Validation via RequestClient", function () {
+    it("should generate a validation token for a request", function () {
       const validationClient = {
         accountSid: accountSid,
         credentialSid: credentialSid,
@@ -384,23 +384,18 @@ describe("ValidationToken", function () {
         privateKey: privateKey,
         algorithm: "RS256",
       };
-      const requestClient = new RequestClient({
-        validationClient: validationClient,
-      });
-      const config = {
+      const vt = new ValidationToken(validationClient);
+      const request = {
         url: "https://example.com/path",
         method: "POST",
         headers: {},
       };
-      const newConfig =
-        requestClient.validationInterceptor(validationClient)(config);
-      expect(newConfig.headers["Twilio-Client-Validation"]).toBeDefined();
-      expect(typeof newConfig.headers["Twilio-Client-Validation"]).toBe(
-        "string"
-      );
+      const token = vt.fromHttpRequest(request);
+      expect(token).toBeDefined();
+      expect(typeof token).toBe("string");
     });
 
-    it("should throw error in adding Twilio-Client-Validation header", function () {
+    it("should throw error with invalid key", function () {
       const validationClient = {
         accountSid: accountSid,
         credentialSid: credentialSid,
@@ -408,17 +403,13 @@ describe("ValidationToken", function () {
         privateKey: "invalid-key",
         algorithm: "RS256",
       };
-      const requestClient = new RequestClient({
-        validationClient: validationClient,
-      });
-      const config = {
+      const vt = new ValidationToken(validationClient);
+      const request = {
         url: "https://example.com/path",
         method: "POST",
         headers: {},
       };
-      expect(() =>
-        requestClient.validationInterceptor(validationClient)(config)
-      ).toThrow(
+      expect(() => vt.fromHttpRequest(request)).toThrow(
         new Error(
           "Error generating JWT token Error: secretOrPrivateKey must be an asymmetric key when using RS256"
         )

@@ -12,34 +12,34 @@
  * Do not edit the class manually.
  */
 
-import FlexApiBase from "../FlexApiBase";
-import Version from "../../base/Version";
-import { AssessmentsListInstance } from "./v1/assessments";
-import { ChannelListInstance } from "./v1/channel";
-import { ConfigurationListInstance } from "./v1/configuration";
-import { CreateFlexInstanceListInstance } from "./v1/createFlexInstance";
-import { FlexFlowListInstance } from "./v1/flexFlow";
-import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
-import { InsightsConversationsListInstance } from "./v1/insightsConversations";
-import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires";
-import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
-import { InsightsQuestionnairesQuestionListInstance } from "./v1/insightsQuestionnairesQuestion";
-import { InsightsSegmentsListInstance } from "./v1/insightsSegments";
-import { InsightsSessionListInstance } from "./v1/insightsSession";
-import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAnswerSets";
-import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
-import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles";
-import { InteractionListInstance } from "./v1/interaction";
-import { PluginListInstance } from "./v1/plugin";
-import { PluginArchiveListInstance } from "./v1/pluginArchive";
-import { PluginConfigurationListInstance } from "./v1/pluginConfiguration";
-import { PluginConfigurationArchiveListInstance } from "./v1/pluginConfigurationArchive";
-import { PluginReleaseListInstance } from "./v1/pluginRelease";
-import { PluginVersionArchiveListInstance } from "./v1/pluginVersionArchive";
-import { ProvisioningStatusListInstance } from "./v1/provisioningStatus";
-import { WebChannelListInstance } from "./v1/webChannel";
+import { FlexApiBase } from "../FlexApiBase.js";
+import { Version } from "../../base/Version.js";
+import { AssessmentsListInstance } from "./v1/assessments.js";
+import { ChannelListInstance } from "./v1/channel.js";
+import { ConfigurationListInstance } from "./v1/configuration.js";
+import { CreateFlexInstanceListInstance } from "./v1/createFlexInstance.js";
+import { FlexFlowListInstance } from "./v1/flexFlow.js";
+import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment.js";
+import { InsightsConversationsListInstance } from "./v1/insightsConversations.js";
+import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires.js";
+import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory.js";
+import { InsightsQuestionnairesQuestionListInstance } from "./v1/insightsQuestionnairesQuestion.js";
+import { InsightsSegmentsListInstance } from "./v1/insightsSegments.js";
+import { InsightsSessionListInstance } from "./v1/insightsSession.js";
+import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAnswerSets.js";
+import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment.js";
+import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles.js";
+import { InteractionListInstance } from "./v1/interaction.js";
+import { PluginListInstance } from "./v1/plugin.js";
+import { PluginArchiveListInstance } from "./v1/pluginArchive.js";
+import { PluginConfigurationListInstance } from "./v1/pluginConfiguration.js";
+import { PluginConfigurationArchiveListInstance } from "./v1/pluginConfigurationArchive.js";
+import { PluginReleaseListInstance } from "./v1/pluginRelease.js";
+import { PluginVersionArchiveListInstance } from "./v1/pluginVersionArchive.js";
+import { ProvisioningStatusListInstance } from "./v1/provisioningStatus.js";
+import { WebChannelListInstance } from "./v1/webChannel.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of FlexApi
    *

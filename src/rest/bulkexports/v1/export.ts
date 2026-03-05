@@ -13,14 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { DayListInstance } from "./export/day";
-import { ExportCustomJobListInstance } from "./export/exportCustomJob";
-import { JobListInstance } from "./export/job";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { DayListInstance } from "./export/day.js";
+import { ExportCustomJobListInstance } from "./export/exportCustomJob.js";
+import { JobListInstance } from "./export/job.js";
 
 export interface ExportContext {
   days: DayListInstance;

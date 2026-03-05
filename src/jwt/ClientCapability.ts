@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import qs from "querystring";
+import qs from "node:querystring";
 
 export interface Scope {
   scope: string;
@@ -115,7 +115,7 @@ export class OutgoingClientScope implements Scope {
 /**
  * @param options
  */
-export default class ClientCapability {
+export class ClientCapability {
   static EventStreamScope = EventStreamScope;
   static IncomingClientScope = IncomingClientScope;
   static OutgoingClientScope = OutgoingClientScope;

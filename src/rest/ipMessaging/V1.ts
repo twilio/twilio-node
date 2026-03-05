@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import IpMessagingBase from "../IpMessagingBase";
-import Version from "../../base/Version";
-import { CredentialListInstance } from "./v1/credential";
-import { ServiceListInstance } from "./v1/service";
+import { IpMessagingBase } from "../IpMessagingBase.js";
+import { Version } from "../../base/Version.js";
+import { CredentialListInstance } from "./v1/credential.js";
+import { ServiceListInstance } from "./v1/service.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of IpMessaging
    *

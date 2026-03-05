@@ -14,18 +14,18 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { EncryptedOperatorResultsListInstance } from "./transcript/encryptedOperatorResults";
-import { EncryptedSentencesListInstance } from "./transcript/encryptedSentences";
-import { MediaListInstance } from "./transcript/media";
-import { OperatorResultListInstance } from "./transcript/operatorResult";
-import { SentenceListInstance } from "./transcript/sentence";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V2 } from "../V2.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { EncryptedOperatorResultsListInstance } from "./transcript/encryptedOperatorResults.js";
+import { EncryptedSentencesListInstance } from "./transcript/encryptedSentences.js";
+import { MediaListInstance } from "./transcript/media.js";
+import { OperatorResultListInstance } from "./transcript/operatorResult.js";
+import { SentenceListInstance } from "./transcript/sentence.js";
 
 /**
  * The Status of this Transcript. One of `queued`, `in-progress`, `completed`, `failed` or `canceled`.

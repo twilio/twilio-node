@@ -1,6 +1,6 @@
-import Version from "./Version";
-import Response from "../http/response";
-import RestException from "./RestException";
+import { Version } from "./Version.js";
+import { Response } from "../http/response.js";
+import { RestException } from "./RestException.js";
 
 /**
  * Token-based pagination metadata structure
@@ -38,7 +38,7 @@ interface Solution {
  *   ]
  * }
  */
-export default class TokenPage<
+export class TokenPage<
   TVersion extends Version,
   TPayload extends TokenPaginationPayload,
   TResource,

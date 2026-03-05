@@ -6,9 +6,9 @@
  */
 
 import { XMLElement } from "xmlbuilder";
-import TwiML from "./TwiML";
+import { TwiML } from "./TwiML.js";
 
-class MessagingResponse extends TwiML {
+export class MessagingResponse extends TwiML {
   /**
    * <Response> TwiML for Messages
    */
@@ -46,20 +46,20 @@ class MessagingResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param body - Message Body
    */
-  message(body: string): MessagingResponse.Message;
+  message(body: string): Message;
   message(
-    attributes: MessagingResponse.MessageAttributes,
+    attributes: MessageAttributes,
     body: string
-  ): MessagingResponse.Message;
+  ): Message;
   message(
-    attributes: MessagingResponse.MessageAttributes | string,
+    attributes: MessageAttributes | string,
     body?: string
-  ): MessagingResponse.Message {
+  ): Message {
     if (typeof attributes === "string") {
       body = attributes;
       attributes = {};
     }
-    return new MessagingResponse.Message(
+    return new Message(
       this.response.ele("Message", attributes, body)
     );
   }
@@ -69,26 +69,25 @@ class MessagingResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param url - Redirect URL
    */
-  redirect(url: string): MessagingResponse.Redirect;
+  redirect(url: string): Redirect;
   redirect(
-    attributes: MessagingResponse.RedirectAttributes,
+    attributes: RedirectAttributes,
     url: string
-  ): MessagingResponse.Redirect;
+  ): Redirect;
   redirect(
-    attributes: MessagingResponse.RedirectAttributes | string,
+    attributes: RedirectAttributes | string,
     url?: string
-  ): MessagingResponse.Redirect {
+  ): Redirect {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
     }
-    return new MessagingResponse.Redirect(
+    return new Redirect(
       this.response.ele("Redirect", attributes, url)
     );
   }
 }
 
-namespace MessagingResponse {
   /**
    * Attributes to pass to message
    */
@@ -153,17 +152,17 @@ namespace MessagingResponse {
      * @param attributes - TwiML attributes
      * @param message - Message Body
      */
-    body(message: string): MessagingResponse.Body;
-    body(attributes: object, message: string): MessagingResponse.Body;
+    body(message: string): Body;
+    body(attributes: object, message: string): Body;
     body(
       attributes: object | string,
       message?: string
-    ): MessagingResponse.Body {
+    ): Body {
       if (typeof attributes === "string") {
         message = attributes;
         attributes = {};
       }
-      return new MessagingResponse.Body(
+      return new Body(
         this.message.ele("Body", attributes, message)
       );
     }
@@ -173,14 +172,14 @@ namespace MessagingResponse {
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
-    media(url: string): MessagingResponse.Media;
-    media(attributes: object, url: string): MessagingResponse.Media;
-    media(attributes: object | string, url?: string): MessagingResponse.Media {
+    media(url: string): Media;
+    media(attributes: object, url: string): Media;
+    media(attributes: object | string, url?: string): Media {
       if (typeof attributes === "string") {
         url = attributes;
         attributes = {};
       }
-      return new MessagingResponse.Media(
+      return new Media(
         this.message.ele("Media", attributes, url)
       );
     }
@@ -197,6 +196,3 @@ namespace MessagingResponse {
       this._propertyName = "redirect";
     }
   }
-}
-
-export = MessagingResponse;

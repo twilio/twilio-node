@@ -1,5 +1,4 @@
-var Twilio = require("../lib");
-var { RestException } = require("../lib");
+import { Twilio, RestException } from "../lib/index.js";
 
 var accountSid = process.env.TWILIO_ACCOUNT_SID;
 var token = process.env.TWILIO_AUTH_TOKEN;

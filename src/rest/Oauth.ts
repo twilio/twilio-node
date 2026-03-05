@@ -1,5 +1,3 @@
-import OauthBase from "./OauthBase";
+import { OauthBase } from "./OauthBase.js";
 
-class Oauth extends OauthBase {}
-
-export = Oauth;
+export class Oauth extends OauthBase {}

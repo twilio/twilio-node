@@ -1,9 +1,11 @@
-import OrgsCredentialProvider from "../../../src/credential_provider/OrgsCredentialProvider";
-import TokenAuthStrategy from "../../../src/auth_strategy/TokenAuthStrategy";
+import {
+  OrgsCredentialProvider,
+  OrgsCredentialProviderBuilder,
+} from "../../../src/credential_provider/OrgsCredentialProvider";
+import { TokenAuthStrategy } from "../../../src/auth_strategy/TokenAuthStrategy";
 
 describe("OrgsCredentialProvider Constructor", () => {
-  const orgsCredentialProvider =
-    new OrgsCredentialProvider.OrgsCredentialProviderBuilder()
+  const orgsCredentialProvider = new OrgsCredentialProviderBuilder()
       .setClientId("clientId")
       .setClientSecret("clientSecret")
       .build();

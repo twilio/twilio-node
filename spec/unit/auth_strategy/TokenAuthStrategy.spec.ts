@@ -1,18 +1,7 @@
-import TokenAuthStrategy from "../../../src/auth_strategy/TokenAuthStrategy";
-import ApiTokenManager from "../../../src/http/bearer_token/ApiTokenManager";
-import { jest } from "@jest/globals";
-import axios from "axios";
-import twilio from "../../../src";
-
-function createMockAxios(promiseHandler: Promise<any>) {
-  const instance = () => promiseHandler;
-  instance.defaults = {
-    headers: {
-      post: {},
-    },
-  };
-  return instance;
-}
+import { vi, MockInstance } from "vitest";
+import { TokenAuthStrategy } from "../../../src/auth_strategy/TokenAuthStrategy";
+import { ApiTokenManager } from "../../../src/http/bearer_token/ApiTokenManager";
+import { AccessToken } from "../../../src/jwt/AccessToken";
 
 describe("TokenAuthStrategy constructor", function () {
   const clientId = "clientId";
@@ -26,27 +15,26 @@ describe("TokenAuthStrategy constructor", function () {
   });
   const tokenAuthStrategy = new TokenAuthStrategy(tokenManager);
 
-  let createSpy: jest.Spied<any>;
   const initialHttpProxyValue = process.env.HTTP_PROXY;
+  let fetchSpy: MockInstance<typeof global.fetch>;
 
   beforeEach(() => {
-    createSpy = jest.spyOn(axios, "create");
-    createSpy.mockReturnValue(
-      createMockAxios(
-        Promise.resolve({
+    fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          access_token: "accessTokenValue",
+          token_type: "Bearer",
+        }),
+        {
           status: 200,
-          data: {
-            access_token: "accessTokenValue",
-            token_type: "Bearer",
-          },
-        })
+          headers: { "Content-Type": "application/json" },
+        }
       )
     );
   });
 
   afterEach(() => {
-    createSpy.mockRestore();
-
+    fetchSpy.mockRestore();
     if (initialHttpProxyValue) {
       process.env.HTTP_PROXY = initialHttpProxyValue;
     } else {
@@ -61,17 +49,15 @@ describe("TokenAuthStrategy constructor", function () {
   it("Should check token expiry", function () {
     const accountSid = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     const keySid = "SKb5aed9ca12bf5890f37930e63cad6d38";
-    const token = new twilio.jwt.AccessToken(accountSid, keySid, "secret", {
+    const token = new AccessToken(accountSid, keySid, "secret", {
       identity: "ID@example.com",
     });
     expect(tokenAuthStrategy.isTokenExpired(token.toJwt())).toBe(false);
   });
 
-  it("Should return token auth string", function (done) {
-    tokenAuthStrategy.getAuthString().then(function (authString) {
-      expect(authString).toEqual(`Bearer accessTokenValue`);
-      done();
-    });
+  it("Should return token auth string", async function () {
+    const authString = await tokenAuthStrategy.getAuthString();
+    expect(authString).toEqual(`Bearer accessTokenValue`);
   });
 
   it("Should return true for requiresAuthentication", function () {
@@ -91,26 +77,25 @@ describe("TokenAuthStrategy error response", function () {
   });
   const tokenAuthStrategy = new TokenAuthStrategy(tokenManager);
 
-  let createSpy: jest.Spied<any>;
+  let fetchSpy: MockInstance<typeof global.fetch>;
   const initialHttpProxyValue = process.env.HTTP_PROXY;
 
   beforeEach(() => {
-    createSpy = jest.spyOn(axios, "create");
-    createSpy.mockReturnValue(
-      createMockAxios(
-        Promise.resolve({
+    fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          message: "Invalid Credentials",
+        }),
+        {
           status: 403,
-          data: {
-            message: "Invalid Credentials",
-          },
-        })
+          headers: { "Content-Type": "application/json" },
+        }
       )
     );
   });
 
   afterEach(() => {
-    createSpy.mockRestore();
-
+    fetchSpy.mockRestore();
     if (initialHttpProxyValue) {
       process.env.HTTP_PROXY = initialHttpProxyValue;
     } else {

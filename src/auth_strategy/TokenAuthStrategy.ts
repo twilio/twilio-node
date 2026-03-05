@@ -1,8 +1,8 @@
-import AuthStrategy from "./AuthStrategy";
-import TokenManager from "../http/bearer_token/TokenManager";
+import { AuthStrategy } from "./AuthStrategy.js";
+import { TokenManager } from "../http/bearer_token/TokenManager.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-export default class TokenAuthStrategy extends AuthStrategy {
+export class TokenAuthStrategy extends AuthStrategy {
   private token: string;
   private tokenManager: TokenManager;
 

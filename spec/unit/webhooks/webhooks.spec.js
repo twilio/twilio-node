@@ -1,4 +1,4 @@
-import { getExpectedTwilioSignature, validateRequest } from "../../../src";
+import { getExpectedTwilioSignature, validateRequest } from "../../../src/index";
 
 describe("webhooks", () => {
   const authToken = "s3cr3t";

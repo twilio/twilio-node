@@ -12,16 +12,16 @@
  * Do not edit the class manually.
  */
 
-import VerifyBase from "../VerifyBase";
-import Version from "../../base/Version";
-import { FormListInstance } from "./v2/form";
-import { SafelistListInstance } from "./v2/safelist";
-import { ServiceListInstance } from "./v2/service";
-import { TemplateListInstance } from "./v2/template";
-import { VerificationAttemptListInstance } from "./v2/verificationAttempt";
-import { VerificationAttemptsSummaryListInstance } from "./v2/verificationAttemptsSummary";
+import { VerifyBase } from "../VerifyBase.js";
+import { Version } from "../../base/Version.js";
+import { FormListInstance } from "./v2/form.js";
+import { SafelistListInstance } from "./v2/safelist.js";
+import { ServiceListInstance } from "./v2/service.js";
+import { TemplateListInstance } from "./v2/template.js";
+import { VerificationAttemptListInstance } from "./v2/verificationAttempt.js";
+import { VerificationAttemptsSummaryListInstance } from "./v2/verificationAttemptsSummary.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Verify
    *

@@ -1,8 +1,12 @@
-const scmp = require("scmp");
-import crypto from "crypto";
-import urllib from "url";
-import { IncomingHttpHeaders } from "http2";
-import { parse, stringify } from "querystring";
+import crypto from "node:crypto";
+import urllib from "node:url";
+import { IncomingHttpHeaders } from "node:http2";
+import { parse, stringify } from "node:querystring";
+
+function timingSafeCompare(a: Buffer, b: Buffer): boolean {
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
 
 export interface Request {
   protocol: string;
@@ -257,7 +261,7 @@ function validateSignatureWithUrl(
     params
   );
 
-  return scmp(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
+  return timingSafeCompare(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
 }
 
 export function validateBody(
@@ -265,7 +269,7 @@ export function validateBody(
   bodyHash: any[] | string | Buffer
 ): boolean {
   var expectedHash = getExpectedBodyHash(body);
-  return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
+  return timingSafeCompare(Buffer.from(bodyHash), Buffer.from(expectedHash));
 }
 
 /**

@@ -1,4 +1,9 @@
-import ClientCapability from "../../../src/jwt/ClientCapability";
+import {
+  ClientCapability,
+  EventStreamScope,
+  IncomingClientScope,
+  OutgoingClientScope,
+} from "../../../src/jwt/ClientCapability";
 import jwt from "jsonwebtoken";
 
 describe("The TwiML Capability Token Object", function () {
@@ -9,9 +14,9 @@ describe("The TwiML Capability Token Object", function () {
         authToken: "bar",
       });
 
-      c.addScope(new ClientCapability.IncomingClientScope("foo"));
+      c.addScope(new IncomingClientScope("foo"));
       c.addScope(
-        new ClientCapability.OutgoingClientScope({
+        new OutgoingClientScope({
           applicationSid: "AP123",
         })
       );
@@ -55,7 +60,7 @@ describe("The TwiML Capability Token Object", function () {
         accountSid: "foo",
         authToken: "bar",
       });
-      c.addScope(new ClientCapability.IncomingClientScope("client"));
+      c.addScope(new IncomingClientScope("client"));
 
       var decoded = jwt.verify(c.toJwt(), "bar");
       expect(decoded.scope).toBe("scope:client:incoming?clientName=client");
@@ -70,7 +75,7 @@ describe("The TwiML Capability Token Object", function () {
         authToken: "bar",
       });
       c.addScope(
-        new ClientCapability.OutgoingClientScope({
+        new OutgoingClientScope({
           applicationSid: "AP123",
           clientName: "CL123",
           params: {
@@ -94,7 +99,7 @@ describe("The TwiML Capability Token Object", function () {
         authToken: "bar",
       });
       c.addScope(
-        new ClientCapability.EventStreamScope({
+        new EventStreamScope({
           foo: "bar",
         })
       );

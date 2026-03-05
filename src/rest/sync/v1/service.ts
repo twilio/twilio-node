@@ -14,17 +14,17 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { DocumentListInstance } from "./service/document";
-import { SyncListListInstance } from "./service/syncList";
-import { SyncMapListInstance } from "./service/syncMap";
-import { SyncStreamListInstance } from "./service/syncStream";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { DocumentListInstance } from "./service/document.js";
+import { SyncListListInstance } from "./service/syncList.js";
+import { SyncMapListInstance } from "./service/syncMap.js";
+import { SyncStreamListInstance } from "./service/syncStream.js";
 
 /**
  * Options to pass to update a ServiceInstance

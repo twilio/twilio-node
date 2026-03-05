@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import PreviewBase from "../PreviewBase";
-import Version from "../../base/Version";
-import { AvailableAddOnListInstance } from "./marketplace/availableAddOn";
-import { InstalledAddOnListInstance } from "./marketplace/installedAddOn";
+import { PreviewBase } from "../PreviewBase.js";
+import { Version } from "../../base/Version.js";
+import { AvailableAddOnListInstance } from "./marketplace/availableAddOn.js";
+import { InstalledAddOnListInstance } from "./marketplace/installedAddOn.js";
 
-export default class Marketplace extends Version {
+export class Marketplace extends Version {
   /**
    * Initialize the Marketplace version of Preview
    *

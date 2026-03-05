@@ -1,6 +1,6 @@
-import AuthStrategy from "../auth_strategy/AuthStrategy";
+import { AuthStrategy } from "../auth_strategy/AuthStrategy.js";
 
-export default abstract class CredentialProvider {
+export abstract class CredentialProvider {
   private authType: string;
   protected constructor(authType: string) {
     this.authType = authType;

@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import FrontlineApiBase from "../FrontlineApiBase";
-import Version from "../../base/Version";
-import { UserListInstance } from "./v1/user";
+import { FrontlineApiBase } from "../FrontlineApiBase.js";
+import { Version } from "../../base/Version.js";
+import { UserListInstance } from "./v1/user.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of FrontlineApi
    *

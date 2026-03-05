@@ -14,18 +14,18 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { CredentialListListInstance } from "./trunk/credentialList";
-import { IpAccessControlListListInstance } from "./trunk/ipAccessControlList";
-import { OriginationUrlListInstance } from "./trunk/originationUrl";
-import { PhoneNumberListInstance } from "./trunk/phoneNumber";
-import { RecordingListInstance } from "./trunk/recording";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { CredentialListListInstance } from "./trunk/credentialList.js";
+import { IpAccessControlListListInstance } from "./trunk/ipAccessControlList.js";
+import { OriginationUrlListInstance } from "./trunk/originationUrl.js";
+import { PhoneNumberListInstance } from "./trunk/phoneNumber.js";
+import { RecordingListInstance } from "./trunk/recording.js";
 
 /**
  * Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.

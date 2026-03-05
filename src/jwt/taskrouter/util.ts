@@ -1,4 +1,4 @@
-import { Policy } from "./TaskRouterCapability";
+import { Policy } from "./TaskRouterCapability.js";
 
 const EVENT_URL_BASE = "https://event-bridge.twilio.com/v1/wschannels";
 const TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";

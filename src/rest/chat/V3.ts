@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import ChatBase from "../ChatBase";
-import Version from "../../base/Version";
-import { ChannelListInstance } from "./v3/channel";
+import { ChatBase } from "../ChatBase.js";
+import { Version } from "../../base/Version.js";
+import { ChannelListInstance } from "./v3/channel.js";
 
-export default class V3 extends Version {
+export class V3 extends Version {
   /**
    * Initialize the V3 version of Chat
    *

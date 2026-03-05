@@ -14,16 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { DeploymentListInstance } from "./environment/deployment";
-import { LogListInstance } from "./environment/log";
-import { VariableListInstance } from "./environment/variable";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { DeploymentListInstance } from "./environment/deployment.js";
+import { LogListInstance } from "./environment/log.js";
+import { VariableListInstance } from "./environment/variable.js";
 
 /**
  * Options to pass to create a EnvironmentInstance

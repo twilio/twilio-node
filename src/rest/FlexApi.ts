@@ -1,14 +1,14 @@
-import { ChannelListInstance } from "./flexApi/v1/channel";
-import { ConfigurationListInstance } from "./flexApi/v1/configuration";
-import { FlexFlowListInstance } from "./flexApi/v1/flexFlow";
-import { InteractionListInstance } from "./flexApi/v1/interaction";
-import { WebChannelListInstance } from "./flexApi/v1/webChannel";
-import { AssessmentsListInstance } from "./flexApi/v1/assessments";
-import { WebChannelsListInstance } from "./flexApi/v2/webChannels";
+import { ChannelListInstance } from "./flexApi/v1/channel.js";
+import { ConfigurationListInstance } from "./flexApi/v1/configuration.js";
+import { FlexFlowListInstance } from "./flexApi/v1/flexFlow.js";
+import { InteractionListInstance } from "./flexApi/v1/interaction.js";
+import { WebChannelListInstance } from "./flexApi/v1/webChannel.js";
+import { AssessmentsListInstance } from "./flexApi/v1/assessments.js";
+import { WebChannelsListInstance } from "./flexApi/v2/webChannels.js";
 
-import FlexApiBase from "./FlexApiBase";
+import { FlexApiBase } from "./FlexApiBase.js";
 
-class FlexApi extends FlexApiBase {
+export class FlexApi extends FlexApiBase {
   /**
    * @deprecated - Use v1.assessments instead
    */
@@ -65,5 +65,3 @@ class FlexApi extends FlexApiBase {
     return this.v2.webChannels;
   }
 }
-
-export = FlexApi;

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import PreviewBase from "../PreviewBase";
-import Version from "../../base/Version";
-import { CommandListInstance } from "./wireless/command";
-import { RatePlanListInstance } from "./wireless/ratePlan";
-import { SimListInstance } from "./wireless/sim";
+import { PreviewBase } from "../PreviewBase.js";
+import { Version } from "../../base/Version.js";
+import { CommandListInstance } from "./wireless/command.js";
+import { RatePlanListInstance } from "./wireless/ratePlan.js";
+import { SimListInstance } from "./wireless/sim.js";
 
-export default class Wireless extends Version {
+export class Wireless extends Version {
   /**
    * Initialize the Wireless version of Preview
    *

@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import MarketplaceBase from "../MarketplaceBase";
-import Version from "../../base/Version";
-import { AvailableAddOnListInstance } from "./v1/availableAddOn";
-import { InstalledAddOnListInstance } from "./v1/installedAddOn";
-import { ModuleDataListInstance } from "./v1/moduleData";
-import { ModuleDataManagementListInstance } from "./v1/moduleDataManagement";
-import { ReferralConversionListInstance } from "./v1/referralConversion";
+import { MarketplaceBase } from "../MarketplaceBase.js";
+import { Version } from "../../base/Version.js";
+import { AvailableAddOnListInstance } from "./v1/availableAddOn.js";
+import { InstalledAddOnListInstance } from "./v1/installedAddOn.js";
+import { ModuleDataListInstance } from "./v1/moduleData.js";
+import { ModuleDataManagementListInstance } from "./v1/moduleDataManagement.js";
+import { ReferralConversionListInstance } from "./v1/referralConversion.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Marketplace
    *

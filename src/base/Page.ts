@@ -1,6 +1,6 @@
-import Version from "./Version";
-import Response from "../http/response";
-import RestException from "./RestException";
+import { Version } from "./Version.js";
+import { Response } from "../http/response.js";
+import { RestException } from "./RestException.js";
 
 export interface TwilioResponsePayload {
   [key: string]: any;
@@ -21,7 +21,7 @@ interface Solution {
   [name: string]: any;
 }
 
-export default class Page<
+export class Page<
   TVersion extends Version,
   TPayload extends TwilioResponsePayload,
   TResource,
@@ -88,18 +88,12 @@ export default class Page<
       this._payload.meta &&
       "previous_page_url" in this._payload.meta &&
       this._payload.meta.previous_page_url
-    ) {
-      // jshint ignore:line
-      return this._payload.meta.previous_page_url; // jshint ignore:line
-    }
+    ) {return this._payload.meta.previous_page_url;}
 
     if (
       "previous_page_uri" in this._payload &&
       this._payload.previous_page_uri
-    ) {
-      // jshint ignore:line
-      return this._version._domain.absoluteUrl(this._payload.previous_page_uri); // jshint ignore:line
-    }
+    ) {return this._version._domain.absoluteUrl(this._payload.previous_page_uri);}
 
     return undefined;
   }
@@ -115,15 +109,9 @@ export default class Page<
       this._payload.meta &&
       "next_page_url" in this._payload.meta &&
       this._payload.meta.next_page_url
-    ) {
-      // jshint ignore:line
-      return this._payload.meta.next_page_url; // jshint ignore:line
-    }
+    ) {return this._payload.meta.next_page_url;}
 
-    if ("next_page_uri" in this._payload && this._payload.next_page_uri) {
-      // jshint ignore:line
-      return this._version._domain.absoluteUrl(this._payload.next_page_uri); // jshint ignore:line
-    }
+    if ("next_page_uri" in this._payload && this._payload.next_page_uri) {return this._version._domain.absoluteUrl(this._payload.next_page_uri);}
 
     return undefined;
   }

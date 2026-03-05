@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import ApiBase from "../ApiBase";
-import Version from "../../base/Version";
-import { AccountListInstance } from "./v2010/account";
-import { AccountContext } from "./v2010/account";
+import { ApiBase } from "../ApiBase.js";
+import { Version } from "../../base/Version.js";
+import { AccountListInstance } from "./v2010/account.js";
+import { AccountContext } from "./v2010/account.js";
 
-export default class V2010 extends Version {
+export class V2010 extends Version {
   /**
    * Initialize the V2010 version of Api
    *

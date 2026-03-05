@@ -9,10 +9,10 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V1 from "./voice/V1";
+import { Domain } from "../base/Domain.js";
+import { V1 } from "./voice/V1.js";
 
-class VoiceBase extends Domain {
+export class VoiceBase extends Domain {
   _v1?: V1;
 
   /**
@@ -29,5 +29,3 @@ class VoiceBase extends Domain {
     return this._v1;
   }
 }
-
-export = VoiceBase;

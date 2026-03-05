@@ -1,5 +1,5 @@
-var Twilio = require("../lib");
-const crypto = require("crypto");
+import { Twilio } from "../lib/index.js";
+import crypto from "node:crypto";
 
 var accountSid = process.env.TWILIO_ACCOUNT_SID;
 var token = process.env.TWILIO_AUTH_TOKEN;

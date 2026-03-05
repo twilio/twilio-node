@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import OauthBase from "../OauthBase";
-import Version from "../../base/Version";
-import { AuthorizeListInstance } from "./v2/authorize";
-import { TokenListInstance } from "./v2/token";
+import { OauthBase } from "../OauthBase.js";
+import { Version } from "../../base/Version.js";
+import { AuthorizeListInstance } from "./v2/authorize.js";
+import { TokenListInstance } from "./v2/token.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Oauth
    *

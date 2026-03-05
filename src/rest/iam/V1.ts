@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import IamBase from "../IamBase";
-import Version from "../../base/Version";
-import { ApiKeyListInstance } from "./v1/apiKey";
-import { GetApiKeysListInstance } from "./v1/getApiKeys";
-import { NewApiKeyListInstance } from "./v1/newApiKey";
-import { OAuthAppListInstance } from "./v1/oAuthApp";
-import { TokenListInstance } from "./v1/token";
+import { IamBase } from "../IamBase.js";
+import { Version } from "../../base/Version.js";
+import { ApiKeyListInstance } from "./v1/apiKey.js";
+import { GetApiKeysListInstance } from "./v1/getApiKeys.js";
+import { NewApiKeyListInstance } from "./v1/newApiKey.js";
+import { OAuthAppListInstance } from "./v1/oAuthApp.js";
+import { TokenListInstance } from "./v1/token.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Iam
    *

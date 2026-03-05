@@ -12,18 +12,18 @@
  * Do not edit the class manually.
  */
 
-import IntelligenceBase from "../IntelligenceBase";
-import Version from "../../base/Version";
-import { CustomOperatorListInstance } from "./v2/customOperator";
-import { OperatorListInstance } from "./v2/operator";
-import { OperatorAttachmentListInstance } from "./v2/operatorAttachment";
-import { OperatorAttachmentsListInstance } from "./v2/operatorAttachments";
-import { OperatorTypeListInstance } from "./v2/operatorType";
-import { PrebuiltOperatorListInstance } from "./v2/prebuiltOperator";
-import { ServiceListInstance } from "./v2/service";
-import { TranscriptListInstance } from "./v2/transcript";
+import { IntelligenceBase } from "../IntelligenceBase.js";
+import { Version } from "../../base/Version.js";
+import { CustomOperatorListInstance } from "./v2/customOperator.js";
+import { OperatorListInstance } from "./v2/operator.js";
+import { OperatorAttachmentListInstance } from "./v2/operatorAttachment.js";
+import { OperatorAttachmentsListInstance } from "./v2/operatorAttachments.js";
+import { OperatorTypeListInstance } from "./v2/operatorType.js";
+import { PrebuiltOperatorListInstance } from "./v2/prebuiltOperator.js";
+import { ServiceListInstance } from "./v2/service.js";
+import { TranscriptListInstance } from "./v2/transcript.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Intelligence
    *

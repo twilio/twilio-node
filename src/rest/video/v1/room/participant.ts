@@ -14,17 +14,17 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { AnonymizeListInstance } from "./participant/anonymize";
-import { PublishedTrackListInstance } from "./participant/publishedTrack";
-import { SubscribeRulesListInstance } from "./participant/subscribeRules";
-import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { AnonymizeListInstance } from "./participant/anonymize.js";
+import { PublishedTrackListInstance } from "./participant/publishedTrack.js";
+import { SubscribeRulesListInstance } from "./participant/subscribeRules.js";
+import { SubscribedTrackListInstance } from "./participant/subscribedTrack.js";
 
 /**
  * The status of the Participant. Can be: `connected` or `disconnected`.

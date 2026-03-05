@@ -1,7 +1,7 @@
-import { ServiceListInstance } from "./serverless/v1/service";
-import ServerlessBase from "./ServerlessBase";
+import { ServiceListInstance } from "./serverless/v1/service.js";
+import { ServerlessBase } from "./ServerlessBase.js";
 
-class Serverless extends ServerlessBase {
+export class Serverless extends ServerlessBase {
   /**
    * @deprecated - Use v1.services instead
    */
@@ -10,5 +10,3 @@ class Serverless extends ServerlessBase {
     return this.v1.services;
   }
 }
-
-export = Serverless;

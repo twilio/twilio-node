@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import ServerlessBase from "../ServerlessBase";
-import Version from "../../base/Version";
-import { ServiceListInstance } from "./v1/service";
+import { ServerlessBase } from "../ServerlessBase.js";
+import { Version } from "../../base/Version.js";
+import { ServiceListInstance } from "./v1/service.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Serverless
    *

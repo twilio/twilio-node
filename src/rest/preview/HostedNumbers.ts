@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import PreviewBase from "../PreviewBase";
-import Version from "../../base/Version";
-import { AuthorizationDocumentListInstance } from "./hosted_numbers/authorizationDocument";
-import { HostedNumberOrderListInstance } from "./hosted_numbers/hostedNumberOrder";
+import { PreviewBase } from "../PreviewBase.js";
+import { Version } from "../../base/Version.js";
+import { AuthorizationDocumentListInstance } from "./hosted_numbers/authorizationDocument.js";
+import { HostedNumberOrderListInstance } from "./hosted_numbers/hostedNumberOrder.js";
 
-export default class HostedNumbers extends Version {
+export class HostedNumbers extends Version {
   /**
    * Initialize the HostedNumbers version of Preview
    *

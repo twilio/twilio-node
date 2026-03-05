@@ -9,10 +9,10 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V2 from "./routes/V2";
+import { Domain } from "../base/Domain.js";
+import { V2 } from "./routes/V2.js";
 
-class RoutesBase extends Domain {
+export class RoutesBase extends Domain {
   _v2?: V2;
 
   /**
@@ -29,5 +29,3 @@ class RoutesBase extends Domain {
     return this._v2;
   }
 }
-
-export = RoutesBase;

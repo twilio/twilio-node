@@ -1,8 +1,8 @@
-import { CredentialListInstance } from "./notify/v1/credential";
-import { ServiceListInstance } from "./notify/v1/service";
-import NotifyBase from "./NotifyBase";
+import { CredentialListInstance } from "./notify/v1/credential.js";
+import { ServiceListInstance } from "./notify/v1/service.js";
+import { NotifyBase } from "./NotifyBase.js";
 
-class Notify extends NotifyBase {
+export class Notify extends NotifyBase {
   /**
    * @deprecated - Use v1.credentials instead
    */
@@ -19,5 +19,3 @@ class Notify extends NotifyBase {
     return this.v1.services;
   }
 }
-
-export = Notify;

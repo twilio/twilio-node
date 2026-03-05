@@ -9,12 +9,12 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V1 from "./chat/V1";
-import V2 from "./chat/V2";
-import V3 from "./chat/V3";
+import { Domain } from "../base/Domain.js";
+import { V1 } from "./chat/V1.js";
+import { V2 } from "./chat/V2.js";
+import { V3 } from "./chat/V3.js";
 
-class ChatBase extends Domain {
+export class ChatBase extends Domain {
   _v1?: V1;
   _v2?: V2;
   _v3?: V3;
@@ -41,5 +41,3 @@ class ChatBase extends Domain {
     return this._v3;
   }
 }
-
-export = ChatBase;

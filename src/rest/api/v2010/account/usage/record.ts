@@ -14,21 +14,21 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
-import { AllTimeListInstance } from "./record/allTime";
-import { DailyListInstance } from "./record/daily";
-import { LastMonthListInstance } from "./record/lastMonth";
-import { MonthlyListInstance } from "./record/monthly";
-import { ThisMonthListInstance } from "./record/thisMonth";
-import { TodayListInstance } from "./record/today";
-import { YearlyListInstance } from "./record/yearly";
-import { YesterdayListInstance } from "./record/yesterday";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
+import { AllTimeListInstance } from "./record/allTime.js";
+import { DailyListInstance } from "./record/daily.js";
+import { LastMonthListInstance } from "./record/lastMonth.js";
+import { MonthlyListInstance } from "./record/monthly.js";
+import { ThisMonthListInstance } from "./record/thisMonth.js";
+import { TodayListInstance } from "./record/today.js";
+import { YearlyListInstance } from "./record/yearly.js";
+import { YesterdayListInstance } from "./record/yesterday.js";
 
 /**
  * Options to pass to each

@@ -1,8 +1,8 @@
-import { CredentialListInstance } from "./ipMessaging/v2/credential";
-import { ServiceListInstance } from "./ipMessaging/v2/service";
-import IpMessagingBase from "./IpMessagingBase";
+import { CredentialListInstance } from "./ipMessaging/v2/credential.js";
+import { ServiceListInstance } from "./ipMessaging/v2/service.js";
+import { IpMessagingBase } from "./IpMessagingBase.js";
 
-class IpMessaging extends IpMessagingBase {
+export class IpMessaging extends IpMessagingBase {
   /**
    * @deprecated - Use v2.credentials instead
    */
@@ -19,5 +19,3 @@ class IpMessaging extends IpMessagingBase {
     return this.v2.services;
   }
 }
-
-export = IpMessaging;

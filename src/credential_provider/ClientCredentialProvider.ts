@@ -1,10 +1,10 @@
-import CredentialProvider from "./CredentialProvider";
-import TokenManager from "../http/bearer_token/TokenManager";
-import AuthStrategy from "../auth_strategy/AuthStrategy";
-import ApiTokenManager from "../http/bearer_token/ApiTokenManager";
-import TokenAuthStrategy from "../auth_strategy/TokenAuthStrategy";
+import { CredentialProvider } from "./CredentialProvider.js";
+import { TokenManager } from "../http/bearer_token/TokenManager.js";
+import { AuthStrategy } from "../auth_strategy/AuthStrategy.js";
+import { ApiTokenManager } from "../http/bearer_token/ApiTokenManager.js";
+import { TokenAuthStrategy } from "../auth_strategy/TokenAuthStrategy.js";
 
-class ClientCredentialProvider extends CredentialProvider {
+export class ClientCredentialProvider extends CredentialProvider {
   grantType: string;
   clientId: string;
   clientSecret: string;
@@ -30,37 +30,33 @@ class ClientCredentialProvider extends CredentialProvider {
   }
 }
 
-namespace ClientCredentialProvider {
-  export class ClientCredentialProviderBuilder {
-    private readonly instance: ClientCredentialProvider;
+export class ClientCredentialProviderBuilder {
+  private readonly instance: ClientCredentialProvider;
 
-    constructor() {
-      this.instance = new ClientCredentialProvider();
-    }
+  constructor() {
+    this.instance = new ClientCredentialProvider();
+  }
 
-    public setClientId(clientId: string): ClientCredentialProviderBuilder {
-      this.instance.clientId = clientId;
-      return this;
-    }
+  public setClientId(clientId: string): ClientCredentialProviderBuilder {
+    this.instance.clientId = clientId;
+    return this;
+  }
 
-    public setClientSecret(
-      clientSecret: string
-    ): ClientCredentialProviderBuilder {
-      this.instance.clientSecret = clientSecret;
-      return this;
-    }
+  public setClientSecret(
+    clientSecret: string
+  ): ClientCredentialProviderBuilder {
+    this.instance.clientSecret = clientSecret;
+    return this;
+  }
 
-    public setTokenManager(
-      tokenManager: TokenManager
-    ): ClientCredentialProviderBuilder {
-      this.instance.tokenManager = tokenManager;
-      return this;
-    }
+  public setTokenManager(
+    tokenManager: TokenManager
+  ): ClientCredentialProviderBuilder {
+    this.instance.tokenManager = tokenManager;
+    return this;
+  }
 
-    public build(): ClientCredentialProvider {
-      return this.instance;
-    }
+  public build(): ClientCredentialProvider {
+    return this.instance;
   }
 }
-
-export = ClientCredentialProvider;

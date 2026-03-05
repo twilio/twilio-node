@@ -14,16 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { ChannelListInstance } from "./service/channel";
-import { RoleListInstance } from "./service/role";
-import { UserListInstance } from "./service/user";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { ChannelListInstance } from "./service/channel.js";
+import { RoleListInstance } from "./service/role.js";
+import { UserListInstance } from "./service/user.js";
 
 /**
  * Options to pass to update a ServiceInstance

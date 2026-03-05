@@ -1,17 +1,13 @@
-import CredentialProvider from "./CredentialProvider";
-import AuthStrategy from "../auth_strategy/AuthStrategy";
-import NoAuthStrategy from "../auth_strategy/NoAuthStrategy";
+import { CredentialProvider } from "./CredentialProvider.js";
+import { AuthStrategy } from "../auth_strategy/AuthStrategy.js";
+import { NoAuthStrategy } from "../auth_strategy/NoAuthStrategy.js";
 
-namespace NoAuthCredentialProvider {
-  export class NoAuthCredentialProvider extends CredentialProvider {
-    constructor() {
-      super("noauth");
-    }
+export class NoAuthCredentialProvider extends CredentialProvider {
+  constructor() {
+    super("noauth");
+  }
 
-    public toAuthStrategy(): AuthStrategy {
-      return new NoAuthStrategy();
-    }
+  public toAuthStrategy(): AuthStrategy {
+    return new NoAuthStrategy();
   }
 }
-
-export = NoAuthCredentialProvider;

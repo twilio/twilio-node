@@ -12,23 +12,23 @@
  * Do not edit the class manually.
  */
 
-import MessagingBase from "../MessagingBase";
-import Version from "../../base/Version";
-import { BrandRegistrationListInstance } from "./v1/brandRegistration";
-import { DeactivationsListInstance } from "./v1/deactivations";
-import { DomainCertsListInstance } from "./v1/domainCerts";
-import { DomainConfigListInstance } from "./v1/domainConfig";
-import { DomainConfigMessagingServiceListInstance } from "./v1/domainConfigMessagingService";
-import { DomainValidateDnListInstance } from "./v1/domainValidateDn";
-import { ExternalCampaignListInstance } from "./v1/externalCampaign";
-import { LinkshorteningMessagingServiceListInstance } from "./v1/linkshorteningMessagingService";
-import { LinkshorteningMessagingServiceDomainAssociationListInstance } from "./v1/linkshorteningMessagingServiceDomainAssociation";
-import { RequestManagedCertListInstance } from "./v1/requestManagedCert";
-import { ServiceListInstance } from "./v1/service";
-import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification";
-import { UsecaseListInstance } from "./v1/usecase";
+import { MessagingBase } from "../MessagingBase.js";
+import { Version } from "../../base/Version.js";
+import { BrandRegistrationListInstance } from "./v1/brandRegistration.js";
+import { DeactivationsListInstance } from "./v1/deactivations.js";
+import { DomainCertsListInstance } from "./v1/domainCerts.js";
+import { DomainConfigListInstance } from "./v1/domainConfig.js";
+import { DomainConfigMessagingServiceListInstance } from "./v1/domainConfigMessagingService.js";
+import { DomainValidateDnListInstance } from "./v1/domainValidateDn.js";
+import { ExternalCampaignListInstance } from "./v1/externalCampaign.js";
+import { LinkshorteningMessagingServiceListInstance } from "./v1/linkshorteningMessagingService.js";
+import { LinkshorteningMessagingServiceDomainAssociationListInstance } from "./v1/linkshorteningMessagingServiceDomainAssociation.js";
+import { RequestManagedCertListInstance } from "./v1/requestManagedCert.js";
+import { ServiceListInstance } from "./v1/service.js";
+import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification.js";
+import { UsecaseListInstance } from "./v1/usecase.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Messaging
    *

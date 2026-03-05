@@ -13,7 +13,7 @@ interface TwilioServiceErrorResponse {
   errors?: ValidationError[];
 }
 
-export default class TwilioServiceException
+export class TwilioServiceException
   extends Error
   implements TwilioServiceErrorResponse
 {

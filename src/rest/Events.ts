@@ -1,10 +1,10 @@
-import { EventTypeListInstance } from "./events/v1/eventType";
-import { SchemaListInstance } from "./events/v1/schema";
-import { SinkListInstance } from "./events/v1/sink";
-import { SubscriptionListInstance } from "./events/v1/subscription";
-import EventsBase from "./EventsBase";
+import { EventTypeListInstance } from "./events/v1/eventType.js";
+import { SchemaListInstance } from "./events/v1/schema.js";
+import { SinkListInstance } from "./events/v1/sink.js";
+import { SubscriptionListInstance } from "./events/v1/subscription.js";
+import { EventsBase } from "./EventsBase.js";
 
-class Events extends EventsBase {
+export class Events extends EventsBase {
   /**
    * @deprecated - Use v1.eventTypes instead
    */
@@ -37,5 +37,3 @@ class Events extends EventsBase {
     return this.v1.subscriptions;
   }
 }
-
-export = Events;

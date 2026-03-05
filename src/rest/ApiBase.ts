@@ -9,10 +9,10 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V2010 from "./api/V2010";
+import { Domain } from "../base/Domain.js";
+import { V2010 } from "./api/V2010.js";
 
-class ApiBase extends Domain {
+export class ApiBase extends Domain {
   _v2010?: V2010;
 
   /**
@@ -29,5 +29,3 @@ class ApiBase extends Domain {
     return this._v2010;
   }
 }
-
-export = ApiBase;

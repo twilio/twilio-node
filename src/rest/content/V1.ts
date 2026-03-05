@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import ContentBase from "../ContentBase";
-import Version from "../../base/Version";
-import { ContentListInstance } from "./v1/content";
-import { ContentAndApprovalsListInstance } from "./v1/contentAndApprovals";
-import { LegacyContentListInstance } from "./v1/legacyContent";
+import { ContentBase } from "../ContentBase.js";
+import { Version } from "../../base/Version.js";
+import { ContentListInstance } from "./v1/content.js";
+import { ContentAndApprovalsListInstance } from "./v1/contentAndApprovals.js";
+import { LegacyContentListInstance } from "./v1/legacyContent.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Content
    *

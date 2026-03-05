@@ -12,14 +12,14 @@
  * Do not edit the class manually.
  */
 
-import WirelessBase from "../WirelessBase";
-import Version from "../../base/Version";
-import { CommandListInstance } from "./v1/command";
-import { RatePlanListInstance } from "./v1/ratePlan";
-import { SimListInstance } from "./v1/sim";
-import { UsageRecordListInstance } from "./v1/usageRecord";
+import { WirelessBase } from "../WirelessBase.js";
+import { Version } from "../../base/Version.js";
+import { CommandListInstance } from "./v1/command.js";
+import { RatePlanListInstance } from "./v1/ratePlan.js";
+import { SimListInstance } from "./v1/sim.js";
+import { UsageRecordListInstance } from "./v1/usageRecord.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Wireless
    *

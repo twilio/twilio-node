@@ -1,6 +1,6 @@
-const twilio = require("twilio");
-const bodyParser = require("body-parser");
-const MessagingResponse = require("twilio").twiml.MessagingResponse;
+import twilio from "twilio";
+import bodyParser from "body-parser";
+import { MessagingResponse } from "twilio";
 
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 

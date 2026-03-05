@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["es2020"],
-    "module": "commonjs",
+    "target": "es2022",
+    "lib": ["es2022"],
+    "module": "node16",
     "declaration": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "allowJs": true,
     "rootDir": "src",
     "outDir": "lib"
   },
-  "include": ["src"],
+  "include": ["src"]
 }

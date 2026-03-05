@@ -12,16 +12,16 @@
  * Do not edit the class manually.
  */
 
-import VideoBase from "../VideoBase";
-import Version from "../../base/Version";
-import { CompositionListInstance } from "./v1/composition";
-import { CompositionHookListInstance } from "./v1/compositionHook";
-import { CompositionSettingsListInstance } from "./v1/compositionSettings";
-import { RecordingListInstance } from "./v1/recording";
-import { RecordingSettingsListInstance } from "./v1/recordingSettings";
-import { RoomListInstance } from "./v1/room";
+import { VideoBase } from "../VideoBase.js";
+import { Version } from "../../base/Version.js";
+import { CompositionListInstance } from "./v1/composition.js";
+import { CompositionHookListInstance } from "./v1/compositionHook.js";
+import { CompositionSettingsListInstance } from "./v1/compositionSettings.js";
+import { RecordingListInstance } from "./v1/recording.js";
+import { RecordingSettingsListInstance } from "./v1/recordingSettings.js";
+import { RoomListInstance } from "./v1/room.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Video
    *

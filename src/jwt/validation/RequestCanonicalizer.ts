@@ -1,6 +1,6 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
 
-class RequestCanonicalizer {
+export class RequestCanonicalizer {
   method: string;
   uri: string;
   queryParams: Record<string, string>;
@@ -115,4 +115,3 @@ ${this.getCanonicalizedRequestBody()}`;
   }
 }
 
-export default RequestCanonicalizer;

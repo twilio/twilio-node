@@ -1,4 +1,4 @@
-import RestException from "../../../src/base/RestException";
+import { RestException } from '../../../src/base/RestException';
 
 describe("exception gets created from string", function () {
   it("should test serialize without details", function () {

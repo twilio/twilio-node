@@ -1,8 +1,8 @@
-import { FlowListInstance } from "./studio/v2/flow";
-import { FlowValidateListInstance } from "./studio/v2/flowValidate";
-import StudioBase from "./StudioBase";
+import { FlowListInstance } from "./studio/v2/flow.js";
+import { FlowValidateListInstance } from "./studio/v2/flowValidate.js";
+import { StudioBase } from "./StudioBase.js";
 
-class Studio extends StudioBase {
+export class Studio extends StudioBase {
   /**
    * @deprecated - Use v2.flows instead
    */
@@ -19,5 +19,3 @@ class Studio extends StudioBase {
     return this.v2.flowValidate;
   }
 }
-
-export = Studio;

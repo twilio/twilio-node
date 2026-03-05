@@ -1,5 +1,3 @@
-import IntelligenceBase from "./IntelligenceBase";
+import { IntelligenceBase } from "./IntelligenceBase.js";
 
-class Intelligence extends IntelligenceBase {}
-
-export = Intelligence;
+export class Intelligence extends IntelligenceBase {}

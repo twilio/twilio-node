@@ -9,10 +9,10 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V1 from "./serverless/V1";
+import { Domain } from "../base/Domain.js";
+import { V1 } from "./serverless/V1.js";
 
-class ServerlessBase extends Domain {
+export class ServerlessBase extends Domain {
   _v1?: V1;
 
   /**
@@ -29,5 +29,3 @@ class ServerlessBase extends Domain {
     return this._v1;
   }
 }
-
-export = ServerlessBase;

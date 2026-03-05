@@ -1,6 +1,6 @@
-import AuthStrategy from "./AuthStrategy";
+import { AuthStrategy } from "./AuthStrategy.js";
 
-export default class BasicAuthStrategy extends AuthStrategy {
+export class BasicAuthStrategy extends AuthStrategy {
   private username: string;
   private password: string;
 

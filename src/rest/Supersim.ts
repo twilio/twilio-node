@@ -1,15 +1,15 @@
-import { EsimProfileListInstance } from "./supersim/v1/esimProfile";
-import { FleetListInstance } from "./supersim/v1/fleet";
-import { IpCommandListInstance } from "./supersim/v1/ipCommand";
-import { NetworkListInstance } from "./supersim/v1/network";
-import { NetworkAccessProfileListInstance } from "./supersim/v1/networkAccessProfile";
-import { SettingsUpdateListInstance } from "./supersim/v1/settingsUpdate";
-import { SimListInstance } from "./supersim/v1/sim";
-import { SmsCommandListInstance } from "./supersim/v1/smsCommand";
-import { UsageRecordListInstance } from "./supersim/v1/usageRecord";
-import SupersimBase from "./SupersimBase";
+import { EsimProfileListInstance } from "./supersim/v1/esimProfile.js";
+import { FleetListInstance } from "./supersim/v1/fleet.js";
+import { IpCommandListInstance } from "./supersim/v1/ipCommand.js";
+import { NetworkListInstance } from "./supersim/v1/network.js";
+import { NetworkAccessProfileListInstance } from "./supersim/v1/networkAccessProfile.js";
+import { SettingsUpdateListInstance } from "./supersim/v1/settingsUpdate.js";
+import { SimListInstance } from "./supersim/v1/sim.js";
+import { SmsCommandListInstance } from "./supersim/v1/smsCommand.js";
+import { UsageRecordListInstance } from "./supersim/v1/usageRecord.js";
+import { SupersimBase } from "./SupersimBase.js";
 
-class Supersim extends SupersimBase {
+export class Supersim extends SupersimBase {
   /**
    * @deprecated - Use v1.esimProfiles instead
    */
@@ -86,5 +86,3 @@ class Supersim extends SupersimBase {
     return this.v1.usageRecords;
   }
 }
-
-export = Supersim;

@@ -12,20 +12,20 @@
  * Do not edit the class manually.
  */
 
-import TrusthubBase from "../TrusthubBase";
-import Version from "../../base/Version";
-import { ComplianceInquiriesListInstance } from "./v1/complianceInquiries";
-import { ComplianceRegistrationInquiriesListInstance } from "./v1/complianceRegistrationInquiries";
-import { ComplianceTollfreeInquiriesListInstance } from "./v1/complianceTollfreeInquiries";
-import { CustomerProfilesListInstance } from "./v1/customerProfiles";
-import { EndUserListInstance } from "./v1/endUser";
-import { EndUserTypeListInstance } from "./v1/endUserType";
-import { PoliciesListInstance } from "./v1/policies";
-import { SupportingDocumentListInstance } from "./v1/supportingDocument";
-import { SupportingDocumentTypeListInstance } from "./v1/supportingDocumentType";
-import { TrustProductsListInstance } from "./v1/trustProducts";
+import { TrusthubBase } from "../TrusthubBase.js";
+import { Version } from "../../base/Version.js";
+import { ComplianceInquiriesListInstance } from "./v1/complianceInquiries.js";
+import { ComplianceRegistrationInquiriesListInstance } from "./v1/complianceRegistrationInquiries.js";
+import { ComplianceTollfreeInquiriesListInstance } from "./v1/complianceTollfreeInquiries.js";
+import { CustomerProfilesListInstance } from "./v1/customerProfiles.js";
+import { EndUserListInstance } from "./v1/endUser.js";
+import { EndUserTypeListInstance } from "./v1/endUserType.js";
+import { PoliciesListInstance } from "./v1/policies.js";
+import { SupportingDocumentListInstance } from "./v1/supportingDocument.js";
+import { SupportingDocumentTypeListInstance } from "./v1/supportingDocumentType.js";
+import { TrustProductsListInstance } from "./v1/trustProducts.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Trusthub
    *

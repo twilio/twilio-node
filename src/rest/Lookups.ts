@@ -1,7 +1,7 @@
-import { PhoneNumberListInstance } from "./lookups/v1/phoneNumber";
-import LookupsBase from "./LookupsBase";
+import { PhoneNumberListInstance } from "./lookups/v1/phoneNumber.js";
+import { LookupsBase } from "./LookupsBase.js";
 
-class Lookups extends LookupsBase {
+export class Lookups extends LookupsBase {
   /**
    * @deprecated - Use v1.phoneNumbers instead
    */
@@ -10,5 +10,3 @@ class Lookups extends LookupsBase {
     return this.v1.phoneNumbers;
   }
 }
-
-export = Lookups;

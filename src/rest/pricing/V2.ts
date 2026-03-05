@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import PricingBase from "../PricingBase";
-import Version from "../../base/Version";
-import { CountryListInstance } from "./v2/country";
-import { NumberListInstance } from "./v2/number";
-import { VoiceListInstance } from "./v2/voice";
+import { PricingBase } from "../PricingBase.js";
+import { Version } from "../../base/Version.js";
+import { CountryListInstance } from "./v2/country.js";
+import { NumberListInstance } from "./v2/number.js";
+import { VoiceListInstance } from "./v2/voice.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Pricing
    *

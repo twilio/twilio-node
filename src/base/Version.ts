@@ -1,10 +1,10 @@
-import Domain from "./Domain";
-import Page, { TwilioResponsePayload } from "./Page";
-import { RequestOpts } from "./BaseTwilio";
-import RestException from "./RestException";
-import TwilioServiceException from "./TwilioServiceException";
-import { trim } from "./utility";
-import { ApiResponse } from "./ApiResponse";
+import { Domain } from "./Domain.js";
+import { Page, TwilioResponsePayload } from "./Page.js";
+import { RequestOpts } from "./BaseTwilio.js";
+import { RestException } from "./RestException.js";
+import { TwilioServiceException } from "./TwilioServiceException.js";
+import { trim } from "./utility.js";
+import { ApiResponse } from "./ApiResponse.js";
 
 export interface PageLimitOptions {
   /**
@@ -22,7 +22,7 @@ export interface PageLimit {
   pageSize: number;
 }
 
-export default class Version {
+export class Version {
   _domain: Domain;
   _version: Version | string;
 

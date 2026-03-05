@@ -1,5 +1,3 @@
-import KnowledgeBase from "./KnowledgeBase";
+import { KnowledgeBase } from "./KnowledgeBase.js";
 
-class Knowledge extends KnowledgeBase {}
-
-export = Knowledge;
+export class Knowledge extends KnowledgeBase {}

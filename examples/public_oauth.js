@@ -1,10 +1,10 @@
-var Twilio = require("../lib");
+import { Twilio, ClientCredentialProviderBuilder } from "../lib/index.js";
 
 const clientId = process.env.OAUTH_CLIENT_ID;
 const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 
-const clientCredentialProvider = new Twilio.ClientCredentialProviderBuilder()
+const clientCredentialProvider = new ClientCredentialProviderBuilder()
   .setClientId(clientId)
   .setClientSecret(clientSecret)
   .build();

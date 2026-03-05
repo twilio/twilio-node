@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import FlexApiBase from "../FlexApiBase";
-import Version from "../../base/Version";
-import { FlexUserListInstance } from "./v2/flexUser";
-import { WebChannelsListInstance } from "./v2/webChannels";
+import { FlexApiBase } from "../FlexApiBase.js";
+import { Version } from "../../base/Version.js";
+import { FlexUserListInstance } from "./v2/flexUser.js";
+import { WebChannelsListInstance } from "./v2/webChannels.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of FlexApi
    *

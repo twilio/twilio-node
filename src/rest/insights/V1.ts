@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import InsightsBase from "../InsightsBase";
-import Version from "../../base/Version";
-import { CallListInstance } from "./v1/call";
-import { CallSummariesListInstance } from "./v1/callSummaries";
-import { ConferenceListInstance } from "./v1/conference";
-import { RoomListInstance } from "./v1/room";
-import { SettingListInstance } from "./v1/setting";
+import { InsightsBase } from "../InsightsBase.js";
+import { Version } from "../../base/Version.js";
+import { CallListInstance } from "./v1/call.js";
+import { CallSummariesListInstance } from "./v1/callSummaries.js";
+import { ConferenceListInstance } from "./v1/conference.js";
+import { RoomListInstance } from "./v1/room.js";
+import { SettingListInstance } from "./v1/setting.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Insights
    *

@@ -1,5 +1,4 @@
-"use strict";
-var Twilio = require("../lib");
+import { Twilio, ClientCredentialProviderBuilder } from "../lib/index.js";
 
 const clientId = process.env.ORGS_CLIENT_ID;
 const clientSecret = process.env.ORGS_CLIENT_SECRET;

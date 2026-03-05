@@ -9,11 +9,11 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V1 from "./flexApi/V1";
-import V2 from "./flexApi/V2";
+import { Domain } from "../base/Domain.js";
+import { V1 } from "./flexApi/V1.js";
+import { V2 } from "./flexApi/V2.js";
 
-class FlexApiBase extends Domain {
+export class FlexApiBase extends Domain {
   _v1?: V1;
   _v2?: V2;
 
@@ -35,5 +35,3 @@ class FlexApiBase extends Domain {
     return this._v2;
   }
 }
-
-export = FlexApiBase;

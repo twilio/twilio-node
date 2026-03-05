@@ -1,11 +1,11 @@
-import { CallListInstance } from "./insights/v1/call";
-import { CallSummariesListInstance } from "./insights/v1/callSummaries";
-import { ConferenceListInstance } from "./insights/v1/conference";
-import { RoomListInstance } from "./insights/v1/room";
-import { SettingListInstance } from "./insights/v1/setting";
-import InsightsBase from "./InsightsBase";
+import { CallListInstance } from "./insights/v1/call.js";
+import { CallSummariesListInstance } from "./insights/v1/callSummaries.js";
+import { ConferenceListInstance } from "./insights/v1/conference.js";
+import { RoomListInstance } from "./insights/v1/room.js";
+import { SettingListInstance } from "./insights/v1/setting.js";
+import { InsightsBase } from "./InsightsBase.js";
 
-class Insights extends InsightsBase {
+export class Insights extends InsightsBase {
   /**
    * @deprecated - Use v1.settings instead
    */
@@ -46,5 +46,3 @@ class Insights extends InsightsBase {
     return this.v1.rooms;
   }
 }
-
-export = Insights;

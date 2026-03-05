@@ -1,8 +1,8 @@
-import { ExportListInstance } from "./bulkexports/v1/export";
-import { ExportConfigurationListInstance } from "./bulkexports/v1/exportConfiguration";
-import BulkexportsBase from "./BulkexportsBase";
+import { ExportListInstance } from "./bulkexports/v1/export.js";
+import { ExportConfigurationListInstance } from "./bulkexports/v1/exportConfiguration.js";
+import { BulkexportsBase } from "./BulkexportsBase.js";
 
-class Bulkexports extends BulkexportsBase {
+export class Bulkexports extends BulkexportsBase {
   /**
    * @deprecated - Use v1.exports instead
    */
@@ -21,5 +21,3 @@ class Bulkexports extends BulkexportsBase {
     return this.v1.exportConfiguration;
   }
 }
-
-export = Bulkexports;

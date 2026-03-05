@@ -1,11 +1,11 @@
-import { FormListInstance } from "./verify/v2/form";
-import { ServiceListInstance } from "./verify/v2/service";
-import { TemplateListInstance } from "./verify/v2/template";
-import { VerificationAttemptListInstance } from "./verify/v2/verificationAttempt";
-import { VerificationAttemptsSummaryListInstance } from "./verify/v2/verificationAttemptsSummary";
-import VerifyBase from "./VerifyBase";
+import { FormListInstance } from "./verify/v2/form.js";
+import { ServiceListInstance } from "./verify/v2/service.js";
+import { TemplateListInstance } from "./verify/v2/template.js";
+import { VerificationAttemptListInstance } from "./verify/v2/verificationAttempt.js";
+import { VerificationAttemptsSummaryListInstance } from "./verify/v2/verificationAttemptsSummary.js";
+import { VerifyBase } from "./VerifyBase.js";
 
-class Verify extends VerifyBase {
+export class Verify extends VerifyBase {
   /**
    * @deprecated - Use v2.forms instead
    */
@@ -50,5 +50,3 @@ class Verify extends VerifyBase {
     return this.v2.templates;
   }
 }
-
-export = Verify;

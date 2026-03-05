@@ -1,4 +1,4 @@
-import { HttpMethod } from "../interfaces";
+import { HttpMethod } from "../interfaces.js";
 
 export interface RequestOptions<TData> {
   method?: HttpMethod | "*";
@@ -13,7 +13,7 @@ export interface Headers {
   [header: string]: string;
 }
 
-export default class Request<TData> {
+export class Request<TData> {
   method: HttpMethod | "*";
   url: string;
   auth: string;

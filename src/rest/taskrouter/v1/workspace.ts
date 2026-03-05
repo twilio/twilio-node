@@ -14,23 +14,23 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { ActivityListInstance } from "./workspace/activity";
-import { EventListInstance } from "./workspace/event";
-import { TaskListInstance } from "./workspace/task";
-import { TaskChannelListInstance } from "./workspace/taskChannel";
-import { TaskQueueListInstance } from "./workspace/taskQueue";
-import { WorkerListInstance } from "./workspace/worker";
-import { WorkflowListInstance } from "./workspace/workflow";
-import { WorkspaceCumulativeStatisticsListInstance } from "./workspace/workspaceCumulativeStatistics";
-import { WorkspaceRealTimeStatisticsListInstance } from "./workspace/workspaceRealTimeStatistics";
-import { WorkspaceStatisticsListInstance } from "./workspace/workspaceStatistics";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { ActivityListInstance } from "./workspace/activity.js";
+import { EventListInstance } from "./workspace/event.js";
+import { TaskListInstance } from "./workspace/task.js";
+import { TaskChannelListInstance } from "./workspace/taskChannel.js";
+import { TaskQueueListInstance } from "./workspace/taskQueue.js";
+import { WorkerListInstance } from "./workspace/worker.js";
+import { WorkflowListInstance } from "./workspace/workflow.js";
+import { WorkspaceCumulativeStatisticsListInstance } from "./workspace/workspaceCumulativeStatistics.js";
+import { WorkspaceRealTimeStatisticsListInstance } from "./workspace/workspaceRealTimeStatistics.js";
+import { WorkspaceStatisticsListInstance } from "./workspace/workspaceStatistics.js";
 
 /**
  * The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).

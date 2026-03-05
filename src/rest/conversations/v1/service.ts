@@ -14,20 +14,20 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { BindingListInstance } from "./service/binding";
-import { ConfigurationListInstance } from "./service/configuration";
-import { ConversationListInstance } from "./service/conversation";
-import { ConversationWithParticipantsListInstance } from "./service/conversationWithParticipants";
-import { ParticipantConversationListInstance } from "./service/participantConversation";
-import { RoleListInstance } from "./service/role";
-import { UserListInstance } from "./service/user";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { BindingListInstance } from "./service/binding.js";
+import { ConfigurationListInstance } from "./service/configuration.js";
+import { ConversationListInstance } from "./service/conversation.js";
+import { ConversationWithParticipantsListInstance } from "./service/conversationWithParticipants.js";
+import { ParticipantConversationListInstance } from "./service/participantConversation.js";
+import { RoleListInstance } from "./service/role.js";
+import { UserListInstance } from "./service/user.js";
 
 /**
  * Options to pass to create a ServiceInstance

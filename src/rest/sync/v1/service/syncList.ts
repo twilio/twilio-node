@@ -14,15 +14,15 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { SyncListItemListInstance } from "./syncList/syncListItem";
-import { SyncListPermissionListInstance } from "./syncList/syncListPermission";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { SyncListItemListInstance } from "./syncList/syncListItem.js";
+import { SyncListPermissionListInstance } from "./syncList/syncListPermission.js";
 
 /**
  * Options to pass to update a SyncListInstance

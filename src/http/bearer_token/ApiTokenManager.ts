@@ -1,14 +1,14 @@
-import TokenManager from "./TokenManager";
+import { TokenManager } from "./TokenManager.js";
 import {
   TokenListInstance,
   TokenListInstanceCreateOptions,
-} from "../../rest/oauth/v2/token";
-import OauthBase from "../../rest/OauthBase";
-import V2 from "../../rest/oauth/V2";
-import NoAuthCredentialProvider from "../../credential_provider/NoAuthCredentialProvider";
-import { Client } from "../../base/BaseTwilio";
+} from "../../rest/oauth/v2/token.js";
+import { OauthBase } from "../../rest/OauthBase.js";
+import { V2 } from "../../rest/oauth/V2.js";
+import { NoAuthCredentialProvider } from "../../credential_provider/NoAuthCredentialProvider.js";
+import { Client } from "../../base/BaseTwilio.js";
 
-export default class ApiTokenManager implements TokenManager {
+export class ApiTokenManager implements TokenManager {
   private params: TokenListInstanceCreateOptions;
 
   constructor(params: TokenListInstanceCreateOptions) {
@@ -20,8 +20,7 @@ export default class ApiTokenManager implements TokenManager {
   }
 
   async fetchToken(): Promise<string> {
-    const noAuthCredentialProvider =
-      new NoAuthCredentialProvider.NoAuthCredentialProvider();
+    const noAuthCredentialProvider = new NoAuthCredentialProvider();
     const client = new Client();
     client.setCredentialProvider(noAuthCredentialProvider);
 

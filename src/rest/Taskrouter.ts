@@ -1,7 +1,7 @@
-import { WorkspaceListInstance } from "./taskrouter/v1/workspace";
-import TaskrouterBase from "./TaskrouterBase";
+import { WorkspaceListInstance } from "./taskrouter/v1/workspace.js";
+import { TaskrouterBase } from "./TaskrouterBase.js";
 
-class Taskrouter extends TaskrouterBase {
+export class Taskrouter extends TaskrouterBase {
   /**
    * @deprecated - Use v1.workspaces instead
    */
@@ -10,5 +10,3 @@ class Taskrouter extends TaskrouterBase {
     return this.v1.workspaces;
   }
 }
-
-export = Taskrouter;

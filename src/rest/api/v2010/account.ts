@@ -14,37 +14,37 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V2010 from "../V2010";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { AddressListInstance } from "./account/address";
-import { ApplicationListInstance } from "./account/application";
-import { AuthorizedConnectAppListInstance } from "./account/authorizedConnectApp";
-import { AvailablePhoneNumberCountryListInstance } from "./account/availablePhoneNumberCountry";
-import { BalanceListInstance } from "./account/balance";
-import { CallListInstance } from "./account/call";
-import { ConferenceListInstance } from "./account/conference";
-import { ConnectAppListInstance } from "./account/connectApp";
-import { IncomingPhoneNumberListInstance } from "./account/incomingPhoneNumber";
-import { KeyListInstance } from "./account/key";
-import { MessageListInstance } from "./account/message";
-import { NewKeyListInstance } from "./account/newKey";
-import { NewSigningKeyListInstance } from "./account/newSigningKey";
-import { NotificationListInstance } from "./account/notification";
-import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId";
-import { QueueListInstance } from "./account/queue";
-import { RecordingListInstance } from "./account/recording";
-import { ShortCodeListInstance } from "./account/shortCode";
-import { SigningKeyListInstance } from "./account/signingKey";
-import { SipListInstance } from "./account/sip";
-import { TokenListInstance } from "./account/token";
-import { TranscriptionListInstance } from "./account/transcription";
-import { UsageListInstance } from "./account/usage";
-import { ValidationRequestListInstance } from "./account/validationRequest";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V2010 } from "../V2010.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { AddressListInstance } from "./account/address.js";
+import { ApplicationListInstance } from "./account/application.js";
+import { AuthorizedConnectAppListInstance } from "./account/authorizedConnectApp.js";
+import { AvailablePhoneNumberCountryListInstance } from "./account/availablePhoneNumberCountry.js";
+import { BalanceListInstance } from "./account/balance.js";
+import { CallListInstance } from "./account/call.js";
+import { ConferenceListInstance } from "./account/conference.js";
+import { ConnectAppListInstance } from "./account/connectApp.js";
+import { IncomingPhoneNumberListInstance } from "./account/incomingPhoneNumber.js";
+import { KeyListInstance } from "./account/key.js";
+import { MessageListInstance } from "./account/message.js";
+import { NewKeyListInstance } from "./account/newKey.js";
+import { NewSigningKeyListInstance } from "./account/newSigningKey.js";
+import { NotificationListInstance } from "./account/notification.js";
+import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId.js";
+import { QueueListInstance } from "./account/queue.js";
+import { RecordingListInstance } from "./account/recording.js";
+import { ShortCodeListInstance } from "./account/shortCode.js";
+import { SigningKeyListInstance } from "./account/signingKey.js";
+import { SipListInstance } from "./account/sip.js";
+import { TokenListInstance } from "./account/token.js";
+import { TranscriptionListInstance } from "./account/transcription.js";
+import { UsageListInstance } from "./account/usage.js";
+import { ValidationRequestListInstance } from "./account/validationRequest.js";
 
 /**
  * The status of this account. Usually `active`, but can be `suspended` or `closed`.

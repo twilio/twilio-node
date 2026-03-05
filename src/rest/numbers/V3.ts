@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import NumbersBase from "../NumbersBase";
-import Version from "../../base/Version";
-import { HostedNumberOrderListInstance } from "./v3/hostedNumberOrder";
+import { NumbersBase } from "../NumbersBase.js";
+import { Version } from "../../base/Version.js";
+import { HostedNumberOrderListInstance } from "./v3/hostedNumberOrder.js";
 
-export default class V3 extends Version {
+export class V3 extends Version {
   /**
    * Initialize the V3 version of Numbers
    *

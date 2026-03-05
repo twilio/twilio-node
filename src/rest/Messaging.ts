@@ -1,13 +1,13 @@
-import { BrandRegistrationListInstance } from "./messaging/v1/brandRegistration";
-import { DeactivationsListInstance } from "./messaging/v1/deactivations";
-import { ExternalCampaignListInstance } from "./messaging/v1/externalCampaign";
-import { ServiceListInstance } from "./messaging/v1/service";
-import { UsecaseListInstance } from "./messaging/v1/usecase";
-import { DomainCertsListInstance } from "./messaging/v1/domainCerts";
-import { DomainConfigListInstance } from "./messaging/v1/domainConfig";
-import MessagingBase from "./MessagingBase";
+import { BrandRegistrationListInstance } from "./messaging/v1/brandRegistration.js";
+import { DeactivationsListInstance } from "./messaging/v1/deactivations.js";
+import { ExternalCampaignListInstance } from "./messaging/v1/externalCampaign.js";
+import { ServiceListInstance } from "./messaging/v1/service.js";
+import { UsecaseListInstance } from "./messaging/v1/usecase.js";
+import { DomainCertsListInstance } from "./messaging/v1/domainCerts.js";
+import { DomainConfigListInstance } from "./messaging/v1/domainConfig.js";
+import { MessagingBase } from "./MessagingBase.js";
 
-class Messaging extends MessagingBase {
+export class Messaging extends MessagingBase {
   /**
    * @deprecated - Use v1.brandRegistrations instead
    */
@@ -68,5 +68,3 @@ class Messaging extends MessagingBase {
     return this.v1.usecases;
   }
 }
-
-export = Messaging;

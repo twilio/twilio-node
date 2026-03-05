@@ -1,13 +1,13 @@
-import { CustomerProfilesListInstance } from "./trusthub/v1/customerProfiles";
-import { EndUserListInstance } from "./trusthub/v1/endUser";
-import { EndUserTypeListInstance } from "./trusthub/v1/endUserType";
-import { PoliciesListInstance } from "./trusthub/v1/policies";
-import { SupportingDocumentListInstance } from "./trusthub/v1/supportingDocument";
-import { SupportingDocumentTypeListInstance } from "./trusthub/v1/supportingDocumentType";
-import { TrustProductsListInstance } from "./trusthub/v1/trustProducts";
-import TrusthubBase from "./TrusthubBase";
+import { CustomerProfilesListInstance } from "./trusthub/v1/customerProfiles.js";
+import { EndUserListInstance } from "./trusthub/v1/endUser.js";
+import { EndUserTypeListInstance } from "./trusthub/v1/endUserType.js";
+import { PoliciesListInstance } from "./trusthub/v1/policies.js";
+import { SupportingDocumentListInstance } from "./trusthub/v1/supportingDocument.js";
+import { SupportingDocumentTypeListInstance } from "./trusthub/v1/supportingDocumentType.js";
+import { TrustProductsListInstance } from "./trusthub/v1/trustProducts.js";
+import { TrusthubBase } from "./TrusthubBase.js";
 
-class Trusthub extends TrusthubBase {
+export class Trusthub extends TrusthubBase {
   /**
    * @deprecated - Use v1.customerProfiles instead
    */
@@ -70,5 +70,3 @@ class Trusthub extends TrusthubBase {
     return this.v1.trustProducts;
   }
 }
-
-export = Trusthub;

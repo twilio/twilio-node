@@ -1,5 +1,6 @@
 import { FlowInstance } from "twilio/lib/rest/studio/v2/flow";
-jest.setTimeout(15000);
+import { vi } from "vitest";
+vi.setConfig({ testTimeout: 15000 });
 
 const twilio = require("twilio");
 const localtunnel = require("localtunnel");

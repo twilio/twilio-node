@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import TrunkingBase from "../TrunkingBase";
-import Version from "../../base/Version";
-import { TrunkListInstance } from "./v1/trunk";
+import { TrunkingBase } from "../TrunkingBase.js";
+import { Version } from "../../base/Version.js";
+import { TrunkListInstance } from "./v1/trunk.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Trunking
    *

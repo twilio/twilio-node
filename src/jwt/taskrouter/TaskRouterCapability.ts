@@ -71,7 +71,7 @@ export class Policy {
   }
 }
 
-export default class TaskRouterCapability {
+export class TaskRouterCapability {
   accountSid: string;
   authToken: string;
   workspaceSid: string;

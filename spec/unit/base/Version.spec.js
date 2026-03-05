@@ -1,10 +1,11 @@
-import Version from "../../../src/base/Version";
+import { vi } from "vitest";
+import { Version } from '../../../src/base/Version';
 import Holodeck from "../../integration/holodeck";
-import Response from "../../../src/http/response";
-import Twilio from "../../../src";
+import { Response } from '../../../src/http/response';
+import { Twilio } from "../../../src/rest/Twilio";
 
 describe("fetch method", function () {
-  it("should not throw an exception on 3xx status code", function (done) {
+  it("should not throw an exception on 3xx status code", function () {
     const body = { test: true };
     const version = new Version(
       {
@@ -13,14 +14,14 @@ describe("fetch method", function () {
       {}
     );
 
-    version.fetch({}).then((response) => {
+    return version.fetch({}).then((response) => {
       expect(response).toBeDefined();
       expect(response).toEqual(body);
-      done();
+
     });
   });
 
-  it("should throw an exception if status code >= 400", function (done) {
+  it("should throw an exception if status code >= 400", function () {
     const body = { message: "invalid body" };
     const version = new Version(
       {
@@ -29,17 +30,17 @@ describe("fetch method", function () {
       null
     );
 
-    version.fetch({}).catch((error) => {
+    return version.fetch({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(400);
       expect(error.message).toEqual(body.message);
-      done();
+
     });
   });
 });
 
 describe("patch method", function () {
-  it("should parse JSON string response body for patch", function (done) {
+  it("should parse JSON string response body for patch", function () {
     const body = { test: true, patched: true };
     const version = new Version(
       {
@@ -49,14 +50,14 @@ describe("patch method", function () {
       {}
     );
 
-    version.patch({}).then((response) => {
+    return version.patch({}).then((response) => {
       expect(response).toBeDefined();
       expect(response).toEqual(body);
-      done();
+
     });
   });
 
-  it("should throw an exception if status code >= 300", function (done) {
+  it("should throw an exception if status code >= 300", function () {
     const body = { message: "invalid body" };
     const version = new Version(
       {
@@ -65,11 +66,11 @@ describe("patch method", function () {
       null
     );
 
-    version.patch({}).catch((error) => {
+    return version.patch({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(400);
       expect(error.message).toEqual(body.message);
-      done();
+
     });
   });
 });
@@ -97,30 +98,30 @@ describe("streaming results", function () {
     });
   });
 
-  it("streams all results", function (done) {
+  it("streams all results", function () {
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
-    client.api.v2010
+    return client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.list()
       .then((messages) => {
         expect(messages.length).toEqual(5);
       });
-    done();
+
   });
 
-  it("limits results", function (done) {
+  it("limits results", function () {
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
-    client.api.v2010
+    return client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.list({ limit: 3 })
       .then((messages) => {
         expect(messages.length).toEqual(3);
       });
-    done();
+
   });
 });
 
@@ -152,7 +153,7 @@ describe("done should only be called once in each", () => {
   it("done is explicitly called", async () => {
     holodeck.mock(new Response(200, body));
     holodeck.mock(new Response(200, body));
-    const mockDone = jest.fn(console.debug.bind(null, "done!"));
+    const mockDone = vi.fn(console.debug.bind(null, "done!"));
     client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .incomingPhoneNumbers.each({
@@ -172,7 +173,7 @@ describe("done should only be called once in each", () => {
   it("done is not explicitly called", async () => {
     holodeck.mock(new Response(200, body));
     holodeck.mock(new Response(200, body));
-    const mockDone = jest.fn(console.debug.bind(null, "done!"));
+    const mockDone = vi.fn(console.debug.bind(null, "done!"));
     client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .incomingPhoneNumbers.each({
@@ -213,8 +214,8 @@ describe("each method", function () {
     });
   });
 
-  it("should call user callback foreach resource instance", function (done) {
-    let mockCallback = jest.fn();
+  it("should call user callback foreach resource instance", function () {
+    let mockCallback = vi.fn();
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
@@ -229,14 +230,14 @@ describe("each method", function () {
           expect(mockCallback.mock.calls[2][0].body).toBe("payload2");
           expect(mockCallback.mock.calls[3][0].body).toBe("payload3");
           expect(mockCallback.mock.calls[4][0].body).toBe("payload4");
-          done();
+
         },
         callback: mockCallback,
       });
   });
 
-  it("should call user callback with a done function argument", function (done) {
-    let mockCallback = jest.fn();
+  it("should call user callback with a done function argument", function () {
+    let mockCallback = vi.fn();
     holodeck.mock(new Response(200, bodyOne));
 
     client.api.v2010
@@ -246,15 +247,15 @@ describe("each method", function () {
         done: () => {
           expect(mockCallback).toHaveBeenCalledTimes(1);
           expect(mockCallback.mock.calls[0][1]).toBeInstanceOf(Function);
-          done();
+
         },
         callback: mockCallback,
       });
   });
 
-  it("should call user done with an error if user callback throws an error", function (done) {
+  it("should call user done with an error if user callback throws an error", function () {
     let mockError = new Error("An error occurred.");
-    let mockCallback = jest.fn(() => {
+    let mockCallback = vi.fn(() => {
       throw mockError;
     });
     holodeck.mock(new Response(200, bodyOne));
@@ -268,39 +269,39 @@ describe("each method", function () {
         done: (error) => {
           expect(mockCallback).toHaveBeenCalledTimes(1);
           expect(error).toBe(mockError);
-          done();
+
         },
         callback: mockCallback,
       });
   });
 
-  it("should resolve promise after looping through each resource instance", function (done) {
-    let mockCallback = jest.fn();
+  it("should resolve promise after looping through each resource instance", function () {
+    let mockCallback = vi.fn();
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
 
-    client.api.v2010
+    return client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
         callback: mockCallback,
       })
       .then(() => {
         expect(mockCallback).toHaveBeenCalledTimes(5);
-        done();
+
       });
   });
 
-  it("should resolve promise if an error occurs and user done function executes successfully", function (done) {
-    let mockCallback = jest.fn(() => {
+  it("should resolve promise if an error occurs and user done function executes successfully", function () {
+    let mockCallback = vi.fn(() => {
       throw new Error("An error occurred.");
     });
-    let mockDone = jest.fn();
+    let mockDone = vi.fn();
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
 
-    client.api.v2010
+    return client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
         limit: 3,
@@ -309,13 +310,13 @@ describe("each method", function () {
       })
       .then(() => {
         expect(mockDone).toHaveBeenCalledTimes(1);
-        done();
+
       });
   });
 
-  it("should reject promise with error if an error occurs and user done function is not provided", function (done) {
+  it("should reject promise with error if an error occurs and user done function is not provided", function () {
     let mockError = new Error("An error occurred.");
-    let mockCallback = jest.fn(() => {
+    let mockCallback = vi.fn(() => {
       throw mockError;
     });
     holodeck.mock(new Response(200, bodyOne));
@@ -331,16 +332,16 @@ describe("each method", function () {
       .catch((e) => {
         expect(mockCallback).toHaveBeenCalledTimes(1);
         expect(e).toBe(mockError);
-        done();
+
       });
   });
 
-  it("should reject promise with error if an error occurs in user done function", function (done) {
-    let mockCallback = jest.fn(() => {
+  it("should reject promise with error if an error occurs in user done function", function () {
+    let mockCallback = vi.fn(() => {
       throw new Error("An error occurred in callback fn.");
     });
     let mockError = new Error("An error occurred in done fn.");
-    let mockDone = jest.fn((error) => {
+    let mockDone = vi.fn((error) => {
       throw mockError;
     });
     holodeck.mock(new Response(200, bodyOne));
@@ -357,20 +358,20 @@ describe("each method", function () {
       .catch((e) => {
         expect(mockDone).toHaveBeenCalledTimes(1);
         expect(e).toBe(mockError);
-        done();
+
       });
   });
 
-  it("should short-circuit foreach loop if user callback done argument is called", function (done) {
-    let mockCallback = jest.fn((instance, done) => {
+  it("should short-circuit foreach loop if user callback done argument is called", function () {
+    let mockCallback = vi.fn((instance, done) => {
       done();
     });
-    let mockDone = jest.fn();
+    let mockDone = vi.fn();
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
 
-    client.api.v2010
+    return client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
         limit: 3,
@@ -380,14 +381,14 @@ describe("each method", function () {
       .then(() => {
         expect(mockCallback).toHaveBeenCalledTimes(1);
         expect(mockDone).toHaveBeenCalledTimes(1);
-        done();
+
       });
   });
 
-  it("should short-circuit foreach loop and pass an error if user callback done argument is called with an error", function (done) {
+  it("should short-circuit foreach loop and pass an error if user callback done argument is called with an error", function () {
     let mockError = new Error("An error occurred.");
-    let mockCallback = jest.fn((instance, done) => {
-      done(mockError);
+    let mockCallback = vi.fn((instance, done) => {
+      throw mockError;
     });
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
@@ -401,7 +402,7 @@ describe("each method", function () {
         done: (error) => {
           expect(mockCallback).toHaveBeenCalledTimes(1);
           expect(error).toBe(mockError);
-          done();
+
         },
       });
   });
@@ -414,7 +415,7 @@ describe("remove method", function () {
   const successStatusCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226];
 
   successStatusCodes.forEach((statusCode) => {
-    it(`should return true for ${statusCode} status code`, function (done) {
+    it(`should return true for ${statusCode} status code`, function () {
       const version = new Version(
         {
           request: () => Promise.resolve({ statusCode, body }),
@@ -425,12 +426,12 @@ describe("remove method", function () {
       version.remove({}).then((response) => {
         expect(response).toBeDefined();
         expect(response).toBe(true);
-        done();
+
       });
     });
   });
 
-  it("should throw an exception for status code < 200", function (done) {
+  it("should throw an exception for status code < 200", function () {
     const errorBody = { message: "Invalid request" };
     const version = new Version(
       {
@@ -439,15 +440,15 @@ describe("remove method", function () {
       null
     );
 
-    version.remove({}).catch((error) => {
+    return version.remove({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(199);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should throw an exception for status code >= 300", function (done) {
+  it("should throw an exception for status code >= 300", function () {
     const errorBody = { message: "Resource not found" };
     const version = new Version(
       {
@@ -456,15 +457,15 @@ describe("remove method", function () {
       null
     );
 
-    version.remove({}).catch((error) => {
+    return version.remove({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(404);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should throw an exception for 5xx status code", function (done) {
+  it("should throw an exception for 5xx status code", function () {
     const errorBody = { message: "Internal server error" };
     const version = new Version(
       {
@@ -473,17 +474,17 @@ describe("remove method", function () {
       null
     );
 
-    version.remove({}).catch((error) => {
+    return version.remove({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(500);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 });
 
 describe("createWithResponseInfo method", function () {
-  it("should return ApiResponse with body, statusCode, and headers on success", function (done) {
+  it("should return ApiResponse with body, statusCode, and headers on success", function () {
     const body = { id: "12345", name: "test resource" };
     const headers = { "x-request-id": "abc123", "x-ratelimit-remaining": "99" };
     const version = new Version(
@@ -493,16 +494,16 @@ describe("createWithResponseInfo method", function () {
       {}
     );
 
-    version.createWithResponseInfo({}).then((response) => {
+    return version.createWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(201);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should parse JSON string response body", function (done) {
+  it("should parse JSON string response body", function () {
     const body = { id: "12345", name: "test resource" };
     const headers = { "x-request-id": "abc123" };
     const version = new Version(
@@ -517,15 +518,15 @@ describe("createWithResponseInfo method", function () {
       {}
     );
 
-    version.createWithResponseInfo({}).then((response) => {
+    return version.createWithResponseInfo({}).then((response) => {
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(201);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should throw exception for non-2xx status codes", function (done) {
+  it("should throw exception for non-2xx status codes", function () {
     const errorBody = { message: "Bad request" };
     const version = new Version(
       {
@@ -534,15 +535,15 @@ describe("createWithResponseInfo method", function () {
       null
     );
 
-    version.createWithResponseInfo({}).catch((error) => {
+    return version.createWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(400);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should handle empty headers", function (done) {
+  it("should handle empty headers", function () {
     const body = { id: "12345", name: "test resource" };
     const version = new Version(
       {
@@ -551,16 +552,16 @@ describe("createWithResponseInfo method", function () {
       {}
     );
 
-    version.createWithResponseInfo({}).then((response) => {
+    return version.createWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(201);
       expect(response.headers).toEqual({});
-      done();
+
     });
   });
 
-  it("should handle undefined headers", function (done) {
+  it("should handle undefined headers", function () {
     const body = { id: "12345", name: "test resource" };
     const version = new Version(
       {
@@ -569,18 +570,18 @@ describe("createWithResponseInfo method", function () {
       {}
     );
 
-    version.createWithResponseInfo({}).then((response) => {
+    return version.createWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(201);
       expect(response.headers).toBeUndefined();
-      done();
+
     });
   });
 });
 
 describe("fetchWithResponseInfo method", function () {
-  it("should return ApiResponse with body, statusCode, and headers", function (done) {
+  it("should return ApiResponse with body, statusCode, and headers", function () {
     const body = { id: "12345", status: "active" };
     const headers = { "x-request-id": "xyz789", "x-ratelimit-limit": "1000" };
     const version = new Version(
@@ -590,16 +591,16 @@ describe("fetchWithResponseInfo method", function () {
       {}
     );
 
-    version.fetchWithResponseInfo({}).then((response) => {
+    return version.fetchWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should handle 3xx status codes successfully", function (done) {
+  it("should handle 3xx status codes successfully", function () {
     const body = { id: "12345", redirected: true };
     const headers = { location: "https://api.twilio.com/new-location" };
     const version = new Version(
@@ -609,15 +610,15 @@ describe("fetchWithResponseInfo method", function () {
       {}
     );
 
-    version.fetchWithResponseInfo({}).then((response) => {
+    return version.fetchWithResponseInfo({}).then((response) => {
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(307);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should throw exception for status code >= 400", function (done) {
+  it("should throw exception for status code >= 400", function () {
     const errorBody = { message: "Not found" };
     const version = new Version(
       {
@@ -626,15 +627,15 @@ describe("fetchWithResponseInfo method", function () {
       null
     );
 
-    version.fetchWithResponseInfo({}).catch((error) => {
+    return version.fetchWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(404);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should handle empty headers", function (done) {
+  it("should handle empty headers", function () {
     const body = { id: "12345", status: "active" };
     const version = new Version(
       {
@@ -643,18 +644,18 @@ describe("fetchWithResponseInfo method", function () {
       {}
     );
 
-    version.fetchWithResponseInfo({}).then((response) => {
+    return version.fetchWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual({});
-      done();
+
     });
   });
 });
 
 describe("updateWithResponseInfo method", function () {
-  it("should return ApiResponse with updated resource", function (done) {
+  it("should return ApiResponse with updated resource", function () {
     const body = { id: "12345", name: "updated resource" };
     const headers = { "x-request-id": "update123" };
     const version = new Version(
@@ -664,16 +665,16 @@ describe("updateWithResponseInfo method", function () {
       {}
     );
 
-    version.updateWithResponseInfo({}).then((response) => {
+    return version.updateWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should parse JSON string response body", function (done) {
+  it("should parse JSON string response body", function () {
     const body = { id: "12345", updated: true };
     const headers = { "content-type": "application/json" };
     const version = new Version(
@@ -688,14 +689,14 @@ describe("updateWithResponseInfo method", function () {
       {}
     );
 
-    version.updateWithResponseInfo({}).then((response) => {
+    return version.updateWithResponseInfo({}).then((response) => {
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
-      done();
+
     });
   });
 
-  it("should throw exception for non-2xx status codes", function (done) {
+  it("should throw exception for non-2xx status codes", function () {
     const errorBody = { message: "Forbidden" };
     const version = new Version(
       {
@@ -704,15 +705,15 @@ describe("updateWithResponseInfo method", function () {
       null
     );
 
-    version.updateWithResponseInfo({}).catch((error) => {
+    return version.updateWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(403);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should handle empty headers", function (done) {
+  it("should handle empty headers", function () {
     const body = { id: "12345", updated: true };
     const version = new Version(
       {
@@ -721,18 +722,18 @@ describe("updateWithResponseInfo method", function () {
       {}
     );
 
-    version.updateWithResponseInfo({}).then((response) => {
+    return version.updateWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual({});
-      done();
+
     });
   });
 });
 
 describe("patchWithResponseInfo method", function () {
-  it("should return ApiResponse with patched resource", function (done) {
+  it("should return ApiResponse with patched resource", function () {
     const body = { id: "12345", patched: true };
     const headers = { "x-request-id": "patch123" };
     const version = new Version(
@@ -742,16 +743,16 @@ describe("patchWithResponseInfo method", function () {
       {}
     );
 
-    version.patchWithResponseInfo({}).then((response) => {
+    return version.patchWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should parse JSON string response body", function (done) {
+  it("should parse JSON string response body", function () {
     const body = { id: "12345", field: "new value" };
     const headers = { "x-request-id": "patch456" };
     const version = new Version(
@@ -766,15 +767,15 @@ describe("patchWithResponseInfo method", function () {
       {}
     );
 
-    version.patchWithResponseInfo({}).then((response) => {
+    return version.patchWithResponseInfo({}).then((response) => {
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
-  it("should throw exception for non-2xx status codes", function (done) {
+  it("should throw exception for non-2xx status codes", function () {
     const errorBody = { message: "Unprocessable Entity" };
     const version = new Version(
       {
@@ -783,15 +784,15 @@ describe("patchWithResponseInfo method", function () {
       null
     );
 
-    version.patchWithResponseInfo({}).catch((error) => {
+    return version.patchWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(422);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should handle empty headers", function (done) {
+  it("should handle empty headers", function () {
     const body = { id: "12345", patched: true };
     const version = new Version(
       {
@@ -800,18 +801,18 @@ describe("patchWithResponseInfo method", function () {
       {}
     );
 
-    version.patchWithResponseInfo({}).then((response) => {
+    return version.patchWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toEqual(body);
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual({});
-      done();
+
     });
   });
 });
 
 describe("removeWithResponseInfo method", function () {
-  it("should return ApiResponse with true body for successful deletion", function (done) {
+  it("should return ApiResponse with true body for successful deletion", function () {
     const headers = { "x-request-id": "delete123" };
     const version = new Version(
       {
@@ -820,12 +821,12 @@ describe("removeWithResponseInfo method", function () {
       {}
     );
 
-    version.removeWithResponseInfo({}).then((response) => {
+    return version.removeWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toBe(true);
       expect(response.statusCode).toEqual(204);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 
@@ -833,7 +834,7 @@ describe("removeWithResponseInfo method", function () {
   const successStatusCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226];
 
   successStatusCodes.forEach((statusCode) => {
-    it(`should return ApiResponse with true body for ${statusCode} status code`, function (done) {
+    it(`should return ApiResponse with true body for ${statusCode} status code`, function () {
       const headers = { "x-request-id": `delete-${statusCode}` };
       const version = new Version(
         {
@@ -846,12 +847,12 @@ describe("removeWithResponseInfo method", function () {
         expect(response.body).toBe(true);
         expect(response.statusCode).toEqual(statusCode);
         expect(response.headers).toEqual(headers);
-        done();
+
       });
     });
   });
 
-  it("should throw exception for status code >= 300", function (done) {
+  it("should throw exception for status code >= 300", function () {
     const errorBody = { message: "Resource not found" };
     const version = new Version(
       {
@@ -860,15 +861,15 @@ describe("removeWithResponseInfo method", function () {
       null
     );
 
-    version.removeWithResponseInfo({}).catch((error) => {
+    return version.removeWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(404);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should throw exception for 5xx status codes", function (done) {
+  it("should throw exception for 5xx status codes", function () {
     const errorBody = { message: "Internal server error" };
     const version = new Version(
       {
@@ -877,15 +878,15 @@ describe("removeWithResponseInfo method", function () {
       null
     );
 
-    version.removeWithResponseInfo({}).catch((error) => {
+    return version.removeWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(500);
       expect(error.message).toEqual(errorBody.message);
-      done();
+
     });
   });
 
-  it("should handle empty headers", function (done) {
+  it("should handle empty headers", function () {
     const version = new Version(
       {
         request: () =>
@@ -894,12 +895,12 @@ describe("removeWithResponseInfo method", function () {
       {}
     );
 
-    version.removeWithResponseInfo({}).then((response) => {
+    return version.removeWithResponseInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.body).toBe(true);
       expect(response.statusCode).toEqual(204);
       expect(response.headers).toEqual({});
-      done();
+
     });
   });
 });
@@ -930,8 +931,8 @@ describe("eachWithHttpInfo method", function () {
     nextPage: null,
   };
 
-  it("should call user callback for each resource instance with HTTP metadata", function (done) {
-    let mockCallback = jest.fn();
+  it("should call user callback for each resource instance with HTTP metadata", function () {
+    let mockCallback = vi.fn();
     const headers = { "x-request-id": "abc123", "x-ratelimit-remaining": "99" };
     const version = new Version(
       {
@@ -953,7 +954,7 @@ describe("eachWithHttpInfo method", function () {
           expect(metadata).toBeDefined();
           expect(metadata.statusCode).toEqual(200);
           expect(metadata.headers).toEqual(headers);
-          done();
+
         },
         callback: mockCallback,
       })
@@ -963,7 +964,7 @@ describe("eachWithHttpInfo method", function () {
       });
   });
 
-  it("should capture first page metadata", function (done) {
+  it("should capture first page metadata", function () {
     const headers = { "x-request-id": "first-page" };
     const version = new Version(
       {
@@ -977,16 +978,16 @@ describe("eachWithHttpInfo method", function () {
       {}
     );
 
-    version.eachWithHttpInfo({ callback: jest.fn() }).then((response) => {
+    return version.eachWithHttpInfo({ callback: vi.fn() }).then((response) => {
       expect(response).toBeDefined();
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
       expect(response.body).toBeUndefined();
-      done();
+
     });
   });
 
-  it("should handle string body by parsing JSON", function (done) {
+  it("should handle string body by parsing JSON", function () {
     const stringBody = JSON.stringify({
       instances: [{ id: "1" }],
       nextPage: null,
@@ -1012,11 +1013,11 @@ describe("eachWithHttpInfo method", function () {
       })
       .then((response) => {
         expect(response.statusCode).toEqual(200);
-        done();
+
       });
   });
 
-  it("should reject with error when page method returns undefined on first page", function (done) {
+  it("should reject with error when page method returns undefined on first page", function () {
     const version = new Version(
       {
         request: () => undefined,
@@ -1024,14 +1025,14 @@ describe("eachWithHttpInfo method", function () {
       {}
     );
 
-    version.eachWithHttpInfo({ callback: jest.fn() }).catch((error) => {
+    return version.eachWithHttpInfo({ callback: vi.fn() }).catch((error) => {
       expect(error).toBeDefined();
       expect(error.message).toContain("did not return a Promise");
-      done();
+
     });
   });
 
-  it("should handle response without statusCode (direct Page object)", function (done) {
+  it("should handle response without statusCode (direct Page object)", function () {
     const directPageBody = {
       instances: [{ id: "test1" }],
       nextPage: null,
@@ -1043,16 +1044,16 @@ describe("eachWithHttpInfo method", function () {
       {}
     );
 
-    version.eachWithHttpInfo({ callback: jest.fn() }).then((response) => {
+    return version.eachWithHttpInfo({ callback: vi.fn() }).then((response) => {
       expect(response.statusCode).toEqual(200); // Default when no metadata
       expect(response.headers).toEqual({});
-      done();
+
     });
   });
 
-  it("should call user done with error if callback throws", function (done) {
+  it("should call user done with error if callback throws", function () {
     const mockError = new Error("Callback error");
-    const mockCallback = jest.fn(() => {
+    const mockCallback = vi.fn(() => {
       throw mockError;
     });
     const version = new Version(
@@ -1072,15 +1073,15 @@ describe("eachWithHttpInfo method", function () {
         callback: mockCallback,
         done: (error) => {
           expect(error).toBe(mockError);
-          done();
+
         },
       })
       .catch(() => {});
   });
 
-  it("should short-circuit when done is called with error", function (done) {
+  it("should short-circuit when done is called with error", function () {
     const mockError = new Error("User stopped iteration");
-    const mockCallback = jest.fn((instance, doneCallback) => {
+    const mockCallback = vi.fn((instance, doneCallback) => {
       doneCallback(mockError);
     });
     const version = new Version(
@@ -1101,14 +1102,14 @@ describe("eachWithHttpInfo method", function () {
         done: (error) => {
           expect(error).toBe(mockError);
           expect(mockCallback).toHaveBeenCalledTimes(1);
-          done();
+
         },
       })
       .catch(() => {});
   });
 
-  it("should respect limit parameter", function (done) {
-    const mockCallback = jest.fn();
+  it("should respect limit parameter", function () {
+    const mockCallback = vi.fn();
     const version = new Version(
       {
         request: () =>
@@ -1130,21 +1131,21 @@ describe("eachWithHttpInfo method", function () {
       })
       .then(() => {
         expect(mockCallback).toHaveBeenCalledTimes(2);
-        done();
+
       });
   });
 
   it("should throw error if callback is not provided", function () {
-    const version = new Version({ request: jest.fn() }, {});
+    const version = new Version({ request: vi.fn() }, {});
 
     expect(() => {
       version.eachWithHttpInfo({});
     }).toThrow("Callback function must be provided");
   });
 
-  it("should handle pageWithHttpInfo method if available", function (done) {
+  it("should handle pageWithHttpInfo method if available", function () {
     const headers = { "x-request-id": "page-http-info" };
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
 
     const version = new Version(
       {
@@ -1167,10 +1168,10 @@ describe("eachWithHttpInfo method", function () {
       });
     };
 
-    version.eachWithHttpInfo({ callback: mockCallback }).then((response) => {
+    return version.eachWithHttpInfo({ callback: mockCallback }).then((response) => {
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
-      done();
+
     });
   });
 });
@@ -1191,7 +1192,7 @@ describe("listWithHttpInfo method", function () {
     nextPage: null,
   };
 
-  it("should return ApiResponse with array of all resources and first page metadata", function (done) {
+  it("should return ApiResponse with array of all resources and first page metadata", function () {
     const headers = { "x-request-id": "list123", "x-ratelimit-limit": "1000" };
     const version = new Version(
       {
@@ -1205,7 +1206,7 @@ describe("listWithHttpInfo method", function () {
       {}
     );
 
-    version.listWithHttpInfo({}).then((response) => {
+    return version.listWithHttpInfo({}).then((response) => {
       expect(response).toBeDefined();
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
@@ -1214,11 +1215,11 @@ describe("listWithHttpInfo method", function () {
       expect(response.body[0].body).toEqual("payload0");
       expect(response.body[1].body).toEqual("payload1");
       expect(response.body[2].body).toEqual("payload2");
-      done();
+
     });
   });
 
-  it("should respect limit parameter", function (done) {
+  it("should respect limit parameter", function () {
     const headers = { "x-request-id": "limited-list" };
     const version = new Version(
       {
@@ -1232,17 +1233,17 @@ describe("listWithHttpInfo method", function () {
       {}
     );
 
-    version._version = version; // Make it check limits
+    return version._version = version; // Make it check limits
 
-    version.listWithHttpInfo({ limit: 2 }).then((response) => {
+    return version.listWithHttpInfo({ limit: 2 }).then((response) => {
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
       expect(response.body.length).toEqual(2);
-      done();
+
     });
   });
 
-  it("should handle callback parameter", function (done) {
+  it("should handle callback parameter", function () {
     const headers = { "x-request-id": "callback-test" };
     const version = new Version(
       {
@@ -1264,11 +1265,11 @@ describe("listWithHttpInfo method", function () {
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
       expect(Array.isArray(response.body)).toBe(true);
-      done();
+
     });
   });
 
-  it("should handle function as first parameter", function (done) {
+  it("should handle function as first parameter", function () {
     const version = new Version(
       {
         request: () =>
@@ -1286,11 +1287,11 @@ describe("listWithHttpInfo method", function () {
     version.listWithHttpInfo((error, response) => {
       expect(error).toBeNull();
       expect(response).toBeDefined();
-      done();
+
     });
   });
 
-  it("should return empty array when no instances", function (done) {
+  it("should return empty array when no instances", function () {
     const headers = { "x-request-id": "empty-list" };
     const version = new Version(
       {
@@ -1304,15 +1305,15 @@ describe("listWithHttpInfo method", function () {
       {}
     );
 
-    version.listWithHttpInfo({}).then((response) => {
+    return version.listWithHttpInfo({}).then((response) => {
       expect(response.statusCode).toEqual(200);
       expect(response.headers).toEqual(headers);
       expect(response.body).toEqual([]);
-      done();
+
     });
   });
 
-  it("should set promise callback when _version is Version instance", function (done) {
+  it("should set promise callback when _version is Version instance", function () {
     const headers = { "x-request-id": "promise-callback-test" };
     const version = new Version(
       {
@@ -1331,13 +1332,13 @@ describe("listWithHttpInfo method", function () {
     version.listWithHttpInfo({}, (error, response) => {
       expect(error).toBeNull();
       expect(response.statusCode).toEqual(200);
-      done();
+
     });
   });
 });
 
 describe("throwException method (tested through public methods)", function () {
-  it("should throw RestException for legacy format", function (done) {
+  it("should throw RestException for legacy format", function () {
     const legacyBody = {
       message: "Invalid parameter",
       code: 20001,
@@ -1350,15 +1351,15 @@ describe("throwException method (tested through public methods)", function () {
       null
     );
 
-    version.create({}).catch((error) => {
+    return version.create({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.message).toEqual(legacyBody.message);
       expect(error.status).toEqual(400);
-      done();
+
     });
   });
 
-  it("should parse JSON string body before checking exception type", function (done) {
+  it("should parse JSON string body before checking exception type", function () {
     const errorBody = {
       message: "Not Found",
       code: 20404,
@@ -1374,14 +1375,14 @@ describe("throwException method (tested through public methods)", function () {
       null
     );
 
-    version.fetch({}).catch((error) => {
+    return version.fetch({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(404);
-      done();
+
     });
   });
 
-  it("should handle JSON parse failure gracefully", function (done) {
+  it("should handle JSON parse failure gracefully", function () {
     const version = new Version(
       {
         request: () =>
@@ -1393,14 +1394,14 @@ describe("throwException method (tested through public methods)", function () {
       null
     );
 
-    version.update({}).catch((error) => {
+    return version.update({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(500);
-      done();
+
     });
   });
 
-  it("should handle non-string error body in update", function (done) {
+  it("should handle non-string error body in update", function () {
     const errorBody = {
       message: "Server error",
       code: 50000,
@@ -1416,14 +1417,14 @@ describe("throwException method (tested through public methods)", function () {
       null
     );
 
-    version.patch({}).catch((error) => {
+    return version.patch({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(500);
-      done();
+
     });
   });
 
-  it("should handle error in createWithResponseInfo", function (done) {
+  it("should handle error in createWithResponseInfo", function () {
     const errorBody = {
       message: "Conflict",
       code: 40900,
@@ -1439,10 +1440,10 @@ describe("throwException method (tested through public methods)", function () {
       null
     );
 
-    version.createWithResponseInfo({}).catch((error) => {
+    return version.createWithResponseInfo({}).catch((error) => {
       expect(error).toBeDefined();
       expect(error.status).toEqual(409);
-      done();
+
     });
   });
 });

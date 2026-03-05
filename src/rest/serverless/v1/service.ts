@@ -14,17 +14,17 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { AssetListInstance } from "./service/asset";
-import { BuildListInstance } from "./service/build";
-import { EnvironmentListInstance } from "./service/environment";
-import { FunctionListInstance } from "./service/function";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { AssetListInstance } from "./service/asset.js";
+import { BuildListInstance } from "./service/build.js";
+import { EnvironmentListInstance } from "./service/environment.js";
+import { FunctionListInstance } from "./service/function.js";
 
 /**
  * Options to pass to update a ServiceInstance

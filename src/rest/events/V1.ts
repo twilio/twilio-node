@@ -12,14 +12,14 @@
  * Do not edit the class manually.
  */
 
-import EventsBase from "../EventsBase";
-import Version from "../../base/Version";
-import { EventTypeListInstance } from "./v1/eventType";
-import { SchemaListInstance } from "./v1/schema";
-import { SinkListInstance } from "./v1/sink";
-import { SubscriptionListInstance } from "./v1/subscription";
+import { EventsBase } from "../EventsBase.js";
+import { Version } from "../../base/Version.js";
+import { EventTypeListInstance } from "./v1/eventType.js";
+import { SchemaListInstance } from "./v1/schema.js";
+import { SinkListInstance } from "./v1/sink.js";
+import { SubscriptionListInstance } from "./v1/subscription.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Events
    *

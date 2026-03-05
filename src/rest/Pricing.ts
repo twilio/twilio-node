@@ -1,11 +1,11 @@
-import { MessagingListInstance } from "./pricing/v1/messaging";
-import { PhoneNumberListInstance } from "./pricing/v1/phoneNumber";
-import { VoiceListInstance } from "./pricing/v2/voice";
-import { CountryListInstance } from "./pricing/v2/country";
-import { NumberListInstance } from "./pricing/v2/number";
-import PricingBase from "./PricingBase";
+import { MessagingListInstance } from "./pricing/v1/messaging.js";
+import { PhoneNumberListInstance } from "./pricing/v1/phoneNumber.js";
+import { VoiceListInstance } from "./pricing/v2/voice.js";
+import { CountryListInstance } from "./pricing/v2/country.js";
+import { NumberListInstance } from "./pricing/v2/number.js";
+import { PricingBase } from "./PricingBase.js";
 
-class Pricing extends PricingBase {
+export class Pricing extends PricingBase {
   /**
    * @deprecated - Use v1.messaging instead
    */
@@ -46,5 +46,3 @@ class Pricing extends PricingBase {
     return this.v2.numbers;
   }
 }
-
-export = Pricing;

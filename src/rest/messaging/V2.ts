@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import MessagingBase from "../MessagingBase";
-import Version from "../../base/Version";
-import { ChannelsSenderListInstance } from "./v2/channelsSender";
-import { DomainCertsListInstance } from "./v2/domainCerts";
-import { TypingIndicatorListInstance } from "./v2/typingIndicator";
+import { MessagingBase } from "../MessagingBase.js";
+import { Version } from "../../base/Version.js";
+import { ChannelsSenderListInstance } from "./v2/channelsSender.js";
+import { DomainCertsListInstance } from "./v2/domainCerts.js";
+import { TypingIndicatorListInstance } from "./v2/typingIndicator.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Messaging
    *

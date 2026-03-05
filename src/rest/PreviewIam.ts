@@ -1,10 +1,10 @@
-import { TokenListInstance } from "./previewIam/v1/token";
-import { AuthorizeListInstance } from "./previewIam/v1/authorize";
-import PreviewIamBase from "./PreviewIamBase";
-import { OrganizationListInstance } from "./previewIam/versionless/organization";
-import Versionless from "./previewIam/Versionless";
+import { TokenListInstance } from "./previewIam/v1/token.js";
+import { AuthorizeListInstance } from "./previewIam/v1/authorize.js";
+import { PreviewIamBase } from "./PreviewIamBase.js";
+import { OrganizationListInstance } from "./previewIam/versionless/organization.js";
+import { Versionless } from "./previewIam/Versionless.js";
 
-class PreviewIam extends PreviewIamBase {
+export class PreviewIam extends PreviewIamBase {
   _organization?: OrganizationListInstance;
   /**
    * @deprecated - Use v1.tokens instead
@@ -29,5 +29,3 @@ class PreviewIam extends PreviewIamBase {
     return this._organization;
   }
 }
-
-export = PreviewIam;

@@ -1,12 +1,12 @@
-import { CompositionListInstance } from "./video/v1/composition";
-import { CompositionHookListInstance } from "./video/v1/compositionHook";
-import { CompositionSettingsListInstance } from "./video/v1/compositionSettings";
-import { RecordingListInstance } from "./video/v1/recording";
-import { RecordingSettingsListInstance } from "./video/v1/recordingSettings";
-import { RoomListInstance } from "./video/v1/room";
-import VideoBase from "./VideoBase";
+import { CompositionListInstance } from "./video/v1/composition.js";
+import { CompositionHookListInstance } from "./video/v1/compositionHook.js";
+import { CompositionSettingsListInstance } from "./video/v1/compositionSettings.js";
+import { RecordingListInstance } from "./video/v1/recording.js";
+import { RecordingSettingsListInstance } from "./video/v1/recordingSettings.js";
+import { RoomListInstance } from "./video/v1/room.js";
+import { VideoBase } from "./VideoBase.js";
 
-class Video extends VideoBase {
+export class Video extends VideoBase {
   /**
    * @deprecated - Use v1.compositions instead
    */
@@ -61,5 +61,3 @@ class Video extends VideoBase {
     return this.v1.rooms;
   }
 }
-
-export = Video;

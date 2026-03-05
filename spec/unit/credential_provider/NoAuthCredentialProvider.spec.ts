@@ -1,10 +1,8 @@
-import NoAuthCredentialProvider from "../../../src/credential_provider/NoAuthCredentialProvider";
-import NoAuthStrategy from "../../../src/auth_strategy/NoAuthStrategy";
-import Twilio from "../../../src";
+import { NoAuthCredentialProvider } from "../../../src/credential_provider/NoAuthCredentialProvider";
+import { NoAuthStrategy } from "../../../src/auth_strategy/NoAuthStrategy";
 
 describe("NoAuthCredentialProvider Constructor", () => {
-  const noAuthCredentialProvider =
-    new NoAuthCredentialProvider.NoAuthCredentialProvider();
+  const noAuthCredentialProvider = new NoAuthCredentialProvider();
 
   it("Should have noauth as its authType", () => {
     expect(noAuthCredentialProvider.getAuthType()).toEqual("noauth");

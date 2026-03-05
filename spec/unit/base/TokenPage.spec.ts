@@ -1,7 +1,8 @@
-import TokenPage, { TokenPaginationPayload } from "../../../src/base/TokenPage";
-import Response from "../../../src/http/response";
-import Version from "../../../src/base/Version";
-import Domain from "../../../src/base/Domain";
+import { vi } from "vitest";
+import { TokenPage, TokenPaginationPayload } from "../../../src/base/TokenPage";
+import { Response } from '../../../src/http/response';
+import { Version } from '../../../src/base/Version';
+import { Domain } from '../../../src/base/Domain';
 
 // Mock implementation of Version for testing
 class MockVersion extends Version {
@@ -317,7 +318,7 @@ describe("TokenPage", () => {
       mockVersion.pageResponse = secondResponse;
 
       // Spy on the page method to verify it's called with correct params
-      const pageSpy = jest.spyOn(mockVersion, "page");
+      const pageSpy = vi.spyOn(mockVersion, "page");
 
       const tokenPage = new TestTokenPage(
         mockVersion,
@@ -450,7 +451,7 @@ describe("TokenPage", () => {
       mockVersion.pageResponse = prevResponse;
 
       // Spy on the page method to verify it's called with correct params
-      const pageSpy = jest.spyOn(mockVersion, "page");
+      const pageSpy = vi.spyOn(mockVersion, "page");
 
       const tokenPage = new TestTokenPage(mockVersion, response, "/api/items");
 
@@ -496,7 +497,7 @@ describe("TokenPage", () => {
       mockVersion.pageResponse = secondResponse;
 
       // Spy on the page method to verify params
-      const pageSpy = jest.spyOn(mockVersion, "page");
+      const pageSpy = vi.spyOn(mockVersion, "page");
 
       // Create page with query parameters
       const queryParams = {
@@ -552,7 +553,7 @@ describe("TokenPage", () => {
       mockVersion.pageResponse = firstResponse;
 
       // Spy on the page method to verify params
-      const pageSpy = jest.spyOn(mockVersion, "page");
+      const pageSpy = vi.spyOn(mockVersion, "page");
 
       // Create page with query parameters
       const queryParams = {
@@ -649,7 +650,7 @@ describe("TokenPage", () => {
 
       // Navigate back to page 2
       mockVersion.pageResponse = page2Response;
-      const pageSpy = jest.spyOn(mockVersion, "page");
+      const pageSpy = vi.spyOn(mockVersion, "page");
       const backToPage2 = await page3!.previousPage();
 
       expect(backToPage2).toBeDefined();

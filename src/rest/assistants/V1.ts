@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import AssistantsBase from "../AssistantsBase";
-import Version from "../../base/Version";
-import { AssistantListInstance } from "./v1/assistant";
-import { KnowledgeListInstance } from "./v1/knowledge";
-import { PolicyListInstance } from "./v1/policy";
-import { SessionListInstance } from "./v1/session";
-import { ToolListInstance } from "./v1/tool";
+import { AssistantsBase } from "../AssistantsBase.js";
+import { Version } from "../../base/Version.js";
+import { AssistantListInstance } from "./v1/assistant.js";
+import { KnowledgeListInstance } from "./v1/knowledge.js";
+import { PolicyListInstance } from "./v1/policy.js";
+import { SessionListInstance } from "./v1/session.js";
+import { ToolListInstance } from "./v1/tool.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Assistants
    *

@@ -12,16 +12,16 @@
  * Do not edit the class manually.
  */
 
-import VoiceBase from "../VoiceBase";
-import Version from "../../base/Version";
-import { ArchivedCallListInstance } from "./v1/archivedCall";
-import { ByocTrunkListInstance } from "./v1/byocTrunk";
-import { ConnectionPolicyListInstance } from "./v1/connectionPolicy";
-import { DialingPermissionsListInstance } from "./v1/dialingPermissions";
-import { IpRecordListInstance } from "./v1/ipRecord";
-import { SourceIpMappingListInstance } from "./v1/sourceIpMapping";
+import { VoiceBase } from "../VoiceBase.js";
+import { Version } from "../../base/Version.js";
+import { ArchivedCallListInstance } from "./v1/archivedCall.js";
+import { ByocTrunkListInstance } from "./v1/byocTrunk.js";
+import { ConnectionPolicyListInstance } from "./v1/connectionPolicy.js";
+import { DialingPermissionsListInstance } from "./v1/dialingPermissions.js";
+import { IpRecordListInstance } from "./v1/ipRecord.js";
+import { SourceIpMappingListInstance } from "./v1/sourceIpMapping.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Voice
    *

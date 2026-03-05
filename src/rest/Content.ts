@@ -1,7 +1,7 @@
-import ContentBase from "./ContentBase";
-import { ContentListInstance } from "./content/v1/content";
+import { ContentBase } from "./ContentBase.js";
+import { ContentListInstance } from "./content/v1/content.js";
 
-class Content extends ContentBase {
+export class Content extends ContentBase {
   /**
    * @deprecated - Use v1.contents instead
    */
@@ -10,5 +10,3 @@ class Content extends ContentBase {
     return this.v1.contents;
   }
 }
-
-export = Content;

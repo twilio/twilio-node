@@ -1,5 +1,3 @@
-import MarketplaceBase from "./MarketplaceBase";
+import { MarketplaceBase } from "./MarketplaceBase.js";
 
-class Marketplace extends MarketplaceBase {}
-
-export = Marketplace;
+export class Marketplace extends MarketplaceBase {}

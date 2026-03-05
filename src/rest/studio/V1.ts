@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import StudioBase from "../StudioBase";
-import Version from "../../base/Version";
-import { FlowListInstance } from "./v1/flow";
+import { StudioBase } from "../StudioBase.js";
+import { Version } from "../../base/Version.js";
+import { FlowListInstance } from "./v1/flow.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Studio
    *

@@ -12,17 +12,17 @@
  * Do not edit the class manually.
  */
 
-import AccountsBase from "../AccountsBase";
-import Version from "../../base/Version";
-import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
-import { BulkConsentsListInstance } from "./v1/bulkConsents";
-import { BulkContactsListInstance } from "./v1/bulkContacts";
-import { CredentialListInstance } from "./v1/credential";
-import { MessagingGeopermissionsListInstance } from "./v1/messagingGeopermissions";
-import { SafelistListInstance } from "./v1/safelist";
-import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken";
+import { AccountsBase } from "../AccountsBase.js";
+import { Version } from "../../base/Version.js";
+import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion.js";
+import { BulkConsentsListInstance } from "./v1/bulkConsents.js";
+import { BulkContactsListInstance } from "./v1/bulkContacts.js";
+import { CredentialListInstance } from "./v1/credential.js";
+import { MessagingGeopermissionsListInstance } from "./v1/messagingGeopermissions.js";
+import { SafelistListInstance } from "./v1/safelist.js";
+import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Accounts
    *

@@ -6,9 +6,9 @@
  */
 
 import { XMLElement } from "xmlbuilder";
-import TwiML from "./TwiML";
+import { TwiML } from "./TwiML.js";
 
-class FaxResponse extends TwiML {
+export class FaxResponse extends TwiML {
   /**
    * <Response> TwiML for Faxes
    */
@@ -45,12 +45,11 @@ class FaxResponse extends TwiML {
    *
    * @param attributes - TwiML attributes
    */
-  receive(attributes?: FaxResponse.ReceiveAttributes): FaxResponse.Receive {
-    return new FaxResponse.Receive(this.response.ele("Receive", attributes));
+  receive(attributes?: ReceiveAttributes): Receive {
+    return new Receive(this.response.ele("Receive", attributes));
   }
 }
 
-namespace FaxResponse {
   type ReceiveMediaType = "application/pdf" | "image/tiff";
 
   type ReceivePageSize = "letter" | "legal" | "a4";
@@ -82,6 +81,3 @@ namespace FaxResponse {
       this._propertyName = "receive";
     }
   }
-}
-
-export = FaxResponse;

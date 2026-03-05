@@ -1,8 +1,3 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-dayjs.extend(utc);
-
 export interface NumberParser {
   (n: string): number;
 }
@@ -17,8 +12,8 @@ export interface NumberParser {
  * @param s - Date string in YYYY-MM-DD format
  * @returns Date object, or the original date string if the argument is not a valid date
  */
-export function iso8601Date(s: string) {
-  return parseDate(s, "YYYY-MM-DD");
+export function iso8601Date(s: any): any {
+  return parseDate(s);
 }
 
 /**
@@ -27,8 +22,8 @@ export function iso8601Date(s: string) {
  * @param s - Date string in YYYY-MM-DD[T]HH:mm:ss[Z] format
  * @returns Date object, or the original date string if the argument is not a valid date
  */
-export function iso8601DateTime(s: string) {
-  return parseDate(s, "YYYY-MM-DD[T]HH:mm:ss[Z]");
+export function iso8601DateTime(s: any): any {
+  return parseDate(s);
 }
 
 /**
@@ -37,8 +32,8 @@ export function iso8601DateTime(s: string) {
  * @param s - Date string in ddd, DD MMM YYYY HH:mm:ss [+0000] format
  * @returns Date object, or the original date string if the argument is not a valid date
  */
-export function rfc2822DateTime(s: string) {
-  return parseDate(s, "ddd, DD MMM YYYY HH:mm:ss [+0000]");
+export function rfc2822DateTime(s: any): any {
+  return parseDate(s);
 }
 
 /**
@@ -47,7 +42,7 @@ export function rfc2822DateTime(s: string) {
  * @param d - Decimal value as string
  * @returns Number, or the original string if the argument is NaN
  */
-export function decimal(d: string) {
+export function decimal(d: any): any {
   return parseNumber(d, parseFloat);
 }
 
@@ -57,16 +52,16 @@ export function decimal(d: string) {
  * @param i - Integer value as string
  * @returns Number, or the original string if the argument is NaN
  */
-export function integer(i: string) {
+export function integer(i: any): any {
   return parseNumber(i, parseInt);
 }
 
-function parseDate(s: string, format: string): Date | string {
-  var m = dayjs.utc(s, format);
-  if (m.isValid()) {
-    return m.toDate();
+function parseDate(s: any): Date | string {
+  if (s == null) return s;
+  const d = new Date(s);
+  if (!isNaN(d.getTime())) {
+    return d;
   }
-
   return s;
 }
 

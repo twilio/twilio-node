@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import BulkexportsBase from "../BulkexportsBase";
-import Version from "../../base/Version";
-import { ExportListInstance } from "./v1/export";
-import { ExportConfigurationListInstance } from "./v1/exportConfiguration";
+import { BulkexportsBase } from "../BulkexportsBase.js";
+import { Version } from "../../base/Version.js";
+import { ExportListInstance } from "./v1/export.js";
+import { ExportConfigurationListInstance } from "./v1/exportConfiguration.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Bulkexports
    *

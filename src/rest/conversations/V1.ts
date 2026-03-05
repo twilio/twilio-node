@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import ConversationsBase from "../ConversationsBase";
-import Version from "../../base/Version";
-import { AddressConfigurationListInstance } from "./v1/addressConfiguration";
-import { ConfigurationListInstance } from "./v1/configuration";
-import { ConversationListInstance } from "./v1/conversation";
-import { ConversationWithParticipantsListInstance } from "./v1/conversationWithParticipants";
-import { CredentialListInstance } from "./v1/credential";
-import { ParticipantConversationListInstance } from "./v1/participantConversation";
-import { RoleListInstance } from "./v1/role";
-import { ServiceListInstance } from "./v1/service";
-import { UserListInstance } from "./v1/user";
+import { ConversationsBase } from "../ConversationsBase.js";
+import { Version } from "../../base/Version.js";
+import { AddressConfigurationListInstance } from "./v1/addressConfiguration.js";
+import { ConfigurationListInstance } from "./v1/configuration.js";
+import { ConversationListInstance } from "./v1/conversation.js";
+import { ConversationWithParticipantsListInstance } from "./v1/conversationWithParticipants.js";
+import { CredentialListInstance } from "./v1/credential.js";
+import { ParticipantConversationListInstance } from "./v1/participantConversation.js";
+import { RoleListInstance } from "./v1/role.js";
+import { ServiceListInstance } from "./v1/service.js";
+import { UserListInstance } from "./v1/user.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Conversations
    *

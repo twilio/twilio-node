@@ -14,24 +14,24 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { AccessTokenListInstance } from "./service/accessToken";
-import { ApproveChallengeListInstance } from "./service/approveChallenge";
-import { EntityListInstance } from "./service/entity";
-import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
-import { NewChallengeListInstance } from "./service/newChallenge";
-import { NewFactorListInstance } from "./service/newFactor";
-import { NewVerifyFactorListInstance } from "./service/newVerifyFactor";
-import { RateLimitListInstance } from "./service/rateLimit";
-import { VerificationListInstance } from "./service/verification";
-import { VerificationCheckListInstance } from "./service/verificationCheck";
-import { WebhookListInstance } from "./service/webhook";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V2 } from "../V2.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { AccessTokenListInstance } from "./service/accessToken.js";
+import { ApproveChallengeListInstance } from "./service/approveChallenge.js";
+import { EntityListInstance } from "./service/entity.js";
+import { MessagingConfigurationListInstance } from "./service/messagingConfiguration.js";
+import { NewChallengeListInstance } from "./service/newChallenge.js";
+import { NewFactorListInstance } from "./service/newFactor.js";
+import { NewVerifyFactorListInstance } from "./service/newVerifyFactor.js";
+import { RateLimitListInstance } from "./service/rateLimit.js";
+import { VerificationListInstance } from "./service/verification.js";
+import { VerificationCheckListInstance } from "./service/verificationCheck.js";
+import { WebhookListInstance } from "./service/webhook.js";
 
 /**
  * Options to pass to update a ServiceInstance

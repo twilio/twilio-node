@@ -14,19 +14,19 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { ReservationListInstance } from "./worker/reservation";
-import { WorkerChannelListInstance } from "./worker/workerChannel";
-import { WorkerStatisticsListInstance } from "./worker/workerStatistics";
-import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulativeStatistics";
-import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
-import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { ReservationListInstance } from "./worker/reservation.js";
+import { WorkerChannelListInstance } from "./worker/workerChannel.js";
+import { WorkerStatisticsListInstance } from "./worker/workerStatistics.js";
+import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulativeStatistics.js";
+import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics.js";
+import { WorkersStatisticsListInstance } from "./worker/workersStatistics.js";
 
 /**
  * Options to pass to remove a WorkerInstance

@@ -14,16 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V2 from "../../V2";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { ChallengeListInstance } from "./entity/challenge";
-import { FactorListInstance } from "./entity/factor";
-import { NewFactorListInstance } from "./entity/newFactor";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V2 } from "../../V2.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { ChallengeListInstance } from "./entity/challenge.js";
+import { FactorListInstance } from "./entity/factor.js";
+import { NewFactorListInstance } from "./entity/newFactor.js";
 
 /**
  * Options to pass to create a EntityInstance

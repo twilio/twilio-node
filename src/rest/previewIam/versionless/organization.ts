@@ -13,14 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Versionless from "../Versionless";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { AccountListInstance } from "./organization/account";
-import { RoleAssignmentListInstance } from "./organization/roleAssignment";
-import { UserListInstance } from "./organization/user";
+import { Versionless } from "../Versionless.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { AccountListInstance } from "./organization/account.js";
+import { RoleAssignmentListInstance } from "./organization/roleAssignment.js";
+import { UserListInstance } from "./organization/user.js";
 
 export interface OrganizationContext {
   accounts: AccountListInstance;

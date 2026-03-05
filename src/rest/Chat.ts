@@ -1,9 +1,9 @@
-import { CredentialListInstance } from "./chat/v2/credential";
-import { ServiceListInstance } from "./chat/v2/service";
-import { ChannelListInstance } from "./chat/v3/channel";
-import ChatBase from "./ChatBase";
+import { CredentialListInstance } from "./chat/v2/credential.js";
+import { ServiceListInstance } from "./chat/v2/service.js";
+import { ChannelListInstance } from "./chat/v3/channel.js";
+import { ChatBase } from "./ChatBase.js";
 
-class Chat extends ChatBase {
+export class Chat extends ChatBase {
   /**
    * @deprecated - Use v2.credentials instead
    */
@@ -28,5 +28,3 @@ class Chat extends ChatBase {
     return this.v3.channels;
   }
 }
-
-export = Chat;

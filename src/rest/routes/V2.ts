@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import RoutesBase from "../RoutesBase";
-import Version from "../../base/Version";
-import { PhoneNumberListInstance } from "./v2/phoneNumber";
-import { SipDomainListInstance } from "./v2/sipDomain";
-import { TrunkListInstance } from "./v2/trunk";
+import { RoutesBase } from "../RoutesBase.js";
+import { Version } from "../../base/Version.js";
+import { PhoneNumberListInstance } from "./v2/phoneNumber.js";
+import { SipDomainListInstance } from "./v2/sipDomain.js";
+import { TrunkListInstance } from "./v2/trunk.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Routes
    *

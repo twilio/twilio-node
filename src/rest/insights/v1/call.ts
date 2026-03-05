@@ -13,15 +13,15 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { AnnotationListInstance } from "./call/annotation";
-import { CallSummaryListInstance } from "./call/callSummary";
-import { EventListInstance } from "./call/event";
-import { MetricListInstance } from "./call/metric";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { AnnotationListInstance } from "./call/annotation.js";
+import { CallSummaryListInstance } from "./call/callSummary.js";
+import { EventListInstance } from "./call/event.js";
+import { MetricListInstance } from "./call/metric.js";
 
 export interface CallContext {
   annotation: AnnotationListInstance;

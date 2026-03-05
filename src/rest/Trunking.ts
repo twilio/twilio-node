@@ -1,7 +1,7 @@
-import { TrunkListInstance } from "./trunking/v1/trunk";
-import TrunkingBase from "./TrunkingBase";
+import { TrunkListInstance } from "./trunking/v1/trunk.js";
+import { TrunkingBase } from "./TrunkingBase.js";
 
-class Trunking extends TrunkingBase {
+export class Trunking extends TrunkingBase {
   /**
    * @deprecated - Use v1.trunks instead
    */
@@ -10,5 +10,3 @@ class Trunking extends TrunkingBase {
     return this.v1.trunks;
   }
 }
-
-export = Trunking;

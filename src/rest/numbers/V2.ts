@@ -12,16 +12,16 @@
  * Do not edit the class manually.
  */
 
-import NumbersBase from "../NumbersBase";
-import Version from "../../base/Version";
-import { ApplicationListInstance } from "./v2/application";
-import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument";
-import { BulkHostedNumberOrderListInstance } from "./v2/bulkHostedNumberOrder";
-import { BundleCloneListInstance } from "./v2/bundleClone";
-import { HostedNumberOrderListInstance } from "./v2/hostedNumberOrder";
-import { RegulatoryComplianceListInstance } from "./v2/regulatoryCompliance";
+import { NumbersBase } from "../NumbersBase.js";
+import { Version } from "../../base/Version.js";
+import { ApplicationListInstance } from "./v2/application.js";
+import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument.js";
+import { BulkHostedNumberOrderListInstance } from "./v2/bulkHostedNumberOrder.js";
+import { BundleCloneListInstance } from "./v2/bundleClone.js";
+import { HostedNumberOrderListInstance } from "./v2/hostedNumberOrder.js";
+import { RegulatoryComplianceListInstance } from "./v2/regulatoryCompliance.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Numbers
    *

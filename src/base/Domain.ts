@@ -1,10 +1,10 @@
-import { Client as BaseTwilio, RequestOpts } from "./BaseTwilio";
-import { trim } from "./utility";
+import { Client as BaseTwilio, RequestOpts } from "./BaseTwilio.js";
+import { trim } from "./utility.js";
 
 /**
  * Base domain object
  */
-export default class Domain {
+export class Domain {
   /**
    * Creates a Domain instance
    *

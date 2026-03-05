@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import LookupsBase from "../LookupsBase";
-import Version from "../../base/Version";
-import { PhoneNumberListInstance } from "./v1/phoneNumber";
+import { LookupsBase } from "../LookupsBase.js";
+import { Version } from "../../base/Version.js";
+import { PhoneNumberListInstance } from "./v1/phoneNumber.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Lookups
    *

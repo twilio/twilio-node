@@ -1,9 +1,9 @@
-import { PhoneNumberListInstance } from "./routes/v2/phoneNumber";
-import { SipDomainListInstance } from "./routes/v2/sipDomain";
-import { TrunkListInstance } from "./routes/v2/trunk";
-import RoutesBase from "./RoutesBase";
+import { PhoneNumberListInstance } from "./routes/v2/phoneNumber.js";
+import { SipDomainListInstance } from "./routes/v2/sipDomain.js";
+import { TrunkListInstance } from "./routes/v2/trunk.js";
+import { RoutesBase } from "./RoutesBase.js";
 
-class Routes extends RoutesBase {
+export class Routes extends RoutesBase {
   /**
    * @deprecated - Use v1.phoneNumbers instead
    */
@@ -28,5 +28,3 @@ class Routes extends RoutesBase {
     return this.v2.trunks;
   }
 }
-
-export = Routes;

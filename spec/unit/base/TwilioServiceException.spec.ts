@@ -1,4 +1,4 @@
-import TwilioServiceException from "../../../src/base/TwilioServiceException";
+import { TwilioServiceException } from "../../../src/base/TwilioServiceException";
 
 describe("TwilioServiceException RFC-9457 format", function () {
   describe("exception gets created from string body", function () {

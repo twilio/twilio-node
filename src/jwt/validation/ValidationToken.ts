@@ -1,8 +1,8 @@
-import { ValidationClientOptions } from "../../base/ValidationClient";
-import RequestCanonicalizer from "./RequestCanonicalizer";
+import { ValidationClientOptions } from "../../base/ValidationClient.js";
+import { RequestCanonicalizer } from "./RequestCanonicalizer.js";
 import jwt, { Algorithm } from "jsonwebtoken";
 
-class ValidationToken {
+export class ValidationToken {
   static readonly DEFAULT_ALGORITHM = "RS256" as const;
   static readonly ALGORITHMS = [
     "RS256" as Algorithm,
@@ -146,7 +146,3 @@ class ValidationToken {
     }
   }
 }
-
-namespace ValidationToken {}
-
-export = ValidationToken;

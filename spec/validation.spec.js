@@ -307,14 +307,15 @@ describe("Request validation middleware", () => {
     response = httpMocks.createResponse();
   });
 
-  it("should validate standard requests", (done) => {
+  it("should validate standard requests", () => {
     const request = httpMocks.createRequest(defaultRequest);
+    let nextCalled = false;
 
     middleware(request, response, () => {
-      // This test will only pass if the middleware calls next().
-      done();
+      nextCalled = true;
     });
 
+    expect(nextCalled).toBe(true);
     expect(response.statusCode).toEqual(200);
   });
 
@@ -334,17 +335,19 @@ describe("Request validation middleware", () => {
     expect(response.statusCode).toEqual(403);
   });
 
-  it("should bypass validation if given {validate:false}", (done) => {
+  it("should bypass validation if given {validate:false}", () => {
     const request = httpMocks.createRequest(defaultRequest);
 
     const middleware = webhook(token, {
       validate: false,
     });
 
+    let nextCalled = false;
     middleware(request, response, () => {
-      done();
+      nextCalled = true;
     });
 
+    expect(nextCalled).toBe(true);
     expect(response.statusCode).toEqual(200);
   });
 
@@ -366,7 +369,7 @@ describe("Request validation middleware", () => {
     expect(response.statusCode).toEqual(403);
   });
 
-  it("should accept manual host+proto", (done) => {
+  it("should accept manual host+proto", () => {
     const request = httpMocks.createRequest(
       Object.assign({}, defaultRequest, {
         host: "someothercompany.com",
@@ -382,14 +385,16 @@ describe("Request validation middleware", () => {
       protocol: "https",
     });
 
+    let nextCalled = false;
     middleware(request, response, () => {
-      done();
+      nextCalled = true;
     });
 
+    expect(nextCalled).toBe(true);
     expect(response.statusCode).toEqual(200);
   });
 
-  it("should accept manual url and override host+proto", (done) => {
+  it("should accept manual url and override host+proto", () => {
     const request = httpMocks.createRequest(
       Object.assign({}, defaultRequest, {
         host: "someothercompany.com",
@@ -406,18 +411,16 @@ describe("Request validation middleware", () => {
       url: requestUrl,
     });
 
+    let nextCalled = false;
     middleware(request, response, () => {
-      done();
+      nextCalled = true;
     });
 
+    expect(nextCalled).toBe(true);
     expect(response.statusCode).toEqual(200);
-
-    if (response.statusCode !== 200) {
-      done();
-    }
   });
 
-  it("should validate post body if given a query param", (done) => {
+  it("should validate post body if given a query param", () => {
     const request = httpMocks.createRequest(
       Object.assign({}, defaultRequest, {
         originalUrl: requestUrlWithHash.substring(
@@ -431,15 +434,13 @@ describe("Request validation middleware", () => {
     );
 
     request.rawBody = body;
+    let nextCalled = false;
     middleware(request, response, () => {
-      done();
+      nextCalled = true;
     });
 
+    expect(nextCalled).toBe(true);
     expect(response.statusCode).toEqual(200);
-
-    if (response.statusCode !== 200) {
-      done();
-    }
   });
 
   it("should fail validation of post body with wrong hash", () => {

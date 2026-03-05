@@ -1,97 +1,77 @@
-import ITwilio from "./rest/Twilio";
-import * as webhooks from "./webhooks/webhooks";
-import IRequestClient from "./base/RequestClient";
-import type { ClientOpts as IClientOpts } from "./base/BaseTwilio";
-import IRestException from "./base/RestException";
-import type { ApiResponse as IApiResponse } from "./base/ApiResponse";
-import IAccessToken from "./jwt/AccessToken";
-import IValidationToken from "./jwt/validation/ValidationToken";
-import IClientCapability from "./jwt/ClientCapability";
-import ITaskRouterCapability from "./jwt/taskrouter/TaskRouterCapability";
-import * as taskRouterUtil from "./jwt/taskrouter/util";
-import IVoiceResponse from "./twiml/VoiceResponse";
-import IMessagingResponse from "./twiml/MessagingResponse";
-import IFaxResponse from "./twiml/FaxResponse";
-import IClientCredentialProvider from "./credential_provider/ClientCredentialProvider";
-import INoAuthCredentialProvider from "./credential_provider/NoAuthCredentialProvider";
-import IOrgsCredentialProvider from "./credential_provider/OrgsCredentialProvider";
+export { Twilio } from "./rest/Twilio.js";
+export type { RequestClientOptions, RequestOptions } from "./rest/Twilio.js";
+export { Client } from "./base/BaseTwilio.js";
+export type { ClientOpts, RequestOpts } from "./base/BaseTwilio.js";
+export { RequestClient } from "./base/RequestClient.js";
+export type {
+  RequestOptions as RequestClientRequestOptions,
+  RequestClientOptions as RequestClientConstructorOptions,
+} from "./base/RequestClient.js";
+export { RestException } from "./base/RestException.js";
+export type { ApiResponse } from "./base/ApiResponse.js";
 
-// Shorthand to automatically create a RestClient
-function TwilioSDK(
+export { AccessToken } from "./jwt/AccessToken.js";
+export {
+  Grant,
+  TaskRouterGrant,
+  ChatGrant,
+  VideoGrant,
+  SyncGrant,
+  VoiceGrant,
+  PlaybackGrant,
+} from "./jwt/AccessToken.js";
+export type {
+  AccessTokenOptions,
+  TaskRouterGrantOptions,
+  ChatGrantOptions,
+  VideoGrantOptions,
+  SyncGrantOptions,
+  VoiceGrantOptions,
+  PlaybackGrantOptions,
+} from "./jwt/AccessToken.js";
+export { ValidationToken } from "./jwt/validation/ValidationToken.js";
+export {
+  ClientCapability,
+  EventStreamScope,
+  IncomingClientScope,
+  OutgoingClientScope,
+} from "./jwt/ClientCapability.js";
+export {
+  TaskRouterCapability,
+  Policy,
+} from "./jwt/taskrouter/TaskRouterCapability.js";
+export * as taskRouterUtil from "./jwt/taskrouter/util.js";
+
+export { VoiceResponse } from "./twiml/VoiceResponse.js";
+export { MessagingResponse } from "./twiml/MessagingResponse.js";
+export { FaxResponse } from "./twiml/FaxResponse.js";
+
+export { ClientCredentialProvider } from "./credential_provider/ClientCredentialProvider.js";
+export { ClientCredentialProviderBuilder } from "./credential_provider/ClientCredentialProvider.js";
+export { OrgsCredentialProvider } from "./credential_provider/OrgsCredentialProvider.js";
+export { OrgsCredentialProviderBuilder } from "./credential_provider/OrgsCredentialProvider.js";
+export { NoAuthCredentialProvider } from "./credential_provider/NoAuthCredentialProvider.js";
+
+export {
+  validateBody,
+  validateRequest,
+  validateRequestWithBody,
+  validateExpressRequest,
+  validateIncomingRequest,
+  getExpectedBodyHash,
+  getExpectedTwilioSignature,
+  webhook,
+} from "./webhooks/webhooks.js";
+
+export { Twilio as default } from "./rest/Twilio.js";
+
+import { Twilio } from "./rest/Twilio.js";
+import type { ClientOpts } from "./base/BaseTwilio.js";
+
+export function createClient(
   accountSid?: string,
   authToken?: string,
-  opts?: IClientOpts
-): TwilioSDK.Twilio {
-  return new TwilioSDK.Twilio(accountSid, authToken, opts);
+  opts?: ClientOpts
+): Twilio {
+  return new Twilio(accountSid, authToken, opts);
 }
-
-namespace TwilioSDK {
-  // Main functional components of the Twilio module
-  export type Twilio = ITwilio;
-  export const Twilio = ITwilio;
-  export namespace jwt {
-    export type AccessToken = IAccessToken;
-    export const AccessToken = IAccessToken;
-    export type ValidationToken = IValidationToken;
-    export const ValidationToken = IValidationToken;
-    export type ClientCapability = IClientCapability;
-    export const ClientCapability = IClientCapability;
-    export namespace taskrouter {
-      export type TaskRouterCapability = ITaskRouterCapability;
-      export const TaskRouterCapability = ITaskRouterCapability;
-      export const util = taskRouterUtil;
-    }
-  }
-  export namespace twiml {
-    export type VoiceResponse = IVoiceResponse;
-    export const VoiceResponse = IVoiceResponse;
-    export type MessagingResponse = IMessagingResponse;
-    export const MessagingResponse = IMessagingResponse;
-    export type FaxResponse = IFaxResponse;
-    export const FaxResponse = IFaxResponse;
-  }
-  export type RequestClient = IRequestClient;
-  export const RequestClient = IRequestClient;
-  export type RestException = IRestException;
-  export const RestException = IRestException;
-  export type ApiResponse<T> = IApiResponse<T>;
-
-  export type ClientCredentialProviderBuilder =
-    IClientCredentialProvider.ClientCredentialProviderBuilder;
-  export const ClientCredentialProviderBuilder =
-    IClientCredentialProvider.ClientCredentialProviderBuilder;
-
-  export type OrgsCredentialProviderBuilder =
-    IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
-  export const OrgsCredentialProviderBuilder =
-    IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
-
-  export type NoAuthCredentialProvider =
-    INoAuthCredentialProvider.NoAuthCredentialProvider;
-  export const NoAuthCredentialProvider =
-    INoAuthCredentialProvider.NoAuthCredentialProvider;
-
-  // Setup webhook helper functionality
-  export type validateBody = typeof webhooks.validateBody;
-  export const validateBody = webhooks.validateBody;
-  export type validateRequest = typeof webhooks.validateRequest;
-  export const validateRequest = webhooks.validateRequest;
-  export type validateRequestWithBody = typeof webhooks.validateRequestWithBody;
-  export const validateRequestWithBody = webhooks.validateRequestWithBody;
-  export type validateExpressRequest = typeof webhooks.validateExpressRequest;
-  export const validateExpressRequest = webhooks.validateExpressRequest;
-  export type validateIncomingRequest = typeof webhooks.validateIncomingRequest;
-  export const validateIncomingRequest = webhooks.validateIncomingRequest;
-  export type getExpectedBodyHash = typeof webhooks.getExpectedBodyHash;
-  export const getExpectedBodyHash = webhooks.getExpectedBodyHash;
-  export type getExpectedTwilioSignature =
-    typeof webhooks.getExpectedTwilioSignature;
-  export const getExpectedTwilioSignature = webhooks.getExpectedTwilioSignature;
-  export type webhook = typeof webhooks.webhook;
-  export const webhook = webhooks.webhook;
-  // Export the client options type for convenience
-  export type ClientOpts = IClientOpts;
-}
-
-// Public module interface is a function, which passes through to RestClient constructor
-export = TwilioSDK;

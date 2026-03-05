@@ -6,7 +6,7 @@ interface RestExceptionError {
   details?: object;
 }
 
-export default class RestException extends Error implements RestExceptionError {
+export class RestException extends Error implements RestExceptionError {
   status: number;
   message: string;
   code?: number;
@@ -24,8 +24,7 @@ export default class RestException extends Error implements RestExceptionError {
     if (body !== null) {
       this.message = body.message;
       this.code = body.code;
-      this.moreInfo = body.more_info; /* jshint ignore:line */
-      this.details = body.details;
+      this.moreInfo = body.more_info;this.details = body.details;
     } else {
       this.message =
         "[HTTP " + response.statusCode + "] Failed to execute request";

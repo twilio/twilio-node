@@ -1,13 +1,13 @@
-import { AuthorizationDocumentListInstance } from "./preview/hosted_numbers/authorizationDocument";
-import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNumberOrder";
-import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn";
-import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn";
-import { CommandListInstance } from "./preview/wireless/command";
-import { RatePlanListInstance } from "./preview/wireless/ratePlan";
-import { SimListInstance } from "./preview/wireless/sim";
-import PreviewBase from "./PreviewBase";
+import { AuthorizationDocumentListInstance } from "./preview/hosted_numbers/authorizationDocument.js";
+import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNumberOrder.js";
+import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn.js";
+import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn.js";
+import { CommandListInstance } from "./preview/wireless/command.js";
+import { RatePlanListInstance } from "./preview/wireless/ratePlan.js";
+import { SimListInstance } from "./preview/wireless/sim.js";
+import { PreviewBase } from "./PreviewBase.js";
 
-class Preview extends PreviewBase {
+export class Preview extends PreviewBase {
   /**
    * @deprecated - Use hosted_numbers.authorizationDocuments instead
    */
@@ -72,5 +72,3 @@ class Preview extends PreviewBase {
     return this.wireless.sims;
   }
 }
-
-export = Preview;

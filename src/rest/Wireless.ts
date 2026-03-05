@@ -1,10 +1,10 @@
-import { CommandListInstance } from "./wireless/v1/command";
-import { RatePlanListInstance } from "./wireless/v1/ratePlan";
-import { SimListInstance } from "./wireless/v1/sim";
-import { UsageRecordListInstance } from "./wireless/v1/usageRecord";
-import WirelessBase from "./WirelessBase";
+import { CommandListInstance } from "./wireless/v1/command.js";
+import { RatePlanListInstance } from "./wireless/v1/ratePlan.js";
+import { SimListInstance } from "./wireless/v1/sim.js";
+import { UsageRecordListInstance } from "./wireless/v1/usageRecord.js";
+import { WirelessBase } from "./WirelessBase.js";
 
-class Wireless extends WirelessBase {
+export class Wireless extends WirelessBase {
   /**
    * @deprecated - Use v1.usageRecords instead
    */
@@ -37,5 +37,3 @@ class Wireless extends WirelessBase {
     return this.v1.sims;
   }
 }
-
-export = Wireless;

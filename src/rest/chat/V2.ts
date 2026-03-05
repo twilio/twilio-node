@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import ChatBase from "../ChatBase";
-import Version from "../../base/Version";
-import { CredentialListInstance } from "./v2/credential";
-import { ServiceListInstance } from "./v2/service";
+import { ChatBase } from "../ChatBase.js";
+import { Version } from "../../base/Version.js";
+import { CredentialListInstance } from "./v2/credential.js";
+import { ServiceListInstance } from "./v2/service.js";
 
-export default class V2 extends Version {
+export class V2 extends Version {
   /**
    * Initialize the V2 version of Chat
    *

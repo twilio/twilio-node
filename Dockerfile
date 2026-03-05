@@ -8,7 +8,7 @@ ENV NODE_PATH /usr/local/lib/node_modules
 COPY src ./src
 COPY spec ./spec
 COPY examples ./examples
-COPY index.* package.json babel.config.js tsconfig.json ./
+COPY package.json tsconfig.json vitest.config.ts ./
 
 RUN npm install --unsafe-perm true # Needed to run prepublish as root.
 

@@ -14,23 +14,23 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V2010 from "../../V2010";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { EventListInstance } from "./call/event";
-import { NotificationListInstance } from "./call/notification";
-import { PaymentListInstance } from "./call/payment";
-import { RecordingListInstance } from "./call/recording";
-import { SiprecListInstance } from "./call/siprec";
-import { StreamListInstance } from "./call/stream";
-import { TranscriptionListInstance } from "./call/transcription";
-import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
-import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
-import TwiML from "../../../../twiml/TwiML";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V2010 } from "../../V2010.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { EventListInstance } from "./call/event.js";
+import { NotificationListInstance } from "./call/notification.js";
+import { PaymentListInstance } from "./call/payment.js";
+import { RecordingListInstance } from "./call/recording.js";
+import { SiprecListInstance } from "./call/siprec.js";
+import { StreamListInstance } from "./call/stream.js";
+import { TranscriptionListInstance } from "./call/transcription.js";
+import { UserDefinedMessageListInstance } from "./call/userDefinedMessage.js";
+import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription.js";
+import { TwiML } from "../../../../twiml/TwiML.js";
 
 /**
  * The status of this call. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy` or `no-answer`. See [Call Status Values](https://www.twilio.com/docs/voice/api/call-resource#call-status-values) below for more information.

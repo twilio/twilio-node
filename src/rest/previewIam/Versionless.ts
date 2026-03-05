@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import PreviewIamBase from "../PreviewIamBase";
-import Version from "../../base/Version";
-import { OrganizationListInstance } from "./versionless/organization";
+import { PreviewIamBase } from "../PreviewIamBase.js";
+import { Version } from "../../base/Version.js";
+import { OrganizationListInstance } from "./versionless/organization.js";
 
-export default class Versionless extends Version {
+export class Versionless extends Version {
   /**
    * Initialize the Versionless version of PreviewIam
    *

@@ -12,20 +12,20 @@
  * Do not edit the class manually.
  */
 
-import NumbersBase from "../NumbersBase";
-import Version from "../../base/Version";
-import { BulkEligibilityListInstance } from "./v1/bulkEligibility";
-import { EligibilityListInstance } from "./v1/eligibility";
-import { PortingAllPortInListInstance } from "./v1/portingAllPortIn";
-import { PortingPortInListInstance } from "./v1/portingPortIn";
-import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNumber";
-import { PortingPortabilityListInstance } from "./v1/portingPortability";
-import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConfiguration";
-import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete";
-import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration";
-import { WebhookListInstance } from "./v1/webhook";
+import { NumbersBase } from "../NumbersBase.js";
+import { Version } from "../../base/Version.js";
+import { BulkEligibilityListInstance } from "./v1/bulkEligibility.js";
+import { EligibilityListInstance } from "./v1/eligibility.js";
+import { PortingAllPortInListInstance } from "./v1/portingAllPortIn.js";
+import { PortingPortInListInstance } from "./v1/portingPortIn.js";
+import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNumber.js";
+import { PortingPortabilityListInstance } from "./v1/portingPortability.js";
+import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConfiguration.js";
+import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete.js";
+import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration.js";
+import { WebhookListInstance } from "./v1/webhook.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Numbers
    *

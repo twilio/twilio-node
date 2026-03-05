@@ -1,6 +1,6 @@
-import AuthStrategy from "./AuthStrategy";
+import { AuthStrategy } from "./AuthStrategy.js";
 
-export default class NoAuthStrategy extends AuthStrategy {
+export class NoAuthStrategy extends AuthStrategy {
   constructor() {
     super("noauth");
   }

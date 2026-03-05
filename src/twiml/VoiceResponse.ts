@@ -6,9 +6,9 @@
  */
 
 import { XMLElement } from "xmlbuilder";
-import TwiML from "./TwiML";
+import { TwiML } from "./TwiML.js";
 
-class VoiceResponse extends TwiML {
+export class VoiceResponse extends TwiML {
   /**
    * <Response> TwiML for Voice
    */
@@ -45,8 +45,8 @@ class VoiceResponse extends TwiML {
    *
    * @param attributes - TwiML attributes
    */
-  connect(attributes?: VoiceResponse.ConnectAttributes): VoiceResponse.Connect {
-    return new VoiceResponse.Connect(this.response.ele("Connect", attributes));
+  connect(attributes?: ConnectAttributes): Connect {
+    return new Connect(this.response.ele("Connect", attributes));
   }
   /**
    * <Dial> TwiML Verb
@@ -54,20 +54,20 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param number - Phone number to dial
    */
-  dial(number?: string): VoiceResponse.Dial;
+  dial(number?: string): Dial;
   dial(
-    attributes?: VoiceResponse.DialAttributes,
+    attributes?: DialAttributes,
     number?: string
-  ): VoiceResponse.Dial;
+  ): Dial;
   dial(
-    attributes?: VoiceResponse.DialAttributes | string,
+    attributes?: DialAttributes | string,
     number?: string
-  ): VoiceResponse.Dial {
+  ): Dial {
     if (typeof attributes === "string") {
       number = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Dial(
+    return new Dial(
       this.response.ele("Dial", attributes, number)
     );
   }
@@ -76,8 +76,8 @@ class VoiceResponse extends TwiML {
    *
    * @param attributes - TwiML attributes
    */
-  echo(attributes?: object): VoiceResponse.Echo {
-    return new VoiceResponse.Echo(this.response.ele("Echo", attributes));
+  echo(attributes?: object): Echo {
+    return new Echo(this.response.ele("Echo", attributes));
   }
   /**
    * <Enqueue> TwiML Noun
@@ -85,20 +85,20 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param name - Friendly name
    */
-  enqueue(name?: string): VoiceResponse.Enqueue;
+  enqueue(name?: string): Enqueue;
   enqueue(
-    attributes?: VoiceResponse.EnqueueAttributes,
+    attributes?: EnqueueAttributes,
     name?: string
-  ): VoiceResponse.Enqueue;
+  ): Enqueue;
   enqueue(
-    attributes?: VoiceResponse.EnqueueAttributes | string,
+    attributes?: EnqueueAttributes | string,
     name?: string
-  ): VoiceResponse.Enqueue {
+  ): Enqueue {
     if (typeof attributes === "string") {
       name = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Enqueue(
+    return new Enqueue(
       this.response.ele("Enqueue", attributes, name)
     );
   }
@@ -107,40 +107,40 @@ class VoiceResponse extends TwiML {
    *
    * @param attributes - TwiML attributes
    */
-  gather(attributes?: VoiceResponse.GatherAttributes): VoiceResponse.Gather {
-    return new VoiceResponse.Gather(this.response.ele("Gather", attributes));
+  gather(attributes?: GatherAttributes): Gather {
+    return new Gather(this.response.ele("Gather", attributes));
   }
   /**
    * <Hangup> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  hangup(attributes?: object): VoiceResponse.Hangup {
-    return new VoiceResponse.Hangup(this.response.ele("Hangup", attributes));
+  hangup(attributes?: object): Hangup {
+    return new Hangup(this.response.ele("Hangup", attributes));
   }
   /**
    * <Leave> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  leave(attributes?: object): VoiceResponse.Leave {
-    return new VoiceResponse.Leave(this.response.ele("Leave", attributes));
+  leave(attributes?: object): Leave {
+    return new Leave(this.response.ele("Leave", attributes));
   }
   /**
    * <Pause> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  pause(attributes?: VoiceResponse.PauseAttributes): VoiceResponse.Pause {
-    return new VoiceResponse.Pause(this.response.ele("Pause", attributes));
+  pause(attributes?: PauseAttributes): Pause {
+    return new Pause(this.response.ele("Pause", attributes));
   }
   /**
    * <Pay> Twiml Verb
    *
    * @param attributes - TwiML attributes
    */
-  pay(attributes?: VoiceResponse.PayAttributes): VoiceResponse.Pay {
-    return new VoiceResponse.Pay(this.response.ele("Pay", attributes));
+  pay(attributes?: PayAttributes): Pay {
+    return new Pay(this.response.ele("Pay", attributes));
   }
   /**
    * <Play> TwiML Verb
@@ -148,28 +148,28 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param url - Media URL
    */
-  play(url?: string): VoiceResponse.Play;
+  play(url?: string): Play;
   play(
-    attributes?: VoiceResponse.PlayAttributes,
+    attributes?: PlayAttributes,
     url?: string
-  ): VoiceResponse.Play;
+  ): Play;
   play(
-    attributes?: VoiceResponse.PlayAttributes | string,
+    attributes?: PlayAttributes | string,
     url?: string
-  ): VoiceResponse.Play {
+  ): Play {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Play(this.response.ele("Play", attributes, url));
+    return new Play(this.response.ele("Play", attributes, url));
   }
   /**
    * <Prompt> Twiml Verb
    *
    * @param attributes - TwiML attributes
    */
-  prompt(attributes?: VoiceResponse.PromptAttributes): VoiceResponse.Prompt {
-    return new VoiceResponse.Prompt(this.response.ele("Prompt", attributes));
+  prompt(attributes?: PromptAttributes): Prompt {
+    return new Prompt(this.response.ele("Prompt", attributes));
   }
   /**
    * <Queue> TwiML Noun
@@ -177,20 +177,20 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param name - Queue name
    */
-  queue(name: string): VoiceResponse.Queue;
+  queue(name: string): Queue;
   queue(
-    attributes: VoiceResponse.QueueAttributes,
+    attributes: QueueAttributes,
     name: string
-  ): VoiceResponse.Queue;
+  ): Queue;
   queue(
-    attributes: VoiceResponse.QueueAttributes | string,
+    attributes: QueueAttributes | string,
     name?: string
-  ): VoiceResponse.Queue {
+  ): Queue {
     if (typeof attributes === "string") {
       name = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Queue(
+    return new Queue(
       this.response.ele("Queue", attributes, name)
     );
   }
@@ -199,8 +199,8 @@ class VoiceResponse extends TwiML {
    *
    * @param attributes - TwiML attributes
    */
-  record(attributes?: VoiceResponse.RecordAttributes): VoiceResponse.Record {
-    return new VoiceResponse.Record(this.response.ele("Record", attributes));
+  record(attributes?: RecordAttributes): Record {
+    return new Record(this.response.ele("Record", attributes));
   }
   /**
    * <Redirect> TwiML Verb
@@ -208,20 +208,20 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param url - Redirect URL
    */
-  redirect(url: string): VoiceResponse.Redirect;
+  redirect(url: string): Redirect;
   redirect(
-    attributes: VoiceResponse.RedirectAttributes,
+    attributes: RedirectAttributes,
     url: string
-  ): VoiceResponse.Redirect;
+  ): Redirect;
   redirect(
-    attributes: VoiceResponse.RedirectAttributes | string,
+    attributes: RedirectAttributes | string,
     url?: string
-  ): VoiceResponse.Redirect {
+  ): Redirect {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Redirect(
+    return new Redirect(
       this.response.ele("Redirect", attributes, url)
     );
   }
@@ -230,16 +230,16 @@ class VoiceResponse extends TwiML {
    *
    * @param attributes - TwiML attributes
    */
-  refer(attributes?: VoiceResponse.ReferAttributes): VoiceResponse.Refer {
-    return new VoiceResponse.Refer(this.response.ele("Refer", attributes));
+  refer(attributes?: ReferAttributes): Refer {
+    return new Refer(this.response.ele("Refer", attributes));
   }
   /**
    * <Reject> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  reject(attributes?: VoiceResponse.RejectAttributes): VoiceResponse.Reject {
-    return new VoiceResponse.Reject(this.response.ele("Reject", attributes));
+  reject(attributes?: RejectAttributes): Reject {
+    return new Reject(this.response.ele("Reject", attributes));
   }
   /**
    * <Say> TwiML Verb
@@ -247,20 +247,20 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param message - Message to say
    */
-  say(message: string): VoiceResponse.Say;
+  say(message: string): Say;
   say(
-    attributes: VoiceResponse.SayAttributes,
+    attributes: SayAttributes,
     message: string
-  ): VoiceResponse.Say;
+  ): Say;
   say(
-    attributes: VoiceResponse.SayAttributes | string,
+    attributes: SayAttributes | string,
     message?: string
-  ): VoiceResponse.Say {
+  ): Say {
     if (typeof attributes === "string") {
       message = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Say(this.response.ele("Say", attributes, message));
+    return new Say(this.response.ele("Say", attributes, message));
   }
   /**
    * <Sms> TwiML Noun
@@ -268,40 +268,39 @@ class VoiceResponse extends TwiML {
    * @param attributes - TwiML attributes
    * @param message - Message body
    */
-  sms(message: string): VoiceResponse.Sms;
+  sms(message: string): Sms;
   sms(
-    attributes: VoiceResponse.SmsAttributes,
+    attributes: SmsAttributes,
     message: string
-  ): VoiceResponse.Sms;
+  ): Sms;
   sms(
-    attributes: VoiceResponse.SmsAttributes | string,
+    attributes: SmsAttributes | string,
     message?: string
-  ): VoiceResponse.Sms {
+  ): Sms {
     if (typeof attributes === "string") {
       message = attributes;
       attributes = {};
     }
-    return new VoiceResponse.Sms(this.response.ele("Sms", attributes, message));
+    return new Sms(this.response.ele("Sms", attributes, message));
   }
   /**
    * <Start> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  start(attributes?: VoiceResponse.StartAttributes): VoiceResponse.Start {
-    return new VoiceResponse.Start(this.response.ele("Start", attributes));
+  start(attributes?: StartAttributes): Start {
+    return new Start(this.response.ele("Start", attributes));
   }
   /**
    * <Stop> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  stop(attributes?: object): VoiceResponse.Stop {
-    return new VoiceResponse.Stop(this.response.ele("Stop", attributes));
+  stop(attributes?: object): Stop {
+    return new Stop(this.response.ele("Stop", attributes));
   }
 }
 
-namespace VoiceResponse {
   type ApplicationEvent = "initiated" | "ringing" | "answered" | "completed";
 
   type ClientEvent = "initiated" | "ringing" | "answered" | "completed";
@@ -3334,20 +3333,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param sid - Application sid to dial
      */
-    applicationSid(sid: string): VoiceResponse.ApplicationSid;
+    applicationSid(sid: string): ApplicationSid;
     applicationSid(
       attributes: object,
       sid: string
-    ): VoiceResponse.ApplicationSid;
+    ): ApplicationSid;
     applicationSid(
       attributes: object | string,
       sid?: string
-    ): VoiceResponse.ApplicationSid {
+    ): ApplicationSid {
       if (typeof attributes === "string") {
         sid = attributes;
         attributes = {};
       }
-      return new VoiceResponse.ApplicationSid(
+      return new ApplicationSid(
         this.application.ele("ApplicationSid", attributes, sid)
       );
     }
@@ -3357,9 +3356,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.application.ele("Parameter", attributes)
       );
     }
@@ -3393,9 +3392,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     language(
-      attributes?: VoiceResponse.LanguageAttributes
-    ): VoiceResponse.Language {
-      return new VoiceResponse.Language(
+      attributes?: LanguageAttributes
+    ): Language {
+      return new Language(
         this.assistant.ele("Language", attributes)
       );
     }
@@ -3405,9 +3404,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.assistant.ele("Parameter", attributes)
       );
     }
@@ -3441,20 +3440,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param clientIdentity - Identity of the client to dial
      */
-    identity(clientIdentity: string): VoiceResponse.Identity;
+    identity(clientIdentity: string): Identity;
     identity(
       attributes: object,
       clientIdentity: string
-    ): VoiceResponse.Identity;
+    ): Identity;
     identity(
       attributes: object | string,
       clientIdentity?: string
-    ): VoiceResponse.Identity {
+    ): Identity {
       if (typeof attributes === "string") {
         clientIdentity = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Identity(
+      return new Identity(
         this.client.ele("Identity", attributes, clientIdentity)
       );
     }
@@ -3464,9 +3463,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.client.ele("Parameter", attributes)
       );
     }
@@ -3512,9 +3511,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     aiSession(
-      attributes?: VoiceResponse.AiSessionAttributes
-    ): VoiceResponse.AiSession {
-      return new VoiceResponse.AiSession(
+      attributes?: AiSessionAttributes
+    ): AiSession {
+      return new AiSession(
         this.connect.ele("AiSession", attributes)
       );
     }
@@ -3524,9 +3523,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     assistant(
-      attributes?: VoiceResponse.AssistantAttributes
-    ): VoiceResponse.Assistant {
-      return new VoiceResponse.Assistant(
+      attributes?: AssistantAttributes
+    ): Assistant {
+      return new Assistant(
         this.connect.ele("Assistant", attributes)
       );
     }
@@ -3536,17 +3535,17 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Autopilot assistant sid or unique name
      */
-    autopilot(name: string): VoiceResponse.Autopilot;
-    autopilot(attributes: object, name: string): VoiceResponse.Autopilot;
+    autopilot(name: string): Autopilot;
+    autopilot(attributes: object, name: string): Autopilot;
     autopilot(
       attributes: object | string,
       name?: string
-    ): VoiceResponse.Autopilot {
+    ): Autopilot {
       if (typeof attributes === "string") {
         name = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Autopilot(
+      return new Autopilot(
         this.connect.ele("Autopilot", attributes, name)
       );
     }
@@ -3556,9 +3555,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     conversation(
-      attributes?: VoiceResponse.ConversationAttributes
-    ): VoiceResponse.Conversation {
-      return new VoiceResponse.Conversation(
+      attributes?: ConversationAttributes
+    ): Conversation {
+      return new Conversation(
         this.connect.ele("Conversation", attributes)
       );
     }
@@ -3568,9 +3567,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     conversationRelay(
-      attributes?: VoiceResponse.ConversationRelayAttributes
-    ): VoiceResponse.ConversationRelay {
-      return new VoiceResponse.ConversationRelay(
+      attributes?: ConversationRelayAttributes
+    ): ConversationRelay {
+      return new ConversationRelay(
         this.connect.ele("ConversationRelay", attributes)
       );
     }
@@ -3580,9 +3579,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     conversationRelaySession(
-      attributes?: VoiceResponse.ConversationRelaySessionAttributes
-    ): VoiceResponse.ConversationRelaySession {
-      return new VoiceResponse.ConversationRelaySession(
+      attributes?: ConversationRelaySessionAttributes
+    ): ConversationRelaySession {
+      return new ConversationRelaySession(
         this.connect.ele("ConversationRelaySession", attributes)
       );
     }
@@ -3592,28 +3591,28 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Room name
      */
-    room(name: string): VoiceResponse.Room;
+    room(name: string): Room;
     room(
-      attributes: VoiceResponse.RoomAttributes,
+      attributes: RoomAttributes,
       name: string
-    ): VoiceResponse.Room;
+    ): Room;
     room(
-      attributes: VoiceResponse.RoomAttributes | string,
+      attributes: RoomAttributes | string,
       name?: string
-    ): VoiceResponse.Room {
+    ): Room {
       if (typeof attributes === "string") {
         name = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Room(this.connect.ele("Room", attributes, name));
+      return new Room(this.connect.ele("Room", attributes, name));
     }
     /**
      * <Stream> TwiML Noun
      *
      * @param attributes - TwiML attributes
      */
-    stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
-      return new VoiceResponse.Stream(this.connect.ele("Stream", attributes));
+    stream(attributes?: StreamAttributes): Stream {
+      return new Stream(this.connect.ele("Stream", attributes));
     }
     /**
      * <VirtualAgent> TwiML Noun
@@ -3621,9 +3620,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     virtualAgent(
-      attributes?: VoiceResponse.VirtualAgentAttributes
-    ): VoiceResponse.VirtualAgent {
-      return new VoiceResponse.VirtualAgent(
+      attributes?: VirtualAgentAttributes
+    ): VirtualAgent {
+      return new VirtualAgent(
         this.connect.ele("VirtualAgent", attributes)
       );
     }
@@ -3657,9 +3656,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     language(
-      attributes?: VoiceResponse.LanguageAttributes
-    ): VoiceResponse.Language {
-      return new VoiceResponse.Language(
+      attributes?: LanguageAttributes
+    ): Language {
+      return new Language(
         this.conversationRelay.ele("Language", attributes)
       );
     }
@@ -3669,9 +3668,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.conversationRelay.ele("Parameter", attributes)
       );
     }
@@ -3705,20 +3704,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param applicationSid - Application sid
      */
-    application(applicationSid?: string): VoiceResponse.Application;
+    application(applicationSid?: string): Application;
     application(
-      attributes?: VoiceResponse.ApplicationAttributes,
+      attributes?: ApplicationAttributes,
       applicationSid?: string
-    ): VoiceResponse.Application;
+    ): Application;
     application(
-      attributes?: VoiceResponse.ApplicationAttributes | string,
+      attributes?: ApplicationAttributes | string,
       applicationSid?: string
-    ): VoiceResponse.Application {
+    ): Application {
       if (typeof attributes === "string") {
         applicationSid = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Application(
+      return new Application(
         this.dial.ele("Application", attributes, applicationSid)
       );
     }
@@ -3728,20 +3727,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param identity - Client identity
      */
-    client(identity?: string): VoiceResponse.Client;
+    client(identity?: string): Client;
     client(
-      attributes?: VoiceResponse.ClientAttributes,
+      attributes?: ClientAttributes,
       identity?: string
-    ): VoiceResponse.Client;
+    ): Client;
     client(
-      attributes?: VoiceResponse.ClientAttributes | string,
+      attributes?: ClientAttributes | string,
       identity?: string
-    ): VoiceResponse.Client {
+    ): Client {
       if (typeof attributes === "string") {
         identity = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Client(
+      return new Client(
         this.dial.ele("Client", attributes, identity)
       );
     }
@@ -3751,20 +3750,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Conference name
      */
-    conference(name: string): VoiceResponse.Conference;
+    conference(name: string): Conference;
     conference(
-      attributes: VoiceResponse.ConferenceAttributes,
+      attributes: ConferenceAttributes,
       name: string
-    ): VoiceResponse.Conference;
+    ): Conference;
     conference(
-      attributes: VoiceResponse.ConferenceAttributes | string,
+      attributes: ConferenceAttributes | string,
       name?: string
-    ): VoiceResponse.Conference {
+    ): Conference {
       if (typeof attributes === "string") {
         name = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Conference(
+      return new Conference(
         this.dial.ele("Conference", attributes, name)
       );
     }
@@ -3774,20 +3773,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param phoneNumber - Phone Number to dial
      */
-    number(phoneNumber: string): VoiceResponse.Number;
+    number(phoneNumber: string): Number;
     number(
-      attributes: VoiceResponse.NumberAttributes,
+      attributes: NumberAttributes,
       phoneNumber: string
-    ): VoiceResponse.Number;
+    ): Number;
     number(
-      attributes: VoiceResponse.NumberAttributes | string,
+      attributes: NumberAttributes | string,
       phoneNumber?: string
-    ): VoiceResponse.Number {
+    ): Number {
       if (typeof attributes === "string") {
         phoneNumber = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Number(
+      return new Number(
         this.dial.ele("Number", attributes, phoneNumber)
       );
     }
@@ -3797,20 +3796,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Queue name
      */
-    queue(name: string): VoiceResponse.Queue;
+    queue(name: string): Queue;
     queue(
-      attributes: VoiceResponse.QueueAttributes,
+      attributes: QueueAttributes,
       name: string
-    ): VoiceResponse.Queue;
+    ): Queue;
     queue(
-      attributes: VoiceResponse.QueueAttributes | string,
+      attributes: QueueAttributes | string,
       name?: string
-    ): VoiceResponse.Queue {
+    ): Queue {
       if (typeof attributes === "string") {
         name = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Queue(this.dial.ele("Queue", attributes, name));
+      return new Queue(this.dial.ele("Queue", attributes, name));
     }
     /**
      * <Sim> TwiML Noun
@@ -3818,14 +3817,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param simSid - SIM SID
      */
-    sim(simSid: string): VoiceResponse.Sim;
-    sim(attributes: object, simSid: string): VoiceResponse.Sim;
-    sim(attributes: object | string, simSid?: string): VoiceResponse.Sim {
+    sim(simSid: string): Sim;
+    sim(attributes: object, simSid: string): Sim;
+    sim(attributes: object | string, simSid?: string): Sim {
       if (typeof attributes === "string") {
         simSid = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Sim(this.dial.ele("Sim", attributes, simSid));
+      return new Sim(this.dial.ele("Sim", attributes, simSid));
     }
     /**
      * <Sip> TwiML Noun
@@ -3833,20 +3832,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param sipUrl - SIP URL
      */
-    sip(sipUrl?: string): VoiceResponse.Sip;
+    sip(sipUrl?: string): Sip;
     sip(
-      attributes?: VoiceResponse.SipAttributes,
+      attributes?: SipAttributes,
       sipUrl?: string
-    ): VoiceResponse.Sip;
+    ): Sip;
     sip(
-      attributes?: VoiceResponse.SipAttributes | string,
+      attributes?: SipAttributes | string,
       sipUrl?: string
-    ): VoiceResponse.Sip {
+    ): Sip {
       if (typeof attributes === "string") {
         sipUrl = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Sip(this.dial.ele("Sip", attributes, sipUrl));
+      return new Sip(this.dial.ele("Sip", attributes, sipUrl));
     }
     /**
      * <WhatsApp> TwiML Noun
@@ -3854,20 +3853,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param phoneNumber - WhatsApp Phone Number to dial
      */
-    whatsApp(phoneNumber: string): VoiceResponse.WhatsApp;
+    whatsApp(phoneNumber: string): WhatsApp;
     whatsApp(
-      attributes: VoiceResponse.WhatsAppAttributes,
+      attributes: WhatsAppAttributes,
       phoneNumber: string
-    ): VoiceResponse.WhatsApp;
+    ): WhatsApp;
     whatsApp(
-      attributes: VoiceResponse.WhatsAppAttributes | string,
+      attributes: WhatsAppAttributes | string,
       phoneNumber?: string
-    ): VoiceResponse.WhatsApp {
+    ): WhatsApp {
       if (typeof attributes === "string") {
         phoneNumber = attributes;
         attributes = {};
       }
-      return new VoiceResponse.WhatsApp(
+      return new WhatsApp(
         this.dial.ele("WhatsApp", attributes, phoneNumber)
       );
     }
@@ -3901,20 +3900,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param body - TaskRouter task attributes
      */
-    task(body: string): VoiceResponse.Task;
+    task(body: string): Task;
     task(
-      attributes: VoiceResponse.TaskAttributes,
+      attributes: TaskAttributes,
       body: string
-    ): VoiceResponse.Task;
+    ): Task;
     task(
-      attributes: VoiceResponse.TaskAttributes | string,
+      attributes: TaskAttributes | string,
       body?: string
-    ): VoiceResponse.Task {
+    ): Task {
       if (typeof attributes === "string") {
         body = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Task(this.enqueue.ele("Task", attributes, body));
+      return new Task(this.enqueue.ele("Task", attributes, body));
     }
   }
 
@@ -3933,8 +3932,8 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    pause(attributes?: VoiceResponse.PauseAttributes): VoiceResponse.Pause {
-      return new VoiceResponse.Pause(this.gather.ele("Pause", attributes));
+    pause(attributes?: PauseAttributes): Pause {
+      return new Pause(this.gather.ele("Pause", attributes));
     }
     /**
      * <Play> TwiML Verb
@@ -3942,20 +3941,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
-    play(url?: string): VoiceResponse.Play;
+    play(url?: string): Play;
     play(
-      attributes?: VoiceResponse.PlayAttributes,
+      attributes?: PlayAttributes,
       url?: string
-    ): VoiceResponse.Play;
+    ): Play;
     play(
-      attributes?: VoiceResponse.PlayAttributes | string,
+      attributes?: PlayAttributes | string,
       url?: string
-    ): VoiceResponse.Play {
+    ): Play {
       if (typeof attributes === "string") {
         url = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Play(this.gather.ele("Play", attributes, url));
+      return new Play(this.gather.ele("Play", attributes, url));
     }
     /**
      * <Say> TwiML Verb
@@ -3963,20 +3962,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param message - Message to say
      */
-    say(message: string): VoiceResponse.Say;
+    say(message: string): Say;
     say(
-      attributes: VoiceResponse.SayAttributes,
+      attributes: SayAttributes,
       message: string
-    ): VoiceResponse.Say;
+    ): Say;
     say(
-      attributes: VoiceResponse.SayAttributes | string,
+      attributes: SayAttributes | string,
       message?: string
-    ): VoiceResponse.Say {
+    ): Say {
       if (typeof attributes === "string") {
         message = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Say(this.gather.ele("Say", attributes, message));
+      return new Say(this.gather.ele("Say", attributes, message));
     }
   }
 
@@ -3996,9 +3995,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.hangup.ele("Parameter", attributes)
       );
     }
@@ -4031,8 +4030,8 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    header(attributes?: VoiceResponse.HeaderAttributes): VoiceResponse.Header {
-      return new VoiceResponse.Header(this.headers.ele("Header", attributes));
+    header(attributes?: HeaderAttributes): Header {
+      return new Header(this.headers.ele("Header", attributes));
     }
   }
 
@@ -4124,17 +4123,17 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(this.pay.ele("Parameter", attributes));
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(this.pay.ele("Parameter", attributes));
     }
     /**
      * <Prompt> Twiml Verb
      *
      * @param attributes - TwiML attributes
      */
-    prompt(attributes?: VoiceResponse.PromptAttributes): VoiceResponse.Prompt {
-      return new VoiceResponse.Prompt(this.pay.ele("Prompt", attributes));
+    prompt(attributes?: PromptAttributes): Prompt {
+      return new Prompt(this.pay.ele("Prompt", attributes));
     }
   }
 
@@ -4165,8 +4164,8 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    pause(attributes?: VoiceResponse.PauseAttributes): VoiceResponse.Pause {
-      return new VoiceResponse.Pause(this.prompt.ele("Pause", attributes));
+    pause(attributes?: PauseAttributes): Pause {
+      return new Pause(this.prompt.ele("Pause", attributes));
     }
     /**
      * <Play> TwiML Verb
@@ -4174,20 +4173,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
-    play(url?: string): VoiceResponse.Play;
+    play(url?: string): Play;
     play(
-      attributes?: VoiceResponse.PlayAttributes,
+      attributes?: PlayAttributes,
       url?: string
-    ): VoiceResponse.Play;
+    ): Play;
     play(
-      attributes?: VoiceResponse.PlayAttributes | string,
+      attributes?: PlayAttributes | string,
       url?: string
-    ): VoiceResponse.Play {
+    ): Play {
       if (typeof attributes === "string") {
         url = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Play(this.prompt.ele("Play", attributes, url));
+      return new Play(this.prompt.ele("Play", attributes, url));
     }
     /**
      * <Say> TwiML Verb
@@ -4195,20 +4194,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param message - Message to say
      */
-    say(message: string): VoiceResponse.Say;
+    say(message: string): Say;
     say(
-      attributes: VoiceResponse.SayAttributes,
+      attributes: SayAttributes,
       message: string
-    ): VoiceResponse.Say;
+    ): Say;
     say(
-      attributes: VoiceResponse.SayAttributes | string,
+      attributes: SayAttributes | string,
       message?: string
-    ): VoiceResponse.Say {
+    ): Say {
       if (typeof attributes === "string") {
         message = attributes;
         attributes = {};
       }
-      return new VoiceResponse.Say(this.prompt.ele("Say", attributes, message));
+      return new Say(this.prompt.ele("Say", attributes, message));
     }
   }
 
@@ -4276,14 +4275,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param sipUrl - SIP URL
      */
-    sip(sipUrl: string): VoiceResponse.ReferSip;
-    sip(attributes: object, sipUrl: string): VoiceResponse.ReferSip;
-    sip(attributes: object | string, sipUrl?: string): VoiceResponse.ReferSip {
+    sip(sipUrl: string): ReferSip;
+    sip(attributes: object, sipUrl: string): ReferSip;
+    sip(attributes: object | string, sipUrl?: string): ReferSip {
       if (typeof attributes === "string") {
         sipUrl = attributes;
         attributes = {};
       }
-      return new VoiceResponse.ReferSip(
+      return new ReferSip(
         this.refer.ele("Sip", attributes, sipUrl)
       );
     }
@@ -4317,9 +4316,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.reject.ele("Parameter", attributes)
       );
     }
@@ -4353,9 +4352,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(this.say.ele("break", attributes));
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(this.say.ele("break", attributes));
     }
     /**
      * Emphasizing Words in <Say>
@@ -4363,20 +4362,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.say.ele("emphasis", attributes, words)
       );
     }
@@ -4386,20 +4385,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    lang(words: string): VoiceResponse.SsmlLang;
+    lang(words: string): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes,
+      attributes: SsmlLangAttributes,
       words: string
-    ): VoiceResponse.SsmlLang;
+    ): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes | string,
+      attributes: SsmlLangAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlLang {
+    ): SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlLang(
+      return new SsmlLang(
         this.say.ele("lang", attributes, words)
       );
     }
@@ -4409,14 +4408,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    p(words: string): VoiceResponse.SsmlP;
-    p(attributes: object, words: string): VoiceResponse.SsmlP;
-    p(attributes: object | string, words?: string): VoiceResponse.SsmlP {
+    p(words: string): SsmlP;
+    p(attributes: object, words: string): SsmlP;
+    p(attributes: object | string, words?: string): SsmlP {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlP(this.say.ele("p", attributes, words));
+      return new SsmlP(this.say.ele("p", attributes, words));
     }
     /**
      * Using Phonetic Pronunciation in <Say>
@@ -4424,20 +4423,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.say.ele("phoneme", attributes, words)
       );
     }
@@ -4447,20 +4446,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.say.ele("prosody", attributes, words)
       );
     }
@@ -4470,14 +4469,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    s(words: string): VoiceResponse.SsmlS;
-    s(attributes: object, words: string): VoiceResponse.SsmlS;
-    s(attributes: object | string, words?: string): VoiceResponse.SsmlS {
+    s(words: string): SsmlS;
+    s(attributes: object, words: string): SsmlS;
+    s(attributes: object | string, words?: string): SsmlS {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlS(this.say.ele("s", attributes, words));
+      return new SsmlS(this.say.ele("s", attributes, words));
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
@@ -4485,20 +4484,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.say.ele("say-as", attributes, words)
       );
     }
@@ -4508,20 +4507,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(this.say.ele("sub", attributes, words));
+      return new SsmlSub(this.say.ele("sub", attributes, words));
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
@@ -4529,20 +4528,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    w(words: string): VoiceResponse.SsmlW;
+    w(words: string): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes,
+      attributes: SsmlWAttributes,
       words: string
-    ): VoiceResponse.SsmlW;
+    ): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes | string,
+      attributes: SsmlWAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlW {
+    ): SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlW(this.say.ele("w", attributes, words));
+      return new SsmlW(this.say.ele("w", attributes, words));
     }
   }
 
@@ -4573,8 +4572,8 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    headers(attributes?: object): VoiceResponse.Headers {
-      return new VoiceResponse.Headers(this.sip.ele("Headers", attributes));
+    headers(attributes?: object): Headers {
+      return new Headers(this.sip.ele("Headers", attributes));
     }
     /**
      * The SIP URI to dial. Multiple Uri elements can be provided, in which case they
@@ -4584,20 +4583,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param sipUrl - The SIP URI
      */
-    uri(sipUrl?: string): VoiceResponse.SipUri;
+    uri(sipUrl?: string): SipUri;
     uri(
-      attributes?: VoiceResponse.SipUriAttributes,
+      attributes?: SipUriAttributes,
       sipUrl?: string
-    ): VoiceResponse.SipUri;
+    ): SipUri;
     uri(
-      attributes?: VoiceResponse.SipUriAttributes | string,
+      attributes?: SipUriAttributes | string,
       sipUrl?: string
-    ): VoiceResponse.SipUri {
+    ): SipUri {
       if (typeof attributes === "string") {
         sipUrl = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SipUri(this.sip.ele("Uri", attributes, sipUrl));
+      return new SipUri(this.sip.ele("Uri", attributes, sipUrl));
     }
   }
 
@@ -4631,9 +4630,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.siprec.ele("Parameter", attributes)
       );
     }
@@ -4679,9 +4678,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(
         this.ssmlEmphasis.ele("break", attributes)
       );
     }
@@ -4691,20 +4690,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.ssmlEmphasis.ele("emphasis", attributes, words)
       );
     }
@@ -4714,20 +4713,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    lang(words: string): VoiceResponse.SsmlLang;
+    lang(words: string): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes,
+      attributes: SsmlLangAttributes,
       words: string
-    ): VoiceResponse.SsmlLang;
+    ): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes | string,
+      attributes: SsmlLangAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlLang {
+    ): SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlLang(
+      return new SsmlLang(
         this.ssmlEmphasis.ele("lang", attributes, words)
       );
     }
@@ -4737,20 +4736,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.ssmlEmphasis.ele("phoneme", attributes, words)
       );
     }
@@ -4760,20 +4759,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.ssmlEmphasis.ele("prosody", attributes, words)
       );
     }
@@ -4783,20 +4782,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.ssmlEmphasis.ele("say-as", attributes, words)
       );
     }
@@ -4806,20 +4805,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(
+      return new SsmlSub(
         this.ssmlEmphasis.ele("sub", attributes, words)
       );
     }
@@ -4829,20 +4828,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    w(words: string): VoiceResponse.SsmlW;
+    w(words: string): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes,
+      attributes: SsmlWAttributes,
       words: string
-    ): VoiceResponse.SsmlW;
+    ): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes | string,
+      attributes: SsmlWAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlW {
+    ): SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlW(
+      return new SsmlW(
         this.ssmlEmphasis.ele("w", attributes, words)
       );
     }
@@ -4864,9 +4863,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(
         this.ssmlLang.ele("break", attributes)
       );
     }
@@ -4876,20 +4875,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.ssmlLang.ele("emphasis", attributes, words)
       );
     }
@@ -4899,20 +4898,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    lang(words: string): VoiceResponse.SsmlLang;
+    lang(words: string): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes,
+      attributes: SsmlLangAttributes,
       words: string
-    ): VoiceResponse.SsmlLang;
+    ): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes | string,
+      attributes: SsmlLangAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlLang {
+    ): SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlLang(
+      return new SsmlLang(
         this.ssmlLang.ele("lang", attributes, words)
       );
     }
@@ -4922,14 +4921,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    p(words: string): VoiceResponse.SsmlP;
-    p(attributes: object, words: string): VoiceResponse.SsmlP;
-    p(attributes: object | string, words?: string): VoiceResponse.SsmlP {
+    p(words: string): SsmlP;
+    p(attributes: object, words: string): SsmlP;
+    p(attributes: object | string, words?: string): SsmlP {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlP(this.ssmlLang.ele("p", attributes, words));
+      return new SsmlP(this.ssmlLang.ele("p", attributes, words));
     }
     /**
      * Using Phonetic Pronunciation in <Say>
@@ -4937,20 +4936,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.ssmlLang.ele("phoneme", attributes, words)
       );
     }
@@ -4960,20 +4959,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.ssmlLang.ele("prosody", attributes, words)
       );
     }
@@ -4983,14 +4982,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    s(words: string): VoiceResponse.SsmlS;
-    s(attributes: object, words: string): VoiceResponse.SsmlS;
-    s(attributes: object | string, words?: string): VoiceResponse.SsmlS {
+    s(words: string): SsmlS;
+    s(attributes: object, words: string): SsmlS;
+    s(attributes: object | string, words?: string): SsmlS {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlS(this.ssmlLang.ele("s", attributes, words));
+      return new SsmlS(this.ssmlLang.ele("s", attributes, words));
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
@@ -4998,20 +4997,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.ssmlLang.ele("say-as", attributes, words)
       );
     }
@@ -5021,20 +5020,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(
+      return new SsmlSub(
         this.ssmlLang.ele("sub", attributes, words)
       );
     }
@@ -5044,20 +5043,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    w(words: string): VoiceResponse.SsmlW;
+    w(words: string): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes,
+      attributes: SsmlWAttributes,
       words: string
-    ): VoiceResponse.SsmlW;
+    ): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes | string,
+      attributes: SsmlWAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlW {
+    ): SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlW(this.ssmlLang.ele("w", attributes, words));
+      return new SsmlW(this.ssmlLang.ele("w", attributes, words));
     }
   }
 
@@ -5077,9 +5076,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(this.ssmlP.ele("break", attributes));
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(this.ssmlP.ele("break", attributes));
     }
     /**
      * Emphasizing Words in <Say>
@@ -5087,20 +5086,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.ssmlP.ele("emphasis", attributes, words)
       );
     }
@@ -5110,20 +5109,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    lang(words: string): VoiceResponse.SsmlLang;
+    lang(words: string): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes,
+      attributes: SsmlLangAttributes,
       words: string
-    ): VoiceResponse.SsmlLang;
+    ): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes | string,
+      attributes: SsmlLangAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlLang {
+    ): SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlLang(
+      return new SsmlLang(
         this.ssmlP.ele("lang", attributes, words)
       );
     }
@@ -5133,20 +5132,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.ssmlP.ele("phoneme", attributes, words)
       );
     }
@@ -5156,20 +5155,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.ssmlP.ele("prosody", attributes, words)
       );
     }
@@ -5179,14 +5178,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    s(words: string): VoiceResponse.SsmlS;
-    s(attributes: object, words: string): VoiceResponse.SsmlS;
-    s(attributes: object | string, words?: string): VoiceResponse.SsmlS {
+    s(words: string): SsmlS;
+    s(attributes: object, words: string): SsmlS;
+    s(attributes: object | string, words?: string): SsmlS {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlS(this.ssmlP.ele("s", attributes, words));
+      return new SsmlS(this.ssmlP.ele("s", attributes, words));
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
@@ -5194,20 +5193,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.ssmlP.ele("say-as", attributes, words)
       );
     }
@@ -5217,20 +5216,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(
+      return new SsmlSub(
         this.ssmlP.ele("sub", attributes, words)
       );
     }
@@ -5240,20 +5239,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    w(words: string): VoiceResponse.SsmlW;
+    w(words: string): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes,
+      attributes: SsmlWAttributes,
       words: string
-    ): VoiceResponse.SsmlW;
+    ): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes | string,
+      attributes: SsmlWAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlW {
+    ): SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlW(this.ssmlP.ele("w", attributes, words));
+      return new SsmlW(this.ssmlP.ele("w", attributes, words));
     }
   }
 
@@ -5285,9 +5284,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(
         this.ssmlProsody.ele("break", attributes)
       );
     }
@@ -5297,20 +5296,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.ssmlProsody.ele("emphasis", attributes, words)
       );
     }
@@ -5320,20 +5319,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    lang(words: string): VoiceResponse.SsmlLang;
+    lang(words: string): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes,
+      attributes: SsmlLangAttributes,
       words: string
-    ): VoiceResponse.SsmlLang;
+    ): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes | string,
+      attributes: SsmlLangAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlLang {
+    ): SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlLang(
+      return new SsmlLang(
         this.ssmlProsody.ele("lang", attributes, words)
       );
     }
@@ -5343,14 +5342,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    p(words: string): VoiceResponse.SsmlP;
-    p(attributes: object, words: string): VoiceResponse.SsmlP;
-    p(attributes: object | string, words?: string): VoiceResponse.SsmlP {
+    p(words: string): SsmlP;
+    p(attributes: object, words: string): SsmlP;
+    p(attributes: object | string, words?: string): SsmlP {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlP(
+      return new SsmlP(
         this.ssmlProsody.ele("p", attributes, words)
       );
     }
@@ -5360,20 +5359,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.ssmlProsody.ele("phoneme", attributes, words)
       );
     }
@@ -5383,20 +5382,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.ssmlProsody.ele("prosody", attributes, words)
       );
     }
@@ -5406,14 +5405,14 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    s(words: string): VoiceResponse.SsmlS;
-    s(attributes: object, words: string): VoiceResponse.SsmlS;
-    s(attributes: object | string, words?: string): VoiceResponse.SsmlS {
+    s(words: string): SsmlS;
+    s(attributes: object, words: string): SsmlS;
+    s(attributes: object | string, words?: string): SsmlS {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlS(
+      return new SsmlS(
         this.ssmlProsody.ele("s", attributes, words)
       );
     }
@@ -5423,20 +5422,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.ssmlProsody.ele("say-as", attributes, words)
       );
     }
@@ -5446,20 +5445,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(
+      return new SsmlSub(
         this.ssmlProsody.ele("sub", attributes, words)
       );
     }
@@ -5469,20 +5468,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    w(words: string): VoiceResponse.SsmlW;
+    w(words: string): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes,
+      attributes: SsmlWAttributes,
       words: string
-    ): VoiceResponse.SsmlW;
+    ): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes | string,
+      attributes: SsmlWAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlW {
+    ): SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlW(
+      return new SsmlW(
         this.ssmlProsody.ele("w", attributes, words)
       );
     }
@@ -5504,9 +5503,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(this.ssmlS.ele("break", attributes));
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(this.ssmlS.ele("break", attributes));
     }
     /**
      * Emphasizing Words in <Say>
@@ -5514,20 +5513,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.ssmlS.ele("emphasis", attributes, words)
       );
     }
@@ -5537,20 +5536,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    lang(words: string): VoiceResponse.SsmlLang;
+    lang(words: string): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes,
+      attributes: SsmlLangAttributes,
       words: string
-    ): VoiceResponse.SsmlLang;
+    ): SsmlLang;
     lang(
-      attributes: VoiceResponse.SsmlLangAttributes | string,
+      attributes: SsmlLangAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlLang {
+    ): SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlLang(
+      return new SsmlLang(
         this.ssmlS.ele("lang", attributes, words)
       );
     }
@@ -5560,20 +5559,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.ssmlS.ele("phoneme", attributes, words)
       );
     }
@@ -5583,20 +5582,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.ssmlS.ele("prosody", attributes, words)
       );
     }
@@ -5606,20 +5605,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.ssmlS.ele("say-as", attributes, words)
       );
     }
@@ -5629,20 +5628,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(
+      return new SsmlSub(
         this.ssmlS.ele("sub", attributes, words)
       );
     }
@@ -5652,20 +5651,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    w(words: string): VoiceResponse.SsmlW;
+    w(words: string): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes,
+      attributes: SsmlWAttributes,
       words: string
-    ): VoiceResponse.SsmlW;
+    ): SsmlW;
     w(
-      attributes: VoiceResponse.SsmlWAttributes | string,
+      attributes: SsmlWAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlW {
+    ): SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlW(this.ssmlS.ele("w", attributes, words));
+      return new SsmlW(this.ssmlS.ele("w", attributes, words));
     }
   }
 
@@ -5709,9 +5708,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
-    ): VoiceResponse.SsmlBreak {
-      return new VoiceResponse.SsmlBreak(this.ssmlW.ele("break", attributes));
+      attributes?: SsmlBreakAttributes
+    ): SsmlBreak {
+      return new SsmlBreak(this.ssmlW.ele("break", attributes));
     }
     /**
      * Emphasizing Words in <Say>
@@ -5719,20 +5718,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
      */
-    emphasis(words: string): VoiceResponse.SsmlEmphasis;
+    emphasis(words: string): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes,
+      attributes: SsmlEmphasisAttributes,
       words: string
-    ): VoiceResponse.SsmlEmphasis;
+    ): SsmlEmphasis;
     emphasis(
-      attributes: VoiceResponse.SsmlEmphasisAttributes | string,
+      attributes: SsmlEmphasisAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlEmphasis {
+    ): SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlEmphasis(
+      return new SsmlEmphasis(
         this.ssmlW.ele("emphasis", attributes, words)
       );
     }
@@ -5742,20 +5741,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    phoneme(words: string): VoiceResponse.SsmlPhoneme;
+    phoneme(words: string): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes,
+      attributes: SsmlPhonemeAttributes,
       words: string
-    ): VoiceResponse.SsmlPhoneme;
+    ): SsmlPhoneme;
     phoneme(
-      attributes: VoiceResponse.SsmlPhonemeAttributes | string,
+      attributes: SsmlPhonemeAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlPhoneme {
+    ): SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlPhoneme(
+      return new SsmlPhoneme(
         this.ssmlW.ele("phoneme", attributes, words)
       );
     }
@@ -5765,20 +5764,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    prosody(words: string): VoiceResponse.SsmlProsody;
+    prosody(words: string): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes,
+      attributes: SsmlProsodyAttributes,
       words: string
-    ): VoiceResponse.SsmlProsody;
+    ): SsmlProsody;
     prosody(
-      attributes: VoiceResponse.SsmlProsodyAttributes | string,
+      attributes: SsmlProsodyAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlProsody {
+    ): SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlProsody(
+      return new SsmlProsody(
         this.ssmlW.ele("prosody", attributes, words)
       );
     }
@@ -5788,20 +5787,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
-    sayAs(words: string): VoiceResponse.SsmlSayAs;
+    sayAs(words: string): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes,
+      attributes: SsmlSayAsAttributes,
       words: string
-    ): VoiceResponse.SsmlSayAs;
+    ): SsmlSayAs;
     sayAs(
-      attributes: VoiceResponse.SsmlSayAsAttributes | string,
+      attributes: SsmlSayAsAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSayAs {
+    ): SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSayAs(
+      return new SsmlSayAs(
         this.ssmlW.ele("say-as", attributes, words)
       );
     }
@@ -5811,20 +5810,20 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
-    sub(words: string): VoiceResponse.SsmlSub;
+    sub(words: string): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes,
+      attributes: SsmlSubAttributes,
       words: string
-    ): VoiceResponse.SsmlSub;
+    ): SsmlSub;
     sub(
-      attributes: VoiceResponse.SsmlSubAttributes | string,
+      attributes: SsmlSubAttributes | string,
       words?: string
-    ): VoiceResponse.SsmlSub {
+    ): SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
-      return new VoiceResponse.SsmlSub(
+      return new SsmlSub(
         this.ssmlW.ele("sub", attributes, words)
       );
     }
@@ -5846,9 +5845,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     recording(
-      attributes?: VoiceResponse.RecordingAttributes
-    ): VoiceResponse.Recording {
-      return new VoiceResponse.Recording(
+      attributes?: RecordingAttributes
+    ): Recording {
+      return new Recording(
         this.start.ele("Recording", attributes)
       );
     }
@@ -5857,16 +5856,16 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    siprec(attributes?: VoiceResponse.SiprecAttributes): VoiceResponse.Siprec {
-      return new VoiceResponse.Siprec(this.start.ele("Siprec", attributes));
+    siprec(attributes?: SiprecAttributes): Siprec {
+      return new Siprec(this.start.ele("Siprec", attributes));
     }
     /**
      * <Stream> TwiML Noun
      *
      * @param attributes - TwiML attributes
      */
-    stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
-      return new VoiceResponse.Stream(this.start.ele("Stream", attributes));
+    stream(attributes?: StreamAttributes): Stream {
+      return new Stream(this.start.ele("Stream", attributes));
     }
     /**
      * <Transcription> TwiML Noun
@@ -5874,9 +5873,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     transcription(
-      attributes?: VoiceResponse.TranscriptionAttributes
-    ): VoiceResponse.Transcription {
-      return new VoiceResponse.Transcription(
+      attributes?: TranscriptionAttributes
+    ): Transcription {
+      return new Transcription(
         this.start.ele("Transcription", attributes)
       );
     }
@@ -5897,16 +5896,16 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    siprec(attributes?: VoiceResponse.SiprecAttributes): VoiceResponse.Siprec {
-      return new VoiceResponse.Siprec(this.stop.ele("Siprec", attributes));
+    siprec(attributes?: SiprecAttributes): Siprec {
+      return new Siprec(this.stop.ele("Siprec", attributes));
     }
     /**
      * <Stream> TwiML Noun
      *
      * @param attributes - TwiML attributes
      */
-    stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
-      return new VoiceResponse.Stream(this.stop.ele("Stream", attributes));
+    stream(attributes?: StreamAttributes): Stream {
+      return new Stream(this.stop.ele("Stream", attributes));
     }
     /**
      * <Transcription> TwiML Noun
@@ -5914,9 +5913,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     transcription(
-      attributes?: VoiceResponse.TranscriptionAttributes
-    ): VoiceResponse.Transcription {
-      return new VoiceResponse.Transcription(
+      attributes?: TranscriptionAttributes
+    ): Transcription {
+      return new Transcription(
         this.stop.ele("Transcription", attributes)
       );
     }
@@ -5938,9 +5937,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.stream.ele("Parameter", attributes)
       );
     }
@@ -5973,8 +5972,8 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
-      return new VoiceResponse.Config(
+    config(attributes?: ConfigAttributes): Config {
+      return new Config(
         this.transcription.ele("Config", attributes)
       );
     }
@@ -5984,9 +5983,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.transcription.ele("Parameter", attributes)
       );
     }
@@ -6007,8 +6006,8 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
-      return new VoiceResponse.Config(
+    config(attributes?: ConfigAttributes): Config {
+      return new Config(
         this.virtualAgent.ele("Config", attributes)
       );
     }
@@ -6018,9 +6017,9 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
+      attributes?: ParameterAttributes
+    ): Parameter {
+      return new Parameter(
         this.virtualAgent.ele("Parameter", attributes)
       );
     }
@@ -6037,6 +6036,3 @@ namespace VoiceResponse {
       this._propertyName = "whatsApp";
     }
   }
-}
-
-export = VoiceResponse;

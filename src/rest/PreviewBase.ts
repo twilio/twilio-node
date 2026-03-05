@@ -9,12 +9,12 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import HostedNumbers from "./preview/HostedNumbers";
-import Marketplace from "./preview/Marketplace";
-import Wireless from "./preview/Wireless";
+import { Domain } from "../base/Domain.js";
+import { HostedNumbers } from "./preview/HostedNumbers.js";
+import { Marketplace } from "./preview/Marketplace.js";
+import { Wireless } from "./preview/Wireless.js";
 
-class PreviewBase extends Domain {
+export class PreviewBase extends Domain {
   _hosted_numbers?: HostedNumbers;
   _marketplace?: Marketplace;
   _wireless?: Wireless;
@@ -41,5 +41,3 @@ class PreviewBase extends Domain {
     return this._wireless;
   }
 }
-
-export = PreviewBase;

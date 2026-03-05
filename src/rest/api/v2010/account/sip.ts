@@ -13,14 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../V2010";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { CredentialListListInstance } from "./sip/credentialList";
-import { DomainListInstance } from "./sip/domain";
-import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
+import { V2010 } from "../../V2010.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { CredentialListListInstance } from "./sip/credentialList.js";
+import { DomainListInstance } from "./sip/domain.js";
+import { IpAccessControlListListInstance } from "./sip/ipAccessControlList.js";
 
 export interface SipSolution {
   accountSid: string;

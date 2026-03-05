@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import SyncBase from "../SyncBase";
-import Version from "../../base/Version";
-import { ServiceListInstance } from "./v1/service";
+import { SyncBase } from "../SyncBase.js";
+import { Version } from "../../base/Version.js";
+import { ServiceListInstance } from "./v1/service.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Sync
    *

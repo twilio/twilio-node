@@ -1,9 +1,11 @@
-import ClientCredentialProvider from "../../../src/credential_provider/ClientCredentialProvider";
-import TokenAuthStrategy from "../../../src/auth_strategy/TokenAuthStrategy";
+import {
+  ClientCredentialProvider,
+  ClientCredentialProviderBuilder,
+} from "../../../src/credential_provider/ClientCredentialProvider";
+import { TokenAuthStrategy } from "../../../src/auth_strategy/TokenAuthStrategy";
 
 describe("ClientCredentialProvider Constructor", () => {
-  const clientCredentialProvider =
-    new ClientCredentialProvider.ClientCredentialProviderBuilder()
+  const clientCredentialProvider = new ClientCredentialProviderBuilder()
       .setClientId("clientId")
       .setClientSecret("clientSecret")
       .build();

@@ -1,8 +1,4 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import TwiML from "../twiml/TwiML";
-
-dayjs.extend(utc);
+import { TwiML } from "../twiml/TwiML.js";
 
 /**
  * @namespace serialize
@@ -19,7 +15,7 @@ export function iso8601Date<T>(date: T | Date): T | string {
   if (!date || !(date instanceof Date)) {
     return date as T;
   } else {
-    return dayjs.utc(date).format("YYYY-MM-DD");
+    return date.toISOString().split("T")[0];
   }
 }
 
@@ -34,7 +30,7 @@ export function iso8601DateTime<T>(date: T | Date): T | string {
   if (!date || !(date instanceof Date)) {
     return date as T;
   } else {
-    return dayjs.utc(date).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
+    return date.toISOString().replace(/\.\d{3}Z$/, "Z");
   }
 }
 

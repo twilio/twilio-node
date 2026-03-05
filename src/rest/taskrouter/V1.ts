@@ -12,11 +12,11 @@
  * Do not edit the class manually.
  */
 
-import TaskrouterBase from "../TaskrouterBase";
-import Version from "../../base/Version";
-import { WorkspaceListInstance } from "./v1/workspace";
+import { TaskrouterBase } from "../TaskrouterBase.js";
+import { Version } from "../../base/Version.js";
+import { WorkspaceListInstance } from "./v1/workspace.js";
 
-export default class V1 extends Version {
+export class V1 extends Version {
   /**
    * Initialize the V1 version of Taskrouter
    *

@@ -1,4 +1,4 @@
-import twilio from "../../../src";
+import { AccessToken, ChatGrant, VideoGrant, SyncGrant, TaskRouterGrant, VoiceGrant, PlaybackGrant } from "../../../src/jwt/AccessToken";
 import jwt from "jsonwebtoken";
 
 process.noDeprecation = true;
@@ -8,7 +8,7 @@ describe("AccessToken", function () {
   var keySid = "SKb5aed9ca12bf5890f37930e63cad6d38";
 
   function getToken() {
-    return new twilio.jwt.AccessToken(accountSid, keySid, "secret", {
+    return new AccessToken(accountSid, keySid, "secret", {
       identity: "ID@example.com",
     });
   }
@@ -27,7 +27,7 @@ describe("AccessToken", function () {
         // add context
         constructorArgs.unshift({});
         new (Function.prototype.bind.apply(
-          twilio.jwt.AccessToken,
+          AccessToken,
           constructorArgs
         ))();
       };
@@ -47,7 +47,7 @@ describe("AccessToken", function () {
       );
     });
     it("should convert identity from integer to string", function () {
-      var token = new twilio.jwt.AccessToken(accountSid, keySid, "secret", {
+      var token = new AccessToken(accountSid, keySid, "secret", {
         identity: 4444,
       });
       var decoded = jwt.decode(token.toJwt());
@@ -77,7 +77,7 @@ describe("AccessToken", function () {
     });
 
     it("should generate the correct headers", function () {
-      var token = new twilio.jwt.AccessToken(
+      var token = new AccessToken(
         accountSid,
         keySid,
         "aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f",
@@ -97,7 +97,7 @@ describe("AccessToken", function () {
         var token = getToken();
         var decoded = jwt.decode(token.toJwt(alg), {
           complete: true,
-          algorithms: twilio.jwt.AccessToken.ALGORITHMS,
+          algorithms: AccessToken.ALGORITHMS,
         });
         expect(decoded.header.alg).toEqual(alg);
       };
@@ -163,7 +163,7 @@ describe("AccessToken", function () {
 
     it("should create token with chat grant", function () {
       var token = getToken();
-      var grant = new twilio.jwt.AccessToken.ChatGrant();
+      var grant = new ChatGrant();
       grant.serviceSid = "SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       grant.endpointId = "endpointId";
       grant.pushCredentialSid = "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -184,7 +184,7 @@ describe("AccessToken", function () {
 
     it("should create token with video grant", function () {
       var token = getToken();
-      var grant = new twilio.jwt.AccessToken.VideoGrant();
+      var grant = new VideoGrant();
       grant.room = "room";
       token.addGrant(grant);
 
@@ -199,7 +199,7 @@ describe("AccessToken", function () {
 
     it("should create token with sync grant", function () {
       var token = getToken();
-      var grant = new twilio.jwt.AccessToken.SyncGrant();
+      var grant = new SyncGrant();
       grant.serviceSid = "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       grant.endpointId = "endpointId";
       token.addGrant(grant);
@@ -216,7 +216,7 @@ describe("AccessToken", function () {
 
     it("should create token with taskrouter grant", function () {
       var token = getToken();
-      var grant = new twilio.jwt.AccessToken.TaskRouterGrant();
+      var grant = new TaskRouterGrant();
       grant.workspaceSid = "WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
       grant.workerSid = "WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
       grant.role = "worker";
@@ -242,7 +242,7 @@ describe("AccessToken", function () {
         playerStreamerSid: "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       };
 
-      var grant = new twilio.jwt.AccessToken.PlaybackGrant();
+      var grant = new PlaybackGrant();
       grant.grant = playbackGrant;
       token.addGrant(grant);
 
@@ -255,23 +255,23 @@ describe("AccessToken", function () {
 
     it("should create token with multiple grants", function () {
       var token = getToken();
-      var grant = new twilio.jwt.AccessToken.ChatGrant();
+      var grant = new ChatGrant();
       grant.serviceSid = "SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       grant.endpointId = "endpointId";
       grant.pushCredentialSid = "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       grant.deploymentRoleSid = "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       token.addGrant(grant);
 
-      grant = new twilio.jwt.AccessToken.SyncGrant();
+      grant = new SyncGrant();
       grant.serviceSid = "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       grant.endpointId = "endpointId";
       token.addGrant(grant);
 
-      grant = new twilio.jwt.AccessToken.VideoGrant();
+      grant = new VideoGrant();
       grant.room = "CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
       token.addGrant(grant);
 
-      grant = new twilio.jwt.AccessToken.TaskRouterGrant();
+      grant = new TaskRouterGrant();
       grant.workspaceSid = "WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
       grant.workerSid = "WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
       grant.role = "worker";
@@ -304,7 +304,7 @@ describe("AccessToken", function () {
     describe("ChatGrant", function () {
       describe("toPayload", function () {
         it("should set properties in the constructor", function () {
-          var grant = new twilio.jwt.AccessToken.ChatGrant({
+          var grant = new ChatGrant({
             deploymentRoleSid: "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             serviceSid: "SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             endpointId: "endpointId",
@@ -319,7 +319,7 @@ describe("AccessToken", function () {
         });
 
         it("should only populate set properties", function () {
-          var grant = new twilio.jwt.AccessToken.ChatGrant();
+          var grant = new ChatGrant();
           expect(grant.toPayload()).toEqual({});
 
           grant.deploymentRoleSid = "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -361,7 +361,7 @@ describe("AccessToken", function () {
 
     describe("VoiceGrant", function () {
       it("should generate a grant", function () {
-        var grant = new twilio.jwt.AccessToken.VoiceGrant({
+        var grant = new VoiceGrant({
           outgoingApplicationSid: "AP123",
           outgoingApplicationParams: {
             foo: "bar",
@@ -381,14 +381,14 @@ describe("AccessToken", function () {
       });
 
       it("should set incoming.allow if incomingAllow === true", function () {
-        var grant = new twilio.jwt.AccessToken.VoiceGrant({
+        var grant = new VoiceGrant({
           incomingAllow: true,
         });
         expect(grant.toPayload()).toEqual({ incoming: { allow: true } });
       });
 
       it("should not set incoming.allow if incomingAllow !== true", function () {
-        var grant = new twilio.jwt.AccessToken.VoiceGrant({
+        var grant = new VoiceGrant({
           incomingAllow: "foo",
         });
         expect(grant.toPayload()).toEqual({});
@@ -397,7 +397,7 @@ describe("AccessToken", function () {
 
     describe("VideoGrant", function () {
       it("should only populate set properties", function () {
-        var grant = new twilio.jwt.AccessToken.VideoGrant();
+        var grant = new VideoGrant();
         expect(grant.toPayload()).toEqual({});
 
         grant.room = "CPsid";
@@ -410,7 +410,7 @@ describe("AccessToken", function () {
     describe("SyncGrant", function () {
       describe("toPayload", function () {
         it("should only populate set properties", function () {
-          var grant = new twilio.jwt.AccessToken.SyncGrant();
+          var grant = new SyncGrant();
           expect(grant.toPayload()).toEqual({});
 
           grant.serviceSid = "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -435,7 +435,7 @@ describe("AccessToken", function () {
     describe("TaskRouterGrant", function () {
       describe("toPayload", function () {
         it("should only populate set properties", function () {
-          var grant = new twilio.jwt.AccessToken.TaskRouterGrant();
+          var grant = new TaskRouterGrant();
           expect(grant.toPayload()).toEqual({});
 
           grant.workspaceSid = "WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
@@ -461,7 +461,7 @@ describe("AccessToken", function () {
 
     describe("PlaybackGrant", function () {
       it("should only populate set properties", function () {
-        var grant = new twilio.jwt.AccessToken.PlaybackGrant();
+        var grant = new PlaybackGrant();
         expect(grant.toPayload()).toEqual({});
 
         var playbackGrant = {

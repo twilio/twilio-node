@@ -1,4 +1,4 @@
-export default class Response<TPayload> {
+export class Response<TPayload> {
   constructor(
     public statusCode: number,
     public body: TPayload,

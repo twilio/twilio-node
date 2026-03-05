@@ -9,10 +9,10 @@
  * Do not edit the class manually.
  */
 
-import Domain from "../base/Domain";
-import V2 from "./verify/V2";
+import { Domain } from "../base/Domain.js";
+import { V2 } from "./verify/V2.js";
 
-class VerifyBase extends Domain {
+export class VerifyBase extends Domain {
   _v2?: V2;
 
   /**
@@ -29,5 +29,3 @@ class VerifyBase extends Domain {
     return this._v2;
   }
 }
-
-export = VerifyBase;
