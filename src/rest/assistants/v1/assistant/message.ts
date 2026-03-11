@@ -40,6 +40,14 @@ export class AssistantsV1ServiceAssistantSendMessageRequest {
    * one of the modes \'chat\', \'email\' or \'voice\'
    */
   "mode"?: string;
+
+  constructor(payload) {
+    this.identity = payload["identity"];
+    this.sessionId = payload["session_id"];
+    this.body = payload["body"];
+    this.webhook = payload["webhook"];
+    this.mode = payload["mode"];
+  }
 }
 
 /**

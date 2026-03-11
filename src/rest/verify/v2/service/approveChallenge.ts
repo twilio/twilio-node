@@ -37,6 +37,14 @@ export class ApprovePasskeysChallengeRequest {
    */
   "type"?: string;
   "response": ApprovePasskeysChallengeRequestResponse;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.rawId = payload["rawId"];
+    this.authenticatorAttachment = payload["authenticatorAttachment"];
+    this.type = payload["type"];
+    this.response = payload["response"];
+  }
 }
 
 /**
@@ -59,6 +67,13 @@ export class ApprovePasskeysChallengeRequestResponse {
    * The user handle stored in the authenticator, specified as `user.id` in the options passed to the originating `navigator.credentials.create()` call. This property should contain a base64url-encoded entity SID.
    */
   "userHandle"?: string;
+
+  constructor(payload) {
+    this.authenticatorData = payload["authenticatorData"];
+    this.clientDataJSON = payload["clientDataJSON"];
+    this.signature = payload["signature"];
+    this.userHandle = payload["userHandle"];
+  }
 }
 
 /**

@@ -22,6 +22,11 @@ import { ApiResponse } from "../../../../base/ApiResponse";
 export class CreatePasskeysChallengeRequest {
   "identity"?: string;
   "factorSid"?: string;
+
+  constructor(payload) {
+    this.identity = payload["identity"];
+    this.factorSid = payload["factor_sid"];
+  }
 }
 
 /**

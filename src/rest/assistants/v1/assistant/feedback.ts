@@ -39,6 +39,13 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
    * The text to be given as feedback.
    */
   "text"?: string;
+
+  constructor(payload) {
+    this.messageId = payload["message_id"];
+    this.score = payload["score"];
+    this.sessionId = payload["session_id"];
+    this.text = payload["text"];
+  }
 }
 
 /**

@@ -38,6 +38,12 @@ export class ScimEmailAddress {
    * The type of email address (e.g., work, home, etc.)
    */
   "type"?: string;
+
+  constructor(payload) {
+    this.primary = payload["primary"];
+    this.value = payload["value"];
+    this.type = payload["type"];
+  }
 }
 
 /**
@@ -60,6 +66,13 @@ export class ScimMeta {
    * A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
    */
   "version"?: string;
+
+  constructor(payload) {
+    this.resourceType = payload["resourceType"];
+    this.created = payload["created"];
+    this.lastModified = payload["lastModified"];
+    this.version = payload["version"];
+  }
 }
 
 /**
@@ -74,6 +87,11 @@ export class ScimName {
    * The user\'s last or family name
    */
   "familyName"?: string;
+
+  constructor(payload) {
+    this.givenName = payload["givenName"];
+    this.familyName = payload["familyName"];
+  }
 }
 
 export class ScimUser {
@@ -135,6 +153,25 @@ export class ScimUser {
    * Link to Error Code References
    */
   "moreInfo"?: string;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.externalId = payload["externalId"];
+    this.userName = payload["userName"];
+    this.displayName = payload["displayName"];
+    this.name = payload["name"];
+    this.emails = payload["emails"];
+    this.active = payload["active"];
+    this.locale = payload["locale"];
+    this.timezone = payload["timezone"];
+    this.schemas = payload["schemas"];
+    this.meta = payload["meta"];
+    this.detail = payload["detail"];
+    this.scimType = payload["scimType"];
+    this.status = payload["status"];
+    this.code = payload["code"];
+    this.moreInfo = payload["moreInfo"];
+  }
 }
 
 /**
@@ -554,13 +591,22 @@ export class UserInstance {
     this.externalId = payload.externalId;
     this.userName = payload.userName;
     this.displayName = payload.displayName;
-    this.name = payload.name;
-    this.emails = payload.emails;
+    this.name =
+      payload.name !== null && payload.name !== undefined
+        ? new ScimName(payload.name)
+        : null;
+    this.emails =
+      payload.emails !== null && payload.emails !== undefined
+        ? payload.emails.map((payload: any) => new ScimEmailAddress(payload))
+        : null;
     this.active = payload.active;
     this.locale = payload.locale;
     this.timezone = payload.timezone;
     this.schemas = payload.schemas;
-    this.meta = payload.meta;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new ScimMeta(payload.meta)
+        : null;
     this.detail = payload.detail;
     this.scimType = payload.scimType;
     this.status = payload.status;

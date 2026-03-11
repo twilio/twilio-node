@@ -37,6 +37,14 @@ export class VerifyPasskeysFactorRequest {
    */
   "type"?: string;
   "response": VerifyPasskeysFactorRequestResponse;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.rawId = payload["rawId"];
+    this.authenticatorAttachment = payload["authenticatorAttachment"];
+    this.type = payload["type"];
+    this.response = payload["response"];
+  }
 }
 
 /**
@@ -55,6 +63,12 @@ export class VerifyPasskeysFactorRequestResponse {
    * An array of strings providing hints as to the methods the client could use to communicate with the relevant authenticator of the public key credential to retrieve.
    */
   "transports"?: Array<string>;
+
+  constructor(payload) {
+    this.attestationObject = payload["attestationObject"];
+    this.clientDataJSON = payload["clientDataJSON"];
+    this.transports = payload["transports"];
+  }
 }
 
 /**

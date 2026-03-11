@@ -35,6 +35,12 @@ export class PublicApiCreateRoleAssignmentRequest {
    * Twilio Sid representing identity of this assignment
    */
   "identity": string;
+
+  constructor(payload) {
+    this.roleSid = payload["role_sid"];
+    this.scope = payload["scope"];
+    this.identity = payload["identity"];
+  }
 }
 
 /**

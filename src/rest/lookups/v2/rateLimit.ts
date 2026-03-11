@@ -43,6 +43,14 @@ export class RateLimitResponse {
    * Time to live of the rule
    */
   "ttl"?: number;
+
+  constructor(payload) {
+    this.field = payload["field"];
+    this.limit = payload["limit"];
+    this.bucket = payload["bucket"];
+    this.owner = payload["owner"];
+    this.ttl = payload["ttl"];
+  }
 }
 
 /**
@@ -235,7 +243,12 @@ interface RateLimitResource {
 
 export class RateLimitInstance {
   constructor(protected _version: V2, payload: RateLimitResource) {
-    this.rateLimits = payload.rate_limits;
+    this.rateLimits =
+      payload.rate_limits !== null && payload.rate_limits !== undefined
+        ? payload.rate_limits.map(
+            (payload: any) => new RateLimitResponse(payload)
+          )
+        : null;
   }
 
   rateLimits: Array<RateLimitResponse>;

@@ -31,6 +31,11 @@ export class RateLimitRequest {
    * Time to live of the rule
    */
   "ttl"?: number;
+
+  constructor(payload) {
+    this.limit = payload["limit"];
+    this.ttl = payload["ttl"];
+  }
 }
 
 /**

@@ -50,6 +50,16 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
    * The embedding model to be used for the knowledge source. It\'s required for \'Database\' type but disallowed for other types.
    */
   "embeddingModel"?: string;
+
+  constructor(payload) {
+    this.assistantId = payload["assistant_id"];
+    this.description = payload["description"];
+    this.knowledgeSourceDetails = payload["knowledge_source_details"];
+    this.name = payload["name"];
+    this.policy = payload["policy"];
+    this.type = payload["type"];
+    this.embeddingModel = payload["embedding_model"];
+  }
 }
 
 export class AssistantsV1ServiceCreatePolicyRequest {
@@ -70,6 +80,14 @@ export class AssistantsV1ServiceCreatePolicyRequest {
    * The description of the policy.
    */
   "type"?: string;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.id = payload["id"];
+    this.name = payload["name"];
+    this.policyDetails = payload["policy_details"];
+    this.type = payload["type"];
+  }
 }
 
 export class AssistantsV1ServiceUpdateKnowledgeRequest {
@@ -94,6 +112,15 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
    * The embedding model to be used for the knowledge source. It\'s only applicable to \'Database\' type.
    */
   "embeddingModel"?: string;
+
+  constructor(payload) {
+    this.description = payload["description"];
+    this.knowledgeSourceDetails = payload["knowledge_source_details"];
+    this.name = payload["name"];
+    this.policy = payload["policy"];
+    this.type = payload["type"];
+    this.embeddingModel = payload["embedding_model"];
+  }
 }
 
 /**

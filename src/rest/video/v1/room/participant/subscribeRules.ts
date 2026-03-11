@@ -26,6 +26,15 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "track"?: string;
   "kind"?: string;
   "priority"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.all = payload["all"];
+    this.publisher = payload["publisher"];
+    this.track = payload["track"];
+    this.kind = payload["kind"];
+    this.priority = payload["priority"];
+  }
 }
 
 /**
@@ -351,7 +360,15 @@ export class SubscribeRulesInstance {
   ) {
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;
-    this.rules = payload.rules;
+    this.rules =
+      payload.rules !== null && payload.rules !== undefined
+        ? payload.rules.map(
+            (payload: any) =>
+              new VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules(
+                payload
+              )
+          )
+        : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }

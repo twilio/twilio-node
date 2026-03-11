@@ -33,6 +33,13 @@ export class CreateShortCodeApplicationRequest {
   "isoCountry": string;
   "businessInformation": CreateShortCodeApplicationRequestBusinessInformation;
   "setup": CreateShortCodeApplicationRequestSetup;
+
+  constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
+    this.isoCountry = payload["iso_country"];
+    this.businessInformation = payload["business_information"];
+    this.setup = payload["setup"];
+  }
 }
 
 /**
@@ -43,10 +50,18 @@ export class CreateShortCodeApplicationRequestBusinessInformation {
    * The Compliance Profile SID for the customer-facing business profile.
    */
   "customerFacingProfile": string;
+
+  constructor(payload) {
+    this.customerFacingProfile = payload["customer_facing_profile"];
+  }
 }
 
 export class CreateShortCodeApplicationRequestSetup {
   "chargesApply": boolean;
+
+  constructor(payload) {
+    this.chargesApply = payload["charges_apply"];
+  }
 }
 
 /**

@@ -28,6 +28,11 @@ export class OverridesRequest {
    * The reason for the override
    */
   "reason"?: string;
+
+  constructor(payload) {
+    this.lineType = payload["line_type"];
+    this.reason = payload["reason"];
+  }
 }
 
 /**
