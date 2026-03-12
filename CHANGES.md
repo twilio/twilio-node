@@ -1,6 +1,40 @@
 twilio-node changelog
 =====================
 
+[2026-03-12] Version 5.13.0
+---------------------------
+**Library - Feature**
+- [PR #1182](https://github.com/twilio/twilio-node/pull/1182): Update README.md. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Fix**
+- [PR #1178](https://github.com/twilio/twilio-node/pull/1178): upgrade axios to ^1.13.5 to remediate CVE-2026-25639. Thanks to [@Copilot](https://github.com/Copilot)!
+- [PR #1173](https://github.com/twilio/twilio-node/pull/1173): Security upgrade eslint from 8.57.1 to 10.0.0. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Library - Chore**
+- [PR #1172](https://github.com/twilio/twilio-node/pull/1172): Update jsonwebtoken to 9.0.3 to resolve jws HMAC vulnerability. Thanks to [@Copilot](https://github.com/Copilot)!
+
+**Twiml**
+- Rename `recording_configuration` to `recording_configuration_id` attribute in `<Conference>`, `<Dial>`, `<Record>` verbs and `<Recording>` noun
+
+**Ace**
+- # ACE Signals API Changes
+- ## 2026-02-18
+- Initial release: POST /signals, GET/POST /signals/{signal_id}/results, GET /health
+- Enables OneAdmin integration for synchronous signal ingestion and policy result polling
+- Supports permission-based authorization for signal operations
+- Health endpoint available for monitoring without authentication
+
+**Api**
+- Added optional parameter `Confirmation` to Payments create endpoint to enable payment confirmation prompt before gateway submission
+- Added optional parameter `RequireMatchingInputs` to Payments create endpoint for input confirmation in agent-assisted payment flows
+- Added matcher capture types (`payment-card-number-matcher`, `expiration-date-matcher`, `security-code-matcher`, `postal-code-matcher`) to Payments update endpoint
+
+**Memory**
+- ## 2026-03-06
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (added patch, get)
+
+
 [2026-02-18] Version 5.12.2
 ---------------------------
 **Api**

@@ -74,6 +74,10 @@ export interface TranscriptionListInstanceCreateOptions {
   enableAutomaticPunctuation?: boolean;
   /** The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators */
   intelligenceService?: string;
+  /** The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service */
+  conversationConfiguration?: string;
+  /** The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service */
+  conversationId?: string;
   /** Whether the callback includes raw provider data. */
   enableProviderData?: boolean;
 }
@@ -535,6 +539,10 @@ export function TranscriptionListInstance(
       );
     if (params["intelligenceService"] !== undefined)
       data["IntelligenceService"] = params["intelligenceService"];
+    if (params["conversationConfiguration"] !== undefined)
+      data["ConversationConfiguration"] = params["conversationConfiguration"];
+    if (params["conversationId"] !== undefined)
+      data["ConversationId"] = params["conversationId"];
     if (params["enableProviderData"] !== undefined)
       data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
 
@@ -615,6 +623,10 @@ export function TranscriptionListInstance(
       );
     if (params["intelligenceService"] !== undefined)
       data["IntelligenceService"] = params["intelligenceService"];
+    if (params["conversationConfiguration"] !== undefined)
+      data["ConversationConfiguration"] = params["conversationConfiguration"];
+    if (params["conversationId"] !== undefined)
+      data["ConversationId"] = params["conversationId"];
     if (params["enableProviderData"] !== undefined)
       data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
 

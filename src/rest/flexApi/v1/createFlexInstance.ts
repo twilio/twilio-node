@@ -21,6 +21,10 @@ import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CreateInstanceRequestBody {
   "conversation"?: CreateInstanceRequestBodyConversation;
+
+  constructor(payload) {
+    this.conversation = payload["Conversation"];
+  }
 }
 
 export class CreateInstanceRequestBodyConversation {
@@ -28,6 +32,10 @@ export class CreateInstanceRequestBodyConversation {
    * Set newly created conversation service as the default conversation service
    */
   "_default"?: boolean;
+
+  constructor(payload) {
+    this._default = payload["Default"];
+  }
 }
 
 /**

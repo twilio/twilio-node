@@ -31,6 +31,11 @@ export class ContentApprovalRequest {
    * A WhatsApp recognized template category.
    */
   "category": string;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.category = payload["category"];
+  }
 }
 
 /**

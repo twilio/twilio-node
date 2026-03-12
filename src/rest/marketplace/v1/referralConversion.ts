@@ -21,6 +21,10 @@ import { ApiResponse } from "../../../base/ApiResponse";
 
 export class CreateReferralConversionRequest {
   "referralAccountSid"?: string;
+
+  constructor(payload) {
+    this.referralAccountSid = payload["referral_account_sid"];
+  }
 }
 
 /**

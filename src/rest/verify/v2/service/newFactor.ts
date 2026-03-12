@@ -23,6 +23,12 @@ export class CreateNewPasskeysFactorRequest {
   "friendlyName": string;
   "identity": string;
   "config"?: CreateNewPasskeysFactorRequestConfig;
+
+  constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
+    this.identity = payload["identity"];
+    this.config = payload["config"];
+  }
 }
 
 export class CreateNewPasskeysFactorRequestConfig {
@@ -30,6 +36,13 @@ export class CreateNewPasskeysFactorRequestConfig {
   "authenticatorAttachment"?: string;
   "discoverableCredentials"?: string;
   "userVerification"?: string;
+
+  constructor(payload) {
+    this.relyingParty = payload["relying_party"];
+    this.authenticatorAttachment = payload["authenticator_attachment"];
+    this.discoverableCredentials = payload["discoverable_credentials"];
+    this.userVerification = payload["user_verification"];
+  }
 }
 
 /**
@@ -39,6 +52,12 @@ export class CreateNewPasskeysFactorRequestConfigRelyingParty {
   "id"?: string;
   "name"?: string;
   "origins"?: Array<string>;
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.name = payload["name"];
+    this.origins = payload["origins"];
+  }
 }
 
 /**

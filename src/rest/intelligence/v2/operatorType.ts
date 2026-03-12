@@ -53,6 +53,8 @@ export type OperatorTypeProvider = "twilio" | "amazon" | "openai";
 export interface OperatorTypeListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Returns Operator Types that support the provided language code. */
+  languageCode?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: OperatorTypeInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -67,6 +69,8 @@ export interface OperatorTypeListInstanceEachOptions {
 export interface OperatorTypeListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Returns Operator Types that support the provided language code. */
+  languageCode?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -77,6 +81,8 @@ export interface OperatorTypeListInstanceOptions {
 export interface OperatorTypeListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Returns Operator Types that support the provided language code. */
+  languageCode?: string;
 
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -575,6 +581,8 @@ export function OperatorTypeListInstance(
     let data: any = {};
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["languageCode"] !== undefined)
+      data["LanguageCode"] = params["languageCode"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
@@ -639,6 +647,8 @@ export function OperatorTypeListInstance(
     let data: any = {};
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["languageCode"] !== undefined)
+      data["LanguageCode"] = params["languageCode"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;

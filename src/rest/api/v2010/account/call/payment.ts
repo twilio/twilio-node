@@ -28,7 +28,7 @@ export type PaymentBankAccountType =
   | "commercial-checking";
 
 /**
- * The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, or `bank-account-number`.
+ * The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, `bank-account-number`, or their `-matcher` variants for input confirmation when `RequireMatchingInputs` is enabled.
  */
 export type PaymentCapture =
   | "payment-card-number"
@@ -36,7 +36,11 @@ export type PaymentCapture =
   | "security-code"
   | "postal-code"
   | "bank-routing-number"
-  | "bank-account-number";
+  | "bank-account-number"
+  | "payment-card-number-matcher"
+  | "expiration-date-matcher"
+  | "security-code-matcher"
+  | "postal-code-matcher";
 
 /**
  * Type of payment being captured. One of `credit-card` or `ach-debit`. The default value is `credit-card`.
@@ -103,6 +107,10 @@ export interface PaymentListInstanceCreateOptions {
   tokenType?: PaymentTokenType;
   /** Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex` */
   validCardTypes?: string;
+  /** A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`. */
+  requireMatchingInputs?: string;
+  /** Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`. */
+  confirmation?: string;
 }
 
 export interface PaymentContext {
@@ -573,6 +581,10 @@ export function PaymentListInstance(
       data["TokenType"] = params["tokenType"];
     if (params["validCardTypes"] !== undefined)
       data["ValidCardTypes"] = params["validCardTypes"];
+    if (params["requireMatchingInputs"] !== undefined)
+      data["RequireMatchingInputs"] = params["requireMatchingInputs"];
+    if (params["confirmation"] !== undefined)
+      data["Confirmation"] = params["confirmation"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -659,6 +671,10 @@ export function PaymentListInstance(
       data["TokenType"] = params["tokenType"];
     if (params["validCardTypes"] !== undefined)
       data["ValidCardTypes"] = params["validCardTypes"];
+    if (params["requireMatchingInputs"] !== undefined)
+      data["RequireMatchingInputs"] = params["requireMatchingInputs"];
+    if (params["confirmation"] !== undefined)
+      data["Confirmation"] = params["confirmation"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

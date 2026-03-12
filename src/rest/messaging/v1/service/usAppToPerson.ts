@@ -23,6 +23,14 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
 /**
+ * Options to pass to fetch a UsAppToPersonInstance
+ */
+export interface UsAppToPersonContextFetchOptions {
+  /** The version of the Messaging API to use for this request */
+  xTwilioApiVersion?: string;
+}
+
+/**
  * Options to pass to update a UsAppToPersonInstance
  */
 export interface UsAppToPersonContextUpdateOptions {
@@ -40,6 +48,12 @@ export interface UsAppToPersonContextUpdateOptions {
   ageGated: boolean;
   /** A boolean that specifies whether campaign allows direct lending or not. */
   directLending: boolean;
+  /** The version of the Messaging API to use for this request */
+  xTwilioApiVersion?: string;
+  /** The URL of the privacy policy for the campaign. */
+  privacyPolicyUrl?: string;
+  /** The URL of the terms and conditions for the campaign. */
+  termsAndConditionsUrl?: string;
 }
 
 /**
@@ -60,6 +74,8 @@ export interface UsAppToPersonListInstanceCreateOptions {
   hasEmbeddedLinks: boolean;
   /** Indicates that this SMS campaign will send messages that contain phone numbers. */
   hasEmbeddedPhone: boolean;
+  /** The version of the Messaging API to use for this request */
+  xTwilioApiVersion?: string;
   /** If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum. */
   optInMessage?: string;
   /** Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum. */
@@ -78,6 +94,10 @@ export interface UsAppToPersonListInstanceCreateOptions {
   ageGated?: boolean;
   /** A boolean that specifies whether campaign allows direct lending or not. */
   directLending?: boolean;
+  /** The URL of the privacy policy for the campaign. */
+  privacyPolicyUrl?: string;
+  /** The URL of the terms and conditions for the campaign. */
+  termsAndConditionsUrl?: string;
 }
 /**
  * Options to pass to each
@@ -85,6 +105,8 @@ export interface UsAppToPersonListInstanceCreateOptions {
 export interface UsAppToPersonListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The version of the Messaging API to use for this request */
+  xTwilioApiVersion?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -99,6 +121,8 @@ export interface UsAppToPersonListInstanceEachOptions {
 export interface UsAppToPersonListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The version of the Messaging API to use for this request */
+  xTwilioApiVersion?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -109,6 +133,8 @@ export interface UsAppToPersonListInstanceOptions {
 export interface UsAppToPersonListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** The version of the Messaging API to use for this request */
+  xTwilioApiVersion?: string;
 
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -149,6 +175,18 @@ export interface UsAppToPersonContext {
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance>;
+  /**
+   * Fetch a UsAppToPersonInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance
+   */
+  fetch(
+    params: UsAppToPersonContextFetchOptions,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance>;
 
   /**
    * Fetch a UsAppToPersonInstance and return HTTP info
@@ -158,6 +196,21 @@ export interface UsAppToPersonContext {
    * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
    */
   fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
+  /**
+   * Fetch a UsAppToPersonInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: UsAppToPersonContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: ApiResponse<UsAppToPersonInstance>
@@ -271,16 +324,31 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   fetch(
+    params?:
+      | UsAppToPersonContextFetchOptions
+      | ((error: Error | null, item?: UsAppToPersonInstance) => any),
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
     const headers: any = {};
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        params: data,
         headers,
       });
 
@@ -302,13 +370,30 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   fetchWithHttpInfo(
+    params?:
+      | UsAppToPersonContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<UsAppToPersonInstance>
+        ) => any),
     callback?: (
       error: Error | null,
       item?: ApiResponse<UsAppToPersonInstance>
     ) => any
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
     const headers: any = {};
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     const instance = this;
     let operationVersion = instance._version;
@@ -317,6 +402,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       .fetchWithResponseInfo<UsAppToPersonResource>({
         uri: instance._uri,
         method: "get",
+        params: data,
         headers,
       })
       .then(
@@ -412,10 +498,16 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     data["AgeGated"] = serialize.bool(params["ageGated"]);
 
     data["DirectLending"] = serialize.bool(params["directLending"]);
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -520,10 +612,16 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     data["AgeGated"] = serialize.bool(params["ageGated"]);
 
     data["DirectLending"] = serialize.bool(params["directLending"]);
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     const instance = this;
     let operationVersion = instance._version;
@@ -600,7 +698,9 @@ interface UsAppToPersonResource {
   date_updated: Date;
   url: string;
   mock: boolean;
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
+  privacy_policy_url: string;
+  terms_and_conditions_url: string;
 }
 
 export class UsAppToPersonInstance {
@@ -641,6 +741,8 @@ export class UsAppToPersonInstance {
     this.url = payload.url;
     this.mock = payload.mock;
     this.errors = payload.errors;
+    this.privacyPolicyUrl = payload.privacy_policy_url;
+    this.termsAndConditionsUrl = payload.terms_and_conditions_url;
 
     this._solution = { messagingServiceSid, sid: sid || this.sid };
   }
@@ -756,7 +858,15 @@ export class UsAppToPersonInstance {
   /**
    * Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
    */
-  errors: Array<any>;
+  errors: Array<Record<string, object>>;
+  /**
+   * The URL of the privacy policy for the campaign.
+   */
+  privacyPolicyUrl: string;
+  /**
+   * The URL of the terms and conditions for the campaign.
+   */
+  termsAndConditionsUrl: string;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =
@@ -804,8 +914,25 @@ export class UsAppToPersonInstance {
    */
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance>;
+  /**
+   * Fetch a UsAppToPersonInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance
+   */
+  fetch(
+    params: UsAppToPersonContextFetchOptions,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance>;
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
-    return this._proxy.fetch(callback);
+    return this._proxy.fetch(params, callback);
   }
 
   /**
@@ -820,8 +947,31 @@ export class UsAppToPersonInstance {
       error: Error | null,
       item?: ApiResponse<UsAppToPersonInstance>
     ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
+  /**
+   * Fetch a UsAppToPersonInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    params: UsAppToPersonContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
+  ): Promise<ApiResponse<UsAppToPersonInstance>>;
+
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UsAppToPersonInstance>
+    ) => any
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
-    return this._proxy.fetchWithHttpInfo(callback);
+    return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
   /**
@@ -905,6 +1055,8 @@ export class UsAppToPersonInstance {
       url: this.url,
       mock: this.mock,
       errors: this.errors,
+      privacyPolicyUrl: this.privacyPolicyUrl,
+      termsAndConditionsUrl: this.termsAndConditionsUrl,
     };
   }
 
@@ -1251,10 +1403,16 @@ export function UsAppToPersonListInstance(
       data["AgeGated"] = serialize.bool(params["ageGated"]);
     if (params["directLending"] !== undefined)
       data["DirectLending"] = serialize.bool(params["directLending"]);
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -1389,10 +1547,16 @@ export function UsAppToPersonListInstance(
       data["AgeGated"] = serialize.bool(params["ageGated"]);
     if (params["directLending"] !== undefined)
       data["DirectLending"] = serialize.bool(params["directLending"]);
+    if (params["privacyPolicyUrl"] !== undefined)
+      data["PrivacyPolicyUrl"] = params["privacyPolicyUrl"];
+    if (params["termsAndConditionsUrl"] !== undefined)
+      data["TermsAndConditionsUrl"] = params["termsAndConditionsUrl"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
@@ -1443,6 +1607,8 @@ export function UsAppToPersonListInstance(
 
     const headers: any = {};
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
@@ -1507,6 +1673,8 @@ export function UsAppToPersonListInstance(
 
     const headers: any = {};
     headers["Accept"] = "application/json";
+    if (params["xTwilioApiVersion"] !== undefined)
+      headers["X-Twilio-Api-Version"] = params["xTwilioApiVersion"];
 
     let operationVersion = version;
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
