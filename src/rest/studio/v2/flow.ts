@@ -443,6 +443,7 @@ interface FlowPayload extends TwilioResponsePayload {
 interface FlowResource {
   sid: string;
   account_sid: string;
+  author_sid: string;
   friendly_name: string;
   definition: any;
   status: FlowStatus;
@@ -465,6 +466,7 @@ export class FlowInstance {
   constructor(protected _version: V2, payload: FlowResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
+    this.authorSid = payload.author_sid;
     this.friendlyName = payload.friendly_name;
     this.definition = payload.definition;
     this.status = payload.status;
@@ -490,6 +492,10 @@ export class FlowInstance {
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
    */
   accountSid: string;
+  /**
+   * The SID of the User that created or last updated the Flow.
+   */
+  authorSid: string;
   /**
    * The string that you assigned to describe the Flow.
    */
@@ -665,6 +671,7 @@ export class FlowInstance {
     return {
       sid: this.sid,
       accountSid: this.accountSid,
+      authorSid: this.authorSid,
       friendlyName: this.friendlyName,
       definition: this.definition,
       status: this.status,

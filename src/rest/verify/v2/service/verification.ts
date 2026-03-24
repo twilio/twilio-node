@@ -52,7 +52,7 @@ export interface VerificationListInstanceCreateOptions {
   channel: string;
   /** A custom user defined friendly name that overwrites the existing one in the verification message */
   customFriendlyName?: string;
-  /** The text of a custom message to use for the verification. */
+  /** The text of a custom message to use for the verification [DEPRECATED]. */
   customMessage?: string;
   /** The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits). */
   sendDigits?: string;

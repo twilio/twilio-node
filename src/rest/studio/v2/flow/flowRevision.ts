@@ -208,6 +208,7 @@ interface FlowRevisionPayload extends TwilioResponsePayload {
 interface FlowRevisionResource {
   sid: string;
   account_sid: string;
+  author_sid: string;
   friendly_name: string;
   definition: any;
   status: FlowRevisionStatus;
@@ -232,6 +233,7 @@ export class FlowRevisionInstance {
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
+    this.authorSid = payload.author_sid;
     this.friendlyName = payload.friendly_name;
     this.definition = payload.definition;
     this.status = payload.status;
@@ -254,6 +256,10 @@ export class FlowRevisionInstance {
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
    */
   accountSid: string;
+  /**
+   * The SID of the User that created or last updated the Flow.
+   */
+  authorSid: string;
   /**
    * The string that you assigned to describe the Flow.
    */
@@ -341,6 +347,7 @@ export class FlowRevisionInstance {
     return {
       sid: this.sid,
       accountSid: this.accountSid,
+      authorSid: this.authorSid,
       friendlyName: this.friendlyName,
       definition: this.definition,
       status: this.status,

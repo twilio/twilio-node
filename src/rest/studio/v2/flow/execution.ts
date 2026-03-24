@@ -464,6 +464,8 @@ interface ExecutionResource {
   account_sid: string;
   flow_sid: string;
   contact_channel_address: string;
+  contact_sid: string;
+  flow_version: number;
   context: any;
   status: ExecutionStatus;
   date_created: Date;
@@ -486,6 +488,8 @@ export class ExecutionInstance {
     this.accountSid = payload.account_sid;
     this.flowSid = payload.flow_sid;
     this.contactChannelAddress = payload.contact_channel_address;
+    this.contactSid = payload.contact_sid;
+    this.flowVersion = deserialize.integer(payload.flow_version);
     this.context = payload.context;
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -512,6 +516,14 @@ export class ExecutionInstance {
    * The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
    */
   contactChannelAddress: string;
+  /**
+   * The SID of the Contact.
+   */
+  contactSid: string;
+  /**
+   * The Flow version number at the time of Execution creation.
+   */
+  flowVersion: number;
   /**
    * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
@@ -671,6 +683,8 @@ export class ExecutionInstance {
       accountSid: this.accountSid,
       flowSid: this.flowSid,
       contactChannelAddress: this.contactChannelAddress,
+      contactSid: this.contactSid,
+      flowVersion: this.flowVersion,
       context: this.context,
       status: this.status,
       dateCreated: this.dateCreated,

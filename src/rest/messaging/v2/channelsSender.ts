@@ -56,12 +56,17 @@ export class MessagingV2ChannelsSenderConfiguration {
    * The SID of the Twilio Voice application.
    */
   "voiceApplicationSid"?: string | null;
+  /**
+   * The account type for ISV Account Type Migration. Set to \'ISV\' or \'ISVSubAccount\' to configure, null or empty string to clear, or omit to preserve the existing value.
+   */
+  "accountType"?: string | null;
 
   constructor(payload) {
     this.wabaId = payload["waba_id"];
     this.verificationMethod = payload["verification_method"];
     this.verificationCode = payload["verification_code"];
     this.voiceApplicationSid = payload["voice_application_sid"];
+    this.accountType = payload["account_type"];
   }
 }
 

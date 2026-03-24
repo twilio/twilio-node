@@ -94,6 +94,31 @@ export class ScimName {
   }
 }
 
+export class ScimPatchOperation {
+  /**
+   * The operation to perform
+   */
+  "op"?: string;
+  "path"?: string;
+  "value"?: Record<string, object>;
+
+  constructor(payload) {
+    this.op = payload["op"];
+    this.path = payload["path"];
+    this.value = payload["value"];
+  }
+}
+
+export class ScimPatchRequest {
+  "schemas"?: Array<string>;
+  "operations"?: Array<ScimPatchOperation>;
+
+  constructor(payload) {
+    this.schemas = payload["schemas"];
+    this.operations = payload["Operations"];
+  }
+}
+
 export class ScimUser {
   /**
    * Unique Twilio user sid
@@ -172,6 +197,16 @@ export class ScimUser {
     this.code = payload["code"];
     this.moreInfo = payload["moreInfo"];
   }
+}
+
+/**
+ * Options to pass to patch a UserInstance
+ */
+export interface UserContextPatchOptions {
+  /**  */
+  scimPatchRequest: ScimPatchRequest;
+  /**  */
+  ifMatch?: string;
 }
 
 /**
@@ -270,6 +305,36 @@ export interface UserContext {
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
   fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  /**
+   * Patch a UserInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance
+   */
+  patch(
+    params: ScimPatchRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+
+  /**
+   * Patch a UserInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    params: ScimPatchRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
   ): Promise<ApiResponse<UserInstance>>;
 
@@ -424,6 +489,101 @@ export class UserContextImpl implements UserContext {
       .fetchWithResponseInfo<UserResource>({
         uri: instance._uri,
         method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.organizationSid,
+            instance._solution.id
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  patch(
+    params: ScimPatchRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/scim+json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserInstance(
+          operationVersion,
+          payload,
+          instance._solution.organizationSid,
+          instance._solution.id
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  patchWithHttpInfo(
+    params: ScimPatchRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/scim+json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
         headers,
       })
       .then(
@@ -736,6 +896,50 @@ export class UserInstance {
     callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
   ): Promise<ApiResponse<UserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
+   * Patch a UserInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance
+   */
+  patch(
+    params: ScimPatchRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
+    return this._proxy.patch(params, callback);
+  }
+
+  /**
+   * Patch a UserInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    params: ScimPatchRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    return this._proxy.patchWithHttpInfo(params, callback);
   }
 
   /**

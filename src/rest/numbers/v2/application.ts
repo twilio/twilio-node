@@ -65,6 +65,162 @@ export class CreateShortCodeApplicationRequestSetup {
 }
 
 /**
+ * Business information associated with the application.
+ */
+export class CreateShortCodeApplicationResponseBusinessInformation {
+  "managingCompanyProfile"?: string;
+  "customerFacingProfile"?: string;
+  "businessWebsite"?: string;
+  "einManagingCompanyProfile"?: string;
+  "einCustomerFacingProfile"?: string;
+
+  constructor(payload) {
+    this.managingCompanyProfile = payload["managing_company_profile"];
+    this.customerFacingProfile = payload["customer_facing_profile"];
+    this.businessWebsite = payload["business_website"];
+    this.einManagingCompanyProfile = payload["ein_managing_company_profile"];
+    this.einCustomerFacingProfile = payload["ein_customer_facing_profile"];
+  }
+}
+
+/**
+ * Compliance keywords for the application.
+ */
+export class CreateShortCodeApplicationResponseComplianceKeywords {
+  "help"?: string;
+  "stop"?: string;
+  "info"?: string;
+  "aide"?: string;
+  "arret"?: string;
+  "optOutFiltering"?: boolean;
+
+  constructor(payload) {
+    this.help = payload["help"];
+    this.stop = payload["stop"];
+    this.info = payload["info"];
+    this.aide = payload["aide"];
+    this.arret = payload["arret"];
+    this.optOutFiltering = payload["opt_out_filtering"];
+  }
+}
+
+/**
+ * Content examples for the application.
+ */
+export class CreateShortCodeApplicationResponseContentExamples {
+  "examples"?: Array<string>;
+
+  constructor(payload) {
+    this.examples = payload["examples"];
+  }
+}
+
+/**
+ * Setup configuration for the application.
+ */
+export class CreateShortCodeApplicationResponseSetup {
+  "requestType"?: string;
+  "trafficType"?: string;
+  "leaseType"?: string;
+  "paymentFrequency"?: string;
+  "shortCodePreference"?: string;
+  "mmsEnabled"?: boolean;
+  "freeToEndUser"?: boolean;
+  "chargesApply"?: boolean;
+  "currentProvider"?: string;
+  "migratedMmsEnabled"?: boolean;
+  "migratedLiveTraffic"?: boolean;
+
+  constructor(payload) {
+    this.requestType = payload["request_type"];
+    this.trafficType = payload["traffic_type"];
+    this.leaseType = payload["lease_type"];
+    this.paymentFrequency = payload["payment_frequency"];
+    this.shortCodePreference = payload["short_code_preference"];
+    this.mmsEnabled = payload["mms_enabled"];
+    this.freeToEndUser = payload["free_to_end_user"];
+    this.chargesApply = payload["charges_apply"];
+    this.currentProvider = payload["current_provider"];
+    this.migratedMmsEnabled = payload["migrated_mms_enabled"];
+    this.migratedLiveTraffic = payload["migrated_live_traffic"];
+  }
+}
+
+/**
+ * SMS campaign details for the application.
+ */
+export class CreateShortCodeApplicationResponseSmsCampaignDetails {
+  "campaignName"?: string;
+  "campaignBrandWebsite"?: string;
+  "customerCareChannel"?: string;
+  "customerCareValue"?: string;
+  "campaignFrequency"?: Array<string>;
+  "scUseCaseCategories"?: Array<string>;
+  "smsTermsOfServiceUrl"?: string;
+  "smsPrivacyPolicyUrl"?: string;
+  "monthlyOutboundVolumeExpected"?: string;
+  "monthlyInboundVolumeExpected"?: string;
+  "avgMonthlyMessagesSentToEachSubscriber"?: string;
+  "avgMonthlyMessagesReceivedFromSubscribers"?: string;
+  "estimatedTotalSubscribers"?: string;
+  "durationOfTheCampaign"?: string;
+  "plannedTrafficSpikes"?: string;
+  "spikeDetails"?: string;
+  "expectedTrafficStartDate"?: string;
+
+  constructor(payload) {
+    this.campaignName = payload["campaign_name"];
+    this.campaignBrandWebsite = payload["campaign_brand_website"];
+    this.customerCareChannel = payload["customer_care_channel"];
+    this.customerCareValue = payload["customer_care_value"];
+    this.campaignFrequency = payload["campaign_frequency"];
+    this.scUseCaseCategories = payload["sc_use_case_categories"];
+    this.smsTermsOfServiceUrl = payload["sms_terms_of_service_url"];
+    this.smsPrivacyPolicyUrl = payload["sms_privacy_policy_url"];
+    this.monthlyOutboundVolumeExpected =
+      payload["monthly_outbound_volume_expected"];
+    this.monthlyInboundVolumeExpected =
+      payload["monthly_inbound_volume_expected"];
+    this.avgMonthlyMessagesSentToEachSubscriber =
+      payload["avg_monthly_messages_sent_to_each_subscriber"];
+    this.avgMonthlyMessagesReceivedFromSubscribers =
+      payload["avg_monthly_messages_received_from_subscribers"];
+    this.estimatedTotalSubscribers = payload["estimated_total_subscribers"];
+    this.durationOfTheCampaign = payload["duration_of_the_campaign"];
+    this.plannedTrafficSpikes = payload["planned_traffic_spikes"];
+    this.spikeDetails = payload["spike_details"];
+    this.expectedTrafficStartDate = payload["expected_traffic_start_date"];
+  }
+}
+
+/**
+ * User sign-up configuration for the application.
+ */
+export class CreateShortCodeApplicationResponseUserSignUp {
+  "signUpOptions"?: Array<string>;
+  "doubleOptInProcess"?: boolean;
+  "doubleOptInMessage"?: string;
+  "signUpConfirmationMessage"?: string;
+  "doubleOptInResponseMessage"?: string;
+  "onlineWebFormMessage"?: string;
+  "keywordMessage"?: string;
+  "ivrMessage"?: string;
+  "otherFormMessage"?: string;
+
+  constructor(payload) {
+    this.signUpOptions = payload["sign_up_options"];
+    this.doubleOptInProcess = payload["double_opt_in_process"];
+    this.doubleOptInMessage = payload["double_opt_in_message"];
+    this.signUpConfirmationMessage = payload["sign_up_confirmation_message"];
+    this.doubleOptInResponseMessage = payload["double_opt_in_response_message"];
+    this.onlineWebFormMessage = payload["online_web_form_message"];
+    this.keywordMessage = payload["keyword_message"];
+    this.ivrMessage = payload["ivr_message"];
+    this.otherFormMessage = payload["other_form_message"];
+  }
+}
+
+/**
  * Options to pass to create a ApplicationInstance
  */
 export interface ApplicationListInstanceCreateOptions {
@@ -75,6 +231,16 @@ export interface ApplicationListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface ApplicationListInstanceEachOptions {
+  /** The Account SID to filter by. */
+  accountSid?: string;
+  /** The ISO country to filter by. */
+  isoCountry?: string;
+  /** The application status to filter by. */
+  status?: string;
+  /** The friendly name to filter by. */
+  friendlyName?: string;
+  /** The application SID to filter by. */
+  sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -89,6 +255,16 @@ export interface ApplicationListInstanceEachOptions {
  * Options to pass to list
  */
 export interface ApplicationListInstanceOptions {
+  /** The Account SID to filter by. */
+  accountSid?: string;
+  /** The ISO country to filter by. */
+  isoCountry?: string;
+  /** The application status to filter by. */
+  status?: string;
+  /** The friendly name to filter by. */
+  friendlyName?: string;
+  /** The application SID to filter by. */
+  sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -99,6 +275,16 @@ export interface ApplicationListInstanceOptions {
  * Options to pass to page
  */
 export interface ApplicationListInstancePageOptions {
+  /** The Account SID to filter by. */
+  accountSid?: string;
+  /** The ISO country to filter by. */
+  isoCountry?: string;
+  /** The application status to filter by. */
+  status?: string;
+  /** The friendly name to filter by. */
+  friendlyName?: string;
+  /** The application SID to filter by. */
+  sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
   pageSize?: number;
 
@@ -244,11 +430,26 @@ interface ApplicationPayload extends TwilioResponsePayload {
 
 interface ApplicationResource {
   sid: string;
-  bundle_sid: string;
   application_requirements_sid: string;
+  application_requirements_version: number;
+  account_sid: string;
+  bundle_sid: string;
+  reviewer: string;
+  zendesk_ticket_id: string;
   friendly_name: string;
+  notification_emails: Array<string>;
   iso_country: string;
   state: string;
+  setup: CreateShortCodeApplicationResponseSetup;
+  business_information: CreateShortCodeApplicationResponseBusinessInformation;
+  user_sign_up: CreateShortCodeApplicationResponseUserSignUp;
+  compliance_keywords: CreateShortCodeApplicationResponseComplianceKeywords;
+  content_examples: CreateShortCodeApplicationResponseContentExamples;
+  sms_campaign_details: CreateShortCodeApplicationResponseSmsCampaignDetails;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
+  updated_by: string;
 }
 
 export class ApplicationInstance {
@@ -261,11 +462,58 @@ export class ApplicationInstance {
     sid?: string
   ) {
     this.sid = payload.sid;
-    this.bundleSid = payload.bundle_sid;
     this.applicationRequirementsSid = payload.application_requirements_sid;
+    this.applicationRequirementsVersion = deserialize.integer(
+      payload.application_requirements_version
+    );
+    this.accountSid = payload.account_sid;
+    this.bundleSid = payload.bundle_sid;
+    this.reviewer = payload.reviewer;
+    this.zendeskTicketId = payload.zendesk_ticket_id;
     this.friendlyName = payload.friendly_name;
+    this.notificationEmails = payload.notification_emails;
     this.isoCountry = payload.iso_country;
     this.state = payload.state;
+    this.setup =
+      payload.setup !== null && payload.setup !== undefined
+        ? new CreateShortCodeApplicationResponseSetup(payload.setup)
+        : null;
+    this.businessInformation =
+      payload.business_information !== null &&
+      payload.business_information !== undefined
+        ? new CreateShortCodeApplicationResponseBusinessInformation(
+            payload.business_information
+          )
+        : null;
+    this.userSignUp =
+      payload.user_sign_up !== null && payload.user_sign_up !== undefined
+        ? new CreateShortCodeApplicationResponseUserSignUp(payload.user_sign_up)
+        : null;
+    this.complianceKeywords =
+      payload.compliance_keywords !== null &&
+      payload.compliance_keywords !== undefined
+        ? new CreateShortCodeApplicationResponseComplianceKeywords(
+            payload.compliance_keywords
+          )
+        : null;
+    this.contentExamples =
+      payload.content_examples !== null &&
+      payload.content_examples !== undefined
+        ? new CreateShortCodeApplicationResponseContentExamples(
+            payload.content_examples
+          )
+        : null;
+    this.smsCampaignDetails =
+      payload.sms_campaign_details !== null &&
+      payload.sms_campaign_details !== undefined
+        ? new CreateShortCodeApplicationResponseSmsCampaignDetails(
+            payload.sms_campaign_details
+          )
+        : null;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.createdBy = payload.created_by;
+    this.updatedBy = payload.updated_by;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -275,17 +523,37 @@ export class ApplicationInstance {
    */
   sid: string;
   /**
-   * The Bundle SID for regulatory compliance.
-   */
-  bundleSid: string;
-  /**
    * The Application Requirements SID.
    */
   applicationRequirementsSid: string;
   /**
+   * The version of the application requirements.
+   */
+  applicationRequirementsVersion: number;
+  /**
+   * The Account SID associated with the application.
+   */
+  accountSid: string;
+  /**
+   * The Bundle SID for regulatory compliance.
+   */
+  bundleSid: string;
+  /**
+   * The reviewer of the application.
+   */
+  reviewer: string;
+  /**
+   * The Zendesk ticket ID associated with the application.
+   */
+  zendeskTicketId: string;
+  /**
    * The friendly name of the application.
    */
   friendlyName: string;
+  /**
+   * The notification emails for the application.
+   */
+  notificationEmails: Array<string>;
   /**
    * The ISO country code.
    */
@@ -294,6 +562,28 @@ export class ApplicationInstance {
    * The state of the application.
    */
   state: string;
+  setup: CreateShortCodeApplicationResponseSetup;
+  businessInformation: CreateShortCodeApplicationResponseBusinessInformation;
+  userSignUp: CreateShortCodeApplicationResponseUserSignUp;
+  complianceKeywords: CreateShortCodeApplicationResponseComplianceKeywords;
+  contentExamples: CreateShortCodeApplicationResponseContentExamples;
+  smsCampaignDetails: CreateShortCodeApplicationResponseSmsCampaignDetails;
+  /**
+   * The date and time the application was created.
+   */
+  dateCreated: Date;
+  /**
+   * The date and time the application was last updated.
+   */
+  dateUpdated: Date;
+  /**
+   * The identity of the user who created the application.
+   */
+  createdBy: string;
+  /**
+   * The identity of the user who last updated the application.
+   */
+  updatedBy: string;
 
   private get _proxy(): ApplicationContext {
     this._context =
@@ -339,11 +629,26 @@ export class ApplicationInstance {
   toJSON() {
     return {
       sid: this.sid,
-      bundleSid: this.bundleSid,
       applicationRequirementsSid: this.applicationRequirementsSid,
+      applicationRequirementsVersion: this.applicationRequirementsVersion,
+      accountSid: this.accountSid,
+      bundleSid: this.bundleSid,
+      reviewer: this.reviewer,
+      zendeskTicketId: this.zendeskTicketId,
       friendlyName: this.friendlyName,
+      notificationEmails: this.notificationEmails,
       isoCountry: this.isoCountry,
       state: this.state,
+      setup: this.setup,
+      businessInformation: this.businessInformation,
+      userSignUp: this.userSignUp,
+      complianceKeywords: this.complianceKeywords,
+      contentExamples: this.contentExamples,
+      smsCampaignDetails: this.smsCampaignDetails,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      createdBy: this.createdBy,
+      updatedBy: this.updatedBy,
     };
   }
 
@@ -658,6 +963,14 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
     let data: any = {};
 
+    if (params["accountSid"] !== undefined)
+      data["AccountSid"] = params["accountSid"];
+    if (params["isoCountry"] !== undefined)
+      data["IsoCountry"] = params["isoCountry"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -719,6 +1032,14 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
     let data: any = {};
 
+    if (params["accountSid"] !== undefined)
+      data["AccountSid"] = params["accountSid"];
+    if (params["isoCountry"] !== undefined)
+      data["IsoCountry"] = params["isoCountry"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

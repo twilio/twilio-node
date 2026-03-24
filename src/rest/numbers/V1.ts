@@ -16,12 +16,14 @@ import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { BulkEligibilityListInstance } from "./v1/bulkEligibility";
 import { EligibilityListInstance } from "./v1/eligibility";
+import { EmbeddedSessionListInstance } from "./v1/embeddedSession";
 import { PortingAllPortInListInstance } from "./v1/portingAllPortIn";
 import { PortingPortInListInstance } from "./v1/portingPortIn";
 import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNumber";
 import { PortingPortabilityListInstance } from "./v1/portingPortability";
 import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConfiguration";
 import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete";
+import { SenderIdRegistrationListInstance } from "./v1/senderIdRegistration";
 import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration";
 import { WebhookListInstance } from "./v1/webhook";
 
@@ -51,6 +53,8 @@ export default class V1 extends Version {
   protected _portingWebhookConfigurations?: PortingWebhookConfigurationListInstance;
   /** portingWebhookConfigurationsDelete - { Twilio.Numbers.V1.PortingWebhookConfigurationDeleteListInstance } resource */
   protected _portingWebhookConfigurationsDelete?: PortingWebhookConfigurationDeleteListInstance;
+  /** senderIdRegistrations - { Twilio.Numbers.V1.SenderIdRegistrationListInstance } resource */
+  protected _senderIdRegistrations?: SenderIdRegistrationListInstance;
   /** signingRequestConfigurations - { Twilio.Numbers.V1.SigningRequestConfigurationListInstance } resource */
   protected _signingRequestConfigurations?: SigningRequestConfigurationListInstance;
   /** webhook - { Twilio.Numbers.V1.WebhookListInstance } resource */
@@ -67,6 +71,11 @@ export default class V1 extends Version {
   get eligibilities(): EligibilityListInstance {
     this._eligibilities = this._eligibilities || EligibilityListInstance(this);
     return this._eligibilities;
+  }
+
+  /** Accessor for embeddedSessions resource */
+  embeddedSessions(BundleSid: string): EmbeddedSessionListInstance {
+    return EmbeddedSessionListInstance(this, BundleSid);
   }
 
   /** Getter for portingAllPortIns resource */
@@ -112,6 +121,13 @@ export default class V1 extends Version {
       this._portingWebhookConfigurationsDelete ||
       PortingWebhookConfigurationDeleteListInstance(this);
     return this._portingWebhookConfigurationsDelete;
+  }
+
+  /** Getter for senderIdRegistrations resource */
+  get senderIdRegistrations(): SenderIdRegistrationListInstance {
+    this._senderIdRegistrations =
+      this._senderIdRegistrations || SenderIdRegistrationListInstance(this);
+    return this._senderIdRegistrations;
   }
 
   /** Getter for signingRequestConfigurations resource */
