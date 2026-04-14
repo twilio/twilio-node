@@ -258,7 +258,6 @@ export function ApproveChallengeListInstance(
 interface ApproveChallengePayload extends ApproveChallengeResource {}
 
 interface ApproveChallengeResource {
-  options: Record<string, object>;
   sid: string;
   account_sid: string;
   service_sid: string;
@@ -277,6 +276,7 @@ interface ApproveChallengeResource {
   factor_type: string;
   url: string;
   links: Record<string, string>;
+  options: Record<string, object>;
 }
 
 export class ApproveChallengeInstance {
@@ -285,7 +285,6 @@ export class ApproveChallengeInstance {
     payload: ApproveChallengeResource,
     serviceSid: string
   ) {
-    this.options = payload.options;
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -304,12 +303,9 @@ export class ApproveChallengeInstance {
     this.factorType = payload.factor_type;
     this.url = payload.url;
     this.links = payload.links;
+    this.options = payload.options;
   }
 
-  /**
-   * An object that contains challenge options. Currently only used for `passkeys`.
-   */
-  options: Record<string, object>;
   /**
    * A 34 character string that uniquely identifies this Challenge.
    */
@@ -382,6 +378,10 @@ export class ApproveChallengeInstance {
    * Contains a dictionary of URL links to nested resources of this Challenge.
    */
   links: Record<string, string>;
+  /**
+   * An object that contains challenge options. Currently only used for `passkeys`.
+   */
+  options: Record<string, object>;
 
   /**
    * Provide a user-friendly representation
@@ -390,7 +390,6 @@ export class ApproveChallengeInstance {
    */
   toJSON() {
     return {
-      options: this.options,
       sid: this.sid,
       accountSid: this.accountSid,
       serviceSid: this.serviceSid,
@@ -409,6 +408,7 @@ export class ApproveChallengeInstance {
       factorType: this.factorType,
       url: this.url,
       links: this.links,
+      options: this.options,
     };
   }
 

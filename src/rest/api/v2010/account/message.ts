@@ -129,6 +129,8 @@ export interface MessageListInstanceCreateOptions {
   riskCheck?: MessageRiskCheck;
   /** The sender\\\'s Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service\\\'s Sender Pool) or you can provide a specific sender from your Sender Pool. */
   from?: string;
+  /** A fallback SMS sender to use when the recipient cannot be reached over RCS. This parameter may only be used when also providing a [Messaging Service](https://twilio.com/docs/messaging/services) containing an RCS sender. The fallback SMS sender must be either a Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), or [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), hosted within Twilio and belong to the Account creating the Message. */
+  fallbackFrom?: string;
   /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service\\\'s Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool. */
   messagingServiceSid?: string;
   /** The text content of the outgoing message. Can be up to 1,600 characters in length. SMS only: If the `body` contains more than 160 [GSM-7](https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding) characters (or 70 [UCS-2](https://www.twilio.com/docs/glossary/what-is-ucs-2-character-encoding) characters), the message is segmented and charged accordingly. For long `body` text, consider using the [send_as_mms parameter](https://www.twilio.com/blog/mms-for-long-text-messages). */
@@ -1144,6 +1146,8 @@ export function MessageListInstance(
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["fallbackFrom"] !== undefined)
+      data["FallbackFrom"] = params["fallbackFrom"];
     if (params["messagingServiceSid"] !== undefined)
       data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["body"] !== undefined) data["Body"] = params["body"];
@@ -1233,6 +1237,8 @@ export function MessageListInstance(
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["fallbackFrom"] !== undefined)
+      data["FallbackFrom"] = params["fallbackFrom"];
     if (params["messagingServiceSid"] !== undefined)
       data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["body"] !== undefined) data["Body"] = params["body"];

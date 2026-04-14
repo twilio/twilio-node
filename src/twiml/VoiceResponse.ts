@@ -3122,14 +3122,22 @@ namespace VoiceResponse {
    * Attributes to pass to conversationRelay
    */
   export interface ConversationRelayAttributes {
+    /** backgroundnoisereduction - This parameters enables background noise filtering on the audio stream before it reaches the STT engine, improving transcription accuracy in noisy environments */
+    backgroundnoisereduction?: string;
     /** debug - Multiple debug options to be used for troubleshooting */
     debug?: string;
+    /** deepgramsmartformat - This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts */
+    deepgramsmartformat?: string;
     /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
     dtmfDetection?: boolean;
     /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
     elevenlabsTextNormalization?: string;
+    /** events - This parameter allows you to enable event subscriptions */
+    events?: string;
     /** hints - Phrases to help better accuracy in speech recognition of these pharases */
     hints?: string;
+    /** ignorebackchannel - This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking. */
+    ignorebackchannel?: string;
     /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
     intelligenceService?: string;
     /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
@@ -3148,6 +3156,8 @@ namespace VoiceResponse {
     reportInputDuringAgentSpeech?: boolean;
     /** speechModel - Speech model to be used for transcription */
     speechModel?: string;
+    /** speechtimeout - Set the duration of silence that indicates the end of speech */
+    speechtimeout?: string;
     /** transcriptionLanguage - Language to be used for transcription */
     transcriptionLanguage?: string;
     /** transcriptionProvider - Provider to be used for transcription */

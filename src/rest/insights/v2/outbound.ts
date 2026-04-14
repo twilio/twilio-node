@@ -75,17 +75,17 @@ export class InsightsV2CreatePhoneNumbersReportRequest {
 
 export class InsightsV2CreatePhoneNumbersReportRequestTimeRange {
   /**
-   * Start time of the report
+   * Start date time of the report
    */
-  "startTime"?: Date;
+  "startDatetime"?: Date;
   /**
-   * End time of the report
+   * End date time of the report
    */
-  "endTime"?: Date;
+  "endDatetime"?: Date;
 
   constructor(payload) {
-    this.startTime = payload["start_time"];
-    this.endTime = payload["end_time"];
+    this.startDatetime = payload["start_datetime"];
+    this.endDatetime = payload["end_datetime"];
   }
 }
 
@@ -182,21 +182,21 @@ export class ReportFilter {
 
 export class ReportMetadata {
   /**
-   * Start time of the report
+   * Start date time of the report
    */
-  "startTime"?: Date;
+  "startDatetime"?: Date;
   /**
-   * End time of the report
+   * End date time of the report
    */
-  "endTime"?: Date;
+  "endDatetime"?: Date;
   /**
    * Filter values applied to the report
    */
   "filters"?: Array<ReportFilter>;
 
   constructor(payload) {
-    this.startTime = payload["start_time"];
-    this.endTime = payload["end_time"];
+    this.startDatetime = payload["start_datetime"];
+    this.endDatetime = payload["end_datetime"];
     this.filters = payload["filters"];
   }
 }

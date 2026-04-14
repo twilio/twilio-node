@@ -18,6 +18,7 @@ import { ApiKeyListInstance } from "./v1/apiKey";
 import { GetApiKeysListInstance } from "./v1/getApiKeys";
 import { NewApiKeyListInstance } from "./v1/newApiKey";
 import { OAuthAppListInstance } from "./v1/oAuthApp";
+import { RolePermissionListInstance } from "./v1/rolePermission";
 import { TokenListInstance } from "./v1/token";
 
 export default class V1 extends Version {
@@ -63,6 +64,11 @@ export default class V1 extends Version {
   get oAuthApps(): OAuthAppListInstance {
     this._oAuthApps = this._oAuthApps || OAuthAppListInstance(this);
     return this._oAuthApps;
+  }
+
+  /** Accessor for rolePermission resource */
+  rolePermission(RoleSid: string): RolePermissionListInstance {
+    return RolePermissionListInstance(this, RoleSid);
   }
 
   /** Getter for token resource */

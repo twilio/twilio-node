@@ -28,7 +28,10 @@ import { TranscriptionsListInstance } from "./room/transcriptions";
 
 export type RoomRoomStatus = "in-progress" | "completed" | "failed";
 
-export type RoomRoomType = "go" | "peer-to-peer" | "group" | "group-small";
+/**
+ * Type of room. Use `group` for new implementations. `go`, `peer-to-peer`, and `group-small` are deprecated.
+ */
+export type RoomRoomType = "group" | "go" | "peer-to-peer" | "group-small";
 
 export type RoomVideoCodec = "VP8" | "H264";
 

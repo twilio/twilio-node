@@ -57,7 +57,7 @@ export class MessagingV2ChannelsSenderConfiguration {
    */
   "voiceApplicationSid"?: string | null;
   /**
-   * The account type for ISV Account Type Migration. Set to \'ISV\' or \'ISVSubAccount\' to configure, null or empty string to clear, or omit to preserve the existing value.
+   * The account type for ISV Account Type Migration. Set to \'ISV\' or \'ISVSubAccount\' to configure, empty string to clear, or omit to preserve the existing value.
    */
   "accountType"?: string | null;
 

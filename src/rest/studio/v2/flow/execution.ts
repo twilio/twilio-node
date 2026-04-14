@@ -52,6 +52,8 @@ export interface ExecutionListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface ExecutionListInstanceEachOptions {
+  /** Only show Execution resources with the given status. Can be: `active` or `ended`. */
+  status?: ExecutionStatus;
   /** Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedFrom?: Date;
   /** Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
@@ -70,6 +72,8 @@ export interface ExecutionListInstanceEachOptions {
  * Options to pass to list
  */
 export interface ExecutionListInstanceOptions {
+  /** Only show Execution resources with the given status. Can be: `active` or `ended`. */
+  status?: ExecutionStatus;
   /** Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedFrom?: Date;
   /** Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
@@ -84,6 +88,8 @@ export interface ExecutionListInstanceOptions {
  * Options to pass to page
  */
 export interface ExecutionListInstancePageOptions {
+  /** Only show Execution resources with the given status. Can be: `active` or `ended`. */
+  status?: ExecutionStatus;
   /** Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedFrom?: Date;
   /** Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
@@ -470,6 +476,7 @@ interface ExecutionResource {
   status: ExecutionStatus;
   date_created: Date;
   date_updated: Date;
+  initiated_by: string;
   url: string;
   links: Record<string, string>;
 }
@@ -494,6 +501,7 @@ export class ExecutionInstance {
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.initiatedBy = payload.initiated_by;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -537,6 +545,10 @@ export class ExecutionInstance {
    * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
+  /**
+   * The SID or identifier that triggered this Execution. For example, a Call SID if triggered by an incoming call, a Message SID if triggered by an incoming message, a Request SID if triggered by a REST API request, and so on.
+   */
+  initiatedBy: string;
   /**
    * The absolute URL of the resource.
    */
@@ -689,6 +701,7 @@ export class ExecutionInstance {
       status: this.status,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
+      initiatedBy: this.initiatedBy,
       url: this.url,
       links: this.links,
     };
@@ -1035,6 +1048,7 @@ export function ExecutionListInstance(
 
     let data: any = {};
 
+    if (params["status"] !== undefined) data["status"] = params["status"];
     if (params["dateCreatedFrom"] !== undefined)
       data["DateCreatedFrom"] = serialize.iso8601DateTime(
         params["dateCreatedFrom"]
@@ -1104,6 +1118,7 @@ export function ExecutionListInstance(
 
     let data: any = {};
 
+    if (params["status"] !== undefined) data["status"] = params["status"];
     if (params["dateCreatedFrom"] !== undefined)
       data["DateCreatedFrom"] = serialize.iso8601DateTime(
         params["dateCreatedFrom"]

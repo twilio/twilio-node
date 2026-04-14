@@ -208,7 +208,6 @@ export class NewChallengeContextImpl implements NewChallengeContext {
 interface NewChallengePayload extends NewChallengeResource {}
 
 interface NewChallengeResource {
-  options: Record<string, object>;
   sid: string;
   account_sid: string;
   service_sid: string;
@@ -227,6 +226,7 @@ interface NewChallengeResource {
   factor_type: string;
   url: string;
   links: Record<string, string>;
+  options: Record<string, object>;
 }
 
 export class NewChallengeInstance {
@@ -238,7 +238,6 @@ export class NewChallengeInstance {
     payload: NewChallengeResource,
     serviceSid: string
   ) {
-    this.options = payload.options;
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -257,14 +256,11 @@ export class NewChallengeInstance {
     this.factorType = payload.factor_type;
     this.url = payload.url;
     this.links = payload.links;
+    this.options = payload.options;
 
     this._solution = { serviceSid };
   }
 
-  /**
-   * An object that contains challenge options. Currently only used for `passkeys`.
-   */
-  options: Record<string, object>;
   /**
    * A 34 character string that uniquely identifies this Challenge.
    */
@@ -337,6 +333,10 @@ export class NewChallengeInstance {
    * Contains a dictionary of URL links to nested resources of this Challenge.
    */
   links: Record<string, string>;
+  /**
+   * An object that contains challenge options. Currently only used for `passkeys`.
+   */
+  options: Record<string, object>;
 
   private get _proxy(): NewChallengeContext {
     this._context =
@@ -402,7 +402,6 @@ export class NewChallengeInstance {
    */
   toJSON() {
     return {
-      options: this.options,
       sid: this.sid,
       accountSid: this.accountSid,
       serviceSid: this.serviceSid,
@@ -421,6 +420,7 @@ export class NewChallengeInstance {
       factorType: this.factorType,
       url: this.url,
       links: this.links,
+      options: this.options,
     };
   }
 

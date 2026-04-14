@@ -332,7 +332,8 @@ interface HostedNumberOrderResource {
 }
 
 export class HostedNumberOrderInstance {
-  constructor(protected _version: V3, payload: HostedNumberOrderResource) {
+  constructor(protected _version: V3, _payload: HostedNumberOrderResource) {
+    const payload = _payload;
     this.sid = payload.sid;
     this.accountSid = payload.accountSid;
     this.incomingPhoneNumberSid = payload.incomingPhoneNumberSid;
