@@ -19,11 +19,9 @@ The Node library documentation can be found [here][libdocs].
 
 This library supports the following Node.js implementations:
 
-- Node.js 14
-- Node.js 16
-- Node.js 18
 - Node.js 20
-- Node.js lts(22)
+- Node.js 22
+- Node.js 24 (lts)
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
