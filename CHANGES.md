@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2026-04-16] Version 6.0.0
+---------------------------
+**Library - Breaking Changes**
+- Bump version to 6.0.0 (major version release)
+- Raise minimum Node.js engine from >=14.0 to >=20.0
+
 [2026-04-14] Version 5.13.2
 ---------------------------
 **Twiml**
