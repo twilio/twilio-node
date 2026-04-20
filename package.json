@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "5.13.2",
+  "version": "6.0.0",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -71,7 +71,7 @@
   "main": "./lib",
   "types": "./index.d.ts",
   "engines": {
-    "node": ">=14.0"
+    "node": ">=20.0.0"
   },
   "license": "MIT"
 }

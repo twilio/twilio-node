@@ -2,6 +2,18 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
+## [2026-04-20] 5.x.x to 6.x.x
+---
+### Overview
+
+Twilio Node Helper Library’s major version 6.0.0 is now available. We ensured that you can upgrade to Node Helper Library 6.0.0 version without any breaking changes to existing APIs.
+
+### Breaking Changes
+
+- **Minimum Node.js version raised to 20**
+  - Dropped support for Node.js versions below 20
+  - Upgrade to Node.js >= 20 before updating to `twilio` 6.x.x
+
 ## [2024-03-07] 4.x.x to 5.x.x
 
 ---
