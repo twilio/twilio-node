@@ -38,7 +38,7 @@
     "babel-plugin-replace-ts-export-assignment": "^0.0.2",
     "eslint": "^10.0.0",
     "express": "^4.17.1",
-    "jest": "^29.5.5",
+    "jest": "^30.0.0",
     "jshint": "^2.11.0",
     "mock-fs": "^5.2.0",
     "nock": "^13.2.9",
