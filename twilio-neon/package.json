@@ -1,0 +1,19 @@
+{
+  "name": "twilio-neon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "wrangler deploy",
+    "send": "node scripts/send-whatsapp.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "php": "^1.1.0",
+    "twilio": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250618.0",
+    "typescript": "^5.8.3"
+  }
+}
