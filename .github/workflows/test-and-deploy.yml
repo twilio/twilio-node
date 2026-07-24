@@ -1,4 +1,4 @@
-name: Test and Deploy
+name: [Deprecated] Test and Deploy
 on:
   push:
     branches: [ '*' ]

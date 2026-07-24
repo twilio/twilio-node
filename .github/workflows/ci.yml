@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: "Node version to test with (or 'all' for full matrix)"
+        required: false
+        default: "all"
+  schedule:
+    - cron: '30 3 * * 1'  # Monday 9AM IST
+
+env:
+  ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
+
+jobs:
+  lockfile-hygiene:
+    runs-on: ubuntu-x64
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: twilio/sdk-actions/npm-lockfile-hygiene@0375437914d535a5fb178bdbfdb5d51bdde2616e # v1
+        with:
+          package-manager: npm
+
+  test:
+    name: Test - Node ${{ matrix.node-version }}
+    needs: [lockfile-hygiene]
+    runs-on: ubuntu-x64
+    if: github.repository_owner == 'twilio'
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ${{ (github.event_name == 'schedule' || github.event.inputs.node-version == 'all') && fromJson('["22","24"]') || fromJson(format('["{0}"]', github.event.inputs.node-version || 'lts/*')) }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Artifactory OIDC Auth
+        uses: twilio/sdk-actions/artifactory-oidc@0375437914d535a5fb178bdbfdb5d51bdde2616e # v1
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - run: npm ci
+      - name: Run unit tests + security check + formatting check
+        run: npm run ci
+      - run: npm run build
+
+      - name: Run cluster tests
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY }}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_ORGS_CLIENT_ID: ${{ secrets.TWILIO_ORGS_CLIENT_ID }}
+          TWILIO_ORGS_CLIENT_SECRET: ${{ secrets.TWILIO_ORGS_CLIENT_SECRET }}
+          TWILIO_ORGS_USER_ID: ${{ secrets.TWILIO_ORGS_USER_ID }}
+          TWILIO_ORG_SID: ${{ secrets.TWILIO_ORG_SID }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_MESSAGE_SID: ${{ secrets.TWILIO_MESSAGE_SID }}
+        run: |
+          npm pack
+          tar -xzf twilio*.tgz
+          cd spec/cluster
+          npm install
+          npm run test
+
+  deploy-dry-run:
+    name: Release Readiness Check - Build artifact
+    needs: [test]
+    runs-on: ubuntu-x64
+    if: github.repository_owner == 'twilio' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    permissions:
+      contents: read
+      id-token: write           # required for npm OIDC trusted publishing
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Artifactory OIDC Auth
+        uses: twilio/sdk-actions/artifactory-oidc@0375437914d535a5fb178bdbfdb5d51bdde2616e # v1
+
+      # Node 24+ required for npm OIDC trusted publisher support (npm >= 11.5.1)
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: 24
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm pack
+      - name: Dry run summary
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          echo "Built artifacts:"
+          ls -lh twilio-*.tgz
+          echo ""
+          echo "Package version: $PKG_VERSION"
+          echo ""
+          echo "--- DRY RUN COMPLETE ---"
+          echo "All pre-release steps passed."
+
