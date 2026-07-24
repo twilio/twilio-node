@@ -1,0 +1,41 @@
+name: Test and Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  runner-test:
+    name: Verify runner access
+    runs-on: ubuntu-x64
+    timeout-minutes: 5
+    steps:
+      - run: echo "Runner is reachable"
+
+#  test:
+#    name: Test - Node ${{ matrix.node-version }}
+#    runs-on: ubuntu-x64
+#    timeout-minutes: 20
+#    permissions:
+#      contents: read
+#      id-token: write
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        node-version: ["lts/*"]
+#    steps:
+#      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Authenticate with Artifactory
+#        uses: ./.github/artifactory-oidc
+#
+#      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Run tests
+#        run: npm run ci
