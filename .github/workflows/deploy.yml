@@ -1,0 +1,3 @@
+name: Deploy to NPM
+on:
+  workflow_dispatch:
