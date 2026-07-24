@@ -1,1 +1,4 @@
 
+name: Test and Release Gate
+on:
+  workflow_dispatch:
