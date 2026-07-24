@@ -1,83 +1,76 @@
-name: Test and Deploy to NPM
+ name: Twilio Public release-npm
 
-on:
-  release:
-    types: [published]
-  workflow_dispatch:
+ on:
+   push:
+     tags:
+       - 'v*'
 
-env:
-  ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
+ env:
+   ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
 
-jobs:
-  test:
-    name: Test - Node ${{ matrix.node-version }}
-    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
-    timeout-minutes: 20
-    permissions:
-      contents: read
-      id-token: write
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: ["20", "22", "24", "lts/*"]
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          fetch-depth: 0
+ jobs:
+   test:
+     name: Test
+     runs-on: ubuntu-x64
+     if: github.repository_owner == 'twilio'
+     timeout-minutes: 20
+     permissions:
+       contents: read
+       id-token: write
+     strategy:
+       matrix:
+         node: [22, 24]
+     steps:
+       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - name: Authenticate with Artifactory
-        uses: ./.github/artifactory-oidc
+       - name: Artifactory OIDC Auth
+         uses: twilio/sdk-actions/artifactory-oidc@0375437914d535a5fb178bdbfdb5d51bdde2616e # v1
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: ${{ matrix.node-version }}
+       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+         with:
+           node-version: ${{ matrix.node }}
+           cache: npm
 
-      - name: Install dependencies
-        run: npm install
+       - run: npm ci
+       - run: npm test
+       - run: npm run build
 
-      - name: Run tests
-        run: npm run ci
+   deploy:
+     name: Publish to npm
+     needs: [test]
+     runs-on: ubuntu-x64
+     if: success() && github.ref_type == 'tag' && github.repository_owner == 'twilio'
+     environment:
+       name: production
+       url: https://www.npmjs.com/package/twilio/v/${{ github.ref_name }}
+     permissions:
+       contents: write          # required for creating GitHub Release
+       id-token: write           # required for npm OIDC trusted publishing
+     steps:
+       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-  deploy:
-    name: Publish to NPM
-    needs: [test]
-    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
-    environment: production
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+       - name: Artifactory OIDC Auth
+         uses: twilio/sdk-actions/artifactory-oidc@artifactory-oidc # v1
 
-      - name: Authenticate with Artifactory
-        uses: ./.github/artifactory-oidc
+       # Node 24+ required for npm OIDC trusted publisher support (npm >= 11.5.1)
+       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+         with:
+           node-version: 24
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: "lts/*"
+       - name: Create GitHub Release
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         run: gh release create "${{ github.ref_name }}" --generate-notes
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Update npm
-        run: npm install -g npm@latest
-
-      - name: Validate tag matches package version
-        run: |
-          TAG="${GITHUB_REF#refs/tags/}"
-          VERSION="${TAG#v}"
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          if [ "$VERSION" != "$PKG_VERSION" ]; then
-            echo "::error::Tag $TAG does not match package.json version $PKG_VERSION"
-            exit 1
-          fi
-
-      - name: Build package
-        run: npm run build
-
-      - name: Publish to NPM
-        run: |
-          npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
-          npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+       - run: npm ci
+       - run: npm run build
+       # the release tag must be vX.Y.Z (or vX.Y.Z-rc.1) and match package.json's version.
+       # Prerelease tag (v1.2.3-rc.1) publishes to the `next` dist-tag automatically.
+       - name: Validate tag + publish to npm
+         uses: twilio/sdk-actions/npm-publish@0375437914d535a5fb178bdbfdb5d51bdde2616e # v1
+         with:
+           registry: 'https://registry.npmjs.org'
+           validate-tag: 'true'
+           tag-prefix: 'v'
+           access: 'public'
+           provenance: 'true'
