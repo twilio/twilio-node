@@ -3164,8 +3164,8 @@ namespace VoiceResponse {
     reportInputDuringAgentSpeech?: boolean;
     /** speechModel - Speech model to be used for transcription */
     speechModel?: string;
-    /** speechtimeout - Set the duration of silence that indicates the end of speech */
-    speechtimeout?: string;
+    /** speechTimeout - Set the duration of silence that indicates the end of speech */
+    speechTimeout?: string;
     /** transcriptionLanguage - Language to be used for transcription */
     transcriptionLanguage?: string;
     /** transcriptionProvider - Provider to be used for transcription */
