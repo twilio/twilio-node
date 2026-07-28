@@ -42,13 +42,6 @@ jobs:
         run: npm run ci
       - run: npm run build
 
-      - name: SonarCloud Scan
-        if: ${{ matrix.node-version == 'lts/*' && !github.event.pull_request.head.repo.fork }}
-        uses: SonarSource/sonarcloud-github-action@ba3875ecf642b2129de2b589510c81a8b53dbf4e # master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
       - name: Run cluster tests
         if: ${{ !github.event.pull_request.head.repo.fork }}
         env:
