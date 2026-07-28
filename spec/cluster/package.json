@@ -4,6 +4,9 @@
     "localtunnel": "^2.0.2",
     "twilio": "../../package"
   },
+  "overrides": {
+    "axios": "^1.15.1"
+  },
   "scripts": {
     "prepare": "tsc",
     "test": "jest lib --testPathIgnorePatterns=lib/webhook",
