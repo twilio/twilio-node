@@ -49,7 +49,7 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - name: Run unit tests
+      - name: Run unit tests + security check + formatting check
         run: npm run ci
       - run: npm run build
 
