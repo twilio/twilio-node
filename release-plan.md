@@ -1,6 +1,6 @@
 # Twilio Node SDK — Release Plan
 
-## test-release.yml — Pre-release Validation
+## pre-release-check.yml — Pre-release Validation
 
 **Triggers:** Manual dispatch | Cron (Monday 9AM IST)
 
@@ -8,11 +8,11 @@
 
 1. **lockfile-hygiene**
    - Checkout
-   - `npm-lockfile-hygiene` action (fails if internal Artifactory hosts found in lockfile)
+   - [`npm-lockfile-hygiene`](https://github.com/twilio/sdk-actions/blob/main/npm-lockfile-hygiene/action.yml) action (fails if internal Artifactory hosts found in lockfile)
 
 2. **test** (Node 22, 24 matrix) — _needs: lockfile-hygiene_
    - Checkout
-   - Artifactory OIDC Auth
+   - [Artifactory OIDC Auth](https://github.com/twilio/sdk-actions/tree/main/artifactory-oidc)
    - Setup Node + cache
    - `npm ci`
    - `npm test`
@@ -20,7 +20,7 @@
 
 3. **deploy-dry-run** (Pre-release validation) — _needs: test_
    - Checkout
-   - Artifactory OIDC Auth
+   - [Artifactory OIDC Auth](https://github.com/twilio/sdk-actions/tree/main/artifactory-oidc)
    - Setup Node 24
    - `npm ci`
    - `npm run build`
@@ -49,7 +49,7 @@
 
 1. **test** (Node 22, 24 matrix)
    - Checkout
-   - Artifactory OIDC Auth
+   - [Artifactory OIDC Auth](https://github.com/twilio/sdk-actions/tree/main/artifactory-oidc)
    - Setup Node + cache
    - `npm ci`
    - `npm test`
@@ -57,7 +57,7 @@
 
 2. **deploy** (Publish to npm) — _needs: test, requires `production` env approval_
    - Checkout
-   - Artifactory OIDC Auth
+   - [Artifactory OIDC Auth](https://github.com/twilio/sdk-actions/tree/main/artifactory-oidc)
    - Setup Node 24
    - Create GitHub Release (auto-generated notes)
    - `npm ci`
@@ -73,7 +73,7 @@
 
 | Step | Action                                                                           |
 | --- |----------------------------------------------------------------------------------|
-| Weekly | Monday cron runs `test-release.yml` — confirms infra is healthy                  |
+| Weekly | Monday cron runs `pre-release-check.yml` — confirms infra is healthy              |
 | 1 | [ **_Librarian_** ] PR: bump `package.json` version, merge to `main`             |
 | 2 | [ **_Librarian_** ]  `git tag vX.Y.Z && git push --tags`                         |
 | 3 | `deploy.yml` fires automatically on tag creation, tests run                      |
