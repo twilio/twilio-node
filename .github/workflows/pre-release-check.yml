@@ -1,12 +1,16 @@
-name: Test and Release (Dry Run)
+name: CI
 
 on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       node-version:
         description: "Node version to test with (or 'all' for full matrix)"
         required: false
-        default: "lts/*"
+        default: "all"
   schedule:
     - cron: '30 3 * * 1'  # Monday 9AM IST
 
@@ -34,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: ${{ github.event.inputs.node-version == 'all' && fromJson('["22","24"]') || fromJson(format('["{0}"]', github.event.inputs.node-version || 'lts/*')) }}
+        node-version: ${{ (github.event_name == 'schedule' || github.event.inputs.node-version == 'all') && fromJson('["22","24"]') || fromJson(format('["{0}"]', github.event.inputs.node-version || 'lts/*')) }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
@@ -76,10 +80,10 @@ jobs:
           npm run test
 
   deploy-dry-run:
-    name: Pre-release validation - No Publish
+    name: Release Readiness Check - Build artifact
     needs: [test]
     runs-on: ubuntu-x64
-    if: github.repository_owner == 'twilio'
+    if: github.repository_owner == 'twilio' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: read
       id-token: write           # required for npm OIDC trusted publishing
