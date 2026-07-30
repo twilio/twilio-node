@@ -1,4 +1,3 @@
-const scmp = require("scmp");
 import crypto from "crypto";
 import urllib from "url";
 import { IncomingHttpHeaders } from "http2";
@@ -257,7 +256,10 @@ function validateSignatureWithUrl(
     params
   );
 
-  return scmp(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
+  return timingSafeEqual(
+    Buffer.from(twilioHeader),
+    Buffer.from(signatureWithoutPort)
+  );
 }
 
 export function validateBody(
@@ -265,7 +267,19 @@ export function validateBody(
   bodyHash: any[] | string | Buffer
 ): boolean {
   var expectedHash = getExpectedBodyHash(body);
-  return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
+  return timingSafeEqual(Buffer.from(bodyHash), Buffer.from(expectedHash));
+}
+
+function timingSafeEqual(userValue: Buffer, secretValue: Buffer) {
+  // Do not return early when lengths differ — that leaks the secret's
+  // length through timing.  Instead, always perform a constant-time
+  // comparison: when the lengths match compare directly; otherwise
+  // compare the user input against itself (always true) and negate.
+  // Source: https://developers.cloudflare.com/workers/examples/protect-against-timing-attacks/
+  const lengthsMatch = userValue.length === secretValue.length;
+  return lengthsMatch
+    ? crypto.timingSafeEqual(userValue, secretValue)
+    : !crypto.timingSafeEqual(userValue, userValue);
 }
 
 /**
