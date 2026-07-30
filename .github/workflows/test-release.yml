@@ -81,7 +81,7 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Test dx-automator action is allowed
-        uses: sendgrid/dx-automator/actions/test-dx-automator@main
+        uses: sendgrid/dx-automator/actions/release@main
 
   lockfile-hygiene:
     runs-on: ubuntu-x64
