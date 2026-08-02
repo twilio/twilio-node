@@ -54,14 +54,20 @@
     "test:typescript": "tsc --noEmit",
     "jshint": "jshint src/rest/** src/base/** src/http/**",
     "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && npm run test:bundle",
     "build": "tsc",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "nsp": "npm audit --production",
     "prettier": "prettier --write .",
     "prettier-check": "prettier --check .",
-    "typedoc": "typedoc --entryPointStrategy expand src --out docs --logLevel Error"
+    "typedoc": "typedoc --entryPointStrategy expand src --out docs --logLevel Error",
+    "test:bundle": "node bundle-tests/run-all-tests.js",
+    "test:bundle:esbuild": "node bundle-tests/esbuild-test.js",
+    "test:bundle:vite": "node bundle-tests/vite-test.js",
+    "test:bundle:webpack": "node bundle-tests/webpack-test.js",
+    "test:bundle:swc": "node bundle-tests/swc-test.js",
+    "test:bundle:parcel": "node bundle-tests/parcel-test.js"
   },
   "files": [
     "lib",
