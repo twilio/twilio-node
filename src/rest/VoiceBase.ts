@@ -33,7 +33,7 @@ class VoiceBase extends Domain {
     return this._v1;
   }
 
-  get v2(): V1 {
+  get v2(): V2 {
     this._v2 = this._v2 || new V2(this);
     return this._v2;
   }

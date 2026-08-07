@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "module": "commonjs",
     "outDir": "lib",
+    "skipLibCheck": true,
+    "types": ["jest"]
   }
 }
