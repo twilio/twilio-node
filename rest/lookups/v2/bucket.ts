@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Rate limit request schema
@@ -40,20 +38,15 @@ export class RateLimitRequest {
   }
 }
 
-
-
-
-
 /**
  * Options to pass to update a BucketInstance
  */
 export interface BucketContextUpdateOptions {
   /**  */
-  "rateLimitRequest"?: RateLimitRequest;
+  rateLimitRequest?: RateLimitRequest;
 }
 
 export interface BucketContext {
-
   /**
    * Remove a BucketInstance
    *
@@ -61,7 +54,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a BucketInstance and return HTTP info
@@ -70,7 +65,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a BucketInstance
@@ -79,7 +76,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance
    */
-  fetch(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>
+  fetch(
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance>;
 
   /**
    * Fetch a BucketInstance and return HTTP info
@@ -88,7 +87,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>>;
 
   /**
    * Update a BucketInstance
@@ -97,7 +98,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
+  update(
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
    *
@@ -107,7 +110,11 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(params: RateLimitRequest, headers?: any, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
+  update(
+    params: RateLimitRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance>;
 
   /**
    * Update a BucketInstance and return HTTP info
@@ -116,7 +123,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>>;
   /**
    * Update a BucketInstance and return HTTP info
    *
@@ -126,7 +135,11 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: RateLimitRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>;
+  updateWithHttpInfo(
+    params: RateLimitRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -136,161 +149,236 @@ export interface BucketContext {
 }
 
 export interface BucketContextSolution {
-  "field": string;
-  "bucket": string;
+  field: string;
+  bucket: string;
 }
 
 export class BucketContextImpl implements BucketContext {
   protected _solution: BucketContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, field: string, bucket: string) {
+  constructor(
+    protected _version: V2,
+    field: string,
+    bucket: string,
+  ) {
     if (!isValidPathParam(field)) {
-      throw new Error('Parameter \'field\' is not valid.');
+      throw new Error("Parameter 'field' is not valid.");
     }
 
     if (!isValidPathParam(bucket)) {
-      throw new Error('Parameter \'bucket\' is not valid.');
+      throw new Error("Parameter 'bucket' is not valid.");
     }
 
-    this._solution = { field, bucket,  };
+    this._solution = { field, bucket };
     this._uri = `/RateLimits/Fields/${field}/Bucket/${bucket}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new BucketInstance(operationVersion, payload, instance._solution.field, instance._solution.bucket));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BucketInstance(
+          operationVersion,
+          payload,
+          instance._solution.field,
+          instance._solution.bucket,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<BucketResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<BucketInstance> => ({
-      ...response,
-      body: new BucketInstance(operationVersion, response.body, instance._solution.field, instance._solution.bucket)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<BucketResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<BucketInstance> => ({
+        ...response,
+        body: new BucketInstance(
+          operationVersion,
+          response.body,
+          instance._solution.field,
+          instance._solution.bucket,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: RateLimitRequest | ((error: Error | null, item?: BucketInstance) => any), headers?: any,callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      RateLimitRequest | ((error: Error | null, item?: BucketInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as Partial<RateLimitRequest> as RateLimitRequest;
     } else {
-      params = params || {} as Partial<RateLimitRequest> as RateLimitRequest;
+      params = params || ({} as Partial<RateLimitRequest> as RateLimitRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new BucketInstance(operationVersion, payload, instance._solution.field, instance._solution.bucket));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BucketInstance(
+          operationVersion,
+          payload,
+          instance._solution.field,
+          instance._solution.bucket,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: RateLimitRequest | ((error: Error | null, item?: ApiResponse<BucketInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | RateLimitRequest
+      | ((error: Error | null, item?: ApiResponse<BucketInstance>) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as Partial<RateLimitRequest> as RateLimitRequest;
     } else {
-      params = params || {} as Partial<RateLimitRequest> as RateLimitRequest;
+      params = params || ({} as Partial<RateLimitRequest> as RateLimitRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<BucketResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<BucketInstance> => ({
-      ...response,
-      body: new BucketInstance(operationVersion, response.body, instance._solution.field, instance._solution.bucket)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<BucketResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<BucketInstance> => ({
+        ...response,
+        body: new BucketInstance(
+          operationVersion,
+          response.body,
+          instance._solution.field,
+          instance._solution.bucket,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -307,8 +395,7 @@ export class BucketContextImpl implements BucketContext {
   }
 }
 
-
-  interface BucketPayload extends BucketResource {}
+interface BucketPayload extends BucketResource {}
 
 interface BucketResource {
   code: number;
@@ -326,19 +413,23 @@ export class BucketInstance {
   protected _solution: BucketContextSolution;
   protected _context?: BucketContext;
 
-  constructor(protected _version: V2, payload: BucketResource, field?: string, bucket?: string) {
-    
-    this.code = (payload.code);
-    this.message = (payload.message);
-    this.moreInfo = (payload.more_info);
-    this.status = (payload.status);
-    this.field = (payload.field);
-    this.limit = (payload.limit);
-    this.bucket = (payload.bucket);
-    this.owner = (payload.owner);
-    this.ttl = (payload.ttl);
+  constructor(
+    protected _version: V2,
+    payload: BucketResource,
+    field?: string,
+    bucket?: string,
+  ) {
+    this.code = payload.code;
+    this.message = payload.message;
+    this.moreInfo = payload.more_info;
+    this.status = payload.status;
+    this.field = payload.field;
+    this.limit = payload.limit;
+    this.bucket = payload.bucket;
+    this.owner = payload.owner;
+    this.ttl = payload.ttl;
 
-    this._solution = { field: field, bucket: bucket,  };
+    this._solution = { field: field, bucket: bucket };
   }
 
   /**
@@ -379,7 +470,13 @@ export class BucketInstance {
   ttl: number;
 
   private get _proxy(): BucketContext {
-    this._context = this._context || new BucketContextImpl(this._version, this._solution.field, this._solution.bucket);
+    this._context =
+      this._context ||
+      new BucketContextImpl(
+        this._version,
+        this._solution.field,
+        this._solution.bucket,
+      );
     return this._context;
   }
 
@@ -390,9 +487,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -403,9 +500,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -416,9 +513,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  fetch(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -429,9 +526,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -442,7 +539,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
+  update(
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
    *
@@ -452,10 +551,16 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(params: RateLimitRequest, headers?: any, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
+  update(
+    params: RateLimitRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: BucketInstance) => any,
+  ): Promise<BucketInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -466,7 +571,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>>;
   /**
    * Update a BucketInstance and return HTTP info
    *
@@ -476,10 +583,16 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: RateLimitRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>;
+  updateWithHttpInfo(
+    params: RateLimitRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any): Promise<ApiResponse<BucketInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
+  ): Promise<ApiResponse<BucketInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -507,24 +620,15 @@ export class BucketInstance {
   }
 }
 
-
-export interface BucketSolution {
-}
+export interface BucketSolution {}
 
 export interface BucketListInstance {
   _version: V2;
   _solution: BucketSolution;
   _uri: string;
 
-  (field: string, bucket: string, ): BucketContext;
-  get(field: string, bucket: string, ): BucketContext;
-
-
-
-
-
-
-
+  (field: string, bucket: string): BucketContext;
+  get(field: string, bucket: string): BucketContext;
 
   /**
    * Provide a user-friendly representation
@@ -534,25 +638,27 @@ export interface BucketListInstance {
 }
 
 export function BucketListInstance(version: V2): BucketListInstance {
-  const instance = ((field, bucket, ) => instance.get(field, bucket, )) as BucketListInstance;
+  const instance = ((field, bucket) =>
+    instance.get(field, bucket)) as BucketListInstance;
 
-  instance.get = function get(field, bucket, ): BucketContext {
+  instance.get = function get(field, bucket): BucketContext {
     return new BucketContextImpl(version, field, bucket);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

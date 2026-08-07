@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,7 +21,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
-
 
 export class PublicApiCreateRoleAssignmentRequest {
   /**
@@ -55,15 +53,12 @@ export class PublicApiCreateRoleAssignmentRequest {
   }
 }
 
-
-
-
 /**
  * Options to pass to create a RoleAssignmentInstance
  */
 export interface RoleAssignmentListInstanceCreateOptions {
   /**  */
-  "publicApiCreateRoleAssignmentRequest": PublicApiCreateRoleAssignmentRequest;
+  publicApiCreateRoleAssignmentRequest: PublicApiCreateRoleAssignmentRequest;
 }
 
 /**
@@ -71,17 +66,20 @@ export interface RoleAssignmentListInstanceCreateOptions {
  */
 export interface RoleAssignmentListInstanceEachOptions {
   /**  */
-  "pageSize"?: number;
+  pageSize?: number;
   /**  */
-  "identity"?: string;
+  identity?: string;
   /**  */
-  "scope"?: string;
+  scope?: string;
   /** Filter by resource type for resource-level role assignments */
-  "resourceType"?: string;
+  resourceType?: string;
   /** Filter by resource id for resource-level role assignments */
-  "resourceId"?: string;
+  resourceId?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: RoleAssignmentInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: RoleAssignmentInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -93,43 +91,40 @@ export interface RoleAssignmentListInstanceEachOptions {
  */
 export interface RoleAssignmentListInstanceOptions {
   /**  */
-  "pageSize"?: number;
+  pageSize?: number;
   /**  */
-  "identity"?: string;
+  identity?: string;
   /**  */
-  "scope"?: string;
+  scope?: string;
   /** Filter by resource type for resource-level role assignments */
-  "resourceType"?: string;
+  resourceType?: string;
   /** Filter by resource id for resource-level role assignments */
-  "resourceId"?: string;
+  resourceId?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface RoleAssignmentListInstancePageOptions {
   /**  */
-  "pageSize"?: number;
+  pageSize?: number;
   /**  */
-  "identity"?: string;
+  identity?: string;
   /**  */
-  "scope"?: string;
+  scope?: string;
   /** Filter by resource type for resource-level role assignments */
-  "resourceType"?: string;
+  resourceType?: string;
   /** Filter by resource id for resource-level role assignments */
-  "resourceId"?: string;
+  resourceId?: string;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface RoleAssignmentContext {
-
   /**
    * Remove a RoleAssignmentInstance
    *
@@ -137,7 +132,9 @@ export interface RoleAssignmentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a RoleAssignmentInstance and return HTTP info
@@ -146,7 +143,9 @@ export interface RoleAssignmentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -156,57 +155,71 @@ export interface RoleAssignmentContext {
 }
 
 export interface RoleAssignmentContextSolution {
-  "organizationSid": string;
-  "sid": string;
+  organizationSid: string;
+  sid: string;
 }
 
 export class RoleAssignmentContextImpl implements RoleAssignmentContext {
   protected _solution: RoleAssignmentContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: Versionless, organizationSid: string, sid: string) {
+  constructor(
+    protected _version: Versionless,
+    organizationSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(organizationSid)) {
-      throw new Error('Parameter \'organizationSid\' is not valid.');
+      throw new Error("Parameter 'organizationSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { organizationSid, sid,  };
+    this._solution = { organizationSid, sid };
     this._uri = `/${organizationSid}/RoleAssignments/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -223,9 +236,8 @@ export class RoleAssignmentContextImpl implements RoleAssignmentContext {
   }
 }
 
-
-  interface RoleAssignmentPayload extends TwilioResponsePayload {
-    content: RoleAssignmentResource[];
+interface RoleAssignmentPayload extends TwilioResponsePayload {
+  content: RoleAssignmentResource[];
 }
 
 interface RoleAssignmentResource {
@@ -245,20 +257,24 @@ export class RoleAssignmentInstance {
   protected _solution: RoleAssignmentContextSolution;
   protected _context?: RoleAssignmentContext;
 
-  constructor(protected _version: Versionless, payload: RoleAssignmentResource, organizationSid: string, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.roleSid = (payload.role_sid);
-    this.scope = (payload.scope);
-    this.identity = (payload.identity);
-    this.resourceType = (payload.resource_type);
-    this.resourceId = (payload.resource_id);
-    this.code = (payload.code);
-    this.message = (payload.message);
-    this.moreInfo = (payload.moreInfo);
-    this.status = (payload.status);
+  constructor(
+    protected _version: Versionless,
+    payload: RoleAssignmentResource,
+    organizationSid: string,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.roleSid = payload.role_sid;
+    this.scope = payload.scope;
+    this.identity = payload.identity;
+    this.resourceType = payload.resource_type;
+    this.resourceId = payload.resource_id;
+    this.code = payload.code;
+    this.message = payload.message;
+    this.moreInfo = payload.moreInfo;
+    this.status = payload.status;
 
-    this._solution = { organizationSid, sid: sid,  };
+    this._solution = { organizationSid, sid: sid };
   }
 
   /**
@@ -303,7 +319,13 @@ export class RoleAssignmentInstance {
   status: number;
 
   private get _proxy(): RoleAssignmentContext {
-    this._context = this._context || new RoleAssignmentContextImpl(this._version, this._solution.organizationSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new RoleAssignmentContextImpl(
+        this._version,
+        this._solution.organizationSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -314,9 +336,9 @@ export class RoleAssignmentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -327,9 +349,9 @@ export class RoleAssignmentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -358,7 +380,6 @@ export class RoleAssignmentInstance {
   }
 }
 
-
 export interface RoleAssignmentSolution {
   organizationSid: string;
 }
@@ -368,11 +389,8 @@ export interface RoleAssignmentListInstance {
   _solution: RoleAssignmentSolution;
   _uri: string;
 
-  (sid: string, ): RoleAssignmentContext;
-  get(sid: string, ): RoleAssignmentContext;
-
-
-
+  (sid: string): RoleAssignmentContext;
+  get(sid: string): RoleAssignmentContext;
 
   /**
    * Create a RoleAssignmentInstance
@@ -383,7 +401,11 @@ export interface RoleAssignmentListInstance {
    *
    * @returns Resolves to processed RoleAssignmentInstance
    */
-  create(params: PublicApiCreateRoleAssignmentRequest, headers?: any, callback?: (error: Error | null, item?: RoleAssignmentInstance) => any): Promise<RoleAssignmentInstance>;
+  create(
+    params: PublicApiCreateRoleAssignmentRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: RoleAssignmentInstance) => any,
+  ): Promise<RoleAssignmentInstance>;
 
   /**
    * Create a RoleAssignmentInstance and return HTTP info
@@ -394,10 +416,14 @@ export interface RoleAssignmentListInstance {
    *
    * @returns Resolves to processed RoleAssignmentInstance with HTTP metadata
    */
-  createWithHttpInfo(params: PublicApiCreateRoleAssignmentRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<RoleAssignmentInstance>) => any): Promise<ApiResponse<RoleAssignmentInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: PublicApiCreateRoleAssignmentRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RoleAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentInstance>>;
 
   /**
    * Streams RoleAssignmentInstance records from the API.
@@ -414,8 +440,19 @@ export interface RoleAssignmentListInstance {
    * @param { RoleAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: RoleAssignmentInstance, done: (err?: Error) => void) => void): void;
-  each(params: RoleAssignmentListInstanceEachOptions, callback?: (item: RoleAssignmentInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: RoleAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: RoleAssignmentListInstanceEachOptions,
+    callback?: (
+      item: RoleAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams RoleAssignmentInstance records from the API with HTTP metadata captured per page.
    *
@@ -431,8 +468,19 @@ export interface RoleAssignmentListInstance {
    * @param { RoleAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: RoleAssignmentInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: RoleAssignmentListInstanceEachOptions, callback?: (item: RoleAssignmentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: RoleAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: RoleAssignmentListInstanceEachOptions,
+    callback?: (
+      item: RoleAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of RoleAssignmentInstance records from the API.
    *
@@ -441,7 +489,10 @@ export interface RoleAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: RoleAssignmentPage) => any): Promise<RoleAssignmentPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: RoleAssignmentPage) => any,
+  ): Promise<RoleAssignmentPage>;
   /**
    * Retrieve a single target page of RoleAssignmentInstance records from the API with HTTP metadata.
    *
@@ -450,7 +501,13 @@ export interface RoleAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<RoleAssignmentPage>) => any): Promise<ApiResponse<RoleAssignmentPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentPage>>;
   /**
    * Lists RoleAssignmentInstance records from the API as a list.
    *
@@ -460,8 +517,13 @@ export interface RoleAssignmentListInstance {
    * @param { RoleAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: RoleAssignmentInstance[]) => any): Promise<RoleAssignmentInstance[]>;
-  list(params: RoleAssignmentListInstanceOptions, callback?: (error: Error | null, items: RoleAssignmentInstance[]) => any): Promise<RoleAssignmentInstance[]>;
+  list(
+    callback?: (error: Error | null, items: RoleAssignmentInstance[]) => any,
+  ): Promise<RoleAssignmentInstance[]>;
+  list(
+    params: RoleAssignmentListInstanceOptions,
+    callback?: (error: Error | null, items: RoleAssignmentInstance[]) => any,
+  ): Promise<RoleAssignmentInstance[]>;
   /**
    * Lists RoleAssignmentInstance records from the API as a list with HTTP metadata.
    *
@@ -473,8 +535,19 @@ export interface RoleAssignmentListInstance {
    * @param { RoleAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RoleAssignmentInstance[]>) => any): Promise<ApiResponse<RoleAssignmentInstance[]>>;
-  listWithHttpInfo(params: RoleAssignmentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<RoleAssignmentInstance[]>) => any): Promise<ApiResponse<RoleAssignmentInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentInstance[]>>;
+  listWithHttpInfo(
+    params: RoleAssignmentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentInstance[]>>;
   /**
    * Retrieve a single page of RoleAssignmentInstance records from the API.
    *
@@ -486,8 +559,13 @@ export interface RoleAssignmentListInstance {
    * @param { RoleAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: RoleAssignmentPage) => any): Promise<RoleAssignmentPage>;
-  page(params: RoleAssignmentListInstancePageOptions, callback?: (error: Error | null, items: RoleAssignmentPage) => any): Promise<RoleAssignmentPage>;
+  page(
+    callback?: (error: Error | null, items: RoleAssignmentPage) => any,
+  ): Promise<RoleAssignmentPage>;
+  page(
+    params: RoleAssignmentListInstancePageOptions,
+    callback?: (error: Error | null, items: RoleAssignmentPage) => any,
+  ): Promise<RoleAssignmentPage>;
   /**
    * Retrieve a single page of RoleAssignmentInstance records from the API with HTTP metadata.
    *
@@ -499,9 +577,19 @@ export interface RoleAssignmentListInstance {
    * @param { RoleAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RoleAssignmentPage>) => any): Promise<ApiResponse<RoleAssignmentPage>>;
-  pageWithHttpInfo(params: RoleAssignmentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<RoleAssignmentPage>) => any): Promise<ApiResponse<RoleAssignmentPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentPage>>;
+  pageWithHttpInfo(
+    params: RoleAssignmentListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -510,83 +598,122 @@ export interface RoleAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RoleAssignmentListInstance(version: Versionless, organizationSid: string): RoleAssignmentListInstance {
+export function RoleAssignmentListInstance(
+  version: Versionless,
+  organizationSid: string,
+): RoleAssignmentListInstance {
   if (!isValidPathParam(organizationSid)) {
-    throw new Error('Parameter \'organizationSid\' is not valid.');
+    throw new Error("Parameter 'organizationSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as RoleAssignmentListInstance;
+  const instance = ((sid) => instance.get(sid)) as RoleAssignmentListInstance;
 
-  instance.get = function get(sid, ): RoleAssignmentContext {
+  instance.get = function get(sid): RoleAssignmentContext {
     return new RoleAssignmentContextImpl(version, organizationSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { organizationSid,  };
+  instance._solution = { organizationSid };
   instance._uri = `/${organizationSid}/RoleAssignments`;
 
-  instance.create = function create(params: PublicApiCreateRoleAssignmentRequest, headers?: any, callback?: (error: Error | null, items: RoleAssignmentInstance) => any): Promise<RoleAssignmentInstance> {
+  instance.create = function create(
+    params: PublicApiCreateRoleAssignmentRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: RoleAssignmentInstance) => any,
+  ): Promise<RoleAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new RoleAssignmentInstance(operationVersion, payload, instance._solution.organizationSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RoleAssignmentInstance(
+          operationVersion,
+          payload,
+          instance._solution.organizationSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: PublicApiCreateRoleAssignmentRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<RoleAssignmentInstance>) => any): Promise<ApiResponse<RoleAssignmentInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: PublicApiCreateRoleAssignmentRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<RoleAssignmentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<RoleAssignmentInstance> => ({
-      ...response,
-      body: new RoleAssignmentInstance(operationVersion, response.body, instance._solution.organizationSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<RoleAssignmentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<RoleAssignmentInstance> => ({
+        ...response,
+        body: new RoleAssignmentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.organizationSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: RoleAssignmentListInstancePageOptions | ((error: Error | null, items: RoleAssignmentPage) => any), callback?: (error: Error | null, items: RoleAssignmentPage) => any): Promise<RoleAssignmentPage> {
+  instance.page = function page(
+    params?:
+      | RoleAssignmentListInstancePageOptions
+      | ((error: Error | null, items: RoleAssignmentPage) => any),
+    callback?: (error: Error | null, items: RoleAssignmentPage) => any,
+  ): Promise<RoleAssignmentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -596,52 +723,68 @@ export function RoleAssignmentListInstance(version: Versionless, organizationSid
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
-    if (params["identity"] !== undefined)
-    data["Identity"] = params["identity"];
-    if (params["scope"] !== undefined)
-    data["Scope"] = params["scope"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
+    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
     if (params["resourceType"] !== undefined)
-    data["ResourceType"] = params["resourceType"];
+      data["ResourceType"] = params["resourceType"];
     if (params["resourceId"] !== undefined)
-    data["ResourceId"] = params["resourceId"];
+      data["ResourceId"] = params["resourceId"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new RoleAssignmentPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RoleAssignmentPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: RoleAssignmentPage) => any): Promise<RoleAssignmentPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new RoleAssignmentPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: RoleAssignmentPage) => any,
+  ): Promise<RoleAssignmentPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RoleAssignmentPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: RoleAssignmentListInstancePageOptions | ((error: Error | null, items: ApiResponse<RoleAssignmentPage>) => any), callback?: (error: Error | null, items: ApiResponse<RoleAssignmentPage>) => any): Promise<ApiResponse<RoleAssignmentPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | RoleAssignmentListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<RoleAssignmentPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RoleAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -651,101 +794,125 @@ export function RoleAssignmentListInstance(version: Versionless, organizationSid
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
-    if (params["identity"] !== undefined)
-    data["Identity"] = params["identity"];
-    if (params["scope"] !== undefined)
-    data["Scope"] = params["scope"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
+    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
     if (params["resourceType"] !== undefined)
-    data["ResourceType"] = params["resourceType"];
+      data["ResourceType"] = params["resourceType"];
     if (params["resourceId"] !== undefined)
-    data["ResourceId"] = params["resourceId"];
+      data["ResourceId"] = params["resourceId"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<RoleAssignmentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new RoleAssignmentPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<RoleAssignmentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RoleAssignmentPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<RoleAssignmentPage>) => any): Promise<ApiResponse<RoleAssignmentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<RoleAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<RoleAssignmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<RoleAssignmentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new RoleAssignmentPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<RoleAssignmentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RoleAssignmentPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class RoleAssignmentPage extends Page<Versionless, RoleAssignmentPayload, RoleAssignmentResource, RoleAssignmentInstance> {
-/**
-* Initialize the RoleAssignmentPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: Versionless, response: Response<string>, solution: RoleAssignmentSolution) {
+export class RoleAssignmentPage extends Page<
+  Versionless,
+  RoleAssignmentPayload,
+  RoleAssignmentResource,
+  RoleAssignmentInstance
+> {
+  /**
+   * Initialize the RoleAssignmentPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Versionless,
+    response: Response<string>,
+    solution: RoleAssignmentSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of RoleAssignmentInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: RoleAssignmentResource): RoleAssignmentInstance {
-
+  /**
+   * Build an instance of RoleAssignmentInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: RoleAssignmentResource): RoleAssignmentInstance {
     return new RoleAssignmentInstance(
-    this._version,
-    payload,
-        this._solution.organizationSid,
+      this._version,
+      payload,
+      this._solution.organizationSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -20,11 +19,11 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * Lifecycle status of a long-running operation.
  */
-export type ConversationsV2OperationStatusValue = 'PENDING'|'COMPLETED'|'FAILED';
+export type ConversationsV2OperationStatusValue =
+  "PENDING" | "COMPLETED" | "FAILED";
 
 /**
  * Error details if the operation failed. Follows RFC 9457 Problem Details.
@@ -60,11 +59,7 @@ export class FetchOperationStatus200ResponseError {
   }
 }
 
-
-
-
 export interface OperationContext {
-
   /**
    * Fetch a OperationInstance
    *
@@ -72,7 +67,9 @@ export interface OperationContext {
    *
    * @returns Resolves to processed OperationInstance
    */
-  fetch(callback?: (error: Error | null, item?: OperationInstance) => any): Promise<OperationInstance>
+  fetch(
+    callback?: (error: Error | null, item?: OperationInstance) => any,
+  ): Promise<OperationInstance>;
 
   /**
    * Fetch a OperationInstance and return HTTP info
@@ -81,7 +78,12 @@ export interface OperationContext {
    *
    * @returns Resolves to processed OperationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OperationInstance>) => any): Promise<ApiResponse<OperationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OperationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -91,56 +93,83 @@ export interface OperationContext {
 }
 
 export interface OperationContextSolution {
-  "id": string;
+  id: string;
 }
 
 export class OperationContextImpl implements OperationContext {
   protected _solution: OperationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, id: string) {
+  constructor(
+    protected _version: V2,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
-      throw new Error('Parameter \'id\' is not valid.');
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { id,  };
+    this._solution = { id };
     this._uri = `/ControlPlane/Operations/${id}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: OperationInstance) => any): Promise<OperationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: OperationInstance) => any,
+  ): Promise<OperationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new OperationInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OperationInstance(operationVersion, payload, instance._solution.id),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OperationInstance>) => any): Promise<ApiResponse<OperationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OperationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<OperationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<OperationInstance> => ({
-      ...response,
-      body: new OperationInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<OperationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<OperationInstance> => ({
+        ...response,
+        body: new OperationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -157,9 +186,6 @@ export class OperationContextImpl implements OperationContext {
   }
 }
 
-
-
-
 interface OperationResource {
   operationId: string;
   status: ConversationsV2OperationStatusValue;
@@ -167,7 +193,7 @@ interface OperationResource {
   completedAt: Date;
   statusUrl: string;
   error: FetchOperationStatus200ResponseError;
-  related: { [key: string]: string; };
+  related: { [key: string]: string };
 }
 
 /**
@@ -177,17 +203,24 @@ export class OperationInstance {
   protected _solution: OperationContextSolution;
   protected _context?: OperationContext;
 
-  constructor(protected _version: V2, _payload: OperationResource, id?: string) {
+  constructor(
+    protected _version: V2,
+    _payload: OperationResource,
+    id?: string,
+  ) {
     const payload = _payload;
-    this.operationId = (payload.operationId);
+    this.operationId = payload.operationId;
     this.status = payload.status;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.completedAt = deserialize.iso8601DateTime(payload.completedAt);
-    this.statusUrl = (payload.statusUrl);
-    this.error = payload.error !== null && payload.error !== undefined ? new FetchOperationStatus200ResponseError(payload.error) : null;
-    this.related = (payload.related);
+    this.statusUrl = payload.statusUrl;
+    this.error =
+      payload.error !== null && payload.error !== undefined
+        ? new FetchOperationStatus200ResponseError(payload.error)
+        : null;
+    this.related = payload.related;
 
-    this._solution = { id: id,  };
+    this._solution = { id: id };
   }
 
   /**
@@ -209,12 +242,14 @@ export class OperationInstance {
   statusUrl: string;
   error: FetchOperationStatus200ResponseError;
   /**
-   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
+   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
    */
-  related: { [key: string]: string; };
+  related: { [key: string]: string };
 
   private get _proxy(): OperationContext {
-    this._context = this._context || new OperationContextImpl(this._version, this._solution.id);
+    this._context =
+      this._context ||
+      new OperationContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -225,9 +260,9 @@ export class OperationInstance {
    *
    * @returns Resolves to processed OperationInstance
    */
-  fetch(callback?: (error: Error | null, item?: OperationInstance) => any): Promise<OperationInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: OperationInstance) => any,
+  ): Promise<OperationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -238,9 +273,12 @@ export class OperationInstance {
    *
    * @returns Resolves to processed OperationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OperationInstance>) => any): Promise<ApiResponse<OperationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OperationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OperationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -266,20 +304,15 @@ export class OperationInstance {
   }
 }
 
-
-export interface OperationSolution {
-}
+export interface OperationSolution {}
 
 export interface OperationListInstance {
   _version: V2;
   _solution: OperationSolution;
   _uri: string;
 
-  (id: string, ): OperationContext;
-  get(id: string, ): OperationContext;
-
-
-
+  (id: string): OperationContext;
+  get(id: string): OperationContext;
 
   /**
    * Provide a user-friendly representation
@@ -289,25 +322,26 @@ export interface OperationListInstance {
 }
 
 export function OperationListInstance(version: V2): OperationListInstance {
-  const instance = ((id, ) => instance.get(id, )) as OperationListInstance;
+  const instance = ((id) => instance.get(id)) as OperationListInstance;
 
-  instance.get = function get(id, ): OperationContext {
+  instance.get = function get(id): OperationContext {
     return new OperationContextImpl(version, id);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

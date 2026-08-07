@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 /**
  * Mapping of a CSV header column to the trait fields
@@ -43,6 +45,7 @@ export class ColumnMappingItem {
   }
 }
 
+
 export class CreateProfilesImportV2Request {
   /**
    * The name of the file to generate a presigned URL
@@ -64,6 +67,7 @@ export class CreateProfilesImportV2Request {
   }
 }
 
+
 /**
  * Summary statistics of the import operation
  */
@@ -83,12 +87,15 @@ export class FetchProfileImportV2200ResponseSummary {
   }
 }
 
+
+
+
 /**
  * Options to pass to create a ImportInstance
  */
 export interface ImportListInstanceCreateOptions {
   /**  */
-  createProfilesImportV2Request: CreateProfilesImportV2Request;
+  "createProfilesImportV2Request": CreateProfilesImportV2Request;
 }
 
 /**
@@ -99,7 +106,10 @@ export interface ImportListInstanceOptions {
   limit?: number;
 }
 
+
+
 export interface ImportContext {
+
   /**
    * Fetch a ImportInstance
    *
@@ -107,9 +117,7 @@ export interface ImportContext {
    *
    * @returns Resolves to processed ImportInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ImportInstance) => any
-  ): Promise<ImportInstance>;
+  fetch(callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance>
 
   /**
    * Fetch a ImportInstance and return HTTP info
@@ -118,9 +126,7 @@ export interface ImportContext {
    *
    * @returns Resolves to processed ImportInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
-  ): Promise<ApiResponse<ImportInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -130,90 +136,61 @@ export interface ImportContext {
 }
 
 export interface ImportContextSolution {
-  storeId: string;
-  importId: string;
+  "storeId": string;
+  "importId": string;
 }
 
 export class ImportContextImpl implements ImportContext {
   protected _solution: ImportContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, storeId: string, importId: string) {
     if (!isValidPathParam(storeId)) {
-      throw new Error("Parameter 'storeId' is not valid.");
+      throw new Error('Parameter \'storeId\' is not valid.');
     }
 
     if (!isValidPathParam(importId)) {
-      throw new Error("Parameter 'importId' is not valid.");
+      throw new Error('Parameter \'importId\' is not valid.');
     }
 
-    this._solution = { storeId, importId };
+    this._solution = { storeId, importId,  };
     this._uri = `/Stores/${storeId}/Profiles/Imports/${importId}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ImportInstance) => any
-  ): Promise<ImportInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ImportInstance(operationVersion, payload, instance._solution.storeId, instance._solution.importId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ImportInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-          instance._solution.importId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
-  ): Promise<ApiResponse<ImportInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ImportResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ImportInstance> => ({
-          ...response,
-          body: new ImportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId,
-            instance._solution.importId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ImportResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ImportInstance> => ({
+      ...response,
+      body: new ImportInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.importId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -255,6 +232,10 @@ export interface FetchProfileImportV2200ResponseSummary {
   warnings?: number;
 }
 
+
+
+
+
 /**
  * Response model for FetchProfileImportV2200Response operations
  */
@@ -286,42 +267,28 @@ interface ListProfileImportsV2200Response_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type ImportResource =
-  | FetchProfileImportV2200Response_ResponseResource
-  | CreateProfilesImportV2201Response_ResponseResource
-  | ListProfileImportsV2200Response_ResponseResource;
+type ImportResource = FetchProfileImportV2200Response_ResponseResource | CreateProfilesImportV2201Response_ResponseResource | ListProfileImportsV2200Response_ResponseResource;
 
 export class ImportInstance {
   protected _solution: ImportContextSolution;
   protected _context?: ImportContext;
 
-  constructor(
-    protected _version: V1,
-    _payload: ImportResource,
-    storeId: string,
-    importId?: string
-  ) {
+  constructor(protected _version: V1, _payload: ImportResource, storeId: string, importId?: string) {
     const payload: any = _payload;
-    this.status = payload.status;
-    this.filename = payload.filename;
+    this.status = (payload.status);
+    this.filename = (payload.filename);
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.fileSize = deserialize.integer(payload.fileSize);
-    this.columnMappings =
-      payload.columnMappings !== null && payload.columnMappings !== undefined
-        ? payload.columnMappings.map(
-            (payload: any) => new ColumnMappingItem(payload)
-          )
-        : null;
-    this.summary =
-      payload.summary !== null && payload.summary !== undefined
-        ? new FetchProfileImportV2200ResponseSummary(payload.summary)
-        : null;
-    this.importId = payload.importId;
-    this.url = payload.url;
-    this.imports = payload.imports;
+    this.columnMappings =  payload.columnMappings !== null && payload.columnMappings !== undefined ? payload.columnMappings.map(
+      (payload: any) => new ColumnMappingItem(payload)
+    ) : null;
+    this.summary = payload.summary !== null && payload.summary !== undefined ? new FetchProfileImportV2200ResponseSummary(payload.summary) : null;
+    this.importId = (payload.importId);
+    this.url = (payload.url);
+    this.imports = (payload.imports);
 
-    this._solution = { storeId, importId: importId };
+    this._solution = { storeId, importId: importId,  };
   }
 
   /**
@@ -360,13 +327,7 @@ export class ImportInstance {
   imports?: Array<string>;
 
   private get _proxy(): ImportContext {
-    this._context =
-      this._context ||
-      new ImportContextImpl(
-        this._version,
-        this._solution.storeId,
-        this._solution.importId
-      );
+    this._context = this._context || new ImportContextImpl(this._version, this._solution.storeId, this._solution.importId);
     return this._context;
   }
 
@@ -377,9 +338,9 @@ export class ImportInstance {
    *
    * @returns Resolves to processed ImportInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ImportInstance) => any
-  ): Promise<ImportInstance> {
+  fetch(callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -390,9 +351,9 @@ export class ImportInstance {
    *
    * @returns Resolves to processed ImportInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
-  ): Promise<ApiResponse<ImportInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -421,6 +382,7 @@ export class ImportInstance {
   }
 }
 
+
 export interface ImportSolution {
   storeId: string;
 }
@@ -430,8 +392,11 @@ export interface ImportListInstance {
   _solution: ImportSolution;
   _uri: string;
 
-  (importId: string): ImportContext;
-  get(importId: string): ImportContext;
+  (importId: string, ): ImportContext;
+  get(importId: string, ): ImportContext;
+
+
+
 
   /**
    * Create a ImportInstance
@@ -442,11 +407,7 @@ export interface ImportListInstance {
    *
    * @returns Resolves to processed ImportInstance
    */
-  create(
-    params: CreateProfilesImportV2Request,
-    headers?: any,
-    callback?: (error: Error | null, item?: ImportInstance) => any
-  ): Promise<ImportInstance>;
+  create(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance>;
 
   /**
    * Create a ImportInstance and return HTTP info
@@ -457,11 +418,10 @@ export interface ImportListInstance {
    *
    * @returns Resolves to processed ImportInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateProfilesImportV2Request,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
-  ): Promise<ApiResponse<ImportInstance>>;
+  createWithHttpInfo(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>>;
+
+
+
 
   /**
    * Lists ImportInstance records from the API as a list.
@@ -472,10 +432,8 @@ export interface ImportListInstance {
    * @param { ImportListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: string[]) => any
-  ): Promise<string[]>;
-
+  list(callback?: (error: Error | null, items: string[]) => any): Promise<string[]>;
+  
   /**
    * Lists ImportInstance records from the API as a list with HTTP metadata.
    *
@@ -487,9 +445,9 @@ export interface ImportListInstance {
    * @param { ImportListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
-  ): Promise<ApiResponse<string[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>>;
+  
+
 
   /**
    * Provide a user-friendly representation
@@ -498,182 +456,131 @@ export interface ImportListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ImportListInstance(
-  version: V1,
-  storeId: string
-): ImportListInstance {
+export function ImportListInstance(version: V1, storeId: string): ImportListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error("Parameter 'storeId' is not valid.");
+    throw new Error('Parameter \'storeId\' is not valid.');
   }
 
-  const instance = ((importId) => instance.get(importId)) as ImportListInstance;
+  const instance = ((importId, ) => instance.get(importId, )) as ImportListInstance;
 
-  instance.get = function get(importId): ImportContext {
+  instance.get = function get(importId, ): ImportContext {
     return new ImportContextImpl(version, storeId, importId);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { storeId };
+  instance._solution = { storeId,  };
   instance._uri = `/Stores/${storeId}/Profiles/Imports`;
 
-  instance.create = function create(
-    params: CreateProfilesImportV2Request,
-    headers?: any,
-    callback?: (error: Error | null, items: ImportInstance) => any
-  ): Promise<ImportInstance> {
+  instance.create = function create(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, items: ImportInstance) => any): Promise<ImportInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ImportInstance(operationVersion, payload, instance._solution.storeId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ImportInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CreateProfilesImportV2Request,
-    headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<ImportInstance>) => any
-  ): Promise<ApiResponse<ImportInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, items: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ImportResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ImportInstance> => ({
-          ...response,
-          body: new ImportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ImportResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ImportInstance> => ({
+      ...response,
+      body: new ImportInstance(operationVersion, response.body, instance._solution.storeId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.list = function list(
-    callback?: (error: Error | null, items: string[]) => any
-  ): Promise<string[]> {
+
+    }
+
+  instance.list = function list( callback?: (error: Error | null, items: string[]) => any): Promise<string[]> {
     const headers: any = {};
     const data: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
-
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    
     // Array items are primitives (strings, numbers), return them directly
-    operationPromise = operationPromise.then(
-      (payload: any) => payload["imports"] || []
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = operationPromise.then((payload: any) => payload["imports"] || []);
+        
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.listWithHttpInfo = function listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
-  ): Promise<ApiResponse<string[]>> {
+  }
+  
+
+
+  instance.listWithHttpInfo = function listWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>> {
     const headers: any = {};
     const data: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // Array items are primitives (strings, numbers), return them directly
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ImportResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<string[]> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: (response.body as any)["imports"] || [],
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ImportResource>({ uri: instance._uri, method: "get", headers}).then((response): ApiResponse<string[]> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: ((response.body as any)["imports"] || [])
+    }));
+        
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
+  
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

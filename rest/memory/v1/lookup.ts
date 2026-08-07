@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Represents a single identifier value paired with its `idType`. Write operations obey limits, uniqueness, and normalization rules configured via identifier settings.
@@ -40,16 +38,13 @@ export class Identifier {
   }
 }
 
-
-
 /**
  * Options to pass to create a LookupInstance
  */
 export interface LookupListInstanceCreateOptions {
   /**  */
-  "identifier": Identifier;
+  identifier: Identifier;
 }
-
 
 export interface LookupSolution {
   storeId: string;
@@ -60,8 +55,6 @@ export interface LookupListInstance {
   _solution: LookupSolution;
   _uri: string;
 
-
-
   /**
    * Create a LookupInstance
    *
@@ -71,7 +64,11 @@ export interface LookupListInstance {
    *
    * @returns Resolves to processed LookupInstance
    */
-  create(params: Identifier, headers?: any, callback?: (error: Error | null, item?: LookupInstance) => any): Promise<LookupInstance>;
+  create(
+    params: Identifier,
+    headers?: any,
+    callback?: (error: Error | null, item?: LookupInstance) => any,
+  ): Promise<LookupInstance>;
 
   /**
    * Create a LookupInstance and return HTTP info
@@ -82,9 +79,11 @@ export interface LookupListInstance {
    *
    * @returns Resolves to processed LookupInstance with HTTP metadata
    */
-  createWithHttpInfo(params: Identifier, headers?: any, callback?: (error: Error | null, item?: ApiResponse<LookupInstance>) => any): Promise<ApiResponse<LookupInstance>>;
-
-
+  createWithHttpInfo(
+    params: Identifier,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<LookupInstance>) => any,
+  ): Promise<ApiResponse<LookupInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -93,90 +92,122 @@ export interface LookupListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function LookupListInstance(version: V1, storeId: string): LookupListInstance {
+export function LookupListInstance(
+  version: V1,
+  storeId: string,
+): LookupListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
   const instance = {} as LookupListInstance;
 
   instance._version = version;
-  instance._solution = { storeId,  };
+  instance._solution = { storeId };
   instance._uri = `/Stores/${storeId}/Profiles/Lookup`;
 
-  instance.create = function create(params: Identifier, headers?: any, callback?: (error: Error | null, items: LookupInstance) => any): Promise<LookupInstance> {
+  instance.create = function create(
+    params: Identifier,
+    headers?: any,
+    callback?: (error: Error | null, items: LookupInstance) => any,
+  ): Promise<LookupInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new LookupInstance(operationVersion, payload, instance._solution.storeId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new LookupInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: Identifier, headers?: any, callback?: (error: Error | null, items: ApiResponse<LookupInstance>) => any): Promise<ApiResponse<LookupInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: Identifier,
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<LookupInstance>) => any,
+  ): Promise<ApiResponse<LookupInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<LookupResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<LookupInstance> => ({
-      ...response,
-      body: new LookupInstance(operationVersion, response.body, instance._solution.storeId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<LookupResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<LookupInstance> => ({
+        ...response,
+        body: new LookupInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
 
 interface LookupResource {
   normalizedValue: string;
@@ -184,12 +215,14 @@ interface LookupResource {
 }
 
 export class LookupInstance {
-
-  constructor(protected _version: V1, _payload: LookupResource, storeId: string) {
+  constructor(
+    protected _version: V1,
+    _payload: LookupResource,
+    storeId: string,
+  ) {
     const payload = _payload;
-    this.normalizedValue = (payload.normalizedValue);
-    this.profiles = (payload.profiles);
-
+    this.normalizedValue = payload.normalizedValue;
+    this.profiles = payload.profiles;
   }
 
   /**
@@ -214,5 +247,3 @@ export class LookupInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

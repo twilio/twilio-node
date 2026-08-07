@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -20,27 +19,30 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * The verification status of the Bundle resource.
  */
-export type BundleCloneStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
-
+export type BundleCloneStatus =
+  | "draft"
+  | "pending-review"
+  | "in-review"
+  | "twilio-rejected"
+  | "twilio-approved"
+  | "provisionally-approved";
 
 /**
  * Options to pass to create a BundleCloneInstance
  */
 export interface BundleCloneContextCreateOptions {
   /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned. */
-  "targetAccountSid": string;
+  targetAccountSid: string;
   /** If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved */
-  "moveToDraft"?: boolean;
+  moveToDraft?: boolean;
   /** The string that you assigned to describe the cloned bundle. */
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 
 export interface BundleCloneContext {
-
   /**
    * Create a BundleCloneInstance
    *
@@ -49,7 +51,10 @@ export interface BundleCloneContext {
    *
    * @returns Resolves to processed BundleCloneInstance
    */
-  create(params: BundleCloneContextCreateOptions, callback?: (error: Error | null, item?: BundleCloneInstance) => any): Promise<BundleCloneInstance>;
+  create(
+    params: BundleCloneContextCreateOptions,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+  ): Promise<BundleCloneInstance>;
 
   /**
    * Create a BundleCloneInstance and return HTTP info
@@ -59,7 +64,13 @@ export interface BundleCloneContext {
    *
    * @returns Resolves to processed BundleCloneInstance with HTTP metadata
    */
-  createWithHttpInfo(params: BundleCloneContextCreateOptions, callback?: (error: Error | null, item?: ApiResponse<BundleCloneInstance>) => any): Promise<ApiResponse<BundleCloneInstance>>;
+  createWithHttpInfo(
+    params: BundleCloneContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BundleCloneInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -69,100 +80,135 @@ export interface BundleCloneContext {
 }
 
 export interface BundleCloneContextSolution {
-  "bundleSid": string;
+  bundleSid: string;
 }
 
 export class BundleCloneContextImpl implements BundleCloneContext {
   protected _solution: BundleCloneContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, bundleSid: string) {
+  constructor(
+    protected _version: V2,
+    bundleSid: string,
+  ) {
     if (!isValidPathParam(bundleSid)) {
-      throw new Error('Parameter \'bundleSid\' is not valid.');
+      throw new Error("Parameter 'bundleSid' is not valid.");
     }
 
-    this._solution = { bundleSid,  };
+    this._solution = { bundleSid };
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Clones`;
   }
 
-  create(params: BundleCloneContextCreateOptions,callback?: (error: Error | null, item?: BundleCloneInstance) => any): Promise<BundleCloneInstance> {
-      if (params === null || params === undefined) {
+  create(
+    params: BundleCloneContextCreateOptions,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+  ): Promise<BundleCloneInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["targetAccountSid"] === null || params["targetAccountSid"] === undefined) {
-      throw new Error('Required parameter "params[\'targetAccountSid\']" missing.');
+    if (
+      params["targetAccountSid"] === null ||
+      params["targetAccountSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['targetAccountSid']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["TargetAccountSid"] = params["targetAccountSid"];
     if (params["moveToDraft"] !== undefined)
-    data["MoveToDraft"] = serialize.bool(params["moveToDraft"]);
+      data["MoveToDraft"] = serialize.bool(params["moveToDraft"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new BundleCloneInstance(operationVersion, payload, instance._solution.bundleSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BundleCloneInstance(
+          operationVersion,
+          payload,
+          instance._solution.bundleSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(params: BundleCloneContextCreateOptions,callback?: (error: Error | null, item?: ApiResponse<BundleCloneInstance>) => any): Promise<ApiResponse<BundleCloneInstance>> {
-      if (params === null || params === undefined) {
+  createWithHttpInfo(
+    params: BundleCloneContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BundleCloneInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["targetAccountSid"] === null || params["targetAccountSid"] === undefined) {
-      throw new Error('Required parameter "params[\'targetAccountSid\']" missing.');
+    if (
+      params["targetAccountSid"] === null ||
+      params["targetAccountSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['targetAccountSid']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["TargetAccountSid"] = params["targetAccountSid"];
     if (params["moveToDraft"] !== undefined)
-    data["MoveToDraft"] = serialize.bool(params["moveToDraft"]);
+      data["MoveToDraft"] = serialize.bool(params["moveToDraft"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<BundleCloneResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<BundleCloneInstance> => ({
-      ...response,
-      body: new BundleCloneInstance(operationVersion, response.body, instance._solution.bundleSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BundleCloneResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<BundleCloneInstance> => ({
+        ...response,
+        body: new BundleCloneInstance(
+          operationVersion,
+          response.body,
+          instance._solution.bundleSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -179,8 +225,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
   }
 }
 
-
-  interface BundleClonePayload extends BundleCloneResource {}
+interface BundleClonePayload extends BundleCloneResource {}
 
 interface BundleCloneResource {
   bundle_sid: string;
@@ -200,21 +245,24 @@ export class BundleCloneInstance {
   protected _solution: BundleCloneContextSolution;
   protected _context?: BundleCloneContext;
 
-  constructor(protected _version: V2, payload: BundleCloneResource, bundleSid?: string) {
-    
-    this.bundleSid = (payload.bundle_sid);
-    this.accountSid = (payload.account_sid);
-    this.regulationSid = (payload.regulation_sid);
-    this.friendlyName = (payload.friendly_name);
+  constructor(
+    protected _version: V2,
+    payload: BundleCloneResource,
+    bundleSid?: string,
+  ) {
+    this.bundleSid = payload.bundle_sid;
+    this.accountSid = payload.account_sid;
+    this.regulationSid = payload.regulation_sid;
+    this.friendlyName = payload.friendly_name;
     this.status = payload.status;
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
-    this.email = (payload.email);
-    this.statusCallback = (payload.status_callback);
+    this.email = payload.email;
+    this.statusCallback = payload.status_callback;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { bundleSid: bundleSid,  };
+    this._solution = { bundleSid: bundleSid };
   }
 
   /**
@@ -260,7 +308,9 @@ export class BundleCloneInstance {
   url: string;
 
   private get _proxy(): BundleCloneContext {
-    this._context = this._context || new BundleCloneContextImpl(this._version, this._solution.bundleSid);
+    this._context =
+      this._context ||
+      new BundleCloneContextImpl(this._version, this._solution.bundleSid);
     return this._context;
   }
 
@@ -272,10 +322,15 @@ export class BundleCloneInstance {
    *
    * @returns Resolves to processed BundleCloneInstance
    */
-  create(params: BundleCloneContextCreateOptions, callback?: (error: Error | null, item?: BundleCloneInstance) => any): Promise<BundleCloneInstance>;
+  create(
+    params: BundleCloneContextCreateOptions,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+  ): Promise<BundleCloneInstance>;
 
-    create(params?: any, callback?: (error: Error | null, item?: BundleCloneInstance) => any): Promise<BundleCloneInstance>
-    {
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+  ): Promise<BundleCloneInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -287,10 +342,21 @@ export class BundleCloneInstance {
    *
    * @returns Resolves to processed BundleCloneInstance with HTTP metadata
    */
-  createWithHttpInfo(params: BundleCloneContextCreateOptions, callback?: (error: Error | null, item?: ApiResponse<BundleCloneInstance>) => any): Promise<ApiResponse<BundleCloneInstance>>;
+  createWithHttpInfo(
+    params: BundleCloneContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BundleCloneInstance>>;
 
-    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<BundleCloneInstance>) => any): Promise<ApiResponse<BundleCloneInstance>>
-    {
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BundleCloneInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BundleCloneInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -320,20 +386,15 @@ export class BundleCloneInstance {
   }
 }
 
-
-export interface BundleCloneSolution {
-}
+export interface BundleCloneSolution {}
 
 export interface BundleCloneListInstance {
   _version: V2;
   _solution: BundleCloneSolution;
   _uri: string;
 
-  (bundleSid: string, ): BundleCloneContext;
-  get(bundleSid: string, ): BundleCloneContext;
-
-
-
+  (bundleSid: string): BundleCloneContext;
+  get(bundleSid: string): BundleCloneContext;
 
   /**
    * Provide a user-friendly representation
@@ -343,25 +404,27 @@ export interface BundleCloneListInstance {
 }
 
 export function BundleCloneListInstance(version: V2): BundleCloneListInstance {
-  const instance = ((bundleSid, ) => instance.get(bundleSid, )) as BundleCloneListInstance;
+  const instance = ((bundleSid) =>
+    instance.get(bundleSid)) as BundleCloneListInstance;
 
-  instance.get = function get(bundleSid, ): BundleCloneContext {
+  instance.get = function get(bundleSid): BundleCloneContext {
     return new BundleCloneContextImpl(version, bundleSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

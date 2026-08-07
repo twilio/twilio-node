@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -25,28 +26,27 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
+
 /**
  * The verification status of the Customer-Profile resource.
  */
-export type CustomerProfilesStatus =
-  | "draft"
-  | "pending-review"
-  | "in-review"
-  | "twilio-rejected"
-  | "twilio-approved";
+export type CustomerProfilesStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
+
+
+
 
 /**
  * Options to pass to update a CustomerProfilesInstance
  */
 export interface CustomerProfilesContextUpdateOptions {
   /**  */
-  status?: CustomerProfilesStatus;
+  "status"?: CustomerProfilesStatus;
   /** The URL we call to inform your application of status changes. */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The email address that will receive updates when the Customer-Profile resource changes status. */
-  email?: string;
+  "email"?: string;
 }
 
 /**
@@ -54,13 +54,13 @@ export interface CustomerProfilesContextUpdateOptions {
  */
 export interface CustomerProfilesListInstanceCreateOptions {
   /** The string that you assigned to describe the resource. */
-  friendlyName: string;
+  "friendlyName": string;
   /** The email address that will receive updates when the Customer-Profile resource changes status. */
-  email: string;
+  "email": string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
-  policySid: string;
+  "policySid": string;
   /** The URL we call to inform your application of status changes. */
-  statusCallback?: string;
+  "statusCallback"?: string;
 }
 
 /**
@@ -68,18 +68,15 @@ export interface CustomerProfilesListInstanceCreateOptions {
  */
 export interface CustomerProfilesListInstanceEachOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: CustomerProfilesStatus;
+  "status"?: CustomerProfilesStatus;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
-  policySid?: string;
+  "policySid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: CustomerProfilesInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -91,34 +88,36 @@ export interface CustomerProfilesListInstanceEachOptions {
  */
 export interface CustomerProfilesListInstanceOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: CustomerProfilesStatus;
+  "status"?: CustomerProfilesStatus;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
-  policySid?: string;
+  "policySid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface CustomerProfilesListInstancePageOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: CustomerProfilesStatus;
+  "status"?: CustomerProfilesStatus;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
-  policySid?: string;
+  "policySid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface CustomerProfilesContext {
   customerProfilesChannelEndpointAssignment: CustomerProfilesChannelEndpointAssignmentListInstance;
@@ -132,9 +131,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a CustomerProfilesInstance and return HTTP info
@@ -143,9 +140,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a CustomerProfilesInstance
@@ -154,9 +149,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>
 
   /**
    * Fetch a CustomerProfilesInstance and return HTTP info
@@ -165,12 +158,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>
 
   /**
    * Update a CustomerProfilesInstance
@@ -179,9 +167,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  update(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
+  update(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
    *
@@ -190,10 +176,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  update(
-    params: CustomerProfilesContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
+  update(params: CustomerProfilesContextUpdateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
 
   /**
    * Update a CustomerProfilesInstance and return HTTP info
@@ -202,12 +185,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>;
   /**
    * Update a CustomerProfilesInstance and return HTTP info
    *
@@ -216,13 +194,7 @@ export interface CustomerProfilesContext {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: CustomerProfilesContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>>;
+  updateWithHttpInfo(params: CustomerProfilesContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -232,7 +204,7 @@ export interface CustomerProfilesContext {
 }
 
 export interface CustomerProfilesContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
@@ -245,262 +217,173 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/CustomerProfiles/${sid}`;
   }
 
   get customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
-    this._customerProfilesChannelEndpointAssignment =
-      this._customerProfilesChannelEndpointAssignment ||
-      CustomerProfilesChannelEndpointAssignmentListInstance(
-        this._version,
-        this._solution.sid
-      );
+    this._customerProfilesChannelEndpointAssignment = this._customerProfilesChannelEndpointAssignment || CustomerProfilesChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
     return this._customerProfilesChannelEndpointAssignment;
   }
 
   get customerProfilesEntityAssignments(): CustomerProfilesEntityAssignmentsListInstance {
-    this._customerProfilesEntityAssignments =
-      this._customerProfilesEntityAssignments ||
-      CustomerProfilesEntityAssignmentsListInstance(
-        this._version,
-        this._solution.sid
-      );
+    this._customerProfilesEntityAssignments = this._customerProfilesEntityAssignments || CustomerProfilesEntityAssignmentsListInstance(this._version, this._solution.sid);
     return this._customerProfilesEntityAssignments;
   }
 
   get customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
-    this._customerProfilesEvaluations =
-      this._customerProfilesEvaluations ||
-      CustomerProfilesEvaluationsListInstance(
-        this._version,
-        this._solution.sid
-      );
+    this._customerProfilesEvaluations = this._customerProfilesEvaluations || CustomerProfilesEvaluationsListInstance(this._version, this._solution.sid);
     return this._customerProfilesEvaluations;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CustomerProfilesInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<CustomerProfilesResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CustomerProfilesInstance> => ({
-          ...response,
-          body: new CustomerProfilesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<CustomerProfilesResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<CustomerProfilesInstance> => ({
+      ...response,
+      body: new CustomerProfilesInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | CustomerProfilesContextUpdateOptions
-      | ((error: Error | null, item?: CustomerProfilesInstance) => any),
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance> {
-    if (params instanceof Function) {
+  update(params?: CustomerProfilesContextUpdateOptions | ((error: Error | null, item?: CustomerProfilesInstance) => any),callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["email"] !== undefined) data["Email"] = params["email"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["email"] !== undefined)
+    data["Email"] = params["email"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CustomerProfilesInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | CustomerProfilesContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<CustomerProfilesInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: CustomerProfilesContextUpdateOptions | ((error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["email"] !== undefined) data["Email"] = params["email"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["email"] !== undefined)
+    data["Email"] = params["email"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<CustomerProfilesResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CustomerProfilesInstance> => ({
-          ...response,
-          body: new CustomerProfilesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<CustomerProfilesResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CustomerProfilesInstance> => ({
+      ...response,
+      body: new CustomerProfilesInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -517,8 +400,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   }
 }
 
-interface CustomerProfilesPayload extends TwilioResponsePayload {
-  results: CustomerProfilesResource[];
+
+  interface CustomerProfilesPayload extends TwilioResponsePayload {
+    results: CustomerProfilesResource[];
 }
 
 interface CustomerProfilesResource {
@@ -541,26 +425,23 @@ export class CustomerProfilesInstance {
   protected _solution: CustomerProfilesContextSolution;
   protected _context?: CustomerProfilesContext;
 
-  constructor(
-    protected _version: V1,
-    payload: CustomerProfilesResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.policySid = payload.policy_sid;
-    this.friendlyName = payload.friendly_name;
+  constructor(protected _version: V1, payload: CustomerProfilesResource, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.policySid = (payload.policy_sid);
+    this.friendlyName = (payload.friendly_name);
     this.status = payload.status;
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
-    this.email = payload.email;
-    this.statusCallback = payload.status_callback;
+    this.email = (payload.email);
+    this.statusCallback = (payload.status_callback);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
-    this.errors = payload.errors;
+    this.url = (payload.url);
+    this.links = (payload.links);
+    this.errors = (payload.errors);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -614,9 +495,7 @@ export class CustomerProfilesInstance {
   errors: Array<any>;
 
   private get _proxy(): CustomerProfilesContext {
-    this._context =
-      this._context ||
-      new CustomerProfilesContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new CustomerProfilesContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -627,9 +506,9 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -640,9 +519,9 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -653,9 +532,9 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance> {
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -666,12 +545,9 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -682,9 +558,7 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  update(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
+  update(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
    *
@@ -693,15 +567,10 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  update(
-    params: CustomerProfilesContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
+  update(params: CustomerProfilesContextUpdateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -712,12 +581,7 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>;
   /**
    * Update a CustomerProfilesInstance and return HTTP info
    *
@@ -726,21 +590,10 @@ export class CustomerProfilesInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: CustomerProfilesContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>>;
+  updateWithHttpInfo(params: CustomerProfilesContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -793,15 +646,24 @@ export class CustomerProfilesInstance {
   }
 }
 
-export interface CustomerProfilesSolution {}
+
+export interface CustomerProfilesSolution {
+}
 
 export interface CustomerProfilesListInstance {
   _version: V1;
   _solution: CustomerProfilesSolution;
   _uri: string;
 
-  (sid: string): CustomerProfilesContext;
-  get(sid: string): CustomerProfilesContext;
+  (sid: string, ): CustomerProfilesContext;
+  get(sid: string, ): CustomerProfilesContext;
+
+
+
+
+
+
+
 
   /**
    * Create a CustomerProfilesInstance
@@ -811,10 +673,7 @@ export interface CustomerProfilesListInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance
    */
-  create(
-    params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
+  create(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
 
   /**
    * Create a CustomerProfilesInstance and return HTTP info
@@ -824,13 +683,10 @@ export interface CustomerProfilesListInstance {
    *
    * @returns Resolves to processed CustomerProfilesInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>>;
+  createWithHttpInfo(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>>;
+
+
+
 
   /**
    * Streams CustomerProfilesInstance records from the API.
@@ -847,19 +703,8 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: CustomerProfilesListInstanceEachOptions,
-    callback?: (
-      item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
+  each(params: CustomerProfilesListInstanceEachOptions, callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams CustomerProfilesInstance records from the API with HTTP metadata captured per page.
    *
@@ -875,19 +720,8 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: CustomerProfilesListInstanceEachOptions,
-    callback?: (
-      item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: CustomerProfilesListInstanceEachOptions, callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API.
    *
@@ -896,10 +730,7 @@ export interface CustomerProfilesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API with HTTP metadata.
    *
@@ -908,13 +739,7 @@ export interface CustomerProfilesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesPage>) => any): Promise<ApiResponse<CustomerProfilesPage>>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list.
    *
@@ -924,13 +749,8 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
-  ): Promise<CustomerProfilesInstance[]>;
-  list(
-    params: CustomerProfilesListInstanceOptions,
-    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
-  ): Promise<CustomerProfilesInstance[]>;
+  list(callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
+  list(params: CustomerProfilesListInstanceOptions, callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list with HTTP metadata.
    *
@@ -942,19 +762,8 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesInstance[]>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance[]>>;
-  listWithHttpInfo(
-    params: CustomerProfilesListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesInstance[]>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CustomerProfilesInstance[]>) => any): Promise<ApiResponse<CustomerProfilesInstance[]>>;
+  listWithHttpInfo(params: CustomerProfilesListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesInstance[]>) => any): Promise<ApiResponse<CustomerProfilesInstance[]>>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API.
    *
@@ -966,13 +775,8 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage>;
-  page(
-    params: CustomerProfilesListInstancePageOptions,
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage>;
+  page(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  page(params: CustomerProfilesListInstancePageOptions, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API with HTTP metadata.
    *
@@ -984,19 +788,9 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesPage>>;
-  pageWithHttpInfo(
-    params: CustomerProfilesListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CustomerProfilesPage>) => any): Promise<ApiResponse<CustomerProfilesPage>>;
+  pageWithHttpInfo(params: CustomerProfilesListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesPage>) => any): Promise<ApiResponse<CustomerProfilesPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1005,144 +799,115 @@ export interface CustomerProfilesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CustomerProfilesListInstance(
-  version: V1
-): CustomerProfilesListInstance {
-  const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstance;
+export function CustomerProfilesListInstance(version: V1): CustomerProfilesListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as CustomerProfilesListInstance;
 
-  instance.get = function get(sid): CustomerProfilesContext {
+  instance.get = function get(sid, ): CustomerProfilesContext {
     return new CustomerProfilesContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/CustomerProfiles`;
 
-  instance.create = function create(
-    params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance> {
+  instance.create = function create(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, items: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     if (params["email"] === null || params["email"] === undefined) {
-      throw new Error("Required parameter \"params['email']\" missing.");
+      throw new Error('Required parameter "params[\'email\']" missing.');
     }
 
     if (params["policySid"] === null || params["policySid"] === undefined) {
-      throw new Error("Required parameter \"params['policySid']\" missing.");
+      throw new Error('Required parameter "params[\'policySid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-
+    
     data["Email"] = params["email"];
-
+    
     data["PolicySid"] = params["policySid"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new CustomerProfilesInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesInstance>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesInstance>) => any): Promise<ApiResponse<CustomerProfilesInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     if (params["email"] === null || params["email"] === undefined) {
-      throw new Error("Required parameter \"params['email']\" missing.");
+      throw new Error('Required parameter "params[\'email\']" missing.');
     }
 
     if (params["policySid"] === null || params["policySid"] === undefined) {
-      throw new Error("Required parameter \"params['policySid']\" missing.");
+      throw new Error('Required parameter "params[\'policySid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-
+    
     data["Email"] = params["email"];
-
+    
     data["PolicySid"] = params["policySid"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<CustomerProfilesResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CustomerProfilesInstance> => ({
-          ...response,
-          body: new CustomerProfilesInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<CustomerProfilesResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CustomerProfilesInstance> => ({
+      ...response,
+      body: new CustomerProfilesInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | CustomerProfilesListInstancePageOptions
-      | ((error: Error | null, items: CustomerProfilesPage) => any),
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage> {
+
+    }
+
+  instance.page = function page(params?: CustomerProfilesListInstancePageOptions | ((error: Error | null, items: CustomerProfilesPage) => any), callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1152,70 +917,50 @@ export function CustomerProfilesListInstance(
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["policySid"] !== undefined)
-      data["PolicySid"] = params["policySid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["PolicySid"] = params["policySid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CustomerProfilesPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new CustomerProfilesPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new CustomerProfilesPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | CustomerProfilesListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<CustomerProfilesPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: CustomerProfilesListInstancePageOptions | ((error: Error | null, items: ApiResponse<CustomerProfilesPage>) => any), callback?: (error: Error | null, items: ApiResponse<CustomerProfilesPage>) => any): Promise<ApiResponse<CustomerProfilesPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1225,122 +970,98 @@ export function CustomerProfilesListInstance(
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["policySid"] !== undefined)
-      data["PolicySid"] = params["policySid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["PolicySid"] = params["policySid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CustomerProfilesPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CustomerProfilesPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<CustomerProfilesPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new CustomerProfilesPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<CustomerProfilesPage>
-    ) => any
-  ): Promise<ApiResponse<CustomerProfilesPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<CustomerProfilesPage>) => any): Promise<ApiResponse<CustomerProfilesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<CustomerProfilesPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CustomerProfilesPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<CustomerProfilesPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new CustomerProfilesPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class CustomerProfilesPage extends Page<
-  V1,
-  CustomerProfilesPayload,
-  CustomerProfilesResource,
-  CustomerProfilesInstance
-> {
-  /**
-   * Initialize the CustomerProfilesPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: CustomerProfilesSolution
-  ) {
+export class CustomerProfilesPage extends Page<V1, CustomerProfilesPayload, CustomerProfilesResource, CustomerProfilesInstance> {
+/**
+* Initialize the CustomerProfilesPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: CustomerProfilesSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CustomerProfilesInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CustomerProfilesResource): CustomerProfilesInstance {
-    return new CustomerProfilesInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of CustomerProfilesInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CustomerProfilesResource): CustomerProfilesInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new CustomerProfilesInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

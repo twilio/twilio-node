@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,30 +19,26 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * Current state of this user. Can be either `active` or `deactivated` and defaults to `active`
  */
-export type UserStateType = 'active'|'deactivated';
-
-
+export type UserStateType = "active" | "deactivated";
 
 /**
  * Options to pass to update a UserInstance
  */
 export interface UserContextUpdateOptions {
   /** The string that you assigned to describe the User. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** The avatar URL which will be shown in Frontline application. */
-  "avatar"?: string;
+  avatar?: string;
   /**  */
-  "state"?: UserStateType;
+  state?: UserStateType;
   /** Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing). */
-  "isAvailable"?: boolean;
+  isAvailable?: boolean;
 }
 
 export interface UserContext {
-
   /**
    * Fetch a UserInstance
    *
@@ -51,7 +46,9 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance>;
 
   /**
    * Fetch a UserInstance and return HTTP info
@@ -60,7 +57,9 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Update a UserInstance
@@ -69,7 +68,9 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance
    */
-  update(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *
@@ -78,7 +79,10 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance
    */
-  update(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance>;
 
   /**
    * Update a UserInstance and return HTTP info
@@ -87,7 +91,9 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>>;
   /**
    * Update a UserInstance and return HTTP info
    *
@@ -96,7 +102,10 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
+  updateWithHttpInfo(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -106,137 +115,179 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class UserContextImpl implements UserContext {
   protected _solution: UserContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Users/${sid}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<UserResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<UserInstance> => ({
-      ...response,
-      body: new UserInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<UserInstance> => ({
+        ...response,
+        body: new UserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: UserContextUpdateOptions | ((error: Error | null, item?: UserInstance) => any),callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["avatar"] !== undefined)
-    data["Avatar"] = params["avatar"];
-    if (params["state"] !== undefined)
-    data["State"] = params["state"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["avatar"] !== undefined) data["Avatar"] = params["avatar"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
     if (params["isAvailable"] !== undefined)
-    data["IsAvailable"] = serialize.bool(params["isAvailable"]);
+      data["IsAvailable"] = serialize.bool(params["isAvailable"]);
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: UserContextUpdateOptions | ((error: Error | null, item?: ApiResponse<UserInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<UserInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["avatar"] !== undefined)
-    data["Avatar"] = params["avatar"];
-    if (params["state"] !== undefined)
-    data["State"] = params["state"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["avatar"] !== undefined) data["Avatar"] = params["avatar"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
     if (params["isAvailable"] !== undefined)
-    data["IsAvailable"] = serialize.bool(params["isAvailable"]);
+      data["IsAvailable"] = serialize.bool(params["isAvailable"]);
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<UserResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<UserInstance> => ({
-      ...response,
-      body: new UserInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<UserInstance> => ({
+        ...response,
+        body: new UserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -253,8 +304,7 @@ export class UserContextImpl implements UserContext {
   }
 }
 
-
-  interface UserPayload extends UserResource {}
+interface UserPayload extends UserResource {}
 
 interface UserResource {
   sid: string;
@@ -270,17 +320,20 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(protected _version: V1, payload: UserResource, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.identity = (payload.identity);
-    this.friendlyName = (payload.friendly_name);
-    this.avatar = (payload.avatar);
+  constructor(
+    protected _version: V1,
+    payload: UserResource,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.identity = payload.identity;
+    this.friendlyName = payload.friendly_name;
+    this.avatar = payload.avatar;
     this.state = payload.state;
-    this.isAvailable = (payload.is_available);
-    this.url = (payload.url);
+    this.isAvailable = payload.is_available;
+    this.url = payload.url;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -310,7 +363,8 @@ export class UserInstance {
   url: string;
 
   private get _proxy(): UserContext {
-    this._context = this._context || new UserContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new UserContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -321,9 +375,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -334,9 +388,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -347,7 +401,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  update(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *
@@ -356,10 +412,15 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  update(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any,
+  ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -370,7 +431,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>>;
   /**
    * Update a UserInstance and return HTTP info
    *
@@ -379,10 +442,15 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
+  updateWithHttpInfo(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
+  ): Promise<ApiResponse<UserInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -408,22 +476,15 @@ export class UserInstance {
   }
 }
 
-
-export interface UserSolution {
-}
+export interface UserSolution {}
 
 export interface UserListInstance {
   _version: V1;
   _solution: UserSolution;
   _uri: string;
 
-  (sid: string, ): UserContext;
-  get(sid: string, ): UserContext;
-
-
-
-
-
+  (sid: string): UserContext;
+  get(sid: string): UserContext;
 
   /**
    * Provide a user-friendly representation
@@ -433,25 +494,26 @@ export interface UserListInstance {
 }
 
 export function UserListInstance(version: V1): UserListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as UserListInstance;
+  const instance = ((sid) => instance.get(sid)) as UserListInstance;
 
-  instance.get = function get(sid, ): UserContext {
+  instance.get = function get(sid): UserContext {
     return new UserContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -22,16 +23,20 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
+
+
+
 /**
  * Options to pass to update a SyncMapPermissionInstance
  */
 export interface SyncMapPermissionContextUpdateOptions {
   /** Whether the identity can read the Sync Map and its Items. Default value is `false`. */
-  read: boolean;
+  "read": boolean;
   /** Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`. */
-  write: boolean;
+  "write": boolean;
   /** Whether the identity can delete the Sync Map. Default value is `false`. */
-  manage: boolean;
+  "manage": boolean;
 }
 
 /**
@@ -39,12 +44,9 @@ export interface SyncMapPermissionContextUpdateOptions {
  */
 export interface SyncMapPermissionListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: SyncMapPermissionInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -56,24 +58,27 @@ export interface SyncMapPermissionListInstanceEachOptions {
  */
 export interface SyncMapPermissionListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface SyncMapPermissionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface SyncMapPermissionContext {
+
   /**
    * Remove a SyncMapPermissionInstance
    *
@@ -81,9 +86,7 @@ export interface SyncMapPermissionContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a SyncMapPermissionInstance and return HTTP info
@@ -92,9 +95,7 @@ export interface SyncMapPermissionContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a SyncMapPermissionInstance
@@ -103,9 +104,7 @@ export interface SyncMapPermissionContext {
    *
    * @returns Resolves to processed SyncMapPermissionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance>;
+  fetch(callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>
 
   /**
    * Fetch a SyncMapPermissionInstance and return HTTP info
@@ -114,12 +113,7 @@ export interface SyncMapPermissionContext {
    *
    * @returns Resolves to processed SyncMapPermissionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>>
 
   /**
    * Update a SyncMapPermissionInstance
@@ -129,10 +123,7 @@ export interface SyncMapPermissionContext {
    *
    * @returns Resolves to processed SyncMapPermissionInstance
    */
-  update(
-    params: SyncMapPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance>;
+  update(params: SyncMapPermissionContextUpdateOptions, callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
 
   /**
    * Update a SyncMapPermissionInstance and return HTTP info
@@ -142,13 +133,7 @@ export interface SyncMapPermissionContext {
    *
    * @returns Resolves to processed SyncMapPermissionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: SyncMapPermissionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>>;
+  updateWithHttpInfo(params: SyncMapPermissionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -158,273 +143,192 @@ export interface SyncMapPermissionContext {
 }
 
 export interface SyncMapPermissionContextSolution {
-  serviceSid: string;
-  mapSid: string;
-  identity: string;
+  "serviceSid": string;
+  "mapSid": string;
+  "identity": string;
 }
 
 export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   protected _solution: SyncMapPermissionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    mapSid: string,
-    identity: string
-  ) {
+
+  constructor(protected _version: V1, serviceSid: string, mapSid: string, identity: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(mapSid)) {
-      throw new Error("Parameter 'mapSid' is not valid.");
+      throw new Error('Parameter \'mapSid\' is not valid.');
     }
 
     if (!isValidPathParam(identity)) {
-      throw new Error("Parameter 'identity' is not valid.");
+      throw new Error('Parameter \'identity\' is not valid.');
     }
 
-    this._solution = { serviceSid, mapSid, identity };
+    this._solution = { serviceSid, mapSid, identity,  };
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new SyncMapPermissionInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.mapSid, instance._solution.identity));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapPermissionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.mapSid,
-          instance._solution.identity
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<SyncMapPermissionResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<SyncMapPermissionInstance> => ({
-          ...response,
-          body: new SyncMapPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid,
-            instance._solution.identity
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<SyncMapPermissionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<SyncMapPermissionInstance> => ({
+      ...response,
+      body: new SyncMapPermissionInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.mapSid, instance._solution.identity)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: SyncMapPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance> {
-    if (params === null || params === undefined) {
+  update(params: SyncMapPermissionContextUpdateOptions,callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["read"] === null || params["read"] === undefined) {
-      throw new Error("Required parameter \"params['read']\" missing.");
+      throw new Error('Required parameter "params[\'read\']" missing.');
     }
 
     if (params["write"] === null || params["write"] === undefined) {
-      throw new Error("Required parameter \"params['write']\" missing.");
+      throw new Error('Required parameter "params[\'write\']" missing.');
     }
 
     if (params["manage"] === null || params["manage"] === undefined) {
-      throw new Error("Required parameter \"params['manage']\" missing.");
+      throw new Error('Required parameter "params[\'manage\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Read"] = serialize.bool(params["read"]);
-
+    
     data["Write"] = serialize.bool(params["write"]);
-
+    
     data["Manage"] = serialize.bool(params["manage"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new SyncMapPermissionInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.mapSid, instance._solution.identity));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapPermissionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.mapSid,
-          instance._solution.identity
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params: SyncMapPermissionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>> {
-    if (params === null || params === undefined) {
+  updateWithHttpInfo(params: SyncMapPermissionContextUpdateOptions,callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["read"] === null || params["read"] === undefined) {
-      throw new Error("Required parameter \"params['read']\" missing.");
+      throw new Error('Required parameter "params[\'read\']" missing.');
     }
 
     if (params["write"] === null || params["write"] === undefined) {
-      throw new Error("Required parameter \"params['write']\" missing.");
+      throw new Error('Required parameter "params[\'write\']" missing.');
     }
 
     if (params["manage"] === null || params["manage"] === undefined) {
-      throw new Error("Required parameter \"params['manage']\" missing.");
+      throw new Error('Required parameter "params[\'manage\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Read"] = serialize.bool(params["read"]);
-
+    
     data["Write"] = serialize.bool(params["write"]);
-
+    
     data["Manage"] = serialize.bool(params["manage"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<SyncMapPermissionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<SyncMapPermissionInstance> => ({
-          ...response,
-          body: new SyncMapPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid,
-            instance._solution.identity
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<SyncMapPermissionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SyncMapPermissionInstance> => ({
+      ...response,
+      body: new SyncMapPermissionInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.mapSid, instance._solution.identity)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -441,8 +345,9 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 }
 
-interface SyncMapPermissionPayload extends TwilioResponsePayload {
-  permissions: SyncMapPermissionResource[];
+
+  interface SyncMapPermissionPayload extends TwilioResponsePayload {
+    permissions: SyncMapPermissionResource[];
 }
 
 interface SyncMapPermissionResource {
@@ -460,27 +365,18 @@ export class SyncMapPermissionInstance {
   protected _solution: SyncMapPermissionContextSolution;
   protected _context?: SyncMapPermissionContext;
 
-  constructor(
-    protected _version: V1,
-    payload: SyncMapPermissionResource,
-    serviceSid: string,
-    mapSid: string,
-    identity?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.mapSid = payload.map_sid;
-    this.identity = payload.identity;
-    this.read = payload.read;
-    this.write = payload.write;
-    this.manage = payload.manage;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: SyncMapPermissionResource, serviceSid: string, mapSid: string, identity?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.mapSid = (payload.map_sid);
+    this.identity = (payload.identity);
+    this.read = (payload.read);
+    this.write = (payload.write);
+    this.manage = (payload.manage);
+    this.url = (payload.url);
 
-    this._solution = {
-      serviceSid,
-      mapSid,
-      identity: identity || this.identity,
-    };
+    this._solution = { serviceSid, mapSid, identity: identity,  };
   }
 
   /**
@@ -517,14 +413,7 @@ export class SyncMapPermissionInstance {
   url: string;
 
   private get _proxy(): SyncMapPermissionContext {
-    this._context =
-      this._context ||
-      new SyncMapPermissionContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.mapSid,
-        this._solution.identity
-      );
+    this._context = this._context || new SyncMapPermissionContextImpl(this._version, this._solution.serviceSid, this._solution.mapSid, this._solution.identity);
     return this._context;
   }
 
@@ -535,9 +424,9 @@ export class SyncMapPermissionInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -548,9 +437,9 @@ export class SyncMapPermissionInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -561,9 +450,9 @@ export class SyncMapPermissionInstance {
    *
    * @returns Resolves to processed SyncMapPermissionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance> {
+  fetch(callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -574,12 +463,9 @@ export class SyncMapPermissionInstance {
    *
    * @returns Resolves to processed SyncMapPermissionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -591,15 +477,10 @@ export class SyncMapPermissionInstance {
    *
    * @returns Resolves to processed SyncMapPermissionInstance
    */
-  update(
-    params: SyncMapPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance>;
+  update(params: SyncMapPermissionContextUpdateOptions, callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
-  ): Promise<SyncMapPermissionInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -611,21 +492,10 @@ export class SyncMapPermissionInstance {
    *
    * @returns Resolves to processed SyncMapPermissionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: SyncMapPermissionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>>;
+  updateWithHttpInfo(params: SyncMapPermissionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SyncMapPermissionInstance>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<SyncMapPermissionInstance>) => any): Promise<ApiResponse<SyncMapPermissionInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -652,6 +522,7 @@ export class SyncMapPermissionInstance {
   }
 }
 
+
 export interface SyncMapPermissionSolution {
   serviceSid: string;
   mapSid: string;
@@ -662,8 +533,16 @@ export interface SyncMapPermissionListInstance {
   _solution: SyncMapPermissionSolution;
   _uri: string;
 
-  (identity: string): SyncMapPermissionContext;
-  get(identity: string): SyncMapPermissionContext;
+  (identity: string, ): SyncMapPermissionContext;
+  get(identity: string, ): SyncMapPermissionContext;
+
+
+
+
+
+
+
+
 
   /**
    * Streams SyncMapPermissionInstance records from the API.
@@ -680,19 +559,8 @@ export interface SyncMapPermissionListInstance {
    * @param { SyncMapPermissionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: SyncMapPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: SyncMapPermissionListInstanceEachOptions,
-    callback?: (
-      item: SyncMapPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
+  each(params: SyncMapPermissionListInstanceEachOptions, callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams SyncMapPermissionInstance records from the API with HTTP metadata captured per page.
    *
@@ -708,19 +576,8 @@ export interface SyncMapPermissionListInstance {
    * @param { SyncMapPermissionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: SyncMapPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: SyncMapPermissionListInstanceEachOptions,
-    callback?: (
-      item: SyncMapPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: SyncMapPermissionListInstanceEachOptions, callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SyncMapPermissionInstance records from the API.
    *
@@ -729,10 +586,7 @@ export interface SyncMapPermissionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SyncMapPermissionPage) => any
-  ): Promise<SyncMapPermissionPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
   /**
    * Retrieve a single target page of SyncMapPermissionInstance records from the API with HTTP metadata.
    *
@@ -741,13 +595,7 @@ export interface SyncMapPermissionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SyncMapPermissionPage>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<SyncMapPermissionPage>) => any): Promise<ApiResponse<SyncMapPermissionPage>>;
   /**
    * Lists SyncMapPermissionInstance records from the API as a list.
    *
@@ -757,13 +605,8 @@ export interface SyncMapPermissionListInstance {
    * @param { SyncMapPermissionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any
-  ): Promise<SyncMapPermissionInstance[]>;
-  list(
-    params: SyncMapPermissionListInstanceOptions,
-    callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any
-  ): Promise<SyncMapPermissionInstance[]>;
+  list(callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
+  list(params: SyncMapPermissionListInstanceOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
   /**
    * Lists SyncMapPermissionInstance records from the API as a list with HTTP metadata.
    *
@@ -775,19 +618,8 @@ export interface SyncMapPermissionListInstance {
    * @param { SyncMapPermissionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SyncMapPermissionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance[]>>;
-  listWithHttpInfo(
-    params: SyncMapPermissionListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SyncMapPermissionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<SyncMapPermissionInstance[]>) => any): Promise<ApiResponse<SyncMapPermissionInstance[]>>;
+  listWithHttpInfo(params: SyncMapPermissionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<SyncMapPermissionInstance[]>) => any): Promise<ApiResponse<SyncMapPermissionInstance[]>>;
   /**
    * Retrieve a single page of SyncMapPermissionInstance records from the API.
    *
@@ -799,13 +631,8 @@ export interface SyncMapPermissionListInstance {
    * @param { SyncMapPermissionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: SyncMapPermissionPage) => any
-  ): Promise<SyncMapPermissionPage>;
-  page(
-    params: SyncMapPermissionListInstancePageOptions,
-    callback?: (error: Error | null, items: SyncMapPermissionPage) => any
-  ): Promise<SyncMapPermissionPage>;
+  page(callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
+  page(params: SyncMapPermissionListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
   /**
    * Retrieve a single page of SyncMapPermissionInstance records from the API with HTTP metadata.
    *
@@ -817,19 +644,9 @@ export interface SyncMapPermissionListInstance {
    * @param { SyncMapPermissionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SyncMapPermissionPage>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionPage>>;
-  pageWithHttpInfo(
-    params: SyncMapPermissionListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SyncMapPermissionPage>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<SyncMapPermissionPage>) => any): Promise<ApiResponse<SyncMapPermissionPage>>;
+  pageWithHttpInfo(params: SyncMapPermissionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<SyncMapPermissionPage>) => any): Promise<ApiResponse<SyncMapPermissionPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -838,41 +655,26 @@ export interface SyncMapPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SyncMapPermissionListInstance(
-  version: V1,
-  serviceSid: string,
-  mapSid: string
-): SyncMapPermissionListInstance {
+export function SyncMapPermissionListInstance(version: V1, serviceSid: string, mapSid: string): SyncMapPermissionListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(mapSid)) {
-    throw new Error("Parameter 'mapSid' is not valid.");
+    throw new Error('Parameter \'mapSid\' is not valid.');
   }
 
-  const instance = ((identity) =>
-    instance.get(identity)) as SyncMapPermissionListInstance;
+  const instance = ((identity, ) => instance.get(identity, )) as SyncMapPermissionListInstance;
 
-  instance.get = function get(identity): SyncMapPermissionContext {
-    return new SyncMapPermissionContextImpl(
-      version,
-      serviceSid,
-      mapSid,
-      identity
-    );
-  };
+  instance.get = function get(identity, ): SyncMapPermissionContext {
+    return new SyncMapPermissionContextImpl(version, serviceSid, mapSid, identity);
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, mapSid };
+  instance._solution = { serviceSid, mapSid,  };
   instance._uri = `/Services/${serviceSid}/Maps/${mapSid}/Permissions`;
 
-  instance.page = function page(
-    params?:
-      | SyncMapPermissionListInstancePageOptions
-      | ((error: Error | null, items: SyncMapPermissionPage) => any),
-    callback?: (error: Error | null, items: SyncMapPermissionPage) => any
-  ): Promise<SyncMapPermissionPage> {
+  instance.page = function page(params?: SyncMapPermissionListInstancePageOptions | ((error: Error | null, items: SyncMapPermissionPage) => any), callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -882,69 +684,44 @@ export function SyncMapPermissionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new SyncMapPermissionPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncMapPermissionPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SyncMapPermissionPage) => any
-  ): Promise<SyncMapPermissionPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new SyncMapPermissionPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new SyncMapPermissionPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | SyncMapPermissionListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<SyncMapPermissionPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SyncMapPermissionPage>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: SyncMapPermissionListInstancePageOptions | ((error: Error | null, items: ApiResponse<SyncMapPermissionPage>) => any), callback?: (error: Error | null, items: ApiResponse<SyncMapPermissionPage>) => any): Promise<ApiResponse<SyncMapPermissionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -954,122 +731,94 @@ export function SyncMapPermissionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SyncMapPermissionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SyncMapPermissionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<SyncMapPermissionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new SyncMapPermissionPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<SyncMapPermissionPage>
-    ) => any
-  ): Promise<ApiResponse<SyncMapPermissionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<SyncMapPermissionPage>) => any): Promise<ApiResponse<SyncMapPermissionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<SyncMapPermissionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SyncMapPermissionPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<SyncMapPermissionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new SyncMapPermissionPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class SyncMapPermissionPage extends Page<
-  V1,
-  SyncMapPermissionPayload,
-  SyncMapPermissionResource,
-  SyncMapPermissionInstance
-> {
-  /**
-   * Initialize the SyncMapPermissionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: SyncMapPermissionSolution
-  ) {
+export class SyncMapPermissionPage extends Page<V1, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
+/**
+* Initialize the SyncMapPermissionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SyncMapPermissionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SyncMapPermissionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncMapPermissionResource): SyncMapPermissionInstance {
+    /**
+    * Build an instance of SyncMapPermissionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncMapPermissionResource): SyncMapPermissionInstance {
+
     return new SyncMapPermissionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.mapSid
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.mapSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

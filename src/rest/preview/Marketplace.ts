@@ -34,15 +34,14 @@ export default class Marketplace extends Version {
 
   /** Getter for availableAddOns resource */
   get availableAddOns(): AvailableAddOnListInstance {
-    this._availableAddOns =
-      this._availableAddOns || AvailableAddOnListInstance(this);
+    this._availableAddOns = this._availableAddOns || AvailableAddOnListInstance(this);
     return this._availableAddOns;
   }
 
   /** Getter for installedAddOns resource */
   get installedAddOns(): InstalledAddOnListInstance {
-    this._installedAddOns =
-      this._installedAddOns || InstalledAddOnListInstance(this);
+    this._installedAddOns = this._installedAddOns || InstalledAddOnListInstance(this);
     return this._installedAddOns;
   }
+
 }

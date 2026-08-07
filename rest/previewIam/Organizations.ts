@@ -43,7 +43,8 @@ export default class Organizations extends Version {
 
   /** Getter for roleAssignments resource */
   get roleAssignments(): RoleAssignmentListInstance {
-    this._roleAssignments = this._roleAssignments || RoleAssignmentListInstance(this);
+    this._roleAssignments =
+      this._roleAssignments || RoleAssignmentListInstance(this);
     return this._roleAssignments;
   }
 
@@ -52,5 +53,4 @@ export default class Organizations extends Version {
     this._users = this._users || UserListInstance(this);
     return this._users;
   }
-
 }

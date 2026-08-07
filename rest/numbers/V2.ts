@@ -67,13 +67,15 @@ export default class V2 extends Version {
 
   /** Getter for authorizationDocuments resource */
   get authorizationDocuments(): AuthorizationDocumentListInstance {
-    this._authorizationDocuments = this._authorizationDocuments || AuthorizationDocumentListInstance(this);
+    this._authorizationDocuments =
+      this._authorizationDocuments || AuthorizationDocumentListInstance(this);
     return this._authorizationDocuments;
   }
 
   /** Getter for bulkHostedNumberOrders resource */
   get bulkHostedNumberOrders(): BulkHostedNumberOrderListInstance {
-    this._bulkHostedNumberOrders = this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
+    this._bulkHostedNumberOrders =
+      this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
     return this._bulkHostedNumberOrders;
   }
 
@@ -103,7 +105,8 @@ export default class V2 extends Version {
 
   /** Getter for hostedNumberOrders resource */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
-    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    this._hostedNumberOrders =
+      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
     return this._hostedNumberOrders;
   }
 
@@ -115,14 +118,15 @@ export default class V2 extends Version {
 
   /** Getter for supportingDocuments resource */
   get supportingDocuments(): SupportingDocumentListInstance {
-    this._supportingDocuments = this._supportingDocuments || SupportingDocumentListInstance(this);
+    this._supportingDocuments =
+      this._supportingDocuments || SupportingDocumentListInstance(this);
     return this._supportingDocuments;
   }
 
   /** Getter for supportingDocumentTypes resource */
   get supportingDocumentTypes(): SupportingDocumentTypeListInstance {
-    this._supportingDocumentTypes = this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
+    this._supportingDocumentTypes =
+      this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
     return this._supportingDocumentTypes;
   }
-
 }

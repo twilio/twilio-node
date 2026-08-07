@@ -10,6 +10,6 @@
  */
 export function of(obj: Object): Object {
   return Object.fromEntries(
-    Object.entries(obj).filter((entry) => entry[1] !== undefined)
+    Object.entries(obj).filter((entry) => entry[1] !== undefined),
   );
 }

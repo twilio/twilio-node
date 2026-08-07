@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,12 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
-
 export interface CustomerProfilesProvisionalCopyContext {
-
   /**
    * Create a CustomerProfilesProvisionalCopyInstance
    *
@@ -33,7 +27,12 @@ export interface CustomerProfilesProvisionalCopyContext {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance
    */
-  create(callback?: (error: Error | null, item?: CustomerProfilesProvisionalCopyInstance) => any): Promise<CustomerProfilesProvisionalCopyInstance>
+  create(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesProvisionalCopyInstance,
+    ) => any,
+  ): Promise<CustomerProfilesProvisionalCopyInstance>;
 
   /**
    * Create a CustomerProfilesProvisionalCopyInstance and return HTTP info
@@ -42,7 +41,12 @@ export interface CustomerProfilesProvisionalCopyContext {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>) => any): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>;
 
   /**
    * Fetch a CustomerProfilesProvisionalCopyInstance
@@ -51,7 +55,12 @@ export interface CustomerProfilesProvisionalCopyContext {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance
    */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesProvisionalCopyInstance) => any): Promise<CustomerProfilesProvisionalCopyInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesProvisionalCopyInstance,
+    ) => any,
+  ): Promise<CustomerProfilesProvisionalCopyInstance>;
 
   /**
    * Fetch a CustomerProfilesProvisionalCopyInstance and return HTTP info
@@ -60,7 +69,12 @@ export interface CustomerProfilesProvisionalCopyContext {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>) => any): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -70,91 +84,161 @@ export interface CustomerProfilesProvisionalCopyContext {
 }
 
 export interface CustomerProfilesProvisionalCopyContextSolution {
-  "customerProfileSid": string;
+  customerProfileSid: string;
 }
 
 export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfilesProvisionalCopyContext {
   protected _solution: CustomerProfilesProvisionalCopyContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, customerProfileSid: string) {
+  constructor(
+    protected _version: V1,
+    customerProfileSid: string,
+  ) {
     if (!isValidPathParam(customerProfileSid)) {
-      throw new Error('Parameter \'customerProfileSid\' is not valid.');
+      throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
 
-    this._solution = { customerProfileSid,  };
+    this._solution = { customerProfileSid };
     this._uri = `/CustomerProfiles/${customerProfileSid}/ProvisionalCopy`;
   }
 
-  create(callback?: (error: Error | null, item?: CustomerProfilesProvisionalCopyInstance) => any): Promise<CustomerProfilesProvisionalCopyInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  create(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesProvisionalCopyInstance,
+    ) => any,
+  ): Promise<CustomerProfilesProvisionalCopyInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", headers});
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesProvisionalCopyInstance(operationVersion, payload, instance._solution.customerProfileSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesProvisionalCopyInstance(
+          operationVersion,
+          payload,
+          instance._solution.customerProfileSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>) => any): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<CustomerProfilesProvisionalCopyResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<CustomerProfilesProvisionalCopyInstance> => ({
-      ...response,
-      body: new CustomerProfilesProvisionalCopyInstance(operationVersion, response.body, instance._solution.customerProfileSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CustomerProfilesProvisionalCopyResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CustomerProfilesProvisionalCopyInstance> => ({
+          ...response,
+          body: new CustomerProfilesProvisionalCopyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.customerProfileSid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesProvisionalCopyInstance) => any): Promise<CustomerProfilesProvisionalCopyInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesProvisionalCopyInstance,
+    ) => any,
+  ): Promise<CustomerProfilesProvisionalCopyInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesProvisionalCopyInstance(operationVersion, payload, instance._solution.customerProfileSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesProvisionalCopyInstance(
+          operationVersion,
+          payload,
+          instance._solution.customerProfileSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>) => any): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<CustomerProfilesProvisionalCopyResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<CustomerProfilesProvisionalCopyInstance> => ({
-      ...response,
-      body: new CustomerProfilesProvisionalCopyInstance(operationVersion, response.body, instance._solution.customerProfileSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CustomerProfilesProvisionalCopyResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CustomerProfilesProvisionalCopyInstance> => ({
+          ...response,
+          body: new CustomerProfilesProvisionalCopyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.customerProfileSid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -171,8 +255,7 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
   }
 }
 
-
-  interface CustomerProfilesProvisionalCopyPayload extends CustomerProfilesProvisionalCopyResource {}
+interface CustomerProfilesProvisionalCopyPayload extends CustomerProfilesProvisionalCopyResource {}
 
 interface CustomerProfilesProvisionalCopyResource {
   customer_profile_sid: string;
@@ -192,21 +275,24 @@ export class CustomerProfilesProvisionalCopyInstance {
   protected _solution: CustomerProfilesProvisionalCopyContextSolution;
   protected _context?: CustomerProfilesProvisionalCopyContext;
 
-  constructor(protected _version: V1, payload: CustomerProfilesProvisionalCopyResource, customerProfileSid?: string) {
-    
-    this.customerProfileSid = (payload.customer_profile_sid);
-    this.accountSid = (payload.account_sid);
-    this.policySid = (payload.policy_sid);
-    this.friendlyName = (payload.friendly_name);
-    this.status = (payload.status);
-    this.email = (payload.email);
-    this.statusCallback = (payload.status_callback);
+  constructor(
+    protected _version: V1,
+    payload: CustomerProfilesProvisionalCopyResource,
+    customerProfileSid?: string,
+  ) {
+    this.customerProfileSid = payload.customer_profile_sid;
+    this.accountSid = payload.account_sid;
+    this.policySid = payload.policy_sid;
+    this.friendlyName = payload.friendly_name;
+    this.status = payload.status;
+    this.email = payload.email;
+    this.statusCallback = payload.status_callback;
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { customerProfileSid: customerProfileSid,  };
+    this._solution = { customerProfileSid: customerProfileSid };
   }
 
   /**
@@ -255,7 +341,12 @@ export class CustomerProfilesProvisionalCopyInstance {
   url: string;
 
   private get _proxy(): CustomerProfilesProvisionalCopyContext {
-    this._context = this._context || new CustomerProfilesProvisionalCopyContextImpl(this._version, this._solution.customerProfileSid);
+    this._context =
+      this._context ||
+      new CustomerProfilesProvisionalCopyContextImpl(
+        this._version,
+        this._solution.customerProfileSid,
+      );
     return this._context;
   }
 
@@ -266,9 +357,12 @@ export class CustomerProfilesProvisionalCopyInstance {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance
    */
-  create(callback?: (error: Error | null, item?: CustomerProfilesProvisionalCopyInstance) => any): Promise<CustomerProfilesProvisionalCopyInstance>
-
-    {
+  create(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesProvisionalCopyInstance,
+    ) => any,
+  ): Promise<CustomerProfilesProvisionalCopyInstance> {
     return this._proxy.create(callback);
   }
 
@@ -279,9 +373,12 @@ export class CustomerProfilesProvisionalCopyInstance {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>) => any): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>
-
-    {
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
     return this._proxy.createWithHttpInfo(callback);
   }
 
@@ -292,9 +389,12 @@ export class CustomerProfilesProvisionalCopyInstance {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance
    */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesProvisionalCopyInstance) => any): Promise<CustomerProfilesProvisionalCopyInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesProvisionalCopyInstance,
+    ) => any,
+  ): Promise<CustomerProfilesProvisionalCopyInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -305,9 +405,12 @@ export class CustomerProfilesProvisionalCopyInstance {
    *
    * @returns Resolves to processed CustomerProfilesProvisionalCopyInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>) => any): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -337,22 +440,15 @@ export class CustomerProfilesProvisionalCopyInstance {
   }
 }
 
-
-export interface CustomerProfilesProvisionalCopySolution {
-}
+export interface CustomerProfilesProvisionalCopySolution {}
 
 export interface CustomerProfilesProvisionalCopyListInstance {
   _version: V1;
   _solution: CustomerProfilesProvisionalCopySolution;
   _uri: string;
 
-  (customerProfileSid: string, ): CustomerProfilesProvisionalCopyContext;
-  get(customerProfileSid: string, ): CustomerProfilesProvisionalCopyContext;
-
-
-
-
-
+  (customerProfileSid: string): CustomerProfilesProvisionalCopyContext;
+  get(customerProfileSid: string): CustomerProfilesProvisionalCopyContext;
 
   /**
    * Provide a user-friendly representation
@@ -361,26 +457,37 @@ export interface CustomerProfilesProvisionalCopyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CustomerProfilesProvisionalCopyListInstance(version: V1): CustomerProfilesProvisionalCopyListInstance {
-  const instance = ((customerProfileSid, ) => instance.get(customerProfileSid, )) as CustomerProfilesProvisionalCopyListInstance;
+export function CustomerProfilesProvisionalCopyListInstance(
+  version: V1,
+): CustomerProfilesProvisionalCopyListInstance {
+  const instance = ((customerProfileSid) =>
+    instance.get(
+      customerProfileSid,
+    )) as CustomerProfilesProvisionalCopyListInstance;
 
-  instance.get = function get(customerProfileSid, ): CustomerProfilesProvisionalCopyContext {
-    return new CustomerProfilesProvisionalCopyContextImpl(version, customerProfileSid);
-  }
+  instance.get = function get(
+    customerProfileSid,
+  ): CustomerProfilesProvisionalCopyContext {
+    return new CustomerProfilesProvisionalCopyContextImpl(
+      version,
+      customerProfileSid,
+    );
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

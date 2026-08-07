@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 /**
  * Data for creating or updating a profile, including traits.
@@ -26,12 +28,13 @@ export class ProfileData {
   /**
    * Multiple trait groups.
    */
-  "traits"?: { [key: string]: { [key: string]: any } };
+  "traits"?: { [key: string]: { [key: string]: any; }; };
 
   constructor(payload) {
     this.traits = payload["traits"];
   }
 }
+
 
 export class UpdateProfilesBulkRequest {
   "profiles"?: Array<ProfileData>;
@@ -41,15 +44,28 @@ export class UpdateProfilesBulkRequest {
   }
 }
 
+
+
 /**
  * Options to pass to update a BulkInstance
  */
-export interface BulkContextUpdateOptions {
+export interface BulkListInstanceUpdateOptions {
   /**  */
-  updateProfilesBulkRequest: UpdateProfilesBulkRequest;
+  "updateProfilesBulkRequest": UpdateProfilesBulkRequest;
 }
 
-export interface BulkContext {
+
+export interface BulkSolution {
+  storeId: string;
+}
+
+export interface BulkListInstance {
+  _version: V1;
+  _solution: BulkSolution;
+  _uri: string;
+
+
+
   /**
    * Update a BulkInstance
    *
@@ -59,11 +75,7 @@ export interface BulkContext {
    *
    * @returns Resolves to processed BulkInstance
    */
-  update(
-    params: UpdateProfilesBulkRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: BulkInstance) => any
-  ): Promise<BulkInstance>;
+  update(params: UpdateProfilesBulkRequest, headers?: any, callback?: (error: Error | null, item?: BulkInstance) => any): Promise<BulkInstance>;
 
   /**
    * Update a BulkInstance and return HTTP info
@@ -74,11 +86,9 @@ export interface BulkContext {
    *
    * @returns Resolves to processed BulkInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: UpdateProfilesBulkRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any
-  ): Promise<ApiResponse<BulkInstance>>;
+  updateWithHttpInfo(params: UpdateProfilesBulkRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any): Promise<ApiResponse<BulkInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -87,197 +97,104 @@ export interface BulkContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BulkContextSolution {
-  storeId: string;
-}
-
-export class BulkContextImpl implements BulkContext {
-  protected _solution: BulkContextSolution;
-  protected _uri: string;
-
-  constructor(protected _version: V1, storeId: string) {
-    if (!isValidPathParam(storeId)) {
-      throw new Error("Parameter 'storeId' is not valid.");
-    }
-
-    this._solution = { storeId };
-    this._uri = `/Stores/${storeId}/Profiles/Bulk`;
+export function BulkListInstance(version: V1, storeId: string): BulkListInstance {
+  if (!isValidPathParam(storeId)) {
+    throw new Error('Parameter \'storeId\' is not valid.');
   }
 
-  update(
-    params: UpdateProfilesBulkRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: BulkInstance) => any
-  ): Promise<BulkInstance> {
+  const instance = {} as BulkListInstance;
+
+  instance._version = version;
+  instance._solution = { storeId,  };
+  instance._uri = `/Stores/${storeId}/Profiles/Bulk`;
+
+  instance.update = function update(params: UpdateProfilesBulkRequest, headers?: any, callback?: (error: Error | null, items: BulkInstance) => any): Promise<BulkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    let operationVersion = version,
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new BulkInstance(operationVersion, payload, instance._solution.storeId));
+    
 
-    const instance = this;
-    let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BulkInstance(operationVersion, payload, instance._solution.storeId)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  }
 
-  updateWithHttpInfo(
-    params: UpdateProfilesBulkRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any
-  ): Promise<ApiResponse<BulkInstance>> {
+
+    }
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(params: UpdateProfilesBulkRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<BulkInstance>) => any): Promise<ApiResponse<BulkInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
-
-    const instance = this;
-    let operationVersion = instance._version;
+    let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<BulkResource>({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<BulkInstance> => ({
-          ...response,
-          body: new BulkInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<BulkResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<BulkInstance> => ({
+      ...response,
+      body: new BulkInstance(operationVersion, response.body, instance._solution.storeId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
+    }
+
+  instance.toJSON = function toJSON() {
+    return instance._solution;
   }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(instance.toJSON(), options);
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
+  return instance;
 }
+
+
 
 interface BulkResource {
   message: string;
 }
 
 export class BulkInstance {
-  protected _solution: BulkContextSolution;
-  protected _context?: BulkContext;
 
-  constructor(
-    protected _version: V1,
-    _payload: BulkResource,
-    storeId?: string
-  ) {
+  constructor(protected _version: V1, _payload: BulkResource, storeId: string) {
     const payload = _payload;
-    this.message = payload.message;
+    this.message = (payload.message);
 
-    this._solution = { storeId: storeId };
   }
 
   message: string;
-
-  private get _proxy(): BulkContext {
-    this._context =
-      this._context ||
-      new BulkContextImpl(this._version, this._solution.storeId);
-    return this._context;
-  }
-
-  /**
-   * Update a BulkInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed BulkInstance
-   */
-  update(
-    params: UpdateProfilesBulkRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: BulkInstance) => any
-  ): Promise<BulkInstance>;
-
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: BulkInstance) => any
-  ): Promise<BulkInstance> {
-    return this._proxy.update(params, callback);
-  }
-
-  /**
-   * Update a BulkInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed BulkInstance with HTTP metadata
-   */
-  updateWithHttpInfo(
-    params: UpdateProfilesBulkRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any
-  ): Promise<ApiResponse<BulkInstance>>;
-
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any
-  ): Promise<ApiResponse<BulkInstance>> {
-    return this._proxy.updateWithHttpInfo(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -295,44 +212,4 @@ export class BulkInstance {
   }
 }
 
-export interface BulkSolution {}
 
-export interface BulkListInstance {
-  _version: V1;
-  _solution: BulkSolution;
-  _uri: string;
-
-  (storeId: string): BulkContext;
-  get(storeId: string): BulkContext;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export function BulkListInstance(version: V1): BulkListInstance {
-  const instance = ((storeId) => instance.get(storeId)) as BulkListInstance;
-
-  instance.get = function get(storeId): BulkContext {
-    return new BulkContextImpl(version, storeId);
-  };
-
-  instance._version = version;
-  instance._solution = {};
-  instance._uri = ``;
-
-  instance.toJSON = function toJSON() {
-    return instance._solution;
-  };
-
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
-    return inspect(instance.toJSON(), options);
-  };
-
-  return instance;
-}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -22,10 +21,9 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 export class Meta {
   /**
-   * The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+   * The key of the list property contains the actual data items. This enables programmatic iteration over paginated results.
    */
   "key"?: string;
   /**
@@ -43,7 +41,6 @@ export class Meta {
   }
 }
 
-
 export class PatchTraitGroupRequest {
   /**
    * Updated description of the Trait Group
@@ -52,14 +49,13 @@ export class PatchTraitGroupRequest {
   /**
    * Map of traits to add, update, or remove in this Trait Group, where the key is the trait name. - To update/add a trait: provide the complete TraitDefinition object - To remove a trait: set dataType to an empty string (\"\")
    */
-  "traits"?: { [key: string]: TraitDefinition; };
+  "traits"?: { [key: string]: TraitDefinition };
 
   constructor(payload) {
     this.description = payload["description"];
     this.traits = payload["traits"];
   }
 }
-
 
 /**
  * A Trait is a single attribute or characteristic of a profile, such as age, location, or preferences.
@@ -87,7 +83,6 @@ export class TraitDefinition {
   }
 }
 
-
 export class TraitGroup {
   /**
    * Provides a unique and addressable name to be assigned to this Trait Group
@@ -100,7 +95,7 @@ export class TraitGroup {
   /**
    * Map of traits that are part of this Trait Group, where the key is the trait name and the value is the trait\'s definition.
    */
-  "traits"?: { [key: string]: TraitGroupCoreTraitsValue; };
+  "traits"?: { [key: string]: TraitGroupCoreTraitsValue };
   /**
    * The current version number of the Trait Group. Incremented on each successful update.
    */
@@ -113,7 +108,6 @@ export class TraitGroup {
     this.version = payload["version"];
   }
 }
-
 
 /**
  * A Trait is a single attribute or characteristic of a profile, such as age, location, or preferences.
@@ -141,7 +135,6 @@ export class TraitGroupCoreTraitsValue {
   }
 }
 
-
 /**
  * Payload schema for creating Trait Groups.
  */
@@ -157,7 +150,7 @@ export class TraitGroupRequest {
   /**
    * Map of traits belonging to this Trait Group, keyed by trait name.
    */
-  "traits"?: { [key: string]: TraitGroupCoreTraitsValue; };
+  "traits"?: { [key: string]: TraitGroupCoreTraitsValue };
 
   constructor(payload) {
     this.displayName = payload["displayName"];
@@ -165,7 +158,6 @@ export class TraitGroupRequest {
     this.traits = payload["traits"];
   }
 }
-
 
 export class ValidationRule {
   /**
@@ -213,21 +205,18 @@ export class ValidationRule {
   }
 }
 
-
-
-
 /**
  * Options to pass to fetch a TraitGroupInstance
  */
 export interface TraitGroupContextFetchOptions {
   /** Whether to include trait definitions in the response */
-  "includeTraits"?: boolean;
+  includeTraits?: boolean;
   /** The maximum number of items to return per page, maximum of 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
 }
 
 /**
@@ -235,9 +224,9 @@ export interface TraitGroupContextFetchOptions {
  */
 export interface TraitGroupContextPatchOptions {
   /** Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource\'s current Entity Tag (ETag) matches the one provided, preventing accidental overwrites. */
-  "ifMatch"?: string;
+  ifMatch?: string;
   /**  */
-  "patchTraitGroupRequest"?: PatchTraitGroupRequest;
+  patchTraitGroupRequest?: PatchTraitGroupRequest;
 }
 
 /**
@@ -245,7 +234,7 @@ export interface TraitGroupContextPatchOptions {
  */
 export interface TraitGroupListInstanceCreateOptions {
   /**  */
-  "traitGroupRequest"?: TraitGroupRequest;
+  traitGroupRequest?: TraitGroupRequest;
 }
 
 /**
@@ -253,13 +242,13 @@ export interface TraitGroupListInstanceCreateOptions {
  */
 export interface TraitGroupListInstanceEachOptions {
   /** Whether to include trait definitions in the response */
-  "includeTraits"?: boolean;
+  includeTraits?: boolean;
   /** The maximum number of items to return per page, maximum of 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -273,35 +262,32 @@ export interface TraitGroupListInstanceEachOptions {
  */
 export interface TraitGroupListInstanceOptions {
   /** Whether to include trait definitions in the response */
-  "includeTraits"?: boolean;
+  includeTraits?: boolean;
   /** The maximum number of items to return per page, maximum of 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface TraitGroupListInstancePageOptions {
   /** Whether to include trait definitions in the response */
-  "includeTraits"?: boolean;
+  includeTraits?: boolean;
   /** The maximum number of items to return per page, maximum of 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
 }
 
-
 export interface TraitGroupContext {
-
   /**
    * Remove a TraitGroupInstance
    *
@@ -309,7 +295,9 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  remove(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>
+  remove(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
 
   /**
    * Remove a TraitGroupInstance and return HTTP info
@@ -318,7 +306,12 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
 
   /**
    * Fetch a TraitGroupInstance
@@ -327,7 +320,9 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  fetch(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
   /**
    * Fetch a TraitGroupInstance
    *
@@ -336,7 +331,10 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  fetch(params: TraitGroupContextFetchOptions, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  fetch(
+    params: TraitGroupContextFetchOptions,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
 
   /**
    * Fetch a TraitGroupInstance and return HTTP info
@@ -345,7 +343,12 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Fetch a TraitGroupInstance and return HTTP info
    *
@@ -354,7 +357,13 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: TraitGroupContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  fetchWithHttpInfo(
+    params: TraitGroupContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
 
   /**
    * Patch a TraitGroupInstance
@@ -363,7 +372,9 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  patch(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  patch(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
   /**
    * Patch a TraitGroupInstance
    *
@@ -373,7 +384,11 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  patch(params: PatchTraitGroupRequest, headers?: any, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  patch(
+    params: PatchTraitGroupRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
 
   /**
    * Patch a TraitGroupInstance and return HTTP info
@@ -382,7 +397,12 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  patchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  patchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Patch a TraitGroupInstance and return HTTP info
    *
@@ -392,7 +412,14 @@ export interface TraitGroupContext {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: PatchTraitGroupRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  patchWithHttpInfo(
+    params: PatchTraitGroupRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -402,209 +429,311 @@ export interface TraitGroupContext {
 }
 
 export interface TraitGroupContextSolution {
-  "storeId": string;
-  "traitGroupName": string;
+  storeId: string;
+  traitGroupName: string;
 }
 
 export class TraitGroupContextImpl implements TraitGroupContext {
   protected _solution: TraitGroupContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, storeId: string, traitGroupName: string) {
+  constructor(
+    protected _version: V1,
+    storeId: string,
+    traitGroupName: string,
+  ) {
     if (!isValidPathParam(storeId)) {
-      throw new Error('Parameter \'storeId\' is not valid.');
+      throw new Error("Parameter 'storeId' is not valid.");
     }
 
     if (!isValidPathParam(traitGroupName)) {
-      throw new Error('Parameter \'traitGroupName\' is not valid.');
+      throw new Error("Parameter 'traitGroupName' is not valid.");
     }
 
-    this._solution = { storeId, traitGroupName,  };
+    this._solution = { storeId, traitGroupName };
     this._uri = `/ControlPlane/Stores/${storeId}/TraitGroups/${traitGroupName}`;
   }
 
-  remove(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  remove(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "delete", headers});
-    
-    operationPromise = operationPromise.then(payload => new TraitGroupInstance(operationVersion, payload, instance._solution.storeId, instance._solution.traitGroupName));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TraitGroupInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.traitGroupName,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation that returns a response model
-    let operationPromise = operationVersion.fetchWithResponseInfo<TraitGroupResource>({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<TraitGroupInstance> => ({
-      ...response,
-      body: new TraitGroupInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.traitGroupName)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TraitGroupResource>({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      })
+      .then((response): ApiResponse<TraitGroupInstance> => ({
+        ...response,
+        body: new TraitGroupInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.traitGroupName,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(params?: TraitGroupContextFetchOptions | ((error: Error | null, item?: TraitGroupInstance) => any),callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | TraitGroupContextFetchOptions
+      | ((error: Error | null, item?: TraitGroupInstance) => any),
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["includeTraits"] !== undefined)
-    data["includeTraits"] = serialize.bool(params["includeTraits"]);
-    if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["includeTraits"] !== undefined)
+      data["includeTraits"] = serialize.bool(params["includeTraits"]);
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TraitGroupInstance(operationVersion, payload, instance._solution.storeId, instance._solution.traitGroupName));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TraitGroupInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.traitGroupName,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: TraitGroupContextFetchOptions | ((error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | TraitGroupContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["includeTraits"] !== undefined)
-    data["includeTraits"] = serialize.bool(params["includeTraits"]);
-    if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["includeTraits"] !== undefined)
+      data["includeTraits"] = serialize.bool(params["includeTraits"]);
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<TraitGroupResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<TraitGroupInstance> => ({
-      ...response,
-      body: new TraitGroupInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.traitGroupName)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TraitGroupResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<TraitGroupInstance> => ({
+        ...response,
+        body: new TraitGroupInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.traitGroupName,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patch(params?: PatchTraitGroupRequest | ((error: Error | null, item?: TraitGroupInstance) => any), headers?: any,callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance> {
-      if (params instanceof Function) {
+  patch(
+    params?:
+      | PatchTraitGroupRequest
+      | ((error: Error | null, item?: TraitGroupInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest;
     } else {
-      params = params || {} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest;
+      params =
+        params ||
+        ({} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TraitGroupInstance(operationVersion, payload, instance._solution.storeId, instance._solution.traitGroupName));
-    
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TraitGroupInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.traitGroupName,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patchWithHttpInfo(params?: PatchTraitGroupRequest | ((error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>> {
-      if (params instanceof Function) {
+  patchWithHttpInfo(
+    params?:
+      | PatchTraitGroupRequest
+      | ((error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest;
     } else {
-      params = params || {} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest;
+      params =
+        params ||
+        ({} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.patchWithResponseInfo<TraitGroupResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<TraitGroupInstance> => ({
-      ...response,
-      body: new TraitGroupInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.traitGroupName)
-    }));
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<TraitGroupResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<TraitGroupInstance> => ({
+        ...response,
+        body: new TraitGroupInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.traitGroupName,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -635,7 +764,7 @@ export interface Meta {
  */
 export interface PatchTraitGroupRequest {
   description?: string;
-  traits?: { [key: string]: TraitDefinition; };
+  traits?: { [key: string]: TraitDefinition };
 }
 
 /**
@@ -654,7 +783,7 @@ export interface TraitDefinition {
 export interface TraitGroup {
   displayName: string;
   description?: string;
-  traits?: { [key: string]: TraitGroupCoreTraitsValue; };
+  traits?: { [key: string]: TraitGroupCoreTraitsValue };
   version: number;
 }
 
@@ -674,7 +803,7 @@ export interface TraitGroupCoreTraitsValue {
 export interface TraitGroupRequest {
   displayName: string;
   description?: string;
-  traits?: { [key: string]: TraitGroupCoreTraitsValue; };
+  traits?: { [key: string]: TraitGroupCoreTraitsValue };
 }
 
 /**
@@ -691,10 +820,8 @@ export interface ValidationRule {
   maxItems?: number;
 }
 
-
-
-  interface TraitGroupPayload extends TokenPaginationPayload {
-    traitGroups: TraitGroupResource[];
+interface TraitGroupPayload extends TokenPaginationPayload {
+  traitGroups: TraitGroupResource[];
 }
 
 /**
@@ -711,7 +838,7 @@ interface DeleteTraitGroup202Response_ResponseResource {
 interface TraitGroup_ResponseResource {
   displayName: string;
   description?: string;
-  traits?: { [key: string]: TraitGroupCoreTraitsValue; };
+  traits?: { [key: string]: TraitGroupCoreTraitsValue };
   version: number;
 }
 
@@ -742,24 +869,40 @@ interface CreateTraitGroup202Response_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type TraitGroupResource = DeleteTraitGroup202Response_ResponseResource | TraitGroup_ResponseResource | PatchTraitGroup202Response_ResponseResource | FetchTraitGroup200Response_ResponseResource | CreateTraitGroup202Response_ResponseResource;
+type TraitGroupResource =
+  | DeleteTraitGroup202Response_ResponseResource
+  | TraitGroup_ResponseResource
+  | PatchTraitGroup202Response_ResponseResource
+  | FetchTraitGroup200Response_ResponseResource
+  | CreateTraitGroup202Response_ResponseResource;
 
 export class TraitGroupInstance {
   protected _solution: TraitGroupContextSolution;
   protected _context?: TraitGroupContext;
 
-  constructor(protected _version: V1, _payload: TraitGroupResource, storeId: string, traitGroupName?: string) {
+  constructor(
+    protected _version: V1,
+    _payload: TraitGroupResource,
+    storeId: string,
+    traitGroupName?: string,
+  ) {
     const payload: any = _payload;
-    this.message = (payload.message);
-    this.statusUrl = (payload.statusUrl);
-    this.displayName = (payload.displayName);
-    this.description = (payload.description);
+    this.message = payload.message;
+    this.statusUrl = payload.statusUrl;
+    this.displayName = payload.displayName;
+    this.description = payload.description;
     this.traits = payload.traits;
     this.version = deserialize.integer(payload.version);
-    this.traitGroup = payload.traitGroup !== null && payload.traitGroup !== undefined ? new TraitGroup(payload.traitGroup) : null;
-    this.meta = payload.meta !== null && payload.meta !== undefined ? new Meta(payload.meta) : null;
+    this.traitGroup =
+      payload.traitGroup !== null && payload.traitGroup !== undefined
+        ? new TraitGroup(payload.traitGroup)
+        : null;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new Meta(payload.meta)
+        : null;
 
-    this._solution = { storeId, traitGroupName: traitGroupName,  };
+    this._solution = { storeId, traitGroupName: traitGroupName };
   }
 
   message?: string;
@@ -778,7 +921,7 @@ export class TraitGroupInstance {
   /**
    * Map of traits that are part of this Trait Group, where the key is the trait name and the value is the trait\'s definition.
    */
-  traits?: { [key: string]: TraitGroupCoreTraitsValue; };
+  traits?: { [key: string]: TraitGroupCoreTraitsValue };
   /**
    * The current version number of the Trait Group. Incremented on each successful update.
    */
@@ -787,7 +930,13 @@ export class TraitGroupInstance {
   meta?: Meta;
 
   private get _proxy(): TraitGroupContext {
-    this._context = this._context || new TraitGroupContextImpl(this._version, this._solution.storeId, this._solution.traitGroupName);
+    this._context =
+      this._context ||
+      new TraitGroupContextImpl(
+        this._version,
+        this._solution.storeId,
+        this._solution.traitGroupName,
+      );
     return this._context;
   }
 
@@ -798,9 +947,9 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  remove(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
     return this._proxy.remove(callback);
   }
 
@@ -811,9 +960,12 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -824,7 +976,9 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  fetch(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
   /**
    * Fetch a TraitGroupInstance
    *
@@ -833,10 +987,15 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  fetch(params: TraitGroupContextFetchOptions, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  fetch(
+    params: TraitGroupContextFetchOptions,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -847,7 +1006,12 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Fetch a TraitGroupInstance and return HTTP info
    *
@@ -856,10 +1020,21 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: TraitGroupContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  fetchWithHttpInfo(
+    params: TraitGroupContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -870,7 +1045,9 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  patch(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  patch(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
   /**
    * Patch a TraitGroupInstance
    *
@@ -880,10 +1057,16 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  patch(params: PatchTraitGroupRequest, headers?: any, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  patch(
+    params: PatchTraitGroupRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
 
-    patch(params?: any, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>
-    {
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
     return this._proxy.patch(params, callback);
   }
 
@@ -894,7 +1077,12 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  patchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  patchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Patch a TraitGroupInstance and return HTTP info
    *
@@ -904,10 +1092,22 @@ export class TraitGroupInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: PatchTraitGroupRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  patchWithHttpInfo(
+    params: PatchTraitGroupRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
 
-    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>
-    {
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -934,7 +1134,6 @@ export class TraitGroupInstance {
   }
 }
 
-
 export interface TraitGroupSolution {
   storeId: string;
 }
@@ -944,15 +1143,8 @@ export interface TraitGroupListInstance {
   _solution: TraitGroupSolution;
   _uri: string;
 
-  (traitGroupName: string, ): TraitGroupContext;
-  get(traitGroupName: string, ): TraitGroupContext;
-
-
-
-
-
-
-
+  (traitGroupName: string): TraitGroupContext;
+  get(traitGroupName: string): TraitGroupContext;
 
   /**
    * Create a TraitGroupInstance
@@ -961,7 +1153,9 @@ export interface TraitGroupListInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  create(callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  create(
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
   /**
    * Create a TraitGroupInstance
    *
@@ -971,7 +1165,11 @@ export interface TraitGroupListInstance {
    *
    * @returns Resolves to processed TraitGroupInstance
    */
-  create(params: TraitGroupRequest, headers?: any, callback?: (error: Error | null, item?: TraitGroupInstance) => any): Promise<TraitGroupInstance>;
+  create(
+    params: TraitGroupRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance>;
 
   /**
    * Create a TraitGroupInstance and return HTTP info
@@ -980,7 +1178,12 @@ export interface TraitGroupListInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Create a TraitGroupInstance and return HTTP info
    *
@@ -990,10 +1193,14 @@ export interface TraitGroupListInstance {
    *
    * @returns Resolves to processed TraitGroupInstance with HTTP metadata
    */
-  createWithHttpInfo(params: TraitGroupRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: TraitGroupRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>>;
 
   /**
    * Streams TraitGroupInstance records from the API.
@@ -1010,8 +1217,13 @@ export interface TraitGroupListInstance {
    * @param { TraitGroupListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void): void;
-  each(params: TraitGroupListInstanceEachOptions, callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: TraitGroupListInstanceEachOptions,
+    callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams TraitGroupInstance records from the API with HTTP metadata captured per page.
    *
@@ -1027,8 +1239,13 @@ export interface TraitGroupListInstance {
    * @param { TraitGroupListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: TraitGroupListInstanceEachOptions, callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: TraitGroupListInstanceEachOptions,
+    callback?: (item: TraitGroupInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of TraitGroupInstance records from the API.
    *
@@ -1037,7 +1254,10 @@ export interface TraitGroupListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: TraitGroupPage) => any): Promise<TraitGroupPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: TraitGroupPage) => any,
+  ): Promise<TraitGroupPage>;
   /**
    * Retrieve a single target page of TraitGroupInstance records from the API with HTTP metadata.
    *
@@ -1046,7 +1266,10 @@ export interface TraitGroupListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any): Promise<ApiResponse<TraitGroupPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any,
+  ): Promise<ApiResponse<TraitGroupPage>>;
   /**
    * Lists TraitGroupInstance records from the API as a list.
    *
@@ -1056,8 +1279,13 @@ export interface TraitGroupListInstance {
    * @param { TraitGroupListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TraitGroupInstance[]) => any): Promise<TraitGroupInstance[]>;
-  list(params: TraitGroupListInstanceOptions, callback?: (error: Error | null, items: TraitGroupInstance[]) => any): Promise<TraitGroupInstance[]>;
+  list(
+    callback?: (error: Error | null, items: TraitGroupInstance[]) => any,
+  ): Promise<TraitGroupInstance[]>;
+  list(
+    params: TraitGroupListInstanceOptions,
+    callback?: (error: Error | null, items: TraitGroupInstance[]) => any,
+  ): Promise<TraitGroupInstance[]>;
   /**
    * Lists TraitGroupInstance records from the API as a list with HTTP metadata.
    *
@@ -1069,8 +1297,19 @@ export interface TraitGroupListInstance {
    * @param { TraitGroupListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TraitGroupInstance[]>) => any): Promise<ApiResponse<TraitGroupInstance[]>>;
-  listWithHttpInfo(params: TraitGroupListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<TraitGroupInstance[]>) => any): Promise<ApiResponse<TraitGroupInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TraitGroupInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance[]>>;
+  listWithHttpInfo(
+    params: TraitGroupListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TraitGroupInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance[]>>;
   /**
    * Retrieve a single page of TraitGroupInstance records from the API.
    *
@@ -1082,8 +1321,13 @@ export interface TraitGroupListInstance {
    * @param { TraitGroupListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TraitGroupPage) => any): Promise<TraitGroupPage>;
-  page(params: TraitGroupListInstancePageOptions, callback?: (error: Error | null, items: TraitGroupPage) => any): Promise<TraitGroupPage>;
+  page(
+    callback?: (error: Error | null, items: TraitGroupPage) => any,
+  ): Promise<TraitGroupPage>;
+  page(
+    params: TraitGroupListInstancePageOptions,
+    callback?: (error: Error | null, items: TraitGroupPage) => any,
+  ): Promise<TraitGroupPage>;
   /**
    * Retrieve a single page of TraitGroupInstance records from the API with HTTP metadata.
    *
@@ -1095,9 +1339,13 @@ export interface TraitGroupListInstance {
    * @param { TraitGroupListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any): Promise<ApiResponse<TraitGroupPage>>;
-  pageWithHttpInfo(params: TraitGroupListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any): Promise<ApiResponse<TraitGroupPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any,
+  ): Promise<ApiResponse<TraitGroupPage>>;
+  pageWithHttpInfo(
+    params: TraitGroupListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any,
+  ): Promise<ApiResponse<TraitGroupPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -1106,89 +1354,135 @@ export interface TraitGroupListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TraitGroupListInstance(version: V1, storeId: string): TraitGroupListInstance {
+export function TraitGroupListInstance(
+  version: V1,
+  storeId: string,
+): TraitGroupListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
-  const instance = ((traitGroupName, ) => instance.get(traitGroupName, )) as TraitGroupListInstance;
+  const instance = ((traitGroupName) =>
+    instance.get(traitGroupName)) as TraitGroupListInstance;
 
-  instance.get = function get(traitGroupName, ): TraitGroupContext {
+  instance.get = function get(traitGroupName): TraitGroupContext {
     return new TraitGroupContextImpl(version, storeId, traitGroupName);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { storeId,  };
+  instance._solution = { storeId };
   instance._uri = `/ControlPlane/Stores/${storeId}/TraitGroups`;
 
-  instance.create = function create(params?: TraitGroupRequest | ((error: Error | null, items: TraitGroupInstance) => any), headers?: any, callback?: (error: Error | null, items: TraitGroupInstance) => any): Promise<TraitGroupInstance> {
+  instance.create = function create(
+    params?:
+      | TraitGroupRequest
+      | ((error: Error | null, items: TraitGroupInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: TraitGroupInstance) => any,
+  ): Promise<TraitGroupInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<TraitGroupRequest> as TraitGroupRequest;
     } else {
-      params = params || {} as Partial<TraitGroupRequest> as TraitGroupRequest;
+      params =
+        params || ({} as Partial<TraitGroupRequest> as TraitGroupRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TraitGroupInstance(operationVersion, payload, instance._solution.storeId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TraitGroupInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: TraitGroupRequest | ((error: Error | null, items: ApiResponse<TraitGroupInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<TraitGroupInstance>) => any): Promise<ApiResponse<TraitGroupInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | TraitGroupRequest
+      | ((error: Error | null, items: ApiResponse<TraitGroupInstance>) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TraitGroupInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<TraitGroupRequest> as TraitGroupRequest;
     } else {
-      params = params || {} as Partial<TraitGroupRequest> as TraitGroupRequest;
+      params =
+        params || ({} as Partial<TraitGroupRequest> as TraitGroupRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<TraitGroupResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TraitGroupInstance> => ({
-      ...response,
-      body: new TraitGroupInstance(operationVersion, response.body, instance._solution.storeId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TraitGroupResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<TraitGroupInstance> => ({
+        ...response,
+        body: new TraitGroupInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: TraitGroupListInstancePageOptions | ((error: Error | null, items: TraitGroupPage) => any), callback?: (error: Error | null, items: TraitGroupPage) => any): Promise<TraitGroupPage> {
+  instance.page = function page(
+    params?:
+      | TraitGroupListInstancePageOptions
+      | ((error: Error | null, items: TraitGroupPage) => any),
+    callback?: (error: Error | null, items: TraitGroupPage) => any,
+  ): Promise<TraitGroupPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1198,48 +1492,73 @@ export function TraitGroupListInstance(version: V1, storeId: string): TraitGroup
 
     let data: any = {};
 
-        if (params["includeTraits"] !== undefined)
-    data["includeTraits"] = serialize.bool(params["includeTraits"]);
-    if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["includeTraits"] !== undefined)
+      data["includeTraits"] = serialize.bool(params["includeTraits"]);
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new TraitGroupPage(operationVersion, payload, instance._uri, data, instance._solution));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-  }
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TraitGroupPage(
+          operationVersion,
+          payload,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TraitGroupPage) => any): Promise<TraitGroupPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new TraitGroupPage(instance._version, payload, instance._uri, {}, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: TraitGroupPage) => any,
+  ): Promise<TraitGroupPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TraitGroupPage(
+          instance._version,
+          payload,
+          instance._uri,
+          {},
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: TraitGroupListInstancePageOptions | ((error: Error | null, items: ApiResponse<TraitGroupPage>) => any), callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any): Promise<ApiResponse<TraitGroupPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TraitGroupListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<TraitGroupPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TraitGroupPage>) => any,
+  ): Promise<ApiResponse<TraitGroupPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1249,99 +1568,129 @@ export function TraitGroupListInstance(version: V1, storeId: string): TraitGroup
 
     let data: any = {};
 
-        if (params["includeTraits"] !== undefined)
-    data["includeTraits"] = serialize.bool(params["includeTraits"]);
-    if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["includeTraits"] !== undefined)
+      data["includeTraits"] = serialize.bool(params["includeTraits"]);
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<TraitGroupPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new TraitGroupPage(operationVersion, response, instance._uri, data, instance._solution)
-    }));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<TraitGroupPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TraitGroupPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
-  }
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<TraitGroupPage>) => any): Promise<ApiResponse<TraitGroupPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<TraitGroupPage>,
+    ) => any,
+  ): Promise<ApiResponse<TraitGroupPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<TraitGroupPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new TraitGroupPage(instance._version, response, instance._uri, {}, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TraitGroupPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TraitGroupPage(
+          instance._version,
+          response,
+          instance._uri,
+          {},
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class TraitGroupPage extends TokenPage<V1, TraitGroupPayload, TraitGroupResource, TraitGroupInstance> {
-/**
-* Initialize the TraitGroupPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param uri - URI of the resource
-* @param params - Query parameters
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, uri: string, params: any, solution: TraitGroupSolution) {
+export class TraitGroupPage extends TokenPage<
+  V1,
+  TraitGroupPayload,
+  TraitGroupResource,
+  TraitGroupInstance
+> {
+  /**
+   * Initialize the TraitGroupPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param uri - URI of the resource
+   * @param params - Query parameters
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    uri: string,
+    params: any,
+    solution: TraitGroupSolution,
+  ) {
     super(version, response, uri, params, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TraitGroupInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TraitGroupResource): TraitGroupInstance {
-
+  /**
+   * Build an instance of TraitGroupInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TraitGroupResource): TraitGroupInstance {
     return new TraitGroupInstance(
-    this._version,
-    payload,
-        this._solution.storeId,
+      this._version,
+      payload,
+      this._solution.storeId,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

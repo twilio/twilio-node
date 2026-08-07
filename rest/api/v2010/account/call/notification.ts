@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -23,23 +22,20 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
-
-
-
 /**
  * Options to pass to each
  */
 export interface NotificationListInstanceEachOptions {
   /** Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read. */
-  "log"?: number;
+  log?: number;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDate"?: Date;
+  messageDate?: Date;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDateBefore"?: Date;
+  messageDateBefore?: Date;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDateAfter"?: Date;
+  messageDateAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: NotificationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -53,43 +49,40 @@ export interface NotificationListInstanceEachOptions {
  */
 export interface NotificationListInstanceOptions {
   /** Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read. */
-  "log"?: number;
+  log?: number;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDate"?: Date;
+  messageDate?: Date;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDateBefore"?: Date;
+  messageDateBefore?: Date;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDateAfter"?: Date;
+  messageDateAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface NotificationListInstancePageOptions {
   /** Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read. */
-  "log"?: number;
+  log?: number;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDate"?: Date;
+  messageDate?: Date;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDateBefore"?: Date;
+  messageDateBefore?: Date;
   /** Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date. */
-  "messageDateAfter"?: Date;
+  messageDateAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface NotificationContext {
-
   /**
    * Fetch a NotificationInstance
    *
@@ -97,7 +90,9 @@ export interface NotificationContext {
    *
    * @returns Resolves to processed NotificationInstance
    */
-  fetch(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
+  ): Promise<NotificationInstance>;
 
   /**
    * Fetch a NotificationInstance and return HTTP info
@@ -106,7 +101,12 @@ export interface NotificationContext {
    *
    * @returns Resolves to processed NotificationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NotificationInstance>) => any): Promise<ApiResponse<NotificationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -116,66 +116,103 @@ export interface NotificationContext {
 }
 
 export interface NotificationContextSolution {
-  "accountSid": string;
-  "callSid": string;
-  "sid": string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class NotificationContextImpl implements NotificationContext {
   protected _solution: NotificationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, callSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    callSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error('Parameter \'accountSid\' is not valid.');
+      throw new Error("Parameter 'accountSid' is not valid.");
     }
 
     if (!isValidPathParam(callSid)) {
-      throw new Error('Parameter \'callSid\' is not valid.');
+      throw new Error("Parameter 'callSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { accountSid, callSid, sid,  };
+    this._solution = { accountSid, callSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Notifications/${sid}.json`;
   }
 
-  fetch(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
+  ): Promise<NotificationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NotificationInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NotificationInstance>) => any): Promise<ApiResponse<NotificationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<NotificationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<NotificationInstance> => ({
-      ...response,
-      body: new NotificationInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<NotificationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<NotificationInstance> => ({
+        ...response,
+        body: new NotificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -192,9 +229,8 @@ export class NotificationContextImpl implements NotificationContext {
   }
 }
 
-
-  interface NotificationPayload extends TwilioResponsePayload {
-    notifications: NotificationResource[];
+interface NotificationPayload extends TwilioResponsePayload {
+  notifications: NotificationResource[];
 }
 
 interface NotificationResource {
@@ -221,27 +257,32 @@ export class NotificationInstance {
   protected _solution: NotificationContextSolution;
   protected _context?: NotificationContext;
 
-  constructor(protected _version: V2010, payload: NotificationResource, accountSid: string, callSid: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.apiVersion = (payload.api_version);
-    this.callSid = (payload.call_sid);
+  constructor(
+    protected _version: V2010,
+    payload: NotificationResource,
+    accountSid: string,
+    callSid: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.apiVersion = payload.api_version;
+    this.callSid = payload.call_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.errorCode = (payload.error_code);
-    this.log = (payload.log);
+    this.errorCode = payload.error_code;
+    this.log = payload.log;
     this.messageDate = deserialize.rfc2822DateTime(payload.message_date);
-    this.messageText = (payload.message_text);
-    this.moreInfo = (payload.more_info);
-    this.requestMethod = (payload.request_method);
-    this.requestUrl = (payload.request_url);
-    this.requestVariables = (payload.request_variables);
-    this.responseBody = (payload.response_body);
-    this.responseHeaders = (payload.response_headers);
-    this.sid = (payload.sid);
-    this.uri = (payload.uri);
+    this.messageText = payload.message_text;
+    this.moreInfo = payload.more_info;
+    this.requestMethod = payload.request_method;
+    this.requestUrl = payload.request_url;
+    this.requestVariables = payload.request_variables;
+    this.responseBody = payload.response_body;
+    this.responseHeaders = payload.response_headers;
+    this.sid = payload.sid;
+    this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid,  };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -314,7 +355,14 @@ export class NotificationInstance {
   uri: string;
 
   private get _proxy(): NotificationContext {
-    this._context = this._context || new NotificationContextImpl(this._version, this._solution.accountSid, this._solution.callSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new NotificationContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.callSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -325,9 +373,9 @@ export class NotificationInstance {
    *
    * @returns Resolves to processed NotificationInstance
    */
-  fetch(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
+  ): Promise<NotificationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -338,9 +386,12 @@ export class NotificationInstance {
    *
    * @returns Resolves to processed NotificationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NotificationInstance>) => any): Promise<ApiResponse<NotificationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -376,7 +427,6 @@ export class NotificationInstance {
   }
 }
 
-
 export interface NotificationSolution {
   accountSid: string;
   callSid: string;
@@ -387,12 +437,8 @@ export interface NotificationListInstance {
   _solution: NotificationSolution;
   _uri: string;
 
-  (sid: string, ): NotificationContext;
-  get(sid: string, ): NotificationContext;
-
-
-
-
+  (sid: string): NotificationContext;
+  get(sid: string): NotificationContext;
 
   /**
    * Streams NotificationInstance records from the API.
@@ -409,8 +455,19 @@ export interface NotificationListInstance {
    * @param { NotificationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: NotificationInstance, done: (err?: Error) => void) => void): void;
-  each(params: NotificationListInstanceEachOptions, callback?: (item: NotificationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: NotificationListInstanceEachOptions,
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams NotificationInstance records from the API with HTTP metadata captured per page.
    *
@@ -426,8 +483,19 @@ export interface NotificationListInstance {
    * @param { NotificationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: NotificationInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: NotificationListInstanceEachOptions, callback?: (item: NotificationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: NotificationListInstanceEachOptions,
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of NotificationInstance records from the API.
    *
@@ -436,7 +504,10 @@ export interface NotificationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: NotificationPage) => any,
+  ): Promise<NotificationPage>;
   /**
    * Retrieve a single target page of NotificationInstance records from the API with HTTP metadata.
    *
@@ -445,7 +516,13 @@ export interface NotificationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<NotificationPage>) => any): Promise<ApiResponse<NotificationPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationPage>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationPage>>;
   /**
    * Lists NotificationInstance records from the API as a list.
    *
@@ -455,8 +532,13 @@ export interface NotificationListInstance {
    * @param { NotificationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: NotificationInstance[]) => any): Promise<NotificationInstance[]>;
-  list(params: NotificationListInstanceOptions, callback?: (error: Error | null, items: NotificationInstance[]) => any): Promise<NotificationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: NotificationInstance[]) => any,
+  ): Promise<NotificationInstance[]>;
+  list(
+    params: NotificationListInstanceOptions,
+    callback?: (error: Error | null, items: NotificationInstance[]) => any,
+  ): Promise<NotificationInstance[]>;
   /**
    * Lists NotificationInstance records from the API as a list with HTTP metadata.
    *
@@ -468,8 +550,19 @@ export interface NotificationListInstance {
    * @param { NotificationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<NotificationInstance[]>) => any): Promise<ApiResponse<NotificationInstance[]>>;
-  listWithHttpInfo(params: NotificationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<NotificationInstance[]>) => any): Promise<ApiResponse<NotificationInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationInstance[]>>;
+  listWithHttpInfo(
+    params: NotificationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationInstance[]>>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
    *
@@ -481,8 +574,13 @@ export interface NotificationListInstance {
    * @param { NotificationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
-  page(params: NotificationListInstancePageOptions, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
+  page(
+    callback?: (error: Error | null, items: NotificationPage) => any,
+  ): Promise<NotificationPage>;
+  page(
+    params: NotificationListInstancePageOptions,
+    callback?: (error: Error | null, items: NotificationPage) => any,
+  ): Promise<NotificationPage>;
   /**
    * Retrieve a single page of NotificationInstance records from the API with HTTP metadata.
    *
@@ -494,9 +592,19 @@ export interface NotificationListInstance {
    * @param { NotificationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<NotificationPage>) => any): Promise<ApiResponse<NotificationPage>>;
-  pageWithHttpInfo(params: NotificationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<NotificationPage>) => any): Promise<ApiResponse<NotificationPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationPage>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationPage>>;
+  pageWithHttpInfo(
+    params: NotificationListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationPage>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -505,26 +613,35 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NotificationListInstance(version: V2010, accountSid: string, callSid: string): NotificationListInstance {
+export function NotificationListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string,
+): NotificationListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   if (!isValidPathParam(callSid)) {
-    throw new Error('Parameter \'callSid\' is not valid.');
+    throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as NotificationListInstance;
+  const instance = ((sid) => instance.get(sid)) as NotificationListInstance;
 
-  instance.get = function get(sid, ): NotificationContext {
+  instance.get = function get(sid): NotificationContext {
     return new NotificationContextImpl(version, accountSid, callSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { accountSid, callSid,  };
+  instance._solution = { accountSid, callSid };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Notifications.json`;
 
-  instance.page = function page(params?: NotificationListInstancePageOptions | ((error: Error | null, items: NotificationPage) => any), callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage> {
+  instance.page = function page(
+    params?:
+      | NotificationListInstancePageOptions
+      | ((error: Error | null, items: NotificationPage) => any),
+    callback?: (error: Error | null, items: NotificationPage) => any,
+  ): Promise<NotificationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -534,52 +651,69 @@ export function NotificationListInstance(version: V2010, accountSid: string, cal
 
     let data: any = {};
 
-        if (params["log"] !== undefined)
-    data["Log"] = params["log"];
+    if (params["log"] !== undefined) data["Log"] = params["log"];
     if (params["messageDate"] !== undefined)
-    data["MessageDate"] = serialize.iso8601Date(params["messageDate"]);
+      data["MessageDate"] = serialize.iso8601Date(params["messageDate"]);
     if (params["messageDateBefore"] !== undefined)
-    data["MessageDate<"] = serialize.iso8601Date(params["messageDateBefore"]);
+      data["MessageDate<"] = serialize.iso8601Date(params["messageDateBefore"]);
     if (params["messageDateAfter"] !== undefined)
-    data["MessageDate>"] = serialize.iso8601Date(params["messageDateAfter"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["MessageDate>"] = serialize.iso8601Date(params["messageDateAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new NotificationPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NotificationPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new NotificationPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: NotificationPage) => any,
+  ): Promise<NotificationPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new NotificationPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: NotificationListInstancePageOptions | ((error: Error | null, items: ApiResponse<NotificationPage>) => any), callback?: (error: Error | null, items: ApiResponse<NotificationPage>) => any): Promise<ApiResponse<NotificationPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | NotificationListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<NotificationPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NotificationPage>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -589,102 +723,127 @@ export function NotificationListInstance(version: V2010, accountSid: string, cal
 
     let data: any = {};
 
-        if (params["log"] !== undefined)
-    data["Log"] = params["log"];
+    if (params["log"] !== undefined) data["Log"] = params["log"];
     if (params["messageDate"] !== undefined)
-    data["MessageDate"] = serialize.iso8601Date(params["messageDate"]);
+      data["MessageDate"] = serialize.iso8601Date(params["messageDate"]);
     if (params["messageDateBefore"] !== undefined)
-    data["MessageDate<"] = serialize.iso8601Date(params["messageDateBefore"]);
+      data["MessageDate<"] = serialize.iso8601Date(params["messageDateBefore"]);
     if (params["messageDateAfter"] !== undefined)
-    data["MessageDate>"] = serialize.iso8601Date(params["messageDateAfter"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["MessageDate>"] = serialize.iso8601Date(params["messageDateAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<NotificationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new NotificationPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<NotificationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new NotificationPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<NotificationPage>) => any): Promise<ApiResponse<NotificationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<NotificationPage>,
+    ) => any,
+  ): Promise<ApiResponse<NotificationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<NotificationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new NotificationPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<NotificationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new NotificationPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
-/**
-* Initialize the NotificationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: NotificationSolution) {
+export class NotificationPage extends Page<
+  V2010,
+  NotificationPayload,
+  NotificationResource,
+  NotificationInstance
+> {
+  /**
+   * Initialize the NotificationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: NotificationSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of NotificationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: NotificationResource): NotificationInstance {
-
+  /**
+   * Build an instance of NotificationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: NotificationResource): NotificationInstance {
     return new NotificationInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.callSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.callSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -19,37 +20,45 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a TokenInstance
  */
 export interface TokenListInstanceCreateOptions {
   /** Optional Account SID to perform on behalf of requests. */
-  accountSid?: string;
+  "accountSid"?: string;
   /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
-  grantType?: string;
+  "grantType"?: string;
   /** A 34 character string that uniquely identifies this OAuth App. */
-  clientId?: string;
+  "clientId"?: string;
   /** The credential for confidential OAuth App. */
-  clientSecret?: string;
+  "clientSecret"?: string;
   /** JWT token related to the authorization code grant type. */
-  code?: string;
+  "code"?: string;
   /** The redirect uri */
-  redirectUri?: string;
+  "redirectUri"?: string;
   /** The targeted audience uri */
-  audience?: string;
+  "audience"?: string;
   /** JWT token related to refresh access token. */
-  refreshToken?: string;
+  "refreshToken"?: string;
   /** The scope of token */
-  scope?: string;
+  "scope"?: string;
+  /** The PKCE code verifier used to generate the code_challenge in the authorization request. */
+  "codeVerifier"?: string;
 }
 
-export interface TokenSolution {}
+
+export interface TokenSolution {
+}
 
 export interface TokenListInstance {
   _version: V2;
   _solution: TokenSolution;
   _uri: string;
 
+
+
   /**
    * Create a TokenInstance
    *
@@ -57,9 +66,7 @@ export interface TokenListInstance {
    *
    * @returns Resolves to processed TokenInstance
    */
-  create(
-    callback?: (error: Error | null, item?: TokenInstance) => any
-  ): Promise<TokenInstance>;
+  create(callback?: (error: Error | null, item?: TokenInstance) => any): Promise<TokenInstance>;
   /**
    * Create a TokenInstance
    *
@@ -68,10 +75,7 @@ export interface TokenListInstance {
    *
    * @returns Resolves to processed TokenInstance
    */
-  create(
-    params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TokenInstance) => any
-  ): Promise<TokenInstance>;
+  create(params: TokenListInstanceCreateOptions, callback?: (error: Error | null, item?: TokenInstance) => any): Promise<TokenInstance>;
 
   /**
    * Create a TokenInstance and return HTTP info
@@ -80,9 +84,7 @@ export interface TokenListInstance {
    *
    * @returns Resolves to processed TokenInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
-  ): Promise<ApiResponse<TokenInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any): Promise<ApiResponse<TokenInstance>>;
   /**
    * Create a TokenInstance and return HTTP info
    *
@@ -91,10 +93,9 @@ export interface TokenListInstance {
    *
    * @returns Resolves to processed TokenInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
-  ): Promise<ApiResponse<TokenInstance>>;
+  createWithHttpInfo(params: TokenListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any): Promise<ApiResponse<TokenInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -107,138 +108,124 @@ export function TokenListInstance(version: V2): TokenListInstance {
   const instance = {} as TokenListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/token`;
 
-  instance.create = function create(
-    params?:
-      | TokenListInstanceCreateOptions
-      | ((error: Error | null, items: TokenInstance) => any),
-    callback?: (error: Error | null, items: TokenInstance) => any
-  ): Promise<TokenInstance> {
+  instance.create = function create(params?: TokenListInstanceCreateOptions | ((error: Error | null, items: TokenInstance) => any), callback?: (error: Error | null, items: TokenInstance) => any): Promise<TokenInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["accountSid"] !== undefined)
-      data["account_sid"] = params["accountSid"];
+        if (params["accountSid"] !== undefined)
+    data["account_sid"] = params["accountSid"];
 
-    if (params["grantType"] !== undefined)
-      data["grant_type"] = params["grantType"];
+        if (params["grantType"] !== undefined)
+    data["grant_type"] = params["grantType"];
     if (params["clientId"] !== undefined)
-      data["client_id"] = params["clientId"];
+    data["client_id"] = params["clientId"];
     if (params["clientSecret"] !== undefined)
-      data["client_secret"] = params["clientSecret"];
-    if (params["code"] !== undefined) data["code"] = params["code"];
+    data["client_secret"] = params["clientSecret"];
+    if (params["code"] !== undefined)
+    data["code"] = params["code"];
     if (params["redirectUri"] !== undefined)
-      data["redirect_uri"] = params["redirectUri"];
-    if (params["audience"] !== undefined) data["audience"] = params["audience"];
+    data["redirect_uri"] = params["redirectUri"];
+    if (params["audience"] !== undefined)
+    data["audience"] = params["audience"];
     if (params["refreshToken"] !== undefined)
-      data["refresh_token"] = params["refreshToken"];
-    if (params["scope"] !== undefined) data["scope"] = params["scope"];
+    data["refresh_token"] = params["refreshToken"];
+    if (params["scope"] !== undefined)
+    data["scope"] = params["scope"];
+    if (params["codeVerifier"] !== undefined)
+    data["code_verifier"] = params["codeVerifier"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TokenInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new TokenInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | TokenListInstanceCreateOptions
-      | ((error: Error | null, items: ApiResponse<TokenInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any
-  ): Promise<ApiResponse<TokenInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: TokenListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<TokenInstance>) => any), callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any): Promise<ApiResponse<TokenInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["accountSid"] !== undefined)
-      data["account_sid"] = params["accountSid"];
+        if (params["accountSid"] !== undefined)
+    data["account_sid"] = params["accountSid"];
 
-    if (params["grantType"] !== undefined)
-      data["grant_type"] = params["grantType"];
+        if (params["grantType"] !== undefined)
+    data["grant_type"] = params["grantType"];
     if (params["clientId"] !== undefined)
-      data["client_id"] = params["clientId"];
+    data["client_id"] = params["clientId"];
     if (params["clientSecret"] !== undefined)
-      data["client_secret"] = params["clientSecret"];
-    if (params["code"] !== undefined) data["code"] = params["code"];
+    data["client_secret"] = params["clientSecret"];
+    if (params["code"] !== undefined)
+    data["code"] = params["code"];
     if (params["redirectUri"] !== undefined)
-      data["redirect_uri"] = params["redirectUri"];
-    if (params["audience"] !== undefined) data["audience"] = params["audience"];
+    data["redirect_uri"] = params["redirectUri"];
+    if (params["audience"] !== undefined)
+    data["audience"] = params["audience"];
     if (params["refreshToken"] !== undefined)
-      data["refresh_token"] = params["refreshToken"];
-    if (params["scope"] !== undefined) data["scope"] = params["scope"];
+    data["refresh_token"] = params["refreshToken"];
+    if (params["scope"] !== undefined)
+    data["scope"] = params["scope"];
+    if (params["codeVerifier"] !== undefined)
+    data["code_verifier"] = params["codeVerifier"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TokenResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TokenInstance> => ({
-          ...response,
-          body: new TokenInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TokenResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TokenInstance> => ({
+      ...response,
+      body: new TokenInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface TokenPayload extends TokenResource {}
+  interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
   access_token: string;
@@ -249,12 +236,15 @@ interface TokenResource {
 }
 
 export class TokenInstance {
+
   constructor(protected _version: V2, payload: TokenResource) {
-    this.accessToken = payload.access_token;
-    this.refreshToken = payload.refresh_token;
-    this.idToken = payload.id_token;
-    this.tokenType = payload.token_type;
-    this.expiresIn = payload.expires_in;
+    
+    this.accessToken = (payload.access_token);
+    this.refreshToken = (payload.refresh_token);
+    this.idToken = (payload.id_token);
+    this.tokenType = (payload.token_type);
+    this.expiresIn = (payload.expires_in);
+
   }
 
   /**
@@ -294,3 +284,5 @@ export class TokenInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

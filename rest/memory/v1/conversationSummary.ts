@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -21,7 +20,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Request payload for creating one or more conversation summaries. Supports creation of up to 10 summaries.
@@ -36,7 +34,6 @@ export class CreateSummariesRequest {
     this.summaries = payload["summaries"];
   }
 }
-
 
 /**
  * Core mutable properties for creating summary objects.
@@ -67,7 +64,6 @@ export class SummaryCore {
   }
 }
 
-
 /**
  * Core mutable properties for updating summary objects. All fields are optional for PATCH operations.
  */
@@ -97,16 +93,12 @@ export class SummaryCorePatch {
   }
 }
 
-
-
-
-
 /**
  * Options to pass to patch a ConversationSummaryInstance
  */
 export interface ConversationSummaryContextPatchOptions {
   /**  */
-  "summaryCorePatch": SummaryCorePatch;
+  summaryCorePatch: SummaryCorePatch;
 }
 
 /**
@@ -114,11 +106,11 @@ export interface ConversationSummaryContextPatchOptions {
  */
 export interface ConversationSummaryListInstanceCreateOptions {
   /**  */
-  "createSummariesRequest": CreateSummariesRequest;
+  createSummariesRequest: CreateSummariesRequest;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  "acceptEncoding"?: string;
+  acceptEncoding?: string;
   /** Compression algorithm used for the request body (e.g., gzip, deflate, br) */
-  "contentEncoding"?: 'gzip' | 'deflate' | 'br' | 'compress';
+  contentEncoding?: "gzip" | "deflate" | "br" | "compress";
 }
 
 /**
@@ -126,15 +118,18 @@ export interface ConversationSummaryListInstanceCreateOptions {
  */
 export interface ConversationSummaryListInstanceEachOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Filter by conversation ID. Returns only items associated with the specified conversation. */
-  "conversationId"?: string;
+  conversationId?: string;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  "acceptEncoding"?: string;
+  acceptEncoding?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: ConversationSummaryInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: ConversationSummaryInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -146,35 +141,32 @@ export interface ConversationSummaryListInstanceEachOptions {
  */
 export interface ConversationSummaryListInstanceOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Filter by conversation ID. Returns only items associated with the specified conversation. */
-  "conversationId"?: string;
+  conversationId?: string;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  "acceptEncoding"?: string;
+  acceptEncoding?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ConversationSummaryListInstancePageOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Filter by conversation ID. Returns only items associated with the specified conversation. */
-  "conversationId"?: string;
+  conversationId?: string;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  "acceptEncoding"?: string;
+  acceptEncoding?: string;
 }
 
-
 export interface ConversationSummaryContext {
-
   /**
    * Remove a ConversationSummaryInstance
    *
@@ -182,7 +174,9 @@ export interface ConversationSummaryContext {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  remove(callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>
+  remove(
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance>;
 
   /**
    * Remove a ConversationSummaryInstance and return HTTP info
@@ -191,7 +185,12 @@ export interface ConversationSummaryContext {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>>;
 
   /**
    * Fetch a ConversationSummaryInstance
@@ -200,7 +199,9 @@ export interface ConversationSummaryContext {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance>;
 
   /**
    * Fetch a ConversationSummaryInstance and return HTTP info
@@ -209,7 +210,12 @@ export interface ConversationSummaryContext {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>>;
 
   /**
    * Patch a ConversationSummaryInstance
@@ -220,7 +226,11 @@ export interface ConversationSummaryContext {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  patch(params: SummaryCorePatch, headers?: any, callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>;
+  patch(
+    params: SummaryCorePatch,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance>;
 
   /**
    * Patch a ConversationSummaryInstance and return HTTP info
@@ -231,7 +241,14 @@ export interface ConversationSummaryContext {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: SummaryCorePatch, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>;
+  patchWithHttpInfo(
+    params: SummaryCorePatch,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -241,164 +258,269 @@ export interface ConversationSummaryContext {
 }
 
 export interface ConversationSummaryContextSolution {
-  "storeId": string;
-  "profileId": string;
-  "summaryId": string;
+  storeId: string;
+  profileId: string;
+  summaryId: string;
 }
 
 export class ConversationSummaryContextImpl implements ConversationSummaryContext {
   protected _solution: ConversationSummaryContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, storeId: string, profileId: string, summaryId: string) {
+  constructor(
+    protected _version: V1,
+    storeId: string,
+    profileId: string,
+    summaryId: string,
+  ) {
     if (!isValidPathParam(storeId)) {
-      throw new Error('Parameter \'storeId\' is not valid.');
+      throw new Error("Parameter 'storeId' is not valid.");
     }
 
     if (!isValidPathParam(profileId)) {
-      throw new Error('Parameter \'profileId\' is not valid.');
+      throw new Error("Parameter 'profileId' is not valid.");
     }
 
     if (!isValidPathParam(summaryId)) {
-      throw new Error('Parameter \'summaryId\' is not valid.');
+      throw new Error("Parameter 'summaryId' is not valid.");
     }
 
-    this._solution = { storeId, profileId, summaryId,  };
+    this._solution = { storeId, profileId, summaryId };
     this._uri = `/Stores/${storeId}/Profiles/${profileId}/ConversationSummaries/${summaryId}`;
   }
 
-  remove(callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  remove(
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "delete", headers});
-    
-    operationPromise = operationPromise.then(payload => new ConversationSummaryInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId, instance._solution.summaryId));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConversationSummaryInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.summaryId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation that returns a response model
-    let operationPromise = operationVersion.fetchWithResponseInfo<ConversationSummaryResource>({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<ConversationSummaryInstance> => ({
-      ...response,
-      body: new ConversationSummaryInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId, instance._solution.summaryId)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ConversationSummaryResource>({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      })
+      .then((response): ApiResponse<ConversationSummaryInstance> => ({
+        ...response,
+        body: new ConversationSummaryInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.summaryId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ConversationSummaryInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId, instance._solution.summaryId));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConversationSummaryInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.summaryId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ConversationSummaryResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ConversationSummaryInstance> => ({
-      ...response,
-      body: new ConversationSummaryInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId, instance._solution.summaryId)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ConversationSummaryResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<ConversationSummaryInstance> => ({
+        ...response,
+        body: new ConversationSummaryInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.summaryId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patch(params: SummaryCorePatch, headers?: any,callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance> {
-      if (params === null || params === undefined) {
+  patch(
+    params: SummaryCorePatch,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ConversationSummaryInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId, instance._solution.summaryId));
-    
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConversationSummaryInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.summaryId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patchWithHttpInfo(params: SummaryCorePatch, headers?: any,callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>> {
-      if (params === null || params === undefined) {
+  patchWithHttpInfo(
+    params: SummaryCorePatch,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.patchWithResponseInfo<ConversationSummaryResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<ConversationSummaryInstance> => ({
-      ...response,
-      body: new ConversationSummaryInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId, instance._solution.summaryId)
-    }));
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<ConversationSummaryResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ConversationSummaryInstance> => ({
+        ...response,
+        body: new ConversationSummaryInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.summaryId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -441,10 +563,8 @@ export interface SummaryCorePatch {
   conversationId?: string;
 }
 
-
-
-  interface ConversationSummaryPayload extends TokenPaginationPayload {
-    summaries: ConversationSummaryResource[];
+interface ConversationSummaryPayload extends TokenPaginationPayload {
+  summaries: ConversationSummaryResource[];
 }
 
 /**
@@ -484,7 +604,11 @@ interface SummaryInfo_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type ConversationSummaryResource = SummariesCreatedResponse_ResponseResource | PatchProfileConversationSummary202Response_ResponseResource | DeleteProfileConversationSummary202Response_ResponseResource | SummaryInfo_ResponseResource;
+type ConversationSummaryResource =
+  | SummariesCreatedResponse_ResponseResource
+  | PatchProfileConversationSummary202Response_ResponseResource
+  | DeleteProfileConversationSummary202Response_ResponseResource
+  | SummaryInfo_ResponseResource;
 
 /**
  * Response for batch summary creation.
@@ -493,18 +617,24 @@ export class ConversationSummaryInstance {
   protected _solution: ConversationSummaryContextSolution;
   protected _context?: ConversationSummaryContext;
 
-  constructor(protected _version: V1, _payload: ConversationSummaryResource, storeId: string, profileId: string, summaryId?: string) {
+  constructor(
+    protected _version: V1,
+    _payload: ConversationSummaryResource,
+    storeId: string,
+    profileId: string,
+    summaryId?: string,
+  ) {
     const payload: any = _payload;
-    this.message = (payload.message);
-    this.source = (payload.source);
-    this.content = (payload.content);
+    this.message = payload.message;
+    this.source = payload.source;
+    this.content = payload.content;
     this.occurredAt = deserialize.iso8601DateTime(payload.occurredAt);
-    this.conversationId = (payload.conversationId);
-    this.id = (payload.id);
+    this.conversationId = payload.conversationId;
+    this.id = payload.id;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
 
-    this._solution = { storeId, profileId, summaryId: summaryId,  };
+    this._solution = { storeId, profileId, summaryId: summaryId };
   }
 
   /**
@@ -541,7 +671,14 @@ export class ConversationSummaryInstance {
   updatedAt?: Date;
 
   private get _proxy(): ConversationSummaryContext {
-    this._context = this._context || new ConversationSummaryContextImpl(this._version, this._solution.storeId, this._solution.profileId, this._solution.summaryId);
+    this._context =
+      this._context ||
+      new ConversationSummaryContextImpl(
+        this._version,
+        this._solution.storeId,
+        this._solution.profileId,
+        this._solution.summaryId,
+      );
     return this._context;
   }
 
@@ -552,9 +689,9 @@ export class ConversationSummaryInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  remove(callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
     return this._proxy.remove(callback);
   }
 
@@ -565,9 +702,12 @@ export class ConversationSummaryInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -578,9 +718,9 @@ export class ConversationSummaryInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -591,9 +731,12 @@ export class ConversationSummaryInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -606,10 +749,16 @@ export class ConversationSummaryInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  patch(params: SummaryCorePatch, headers?: any, callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>;
+  patch(
+    params: SummaryCorePatch,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance>;
 
-    patch(params?: any, callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>
-    {
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
     return this._proxy.patch(params, callback);
   }
 
@@ -622,10 +771,22 @@ export class ConversationSummaryInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: SummaryCorePatch, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>;
+  patchWithHttpInfo(
+    params: SummaryCorePatch,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>>;
 
-    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>
-    {
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -652,7 +813,6 @@ export class ConversationSummaryInstance {
   }
 }
 
-
 export interface ConversationSummarySolution {
   storeId: string;
   profileId: string;
@@ -663,15 +823,8 @@ export interface ConversationSummaryListInstance {
   _solution: ConversationSummarySolution;
   _uri: string;
 
-  (summaryId: string, ): ConversationSummaryContext;
-  get(summaryId: string, ): ConversationSummaryContext;
-
-
-
-
-
-
-
+  (summaryId: string): ConversationSummaryContext;
+  get(summaryId: string): ConversationSummaryContext;
 
   /**
    * Create a ConversationSummaryInstance
@@ -682,7 +835,11 @@ export interface ConversationSummaryListInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance
    */
-  create(params: CreateSummariesRequest, headers?: any, callback?: (error: Error | null, item?: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance>;
+  create(
+    params: CreateSummariesRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance>;
 
   /**
    * Create a ConversationSummaryInstance and return HTTP info
@@ -693,10 +850,14 @@ export interface ConversationSummaryListInstance {
    *
    * @returns Resolves to processed ConversationSummaryInstance with HTTP metadata
    */
-  createWithHttpInfo(params: CreateSummariesRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: CreateSummariesRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>>;
 
   /**
    * Streams ConversationSummaryInstance records from the API.
@@ -713,8 +874,19 @@ export interface ConversationSummaryListInstance {
    * @param { ConversationSummaryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ConversationSummaryInstance, done: (err?: Error) => void) => void): void;
-  each(params: ConversationSummaryListInstanceEachOptions, callback?: (item: ConversationSummaryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: ConversationSummaryInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: ConversationSummaryListInstanceEachOptions,
+    callback?: (
+      item: ConversationSummaryInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams ConversationSummaryInstance records from the API with HTTP metadata captured per page.
    *
@@ -730,8 +902,19 @@ export interface ConversationSummaryListInstance {
    * @param { ConversationSummaryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ConversationSummaryInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ConversationSummaryListInstanceEachOptions, callback?: (item: ConversationSummaryInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: ConversationSummaryInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ConversationSummaryListInstanceEachOptions,
+    callback?: (
+      item: ConversationSummaryInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of ConversationSummaryInstance records from the API.
    *
@@ -740,7 +923,10 @@ export interface ConversationSummaryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ConversationSummaryPage) => any): Promise<ConversationSummaryPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ConversationSummaryPage) => any,
+  ): Promise<ConversationSummaryPage>;
   /**
    * Retrieve a single target page of ConversationSummaryInstance records from the API with HTTP metadata.
    *
@@ -749,7 +935,13 @@ export interface ConversationSummaryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ConversationSummaryPage>) => any): Promise<ApiResponse<ConversationSummaryPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryPage>>;
   /**
    * Lists ConversationSummaryInstance records from the API as a list.
    *
@@ -759,8 +951,19 @@ export interface ConversationSummaryListInstance {
    * @param { ConversationSummaryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ConversationSummaryInstance[]) => any): Promise<ConversationSummaryInstance[]>;
-  list(params: ConversationSummaryListInstanceOptions, callback?: (error: Error | null, items: ConversationSummaryInstance[]) => any): Promise<ConversationSummaryInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: ConversationSummaryInstance[],
+    ) => any,
+  ): Promise<ConversationSummaryInstance[]>;
+  list(
+    params: ConversationSummaryListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ConversationSummaryInstance[],
+    ) => any,
+  ): Promise<ConversationSummaryInstance[]>;
   /**
    * Lists ConversationSummaryInstance records from the API as a list with HTTP metadata.
    *
@@ -772,8 +975,19 @@ export interface ConversationSummaryListInstance {
    * @param { ConversationSummaryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConversationSummaryInstance[]>) => any): Promise<ApiResponse<ConversationSummaryInstance[]>>;
-  listWithHttpInfo(params: ConversationSummaryListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ConversationSummaryInstance[]>) => any): Promise<ApiResponse<ConversationSummaryInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance[]>>;
+  listWithHttpInfo(
+    params: ConversationSummaryListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance[]>>;
   /**
    * Retrieve a single page of ConversationSummaryInstance records from the API.
    *
@@ -785,8 +999,13 @@ export interface ConversationSummaryListInstance {
    * @param { ConversationSummaryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ConversationSummaryPage) => any): Promise<ConversationSummaryPage>;
-  page(params: ConversationSummaryListInstancePageOptions, callback?: (error: Error | null, items: ConversationSummaryPage) => any): Promise<ConversationSummaryPage>;
+  page(
+    callback?: (error: Error | null, items: ConversationSummaryPage) => any,
+  ): Promise<ConversationSummaryPage>;
+  page(
+    params: ConversationSummaryListInstancePageOptions,
+    callback?: (error: Error | null, items: ConversationSummaryPage) => any,
+  ): Promise<ConversationSummaryPage>;
   /**
    * Retrieve a single page of ConversationSummaryInstance records from the API with HTTP metadata.
    *
@@ -798,9 +1017,19 @@ export interface ConversationSummaryListInstance {
    * @param { ConversationSummaryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConversationSummaryPage>) => any): Promise<ApiResponse<ConversationSummaryPage>>;
-  pageWithHttpInfo(params: ConversationSummaryListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ConversationSummaryPage>) => any): Promise<ApiResponse<ConversationSummaryPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryPage>>;
+  pageWithHttpInfo(
+    params: ConversationSummaryListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -809,87 +1038,135 @@ export interface ConversationSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConversationSummaryListInstance(version: V1, storeId: string, profileId: string): ConversationSummaryListInstance {
+export function ConversationSummaryListInstance(
+  version: V1,
+  storeId: string,
+  profileId: string,
+): ConversationSummaryListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
   if (!isValidPathParam(profileId)) {
-    throw new Error('Parameter \'profileId\' is not valid.');
+    throw new Error("Parameter 'profileId' is not valid.");
   }
 
-  const instance = ((summaryId, ) => instance.get(summaryId, )) as ConversationSummaryListInstance;
+  const instance = ((summaryId) =>
+    instance.get(summaryId)) as ConversationSummaryListInstance;
 
-  instance.get = function get(summaryId, ): ConversationSummaryContext {
-    return new ConversationSummaryContextImpl(version, storeId, profileId, summaryId);
-  }
+  instance.get = function get(summaryId): ConversationSummaryContext {
+    return new ConversationSummaryContextImpl(
+      version,
+      storeId,
+      profileId,
+      summaryId,
+    );
+  };
 
   instance._version = version;
-  instance._solution = { storeId, profileId,  };
+  instance._solution = { storeId, profileId };
   instance._uri = `/Stores/${storeId}/Profiles/${profileId}/ConversationSummaries`;
 
-  instance.create = function create(params: CreateSummariesRequest, headers?: any, callback?: (error: Error | null, items: ConversationSummaryInstance) => any): Promise<ConversationSummaryInstance> {
+  instance.create = function create(
+    params: CreateSummariesRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: ConversationSummaryInstance) => any,
+  ): Promise<ConversationSummaryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ConversationSummaryInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConversationSummaryInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateSummariesRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<ConversationSummaryInstance>) => any): Promise<ApiResponse<ConversationSummaryInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CreateSummariesRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ConversationSummaryResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConversationSummaryInstance> => ({
-      ...response,
-      body: new ConversationSummaryInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ConversationSummaryResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ConversationSummaryInstance> => ({
+        ...response,
+        body: new ConversationSummaryInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ConversationSummaryListInstancePageOptions | ((error: Error | null, items: ConversationSummaryPage) => any), callback?: (error: Error | null, items: ConversationSummaryPage) => any): Promise<ConversationSummaryPage> {
+  instance.page = function page(
+    params?:
+      | ConversationSummaryListInstancePageOptions
+      | ((error: Error | null, items: ConversationSummaryPage) => any),
+    callback?: (error: Error | null, items: ConversationSummaryPage) => any,
+  ): Promise<ConversationSummaryPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -899,47 +1176,80 @@ export function ConversationSummaryListInstance(version: V1, storeId: string, pr
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
+      data["pageToken"] = params["pageToken"];
     if (params["conversationId"] !== undefined)
-    data["conversationId"] = params["conversationId"];
+      data["conversationId"] = params["conversationId"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["acceptEncoding"] !== undefined) headers["Accept-Encoding"] = params["acceptEncoding"];
+    headers["Accept"] = "application/json";
+    if (params["acceptEncoding"] !== undefined)
+      headers["Accept-Encoding"] = params["acceptEncoding"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ConversationSummaryPage(operationVersion, payload, instance._uri, data, instance._solution));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-  }
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConversationSummaryPage(
+          operationVersion,
+          payload,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ConversationSummaryPage) => any): Promise<ConversationSummaryPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ConversationSummaryPage(instance._version, payload, instance._uri, {}, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ConversationSummaryPage) => any,
+  ): Promise<ConversationSummaryPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ConversationSummaryPage(
+          instance._version,
+          payload,
+          instance._uri,
+          {},
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ConversationSummaryListInstancePageOptions | ((error: Error | null, items: ApiResponse<ConversationSummaryPage>) => any), callback?: (error: Error | null, items: ApiResponse<ConversationSummaryPage>) => any): Promise<ApiResponse<ConversationSummaryPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ConversationSummaryListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ConversationSummaryPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationSummaryPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -949,99 +1259,133 @@ export function ConversationSummaryListInstance(version: V1, storeId: string, pr
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
+      data["pageToken"] = params["pageToken"];
     if (params["conversationId"] !== undefined)
-    data["conversationId"] = params["conversationId"];
+      data["conversationId"] = params["conversationId"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["acceptEncoding"] !== undefined) headers["Accept-Encoding"] = params["acceptEncoding"];
+    headers["Accept"] = "application/json";
+    if (params["acceptEncoding"] !== undefined)
+      headers["Accept-Encoding"] = params["acceptEncoding"];
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ConversationSummaryPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ConversationSummaryPage(operationVersion, response, instance._uri, data, instance._solution)
-    }));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ConversationSummaryPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConversationSummaryPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
-  }
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ConversationSummaryPage>) => any): Promise<ApiResponse<ConversationSummaryPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ConversationSummaryPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationSummaryPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ConversationSummaryPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ConversationSummaryPage(instance._version, response, instance._uri, {}, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ConversationSummaryPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConversationSummaryPage(
+          instance._version,
+          response,
+          instance._uri,
+          {},
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ConversationSummaryPage extends TokenPage<V1, ConversationSummaryPayload, ConversationSummaryResource, ConversationSummaryInstance> {
-/**
-* Initialize the ConversationSummaryPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param uri - URI of the resource
-* @param params - Query parameters
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, uri: string, params: any, solution: ConversationSummarySolution) {
+export class ConversationSummaryPage extends TokenPage<
+  V1,
+  ConversationSummaryPayload,
+  ConversationSummaryResource,
+  ConversationSummaryInstance
+> {
+  /**
+   * Initialize the ConversationSummaryPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param uri - URI of the resource
+   * @param params - Query parameters
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    uri: string,
+    params: any,
+    solution: ConversationSummarySolution,
+  ) {
     super(version, response, uri, params, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ConversationSummaryInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ConversationSummaryResource): ConversationSummaryInstance {
-
+  /**
+   * Build an instance of ConversationSummaryInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: ConversationSummaryResource,
+  ): ConversationSummaryInstance {
     return new ConversationSummaryInstance(
-    this._version,
-    payload,
-        this._solution.storeId,
-        this._solution.profileId,
+      this._version,
+      payload,
+      this._solution.storeId,
+      this._solution.profileId,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

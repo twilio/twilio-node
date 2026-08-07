@@ -40,8 +40,8 @@ export default class V2 extends Version {
 
   /** Getter for contentAndApprovals resource */
   get contentAndApprovals(): ContentAndApprovalsListInstance {
-    this._contentAndApprovals =
-      this._contentAndApprovals || ContentAndApprovalsListInstance(this);
+    this._contentAndApprovals = this._contentAndApprovals || ContentAndApprovalsListInstance(this);
     return this._contentAndApprovals;
   }
+
 }

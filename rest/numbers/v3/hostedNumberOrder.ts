@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
@@ -21,62 +20,66 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { PhoneNumberCapabilities } from "../../../interfaces";
 
+export type HostedNumberOrderStatus =
+  | "twilio-processing"
+  | "received"
+  | "pending-verification"
+  | "verified"
+  | "pending-loa"
+  | "carrier-processing"
+  | "testing"
+  | "completed"
+  | "failed"
+  | "action-required";
 
-export type HostedNumberOrderStatus = 'twilio-processing'|'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
-
-export type HostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
-
+export type HostedNumberOrderVerificationType = "phone-call" | "phone-bill";
 
 /**
  * Options to pass to create a HostedNumberOrderInstance
  */
 export interface HostedNumberOrderListInstanceCreateOptions {
   /** The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format */
-  "phoneNumber": string;
+  phoneNumber: string;
   /** Used to specify that the SMS capability will be hosted on Twilio\\\'s platform. */
-  "smsCapability": boolean;
+  smsCapability: boolean;
   /** This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. */
-  "accountSid"?: string;
+  accountSid?: string;
   /** A 64 character string that is a human readable text that describes this resource. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. */
-  "uniqueName"?: string;
+  uniqueName?: string;
   /** Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. */
-  "ccEmails"?: Array<string>;
+  ccEmails?: Array<string>;
   /** The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. */
-  "smsUrl"?: string;
+  smsUrl?: string;
   /** The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource. */
-  "smsMethod"?: string;
+  smsMethod?: string;
   /** A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. */
-  "smsFallbackUrl"?: string;
+  smsFallbackUrl?: string;
   /** The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource. */
-  "smsFallbackMethod"?: string;
+  smsFallbackMethod?: string;
   /** Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. */
-  "statusCallbackUrl"?: string;
+  statusCallbackUrl?: string;
   /** Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. */
-  "statusCallbackMethod"?: string;
+  statusCallbackMethod?: string;
   /** Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application. */
-  "smsApplicationSid"?: string;
+  smsApplicationSid?: string;
   /** Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. */
-  "addressSid"?: string;
+  addressSid?: string;
   /** Optional. Email of the owner of this phone number that is being hosted. */
-  "email"?: string;
+  email?: string;
   /**  */
-  "verificationType"?: HostedNumberOrderVerificationType;
+  verificationType?: HostedNumberOrderVerificationType;
   /** Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. */
-  "verificationDocumentSid"?: string;
+  verificationDocumentSid?: string;
 }
 
-
-export interface HostedNumberOrderSolution {
-}
+export interface HostedNumberOrderSolution {}
 
 export interface HostedNumberOrderListInstance {
   _version: V3;
   _solution: HostedNumberOrderSolution;
   _uri: string;
-
-
 
   /**
    * Create a HostedNumberOrderInstance
@@ -86,7 +89,10 @@ export interface HostedNumberOrderListInstance {
    *
    * @returns Resolves to processed HostedNumberOrderInstance
    */
-  create(params: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
+  create(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+  ): Promise<HostedNumberOrderInstance>;
 
   /**
    * Create a HostedNumberOrderInstance and return HTTP info
@@ -96,9 +102,13 @@ export interface HostedNumberOrderListInstance {
    *
    * @returns Resolves to processed HostedNumberOrderInstance with HTTP metadata
    */
-  createWithHttpInfo(params: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<HostedNumberOrderInstance>) => any): Promise<ApiResponse<HostedNumberOrderInstance>>;
-
-
+  createWithHttpInfo(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<HostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -107,166 +117,189 @@ export interface HostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function HostedNumberOrderListInstance(version: V3): HostedNumberOrderListInstance {
+export function HostedNumberOrderListInstance(
+  version: V3,
+): HostedNumberOrderListInstance {
   const instance = {} as HostedNumberOrderListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/HostedNumbers/HostedNumberOrders`;
 
-  instance.create = function create(params: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance> {
+  instance.create = function create(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (error: Error | null, items: HostedNumberOrderInstance) => any,
+  ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
     }
 
-    if (params["smsCapability"] === null || params["smsCapability"] === undefined) {
-      throw new Error('Required parameter "params[\'smsCapability\']" missing.');
+    if (
+      params["smsCapability"] === null ||
+      params["smsCapability"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['smsCapability']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["phoneNumber"] = params["phoneNumber"];
-    
+
     data["smsCapability"] = serialize.bool(params["smsCapability"]);
     if (params["accountSid"] !== undefined)
-    data["accountSid"] = params["accountSid"];
+      data["accountSid"] = params["accountSid"];
     if (params["friendlyName"] !== undefined)
-    data["friendlyName"] = params["friendlyName"];
+      data["friendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["uniqueName"] = params["uniqueName"];
+      data["uniqueName"] = params["uniqueName"];
     if (params["ccEmails"] !== undefined)
-    data["ccEmails"] = serialize.map(params["ccEmails"], (e: string) => (e));
-    if (params["smsUrl"] !== undefined)
-    data["smsUrl"] = params["smsUrl"];
+      data["ccEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
+    if (params["smsUrl"] !== undefined) data["smsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["smsMethod"] = params["smsMethod"];
+      data["smsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["smsFallbackUrl"] = params["smsFallbackUrl"];
+      data["smsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["smsFallbackMethod"] = params["smsFallbackMethod"];
+      data["smsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["statusCallbackUrl"] !== undefined)
-    data["statusCallbackUrl"] = params["statusCallbackUrl"];
+      data["statusCallbackUrl"] = params["statusCallbackUrl"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["statusCallbackMethod"] = params["statusCallbackMethod"];
+      data["statusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["smsApplicationSid"] !== undefined)
-    data["smsApplicationSid"] = params["smsApplicationSid"];
+      data["smsApplicationSid"] = params["smsApplicationSid"];
     if (params["addressSid"] !== undefined)
-    data["addressSid"] = params["addressSid"];
-    if (params["email"] !== undefined)
-    data["email"] = params["email"];
+      data["addressSid"] = params["addressSid"];
+    if (params["email"] !== undefined) data["email"] = params["email"];
     if (params["verificationType"] !== undefined)
-    data["verificationType"] = params["verificationType"];
+      data["verificationType"] = params["verificationType"];
     if (params["verificationDocumentSid"] !== undefined)
-    data["verificationDocumentSid"] = params["verificationDocumentSid"];
+      data["verificationDocumentSid"] = params["verificationDocumentSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new HostedNumberOrderInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new HostedNumberOrderInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<HostedNumberOrderInstance>) => any): Promise<ApiResponse<HostedNumberOrderInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<HostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
     }
 
-    if (params["smsCapability"] === null || params["smsCapability"] === undefined) {
-      throw new Error('Required parameter "params[\'smsCapability\']" missing.');
+    if (
+      params["smsCapability"] === null ||
+      params["smsCapability"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['smsCapability']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["phoneNumber"] = params["phoneNumber"];
-    
+
     data["smsCapability"] = serialize.bool(params["smsCapability"]);
     if (params["accountSid"] !== undefined)
-    data["accountSid"] = params["accountSid"];
+      data["accountSid"] = params["accountSid"];
     if (params["friendlyName"] !== undefined)
-    data["friendlyName"] = params["friendlyName"];
+      data["friendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["uniqueName"] = params["uniqueName"];
+      data["uniqueName"] = params["uniqueName"];
     if (params["ccEmails"] !== undefined)
-    data["ccEmails"] = serialize.map(params["ccEmails"], (e: string) => (e));
-    if (params["smsUrl"] !== undefined)
-    data["smsUrl"] = params["smsUrl"];
+      data["ccEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
+    if (params["smsUrl"] !== undefined) data["smsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["smsMethod"] = params["smsMethod"];
+      data["smsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["smsFallbackUrl"] = params["smsFallbackUrl"];
+      data["smsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["smsFallbackMethod"] = params["smsFallbackMethod"];
+      data["smsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["statusCallbackUrl"] !== undefined)
-    data["statusCallbackUrl"] = params["statusCallbackUrl"];
+      data["statusCallbackUrl"] = params["statusCallbackUrl"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["statusCallbackMethod"] = params["statusCallbackMethod"];
+      data["statusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["smsApplicationSid"] !== undefined)
-    data["smsApplicationSid"] = params["smsApplicationSid"];
+      data["smsApplicationSid"] = params["smsApplicationSid"];
     if (params["addressSid"] !== undefined)
-    data["addressSid"] = params["addressSid"];
-    if (params["email"] !== undefined)
-    data["email"] = params["email"];
+      data["addressSid"] = params["addressSid"];
+    if (params["email"] !== undefined) data["email"] = params["email"];
     if (params["verificationType"] !== undefined)
-    data["verificationType"] = params["verificationType"];
+      data["verificationType"] = params["verificationType"];
     if (params["verificationDocumentSid"] !== undefined)
-    data["verificationDocumentSid"] = params["verificationDocumentSid"];
+      data["verificationDocumentSid"] = params["verificationDocumentSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<HostedNumberOrderResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<HostedNumberOrderInstance> => ({
-      ...response,
-      body: new HostedNumberOrderInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<HostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<HostedNumberOrderInstance> => ({
+        ...response,
+        body: new HostedNumberOrderInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
 
 interface HostedNumberOrderResource {
   sid: string;
@@ -295,33 +328,36 @@ interface HostedNumberOrderResource {
 }
 
 export class HostedNumberOrderInstance {
-
-  constructor(protected _version: V3, _payload: HostedNumberOrderResource) {
+  constructor(
+    protected _version: V3,
+    _payload: HostedNumberOrderResource,
+  ) {
     const payload = _payload;
-    this.sid = (payload.sid);
-    this.accountSid = (payload.accountSid);
-    this.incomingPhoneNumberSid = (payload.incomingPhoneNumberSid);
-    this.addressSid = (payload.addressSid);
-    this.signingDocumentSid = (payload.signingDocumentSid);
-    this.phoneNumber = (payload.phoneNumber);
-    this.capabilities = (payload.capabilities);
-    this.friendlyName = (payload.friendlyName);
-    this.uniqueName = (payload.uniqueName);
+    this.sid = payload.sid;
+    this.accountSid = payload.accountSid;
+    this.incomingPhoneNumberSid = payload.incomingPhoneNumberSid;
+    this.addressSid = payload.addressSid;
+    this.signingDocumentSid = payload.signingDocumentSid;
+    this.phoneNumber = payload.phoneNumber;
+    this.capabilities = payload.capabilities;
+    this.friendlyName = payload.friendlyName;
+    this.uniqueName = payload.uniqueName;
     this.status = payload.status;
-    this.failureReason = (payload.failureReason);
+    this.failureReason = payload.failureReason;
     this.dateCreated = deserialize.iso8601DateTime(payload.dateCreated);
     this.dateUpdated = deserialize.iso8601DateTime(payload.dateUpdated);
-    this.verificationAttempts = deserialize.integer(payload.verificationAttempts);
-    this.email = (payload.email);
-    this.ccEmails = (payload.ccEmails);
-    this.url = (payload.url);
+    this.verificationAttempts = deserialize.integer(
+      payload.verificationAttempts,
+    );
+    this.email = payload.email;
+    this.ccEmails = payload.ccEmails;
+    this.url = payload.url;
     this.verificationType = payload.verificationType;
-    this.verificationDocumentSid = (payload.verificationDocumentSid);
-    this.extension = (payload.extension);
+    this.verificationDocumentSid = payload.verificationDocumentSid;
+    this.extension = payload.extension;
     this.callDelay = deserialize.integer(payload.callDelay);
-    this.verificationCode = (payload.verificationCode);
-    this.verificationCallSids = (payload.verificationCallSids);
-
+    this.verificationCode = payload.verificationCode;
+    this.verificationCallSids = payload.verificationCallSids;
   }
 
   /**
@@ -445,5 +481,3 @@ export class HostedNumberOrderInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

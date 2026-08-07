@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -24,16 +23,12 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { ConnectionPolicyTargetListInstance } from "./connectionPolicy/connectionPolicyTarget";
 
-
-
-
-
 /**
  * Options to pass to update a ConnectionPolicyInstance
  */
 export interface ConnectionPolicyContextUpdateOptions {
   /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -41,7 +36,7 @@ export interface ConnectionPolicyContextUpdateOptions {
  */
 export interface ConnectionPolicyListInstanceCreateOptions {
   /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -49,9 +44,12 @@ export interface ConnectionPolicyListInstanceCreateOptions {
  */
 export interface ConnectionPolicyListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: ConnectionPolicyInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -63,24 +61,22 @@ export interface ConnectionPolicyListInstanceEachOptions {
  */
 export interface ConnectionPolicyListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ConnectionPolicyListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface ConnectionPolicyContext {
   targets: ConnectionPolicyTargetListInstance;
@@ -92,7 +88,9 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a ConnectionPolicyInstance and return HTTP info
@@ -101,7 +99,9 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a ConnectionPolicyInstance
@@ -110,7 +110,9 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
 
   /**
    * Fetch a ConnectionPolicyInstance and return HTTP info
@@ -119,7 +121,12 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
 
   /**
    * Update a ConnectionPolicyInstance
@@ -128,7 +135,9 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  update(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
   /**
    * Update a ConnectionPolicyInstance
    *
@@ -137,7 +146,10 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  update(params: ConnectionPolicyContextUpdateOptions, callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  update(
+    params: ConnectionPolicyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
 
   /**
    * Update a ConnectionPolicyInstance and return HTTP info
@@ -146,7 +158,12 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
   /**
    * Update a ConnectionPolicyInstance and return HTTP info
    *
@@ -155,7 +172,13 @@ export interface ConnectionPolicyContext {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ConnectionPolicyContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>;
+  updateWithHttpInfo(
+    params: ConnectionPolicyContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -165,7 +188,7 @@ export interface ConnectionPolicyContext {
 }
 
 export interface ConnectionPolicyContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
@@ -174,153 +197,230 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
 
   protected _targets?: ConnectionPolicyTargetListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/ConnectionPolicies/${sid}`;
   }
 
   get targets(): ConnectionPolicyTargetListInstance {
-    this._targets = this._targets || ConnectionPolicyTargetListInstance(this._version, this._solution.sid);
+    this._targets =
+      this._targets ||
+      ConnectionPolicyTargetListInstance(this._version, this._solution.sid);
     return this._targets;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConnectionPolicyInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ConnectionPolicyResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ConnectionPolicyInstance> => ({
-      ...response,
-      body: new ConnectionPolicyInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ConnectionPolicyResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<ConnectionPolicyInstance> => ({
+        ...response,
+        body: new ConnectionPolicyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: ConnectionPolicyContextUpdateOptions | ((error: Error | null, item?: ConnectionPolicyInstance) => any),callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | ConnectionPolicyContextUpdateOptions
+      | ((error: Error | null, item?: ConnectionPolicyInstance) => any),
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConnectionPolicyInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: ConnectionPolicyContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | ConnectionPolicyContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ConnectionPolicyInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<ConnectionPolicyResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConnectionPolicyInstance> => ({
-      ...response,
-      body: new ConnectionPolicyInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ConnectionPolicyResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ConnectionPolicyInstance> => ({
+        ...response,
+        body: new ConnectionPolicyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -337,9 +437,8 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   }
 }
 
-
-  interface ConnectionPolicyPayload extends TwilioResponsePayload {
-    connection_policies: ConnectionPolicyResource[];
+interface ConnectionPolicyPayload extends TwilioResponsePayload {
+  connection_policies: ConnectionPolicyResource[];
 }
 
 interface ConnectionPolicyResource {
@@ -356,17 +455,20 @@ export class ConnectionPolicyInstance {
   protected _solution: ConnectionPolicyContextSolution;
   protected _context?: ConnectionPolicyContext;
 
-  constructor(protected _version: V1, payload: ConnectionPolicyResource, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
+  constructor(
+    protected _version: V1,
+    payload: ConnectionPolicyResource,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
-    this.links = (payload.links);
+    this.url = payload.url;
+    this.links = payload.links;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -399,7 +501,9 @@ export class ConnectionPolicyInstance {
   links: Record<string, string>;
 
   private get _proxy(): ConnectionPolicyContext {
-    this._context = this._context || new ConnectionPolicyContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new ConnectionPolicyContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -410,9 +514,9 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -423,9 +527,9 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -436,9 +540,9 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -449,9 +553,12 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -462,7 +569,9 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  update(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
   /**
    * Update a ConnectionPolicyInstance
    *
@@ -471,10 +580,15 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  update(params: ConnectionPolicyContextUpdateOptions, callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  update(
+    params: ConnectionPolicyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -485,7 +599,12 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
   /**
    * Update a ConnectionPolicyInstance and return HTTP info
    *
@@ -494,10 +613,21 @@ export class ConnectionPolicyInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ConnectionPolicyContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>;
+  updateWithHttpInfo(
+    params: ConnectionPolicyContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -530,24 +660,15 @@ export class ConnectionPolicyInstance {
   }
 }
 
-
-export interface ConnectionPolicySolution {
-}
+export interface ConnectionPolicySolution {}
 
 export interface ConnectionPolicyListInstance {
   _version: V1;
   _solution: ConnectionPolicySolution;
   _uri: string;
 
-  (sid: string, ): ConnectionPolicyContext;
-  get(sid: string, ): ConnectionPolicyContext;
-
-
-
-
-
-
-
+  (sid: string): ConnectionPolicyContext;
+  get(sid: string): ConnectionPolicyContext;
 
   /**
    * Create a ConnectionPolicyInstance
@@ -556,7 +677,9 @@ export interface ConnectionPolicyListInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  create(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  create(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
   /**
    * Create a ConnectionPolicyInstance
    *
@@ -565,7 +688,10 @@ export interface ConnectionPolicyListInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance
    */
-  create(params: ConnectionPolicyListInstanceCreateOptions, callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  create(
+    params: ConnectionPolicyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance>;
 
   /**
    * Create a ConnectionPolicyInstance and return HTTP info
@@ -574,7 +700,12 @@ export interface ConnectionPolicyListInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
   /**
    * Create a ConnectionPolicyInstance and return HTTP info
    *
@@ -583,10 +714,13 @@ export interface ConnectionPolicyListInstance {
    *
    * @returns Resolves to processed ConnectionPolicyInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ConnectionPolicyListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: ConnectionPolicyListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>>;
 
   /**
    * Streams ConnectionPolicyInstance records from the API.
@@ -603,8 +737,19 @@ export interface ConnectionPolicyListInstance {
    * @param { ConnectionPolicyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
-  each(params: ConnectionPolicyListInstanceEachOptions, callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: ConnectionPolicyInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: ConnectionPolicyListInstanceEachOptions,
+    callback?: (
+      item: ConnectionPolicyInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams ConnectionPolicyInstance records from the API with HTTP metadata captured per page.
    *
@@ -620,8 +765,19 @@ export interface ConnectionPolicyListInstance {
    * @param { ConnectionPolicyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ConnectionPolicyListInstanceEachOptions, callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: ConnectionPolicyInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ConnectionPolicyListInstanceEachOptions,
+    callback?: (
+      item: ConnectionPolicyInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of ConnectionPolicyInstance records from the API.
    *
@@ -630,7 +786,10 @@ export interface ConnectionPolicyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ConnectionPolicyPage) => any,
+  ): Promise<ConnectionPolicyPage>;
   /**
    * Retrieve a single target page of ConnectionPolicyInstance records from the API with HTTP metadata.
    *
@@ -639,7 +798,13 @@ export interface ConnectionPolicyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyPage>) => any): Promise<ApiResponse<ConnectionPolicyPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyPage>>;
   /**
    * Lists ConnectionPolicyInstance records from the API as a list.
    *
@@ -649,8 +814,13 @@ export interface ConnectionPolicyListInstance {
    * @param { ConnectionPolicyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any): Promise<ConnectionPolicyInstance[]>;
-  list(params: ConnectionPolicyListInstanceOptions, callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any): Promise<ConnectionPolicyInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any,
+  ): Promise<ConnectionPolicyInstance[]>;
+  list(
+    params: ConnectionPolicyListInstanceOptions,
+    callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any,
+  ): Promise<ConnectionPolicyInstance[]>;
   /**
    * Lists ConnectionPolicyInstance records from the API as a list with HTTP metadata.
    *
@@ -662,8 +832,19 @@ export interface ConnectionPolicyListInstance {
    * @param { ConnectionPolicyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyInstance[]>) => any): Promise<ApiResponse<ConnectionPolicyInstance[]>>;
-  listWithHttpInfo(params: ConnectionPolicyListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyInstance[]>) => any): Promise<ApiResponse<ConnectionPolicyInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance[]>>;
+  listWithHttpInfo(
+    params: ConnectionPolicyListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance[]>>;
   /**
    * Retrieve a single page of ConnectionPolicyInstance records from the API.
    *
@@ -675,8 +856,13 @@ export interface ConnectionPolicyListInstance {
    * @param { ConnectionPolicyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
-  page(params: ConnectionPolicyListInstancePageOptions, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
+  page(
+    callback?: (error: Error | null, items: ConnectionPolicyPage) => any,
+  ): Promise<ConnectionPolicyPage>;
+  page(
+    params: ConnectionPolicyListInstancePageOptions,
+    callback?: (error: Error | null, items: ConnectionPolicyPage) => any,
+  ): Promise<ConnectionPolicyPage>;
   /**
    * Retrieve a single page of ConnectionPolicyInstance records from the API with HTTP metadata.
    *
@@ -688,9 +874,19 @@ export interface ConnectionPolicyListInstance {
    * @param { ConnectionPolicyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyPage>) => any): Promise<ApiResponse<ConnectionPolicyPage>>;
-  pageWithHttpInfo(params: ConnectionPolicyListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyPage>) => any): Promise<ApiResponse<ConnectionPolicyPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyPage>>;
+  pageWithHttpInfo(
+    params: ConnectionPolicyListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -699,85 +895,115 @@ export interface ConnectionPolicyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as ConnectionPolicyListInstance;
+export function ConnectionPolicyListInstance(
+  version: V1,
+): ConnectionPolicyListInstance {
+  const instance = ((sid) => instance.get(sid)) as ConnectionPolicyListInstance;
 
-  instance.get = function get(sid, ): ConnectionPolicyContext {
+  instance.get = function get(sid): ConnectionPolicyContext {
     return new ConnectionPolicyContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/ConnectionPolicies`;
 
-  instance.create = function create(params?: ConnectionPolicyListInstanceCreateOptions | ((error: Error | null, items: ConnectionPolicyInstance) => any), callback?: (error: Error | null, items: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance> {
+  instance.create = function create(
+    params?:
+      | ConnectionPolicyListInstanceCreateOptions
+      | ((error: Error | null, items: ConnectionPolicyInstance) => any),
+    callback?: (error: Error | null, items: ConnectionPolicyInstance) => any,
+  ): Promise<ConnectionPolicyInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConnectionPolicyInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: ConnectionPolicyListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<ConnectionPolicyInstance>) => any), callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyInstance>) => any): Promise<ApiResponse<ConnectionPolicyInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | ConnectionPolicyListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ConnectionPolicyInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ConnectionPolicyResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConnectionPolicyInstance> => ({
-      ...response,
-      body: new ConnectionPolicyInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ConnectionPolicyResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ConnectionPolicyInstance> => ({
+        ...response,
+        body: new ConnectionPolicyInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ConnectionPolicyListInstancePageOptions | ((error: Error | null, items: ConnectionPolicyPage) => any), callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage> {
+  instance.page = function page(
+    params?:
+      | ConnectionPolicyListInstancePageOptions
+      | ((error: Error | null, items: ConnectionPolicyPage) => any),
+    callback?: (error: Error | null, items: ConnectionPolicyPage) => any,
+  ): Promise<ConnectionPolicyPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -787,44 +1013,69 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConnectionPolicyPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ConnectionPolicyPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ConnectionPolicyPage) => any,
+  ): Promise<ConnectionPolicyPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ConnectionPolicyPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ConnectionPolicyListInstancePageOptions | ((error: Error | null, items: ApiResponse<ConnectionPolicyPage>) => any), callback?: (error: Error | null, items: ApiResponse<ConnectionPolicyPage>) => any): Promise<ApiResponse<ConnectionPolicyPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ConnectionPolicyListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ConnectionPolicyPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConnectionPolicyPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -834,92 +1085,115 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ConnectionPolicyPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ConnectionPolicyPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ConnectionPolicyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConnectionPolicyPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ConnectionPolicyPage>) => any): Promise<ApiResponse<ConnectionPolicyPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ConnectionPolicyPage>,
+    ) => any,
+  ): Promise<ApiResponse<ConnectionPolicyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ConnectionPolicyPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ConnectionPolicyPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ConnectionPolicyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConnectionPolicyPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ConnectionPolicyPage extends Page<V1, ConnectionPolicyPayload, ConnectionPolicyResource, ConnectionPolicyInstance> {
-/**
-* Initialize the ConnectionPolicyPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ConnectionPolicySolution) {
+export class ConnectionPolicyPage extends Page<
+  V1,
+  ConnectionPolicyPayload,
+  ConnectionPolicyResource,
+  ConnectionPolicyInstance
+> {
+  /**
+   * Initialize the ConnectionPolicyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ConnectionPolicySolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ConnectionPolicyInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ConnectionPolicyResource): ConnectionPolicyInstance {
+  /**
+   * Build an instance of ConnectionPolicyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ConnectionPolicyResource): ConnectionPolicyInstance {
+    return new ConnectionPolicyInstance(this._version, payload);
+  }
 
-    return new ConnectionPolicyInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

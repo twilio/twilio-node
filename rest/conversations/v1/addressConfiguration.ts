@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,25 +22,23 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+export type AddressConfigurationAutoCreationType =
+  "webhook" | "studio" | "default";
 
-export type AddressConfigurationAutoCreationType = 'webhook'|'studio'|'default';
-
-export type AddressConfigurationMethod = 'get'|'post';
+export type AddressConfigurationMethod = "get" | "post";
 
 /**
  * Type of Address, value can be `whatsapp` or `sms`.
  */
-export type AddressConfigurationType = 'sms'|'whatsapp'|'messenger'|'gbm'|'email'|'rcs'|'apple'|'chat';
-
-
-
+export type AddressConfigurationType =
+  "sms" | "whatsapp" | "messenger" | "gbm" | "email" | "rcs" | "apple" | "chat";
 
 /**
  * Options to pass to update a AddressConfigurationInstance
  */
 export interface AddressConfigurationContextUpdateOptions {
   /** The human-readable name of this configuration, limited to 256 characters. Optional. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** Enable/Disable auto-creating conversations for messages to this address */
   "autoCreation.enabled"?: boolean;
   /**  */
@@ -65,11 +62,11 @@ export interface AddressConfigurationContextUpdateOptions {
  */
 export interface AddressConfigurationListInstanceCreateOptions {
   /**  */
-  "type": AddressConfigurationType;
+  type: AddressConfigurationType;
   /** The unique address to be configured. The address can be a whatsapp address or phone number */
-  "address": string;
+  address: string;
   /** The human-readable name of this configuration, limited to 256 characters. Optional. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** Enable/Disable auto-creating conversations for messages to this address */
   "autoCreation.enabled"?: boolean;
   /**  */
@@ -87,7 +84,7 @@ export interface AddressConfigurationListInstanceCreateOptions {
   /** For type `studio`, number of times to retry the webhook request */
   "autoCreation.studioRetryCount"?: number;
   /** An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses. */
-  "addressCountry"?: string;
+  addressCountry?: string;
 }
 
 /**
@@ -95,11 +92,14 @@ export interface AddressConfigurationListInstanceCreateOptions {
  */
 export interface AddressConfigurationListInstanceEachOptions {
   /** Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. */
-  "type"?: string;
+  type?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: AddressConfigurationInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -111,31 +111,28 @@ export interface AddressConfigurationListInstanceEachOptions {
  */
 export interface AddressConfigurationListInstanceOptions {
   /** Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. */
-  "type"?: string;
+  type?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface AddressConfigurationListInstancePageOptions {
   /** Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. */
-  "type"?: string;
+  type?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface AddressConfigurationContext {
-
   /**
    * Remove a AddressConfigurationInstance
    *
@@ -143,7 +140,9 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a AddressConfigurationInstance and return HTTP info
@@ -152,7 +151,9 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a AddressConfigurationInstance
@@ -161,7 +162,12 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance>;
 
   /**
    * Fetch a AddressConfigurationInstance and return HTTP info
@@ -170,7 +176,12 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   /**
    * Update a AddressConfigurationInstance
@@ -179,7 +190,12 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>;
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance>;
   /**
    * Update a AddressConfigurationInstance
    *
@@ -188,7 +204,13 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  update(params: AddressConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>;
+  update(
+    params: AddressConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance>;
 
   /**
    * Update a AddressConfigurationInstance and return HTTP info
@@ -197,7 +219,12 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>>;
   /**
    * Update a AddressConfigurationInstance and return HTTP info
    *
@@ -206,7 +233,13 @@ export interface AddressConfigurationContext {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AddressConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>;
+  updateWithHttpInfo(
+    params: AddressConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -216,188 +249,282 @@ export interface AddressConfigurationContext {
 }
 
 export interface AddressConfigurationContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class AddressConfigurationContextImpl implements AddressConfigurationContext {
   protected _solution: AddressConfigurationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Configuration/Addresses/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AddressConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<AddressConfigurationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<AddressConfigurationInstance> => ({
-      ...response,
-      body: new AddressConfigurationInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AddressConfigurationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<AddressConfigurationInstance> => ({
+        ...response,
+        body: new AddressConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: AddressConfigurationContextUpdateOptions | ((error: Error | null, item?: AddressConfigurationInstance) => any),callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | AddressConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: AddressConfigurationInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
-    data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+      data["AutoCreation.Enabled"] = serialize.bool(
+        params["autoCreation.enabled"],
+      );
     if (params["autoCreation.type"] !== undefined)
-    data["AutoCreation.Type"] = params["autoCreation.type"];
+      data["AutoCreation.Type"] = params["autoCreation.type"];
     if (params["autoCreation.conversationServiceSid"] !== undefined)
-    data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+      data["AutoCreation.ConversationServiceSid"] =
+        params["autoCreation.conversationServiceSid"];
     if (params["autoCreation.webhookUrl"] !== undefined)
-    data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+      data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
     if (params["autoCreation.webhookMethod"] !== undefined)
-    data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+      data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
     if (params["autoCreation.webhookFilters"] !== undefined)
-    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], (e: string) => (e));
+      data["AutoCreation.WebhookFilters"] = serialize.map(
+        params["autoCreation.webhookFilters"],
+        (e: string) => e,
+      );
     if (params["autoCreation.studioFlowSid"] !== undefined)
-    data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+      data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
     if (params["autoCreation.studioRetryCount"] !== undefined)
-    data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+      data["AutoCreation.StudioRetryCount"] =
+        params["autoCreation.studioRetryCount"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AddressConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: AddressConfigurationContextUpdateOptions | ((error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | AddressConfigurationContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<AddressConfigurationInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
-    data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+      data["AutoCreation.Enabled"] = serialize.bool(
+        params["autoCreation.enabled"],
+      );
     if (params["autoCreation.type"] !== undefined)
-    data["AutoCreation.Type"] = params["autoCreation.type"];
+      data["AutoCreation.Type"] = params["autoCreation.type"];
     if (params["autoCreation.conversationServiceSid"] !== undefined)
-    data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+      data["AutoCreation.ConversationServiceSid"] =
+        params["autoCreation.conversationServiceSid"];
     if (params["autoCreation.webhookUrl"] !== undefined)
-    data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+      data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
     if (params["autoCreation.webhookMethod"] !== undefined)
-    data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+      data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
     if (params["autoCreation.webhookFilters"] !== undefined)
-    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], (e: string) => (e));
+      data["AutoCreation.WebhookFilters"] = serialize.map(
+        params["autoCreation.webhookFilters"],
+        (e: string) => e,
+      );
     if (params["autoCreation.studioFlowSid"] !== undefined)
-    data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+      data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
     if (params["autoCreation.studioRetryCount"] !== undefined)
-    data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+      data["AutoCreation.StudioRetryCount"] =
+        params["autoCreation.studioRetryCount"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<AddressConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<AddressConfigurationInstance> => ({
-      ...response,
-      body: new AddressConfigurationInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AddressConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<AddressConfigurationInstance> => ({
+        ...response,
+        body: new AddressConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -414,9 +541,8 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
   }
 }
 
-
-  interface AddressConfigurationPayload extends TwilioResponsePayload {
-    address_configurations: AddressConfigurationResource[];
+interface AddressConfigurationPayload extends TwilioResponsePayload {
+  address_configurations: AddressConfigurationResource[];
 }
 
 interface AddressConfigurationResource {
@@ -436,20 +562,23 @@ export class AddressConfigurationInstance {
   protected _solution: AddressConfigurationContextSolution;
   protected _context?: AddressConfigurationContext;
 
-  constructor(protected _version: V1, payload: AddressConfigurationResource, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.type = (payload.type);
-    this.address = (payload.address);
-    this.friendlyName = (payload.friendly_name);
-    this.autoCreation = (payload.auto_creation);
+  constructor(
+    protected _version: V1,
+    payload: AddressConfigurationResource,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.type = payload.type;
+    this.address = payload.address;
+    this.friendlyName = payload.friendly_name;
+    this.autoCreation = payload.auto_creation;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
-    this.addressCountry = (payload.address_country);
+    this.url = payload.url;
+    this.addressCountry = payload.address_country;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -494,7 +623,9 @@ export class AddressConfigurationInstance {
   addressCountry: string;
 
   private get _proxy(): AddressConfigurationContext {
-    this._context = this._context || new AddressConfigurationContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new AddressConfigurationContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -505,9 +636,9 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -518,9 +649,9 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -531,9 +662,12 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -544,9 +678,12 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -557,7 +694,12 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>;
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance>;
   /**
    * Update a AddressConfigurationInstance
    *
@@ -566,10 +708,21 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  update(params: AddressConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>;
+  update(
+    params: AddressConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>
-    {
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -580,7 +733,12 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>>;
   /**
    * Update a AddressConfigurationInstance and return HTTP info
    *
@@ -589,10 +747,21 @@ export class AddressConfigurationInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AddressConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>;
+  updateWithHttpInfo(
+    params: AddressConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -621,24 +790,15 @@ export class AddressConfigurationInstance {
   }
 }
 
-
-export interface AddressConfigurationSolution {
-}
+export interface AddressConfigurationSolution {}
 
 export interface AddressConfigurationListInstance {
   _version: V1;
   _solution: AddressConfigurationSolution;
   _uri: string;
 
-  (sid: string, ): AddressConfigurationContext;
-  get(sid: string, ): AddressConfigurationContext;
-
-
-
-
-
-
-
+  (sid: string): AddressConfigurationContext;
+  get(sid: string): AddressConfigurationContext;
 
   /**
    * Create a AddressConfigurationInstance
@@ -648,7 +808,13 @@ export interface AddressConfigurationListInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance
    */
-  create(params: AddressConfigurationListInstanceCreateOptions, callback?: (error: Error | null, item?: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance>;
+  create(
+    params: AddressConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance>;
 
   /**
    * Create a AddressConfigurationInstance and return HTTP info
@@ -658,10 +824,13 @@ export interface AddressConfigurationListInstance {
    *
    * @returns Resolves to processed AddressConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: AddressConfigurationListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: AddressConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   /**
    * Streams AddressConfigurationInstance records from the API.
@@ -678,8 +847,19 @@ export interface AddressConfigurationListInstance {
    * @param { AddressConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void): void;
-  each(params: AddressConfigurationListInstanceEachOptions, callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: AddressConfigurationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: AddressConfigurationListInstanceEachOptions,
+    callback?: (
+      item: AddressConfigurationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams AddressConfigurationInstance records from the API with HTTP metadata captured per page.
    *
@@ -695,8 +875,19 @@ export interface AddressConfigurationListInstance {
    * @param { AddressConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: AddressConfigurationListInstanceEachOptions, callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: AddressConfigurationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: AddressConfigurationListInstanceEachOptions,
+    callback?: (
+      item: AddressConfigurationInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of AddressConfigurationInstance records from the API.
    *
@@ -705,7 +896,10 @@ export interface AddressConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: AddressConfigurationPage) => any): Promise<AddressConfigurationPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+  ): Promise<AddressConfigurationPage>;
   /**
    * Retrieve a single target page of AddressConfigurationInstance records from the API with HTTP metadata.
    *
@@ -714,7 +908,13 @@ export interface AddressConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<AddressConfigurationPage>) => any): Promise<ApiResponse<AddressConfigurationPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationPage>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationPage>>;
   /**
    * Lists AddressConfigurationInstance records from the API as a list.
    *
@@ -724,8 +924,19 @@ export interface AddressConfigurationListInstance {
    * @param { AddressConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AddressConfigurationInstance[]) => any): Promise<AddressConfigurationInstance[]>;
-  list(params: AddressConfigurationListInstanceOptions, callback?: (error: Error | null, items: AddressConfigurationInstance[]) => any): Promise<AddressConfigurationInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: AddressConfigurationInstance[],
+    ) => any,
+  ): Promise<AddressConfigurationInstance[]>;
+  list(
+    params: AddressConfigurationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: AddressConfigurationInstance[],
+    ) => any,
+  ): Promise<AddressConfigurationInstance[]>;
   /**
    * Lists AddressConfigurationInstance records from the API as a list with HTTP metadata.
    *
@@ -737,8 +948,19 @@ export interface AddressConfigurationListInstance {
    * @param { AddressConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<AddressConfigurationInstance[]>) => any): Promise<ApiResponse<AddressConfigurationInstance[]>>;
-  listWithHttpInfo(params: AddressConfigurationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<AddressConfigurationInstance[]>) => any): Promise<ApiResponse<AddressConfigurationInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance[]>>;
+  listWithHttpInfo(
+    params: AddressConfigurationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance[]>>;
   /**
    * Retrieve a single page of AddressConfigurationInstance records from the API.
    *
@@ -750,8 +972,13 @@ export interface AddressConfigurationListInstance {
    * @param { AddressConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AddressConfigurationPage) => any): Promise<AddressConfigurationPage>;
-  page(params: AddressConfigurationListInstancePageOptions, callback?: (error: Error | null, items: AddressConfigurationPage) => any): Promise<AddressConfigurationPage>;
+  page(
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+  ): Promise<AddressConfigurationPage>;
+  page(
+    params: AddressConfigurationListInstancePageOptions,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+  ): Promise<AddressConfigurationPage>;
   /**
    * Retrieve a single page of AddressConfigurationInstance records from the API with HTTP metadata.
    *
@@ -763,9 +990,19 @@ export interface AddressConfigurationListInstance {
    * @param { AddressConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<AddressConfigurationPage>) => any): Promise<ApiResponse<AddressConfigurationPage>>;
-  pageWithHttpInfo(params: AddressConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<AddressConfigurationPage>) => any): Promise<ApiResponse<AddressConfigurationPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationPage>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationPage>>;
+  pageWithHttpInfo(
+    params: AddressConfigurationListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationPage>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -774,139 +1011,178 @@ export interface AddressConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AddressConfigurationListInstance(version: V1): AddressConfigurationListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as AddressConfigurationListInstance;
+export function AddressConfigurationListInstance(
+  version: V1,
+): AddressConfigurationListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as AddressConfigurationListInstance;
 
-  instance.get = function get(sid, ): AddressConfigurationContext {
+  instance.get = function get(sid): AddressConfigurationContext {
     return new AddressConfigurationContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Configuration/Addresses`;
 
-  instance.create = function create(params: AddressConfigurationListInstanceCreateOptions, callback?: (error: Error | null, items: AddressConfigurationInstance) => any): Promise<AddressConfigurationInstance> {
+  instance.create = function create(
+    params: AddressConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: AddressConfigurationInstance,
+    ) => any,
+  ): Promise<AddressConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["type"] === null || params["type"] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+      throw new Error("Required parameter \"params['type']\" missing.");
     }
 
     if (params["address"] === null || params["address"] === undefined) {
-      throw new Error('Required parameter "params[\'address\']" missing.');
+      throw new Error("Required parameter \"params['address']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Type"] = params["type"];
-    
+
     data["Address"] = params["address"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
-    data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+      data["AutoCreation.Enabled"] = serialize.bool(
+        params["autoCreation.enabled"],
+      );
     if (params["autoCreation.type"] !== undefined)
-    data["AutoCreation.Type"] = params["autoCreation.type"];
+      data["AutoCreation.Type"] = params["autoCreation.type"];
     if (params["autoCreation.conversationServiceSid"] !== undefined)
-    data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+      data["AutoCreation.ConversationServiceSid"] =
+        params["autoCreation.conversationServiceSid"];
     if (params["autoCreation.webhookUrl"] !== undefined)
-    data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+      data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
     if (params["autoCreation.webhookMethod"] !== undefined)
-    data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+      data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
     if (params["autoCreation.webhookFilters"] !== undefined)
-    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], (e: string) => (e));
+      data["AutoCreation.WebhookFilters"] = serialize.map(
+        params["autoCreation.webhookFilters"],
+        (e: string) => e,
+      );
     if (params["autoCreation.studioFlowSid"] !== undefined)
-    data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+      data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
     if (params["autoCreation.studioRetryCount"] !== undefined)
-    data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+      data["AutoCreation.StudioRetryCount"] =
+        params["autoCreation.studioRetryCount"];
     if (params["addressCountry"] !== undefined)
-    data["AddressCountry"] = params["addressCountry"];
+      data["AddressCountry"] = params["addressCountry"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AddressConfigurationInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: AddressConfigurationListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<AddressConfigurationInstance>) => any): Promise<ApiResponse<AddressConfigurationInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AddressConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["type"] === null || params["type"] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+      throw new Error("Required parameter \"params['type']\" missing.");
     }
 
     if (params["address"] === null || params["address"] === undefined) {
-      throw new Error('Required parameter "params[\'address\']" missing.');
+      throw new Error("Required parameter \"params['address']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Type"] = params["type"];
-    
+
     data["Address"] = params["address"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
-    data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+      data["AutoCreation.Enabled"] = serialize.bool(
+        params["autoCreation.enabled"],
+      );
     if (params["autoCreation.type"] !== undefined)
-    data["AutoCreation.Type"] = params["autoCreation.type"];
+      data["AutoCreation.Type"] = params["autoCreation.type"];
     if (params["autoCreation.conversationServiceSid"] !== undefined)
-    data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+      data["AutoCreation.ConversationServiceSid"] =
+        params["autoCreation.conversationServiceSid"];
     if (params["autoCreation.webhookUrl"] !== undefined)
-    data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+      data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
     if (params["autoCreation.webhookMethod"] !== undefined)
-    data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+      data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
     if (params["autoCreation.webhookFilters"] !== undefined)
-    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], (e: string) => (e));
+      data["AutoCreation.WebhookFilters"] = serialize.map(
+        params["autoCreation.webhookFilters"],
+        (e: string) => e,
+      );
     if (params["autoCreation.studioFlowSid"] !== undefined)
-    data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+      data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
     if (params["autoCreation.studioRetryCount"] !== undefined)
-    data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+      data["AutoCreation.StudioRetryCount"] =
+        params["autoCreation.studioRetryCount"];
     if (params["addressCountry"] !== undefined)
-    data["AddressCountry"] = params["addressCountry"];
+      data["AddressCountry"] = params["addressCountry"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<AddressConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<AddressConfigurationInstance> => ({
-      ...response,
-      body: new AddressConfigurationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AddressConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<AddressConfigurationInstance> => ({
+        ...response,
+        body: new AddressConfigurationInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: AddressConfigurationListInstancePageOptions | ((error: Error | null, items: AddressConfigurationPage) => any), callback?: (error: Error | null, items: AddressConfigurationPage) => any): Promise<AddressConfigurationPage> {
+  instance.page = function page(
+    params?:
+      | AddressConfigurationListInstancePageOptions
+      | ((error: Error | null, items: AddressConfigurationPage) => any),
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+  ): Promise<AddressConfigurationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -916,46 +1192,74 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
 
     let data: any = {};
 
-        if (params["type"] !== undefined)
-    data["Type"] = params["type"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["type"] !== undefined) data["Type"] = params["type"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new AddressConfigurationPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AddressConfigurationPage(
+          operationVersion,
+          payload,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AddressConfigurationPage) => any): Promise<AddressConfigurationPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new AddressConfigurationPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+  ): Promise<AddressConfigurationPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AddressConfigurationPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: AddressConfigurationListInstancePageOptions | ((error: Error | null, items: ApiResponse<AddressConfigurationPage>) => any), callback?: (error: Error | null, items: ApiResponse<AddressConfigurationPage>) => any): Promise<ApiResponse<AddressConfigurationPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AddressConfigurationListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<AddressConfigurationPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressConfigurationPage>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -965,94 +1269,118 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
 
     let data: any = {};
 
-        if (params["type"] !== undefined)
-    data["Type"] = params["type"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["type"] !== undefined) data["Type"] = params["type"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<AddressConfigurationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new AddressConfigurationPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<AddressConfigurationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AddressConfigurationPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<AddressConfigurationPage>) => any): Promise<ApiResponse<AddressConfigurationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<AddressConfigurationPage>,
+    ) => any,
+  ): Promise<ApiResponse<AddressConfigurationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<AddressConfigurationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new AddressConfigurationPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AddressConfigurationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AddressConfigurationPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class AddressConfigurationPage extends Page<V1, AddressConfigurationPayload, AddressConfigurationResource, AddressConfigurationInstance> {
-/**
-* Initialize the AddressConfigurationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: AddressConfigurationSolution) {
+export class AddressConfigurationPage extends Page<
+  V1,
+  AddressConfigurationPayload,
+  AddressConfigurationResource,
+  AddressConfigurationInstance
+> {
+  /**
+   * Initialize the AddressConfigurationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: AddressConfigurationSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AddressConfigurationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AddressConfigurationResource): AddressConfigurationInstance {
+  /**
+   * Build an instance of AddressConfigurationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: AddressConfigurationResource,
+  ): AddressConfigurationInstance {
+    return new AddressConfigurationInstance(this._version, payload);
+  }
 
-    return new AddressConfigurationInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

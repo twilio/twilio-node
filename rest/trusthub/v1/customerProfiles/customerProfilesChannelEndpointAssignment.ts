@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -23,18 +22,14 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
-
-
 /**
  * Options to pass to create a CustomerProfilesChannelEndpointAssignmentInstance
  */
 export interface CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions {
   /** The type of channel endpoint. eg: phone-number */
-  "channelEndpointType": string;
+  channelEndpointType: string;
   /** The SID of an channel endpoint */
-  "channelEndpointSid": string;
+  channelEndpointSid: string;
 }
 
 /**
@@ -42,13 +37,16 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstanceCreateOpti
  */
 export interface CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions {
   /** The SID of an channel endpoint */
-  "channelEndpointSid"?: string;
+  channelEndpointSid?: string;
   /** comma separated list of channel endpoint sids */
-  "channelEndpointSids"?: string;
+  channelEndpointSids?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: CustomerProfilesChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: CustomerProfilesChannelEndpointAssignmentInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -60,35 +58,32 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstanceEachOption
  */
 export interface CustomerProfilesChannelEndpointAssignmentListInstanceOptions {
   /** The SID of an channel endpoint */
-  "channelEndpointSid"?: string;
+  channelEndpointSid?: string;
   /** comma separated list of channel endpoint sids */
-  "channelEndpointSids"?: string;
+  channelEndpointSids?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface CustomerProfilesChannelEndpointAssignmentListInstancePageOptions {
   /** The SID of an channel endpoint */
-  "channelEndpointSid"?: string;
+  channelEndpointSid?: string;
   /** comma separated list of channel endpoint sids */
-  "channelEndpointSids"?: string;
+  channelEndpointSids?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface CustomerProfilesChannelEndpointAssignmentContext {
-
   /**
    * Remove a CustomerProfilesChannelEndpointAssignmentInstance
    *
@@ -96,7 +91,9 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a CustomerProfilesChannelEndpointAssignmentInstance and return HTTP info
@@ -105,7 +102,9 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a CustomerProfilesChannelEndpointAssignmentInstance
@@ -114,7 +113,12 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
    */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
 
   /**
    * Fetch a CustomerProfilesChannelEndpointAssignmentInstance and return HTTP info
@@ -123,7 +127,12 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -133,92 +142,142 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
 }
 
 export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
-  "customerProfileSid": string;
-  "sid": string;
+  customerProfileSid: string;
+  sid: string;
 }
 
 export class CustomerProfilesChannelEndpointAssignmentContextImpl implements CustomerProfilesChannelEndpointAssignmentContext {
   protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    customerProfileSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(customerProfileSid)) {
-      throw new Error('Parameter \'customerProfileSid\' is not valid.');
+      throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { customerProfileSid, sid,  };
+    this._solution = { customerProfileSid, sid };
     this._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesChannelEndpointAssignmentInstance(operationVersion, payload, instance._solution.customerProfileSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesChannelEndpointAssignmentInstance(
+          operationVersion,
+          payload,
+          instance._solution.customerProfileSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<CustomerProfilesChannelEndpointAssignmentResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance> => ({
-      ...response,
-      body: new CustomerProfilesChannelEndpointAssignmentInstance(operationVersion, response.body, instance._solution.customerProfileSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CustomerProfilesChannelEndpointAssignmentResource>(
+        { uri: instance._uri, method: "get", headers },
+      )
+      .then(
+        (
+          response,
+        ): ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance> => ({
+          ...response,
+          body: new CustomerProfilesChannelEndpointAssignmentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.customerProfileSid,
+            instance._solution.sid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -235,9 +294,8 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl implements Cus
   }
 }
 
-
-  interface CustomerProfilesChannelEndpointAssignmentPayload extends TwilioResponsePayload {
-    results: CustomerProfilesChannelEndpointAssignmentResource[];
+interface CustomerProfilesChannelEndpointAssignmentPayload extends TwilioResponsePayload {
+  results: CustomerProfilesChannelEndpointAssignmentResource[];
 }
 
 interface CustomerProfilesChannelEndpointAssignmentResource {
@@ -254,17 +312,21 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
   protected _context?: CustomerProfilesChannelEndpointAssignmentContext;
 
-  constructor(protected _version: V1, payload: CustomerProfilesChannelEndpointAssignmentResource, customerProfileSid: string, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.customerProfileSid = (payload.customer_profile_sid);
-    this.accountSid = (payload.account_sid);
-    this.channelEndpointType = (payload.channel_endpoint_type);
-    this.channelEndpointSid = (payload.channel_endpoint_sid);
+  constructor(
+    protected _version: V1,
+    payload: CustomerProfilesChannelEndpointAssignmentResource,
+    customerProfileSid: string,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.customerProfileSid = payload.customer_profile_sid;
+    this.accountSid = payload.account_sid;
+    this.channelEndpointType = payload.channel_endpoint_type;
+    this.channelEndpointSid = payload.channel_endpoint_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { customerProfileSid, sid: sid,  };
+    this._solution = { customerProfileSid, sid: sid };
   }
 
   /**
@@ -297,7 +359,13 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   url: string;
 
   private get _proxy(): CustomerProfilesChannelEndpointAssignmentContext {
-    this._context = this._context || new CustomerProfilesChannelEndpointAssignmentContextImpl(this._version, this._solution.customerProfileSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new CustomerProfilesChannelEndpointAssignmentContextImpl(
+        this._version,
+        this._solution.customerProfileSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -308,9 +376,9 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -321,9 +389,9 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -334,9 +402,12 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
    */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -347,9 +418,12 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -375,7 +449,6 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   }
 }
 
-
 export interface CustomerProfilesChannelEndpointAssignmentSolution {
   customerProfileSid: string;
 }
@@ -385,13 +458,8 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   _solution: CustomerProfilesChannelEndpointAssignmentSolution;
   _uri: string;
 
-  (sid: string, ): CustomerProfilesChannelEndpointAssignmentContext;
-  get(sid: string, ): CustomerProfilesChannelEndpointAssignmentContext;
-
-
-
-
-
+  (sid: string): CustomerProfilesChannelEndpointAssignmentContext;
+  get(sid: string): CustomerProfilesChannelEndpointAssignmentContext;
 
   /**
    * Create a CustomerProfilesChannelEndpointAssignmentInstance
@@ -401,7 +469,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    *
    * @returns Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
    */
-  create(params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
+  create(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
 
   /**
    * Create a CustomerProfilesChannelEndpointAssignmentInstance and return HTTP info
@@ -411,10 +485,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    *
    * @returns Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance with HTTP metadata
    */
-  createWithHttpInfo(params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>;
 
   /**
    * Streams CustomerProfilesChannelEndpointAssignmentInstance records from the API.
@@ -431,8 +508,19 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CustomerProfilesChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
-  each(params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions, callback?: (item: CustomerProfilesChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: CustomerProfilesChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
+    callback?: (
+      item: CustomerProfilesChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams CustomerProfilesChannelEndpointAssignmentInstance records from the API with HTTP metadata captured per page.
    *
@@ -448,8 +536,19 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: CustomerProfilesChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions, callback?: (item: CustomerProfilesChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: CustomerProfilesChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
+    callback?: (
+      item: CustomerProfilesChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
    *
@@ -458,7 +557,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentPage) => any): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single target page of CustomerProfilesChannelEndpointAssignmentInstance records from the API with HTTP metadata.
    *
@@ -467,7 +572,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
   /**
    * Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list.
    *
@@ -477,8 +588,19 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { CustomerProfilesChannelEndpointAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentInstance[]) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
-  list(params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions, callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentInstance[]) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentInstance[],
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
+  list(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentInstance[],
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
   /**
    * Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list with HTTP metadata.
    *
@@ -490,8 +612,19 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { CustomerProfilesChannelEndpointAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>>;
-  listWithHttpInfo(params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>>;
+  listWithHttpInfo(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>>;
   /**
    * Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
    *
@@ -503,8 +636,19 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { CustomerProfilesChannelEndpointAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentPage) => any): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
-  page(params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions, callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentPage) => any): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
+  page(
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
+  page(
+    params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API with HTTP metadata.
    *
@@ -516,9 +660,19 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { CustomerProfilesChannelEndpointAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
-  pageWithHttpInfo(params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
+  pageWithHttpInfo(
+    params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -527,103 +681,171 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CustomerProfilesChannelEndpointAssignmentListInstance(version: V1, customerProfileSid: string): CustomerProfilesChannelEndpointAssignmentListInstance {
+export function CustomerProfilesChannelEndpointAssignmentListInstance(
+  version: V1,
+  customerProfileSid: string,
+): CustomerProfilesChannelEndpointAssignmentListInstance {
   if (!isValidPathParam(customerProfileSid)) {
-    throw new Error('Parameter \'customerProfileSid\' is not valid.');
+    throw new Error("Parameter 'customerProfileSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as CustomerProfilesChannelEndpointAssignmentListInstance;
+  const instance = ((sid) =>
+    instance.get(sid)) as CustomerProfilesChannelEndpointAssignmentListInstance;
 
-  instance.get = function get(sid, ): CustomerProfilesChannelEndpointAssignmentContext {
-    return new CustomerProfilesChannelEndpointAssignmentContextImpl(version, customerProfileSid, sid);
-  }
+  instance.get = function get(
+    sid,
+  ): CustomerProfilesChannelEndpointAssignmentContext {
+    return new CustomerProfilesChannelEndpointAssignmentContextImpl(
+      version,
+      customerProfileSid,
+      sid,
+    );
+  };
 
   instance._version = version;
-  instance._solution = { customerProfileSid,  };
+  instance._solution = { customerProfileSid };
   instance._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments`;
 
-  instance.create = function create(params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
+  instance.create = function create(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["channelEndpointType"] === null || params["channelEndpointType"] === undefined) {
-      throw new Error('Required parameter "params[\'channelEndpointType\']" missing.');
+    if (
+      params["channelEndpointType"] === null ||
+      params["channelEndpointType"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['channelEndpointType']\" missing.",
+      );
     }
 
-    if (params["channelEndpointSid"] === null || params["channelEndpointSid"] === undefined) {
-      throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
+    if (
+      params["channelEndpointSid"] === null ||
+      params["channelEndpointSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['channelEndpointSid']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["ChannelEndpointType"] = params["channelEndpointType"];
-    
+
     data["ChannelEndpointSid"] = params["channelEndpointSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesChannelEndpointAssignmentInstance(operationVersion, payload, instance._solution.customerProfileSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesChannelEndpointAssignmentInstance(
+          operationVersion,
+          payload,
+          instance._solution.customerProfileSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["channelEndpointType"] === null || params["channelEndpointType"] === undefined) {
-      throw new Error('Required parameter "params[\'channelEndpointType\']" missing.');
+    if (
+      params["channelEndpointType"] === null ||
+      params["channelEndpointType"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['channelEndpointType']\" missing.",
+      );
     }
 
-    if (params["channelEndpointSid"] === null || params["channelEndpointSid"] === undefined) {
-      throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
+    if (
+      params["channelEndpointSid"] === null ||
+      params["channelEndpointSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['channelEndpointSid']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["ChannelEndpointType"] = params["channelEndpointType"];
-    
+
     data["ChannelEndpointSid"] = params["channelEndpointSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<CustomerProfilesChannelEndpointAssignmentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance> => ({
-      ...response,
-      body: new CustomerProfilesChannelEndpointAssignmentInstance(operationVersion, response.body, instance._solution.customerProfileSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CustomerProfilesChannelEndpointAssignmentResource>(
+        { uri: instance._uri, method: "post", data, headers },
+      )
+      .then(
+        (
+          response,
+        ): ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance> => ({
+          ...response,
+          body: new CustomerProfilesChannelEndpointAssignmentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.customerProfileSid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions | ((error: Error | null, items: CustomerProfilesChannelEndpointAssignmentPage) => any), callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentPage) => any): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
+  instance.page = function page(
+    params?:
+      | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: CustomerProfilesChannelEndpointAssignmentPage,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -633,48 +855,80 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(version: V
 
     let data: any = {};
 
-        if (params["channelEndpointSid"] !== undefined)
-    data["ChannelEndpointSid"] = params["channelEndpointSid"];
+    if (params["channelEndpointSid"] !== undefined)
+      data["ChannelEndpointSid"] = params["channelEndpointSid"];
     if (params["channelEndpointSids"] !== undefined)
-    data["ChannelEndpointSids"] = params["channelEndpointSids"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["ChannelEndpointSids"] = params["channelEndpointSids"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesChannelEndpointAssignmentPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesChannelEndpointAssignmentPage(
+          operationVersion,
+          payload,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: CustomerProfilesChannelEndpointAssignmentPage) => any): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new CustomerProfilesChannelEndpointAssignmentPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
+  ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesChannelEndpointAssignmentPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions | ((error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>) => any), callback?: (error: Error | null, items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -684,97 +938,131 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(version: V
 
     let data: any = {};
 
-        if (params["channelEndpointSid"] !== undefined)
-    data["ChannelEndpointSid"] = params["channelEndpointSid"];
+    if (params["channelEndpointSid"] !== undefined)
+      data["ChannelEndpointSid"] = params["channelEndpointSid"];
     if (params["channelEndpointSids"] !== undefined)
-    data["ChannelEndpointSids"] = params["channelEndpointSids"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["ChannelEndpointSids"] = params["channelEndpointSids"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<CustomerProfilesChannelEndpointAssignmentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new CustomerProfilesChannelEndpointAssignmentPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (
+          response,
+        ): ApiResponse<CustomerProfilesChannelEndpointAssignmentPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CustomerProfilesChannelEndpointAssignmentPage(
+            operationVersion,
+            response,
+            instance._solution,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
+  ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<CustomerProfilesChannelEndpointAssignmentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new CustomerProfilesChannelEndpointAssignmentPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (
+        response,
+      ): ApiResponse<CustomerProfilesChannelEndpointAssignmentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomerProfilesChannelEndpointAssignmentPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class CustomerProfilesChannelEndpointAssignmentPage extends Page<V1, CustomerProfilesChannelEndpointAssignmentPayload, CustomerProfilesChannelEndpointAssignmentResource, CustomerProfilesChannelEndpointAssignmentInstance> {
-/**
-* Initialize the CustomerProfilesChannelEndpointAssignmentPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: CustomerProfilesChannelEndpointAssignmentSolution) {
+export class CustomerProfilesChannelEndpointAssignmentPage extends Page<
+  V1,
+  CustomerProfilesChannelEndpointAssignmentPayload,
+  CustomerProfilesChannelEndpointAssignmentResource,
+  CustomerProfilesChannelEndpointAssignmentInstance
+> {
+  /**
+   * Initialize the CustomerProfilesChannelEndpointAssignmentPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: CustomerProfilesChannelEndpointAssignmentSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CustomerProfilesChannelEndpointAssignmentInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CustomerProfilesChannelEndpointAssignmentResource): CustomerProfilesChannelEndpointAssignmentInstance {
-
+  /**
+   * Build an instance of CustomerProfilesChannelEndpointAssignmentInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: CustomerProfilesChannelEndpointAssignmentResource,
+  ): CustomerProfilesChannelEndpointAssignmentInstance {
     return new CustomerProfilesChannelEndpointAssignmentInstance(
-    this._version,
-    payload,
-        this._solution.customerProfileSid,
+      this._version,
+      payload,
+      this._solution.customerProfileSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

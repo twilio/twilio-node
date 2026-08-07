@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,27 +19,21 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to create a EligibilityInstance
  */
 export interface EligibilityListInstanceCreateOptions {
   /**  */
-  "body"?: object;
+  body?: object;
 }
 
-
-export interface EligibilitySolution {
-}
+export interface EligibilitySolution {}
 
 export interface EligibilityListInstance {
   _version: V1;
   _solution: EligibilitySolution;
   _uri: string;
 
-
-
   /**
    * Create a EligibilityInstance
    *
@@ -48,7 +41,9 @@ export interface EligibilityListInstance {
    *
    * @returns Resolves to processed EligibilityInstance
    */
-  create(callback?: (error: Error | null, item?: EligibilityInstance) => any): Promise<EligibilityInstance>;
+  create(
+    callback?: (error: Error | null, item?: EligibilityInstance) => any,
+  ): Promise<EligibilityInstance>;
   /**
    * Create a EligibilityInstance
    *
@@ -58,7 +53,11 @@ export interface EligibilityListInstance {
    *
    * @returns Resolves to processed EligibilityInstance
    */
-  create(params: object, headers?: any, callback?: (error: Error | null, item?: EligibilityInstance) => any): Promise<EligibilityInstance>;
+  create(
+    params: object,
+    headers?: any,
+    callback?: (error: Error | null, item?: EligibilityInstance) => any,
+  ): Promise<EligibilityInstance>;
 
   /**
    * Create a EligibilityInstance and return HTTP info
@@ -67,7 +66,12 @@ export interface EligibilityListInstance {
    *
    * @returns Resolves to processed EligibilityInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<EligibilityInstance>) => any): Promise<ApiResponse<EligibilityInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EligibilityInstance>,
+    ) => any,
+  ): Promise<ApiResponse<EligibilityInstance>>;
   /**
    * Create a EligibilityInstance and return HTTP info
    *
@@ -77,9 +81,14 @@ export interface EligibilityListInstance {
    *
    * @returns Resolves to processed EligibilityInstance with HTTP metadata
    */
-  createWithHttpInfo(params: object, headers?: any, callback?: (error: Error | null, item?: ApiResponse<EligibilityInstance>) => any): Promise<ApiResponse<EligibilityInstance>>;
-
-
+  createWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EligibilityInstance>,
+    ) => any,
+  ): Promise<ApiResponse<EligibilityInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -92,99 +101,127 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
   const instance = {} as EligibilityListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/HostedNumber/Eligibility`;
 
-  instance.create = function create(params?: object | ((error: Error | null, items: EligibilityInstance) => any), headers?: any, callback?: (error: Error | null, items: EligibilityInstance) => any): Promise<EligibilityInstance> {
+  instance.create = function create(
+    params?:
+      object | ((error: Error | null, items: EligibilityInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: EligibilityInstance) => any,
+  ): Promise<EligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<object> as object;
     } else {
-      params = params || {} as Partial<object> as object;
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new EligibilityInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EligibilityInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: object | ((error: Error | null, items: ApiResponse<EligibilityInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<EligibilityInstance>) => any): Promise<ApiResponse<EligibilityInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | object
+      | ((error: Error | null, items: ApiResponse<EligibilityInstance>) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EligibilityInstance>,
+    ) => any,
+  ): Promise<ApiResponse<EligibilityInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<object> as object;
     } else {
-      params = params || {} as Partial<object> as object;
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<EligibilityResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<EligibilityInstance> => ({
-      ...response,
-      body: new EligibilityInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<EligibilityResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<EligibilityInstance> => ({
+        ...response,
+        body: new EligibilityInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface EligibilityPayload extends EligibilityResource {}
+interface EligibilityPayload extends EligibilityResource {}
 
 interface EligibilityResource {
   results: Array<any>;
 }
 
 export class EligibilityInstance {
-
-  constructor(protected _version: V1, payload: EligibilityResource) {
-    
-    this.results = (payload.results);
-
+  constructor(
+    protected _version: V1,
+    payload: EligibilityResource,
+  ) {
+    this.results = payload.results;
   }
 
   /**
@@ -207,5 +244,3 @@ export class EligibilityInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

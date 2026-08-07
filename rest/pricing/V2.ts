@@ -43,5 +43,4 @@ export default class V2 extends Version {
     this._numbers = this._numbers || NumberListInstance(this);
     return this._numbers;
   }
-
 }

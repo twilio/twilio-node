@@ -15,6 +15,10 @@
 import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { HostedNumberOrderListInstance } from "./v3/hostedNumberOrder";
+import { SmsVerificationListInstance } from "./v3/smsVerification";
+import { SmsVerificationCheckListInstance } from "./v3/smsVerificationCheck";
+import { VoiceVerificationListInstance } from "./v3/voiceVerification";
+import { VoiceVerificationCheckListInstance } from "./v3/voiceVerificationCheck";
 
 export default class V3 extends Version {
   /**
@@ -28,11 +32,43 @@ export default class V3 extends Version {
 
   /** hostedNumberOrders - { Twilio.Numbers.V3.HostedNumberOrderListInstance } resource */
   protected _hostedNumberOrders?: HostedNumberOrderListInstance;
+  /** smsVerifications - { Twilio.Numbers.V3.SmsVerificationListInstance } resource */
+  protected _smsVerifications?: SmsVerificationListInstance;
+  /** smsVerificationChecks - { Twilio.Numbers.V3.SmsVerificationCheckListInstance } resource */
+  protected _smsVerificationChecks?: SmsVerificationCheckListInstance;
+  /** voiceVerifications - { Twilio.Numbers.V3.VoiceVerificationListInstance } resource */
+  protected _voiceVerifications?: VoiceVerificationListInstance;
+  /** voiceVerificationChecks - { Twilio.Numbers.V3.VoiceVerificationCheckListInstance } resource */
+  protected _voiceVerificationChecks?: VoiceVerificationCheckListInstance;
 
   /** Getter for hostedNumberOrders resource */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
-    this._hostedNumberOrders =
-      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
     return this._hostedNumberOrders;
   }
+
+  /** Getter for smsVerifications resource */
+  get smsVerifications(): SmsVerificationListInstance {
+    this._smsVerifications = this._smsVerifications || SmsVerificationListInstance(this);
+    return this._smsVerifications;
+  }
+
+  /** Getter for smsVerificationChecks resource */
+  get smsVerificationChecks(): SmsVerificationCheckListInstance {
+    this._smsVerificationChecks = this._smsVerificationChecks || SmsVerificationCheckListInstance(this);
+    return this._smsVerificationChecks;
+  }
+
+  /** Getter for voiceVerifications resource */
+  get voiceVerifications(): VoiceVerificationListInstance {
+    this._voiceVerifications = this._voiceVerifications || VoiceVerificationListInstance(this);
+    return this._voiceVerifications;
+  }
+
+  /** Getter for voiceVerificationChecks resource */
+  get voiceVerificationChecks(): VoiceVerificationCheckListInstance {
+    this._voiceVerificationChecks = this._voiceVerificationChecks || VoiceVerificationCheckListInstance(this);
+    return this._voiceVerificationChecks;
+  }
+
 }

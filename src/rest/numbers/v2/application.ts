@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -21,6 +22,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 export class CreateShortCodeApplicationRequest {
   /**
@@ -42,6 +44,7 @@ export class CreateShortCodeApplicationRequest {
   }
 }
 
+
 /**
  * Business information associated with the application.
  */
@@ -56,6 +59,7 @@ export class CreateShortCodeApplicationRequestBusinessInformation {
   }
 }
 
+
 export class CreateShortCodeApplicationRequestSetup {
   "chargesApply": boolean;
 
@@ -63,6 +67,7 @@ export class CreateShortCodeApplicationRequestSetup {
     this.chargesApply = payload["charges_apply"];
   }
 }
+
 
 /**
  * Business information associated with the application.
@@ -82,6 +87,7 @@ export class CreateShortCodeApplicationResponseBusinessInformation {
     this.einCustomerFacingProfile = payload["ein_customer_facing_profile"];
   }
 }
+
 
 /**
  * Compliance keywords for the application.
@@ -104,6 +110,7 @@ export class CreateShortCodeApplicationResponseComplianceKeywords {
   }
 }
 
+
 /**
  * Content examples for the application.
  */
@@ -114,6 +121,7 @@ export class CreateShortCodeApplicationResponseContentExamples {
     this.examples = payload["examples"];
   }
 }
+
 
 /**
  * Setup configuration for the application.
@@ -146,6 +154,7 @@ export class CreateShortCodeApplicationResponseSetup {
   }
 }
 
+
 /**
  * SMS campaign details for the application.
  */
@@ -177,14 +186,10 @@ export class CreateShortCodeApplicationResponseSmsCampaignDetails {
     this.scUseCaseCategories = payload["sc_use_case_categories"];
     this.smsTermsOfServiceUrl = payload["sms_terms_of_service_url"];
     this.smsPrivacyPolicyUrl = payload["sms_privacy_policy_url"];
-    this.monthlyOutboundVolumeExpected =
-      payload["monthly_outbound_volume_expected"];
-    this.monthlyInboundVolumeExpected =
-      payload["monthly_inbound_volume_expected"];
-    this.avgMonthlyMessagesSentToEachSubscriber =
-      payload["avg_monthly_messages_sent_to_each_subscriber"];
-    this.avgMonthlyMessagesReceivedFromSubscribers =
-      payload["avg_monthly_messages_received_from_subscribers"];
+    this.monthlyOutboundVolumeExpected = payload["monthly_outbound_volume_expected"];
+    this.monthlyInboundVolumeExpected = payload["monthly_inbound_volume_expected"];
+    this.avgMonthlyMessagesSentToEachSubscriber = payload["avg_monthly_messages_sent_to_each_subscriber"];
+    this.avgMonthlyMessagesReceivedFromSubscribers = payload["avg_monthly_messages_received_from_subscribers"];
     this.estimatedTotalSubscribers = payload["estimated_total_subscribers"];
     this.durationOfTheCampaign = payload["duration_of_the_campaign"];
     this.plannedTrafficSpikes = payload["planned_traffic_spikes"];
@@ -192,6 +197,7 @@ export class CreateShortCodeApplicationResponseSmsCampaignDetails {
     this.expectedTrafficStartDate = payload["expected_traffic_start_date"];
   }
 }
+
 
 /**
  * User sign-up configuration for the application.
@@ -220,12 +226,15 @@ export class CreateShortCodeApplicationResponseUserSignUp {
   }
 }
 
+
+
+
 /**
  * Options to pass to create a ApplicationInstance
  */
 export interface ApplicationListInstanceCreateOptions {
   /**  */
-  createShortCodeApplicationRequest: CreateShortCodeApplicationRequest;
+  "createShortCodeApplicationRequest": CreateShortCodeApplicationRequest;
 }
 
 /**
@@ -233,17 +242,17 @@ export interface ApplicationListInstanceCreateOptions {
  */
 export interface ApplicationListInstanceEachOptions {
   /** The Account SID to filter by. */
-  accountSid?: string;
+  "accountSid"?: string;
   /** The ISO country to filter by. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** The application status to filter by. */
-  status?: string;
+  "status"?: string;
   /** The friendly name to filter by. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The application SID to filter by. */
-  sid?: string;
+  "sid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -257,44 +266,47 @@ export interface ApplicationListInstanceEachOptions {
  */
 export interface ApplicationListInstanceOptions {
   /** The Account SID to filter by. */
-  accountSid?: string;
+  "accountSid"?: string;
   /** The ISO country to filter by. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** The application status to filter by. */
-  status?: string;
+  "status"?: string;
   /** The friendly name to filter by. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The application SID to filter by. */
-  sid?: string;
+  "sid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ApplicationListInstancePageOptions {
   /** The Account SID to filter by. */
-  accountSid?: string;
+  "accountSid"?: string;
   /** The ISO country to filter by. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** The application status to filter by. */
-  status?: string;
+  "status"?: string;
   /** The friendly name to filter by. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The application SID to filter by. */
-  sid?: string;
+  "sid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ApplicationContext {
+
   /**
    * Fetch a ApplicationInstance
    *
@@ -302,9 +314,7 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance>;
+  fetch(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>
 
   /**
    * Fetch a ApplicationInstance and return HTTP info
@@ -313,12 +323,7 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -328,86 +333,56 @@ export interface ApplicationContext {
 }
 
 export interface ApplicationContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class ApplicationContextImpl implements ApplicationContext {
   protected _solution: ApplicationContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/ShortCodes/Applications/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ApplicationInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ApplicationInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ApplicationResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ApplicationInstance> => ({
-          ...response,
-          body: new ApplicationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ApplicationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ApplicationInstance> => ({
+      ...response,
+      body: new ApplicationInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -424,8 +399,9 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 }
 
-interface ApplicationPayload extends TwilioResponsePayload {
-  results: ApplicationResource[];
+
+  interface ApplicationPayload extends TwilioResponsePayload {
+    results: ApplicationResource[];
 }
 
 interface ApplicationResource {
@@ -456,66 +432,31 @@ export class ApplicationInstance {
   protected _solution: ApplicationContextSolution;
   protected _context?: ApplicationContext;
 
-  constructor(
-    protected _version: V2,
-    payload: ApplicationResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.applicationRequirementsSid = payload.application_requirements_sid;
-    this.applicationRequirementsVersion = deserialize.integer(
-      payload.application_requirements_version
-    );
-    this.accountSid = payload.account_sid;
-    this.bundleSid = payload.bundle_sid;
-    this.reviewer = payload.reviewer;
-    this.zendeskTicketId = payload.zendesk_ticket_id;
-    this.friendlyName = payload.friendly_name;
-    this.notificationEmails = payload.notification_emails;
-    this.isoCountry = payload.iso_country;
-    this.state = payload.state;
-    this.setup =
-      payload.setup !== null && payload.setup !== undefined
-        ? new CreateShortCodeApplicationResponseSetup(payload.setup)
-        : null;
-    this.businessInformation =
-      payload.business_information !== null &&
-      payload.business_information !== undefined
-        ? new CreateShortCodeApplicationResponseBusinessInformation(
-            payload.business_information
-          )
-        : null;
-    this.userSignUp =
-      payload.user_sign_up !== null && payload.user_sign_up !== undefined
-        ? new CreateShortCodeApplicationResponseUserSignUp(payload.user_sign_up)
-        : null;
-    this.complianceKeywords =
-      payload.compliance_keywords !== null &&
-      payload.compliance_keywords !== undefined
-        ? new CreateShortCodeApplicationResponseComplianceKeywords(
-            payload.compliance_keywords
-          )
-        : null;
-    this.contentExamples =
-      payload.content_examples !== null &&
-      payload.content_examples !== undefined
-        ? new CreateShortCodeApplicationResponseContentExamples(
-            payload.content_examples
-          )
-        : null;
-    this.smsCampaignDetails =
-      payload.sms_campaign_details !== null &&
-      payload.sms_campaign_details !== undefined
-        ? new CreateShortCodeApplicationResponseSmsCampaignDetails(
-            payload.sms_campaign_details
-          )
-        : null;
+  constructor(protected _version: V2, payload: ApplicationResource, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.applicationRequirementsSid = (payload.application_requirements_sid);
+    this.applicationRequirementsVersion = deserialize.integer(payload.application_requirements_version);
+    this.accountSid = (payload.account_sid);
+    this.bundleSid = (payload.bundle_sid);
+    this.reviewer = (payload.reviewer);
+    this.zendeskTicketId = (payload.zendesk_ticket_id);
+    this.friendlyName = (payload.friendly_name);
+    this.notificationEmails = (payload.notification_emails);
+    this.isoCountry = (payload.iso_country);
+    this.state = (payload.state);
+    this.setup = payload.setup !== null && payload.setup !== undefined ? new CreateShortCodeApplicationResponseSetup(payload.setup) : null;
+    this.businessInformation = payload.business_information !== null && payload.business_information !== undefined ? new CreateShortCodeApplicationResponseBusinessInformation(payload.business_information) : null;
+    this.userSignUp = payload.user_sign_up !== null && payload.user_sign_up !== undefined ? new CreateShortCodeApplicationResponseUserSignUp(payload.user_sign_up) : null;
+    this.complianceKeywords = payload.compliance_keywords !== null && payload.compliance_keywords !== undefined ? new CreateShortCodeApplicationResponseComplianceKeywords(payload.compliance_keywords) : null;
+    this.contentExamples = payload.content_examples !== null && payload.content_examples !== undefined ? new CreateShortCodeApplicationResponseContentExamples(payload.content_examples) : null;
+    this.smsCampaignDetails = payload.sms_campaign_details !== null && payload.sms_campaign_details !== undefined ? new CreateShortCodeApplicationResponseSmsCampaignDetails(payload.sms_campaign_details) : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.createdBy = payload.created_by;
-    this.updatedBy = payload.updated_by;
+    this.createdBy = (payload.created_by);
+    this.updatedBy = (payload.updated_by);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -586,9 +527,7 @@ export class ApplicationInstance {
   updatedBy: string;
 
   private get _proxy(): ApplicationContext {
-    this._context =
-      this._context ||
-      new ApplicationContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new ApplicationContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -599,9 +538,9 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance> {
+  fetch(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -612,12 +551,9 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -657,15 +593,20 @@ export class ApplicationInstance {
   }
 }
 
-export interface ApplicationSolution {}
+
+export interface ApplicationSolution {
+}
 
 export interface ApplicationListInstance {
   _version: V2;
   _solution: ApplicationSolution;
   _uri: string;
 
-  (sid: string): ApplicationContext;
-  get(sid: string): ApplicationContext;
+  (sid: string, ): ApplicationContext;
+  get(sid: string, ): ApplicationContext;
+
+
+
 
   /**
    * Create a ApplicationInstance
@@ -676,11 +617,7 @@ export interface ApplicationListInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  create(
-    params: CreateShortCodeApplicationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance>;
+  create(params: CreateShortCodeApplicationRequest, headers?: any, callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
 
   /**
    * Create a ApplicationInstance and return HTTP info
@@ -691,14 +628,10 @@ export interface ApplicationListInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateShortCodeApplicationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance>>;
+  createWithHttpInfo(params: CreateShortCodeApplicationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
+
+
+
 
   /**
    * Streams ApplicationInstance records from the API.
@@ -715,13 +648,8 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ApplicationListInstanceEachOptions,
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
+  each(params: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ApplicationInstance records from the API with HTTP metadata captured per page.
    *
@@ -737,13 +665,8 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ApplicationListInstanceEachOptions,
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
    *
@@ -752,10 +675,7 @@ export interface ApplicationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API with HTTP metadata.
    *
@@ -764,10 +684,7 @@ export interface ApplicationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
-  ): Promise<ApiResponse<ApplicationPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>>;
   /**
    * Lists ApplicationInstance records from the API as a list.
    *
@@ -777,13 +694,8 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any
-  ): Promise<ApplicationInstance[]>;
-  list(
-    params: ApplicationListInstanceOptions,
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any
-  ): Promise<ApplicationInstance[]>;
+  list(callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
+  list(params: ApplicationListInstanceOptions, callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
   /**
    * Lists ApplicationInstance records from the API as a list with HTTP metadata.
    *
@@ -795,19 +707,8 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance[]>>;
-  listWithHttpInfo(
-    params: ApplicationListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ApplicationInstance[]>) => any): Promise<ApiResponse<ApplicationInstance[]>>;
+  listWithHttpInfo(params: ApplicationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ApplicationInstance[]>) => any): Promise<ApiResponse<ApplicationInstance[]>>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
    *
@@ -819,13 +720,8 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage>;
-  page(
-    params: ApplicationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage>;
+  page(callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
+  page(params: ApplicationListInstancePageOptions, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API with HTTP metadata.
    *
@@ -837,13 +733,9 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
-  ): Promise<ApiResponse<ApplicationPage>>;
-  pageWithHttpInfo(
-    params: ApplicationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
-  ): Promise<ApiResponse<ApplicationPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>>;
+  pageWithHttpInfo(params: ApplicationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -853,107 +745,78 @@ export interface ApplicationListInstance {
 }
 
 export function ApplicationListInstance(version: V2): ApplicationListInstance {
-  const instance = ((sid) => instance.get(sid)) as ApplicationListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ApplicationListInstance;
 
-  instance.get = function get(sid): ApplicationContext {
+  instance.get = function get(sid, ): ApplicationContext {
     return new ApplicationContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/ShortCodes/Applications`;
 
-  instance.create = function create(
-    params: CreateShortCodeApplicationRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: ApplicationInstance) => any
-  ): Promise<ApplicationInstance> {
+  instance.create = function create(params: CreateShortCodeApplicationRequest, headers?: any, callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ApplicationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ApplicationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CreateShortCodeApplicationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationInstance>
-    ) => any
-  ): Promise<ApiResponse<ApplicationInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateShortCodeApplicationRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ApplicationResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ApplicationInstance> => ({
-          ...response,
-          body: new ApplicationInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ApplicationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ApplicationInstance> => ({
+      ...response,
+      body: new ApplicationInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ApplicationListInstancePageOptions
-      | ((error: Error | null, items: ApplicationPage) => any),
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage> {
+
+    }
+
+  instance.page = function page(params?: ApplicationListInstancePageOptions | ((error: Error | null, items: ApplicationPage) => any), callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -963,67 +826,54 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
     let data: any = {};
 
-    if (params["accountSid"] !== undefined)
-      data["AccountSid"] = params["accountSid"];
+        if (params["accountSid"] !== undefined)
+    data["AccountSid"] = params["accountSid"];
     if (params["isoCountry"] !== undefined)
-      data["IsoCountry"] = params["isoCountry"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["sid"] !== undefined)
+    data["Sid"] = params["sid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ApplicationPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ApplicationPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ApplicationPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ApplicationPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ApplicationListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ApplicationPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
-  ): Promise<ApiResponse<ApplicationPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ApplicationListInstancePageOptions | ((error: Error | null, items: ApiResponse<ApplicationPage>) => any), callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1033,125 +883,102 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
     let data: any = {};
 
-    if (params["accountSid"] !== undefined)
-      data["AccountSid"] = params["accountSid"];
+        if (params["accountSid"] !== undefined)
+    data["AccountSid"] = params["accountSid"];
     if (params["isoCountry"] !== undefined)
-      data["IsoCountry"] = params["isoCountry"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["sid"] !== undefined)
+    data["Sid"] = params["sid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ApplicationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ApplicationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ApplicationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ApplicationPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ApplicationPage>
-    ) => any
-  ): Promise<ApiResponse<ApplicationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ApplicationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ApplicationPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ApplicationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ApplicationPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ApplicationPage extends Page<
-  V2,
-  ApplicationPayload,
-  ApplicationResource,
-  ApplicationInstance
-> {
-  /**
-   * Initialize the ApplicationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: ApplicationSolution
-  ) {
+export class ApplicationPage extends Page<V2, ApplicationPayload, ApplicationResource, ApplicationInstance> {
+/**
+* Initialize the ApplicationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ApplicationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ApplicationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ApplicationResource): ApplicationInstance {
-    return new ApplicationInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ApplicationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ApplicationResource): ApplicationInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new ApplicationInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

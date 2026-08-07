@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Rate limit response schema
@@ -55,27 +53,21 @@ export class RateLimitResponse {
   }
 }
 
-
-
 /**
  * Options to pass to fetch a RateLimitInstance
  */
 export interface RateLimitListInstanceFetchOptions {
   /**  */
-  "fields"?: Array<string>;
+  fields?: Array<string>;
 }
 
-
-export interface RateLimitSolution {
-}
+export interface RateLimitSolution {}
 
 export interface RateLimitListInstance {
   _version: V2;
   _solution: RateLimitSolution;
   _uri: string;
 
-
-
   /**
    * Fetch a RateLimitInstance
    *
@@ -83,7 +75,9 @@ export interface RateLimitListInstance {
    *
    * @returns Resolves to processed RateLimitInstance
    */
-  fetch(callback?: (error: Error | null, item?: RateLimitInstance) => any): Promise<RateLimitInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: RateLimitInstance) => any,
+  ): Promise<RateLimitInstance>;
   /**
    * Fetch a RateLimitInstance
    *
@@ -92,7 +86,10 @@ export interface RateLimitListInstance {
    *
    * @returns Resolves to processed RateLimitInstance
    */
-  fetch(params: RateLimitListInstanceFetchOptions, callback?: (error: Error | null, item?: RateLimitInstance) => any): Promise<RateLimitInstance>;
+  fetch(
+    params: RateLimitListInstanceFetchOptions,
+    callback?: (error: Error | null, item?: RateLimitInstance) => any,
+  ): Promise<RateLimitInstance>;
 
   /**
    * Fetch a RateLimitInstance and return HTTP info
@@ -101,7 +98,12 @@ export interface RateLimitListInstance {
    *
    * @returns Resolves to processed RateLimitInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RateLimitInstance>) => any): Promise<ApiResponse<RateLimitInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>,
+    ) => any,
+  ): Promise<ApiResponse<RateLimitInstance>>;
   /**
    * Fetch a RateLimitInstance and return HTTP info
    *
@@ -110,9 +112,13 @@ export interface RateLimitListInstance {
    *
    * @returns Resolves to processed RateLimitInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: RateLimitListInstanceFetchOptions, callback?: (error: Error | null, item?: ApiResponse<RateLimitInstance>) => any): Promise<ApiResponse<RateLimitInstance>>;
-
-
+  fetchWithHttpInfo(
+    params: RateLimitListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RateLimitInstance>,
+    ) => any,
+  ): Promise<ApiResponse<RateLimitInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -125,99 +131,125 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
   const instance = {} as RateLimitListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RateLimits`;
 
-  instance.fetch = function fetch(params?: RateLimitListInstanceFetchOptions | ((error: Error | null, items: RateLimitInstance) => any), callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<RateLimitInstance> {
+  instance.fetch = function fetch(
+    params?:
+      | RateLimitListInstanceFetchOptions
+      | ((error: Error | null, items: RateLimitInstance) => any),
+    callback?: (error: Error | null, items: RateLimitInstance) => any,
+  ): Promise<RateLimitInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["fields"] !== undefined)
-    data["Fields"] = serialize.map(params["fields"], (e: string) => (e));
+    if (params["fields"] !== undefined)
+      data["Fields"] = serialize.map(params["fields"], (e: string) => e);
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new RateLimitInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RateLimitInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(params?: RateLimitListInstanceFetchOptions | ((error: Error | null, items: ApiResponse<RateLimitInstance>) => any), callback?: (error: Error | null, items: ApiResponse<RateLimitInstance>) => any): Promise<ApiResponse<RateLimitInstance>> {
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | RateLimitListInstanceFetchOptions
+      | ((error: Error | null, items: ApiResponse<RateLimitInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<RateLimitInstance>,
+    ) => any,
+  ): Promise<ApiResponse<RateLimitInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["fields"] !== undefined)
-    data["Fields"] = serialize.map(params["fields"], (e: string) => (e));
+    if (params["fields"] !== undefined)
+      data["Fields"] = serialize.map(params["fields"], (e: string) => e);
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<RateLimitResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<RateLimitInstance> => ({
-      ...response,
-      body: new RateLimitInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RateLimitResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<RateLimitInstance> => ({
+        ...response,
+        body: new RateLimitInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface RateLimitPayload extends RateLimitResource {}
+interface RateLimitPayload extends RateLimitResource {}
 
 interface RateLimitResource {
   rate_limits: Array<RateLimitResponse>;
 }
 
 export class RateLimitInstance {
-
-  constructor(protected _version: V2, payload: RateLimitResource) {
-    
-    this.rateLimits =  payload.rate_limits !== null && payload.rate_limits !== undefined ? payload.rate_limits.map(
-      (payload: any) => new RateLimitResponse(payload)
-    ) : null;
-
+  constructor(
+    protected _version: V2,
+    payload: RateLimitResource,
+  ) {
+    this.rateLimits =
+      payload.rate_limits !== null && payload.rate_limits !== undefined
+        ? payload.rate_limits.map(
+            (payload: any) => new RateLimitResponse(payload),
+          )
+        : null;
   }
 
   rateLimits: Array<RateLimitResponse>;
@@ -237,5 +269,3 @@ export class RateLimitInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

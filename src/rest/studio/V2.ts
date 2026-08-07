@@ -43,4 +43,5 @@ export default class V2 extends Version {
     this._flowValidate = this._flowValidate || FlowValidateListInstance(this);
     return this._flowValidate;
   }
+
 }

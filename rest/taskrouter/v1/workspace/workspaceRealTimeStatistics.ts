@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -20,18 +19,15 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a WorkspaceRealTimeStatisticsInstance
  */
 export interface WorkspaceRealTimeStatisticsContextFetchOptions {
   /** Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  "taskChannel"?: string;
+  taskChannel?: string;
 }
 
 export interface WorkspaceRealTimeStatisticsContext {
-
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance
    *
@@ -39,7 +35,12 @@ export interface WorkspaceRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance,
+    ) => any,
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance
    *
@@ -48,7 +49,13 @@ export interface WorkspaceRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
-  fetch(params: WorkspaceRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance>;
+  fetch(
+    params: WorkspaceRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance,
+    ) => any,
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
 
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance and return HTTP info
@@ -57,7 +64,12 @@ export interface WorkspaceRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance and return HTTP info
    *
@@ -66,7 +78,13 @@ export interface WorkspaceRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: WorkspaceRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(
+    params: WorkspaceRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,88 +94,128 @@ export interface WorkspaceRealTimeStatisticsContext {
 }
 
 export interface WorkspaceRealTimeStatisticsContextSolution {
-  "workspaceSid": string;
+  workspaceSid: string;
 }
 
 export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTimeStatisticsContext {
   protected _solution: WorkspaceRealTimeStatisticsContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error('Parameter \'workspaceSid\' is not valid.');
+      throw new Error("Parameter 'workspaceSid' is not valid.");
     }
 
-    this._solution = { workspaceSid,  };
+    this._solution = { workspaceSid };
     this._uri = `/Workspaces/${workspaceSid}/RealTimeStatistics`;
   }
 
-  fetch(params?: WorkspaceRealTimeStatisticsContextFetchOptions | ((error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any),callback?: (error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | WorkspaceRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkspaceRealTimeStatisticsInstance,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance,
+    ) => any,
+  ): Promise<WorkspaceRealTimeStatisticsInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new WorkspaceRealTimeStatisticsInstance(operationVersion, payload, instance._solution.workspaceSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkspaceRealTimeStatisticsInstance(
+          operationVersion,
+          payload,
+          instance._solution.workspaceSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: WorkspaceRealTimeStatisticsContextFetchOptions | ((error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | WorkspaceRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
+    if (params["taskChannel"] !== undefined)
+      data["TaskChannel"] = params["taskChannel"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<WorkspaceRealTimeStatisticsResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<WorkspaceRealTimeStatisticsInstance> => ({
-      ...response,
-      body: new WorkspaceRealTimeStatisticsInstance(operationVersion, response.body, instance._solution.workspaceSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<WorkspaceRealTimeStatisticsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<WorkspaceRealTimeStatisticsInstance> => ({
+        ...response,
+        body: new WorkspaceRealTimeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -174,8 +232,7 @@ export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTime
   }
 }
 
-
-  interface WorkspaceRealTimeStatisticsPayload extends WorkspaceRealTimeStatisticsResource {}
+interface WorkspaceRealTimeStatisticsPayload extends WorkspaceRealTimeStatisticsResource {}
 
 interface WorkspaceRealTimeStatisticsResource {
   account_sid: string;
@@ -194,20 +251,25 @@ export class WorkspaceRealTimeStatisticsInstance {
   protected _solution: WorkspaceRealTimeStatisticsContextSolution;
   protected _context?: WorkspaceRealTimeStatisticsContext;
 
-  constructor(protected _version: V1, payload: WorkspaceRealTimeStatisticsResource, workspaceSid: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.activityStatistics = (payload.activity_statistics);
-    this.longestTaskWaitingAge = deserialize.integer(payload.longest_task_waiting_age);
-    this.longestTaskWaitingSid = (payload.longest_task_waiting_sid);
-    this.tasksByPriority = (payload.tasks_by_priority);
-    this.tasksByStatus = (payload.tasks_by_status);
+  constructor(
+    protected _version: V1,
+    payload: WorkspaceRealTimeStatisticsResource,
+    workspaceSid: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.activityStatistics = payload.activity_statistics;
+    this.longestTaskWaitingAge = deserialize.integer(
+      payload.longest_task_waiting_age,
+    );
+    this.longestTaskWaitingSid = payload.longest_task_waiting_sid;
+    this.tasksByPriority = payload.tasks_by_priority;
+    this.tasksByStatus = payload.tasks_by_status;
     this.totalTasks = deserialize.integer(payload.total_tasks);
     this.totalWorkers = deserialize.integer(payload.total_workers);
-    this.workspaceSid = (payload.workspace_sid);
-    this.url = (payload.url);
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
 
-    this._solution = { workspaceSid,  };
+    this._solution = { workspaceSid };
   }
 
   /**
@@ -252,7 +314,12 @@ export class WorkspaceRealTimeStatisticsInstance {
   url: string;
 
   private get _proxy(): WorkspaceRealTimeStatisticsContext {
-    this._context = this._context || new WorkspaceRealTimeStatisticsContextImpl(this._version, this._solution.workspaceSid);
+    this._context =
+      this._context ||
+      new WorkspaceRealTimeStatisticsContextImpl(
+        this._version,
+        this._solution.workspaceSid,
+      );
     return this._context;
   }
 
@@ -263,7 +330,12 @@ export class WorkspaceRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance,
+    ) => any,
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance
    *
@@ -272,10 +344,21 @@ export class WorkspaceRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
-  fetch(params: WorkspaceRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance>;
+  fetch(
+    params: WorkspaceRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance,
+    ) => any,
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance,
+    ) => any,
+  ): Promise<WorkspaceRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -286,7 +369,12 @@ export class WorkspaceRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance and return HTTP info
    *
@@ -295,10 +383,21 @@ export class WorkspaceRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkspaceRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: WorkspaceRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(
+    params: WorkspaceRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WorkspaceRealTimeStatisticsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -327,7 +426,6 @@ export class WorkspaceRealTimeStatisticsInstance {
   }
 }
 
-
 export interface WorkspaceRealTimeStatisticsSolution {
   workspaceSid: string;
 }
@@ -340,9 +438,6 @@ export interface WorkspaceRealTimeStatisticsListInstance {
   (): WorkspaceRealTimeStatisticsContext;
   get(): WorkspaceRealTimeStatisticsContext;
 
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -350,30 +445,35 @@ export interface WorkspaceRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function WorkspaceRealTimeStatisticsListInstance(version: V1, workspaceSid: string): WorkspaceRealTimeStatisticsListInstance {
+export function WorkspaceRealTimeStatisticsListInstance(
+  version: V1,
+  workspaceSid: string,
+): WorkspaceRealTimeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error('Parameter \'workspaceSid\' is not valid.');
+    throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as WorkspaceRealTimeStatisticsListInstance;
+  const instance = (() =>
+    instance.get()) as WorkspaceRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkspaceRealTimeStatisticsContext {
     return new WorkspaceRealTimeStatisticsContextImpl(version, workspaceSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { workspaceSid,  };
+  instance._solution = { workspaceSid };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

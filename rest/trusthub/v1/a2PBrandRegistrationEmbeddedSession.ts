@@ -12,17 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
-
-
-
 
 export interface A2PBrandRegistrationEmbeddedSessionSolution {
   id: string;
@@ -33,8 +28,6 @@ export interface A2PBrandRegistrationEmbeddedSessionListInstance {
   _solution: A2PBrandRegistrationEmbeddedSessionSolution;
   _uri: string;
 
-
-
   /**
    * Create a A2PBrandRegistrationEmbeddedSessionInstance
    *
@@ -42,7 +35,12 @@ export interface A2PBrandRegistrationEmbeddedSessionListInstance {
    *
    * @returns Resolves to processed A2PBrandRegistrationEmbeddedSessionInstance
    */
-  create(callback?: (error: Error | null, item?: A2PBrandRegistrationEmbeddedSessionInstance) => any): Promise<A2PBrandRegistrationEmbeddedSessionInstance>
+  create(
+    callback?: (
+      error: Error | null,
+      item?: A2PBrandRegistrationEmbeddedSessionInstance,
+    ) => any,
+  ): Promise<A2PBrandRegistrationEmbeddedSessionInstance>;
 
   /**
    * Create a A2PBrandRegistrationEmbeddedSessionInstance and return HTTP info
@@ -51,9 +49,12 @@ export interface A2PBrandRegistrationEmbeddedSessionListInstance {
    *
    * @returns Resolves to processed A2PBrandRegistrationEmbeddedSessionInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>) => any): Promise<ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>>
-
-
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -62,62 +63,104 @@ export interface A2PBrandRegistrationEmbeddedSessionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function A2PBrandRegistrationEmbeddedSessionListInstance(version: V1, id: string): A2PBrandRegistrationEmbeddedSessionListInstance {
+export function A2PBrandRegistrationEmbeddedSessionListInstance(
+  version: V1,
+  id: string,
+): A2PBrandRegistrationEmbeddedSessionListInstance {
   if (!isValidPathParam(id)) {
-    throw new Error('Parameter \'id\' is not valid.');
+    throw new Error("Parameter 'id' is not valid.");
   }
 
   const instance = {} as A2PBrandRegistrationEmbeddedSessionListInstance;
 
   instance._version = version;
-  instance._solution = { id,  };
+  instance._solution = { id };
   instance._uri = `/A2PBrandRegistrations/${id}/EmbeddedSessions`;
 
-  instance.create = function create( callback?: (error: Error | null, items: A2PBrandRegistrationEmbeddedSessionInstance) => any): Promise<A2PBrandRegistrationEmbeddedSessionInstance> {
+  instance.create = function create(
+    callback?: (
+      error: Error | null,
+      items: A2PBrandRegistrationEmbeddedSessionInstance,
+    ) => any,
+  ): Promise<A2PBrandRegistrationEmbeddedSessionInstance> {
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", headers});
-    
-    operationPromise = operationPromise.then(payload => new A2PBrandRegistrationEmbeddedSessionInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new A2PBrandRegistrationEmbeddedSessionInstance(
+          operationVersion,
+          payload,
+          instance._solution.id,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>) => any): Promise<ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance>> {
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<A2PBrandRegistrationEmbeddedSessionResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance> => ({
-      ...response,
-      body: new A2PBrandRegistrationEmbeddedSessionInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<A2PBrandRegistrationEmbeddedSessionResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (
+          response,
+        ): ApiResponse<A2PBrandRegistrationEmbeddedSessionInstance> => ({
+          ...response,
+          body: new A2PBrandRegistrationEmbeddedSessionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface A2PBrandRegistrationEmbeddedSessionPayload extends A2PBrandRegistrationEmbeddedSessionResource {}
+interface A2PBrandRegistrationEmbeddedSessionPayload extends A2PBrandRegistrationEmbeddedSessionResource {}
 
 interface A2PBrandRegistrationEmbeddedSessionResource {
   id: string;
@@ -126,13 +169,14 @@ interface A2PBrandRegistrationEmbeddedSessionResource {
 }
 
 export class A2PBrandRegistrationEmbeddedSessionInstance {
-
-  constructor(protected _version: V1, payload: A2PBrandRegistrationEmbeddedSessionResource, id?: string) {
-    
-    this.id = (payload.id);
-    this.sessionId = (payload.sessionId);
-    this.sessionToken = (payload.sessionToken);
-
+  constructor(
+    protected _version: V1,
+    payload: A2PBrandRegistrationEmbeddedSessionResource,
+    id?: string,
+  ) {
+    this.id = payload.id;
+    this.sessionId = payload.sessionId;
+    this.sessionToken = payload.sessionToken;
   }
 
   /**
@@ -165,5 +209,3 @@ export class A2PBrandRegistrationEmbeddedSessionInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

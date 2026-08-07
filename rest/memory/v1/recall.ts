@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * A single communication within a conversation across channels including SMS, Voice, Email, etc. Contains fields that are relevant to an agent to maintain session memory.
@@ -59,7 +57,6 @@ export class Communication {
   }
 }
 
-
 /**
  * Content of a communication.
  */
@@ -73,7 +70,6 @@ export class CommunicationContent {
     this.text = payload["text"];
   }
 }
-
 
 export class CommunicationRecipients {
   /**
@@ -112,7 +108,6 @@ export class CommunicationRecipients {
     this.deliveryStatus = payload["deliveryStatus"];
   }
 }
-
 
 /**
  * Request payload for retrieving profile memories with advanced filtering and semantic search.
@@ -163,7 +158,6 @@ export class MemoryRetrievalRequest {
   }
 }
 
-
 /**
  * Metadata about the retrieval operation.
  */
@@ -177,7 +171,6 @@ export class MemoryRetrievalResponseMeta {
     this.queryTime = payload["queryTime"];
   }
 }
-
 
 export class Participant {
   /**
@@ -212,11 +205,11 @@ export class Participant {
   }
 }
 
-
 /**
  * Type of Participant in the Conversation
  */
-export type ParticipantType = 'HUMAN_AGENT'|'CUSTOMER'|'AI_AGENT'|'AGENT'|'UNKNOWN';
+export type ParticipantType =
+  "HUMAN_AGENT" | "CUSTOMER" | "AI_AGENT" | "AGENT" | "UNKNOWN";
 
 /**
  * A transient and mutable observation memory associated with a profile.
@@ -267,7 +260,6 @@ export class RecallObservationInfo {
   }
 }
 
-
 /**
  * A summary memory derived from conversations.
  */
@@ -317,20 +309,17 @@ export class RecallSummaryInfo {
   }
 }
 
-
-
 /**
  * Options to pass to create a RecallInstance
  */
 export interface RecallListInstanceCreateOptions {
   /**  */
-  "memoryRetrievalRequest": MemoryRetrievalRequest;
+  memoryRetrievalRequest: MemoryRetrievalRequest;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  "acceptEncoding"?: string;
+  acceptEncoding?: string;
   /** Compression algorithm used for the request body (e.g., gzip, deflate, br) */
-  "contentEncoding"?: 'gzip' | 'deflate' | 'br' | 'compress';
+  contentEncoding?: "gzip" | "deflate" | "br" | "compress";
 }
-
 
 export interface RecallSolution {
   storeId: string;
@@ -342,8 +331,6 @@ export interface RecallListInstance {
   _solution: RecallSolution;
   _uri: string;
 
-
-
   /**
    * Create a RecallInstance
    *
@@ -353,7 +340,11 @@ export interface RecallListInstance {
    *
    * @returns Resolves to processed RecallInstance
    */
-  create(params: MemoryRetrievalRequest, headers?: any, callback?: (error: Error | null, item?: RecallInstance) => any): Promise<RecallInstance>;
+  create(
+    params: MemoryRetrievalRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: RecallInstance) => any,
+  ): Promise<RecallInstance>;
 
   /**
    * Create a RecallInstance and return HTTP info
@@ -364,9 +355,11 @@ export interface RecallListInstance {
    *
    * @returns Resolves to processed RecallInstance with HTTP metadata
    */
-  createWithHttpInfo(params: MemoryRetrievalRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<RecallInstance>) => any): Promise<ApiResponse<RecallInstance>>;
-
-
+  createWithHttpInfo(
+    params: MemoryRetrievalRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<RecallInstance>) => any,
+  ): Promise<ApiResponse<RecallInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -375,94 +368,129 @@ export interface RecallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RecallListInstance(version: V1, storeId: string, profileId: string): RecallListInstance {
+export function RecallListInstance(
+  version: V1,
+  storeId: string,
+  profileId: string,
+): RecallListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
   if (!isValidPathParam(profileId)) {
-    throw new Error('Parameter \'profileId\' is not valid.');
+    throw new Error("Parameter 'profileId' is not valid.");
   }
 
   const instance = {} as RecallListInstance;
 
   instance._version = version;
-  instance._solution = { storeId, profileId,  };
+  instance._solution = { storeId, profileId };
   instance._uri = `/Stores/${storeId}/Profiles/${profileId}/Recall`;
 
-  instance.create = function create(params: MemoryRetrievalRequest, headers?: any, callback?: (error: Error | null, items: RecallInstance) => any): Promise<RecallInstance> {
+  instance.create = function create(
+    params: MemoryRetrievalRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: RecallInstance) => any,
+  ): Promise<RecallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new RecallInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RecallInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: MemoryRetrievalRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<RecallInstance>) => any): Promise<ApiResponse<RecallInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: MemoryRetrievalRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<RecallInstance>) => any,
+  ): Promise<ApiResponse<RecallInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<RecallResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<RecallInstance> => ({
-      ...response,
-      body: new RecallInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<RecallResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<RecallInstance> => ({
+        ...response,
+        body: new RecallInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
 
 interface RecallResource {
   observations: Array<RecallObservationInfo>;
@@ -475,20 +503,35 @@ interface RecallResource {
  * Response containing retrieved profile memories organized by type.
  */
 export class RecallInstance {
-
-  constructor(protected _version: V1, _payload: RecallResource, storeId: string, profileId: string) {
+  constructor(
+    protected _version: V1,
+    _payload: RecallResource,
+    storeId: string,
+    profileId: string,
+  ) {
     const payload = _payload;
-    this.observations =  payload.observations !== null && payload.observations !== undefined ? payload.observations.map(
-      (payload: any) => new RecallObservationInfo(payload)
-    ) : null;
-    this.summaries =  payload.summaries !== null && payload.summaries !== undefined ? payload.summaries.map(
-      (payload: any) => new RecallSummaryInfo(payload)
-    ) : null;
-    this.communications =  payload.communications !== null && payload.communications !== undefined ? payload.communications.map(
-      (payload: any) => new Communication(payload)
-    ) : null;
-    this.meta = payload.meta !== null && payload.meta !== undefined ? new MemoryRetrievalResponseMeta(payload.meta) : null;
-
+    this.observations =
+      payload.observations !== null && payload.observations !== undefined
+        ? payload.observations.map(
+            (payload: any) => new RecallObservationInfo(payload),
+          )
+        : null;
+    this.summaries =
+      payload.summaries !== null && payload.summaries !== undefined
+        ? payload.summaries.map(
+            (payload: any) => new RecallSummaryInfo(payload),
+          )
+        : null;
+    this.communications =
+      payload.communications !== null && payload.communications !== undefined
+        ? payload.communications.map(
+            (payload: any) => new Communication(payload),
+          )
+        : null;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new MemoryRetrievalResponseMeta(payload.meta)
+        : null;
   }
 
   /**
@@ -523,5 +566,3 @@ export class RecallInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

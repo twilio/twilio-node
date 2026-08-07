@@ -20,7 +20,7 @@ import IOrgsCredentialProvider from "./credential_provider/OrgsCredentialProvide
 function TwilioSDK(
   accountSid?: string,
   authToken?: string,
-  opts?: IClientOpts
+  opts?: IClientOpts,
 ): TwilioSDK.Twilio {
   return new TwilioSDK.Twilio(accountSid, authToken, opts);
 }

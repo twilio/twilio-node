@@ -58,7 +58,8 @@ export default class V1 extends Version {
 
   /** Getter for bulkCountryUpdates resource */
   get bulkCountryUpdates(): BulkCountryUpdateListInstance {
-    this._bulkCountryUpdates = this._bulkCountryUpdates || BulkCountryUpdateListInstance(this);
+    this._bulkCountryUpdates =
+      this._bulkCountryUpdates || BulkCountryUpdateListInstance(this);
     return this._bulkCountryUpdates;
   }
 
@@ -70,7 +71,8 @@ export default class V1 extends Version {
 
   /** Getter for connectionPolicies resource */
   get connectionPolicies(): ConnectionPolicyListInstance {
-    this._connectionPolicies = this._connectionPolicies || ConnectionPolicyListInstance(this);
+    this._connectionPolicies =
+      this._connectionPolicies || ConnectionPolicyListInstance(this);
     return this._connectionPolicies;
   }
 
@@ -94,8 +96,8 @@ export default class V1 extends Version {
 
   /** Getter for sourceIpMappings resource */
   get sourceIpMappings(): SourceIpMappingListInstance {
-    this._sourceIpMappings = this._sourceIpMappings || SourceIpMappingListInstance(this);
+    this._sourceIpMappings =
+      this._sourceIpMappings || SourceIpMappingListInstance(this);
     return this._sourceIpMappings;
   }
-
 }

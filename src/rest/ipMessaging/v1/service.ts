@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -25,26 +26,30 @@ import { ChannelListInstance } from "./service/channel";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
 
+
+
+
+
 /**
  * Options to pass to update a ServiceInstance
  */
 export interface ServiceContextUpdateOptions {
   /**  */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /**  */
-  defaultServiceRoleSid?: string;
+  "defaultServiceRoleSid"?: string;
   /**  */
-  defaultChannelRoleSid?: string;
+  "defaultChannelRoleSid"?: string;
   /**  */
-  defaultChannelCreatorRoleSid?: string;
+  "defaultChannelCreatorRoleSid"?: string;
   /**  */
-  readStatusEnabled?: boolean;
+  "readStatusEnabled"?: boolean;
   /**  */
-  reachabilityEnabled?: boolean;
+  "reachabilityEnabled"?: boolean;
   /**  */
-  typingIndicatorTimeout?: number;
+  "typingIndicatorTimeout"?: number;
   /**  */
-  consumptionReportInterval?: number;
+  "consumptionReportInterval"?: number;
   /**  */
   "notifications.newMessage.enabled"?: boolean;
   /**  */
@@ -62,13 +67,13 @@ export interface ServiceContextUpdateOptions {
   /**  */
   "notifications.invitedToChannel.template"?: string;
   /**  */
-  preWebhookUrl?: string;
+  "preWebhookUrl"?: string;
   /**  */
-  postWebhookUrl?: string;
+  "postWebhookUrl"?: string;
   /**  */
-  webhookMethod?: string;
+  "webhookMethod"?: string;
   /**  */
-  webhookFilters?: Array<string>;
+  "webhookFilters"?: Array<string>;
   /**  */
   "webhooks.onMessageSend.url"?: string;
   /**  */
@@ -144,7 +149,7 @@ export interface ServiceContextUpdateOptions {
  */
 export interface ServiceListInstanceCreateOptions {
   /**  */
-  friendlyName: string;
+  "friendlyName": string;
 }
 
 /**
@@ -152,7 +157,7 @@ export interface ServiceListInstanceCreateOptions {
  */
 export interface ServiceListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -166,22 +171,24 @@ export interface ServiceListInstanceEachOptions {
  */
 export interface ServiceListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ServiceListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ServiceContext {
   channels: ChannelListInstance;
@@ -195,9 +202,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a ServiceInstance and return HTTP info
@@ -206,9 +211,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a ServiceInstance
@@ -217,9 +220,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
 
   /**
    * Fetch a ServiceInstance and return HTTP info
@@ -228,9 +229,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
 
   /**
    * Update a ServiceInstance
@@ -239,9 +238,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -250,10 +247,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
 
   /**
    * Update a ServiceInstance and return HTTP info
@@ -262,9 +256,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
    *
@@ -273,10 +265,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -286,7 +275,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -299,527 +288,373 @@ export class ServiceContextImpl implements ServiceContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Services/${sid}`;
   }
 
   get channels(): ChannelListInstance {
-    this._channels =
-      this._channels || ChannelListInstance(this._version, this._solution.sid);
+    this._channels = this._channels || ChannelListInstance(this._version, this._solution.sid);
     return this._channels;
   }
 
   get roles(): RoleListInstance {
-    this._roles =
-      this._roles || RoleListInstance(this._version, this._solution.sid);
+    this._roles = this._roles || RoleListInstance(this._version, this._solution.sid);
     return this._roles;
   }
 
   get users(): UserListInstance {
-    this._users =
-      this._users || UserListInstance(this._version, this._solution.sid);
+    this._users = this._users || UserListInstance(this._version, this._solution.sid);
     return this._users;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ServiceResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ServiceInstance> => ({
+      ...response,
+      body: new ServiceInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ServiceContextUpdateOptions
-      | ((error: Error | null, item?: ServiceInstance) => any),
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
-    if (params instanceof Function) {
+  update(params?: ServiceContextUpdateOptions | ((error: Error | null, item?: ServiceInstance) => any),callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["defaultServiceRoleSid"] !== undefined)
-      data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
+    data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
     if (params["defaultChannelRoleSid"] !== undefined)
-      data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
+    data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
     if (params["defaultChannelCreatorRoleSid"] !== undefined)
-      data["DefaultChannelCreatorRoleSid"] =
-        params["defaultChannelCreatorRoleSid"];
+    data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
     if (params["readStatusEnabled"] !== undefined)
-      data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
+    data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
     if (params["reachabilityEnabled"] !== undefined)
-      data["ReachabilityEnabled"] = serialize.bool(
-        params["reachabilityEnabled"]
-      );
+    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
     if (params["typingIndicatorTimeout"] !== undefined)
-      data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
+    data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
     if (params["consumptionReportInterval"] !== undefined)
-      data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
+    data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
     if (params["notifications.newMessage.enabled"] !== undefined)
-      data["Notifications.NewMessage.Enabled"] = serialize.bool(
-        params["notifications.newMessage.enabled"]
-      );
+    data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
     if (params["notifications.newMessage.template"] !== undefined)
-      data["Notifications.NewMessage.Template"] =
-        params["notifications.newMessage.template"];
+    data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
     if (params["notifications.addedToChannel.enabled"] !== undefined)
-      data["Notifications.AddedToChannel.Enabled"] = serialize.bool(
-        params["notifications.addedToChannel.enabled"]
-      );
+    data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
     if (params["notifications.addedToChannel.template"] !== undefined)
-      data["Notifications.AddedToChannel.Template"] =
-        params["notifications.addedToChannel.template"];
+    data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
     if (params["notifications.removedFromChannel.enabled"] !== undefined)
-      data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(
-        params["notifications.removedFromChannel.enabled"]
-      );
+    data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
     if (params["notifications.removedFromChannel.template"] !== undefined)
-      data["Notifications.RemovedFromChannel.Template"] =
-        params["notifications.removedFromChannel.template"];
+    data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
     if (params["notifications.invitedToChannel.enabled"] !== undefined)
-      data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(
-        params["notifications.invitedToChannel.enabled"]
-      );
+    data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
     if (params["notifications.invitedToChannel.template"] !== undefined)
-      data["Notifications.InvitedToChannel.Template"] =
-        params["notifications.invitedToChannel.template"];
+    data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
     if (params["preWebhookUrl"] !== undefined)
-      data["PreWebhookUrl"] = params["preWebhookUrl"];
+    data["PreWebhookUrl"] = params["preWebhookUrl"];
     if (params["postWebhookUrl"] !== undefined)
-      data["PostWebhookUrl"] = params["postWebhookUrl"];
+    data["PostWebhookUrl"] = params["postWebhookUrl"];
     if (params["webhookMethod"] !== undefined)
-      data["WebhookMethod"] = params["webhookMethod"];
+    data["WebhookMethod"] = params["webhookMethod"];
     if (params["webhookFilters"] !== undefined)
-      data["WebhookFilters"] = serialize.map(
-        params["webhookFilters"],
-        (e: string) => e
-      );
+    data["WebhookFilters"] = serialize.map(params["webhookFilters"], (e: string) => (e));
     if (params["webhooks.onMessageSend.url"] !== undefined)
-      data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
+    data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
     if (params["webhooks.onMessageSend.method"] !== undefined)
-      data["Webhooks.OnMessageSend.Method"] =
-        params["webhooks.onMessageSend.method"];
+    data["Webhooks.OnMessageSend.Method"] = params["webhooks.onMessageSend.method"];
     if (params["webhooks.onMessageUpdate.url"] !== undefined)
-      data["Webhooks.OnMessageUpdate.Url"] =
-        params["webhooks.onMessageUpdate.url"];
+    data["Webhooks.OnMessageUpdate.Url"] = params["webhooks.onMessageUpdate.url"];
     if (params["webhooks.onMessageUpdate.method"] !== undefined)
-      data["Webhooks.OnMessageUpdate.Method"] =
-        params["webhooks.onMessageUpdate.method"];
+    data["Webhooks.OnMessageUpdate.Method"] = params["webhooks.onMessageUpdate.method"];
     if (params["webhooks.onMessageRemove.url"] !== undefined)
-      data["Webhooks.OnMessageRemove.Url"] =
-        params["webhooks.onMessageRemove.url"];
+    data["Webhooks.OnMessageRemove.Url"] = params["webhooks.onMessageRemove.url"];
     if (params["webhooks.onMessageRemove.method"] !== undefined)
-      data["Webhooks.OnMessageRemove.Method"] =
-        params["webhooks.onMessageRemove.method"];
+    data["Webhooks.OnMessageRemove.Method"] = params["webhooks.onMessageRemove.method"];
     if (params["webhooks.onChannelAdd.url"] !== undefined)
-      data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
+    data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
     if (params["webhooks.onChannelAdd.method"] !== undefined)
-      data["Webhooks.OnChannelAdd.Method"] =
-        params["webhooks.onChannelAdd.method"];
+    data["Webhooks.OnChannelAdd.Method"] = params["webhooks.onChannelAdd.method"];
     if (params["webhooks.onChannelDestroy.url"] !== undefined)
-      data["Webhooks.OnChannelDestroy.Url"] =
-        params["webhooks.onChannelDestroy.url"];
+    data["Webhooks.OnChannelDestroy.Url"] = params["webhooks.onChannelDestroy.url"];
     if (params["webhooks.onChannelDestroy.method"] !== undefined)
-      data["Webhooks.OnChannelDestroy.Method"] =
-        params["webhooks.onChannelDestroy.method"];
+    data["Webhooks.OnChannelDestroy.Method"] = params["webhooks.onChannelDestroy.method"];
     if (params["webhooks.onChannelUpdate.url"] !== undefined)
-      data["Webhooks.OnChannelUpdate.Url"] =
-        params["webhooks.onChannelUpdate.url"];
+    data["Webhooks.OnChannelUpdate.Url"] = params["webhooks.onChannelUpdate.url"];
     if (params["webhooks.onChannelUpdate.method"] !== undefined)
-      data["Webhooks.OnChannelUpdate.Method"] =
-        params["webhooks.onChannelUpdate.method"];
+    data["Webhooks.OnChannelUpdate.Method"] = params["webhooks.onChannelUpdate.method"];
     if (params["webhooks.onMemberAdd.url"] !== undefined)
-      data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
+    data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
     if (params["webhooks.onMemberAdd.method"] !== undefined)
-      data["Webhooks.OnMemberAdd.Method"] =
-        params["webhooks.onMemberAdd.method"];
+    data["Webhooks.OnMemberAdd.Method"] = params["webhooks.onMemberAdd.method"];
     if (params["webhooks.onMemberRemove.url"] !== undefined)
-      data["Webhooks.OnMemberRemove.Url"] =
-        params["webhooks.onMemberRemove.url"];
+    data["Webhooks.OnMemberRemove.Url"] = params["webhooks.onMemberRemove.url"];
     if (params["webhooks.onMemberRemove.method"] !== undefined)
-      data["Webhooks.OnMemberRemove.Method"] =
-        params["webhooks.onMemberRemove.method"];
+    data["Webhooks.OnMemberRemove.Method"] = params["webhooks.onMemberRemove.method"];
     if (params["webhooks.onMessageSent.url"] !== undefined)
-      data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
+    data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
     if (params["webhooks.onMessageSent.method"] !== undefined)
-      data["Webhooks.OnMessageSent.Method"] =
-        params["webhooks.onMessageSent.method"];
+    data["Webhooks.OnMessageSent.Method"] = params["webhooks.onMessageSent.method"];
     if (params["webhooks.onMessageUpdated.url"] !== undefined)
-      data["Webhooks.OnMessageUpdated.Url"] =
-        params["webhooks.onMessageUpdated.url"];
+    data["Webhooks.OnMessageUpdated.Url"] = params["webhooks.onMessageUpdated.url"];
     if (params["webhooks.onMessageUpdated.method"] !== undefined)
-      data["Webhooks.OnMessageUpdated.Method"] =
-        params["webhooks.onMessageUpdated.method"];
+    data["Webhooks.OnMessageUpdated.Method"] = params["webhooks.onMessageUpdated.method"];
     if (params["webhooks.onMessageRemoved.url"] !== undefined)
-      data["Webhooks.OnMessageRemoved.Url"] =
-        params["webhooks.onMessageRemoved.url"];
+    data["Webhooks.OnMessageRemoved.Url"] = params["webhooks.onMessageRemoved.url"];
     if (params["webhooks.onMessageRemoved.method"] !== undefined)
-      data["Webhooks.OnMessageRemoved.Method"] =
-        params["webhooks.onMessageRemoved.method"];
+    data["Webhooks.OnMessageRemoved.Method"] = params["webhooks.onMessageRemoved.method"];
     if (params["webhooks.onChannelAdded.url"] !== undefined)
-      data["Webhooks.OnChannelAdded.Url"] =
-        params["webhooks.onChannelAdded.url"];
+    data["Webhooks.OnChannelAdded.Url"] = params["webhooks.onChannelAdded.url"];
     if (params["webhooks.onChannelAdded.method"] !== undefined)
-      data["Webhooks.OnChannelAdded.Method"] =
-        params["webhooks.onChannelAdded.method"];
+    data["Webhooks.OnChannelAdded.Method"] = params["webhooks.onChannelAdded.method"];
     if (params["webhooks.onChannelDestroyed.url"] !== undefined)
-      data["Webhooks.OnChannelDestroyed.Url"] =
-        params["webhooks.onChannelDestroyed.url"];
+    data["Webhooks.OnChannelDestroyed.Url"] = params["webhooks.onChannelDestroyed.url"];
     if (params["webhooks.onChannelDestroyed.method"] !== undefined)
-      data["Webhooks.OnChannelDestroyed.Method"] =
-        params["webhooks.onChannelDestroyed.method"];
+    data["Webhooks.OnChannelDestroyed.Method"] = params["webhooks.onChannelDestroyed.method"];
     if (params["webhooks.onChannelUpdated.url"] !== undefined)
-      data["Webhooks.OnChannelUpdated.Url"] =
-        params["webhooks.onChannelUpdated.url"];
+    data["Webhooks.OnChannelUpdated.Url"] = params["webhooks.onChannelUpdated.url"];
     if (params["webhooks.onChannelUpdated.method"] !== undefined)
-      data["Webhooks.OnChannelUpdated.Method"] =
-        params["webhooks.onChannelUpdated.method"];
+    data["Webhooks.OnChannelUpdated.Method"] = params["webhooks.onChannelUpdated.method"];
     if (params["webhooks.onMemberAdded.url"] !== undefined)
-      data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
+    data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
     if (params["webhooks.onMemberAdded.method"] !== undefined)
-      data["Webhooks.OnMemberAdded.Method"] =
-        params["webhooks.onMemberAdded.method"];
+    data["Webhooks.OnMemberAdded.Method"] = params["webhooks.onMemberAdded.method"];
     if (params["webhooks.onMemberRemoved.url"] !== undefined)
-      data["Webhooks.OnMemberRemoved.Url"] =
-        params["webhooks.onMemberRemoved.url"];
+    data["Webhooks.OnMemberRemoved.Url"] = params["webhooks.onMemberRemoved.url"];
     if (params["webhooks.onMemberRemoved.method"] !== undefined)
-      data["Webhooks.OnMemberRemoved.Method"] =
-        params["webhooks.onMemberRemoved.method"];
+    data["Webhooks.OnMemberRemoved.Method"] = params["webhooks.onMemberRemoved.method"];
     if (params["limits.channelMembers"] !== undefined)
-      data["Limits.ChannelMembers"] = params["limits.channelMembers"];
+    data["Limits.ChannelMembers"] = params["limits.channelMembers"];
     if (params["limits.userChannels"] !== undefined)
-      data["Limits.UserChannels"] = params["limits.userChannels"];
+    data["Limits.UserChannels"] = params["limits.userChannels"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | ServiceContextUpdateOptions
-      | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: ServiceContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["defaultServiceRoleSid"] !== undefined)
-      data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
+    data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
     if (params["defaultChannelRoleSid"] !== undefined)
-      data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
+    data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
     if (params["defaultChannelCreatorRoleSid"] !== undefined)
-      data["DefaultChannelCreatorRoleSid"] =
-        params["defaultChannelCreatorRoleSid"];
+    data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
     if (params["readStatusEnabled"] !== undefined)
-      data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
+    data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
     if (params["reachabilityEnabled"] !== undefined)
-      data["ReachabilityEnabled"] = serialize.bool(
-        params["reachabilityEnabled"]
-      );
+    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
     if (params["typingIndicatorTimeout"] !== undefined)
-      data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
+    data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
     if (params["consumptionReportInterval"] !== undefined)
-      data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
+    data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
     if (params["notifications.newMessage.enabled"] !== undefined)
-      data["Notifications.NewMessage.Enabled"] = serialize.bool(
-        params["notifications.newMessage.enabled"]
-      );
+    data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
     if (params["notifications.newMessage.template"] !== undefined)
-      data["Notifications.NewMessage.Template"] =
-        params["notifications.newMessage.template"];
+    data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
     if (params["notifications.addedToChannel.enabled"] !== undefined)
-      data["Notifications.AddedToChannel.Enabled"] = serialize.bool(
-        params["notifications.addedToChannel.enabled"]
-      );
+    data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
     if (params["notifications.addedToChannel.template"] !== undefined)
-      data["Notifications.AddedToChannel.Template"] =
-        params["notifications.addedToChannel.template"];
+    data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
     if (params["notifications.removedFromChannel.enabled"] !== undefined)
-      data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(
-        params["notifications.removedFromChannel.enabled"]
-      );
+    data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
     if (params["notifications.removedFromChannel.template"] !== undefined)
-      data["Notifications.RemovedFromChannel.Template"] =
-        params["notifications.removedFromChannel.template"];
+    data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
     if (params["notifications.invitedToChannel.enabled"] !== undefined)
-      data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(
-        params["notifications.invitedToChannel.enabled"]
-      );
+    data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
     if (params["notifications.invitedToChannel.template"] !== undefined)
-      data["Notifications.InvitedToChannel.Template"] =
-        params["notifications.invitedToChannel.template"];
+    data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
     if (params["preWebhookUrl"] !== undefined)
-      data["PreWebhookUrl"] = params["preWebhookUrl"];
+    data["PreWebhookUrl"] = params["preWebhookUrl"];
     if (params["postWebhookUrl"] !== undefined)
-      data["PostWebhookUrl"] = params["postWebhookUrl"];
+    data["PostWebhookUrl"] = params["postWebhookUrl"];
     if (params["webhookMethod"] !== undefined)
-      data["WebhookMethod"] = params["webhookMethod"];
+    data["WebhookMethod"] = params["webhookMethod"];
     if (params["webhookFilters"] !== undefined)
-      data["WebhookFilters"] = serialize.map(
-        params["webhookFilters"],
-        (e: string) => e
-      );
+    data["WebhookFilters"] = serialize.map(params["webhookFilters"], (e: string) => (e));
     if (params["webhooks.onMessageSend.url"] !== undefined)
-      data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
+    data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
     if (params["webhooks.onMessageSend.method"] !== undefined)
-      data["Webhooks.OnMessageSend.Method"] =
-        params["webhooks.onMessageSend.method"];
+    data["Webhooks.OnMessageSend.Method"] = params["webhooks.onMessageSend.method"];
     if (params["webhooks.onMessageUpdate.url"] !== undefined)
-      data["Webhooks.OnMessageUpdate.Url"] =
-        params["webhooks.onMessageUpdate.url"];
+    data["Webhooks.OnMessageUpdate.Url"] = params["webhooks.onMessageUpdate.url"];
     if (params["webhooks.onMessageUpdate.method"] !== undefined)
-      data["Webhooks.OnMessageUpdate.Method"] =
-        params["webhooks.onMessageUpdate.method"];
+    data["Webhooks.OnMessageUpdate.Method"] = params["webhooks.onMessageUpdate.method"];
     if (params["webhooks.onMessageRemove.url"] !== undefined)
-      data["Webhooks.OnMessageRemove.Url"] =
-        params["webhooks.onMessageRemove.url"];
+    data["Webhooks.OnMessageRemove.Url"] = params["webhooks.onMessageRemove.url"];
     if (params["webhooks.onMessageRemove.method"] !== undefined)
-      data["Webhooks.OnMessageRemove.Method"] =
-        params["webhooks.onMessageRemove.method"];
+    data["Webhooks.OnMessageRemove.Method"] = params["webhooks.onMessageRemove.method"];
     if (params["webhooks.onChannelAdd.url"] !== undefined)
-      data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
+    data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
     if (params["webhooks.onChannelAdd.method"] !== undefined)
-      data["Webhooks.OnChannelAdd.Method"] =
-        params["webhooks.onChannelAdd.method"];
+    data["Webhooks.OnChannelAdd.Method"] = params["webhooks.onChannelAdd.method"];
     if (params["webhooks.onChannelDestroy.url"] !== undefined)
-      data["Webhooks.OnChannelDestroy.Url"] =
-        params["webhooks.onChannelDestroy.url"];
+    data["Webhooks.OnChannelDestroy.Url"] = params["webhooks.onChannelDestroy.url"];
     if (params["webhooks.onChannelDestroy.method"] !== undefined)
-      data["Webhooks.OnChannelDestroy.Method"] =
-        params["webhooks.onChannelDestroy.method"];
+    data["Webhooks.OnChannelDestroy.Method"] = params["webhooks.onChannelDestroy.method"];
     if (params["webhooks.onChannelUpdate.url"] !== undefined)
-      data["Webhooks.OnChannelUpdate.Url"] =
-        params["webhooks.onChannelUpdate.url"];
+    data["Webhooks.OnChannelUpdate.Url"] = params["webhooks.onChannelUpdate.url"];
     if (params["webhooks.onChannelUpdate.method"] !== undefined)
-      data["Webhooks.OnChannelUpdate.Method"] =
-        params["webhooks.onChannelUpdate.method"];
+    data["Webhooks.OnChannelUpdate.Method"] = params["webhooks.onChannelUpdate.method"];
     if (params["webhooks.onMemberAdd.url"] !== undefined)
-      data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
+    data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
     if (params["webhooks.onMemberAdd.method"] !== undefined)
-      data["Webhooks.OnMemberAdd.Method"] =
-        params["webhooks.onMemberAdd.method"];
+    data["Webhooks.OnMemberAdd.Method"] = params["webhooks.onMemberAdd.method"];
     if (params["webhooks.onMemberRemove.url"] !== undefined)
-      data["Webhooks.OnMemberRemove.Url"] =
-        params["webhooks.onMemberRemove.url"];
+    data["Webhooks.OnMemberRemove.Url"] = params["webhooks.onMemberRemove.url"];
     if (params["webhooks.onMemberRemove.method"] !== undefined)
-      data["Webhooks.OnMemberRemove.Method"] =
-        params["webhooks.onMemberRemove.method"];
+    data["Webhooks.OnMemberRemove.Method"] = params["webhooks.onMemberRemove.method"];
     if (params["webhooks.onMessageSent.url"] !== undefined)
-      data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
+    data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
     if (params["webhooks.onMessageSent.method"] !== undefined)
-      data["Webhooks.OnMessageSent.Method"] =
-        params["webhooks.onMessageSent.method"];
+    data["Webhooks.OnMessageSent.Method"] = params["webhooks.onMessageSent.method"];
     if (params["webhooks.onMessageUpdated.url"] !== undefined)
-      data["Webhooks.OnMessageUpdated.Url"] =
-        params["webhooks.onMessageUpdated.url"];
+    data["Webhooks.OnMessageUpdated.Url"] = params["webhooks.onMessageUpdated.url"];
     if (params["webhooks.onMessageUpdated.method"] !== undefined)
-      data["Webhooks.OnMessageUpdated.Method"] =
-        params["webhooks.onMessageUpdated.method"];
+    data["Webhooks.OnMessageUpdated.Method"] = params["webhooks.onMessageUpdated.method"];
     if (params["webhooks.onMessageRemoved.url"] !== undefined)
-      data["Webhooks.OnMessageRemoved.Url"] =
-        params["webhooks.onMessageRemoved.url"];
+    data["Webhooks.OnMessageRemoved.Url"] = params["webhooks.onMessageRemoved.url"];
     if (params["webhooks.onMessageRemoved.method"] !== undefined)
-      data["Webhooks.OnMessageRemoved.Method"] =
-        params["webhooks.onMessageRemoved.method"];
+    data["Webhooks.OnMessageRemoved.Method"] = params["webhooks.onMessageRemoved.method"];
     if (params["webhooks.onChannelAdded.url"] !== undefined)
-      data["Webhooks.OnChannelAdded.Url"] =
-        params["webhooks.onChannelAdded.url"];
+    data["Webhooks.OnChannelAdded.Url"] = params["webhooks.onChannelAdded.url"];
     if (params["webhooks.onChannelAdded.method"] !== undefined)
-      data["Webhooks.OnChannelAdded.Method"] =
-        params["webhooks.onChannelAdded.method"];
+    data["Webhooks.OnChannelAdded.Method"] = params["webhooks.onChannelAdded.method"];
     if (params["webhooks.onChannelDestroyed.url"] !== undefined)
-      data["Webhooks.OnChannelDestroyed.Url"] =
-        params["webhooks.onChannelDestroyed.url"];
+    data["Webhooks.OnChannelDestroyed.Url"] = params["webhooks.onChannelDestroyed.url"];
     if (params["webhooks.onChannelDestroyed.method"] !== undefined)
-      data["Webhooks.OnChannelDestroyed.Method"] =
-        params["webhooks.onChannelDestroyed.method"];
+    data["Webhooks.OnChannelDestroyed.Method"] = params["webhooks.onChannelDestroyed.method"];
     if (params["webhooks.onChannelUpdated.url"] !== undefined)
-      data["Webhooks.OnChannelUpdated.Url"] =
-        params["webhooks.onChannelUpdated.url"];
+    data["Webhooks.OnChannelUpdated.Url"] = params["webhooks.onChannelUpdated.url"];
     if (params["webhooks.onChannelUpdated.method"] !== undefined)
-      data["Webhooks.OnChannelUpdated.Method"] =
-        params["webhooks.onChannelUpdated.method"];
+    data["Webhooks.OnChannelUpdated.Method"] = params["webhooks.onChannelUpdated.method"];
     if (params["webhooks.onMemberAdded.url"] !== undefined)
-      data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
+    data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
     if (params["webhooks.onMemberAdded.method"] !== undefined)
-      data["Webhooks.OnMemberAdded.Method"] =
-        params["webhooks.onMemberAdded.method"];
+    data["Webhooks.OnMemberAdded.Method"] = params["webhooks.onMemberAdded.method"];
     if (params["webhooks.onMemberRemoved.url"] !== undefined)
-      data["Webhooks.OnMemberRemoved.Url"] =
-        params["webhooks.onMemberRemoved.url"];
+    data["Webhooks.OnMemberRemoved.Url"] = params["webhooks.onMemberRemoved.url"];
     if (params["webhooks.onMemberRemoved.method"] !== undefined)
-      data["Webhooks.OnMemberRemoved.Method"] =
-        params["webhooks.onMemberRemoved.method"];
+    data["Webhooks.OnMemberRemoved.Method"] = params["webhooks.onMemberRemoved.method"];
     if (params["limits.channelMembers"] !== undefined)
-      data["Limits.ChannelMembers"] = params["limits.channelMembers"];
+    data["Limits.ChannelMembers"] = params["limits.channelMembers"];
     if (params["limits.userChannels"] !== undefined)
-      data["Limits.UserChannels"] = params["limits.userChannels"];
+    data["Limits.UserChannels"] = params["limits.userChannels"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ServiceResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ServiceInstance> => ({
+      ...response,
+      body: new ServiceInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -836,8 +671,9 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-interface ServicePayload extends TwilioResponsePayload {
-  services: ServiceResource[];
+
+  interface ServicePayload extends TwilioResponsePayload {
+    services: ServiceResource[];
 }
 
 interface ServiceResource {
@@ -869,34 +705,30 @@ export class ServiceInstance {
   protected _context?: ServiceContext;
 
   constructor(protected _version: V1, payload: ServiceResource, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.defaultServiceRoleSid = payload.default_service_role_sid;
-    this.defaultChannelRoleSid = payload.default_channel_role_sid;
-    this.defaultChannelCreatorRoleSid =
-      payload.default_channel_creator_role_sid;
-    this.readStatusEnabled = payload.read_status_enabled;
-    this.reachabilityEnabled = payload.reachability_enabled;
-    this.typingIndicatorTimeout = deserialize.integer(
-      payload.typing_indicator_timeout
-    );
-    this.consumptionReportInterval = deserialize.integer(
-      payload.consumption_report_interval
-    );
-    this.limits = payload.limits;
-    this.webhooks = payload.webhooks;
-    this.preWebhookUrl = payload.pre_webhook_url;
-    this.postWebhookUrl = payload.post_webhook_url;
-    this.webhookMethod = payload.webhook_method;
-    this.webhookFilters = payload.webhook_filters;
-    this.notifications = payload.notifications;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.defaultServiceRoleSid = (payload.default_service_role_sid);
+    this.defaultChannelRoleSid = (payload.default_channel_role_sid);
+    this.defaultChannelCreatorRoleSid = (payload.default_channel_creator_role_sid);
+    this.readStatusEnabled = (payload.read_status_enabled);
+    this.reachabilityEnabled = (payload.reachability_enabled);
+    this.typingIndicatorTimeout = deserialize.integer(payload.typing_indicator_timeout);
+    this.consumptionReportInterval = deserialize.integer(payload.consumption_report_interval);
+    this.limits = (payload.limits);
+    this.webhooks = (payload.webhooks);
+    this.preWebhookUrl = (payload.pre_webhook_url);
+    this.postWebhookUrl = (payload.post_webhook_url);
+    this.webhookMethod = (payload.webhook_method);
+    this.webhookFilters = (payload.webhook_filters);
+    this.notifications = (payload.notifications);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   sid: string;
@@ -922,9 +754,7 @@ export class ServiceInstance {
   links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
-    this._context =
-      this._context ||
-      new ServiceContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new ServiceContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -935,9 +765,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -948,9 +778,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -961,9 +791,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
+  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -974,9 +804,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -987,9 +817,7 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -998,15 +826,10 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -1017,9 +840,7 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
    *
@@ -1028,15 +849,10 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -1097,15 +913,24 @@ export class ServiceInstance {
   }
 }
 
-export interface ServiceSolution {}
+
+export interface ServiceSolution {
+}
 
 export interface ServiceListInstance {
   _version: V1;
   _solution: ServiceSolution;
   _uri: string;
 
-  (sid: string): ServiceContext;
-  get(sid: string): ServiceContext;
+  (sid: string, ): ServiceContext;
+  get(sid: string, ): ServiceContext;
+
+
+
+
+
+
+
 
   /**
    * Create a ServiceInstance
@@ -1115,10 +940,7 @@ export interface ServiceListInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  create(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
 
   /**
    * Create a ServiceInstance and return HTTP info
@@ -1128,10 +950,10 @@ export interface ServiceListInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  createWithHttpInfo(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
+
+
+
 
   /**
    * Streams ServiceInstance records from the API.
@@ -1148,13 +970,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ServiceListInstanceEachOptions,
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(params: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ServiceInstance records from the API with HTTP metadata captured per page.
    *
@@ -1170,13 +987,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ServiceListInstanceEachOptions,
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
@@ -1185,10 +997,7 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
    * Retrieve a single target page of ServiceInstance records from the API with HTTP metadata.
    *
@@ -1197,10 +1006,7 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -1210,13 +1016,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
-  ): Promise<ServiceInstance[]>;
-  list(
-    params: ServiceListInstanceOptions,
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
-  ): Promise<ServiceInstance[]>;
+  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(params: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list with HTTP metadata.
    *
@@ -1228,19 +1029,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ServiceInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ServiceInstance[]>>;
-  listWithHttpInfo(
-    params: ServiceListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ServiceInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ServiceInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ServiceInstance[]>) => any): Promise<ApiResponse<ServiceInstance[]>>;
+  listWithHttpInfo(params: ServiceListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ServiceInstance[]>) => any): Promise<ApiResponse<ServiceInstance[]>>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -1252,13 +1042,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
-  page(
-    params: ServiceListInstancePageOptions,
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
+  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API with HTTP metadata.
    *
@@ -1270,13 +1055,9 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>>;
-  pageWithHttpInfo(
-    params: ServiceListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
+  pageWithHttpInfo(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1286,110 +1067,86 @@ export interface ServiceListInstance {
 }
 
 export function ServiceListInstance(version: V1): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ServiceListInstance;
 
-  instance.get = function get(sid): ServiceContext {
+  instance.get = function get(sid, ): ServiceContext {
     return new ServiceContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Services`;
 
-  instance.create = function create(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
+  instance.create = function create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServiceInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ServiceResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ServiceInstance> => ({
+      ...response,
+      body: new ServiceInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ServiceListInstancePageOptions
-      | ((error: Error | null, items: ServicePage) => any),
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage> {
+
+    }
+
+  instance.page = function page(params?: ServiceListInstancePageOptions | ((error: Error | null, items: ServicePage) => any), callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1399,59 +1156,44 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServicePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ServicePage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ServicePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ServiceListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ServicePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ServiceListInstancePageOptions | ((error: Error | null, items: ApiResponse<ServicePage>) => any), callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1461,106 +1203,92 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ServicePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ServicePage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ServicePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ServicePage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ServicePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ServicePage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ServicePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ServicePage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ServicePage extends Page<
-  V1,
-  ServicePayload,
-  ServiceResource,
-  ServiceInstance
-> {
-  /**
-   * Initialize the ServicePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ServiceSolution
-  ) {
+export class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
+/**
+* Initialize the ServicePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ServiceSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ServiceInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ServiceResource): ServiceInstance {
-    return new ServiceInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ServiceInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ServiceResource): ServiceInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new ServiceInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

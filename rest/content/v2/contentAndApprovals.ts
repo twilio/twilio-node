@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,34 +22,35 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to each
  */
 export interface ContentAndApprovalsListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Whether to sort by ascending or descending date updated */
-  "sortByDate"?: string;
+  sortByDate?: string;
   /** Whether to sort by ascending or descending content name */
-  "sortByContentName"?: string;
+  sortByContentName?: string;
   /** Filter by >=[date-time] */
-  "dateCreatedAfter"?: Date;
+  dateCreatedAfter?: Date;
   /** Filter by <=[date-time] */
-  "dateCreatedBefore"?: Date;
+  dateCreatedBefore?: Date;
   /** Filter by Regex Pattern in content name */
-  "contentName"?: string;
+  contentName?: string;
   /** Filter by Regex Pattern in template content */
-  "content"?: string;
+  content?: string;
   /** Filter by array of valid language(s) */
-  "language"?: Array<string>;
+  language?: Array<string>;
   /** Filter by array of contentType(s) */
-  "contentType"?: Array<string>;
+  contentType?: Array<string>;
   /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
-  "channelEligibility"?: Array<string>;
+  channelEligibility?: Array<string>;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: ContentAndApprovalsInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: ContentAndApprovalsInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -62,72 +62,65 @@ export interface ContentAndApprovalsListInstanceEachOptions {
  */
 export interface ContentAndApprovalsListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Whether to sort by ascending or descending date updated */
-  "sortByDate"?: string;
+  sortByDate?: string;
   /** Whether to sort by ascending or descending content name */
-  "sortByContentName"?: string;
+  sortByContentName?: string;
   /** Filter by >=[date-time] */
-  "dateCreatedAfter"?: Date;
+  dateCreatedAfter?: Date;
   /** Filter by <=[date-time] */
-  "dateCreatedBefore"?: Date;
+  dateCreatedBefore?: Date;
   /** Filter by Regex Pattern in content name */
-  "contentName"?: string;
+  contentName?: string;
   /** Filter by Regex Pattern in template content */
-  "content"?: string;
+  content?: string;
   /** Filter by array of valid language(s) */
-  "language"?: Array<string>;
+  language?: Array<string>;
   /** Filter by array of contentType(s) */
-  "contentType"?: Array<string>;
+  contentType?: Array<string>;
   /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
-  "channelEligibility"?: Array<string>;
+  channelEligibility?: Array<string>;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ContentAndApprovalsListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Whether to sort by ascending or descending date updated */
-  "sortByDate"?: string;
+  sortByDate?: string;
   /** Whether to sort by ascending or descending content name */
-  "sortByContentName"?: string;
+  sortByContentName?: string;
   /** Filter by >=[date-time] */
-  "dateCreatedAfter"?: Date;
+  dateCreatedAfter?: Date;
   /** Filter by <=[date-time] */
-  "dateCreatedBefore"?: Date;
+  dateCreatedBefore?: Date;
   /** Filter by Regex Pattern in content name */
-  "contentName"?: string;
+  contentName?: string;
   /** Filter by Regex Pattern in template content */
-  "content"?: string;
+  content?: string;
   /** Filter by array of valid language(s) */
-  "language"?: Array<string>;
+  language?: Array<string>;
   /** Filter by array of contentType(s) */
-  "contentType"?: Array<string>;
+  contentType?: Array<string>;
   /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
-  "channelEligibility"?: Array<string>;
+  channelEligibility?: Array<string>;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
-
-export interface ContentAndApprovalsSolution {
-}
+export interface ContentAndApprovalsSolution {}
 
 export interface ContentAndApprovalsListInstance {
   _version: V2;
   _solution: ContentAndApprovalsSolution;
   _uri: string;
-
-
-
 
   /**
    * Streams ContentAndApprovalsInstance records from the API.
@@ -144,8 +137,19 @@ export interface ContentAndApprovalsListInstance {
    * @param { ContentAndApprovalsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ContentAndApprovalsInstance, done: (err?: Error) => void) => void): void;
-  each(params: ContentAndApprovalsListInstanceEachOptions, callback?: (item: ContentAndApprovalsInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: ContentAndApprovalsInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: ContentAndApprovalsListInstanceEachOptions,
+    callback?: (
+      item: ContentAndApprovalsInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams ContentAndApprovalsInstance records from the API with HTTP metadata captured per page.
    *
@@ -161,8 +165,19 @@ export interface ContentAndApprovalsListInstance {
    * @param { ContentAndApprovalsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ContentAndApprovalsInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ContentAndApprovalsListInstanceEachOptions, callback?: (item: ContentAndApprovalsInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: ContentAndApprovalsInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ContentAndApprovalsListInstanceEachOptions,
+    callback?: (
+      item: ContentAndApprovalsInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of ContentAndApprovalsInstance records from the API.
    *
@@ -171,7 +186,10 @@ export interface ContentAndApprovalsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ContentAndApprovalsPage) => any): Promise<ContentAndApprovalsPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
+  ): Promise<ContentAndApprovalsPage>;
   /**
    * Retrieve a single target page of ContentAndApprovalsInstance records from the API with HTTP metadata.
    *
@@ -180,7 +198,13 @@ export interface ContentAndApprovalsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ContentAndApprovalsPage>) => any): Promise<ApiResponse<ContentAndApprovalsPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsPage>>;
   /**
    * Lists ContentAndApprovalsInstance records from the API as a list.
    *
@@ -190,8 +214,19 @@ export interface ContentAndApprovalsListInstance {
    * @param { ContentAndApprovalsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ContentAndApprovalsInstance[]) => any): Promise<ContentAndApprovalsInstance[]>;
-  list(params: ContentAndApprovalsListInstanceOptions, callback?: (error: Error | null, items: ContentAndApprovalsInstance[]) => any): Promise<ContentAndApprovalsInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: ContentAndApprovalsInstance[],
+    ) => any,
+  ): Promise<ContentAndApprovalsInstance[]>;
+  list(
+    params: ContentAndApprovalsListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ContentAndApprovalsInstance[],
+    ) => any,
+  ): Promise<ContentAndApprovalsInstance[]>;
   /**
    * Lists ContentAndApprovalsInstance records from the API as a list with HTTP metadata.
    *
@@ -203,8 +238,19 @@ export interface ContentAndApprovalsListInstance {
    * @param { ContentAndApprovalsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ContentAndApprovalsInstance[]>) => any): Promise<ApiResponse<ContentAndApprovalsInstance[]>>;
-  listWithHttpInfo(params: ContentAndApprovalsListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ContentAndApprovalsInstance[]>) => any): Promise<ApiResponse<ContentAndApprovalsInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentAndApprovalsInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsInstance[]>>;
+  listWithHttpInfo(
+    params: ContentAndApprovalsListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentAndApprovalsInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsInstance[]>>;
   /**
    * Retrieve a single page of ContentAndApprovalsInstance records from the API.
    *
@@ -216,8 +262,13 @@ export interface ContentAndApprovalsListInstance {
    * @param { ContentAndApprovalsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ContentAndApprovalsPage) => any): Promise<ContentAndApprovalsPage>;
-  page(params: ContentAndApprovalsListInstancePageOptions, callback?: (error: Error | null, items: ContentAndApprovalsPage) => any): Promise<ContentAndApprovalsPage>;
+  page(
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
+  ): Promise<ContentAndApprovalsPage>;
+  page(
+    params: ContentAndApprovalsListInstancePageOptions,
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
+  ): Promise<ContentAndApprovalsPage>;
   /**
    * Retrieve a single page of ContentAndApprovalsInstance records from the API with HTTP metadata.
    *
@@ -229,9 +280,19 @@ export interface ContentAndApprovalsListInstance {
    * @param { ContentAndApprovalsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ContentAndApprovalsPage>) => any): Promise<ApiResponse<ContentAndApprovalsPage>>;
-  pageWithHttpInfo(params: ContentAndApprovalsListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ContentAndApprovalsPage>) => any): Promise<ApiResponse<ContentAndApprovalsPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsPage>>;
+  pageWithHttpInfo(
+    params: ContentAndApprovalsListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -240,14 +301,21 @@ export interface ContentAndApprovalsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ContentAndApprovalsListInstance(version: V2): ContentAndApprovalsListInstance {
+export function ContentAndApprovalsListInstance(
+  version: V2,
+): ContentAndApprovalsListInstance {
   const instance = {} as ContentAndApprovalsListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/ContentAndApprovals`;
 
-  instance.page = function page(params?: ContentAndApprovalsListInstancePageOptions | ((error: Error | null, items: ContentAndApprovalsPage) => any), callback?: (error: Error | null, items: ContentAndApprovalsPage) => any): Promise<ContentAndApprovalsPage> {
+  instance.page = function page(
+    params?:
+      | ContentAndApprovalsListInstancePageOptions
+      | ((error: Error | null, items: ContentAndApprovalsPage) => any),
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
+  ): Promise<ContentAndApprovalsPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -257,62 +325,100 @@ export function ContentAndApprovalsListInstance(version: V2): ContentAndApproval
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params["sortByDate"] !== undefined)
-    data["SortByDate"] = params["sortByDate"];
+      data["SortByDate"] = params["sortByDate"];
     if (params["sortByContentName"] !== undefined)
-    data["SortByContentName"] = params["sortByContentName"];
+      data["SortByContentName"] = params["sortByContentName"];
     if (params["dateCreatedAfter"] !== undefined)
-    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+      data["DateCreatedAfter"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"],
+      );
     if (params["dateCreatedBefore"] !== undefined)
-    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+      data["DateCreatedBefore"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"],
+      );
     if (params["contentName"] !== undefined)
-    data["ContentName"] = params["contentName"];
-    if (params["content"] !== undefined)
-    data["Content"] = params["content"];
+      data["ContentName"] = params["contentName"];
+    if (params["content"] !== undefined) data["Content"] = params["content"];
     if (params["language"] !== undefined)
-    data["Language"] = serialize.map(params["language"], (e: string) => (e));
+      data["Language"] = serialize.map(params["language"], (e: string) => e);
     if (params["contentType"] !== undefined)
-    data["ContentType"] = serialize.map(params["contentType"], (e: string) => (e));
+      data["ContentType"] = serialize.map(
+        params["contentType"],
+        (e: string) => e,
+      );
     if (params["channelEligibility"] !== undefined)
-    data["ChannelEligibility"] = serialize.map(params["channelEligibility"], (e: string) => (e));
+      data["ChannelEligibility"] = serialize.map(
+        params["channelEligibility"],
+        (e: string) => e,
+      );
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ContentAndApprovalsPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ContentAndApprovalsPage(
+          operationVersion,
+          payload,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ContentAndApprovalsPage) => any): Promise<ContentAndApprovalsPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ContentAndApprovalsPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
+  ): Promise<ContentAndApprovalsPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ContentAndApprovalsPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ContentAndApprovalsListInstancePageOptions | ((error: Error | null, items: ApiResponse<ContentAndApprovalsPage>) => any), callback?: (error: Error | null, items: ApiResponse<ContentAndApprovalsPage>) => any): Promise<ApiResponse<ContentAndApprovalsPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ContentAndApprovalsListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ContentAndApprovalsPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -322,85 +428,113 @@ export function ContentAndApprovalsListInstance(version: V2): ContentAndApproval
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params["sortByDate"] !== undefined)
-    data["SortByDate"] = params["sortByDate"];
+      data["SortByDate"] = params["sortByDate"];
     if (params["sortByContentName"] !== undefined)
-    data["SortByContentName"] = params["sortByContentName"];
+      data["SortByContentName"] = params["sortByContentName"];
     if (params["dateCreatedAfter"] !== undefined)
-    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+      data["DateCreatedAfter"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"],
+      );
     if (params["dateCreatedBefore"] !== undefined)
-    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+      data["DateCreatedBefore"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"],
+      );
     if (params["contentName"] !== undefined)
-    data["ContentName"] = params["contentName"];
-    if (params["content"] !== undefined)
-    data["Content"] = params["content"];
+      data["ContentName"] = params["contentName"];
+    if (params["content"] !== undefined) data["Content"] = params["content"];
     if (params["language"] !== undefined)
-    data["Language"] = serialize.map(params["language"], (e: string) => (e));
+      data["Language"] = serialize.map(params["language"], (e: string) => e);
     if (params["contentType"] !== undefined)
-    data["ContentType"] = serialize.map(params["contentType"], (e: string) => (e));
+      data["ContentType"] = serialize.map(
+        params["contentType"],
+        (e: string) => e,
+      );
     if (params["channelEligibility"] !== undefined)
-    data["ChannelEligibility"] = serialize.map(params["channelEligibility"], (e: string) => (e));
+      data["ChannelEligibility"] = serialize.map(
+        params["channelEligibility"],
+        (e: string) => e,
+      );
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ContentAndApprovalsPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ContentAndApprovalsPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ContentAndApprovalsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ContentAndApprovalsPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ContentAndApprovalsPage>) => any): Promise<ApiResponse<ContentAndApprovalsPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
+  ): Promise<ApiResponse<ContentAndApprovalsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ContentAndApprovalsPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ContentAndApprovalsPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ContentAndApprovalsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ContentAndApprovalsPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface ContentAndApprovalsPayload extends TwilioResponsePayload {
-    contents: ContentAndApprovalsResource[];
+interface ContentAndApprovalsPayload extends TwilioResponsePayload {
+  contents: ContentAndApprovalsResource[];
 }
 
 interface ContentAndApprovalsResource {
@@ -416,19 +550,19 @@ interface ContentAndApprovalsResource {
 }
 
 export class ContentAndApprovalsInstance {
-
-  constructor(protected _version: V2, payload: ContentAndApprovalsResource) {
-    
+  constructor(
+    protected _version: V2,
+    payload: ContentAndApprovalsResource,
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.friendlyName = (payload.friendly_name);
-    this.language = (payload.language);
-    this.variables = (payload.variables);
-    this.types = (payload.types);
-    this.approvalRequests = (payload.approval_requests);
-
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
+    this.language = payload.language;
+    this.variables = payload.variables;
+    this.types = payload.types;
+    this.approvalRequests = payload.approval_requests;
   }
 
   /**
@@ -492,33 +626,39 @@ export class ContentAndApprovalsInstance {
   }
 }
 
-export class ContentAndApprovalsPage extends Page<V2, ContentAndApprovalsPayload, ContentAndApprovalsResource, ContentAndApprovalsInstance> {
-/**
-* Initialize the ContentAndApprovalsPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: ContentAndApprovalsSolution) {
+export class ContentAndApprovalsPage extends Page<
+  V2,
+  ContentAndApprovalsPayload,
+  ContentAndApprovalsResource,
+  ContentAndApprovalsInstance
+> {
+  /**
+   * Initialize the ContentAndApprovalsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: ContentAndApprovalsSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ContentAndApprovalsInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ContentAndApprovalsResource): ContentAndApprovalsInstance {
+  /**
+   * Build an instance of ContentAndApprovalsInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: ContentAndApprovalsResource,
+  ): ContentAndApprovalsInstance {
+    return new ContentAndApprovalsInstance(this._version, payload);
+  }
 
-    return new ContentAndApprovalsInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

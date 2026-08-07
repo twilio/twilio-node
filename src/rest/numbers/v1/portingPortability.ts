@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,26 +20,25 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
 /**
  * The type of the requested phone number. One of `LOCAL`, `UNKNOWN`, `MOBILE`, `TOLL-FREE`.
  */
-export type PortingPortabilityNumberType =
-  | "LOCAL"
-  | "UNKNOWN"
-  | "MOBILE"
-  | "TOLL-FREE";
+export type PortingPortabilityNumberType = 'LOCAL'|'UNKNOWN'|'MOBILE'|'TOLL-FREE';
+
 
 /**
  * Options to pass to fetch a PortingPortabilityInstance
  */
 export interface PortingPortabilityContextFetchOptions {
   /** Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account. */
-  targetAccountSid?: string;
+  "targetAccountSid"?: string;
   /** Address Sid of customer to which the number will be ported. */
-  addressSid?: string;
+  "addressSid"?: string;
 }
 
 export interface PortingPortabilityContext {
+
   /**
    * Fetch a PortingPortabilityInstance
    *
@@ -46,9 +46,7 @@ export interface PortingPortabilityContext {
    *
    * @returns Resolves to processed PortingPortabilityInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
-  ): Promise<PortingPortabilityInstance>;
+  fetch(callback?: (error: Error | null, item?: PortingPortabilityInstance) => any): Promise<PortingPortabilityInstance>;
   /**
    * Fetch a PortingPortabilityInstance
    *
@@ -57,10 +55,7 @@ export interface PortingPortabilityContext {
    *
    * @returns Resolves to processed PortingPortabilityInstance
    */
-  fetch(
-    params: PortingPortabilityContextFetchOptions,
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
-  ): Promise<PortingPortabilityInstance>;
+  fetch(params: PortingPortabilityContextFetchOptions, callback?: (error: Error | null, item?: PortingPortabilityInstance) => any): Promise<PortingPortabilityInstance>;
 
   /**
    * Fetch a PortingPortabilityInstance and return HTTP info
@@ -69,12 +64,7 @@ export interface PortingPortabilityContext {
    *
    * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
-  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any): Promise<ApiResponse<PortingPortabilityInstance>>;
   /**
    * Fetch a PortingPortabilityInstance and return HTTP info
    *
@@ -83,13 +73,7 @@ export interface PortingPortabilityContext {
    *
    * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: PortingPortabilityContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
-  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+  fetchWithHttpInfo(params: PortingPortabilityContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any): Promise<ApiResponse<PortingPortabilityInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -99,127 +83,92 @@ export interface PortingPortabilityContext {
 }
 
 export interface PortingPortabilityContextSolution {
-  phoneNumber: string;
+  "phoneNumber": string;
 }
 
-export class PortingPortabilityContextImpl
-  implements PortingPortabilityContext
-{
+export class PortingPortabilityContextImpl implements PortingPortabilityContext {
   protected _solution: PortingPortabilityContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, phoneNumber: string) {
     if (!isValidPathParam(phoneNumber)) {
-      throw new Error("Parameter 'phoneNumber' is not valid.");
+      throw new Error('Parameter \'phoneNumber\' is not valid.');
     }
 
-    this._solution = { phoneNumber };
+    this._solution = { phoneNumber,  };
     this._uri = `/Porting/Portability/PhoneNumber/${phoneNumber}`;
   }
 
-  fetch(
-    params?:
-      | PortingPortabilityContextFetchOptions
-      | ((error: Error | null, item?: PortingPortabilityInstance) => any),
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
-  ): Promise<PortingPortabilityInstance> {
-    if (params instanceof Function) {
+  fetch(params?: PortingPortabilityContextFetchOptions | ((error: Error | null, item?: PortingPortabilityInstance) => any),callback?: (error: Error | null, item?: PortingPortabilityInstance) => any): Promise<PortingPortabilityInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["targetAccountSid"] !== undefined)
-      data["TargetAccountSid"] = params["targetAccountSid"];
+        if (params["targetAccountSid"] !== undefined)
+    data["TargetAccountSid"] = params["targetAccountSid"];
     if (params["addressSid"] !== undefined)
-      data["AddressSid"] = params["addressSid"];
+    data["AddressSid"] = params["addressSid"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
+    
+    operationPromise = operationPromise.then(payload => new PortingPortabilityInstance(operationVersion, payload, instance._solution.phoneNumber));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingPortabilityInstance(
-          operationVersion,
-          payload,
-          instance._solution.phoneNumber
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    params?:
-      | PortingPortabilityContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<PortingPortabilityInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
-  ): Promise<ApiResponse<PortingPortabilityInstance>> {
-    if (params instanceof Function) {
+  fetchWithHttpInfo(params?: PortingPortabilityContextFetchOptions | ((error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any): Promise<ApiResponse<PortingPortabilityInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["targetAccountSid"] !== undefined)
-      data["TargetAccountSid"] = params["targetAccountSid"];
+        if (params["targetAccountSid"] !== undefined)
+    data["TargetAccountSid"] = params["targetAccountSid"];
     if (params["addressSid"] !== undefined)
-      data["AddressSid"] = params["addressSid"];
+    data["AddressSid"] = params["addressSid"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<PortingPortabilityResource>({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<PortingPortabilityInstance> => ({
-          ...response,
-          body: new PortingPortabilityInstance(
-            operationVersion,
-            response.body,
-            instance._solution.phoneNumber
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<PortingPortabilityResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PortingPortabilityInstance> => ({
+      ...response,
+      body: new PortingPortabilityInstance(operationVersion, response.body, instance._solution.phoneNumber)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -236,7 +185,8 @@ export class PortingPortabilityContextImpl
   }
 }
 
-interface PortingPortabilityPayload extends PortingPortabilityResource {}
+
+  interface PortingPortabilityPayload extends PortingPortabilityResource {}
 
 interface PortingPortabilityResource {
   phone_number: string;
@@ -254,24 +204,19 @@ export class PortingPortabilityInstance {
   protected _solution: PortingPortabilityContextSolution;
   protected _context?: PortingPortabilityContext;
 
-  constructor(
-    protected _version: V1,
-    payload: PortingPortabilityResource,
-    phoneNumber?: string
-  ) {
-    this.phoneNumber = payload.phone_number;
-    this.accountSid = payload.account_sid;
-    this.portable = payload.portable;
-    this.pinAndAccountNumberRequired = payload.pin_and_account_number_required;
-    this.notPortableReason = payload.not_portable_reason;
-    this.notPortableReasonCode = deserialize.integer(
-      payload.not_portable_reason_code
-    );
+  constructor(protected _version: V1, payload: PortingPortabilityResource, phoneNumber?: string) {
+    
+    this.phoneNumber = (payload.phone_number);
+    this.accountSid = (payload.account_sid);
+    this.portable = (payload.portable);
+    this.pinAndAccountNumberRequired = (payload.pin_and_account_number_required);
+    this.notPortableReason = (payload.not_portable_reason);
+    this.notPortableReasonCode = deserialize.integer(payload.not_portable_reason_code);
     this.numberType = payload.number_type;
-    this.country = payload.country;
-    this.url = payload.url;
+    this.country = (payload.country);
+    this.url = (payload.url);
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
+    this._solution = { phoneNumber: phoneNumber,  };
   }
 
   /**
@@ -309,12 +254,7 @@ export class PortingPortabilityInstance {
   url: string;
 
   private get _proxy(): PortingPortabilityContext {
-    this._context =
-      this._context ||
-      new PortingPortabilityContextImpl(
-        this._version,
-        this._solution.phoneNumber
-      );
+    this._context = this._context || new PortingPortabilityContextImpl(this._version, this._solution.phoneNumber);
     return this._context;
   }
 
@@ -325,9 +265,7 @@ export class PortingPortabilityInstance {
    *
    * @returns Resolves to processed PortingPortabilityInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
-  ): Promise<PortingPortabilityInstance>;
+  fetch(callback?: (error: Error | null, item?: PortingPortabilityInstance) => any): Promise<PortingPortabilityInstance>;
   /**
    * Fetch a PortingPortabilityInstance
    *
@@ -336,15 +274,10 @@ export class PortingPortabilityInstance {
    *
    * @returns Resolves to processed PortingPortabilityInstance
    */
-  fetch(
-    params: PortingPortabilityContextFetchOptions,
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
-  ): Promise<PortingPortabilityInstance>;
+  fetch(params: PortingPortabilityContextFetchOptions, callback?: (error: Error | null, item?: PortingPortabilityInstance) => any): Promise<PortingPortabilityInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
-  ): Promise<PortingPortabilityInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: PortingPortabilityInstance) => any): Promise<PortingPortabilityInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -355,12 +288,7 @@ export class PortingPortabilityInstance {
    *
    * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
-  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any): Promise<ApiResponse<PortingPortabilityInstance>>;
   /**
    * Fetch a PortingPortabilityInstance and return HTTP info
    *
@@ -369,21 +297,10 @@ export class PortingPortabilityInstance {
    *
    * @returns Resolves to processed PortingPortabilityInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: PortingPortabilityContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
-  ): Promise<ApiResponse<PortingPortabilityInstance>>;
+  fetchWithHttpInfo(params: PortingPortabilityContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any): Promise<ApiResponse<PortingPortabilityInstance>>;
 
-  fetchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
-  ): Promise<ApiResponse<PortingPortabilityInstance>> {
+    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<PortingPortabilityInstance>) => any): Promise<ApiResponse<PortingPortabilityInstance>>
+    {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -411,15 +328,20 @@ export class PortingPortabilityInstance {
   }
 }
 
-export interface PortingPortabilitySolution {}
+
+export interface PortingPortabilitySolution {
+}
 
 export interface PortingPortabilityListInstance {
   _version: V1;
   _solution: PortingPortabilitySolution;
   _uri: string;
 
-  (phoneNumber: string): PortingPortabilityContext;
-  get(phoneNumber: string): PortingPortabilityContext;
+  (phoneNumber: string, ): PortingPortabilityContext;
+  get(phoneNumber: string, ): PortingPortabilityContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -428,30 +350,26 @@ export interface PortingPortabilityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingPortabilityListInstance(
-  version: V1
-): PortingPortabilityListInstance {
-  const instance = ((phoneNumber) =>
-    instance.get(phoneNumber)) as PortingPortabilityListInstance;
+export function PortingPortabilityListInstance(version: V1): PortingPortabilityListInstance {
+  const instance = ((phoneNumber, ) => instance.get(phoneNumber, )) as PortingPortabilityListInstance;
 
-  instance.get = function get(phoneNumber): PortingPortabilityContext {
+  instance.get = function get(phoneNumber, ): PortingPortabilityContext {
     return new PortingPortabilityContextImpl(version, phoneNumber);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

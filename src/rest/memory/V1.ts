@@ -14,18 +14,11 @@
 
 import MemoryBase from "../MemoryBase";
 import Version from "../../base/Version";
-import { BulkListInstance, BulkContext } from "./v1/bulk";
-import {
-  ConversationSummaryListInstance,
-  ConversationSummaryContext,
-} from "./v1/conversationSummary";
+import { BulkListInstance } from "./v1/bulk";
+import { ConversationSummaryListInstance, ConversationSummaryContext } from "./v1/conversationSummary";
 import { DataMappingListInstance, DataMappingContext } from "./v1/dataMapping";
-import { EventListInstance } from "./v1/event";
 import { IdentifierListInstance, IdentifierContext } from "./v1/identifier";
-import {
-  IdentityResolutionSettingListInstance,
-  IdentityResolutionSettingContext,
-} from "./v1/identityResolutionSetting";
+import { IdentityResolutionSettingListInstance } from "./v1/identityResolutionSetting";
 import { ImportListInstance, ImportContext } from "./v1/import";
 import { LookupListInstance } from "./v1/lookup";
 import { ObservationListInstance, ObservationContext } from "./v1/observation";
@@ -53,32 +46,17 @@ export default class V1 extends Version {
   protected _stores?: StoreListInstance;
 
   /** Accessor for bulk resource */
-  bulk(storeId: string): BulkContext {
-    return BulkListInstance(this)(storeId);
+  bulk(storeId: string): BulkListInstance {
+    return BulkListInstance(this, storeId);
   }
 
   /** Accessor for conversationSummaries resource - list operations */
-  conversationSummaries(
-    storeId: string,
-    profileId: string
-  ): ConversationSummaryListInstance;
+  conversationSummaries(storeId: string, profileId: string): ConversationSummaryListInstance;
   /** Accessor for conversationSummaries resource - instance operations */
-  conversationSummaries(
-    storeId: string,
-    profileId: string,
-    summaryId: string
-  ): ConversationSummaryContext;
+  conversationSummaries(storeId: string, profileId: string, summaryId: string): ConversationSummaryContext;
   /** Implementation */
-  conversationSummaries(
-    storeId: string,
-    profileId: string,
-    summaryId?: string
-  ): ConversationSummaryListInstance | ConversationSummaryContext {
-    const listInstance = ConversationSummaryListInstance(
-      this,
-      storeId,
-      profileId
-    );
+  conversationSummaries(storeId: string, profileId: string, summaryId?: string): ConversationSummaryListInstance | ConversationSummaryContext {
+    const listInstance = ConversationSummaryListInstance(this, storeId, profileId);
     if (summaryId !== undefined) {
       return listInstance.get(summaryId);
     }
@@ -90,10 +68,7 @@ export default class V1 extends Version {
   /** Accessor for dataMappings resource - instance operations */
   dataMappings(storeId: string, dataMappingId: string): DataMappingContext;
   /** Implementation */
-  dataMappings(
-    storeId: string,
-    dataMappingId?: string
-  ): DataMappingListInstance | DataMappingContext {
+  dataMappings(storeId: string, dataMappingId?: string): DataMappingListInstance | DataMappingContext {
     const listInstance = DataMappingListInstance(this, storeId);
     if (dataMappingId !== undefined) {
       return listInstance.get(dataMappingId);
@@ -101,25 +76,12 @@ export default class V1 extends Version {
     return listInstance;
   }
 
-  /** Accessor for events resource */
-  events(storeId: string, profileId: string): EventListInstance {
-    return EventListInstance(this, storeId, profileId);
-  }
-
   /** Accessor for identifiers resource - list operations */
   identifiers(storeId: string, profileId: string): IdentifierListInstance;
   /** Accessor for identifiers resource - instance operations */
-  identifiers(
-    storeId: string,
-    profileId: string,
-    idType: string
-  ): IdentifierContext;
+  identifiers(storeId: string, profileId: string, idType: string): IdentifierContext;
   /** Implementation */
-  identifiers(
-    storeId: string,
-    profileId: string,
-    idType?: string
-  ): IdentifierListInstance | IdentifierContext {
+  identifiers(storeId: string, profileId: string, idType?: string): IdentifierListInstance | IdentifierContext {
     const listInstance = IdentifierListInstance(this, storeId, profileId);
     if (idType !== undefined) {
       return listInstance.get(idType);
@@ -128,10 +90,8 @@ export default class V1 extends Version {
   }
 
   /** Accessor for identityResolutionSettings resource */
-  identityResolutionSettings(
-    storeId: string
-  ): IdentityResolutionSettingContext {
-    return IdentityResolutionSettingListInstance(this)(storeId);
+  identityResolutionSettings(storeId: string): IdentityResolutionSettingListInstance {
+    return IdentityResolutionSettingListInstance(this, storeId);
   }
 
   /** Accessor for imports resource - list operations */
@@ -139,10 +99,7 @@ export default class V1 extends Version {
   /** Accessor for imports resource - instance operations */
   imports(storeId: string, importId: string): ImportContext;
   /** Implementation */
-  imports(
-    storeId: string,
-    importId?: string
-  ): ImportListInstance | ImportContext {
+  imports(storeId: string, importId?: string): ImportListInstance | ImportContext {
     const listInstance = ImportListInstance(this, storeId);
     if (importId !== undefined) {
       return listInstance.get(importId);
@@ -158,17 +115,9 @@ export default class V1 extends Version {
   /** Accessor for observations resource - list operations */
   observations(storeId: string, profileId: string): ObservationListInstance;
   /** Accessor for observations resource - instance operations */
-  observations(
-    storeId: string,
-    profileId: string,
-    observationId: string
-  ): ObservationContext;
+  observations(storeId: string, profileId: string, observationId: string): ObservationContext;
   /** Implementation */
-  observations(
-    storeId: string,
-    profileId: string,
-    observationId?: string
-  ): ObservationListInstance | ObservationContext {
+  observations(storeId: string, profileId: string, observationId?: string): ObservationListInstance | ObservationContext {
     const listInstance = ObservationListInstance(this, storeId, profileId);
     if (observationId !== undefined) {
       return listInstance.get(observationId);
@@ -187,10 +136,7 @@ export default class V1 extends Version {
   /** Accessor for profiles resource - instance operations */
   profiles(storeId: string, profileId: string): ProfileContext;
   /** Implementation */
-  profiles(
-    storeId: string,
-    profileId?: string
-  ): ProfileListInstance | ProfileContext {
+  profiles(storeId: string, profileId?: string): ProfileListInstance | ProfileContext {
     const listInstance = ProfileListInstance(this, storeId);
     if (profileId !== undefined) {
       return listInstance.get(profileId);
@@ -204,11 +150,7 @@ export default class V1 extends Version {
   }
 
   /** Accessor for revisions resource */
-  revisions(
-    storeId: string,
-    profileId: string,
-    observationId: string
-  ): RevisionListInstance {
+  revisions(storeId: string, profileId: string, observationId: string): RevisionListInstance {
     return RevisionListInstance(this, storeId, profileId, observationId);
   }
 
@@ -228,14 +170,12 @@ export default class V1 extends Version {
   /** Accessor for traitGroups resource - instance operations */
   traitGroups(storeId: string, traitGroupName: string): TraitGroupContext;
   /** Implementation */
-  traitGroups(
-    storeId: string,
-    traitGroupName?: string
-  ): TraitGroupListInstance | TraitGroupContext {
+  traitGroups(storeId: string, traitGroupName?: string): TraitGroupListInstance | TraitGroupContext {
     const listInstance = TraitGroupListInstance(this, storeId);
     if (traitGroupName !== undefined) {
       return listInstance.get(traitGroupName);
     }
     return listInstance;
   }
+
 }

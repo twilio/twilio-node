@@ -17,7 +17,8 @@ pids
 node_modules
 
 ### Spec and test coverage ###
-spec
+spec/*
+!spec/cluster/
 
 ### Test coverage ###
 coverage

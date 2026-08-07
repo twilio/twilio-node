@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -19,27 +20,26 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
 /**
  * The status - one of `stopped`, `in-flight`
  */
-export type TranscriptionStatus = "in-progress" | "stopped";
+export type TranscriptionStatus = 'in-progress'|'stopped';
 
 /**
  * One of `inbound_track`, `outbound_track`, `both_tracks`.
  */
-export type TranscriptionTrack =
-  | "inbound_track"
-  | "outbound_track"
-  | "both_tracks";
+export type TranscriptionTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
-export type TranscriptionUpdateStatus = "stopped";
+export type TranscriptionUpdateStatus = 'stopped';
+
 
 /**
  * Options to pass to update a TranscriptionInstance
  */
 export interface TranscriptionContextUpdateOptions {
   /**  */
-  status: TranscriptionUpdateStatus;
+  "status": TranscriptionUpdateStatus;
 }
 
 /**
@@ -47,44 +47,45 @@ export interface TranscriptionContextUpdateOptions {
  */
 export interface TranscriptionListInstanceCreateOptions {
   /** The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription. */
-  name?: string;
+  "name"?: string;
   /**  */
-  track?: TranscriptionTrack;
+  "track"?: TranscriptionTrack;
   /** Absolute URL of the status callback. */
-  statusCallbackUrl?: string;
+  "statusCallbackUrl"?: string;
   /** The http method for the status_callback (one of GET, POST). */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** Friendly name given to the Inbound Track */
-  inboundTrackLabel?: string;
+  "inboundTrackLabel"?: string;
   /** Friendly name given to the Outbound Track */
-  outboundTrackLabel?: string;
+  "outboundTrackLabel"?: string;
   /** Indicates if partial results are going to be sent to the customer */
-  partialResults?: boolean;
+  "partialResults"?: boolean;
   /** Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format */
-  languageCode?: string;
+  "languageCode"?: string;
   /** Definition of the transcription engine to be used, among those supported by Twilio */
-  transcriptionEngine?: string;
+  "transcriptionEngine"?: string;
   /** indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks */
-  profanityFilter?: boolean;
+  "profanityFilter"?: boolean;
   /** Recognition model used by the transcription engine, among those supported by the provider */
-  speechModel?: string;
+  "speechModel"?: string;
   /** A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them. */
-  hints?: string;
+  "hints"?: string;
   /** The provider will add punctuation to recognition result */
-  enableAutomaticPunctuation?: boolean;
+  "enableAutomaticPunctuation"?: boolean;
   /** The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators */
-  intelligenceService?: string;
+  "intelligenceService"?: string;
   /** The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service */
-  conversationConfiguration?: string;
+  "conversationConfiguration"?: string;
   /** The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service */
-  conversationId?: string;
+  "conversationId"?: string;
   /** The ID of the RealTimeTranscription Configuration for configuring all the non-default behaviors in one go. */
-  transcriptionConfigurationId?: string;
+  "transcriptionConfigurationId"?: string;
   /** Whether the callback includes raw provider data. */
-  enableProviderData?: boolean;
+  "enableProviderData"?: boolean;
 }
 
 export interface TranscriptionContext {
+
   /**
    * Update a TranscriptionInstance
    *
@@ -93,10 +94,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  update(
-    params: TranscriptionContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  update(params: TranscriptionContextUpdateOptions, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
   /**
    * Update a TranscriptionInstance and return HTTP info
@@ -106,13 +104,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: TranscriptionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  updateWithHttpInfo(params: TranscriptionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -122,135 +114,102 @@ export interface TranscriptionContext {
 }
 
 export interface TranscriptionContextSolution {
-  accountSid: string;
-  callSid: string;
-  sid: string;
+  "accountSid": string;
+  "callSid": string;
+  "sid": string;
 }
 
 export class TranscriptionContextImpl implements TranscriptionContext {
   protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    callSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V2010, accountSid: string, callSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(callSid)) {
-      throw new Error("Parameter 'callSid' is not valid.");
+      throw new Error('Parameter \'callSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, callSid, sid };
+    this._solution = { accountSid, callSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Transcriptions/${sid}.json`;
   }
 
-  update(
-    params: TranscriptionContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
-    if (params === null || params === undefined) {
+  update(params: TranscriptionContextUpdateOptions,callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params: TranscriptionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
-    if (params === null || params === undefined) {
+  updateWithHttpInfo(params: TranscriptionContextUpdateOptions,callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -267,7 +226,8 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   }
 }
 
-interface TranscriptionPayload extends TranscriptionResource {}
+
+  interface TranscriptionPayload extends TranscriptionResource {}
 
 interface TranscriptionResource {
   sid: string;
@@ -283,22 +243,17 @@ export class TranscriptionInstance {
   protected _solution: TranscriptionContextSolution;
   protected _context?: TranscriptionContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: TranscriptionResource,
-    accountSid: string,
-    callSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.callSid = payload.call_sid;
-    this.name = payload.name;
+  constructor(protected _version: V2010, payload: TranscriptionResource, accountSid: string, callSid: string, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.callSid = (payload.call_sid);
+    this.name = (payload.name);
     this.status = payload.status;
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.uri = payload.uri;
+    this.uri = (payload.uri);
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid,  };
   }
 
   /**
@@ -325,14 +280,7 @@ export class TranscriptionInstance {
   uri: string;
 
   private get _proxy(): TranscriptionContext {
-    this._context =
-      this._context ||
-      new TranscriptionContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.callSid,
-        this._solution.sid
-      );
+    this._context = this._context || new TranscriptionContextImpl(this._version, this._solution.accountSid, this._solution.callSid, this._solution.sid);
     return this._context;
   }
 
@@ -344,15 +292,10 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  update(
-    params: TranscriptionContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  update(params: TranscriptionContextUpdateOptions, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -364,21 +307,10 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: TranscriptionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  updateWithHttpInfo(params: TranscriptionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -404,6 +336,7 @@ export class TranscriptionInstance {
   }
 }
 
+
 export interface TranscriptionSolution {
   accountSid: string;
   callSid: string;
@@ -414,8 +347,11 @@ export interface TranscriptionListInstance {
   _solution: TranscriptionSolution;
   _uri: string;
 
-  (sid: string): TranscriptionContext;
-  get(sid: string): TranscriptionContext;
+  (sid: string, ): TranscriptionContext;
+  get(sid: string, ): TranscriptionContext;
+
+
+
 
   /**
    * Create a TranscriptionInstance
@@ -424,9 +360,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  create(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  create(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
   /**
    * Create a TranscriptionInstance
    *
@@ -435,10 +369,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  create(
-    params: TranscriptionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  create(params: TranscriptionListInstanceCreateOptions, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
   /**
    * Create a TranscriptionInstance and return HTTP info
@@ -447,12 +378,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Create a TranscriptionInstance and return HTTP info
    *
@@ -461,13 +387,9 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: TranscriptionListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  createWithHttpInfo(params: TranscriptionListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -476,210 +398,169 @@ export interface TranscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TranscriptionListInstance(
-  version: V2010,
-  accountSid: string,
-  callSid: string
-): TranscriptionListInstance {
+export function TranscriptionListInstance(version: V2010, accountSid: string, callSid: string): TranscriptionListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(callSid)) {
-    throw new Error("Parameter 'callSid' is not valid.");
+    throw new Error('Parameter \'callSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as TranscriptionListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as TranscriptionListInstance;
 
-  instance.get = function get(sid): TranscriptionContext {
+  instance.get = function get(sid, ): TranscriptionContext {
     return new TranscriptionContextImpl(version, accountSid, callSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, callSid };
+  instance._solution = { accountSid, callSid,  };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Transcriptions.json`;
 
-  instance.create = function create(
-    params?:
-      | TranscriptionListInstanceCreateOptions
-      | ((error: Error | null, items: TranscriptionInstance) => any),
-    callback?: (error: Error | null, items: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+  instance.create = function create(params?: TranscriptionListInstanceCreateOptions | ((error: Error | null, items: TranscriptionInstance) => any), callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["name"] !== undefined) data["Name"] = params["name"];
-    if (params["track"] !== undefined) data["Track"] = params["track"];
+    
+        if (params["name"] !== undefined)
+    data["Name"] = params["name"];
+    if (params["track"] !== undefined)
+    data["Track"] = params["track"];
     if (params["statusCallbackUrl"] !== undefined)
-      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    data["StatusCallbackUrl"] = params["statusCallbackUrl"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["inboundTrackLabel"] !== undefined)
-      data["InboundTrackLabel"] = params["inboundTrackLabel"];
+    data["InboundTrackLabel"] = params["inboundTrackLabel"];
     if (params["outboundTrackLabel"] !== undefined)
-      data["OutboundTrackLabel"] = params["outboundTrackLabel"];
+    data["OutboundTrackLabel"] = params["outboundTrackLabel"];
     if (params["partialResults"] !== undefined)
-      data["PartialResults"] = serialize.bool(params["partialResults"]);
+    data["PartialResults"] = serialize.bool(params["partialResults"]);
     if (params["languageCode"] !== undefined)
-      data["LanguageCode"] = params["languageCode"];
+    data["LanguageCode"] = params["languageCode"];
     if (params["transcriptionEngine"] !== undefined)
-      data["TranscriptionEngine"] = params["transcriptionEngine"];
+    data["TranscriptionEngine"] = params["transcriptionEngine"];
     if (params["profanityFilter"] !== undefined)
-      data["ProfanityFilter"] = serialize.bool(params["profanityFilter"]);
+    data["ProfanityFilter"] = serialize.bool(params["profanityFilter"]);
     if (params["speechModel"] !== undefined)
-      data["SpeechModel"] = params["speechModel"];
-    if (params["hints"] !== undefined) data["Hints"] = params["hints"];
+    data["SpeechModel"] = params["speechModel"];
+    if (params["hints"] !== undefined)
+    data["Hints"] = params["hints"];
     if (params["enableAutomaticPunctuation"] !== undefined)
-      data["EnableAutomaticPunctuation"] = serialize.bool(
-        params["enableAutomaticPunctuation"]
-      );
+    data["EnableAutomaticPunctuation"] = serialize.bool(params["enableAutomaticPunctuation"]);
     if (params["intelligenceService"] !== undefined)
-      data["IntelligenceService"] = params["intelligenceService"];
+    data["IntelligenceService"] = params["intelligenceService"];
     if (params["conversationConfiguration"] !== undefined)
-      data["ConversationConfiguration"] = params["conversationConfiguration"];
+    data["ConversationConfiguration"] = params["conversationConfiguration"];
     if (params["conversationId"] !== undefined)
-      data["ConversationId"] = params["conversationId"];
+    data["ConversationId"] = params["conversationId"];
     if (params["transcriptionConfigurationId"] !== undefined)
-      data["TranscriptionConfigurationId"] =
-        params["transcriptionConfigurationId"];
+    data["TranscriptionConfigurationId"] = params["transcriptionConfigurationId"];
     if (params["enableProviderData"] !== undefined)
-      data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
+    data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | TranscriptionListInstanceCreateOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<TranscriptionInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: TranscriptionListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<TranscriptionInstance>) => any), callback?: (error: Error | null, items: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["name"] !== undefined) data["Name"] = params["name"];
-    if (params["track"] !== undefined) data["Track"] = params["track"];
+    
+        if (params["name"] !== undefined)
+    data["Name"] = params["name"];
+    if (params["track"] !== undefined)
+    data["Track"] = params["track"];
     if (params["statusCallbackUrl"] !== undefined)
-      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    data["StatusCallbackUrl"] = params["statusCallbackUrl"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["inboundTrackLabel"] !== undefined)
-      data["InboundTrackLabel"] = params["inboundTrackLabel"];
+    data["InboundTrackLabel"] = params["inboundTrackLabel"];
     if (params["outboundTrackLabel"] !== undefined)
-      data["OutboundTrackLabel"] = params["outboundTrackLabel"];
+    data["OutboundTrackLabel"] = params["outboundTrackLabel"];
     if (params["partialResults"] !== undefined)
-      data["PartialResults"] = serialize.bool(params["partialResults"]);
+    data["PartialResults"] = serialize.bool(params["partialResults"]);
     if (params["languageCode"] !== undefined)
-      data["LanguageCode"] = params["languageCode"];
+    data["LanguageCode"] = params["languageCode"];
     if (params["transcriptionEngine"] !== undefined)
-      data["TranscriptionEngine"] = params["transcriptionEngine"];
+    data["TranscriptionEngine"] = params["transcriptionEngine"];
     if (params["profanityFilter"] !== undefined)
-      data["ProfanityFilter"] = serialize.bool(params["profanityFilter"]);
+    data["ProfanityFilter"] = serialize.bool(params["profanityFilter"]);
     if (params["speechModel"] !== undefined)
-      data["SpeechModel"] = params["speechModel"];
-    if (params["hints"] !== undefined) data["Hints"] = params["hints"];
+    data["SpeechModel"] = params["speechModel"];
+    if (params["hints"] !== undefined)
+    data["Hints"] = params["hints"];
     if (params["enableAutomaticPunctuation"] !== undefined)
-      data["EnableAutomaticPunctuation"] = serialize.bool(
-        params["enableAutomaticPunctuation"]
-      );
+    data["EnableAutomaticPunctuation"] = serialize.bool(params["enableAutomaticPunctuation"]);
     if (params["intelligenceService"] !== undefined)
-      data["IntelligenceService"] = params["intelligenceService"];
+    data["IntelligenceService"] = params["intelligenceService"];
     if (params["conversationConfiguration"] !== undefined)
-      data["ConversationConfiguration"] = params["conversationConfiguration"];
+    data["ConversationConfiguration"] = params["conversationConfiguration"];
     if (params["conversationId"] !== undefined)
-      data["ConversationId"] = params["conversationId"];
+    data["ConversationId"] = params["conversationId"];
     if (params["transcriptionConfigurationId"] !== undefined)
-      data["TranscriptionConfigurationId"] =
-        params["transcriptionConfigurationId"];
+    data["TranscriptionConfigurationId"] = params["transcriptionConfigurationId"];
     if (params["enableProviderData"] !== undefined)
-      data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
+    data["EnableProviderData"] = serialize.bool(params["enableProviderData"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.callSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

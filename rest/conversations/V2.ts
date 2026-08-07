@@ -15,7 +15,10 @@
 import ConversationsBase from "../ConversationsBase";
 import Version from "../../base/Version";
 import { ActionListInstance } from "./v2/action";
-import { CommunicationListInstance, CommunicationContext } from "./v2/communication";
+import {
+  CommunicationListInstance,
+  CommunicationContext,
+} from "./v2/communication";
 import { ConfigurationListInstance } from "./v2/configuration";
 import { ConversationListInstance } from "./v2/conversation";
 import { OperationListInstance } from "./v2/operation";
@@ -48,7 +51,10 @@ export default class V2 extends Version {
   /** Accessor for communications resource - instance operations */
   communications(ConversationId: string, id: string): CommunicationContext;
   /** Implementation */
-  communications(ConversationId: string, id?: string): CommunicationListInstance | CommunicationContext {
+  communications(
+    ConversationId: string,
+    id?: string,
+  ): CommunicationListInstance | CommunicationContext {
     const listInstance = CommunicationListInstance(this, ConversationId);
     if (id !== undefined) {
       return listInstance.get(id);
@@ -58,7 +64,8 @@ export default class V2 extends Version {
 
   /** Getter for configurations resource */
   get configurations(): ConfigurationListInstance {
-    this._configurations = this._configurations || ConfigurationListInstance(this);
+    this._configurations =
+      this._configurations || ConfigurationListInstance(this);
     return this._configurations;
   }
 
@@ -79,12 +86,14 @@ export default class V2 extends Version {
   /** Accessor for participants resource - instance operations */
   participants(ConversationId: string, id: string): ParticipantContext;
   /** Implementation */
-  participants(ConversationId: string, id?: string): ParticipantListInstance | ParticipantContext {
+  participants(
+    ConversationId: string,
+    id?: string,
+  ): ParticipantListInstance | ParticipantContext {
     const listInstance = ParticipantListInstance(this, ConversationId);
     if (id !== undefined) {
       return listInstance.get(id);
     }
     return listInstance;
   }
-
 }

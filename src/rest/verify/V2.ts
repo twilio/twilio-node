@@ -70,16 +70,14 @@ export default class V2 extends Version {
 
   /** Getter for verificationAttempts resource */
   get verificationAttempts(): VerificationAttemptListInstance {
-    this._verificationAttempts =
-      this._verificationAttempts || VerificationAttemptListInstance(this);
+    this._verificationAttempts = this._verificationAttempts || VerificationAttemptListInstance(this);
     return this._verificationAttempts;
   }
 
   /** Getter for verificationAttemptsSummary resource */
   get verificationAttemptsSummary(): VerificationAttemptsSummaryListInstance {
-    this._verificationAttemptsSummary =
-      this._verificationAttemptsSummary ||
-      VerificationAttemptsSummaryListInstance(this);
+    this._verificationAttemptsSummary = this._verificationAttemptsSummary || VerificationAttemptsSummaryListInstance(this);
     return this._verificationAttemptsSummary;
   }
+
 }

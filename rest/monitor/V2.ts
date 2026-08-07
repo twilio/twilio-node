@@ -43,5 +43,4 @@ export default class V2 extends Version {
     this._status = this._status || StatusListInstance(this);
     return this._status;
   }
-
 }

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,7 +22,6 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 export class CountyCarrierValue {
   "country"?: string;
   "carriers"?: Array<CountyCarrierValueCarriers>;
@@ -33,7 +31,6 @@ export class CountyCarrierValue {
     this.carriers = payload["carriers"];
   }
 }
-
 
 export class CountyCarrierValueCarriers {
   /**
@@ -61,7 +58,6 @@ export class CountyCarrierValueCarriers {
   }
 }
 
-
 export class InsightsV2CreatePhoneNumbersReportRequest {
   "timeRange"?: InsightsV2CreatePhoneNumbersReportRequestTimeRange;
   "filters"?: Array<PhoneNumberReportFilter>;
@@ -76,7 +72,6 @@ export class InsightsV2CreatePhoneNumbersReportRequest {
     this.size = payload["size"];
   }
 }
-
 
 export class InsightsV2CreatePhoneNumbersReportRequestTimeRange {
   /**
@@ -93,7 +88,6 @@ export class InsightsV2CreatePhoneNumbersReportRequestTimeRange {
     this.endDatetime = payload["end_datetime"];
   }
 }
-
 
 /**
  * Percentage of calls made in each state.
@@ -129,7 +123,6 @@ export class InsightsV2InboundPhoneNumberReportCallStatePercentage {
   }
 }
 
-
 /**
  * Number of calls made in answering machine detection (AMD) enabled.
  */
@@ -143,21 +136,21 @@ export class InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection {
    */
   "answeredByHumanPercentage"?: number;
   /**
-   * Percentage of calls marked as answered by machined related like the following: `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `fax` 
+   * Percentage of calls marked as answered by machined related like the following: `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `fax`
    */
   "answeredByMachinePercentage"?: number;
 
   constructor(payload) {
     this.totalCalls = payload["total_calls"];
     this.answeredByHumanPercentage = payload["answered_by_human_percentage"];
-    this.answeredByMachinePercentage = payload["answered_by_machine_percentage"];
+    this.answeredByMachinePercentage =
+      payload["answered_by_machine_percentage"];
   }
 }
-
 
 export class PhoneNumberReportFilter {
   /**
-   * The name of the filter 
+   * The name of the filter
    */
   "key"?: string;
   /**
@@ -170,11 +163,10 @@ export class PhoneNumberReportFilter {
     this.values = payload["values"];
   }
 }
-
 
 export class ReportFilter {
   /**
-   * The name of the filter \'call_state\', \'call_direction\', \'call_type\', \'twilio_regions\', \'caller_country_code\', \'callee_country_code\', \'silent\' 
+   * The name of the filter \'call_state\', \'call_direction\', \'call_type\', \'twilio_regions\', \'caller_country_code\', \'callee_country_code\', \'silent\'
    */
   "key"?: string;
   /**
@@ -187,7 +179,6 @@ export class ReportFilter {
     this.values = payload["values"];
   }
 }
-
 
 export class ReportMetadata {
   /**
@@ -210,19 +201,17 @@ export class ReportMetadata {
   }
 }
 
-
 /**
  * The status of the report.
  */
-export type ReportStatus = 'created'|'running'|'completed';
-
+export type ReportStatus = "created" | "running" | "completed";
 
 /**
  * Options to pass to create a OutboundInstance
  */
 export interface OutboundContextCreateOptions {
   /**  */
-  "insightsV2CreatePhoneNumbersReportRequest"?: InsightsV2CreatePhoneNumbersReportRequest;
+  insightsV2CreatePhoneNumbersReportRequest?: InsightsV2CreatePhoneNumbersReportRequest;
 }
 
 /**
@@ -230,7 +219,7 @@ export interface OutboundContextCreateOptions {
  */
 export interface OutboundListInstanceEachOptions {
   /** How many resources to return in each list page. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: OutboundInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -244,27 +233,24 @@ export interface OutboundListInstanceEachOptions {
  */
 export interface OutboundListInstanceOptions {
   /** How many resources to return in each list page. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface OutboundListInstancePageOptions {
   /** How many resources to return in each list page. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface OutboundContext {
-
   /**
    * Create a OutboundInstance
    *
@@ -272,7 +258,9 @@ export interface OutboundContext {
    *
    * @returns Resolves to processed OutboundInstance
    */
-  create(callback?: (error: Error | null, item?: OutboundInstance) => any): Promise<OutboundInstance>;
+  create(
+    callback?: (error: Error | null, item?: OutboundInstance) => any,
+  ): Promise<OutboundInstance>;
   /**
    * Create a OutboundInstance
    *
@@ -282,7 +270,11 @@ export interface OutboundContext {
    *
    * @returns Resolves to processed OutboundInstance
    */
-  create(params: InsightsV2CreatePhoneNumbersReportRequest, headers?: any, callback?: (error: Error | null, item?: OutboundInstance) => any): Promise<OutboundInstance>;
+  create(
+    params: InsightsV2CreatePhoneNumbersReportRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: OutboundInstance) => any,
+  ): Promise<OutboundInstance>;
 
   /**
    * Create a OutboundInstance and return HTTP info
@@ -291,7 +283,12 @@ export interface OutboundContext {
    *
    * @returns Resolves to processed OutboundInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OutboundInstance>) => any): Promise<ApiResponse<OutboundInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OutboundInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance>>;
   /**
    * Create a OutboundInstance and return HTTP info
    *
@@ -301,7 +298,14 @@ export interface OutboundContext {
    *
    * @returns Resolves to processed OutboundInstance with HTTP metadata
    */
-  createWithHttpInfo(params: InsightsV2CreatePhoneNumbersReportRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<OutboundInstance>) => any): Promise<ApiResponse<OutboundInstance>>;
+  createWithHttpInfo(
+    params: InsightsV2CreatePhoneNumbersReportRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OutboundInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -311,90 +315,133 @@ export interface OutboundContext {
 }
 
 export interface OutboundContextSolution {
-  "reportId": string;
+  reportId: string;
 }
 
 export class OutboundContextImpl implements OutboundContext {
   protected _solution: OutboundContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, reportId: string) {
+  constructor(
+    protected _version: V2,
+    reportId: string,
+  ) {
     if (!isValidPathParam(reportId)) {
-      throw new Error('Parameter \'reportId\' is not valid.');
+      throw new Error("Parameter 'reportId' is not valid.");
     }
 
-    this._solution = { reportId,  };
+    this._solution = { reportId };
     this._uri = `/Voice/Reports/PhoneNumbers/Outbound`;
   }
 
-  create(params?: InsightsV2CreatePhoneNumbersReportRequest | ((error: Error | null, item?: OutboundInstance) => any), headers?: any,callback?: (error: Error | null, item?: OutboundInstance) => any): Promise<OutboundInstance> {
-      if (params instanceof Function) {
+  create(
+    params?:
+      | InsightsV2CreatePhoneNumbersReportRequest
+      | ((error: Error | null, item?: OutboundInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: OutboundInstance) => any,
+  ): Promise<OutboundInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new OutboundInstance(operationVersion, payload, instance._solution.reportId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OutboundInstance(
+          operationVersion,
+          payload,
+          instance._solution.reportId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(params?: InsightsV2CreatePhoneNumbersReportRequest | ((error: Error | null, item?: ApiResponse<OutboundInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<OutboundInstance>) => any): Promise<ApiResponse<OutboundInstance>> {
-      if (params instanceof Function) {
+  createWithHttpInfo(
+    params?:
+      | InsightsV2CreatePhoneNumbersReportRequest
+      | ((error: Error | null, item?: ApiResponse<OutboundInstance>) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OutboundInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<OutboundResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<OutboundInstance> => ({
-      ...response,
-      body: new OutboundInstance(operationVersion, response.body, instance._solution.reportId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<OutboundResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<OutboundInstance> => ({
+        ...response,
+        body: new OutboundInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -411,9 +458,8 @@ export class OutboundContextImpl implements OutboundContext {
   }
 }
 
-
-  interface OutboundPayload extends TwilioResponsePayload {
-    reports: OutboundResource[];
+interface OutboundPayload extends TwilioResponsePayload {
+  reports: OutboundResource[];
 }
 
 interface OutboundResource {
@@ -427,8 +473,8 @@ interface OutboundResource {
   call_answer_score: number;
   call_state_percentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
   silent_calls_percentage: number;
-  calls_by_device_type: { [key: string]: number; };
-  answer_rate_device_type: { [key: string]: number; };
+  calls_by_device_type: { [key: string]: number };
+  answer_rate_device_type: { [key: string]: number };
   blocked_calls_by_carrier: Array<CountyCarrierValue>;
   short_duration_calls_percentage: number;
   long_duration_calls_percentage: number;
@@ -440,29 +486,51 @@ export class OutboundInstance {
   protected _solution: OutboundContextSolution;
   protected _context?: OutboundContext;
 
-  constructor(protected _version: V2, payload: OutboundResource, reportId?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.reportId = (payload.report_id);
+  constructor(
+    protected _version: V2,
+    payload: OutboundResource,
+    reportId?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.reportId = payload.report_id;
     this.status = payload.status;
-    this.requestMeta = payload.request_meta !== null && payload.request_meta !== undefined ? new ReportMetadata(payload.request_meta) : null;
-    this.url = (payload.url);
-    this.handle = (payload.handle);
+    this.requestMeta =
+      payload.request_meta !== null && payload.request_meta !== undefined
+        ? new ReportMetadata(payload.request_meta)
+        : null;
+    this.url = payload.url;
+    this.handle = payload.handle;
     this.totalCalls = deserialize.integer(payload.total_calls);
-    this.callAnswerScore = (payload.call_answer_score);
-    this.callStatePercentage = payload.call_state_percentage !== null && payload.call_state_percentage !== undefined ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(payload.call_state_percentage) : null;
-    this.silentCallsPercentage = (payload.silent_calls_percentage);
-    this.callsByDeviceType = (payload.calls_by_device_type);
-    this.answerRateDeviceType = (payload.answer_rate_device_type);
-    this.blockedCallsByCarrier =  payload.blocked_calls_by_carrier !== null && payload.blocked_calls_by_carrier !== undefined ? payload.blocked_calls_by_carrier.map(
-      (payload: any) => new CountyCarrierValue(payload)
-    ) : null;
-    this.shortDurationCallsPercentage = (payload.short_duration_calls_percentage);
-    this.longDurationCallsPercentage = (payload.long_duration_calls_percentage);
-    this.potentialRobocallsPercentage = (payload.potential_robocalls_percentage);
-    this.answeringMachineDetection = payload.answering_machine_detection !== null && payload.answering_machine_detection !== undefined ? new InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection(payload.answering_machine_detection) : null;
+    this.callAnswerScore = payload.call_answer_score;
+    this.callStatePercentage =
+      payload.call_state_percentage !== null &&
+      payload.call_state_percentage !== undefined
+        ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(
+            payload.call_state_percentage,
+          )
+        : null;
+    this.silentCallsPercentage = payload.silent_calls_percentage;
+    this.callsByDeviceType = payload.calls_by_device_type;
+    this.answerRateDeviceType = payload.answer_rate_device_type;
+    this.blockedCallsByCarrier =
+      payload.blocked_calls_by_carrier !== null &&
+      payload.blocked_calls_by_carrier !== undefined
+        ? payload.blocked_calls_by_carrier.map(
+            (payload: any) => new CountyCarrierValue(payload),
+          )
+        : null;
+    this.shortDurationCallsPercentage = payload.short_duration_calls_percentage;
+    this.longDurationCallsPercentage = payload.long_duration_calls_percentage;
+    this.potentialRobocallsPercentage = payload.potential_robocalls_percentage;
+    this.answeringMachineDetection =
+      payload.answering_machine_detection !== null &&
+      payload.answering_machine_detection !== undefined
+        ? new InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection(
+            payload.answering_machine_detection,
+          )
+        : null;
 
-    this._solution = { reportId: reportId,  };
+    this._solution = { reportId: reportId };
   }
 
   /**
@@ -488,7 +556,7 @@ export class OutboundInstance {
    */
   totalCalls: number;
   /**
-   * The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered. 
+   * The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
    */
   callAnswerScore: number;
   callStatePercentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
@@ -497,13 +565,13 @@ export class OutboundInstance {
    */
   silentCallsPercentage: number;
   /**
-   * Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown` 
+   * Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown`
    */
-  callsByDeviceType: { [key: string]: number; };
+  callsByDeviceType: { [key: string]: number };
   /**
-   * Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown` 
+   * Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown`
    */
-  answerRateDeviceType: { [key: string]: number; };
+  answerRateDeviceType: { [key: string]: number };
   /**
    * Percentage of blocked calls by carrier per country.
    */
@@ -523,7 +591,9 @@ export class OutboundInstance {
   answeringMachineDetection: InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection;
 
   private get _proxy(): OutboundContext {
-    this._context = this._context || new OutboundContextImpl(this._version, this._solution.reportId);
+    this._context =
+      this._context ||
+      new OutboundContextImpl(this._version, this._solution.reportId);
     return this._context;
   }
 
@@ -534,7 +604,9 @@ export class OutboundInstance {
    *
    * @returns Resolves to processed OutboundInstance
    */
-  create(callback?: (error: Error | null, item?: OutboundInstance) => any): Promise<OutboundInstance>;
+  create(
+    callback?: (error: Error | null, item?: OutboundInstance) => any,
+  ): Promise<OutboundInstance>;
   /**
    * Create a OutboundInstance
    *
@@ -544,10 +616,16 @@ export class OutboundInstance {
    *
    * @returns Resolves to processed OutboundInstance
    */
-  create(params: InsightsV2CreatePhoneNumbersReportRequest, headers?: any, callback?: (error: Error | null, item?: OutboundInstance) => any): Promise<OutboundInstance>;
+  create(
+    params: InsightsV2CreatePhoneNumbersReportRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: OutboundInstance) => any,
+  ): Promise<OutboundInstance>;
 
-    create(params?: any, callback?: (error: Error | null, item?: OutboundInstance) => any): Promise<OutboundInstance>
-    {
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: OutboundInstance) => any,
+  ): Promise<OutboundInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -558,7 +636,12 @@ export class OutboundInstance {
    *
    * @returns Resolves to processed OutboundInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OutboundInstance>) => any): Promise<ApiResponse<OutboundInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OutboundInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance>>;
   /**
    * Create a OutboundInstance and return HTTP info
    *
@@ -568,10 +651,22 @@ export class OutboundInstance {
    *
    * @returns Resolves to processed OutboundInstance with HTTP metadata
    */
-  createWithHttpInfo(params: InsightsV2CreatePhoneNumbersReportRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<OutboundInstance>) => any): Promise<ApiResponse<OutboundInstance>>;
+  createWithHttpInfo(
+    params: InsightsV2CreatePhoneNumbersReportRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OutboundInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance>>;
 
-    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<OutboundInstance>) => any): Promise<ApiResponse<OutboundInstance>>
-    {
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OutboundInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -607,7 +702,6 @@ export class OutboundInstance {
   }
 }
 
-
 export interface OutboundSolution {
   reportId: string;
 }
@@ -617,12 +711,8 @@ export interface OutboundListInstance {
   _solution: OutboundSolution;
   _uri: string;
 
-  (reportId: string, ): OutboundContext;
-  get(reportId: string, ): OutboundContext;
-
-
-
-
+  (reportId: string): OutboundContext;
+  get(reportId: string): OutboundContext;
 
   /**
    * Streams OutboundInstance records from the API.
@@ -639,8 +729,13 @@ export interface OutboundListInstance {
    * @param { OutboundListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: OutboundInstance, done: (err?: Error) => void) => void): void;
-  each(params: OutboundListInstanceEachOptions, callback?: (item: OutboundInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: OutboundInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: OutboundListInstanceEachOptions,
+    callback?: (item: OutboundInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams OutboundInstance records from the API with HTTP metadata captured per page.
    *
@@ -656,8 +751,13 @@ export interface OutboundListInstance {
    * @param { OutboundListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: OutboundInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: OutboundListInstanceEachOptions, callback?: (item: OutboundInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: OutboundInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: OutboundListInstanceEachOptions,
+    callback?: (item: OutboundInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of OutboundInstance records from the API.
    *
@@ -666,7 +766,10 @@ export interface OutboundListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: OutboundPage) => any): Promise<OutboundPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: OutboundPage) => any,
+  ): Promise<OutboundPage>;
   /**
    * Retrieve a single target page of OutboundInstance records from the API with HTTP metadata.
    *
@@ -675,7 +778,10 @@ export interface OutboundListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any): Promise<ApiResponse<OutboundPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any,
+  ): Promise<ApiResponse<OutboundPage>>;
   /**
    * Lists OutboundInstance records from the API as a list.
    *
@@ -685,8 +791,13 @@ export interface OutboundListInstance {
    * @param { OutboundListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: OutboundInstance[]) => any): Promise<OutboundInstance[]>;
-  list(params: OutboundListInstanceOptions, callback?: (error: Error | null, items: OutboundInstance[]) => any): Promise<OutboundInstance[]>;
+  list(
+    callback?: (error: Error | null, items: OutboundInstance[]) => any,
+  ): Promise<OutboundInstance[]>;
+  list(
+    params: OutboundListInstanceOptions,
+    callback?: (error: Error | null, items: OutboundInstance[]) => any,
+  ): Promise<OutboundInstance[]>;
   /**
    * Lists OutboundInstance records from the API as a list with HTTP metadata.
    *
@@ -698,8 +809,19 @@ export interface OutboundListInstance {
    * @param { OutboundListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<OutboundInstance[]>) => any): Promise<ApiResponse<OutboundInstance[]>>;
-  listWithHttpInfo(params: OutboundListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<OutboundInstance[]>) => any): Promise<ApiResponse<OutboundInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OutboundInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance[]>>;
+  listWithHttpInfo(
+    params: OutboundListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OutboundInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<OutboundInstance[]>>;
   /**
    * Retrieve a single page of OutboundInstance records from the API.
    *
@@ -711,8 +833,13 @@ export interface OutboundListInstance {
    * @param { OutboundListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: OutboundPage) => any): Promise<OutboundPage>;
-  page(params: OutboundListInstancePageOptions, callback?: (error: Error | null, items: OutboundPage) => any): Promise<OutboundPage>;
+  page(
+    callback?: (error: Error | null, items: OutboundPage) => any,
+  ): Promise<OutboundPage>;
+  page(
+    params: OutboundListInstancePageOptions,
+    callback?: (error: Error | null, items: OutboundPage) => any,
+  ): Promise<OutboundPage>;
   /**
    * Retrieve a single page of OutboundInstance records from the API with HTTP metadata.
    *
@@ -724,9 +851,13 @@ export interface OutboundListInstance {
    * @param { OutboundListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any): Promise<ApiResponse<OutboundPage>>;
-  pageWithHttpInfo(params: OutboundListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any): Promise<ApiResponse<OutboundPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any,
+  ): Promise<ApiResponse<OutboundPage>>;
+  pageWithHttpInfo(
+    params: OutboundListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any,
+  ): Promise<ApiResponse<OutboundPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -735,22 +866,31 @@ export interface OutboundListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function OutboundListInstance(version: V2, reportId: string): OutboundListInstance {
+export function OutboundListInstance(
+  version: V2,
+  reportId: string,
+): OutboundListInstance {
   if (!isValidPathParam(reportId)) {
-    throw new Error('Parameter \'reportId\' is not valid.');
+    throw new Error("Parameter 'reportId' is not valid.");
   }
 
-  const instance = ((reportId, ) => instance.get(reportId, )) as OutboundListInstance;
+  const instance = ((reportId) =>
+    instance.get(reportId)) as OutboundListInstance;
 
-  instance.get = function get(reportId, ): OutboundContext {
+  instance.get = function get(reportId): OutboundContext {
     return new OutboundContextImpl(version, reportId);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { reportId,  };
+  instance._solution = { reportId };
   instance._uri = `/Voice/Reports/PhoneNumbers/Outbound/${reportId}`;
 
-  instance.page = function page(params?: OutboundListInstancePageOptions | ((error: Error | null, items: OutboundPage) => any), callback?: (error: Error | null, items: OutboundPage) => any): Promise<OutboundPage> {
+  instance.page = function page(
+    params?:
+      | OutboundListInstancePageOptions
+      | ((error: Error | null, items: OutboundPage) => any),
+    callback?: (error: Error | null, items: OutboundPage) => any,
+  ): Promise<OutboundPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -760,44 +900,59 @@ export function OutboundListInstance(version: V2, reportId: string): OutboundLis
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new OutboundPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OutboundPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: OutboundPage) => any): Promise<OutboundPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new OutboundPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: OutboundPage) => any,
+  ): Promise<OutboundPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new OutboundPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: OutboundListInstancePageOptions | ((error: Error | null, items: ApiResponse<OutboundPage>) => any), callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any): Promise<ApiResponse<OutboundPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | OutboundListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<OutboundPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<OutboundPage>) => any,
+  ): Promise<ApiResponse<OutboundPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -807,93 +962,108 @@ export function OutboundListInstance(version: V2, reportId: string): OutboundLis
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<OutboundPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new OutboundPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<OutboundPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new OutboundPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<OutboundPage>) => any): Promise<ApiResponse<OutboundPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<OutboundPage>) => any,
+  ): Promise<ApiResponse<OutboundPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<OutboundPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new OutboundPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<OutboundPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new OutboundPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class OutboundPage extends Page<V2, OutboundPayload, OutboundResource, OutboundInstance> {
-/**
-* Initialize the OutboundPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: OutboundSolution) {
+export class OutboundPage extends Page<
+  V2,
+  OutboundPayload,
+  OutboundResource,
+  OutboundInstance
+> {
+  /**
+   * Initialize the OutboundPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: OutboundSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of OutboundInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: OutboundResource): OutboundInstance {
-
+  /**
+   * Build an instance of OutboundInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: OutboundResource): OutboundInstance {
     return new OutboundInstance(
-    this._version,
-    payload,
-        this._solution.reportId,
+      this._version,
+      payload,
+      this._solution.reportId,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

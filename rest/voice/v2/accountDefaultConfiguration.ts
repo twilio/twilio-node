@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class VoiceV2AccountDefaultConfigurationRequest {
   /**
@@ -34,28 +32,23 @@ export class VoiceV2AccountDefaultConfigurationRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a AccountDefaultConfigurationInstance
  */
 export interface AccountDefaultConfigurationContextCreateOptions {
   /**  */
-  "voiceV2AccountDefaultConfigurationRequest"?: VoiceV2AccountDefaultConfigurationRequest;
+  voiceV2AccountDefaultConfigurationRequest?: VoiceV2AccountDefaultConfigurationRequest;
 }
-
-
 
 /**
  * Options to pass to update a AccountDefaultConfigurationInstance
  */
 export interface AccountDefaultConfigurationContextUpdateOptions {
   /**  */
-  "voiceV2AccountDefaultConfigurationRequest"?: VoiceV2AccountDefaultConfigurationRequest;
+  voiceV2AccountDefaultConfigurationRequest?: VoiceV2AccountDefaultConfigurationRequest;
 }
 
 export interface AccountDefaultConfigurationContext {
-
   /**
    * Create a AccountDefaultConfigurationInstance
    *
@@ -63,7 +56,12 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  create(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Create a AccountDefaultConfigurationInstance
    *
@@ -73,7 +71,14 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  create(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  create(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
 
   /**
    * Create a AccountDefaultConfigurationInstance and return HTTP info
@@ -82,7 +87,12 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Create a AccountDefaultConfigurationInstance and return HTTP info
    *
@@ -92,7 +102,14 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   /**
    * Remove a AccountDefaultConfigurationInstance
@@ -101,7 +118,9 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a AccountDefaultConfigurationInstance and return HTTP info
@@ -110,7 +129,9 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a AccountDefaultConfigurationInstance
@@ -119,7 +140,12 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
 
   /**
    * Fetch a AccountDefaultConfigurationInstance and return HTTP info
@@ -128,7 +154,12 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   /**
    * Update a AccountDefaultConfigurationInstance
@@ -137,7 +168,12 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Update a AccountDefaultConfigurationInstance
    *
@@ -147,7 +183,14 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  update(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  update(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
 
   /**
    * Update a AccountDefaultConfigurationInstance and return HTTP info
@@ -156,7 +199,12 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Update a AccountDefaultConfigurationInstance and return HTTP info
    *
@@ -166,7 +214,14 @@ export interface AccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -176,225 +231,370 @@ export interface AccountDefaultConfigurationContext {
 }
 
 export interface AccountDefaultConfigurationContextSolution {
-  "type": string;
+  type: string;
 }
 
 export class AccountDefaultConfigurationContextImpl implements AccountDefaultConfigurationContext {
   protected _solution: AccountDefaultConfigurationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, type: string) {
+  constructor(
+    protected _version: V2,
+    type: string,
+  ) {
     if (!isValidPathParam(type)) {
-      throw new Error('Parameter \'type\' is not valid.');
+      throw new Error("Parameter 'type' is not valid.");
     }
 
-    this._solution = { type,  };
+    this._solution = { type };
     this._uri = `/AccountDefaultConfiguration/${type}`;
   }
 
-  create(params?: VoiceV2AccountDefaultConfigurationRequest | ((error: Error | null, item?: AccountDefaultConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance> {
-      if (params instanceof Function) {
+  create(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRequest
+      | ((
+          error: Error | null,
+          item?: AccountDefaultConfigurationInstance,
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AccountDefaultConfigurationInstance(operationVersion, payload, instance._solution.type));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AccountDefaultConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.type,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(params?: VoiceV2AccountDefaultConfigurationRequest | ((error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
-      if (params instanceof Function) {
+  createWithHttpInfo(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<AccountDefaultConfigurationInstance>,
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<AccountDefaultConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<AccountDefaultConfigurationInstance> => ({
-      ...response,
-      body: new AccountDefaultConfigurationInstance(operationVersion, response.body, instance._solution.type)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AccountDefaultConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<AccountDefaultConfigurationInstance> => ({
+        ...response,
+        body: new AccountDefaultConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.type,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new AccountDefaultConfigurationInstance(operationVersion, payload, instance._solution.type));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AccountDefaultConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.type,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<AccountDefaultConfigurationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<AccountDefaultConfigurationInstance> => ({
-      ...response,
-      body: new AccountDefaultConfigurationInstance(operationVersion, response.body, instance._solution.type)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AccountDefaultConfigurationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<AccountDefaultConfigurationInstance> => ({
+        ...response,
+        body: new AccountDefaultConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.type,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: VoiceV2AccountDefaultConfigurationRequest | ((error: Error | null, item?: AccountDefaultConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRequest
+      | ((
+          error: Error | null,
+          item?: AccountDefaultConfigurationInstance,
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AccountDefaultConfigurationInstance(operationVersion, payload, instance._solution.type));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AccountDefaultConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.type,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: VoiceV2AccountDefaultConfigurationRequest | ((error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<AccountDefaultConfigurationInstance>,
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRequest> as VoiceV2AccountDefaultConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<AccountDefaultConfigurationResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<AccountDefaultConfigurationInstance> => ({
-      ...response,
-      body: new AccountDefaultConfigurationInstance(operationVersion, response.body, instance._solution.type)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AccountDefaultConfigurationResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<AccountDefaultConfigurationInstance> => ({
+        ...response,
+        body: new AccountDefaultConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.type,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -411,8 +611,7 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
   }
 }
 
-
-  interface AccountDefaultConfigurationPayload extends AccountDefaultConfigurationResource {}
+interface AccountDefaultConfigurationPayload extends AccountDefaultConfigurationResource {}
 
 interface AccountDefaultConfigurationResource {
   account_sid: string;
@@ -430,19 +629,22 @@ export class AccountDefaultConfigurationInstance {
   protected _solution: AccountDefaultConfigurationContextSolution;
   protected _context?: AccountDefaultConfigurationContext;
 
-  constructor(protected _version: V2, payload: AccountDefaultConfigurationResource, type?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.description = (payload.description);
+  constructor(
+    protected _version: V2,
+    payload: AccountDefaultConfigurationResource,
+    type?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.configuration = (payload.configuration);
-    this.message = (payload.message);
-    this.code = (payload.code);
-    this.status = (payload.status);
-    this.moreInfo = (payload.more_info);
+    this.configuration = payload.configuration;
+    this.message = payload.message;
+    this.code = payload.code;
+    this.status = payload.status;
+    this.moreInfo = payload.more_info;
 
-    this._solution = { type: type,  };
+    this._solution = { type: type };
   }
 
   /**
@@ -474,7 +676,12 @@ export class AccountDefaultConfigurationInstance {
   moreInfo: string;
 
   private get _proxy(): AccountDefaultConfigurationContext {
-    this._context = this._context || new AccountDefaultConfigurationContextImpl(this._version, this._solution.type);
+    this._context =
+      this._context ||
+      new AccountDefaultConfigurationContextImpl(
+        this._version,
+        this._solution.type,
+      );
     return this._context;
   }
 
@@ -485,7 +692,12 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  create(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Create a AccountDefaultConfigurationInstance
    *
@@ -495,10 +707,22 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  create(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  create(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
 
-    create(params?: any, callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>
-    {
+  create(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -509,7 +733,12 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Create a AccountDefaultConfigurationInstance and return HTTP info
    *
@@ -519,10 +748,22 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
-    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>
-    {
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -533,9 +774,9 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -546,9 +787,9 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -559,9 +800,12 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -572,9 +816,12 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -585,7 +832,12 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Update a AccountDefaultConfigurationInstance
    *
@@ -595,10 +847,22 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance
    */
-  update(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>;
+  update(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: AccountDefaultConfigurationInstance) => any): Promise<AccountDefaultConfigurationInstance>
-    {
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: AccountDefaultConfigurationInstance,
+    ) => any,
+  ): Promise<AccountDefaultConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -609,7 +873,12 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Update a AccountDefaultConfigurationInstance and return HTTP info
    *
@@ -619,10 +888,22 @@ export class AccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed AccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<AccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<AccountDefaultConfigurationInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -650,26 +931,15 @@ export class AccountDefaultConfigurationInstance {
   }
 }
 
-
-export interface AccountDefaultConfigurationSolution {
-}
+export interface AccountDefaultConfigurationSolution {}
 
 export interface AccountDefaultConfigurationListInstance {
   _version: V2;
   _solution: AccountDefaultConfigurationSolution;
   _uri: string;
 
-  (type: string, ): AccountDefaultConfigurationContext;
-  get(type: string, ): AccountDefaultConfigurationContext;
-
-
-
-
-
-
-
-
-
+  (type: string): AccountDefaultConfigurationContext;
+  get(type: string): AccountDefaultConfigurationContext;
 
   /**
    * Provide a user-friendly representation
@@ -678,26 +948,30 @@ export interface AccountDefaultConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AccountDefaultConfigurationListInstance(version: V2): AccountDefaultConfigurationListInstance {
-  const instance = ((type, ) => instance.get(type, )) as AccountDefaultConfigurationListInstance;
+export function AccountDefaultConfigurationListInstance(
+  version: V2,
+): AccountDefaultConfigurationListInstance {
+  const instance = ((type) =>
+    instance.get(type)) as AccountDefaultConfigurationListInstance;
 
-  instance.get = function get(type, ): AccountDefaultConfigurationContext {
+  instance.get = function get(type): AccountDefaultConfigurationContext {
     return new AccountDefaultConfigurationContextImpl(version, type);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

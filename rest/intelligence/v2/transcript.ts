@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -28,27 +27,30 @@ import { MediaListInstance } from "./transcript/media";
 import { OperatorResultListInstance } from "./transcript/operatorResult";
 import { SentenceListInstance } from "./transcript/sentence";
 
-
 /**
  * The Status of this Transcript. One of `queued`, `in-progress`, `completed`, `failed` or `canceled`.
  */
-export type TranscriptStatus = 'queued'|'in-progress'|'completed'|'new'|'failed'|'canceled'|'error';
-
-
-
+export type TranscriptStatus =
+  | "queued"
+  | "in-progress"
+  | "completed"
+  | "new"
+  | "failed"
+  | "canceled"
+  | "error";
 
 /**
  * Options to pass to create a TranscriptInstance
  */
 export interface TranscriptListInstanceCreateOptions {
   /** The unique SID identifier of the Service. */
-  "serviceSid": string;
+  serviceSid: string;
   /** JSON object describing Media Channel including Source and Participants */
-  "channel": any;
+  channel: any;
   /** Used to store client provided metadata. Maximum of 64 double-byte UTF8 characters. */
-  "customerKey"?: string;
+  customerKey?: string;
   /** The date that this Transcript\\\'s media was started, given in ISO 8601 format. */
-  "mediaStartTime"?: Date;
+  mediaStartTime?: Date;
 }
 
 /**
@@ -56,23 +58,23 @@ export interface TranscriptListInstanceCreateOptions {
  */
 export interface TranscriptListInstanceEachOptions {
   /** The unique SID identifier of the Service. */
-  "serviceSid"?: string;
+  serviceSid?: string;
   /** Filter by before StartTime. */
-  "beforeStartTime"?: string;
+  beforeStartTime?: string;
   /** Filter by after StartTime. */
-  "afterStartTime"?: string;
+  afterStartTime?: string;
   /** Filter by before DateCreated. */
-  "beforeDateCreated"?: string;
+  beforeDateCreated?: string;
   /** Filter by after DateCreated. */
-  "afterDateCreated"?: string;
+  afterDateCreated?: string;
   /** Filter by status. */
-  "status"?: string;
+  status?: string;
   /** Filter by Language Code. */
-  "languageCode"?: string;
+  languageCode?: string;
   /** Filter by SourceSid. */
-  "sourceSid"?: string;
+  sourceSid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -86,56 +88,54 @@ export interface TranscriptListInstanceEachOptions {
  */
 export interface TranscriptListInstanceOptions {
   /** The unique SID identifier of the Service. */
-  "serviceSid"?: string;
+  serviceSid?: string;
   /** Filter by before StartTime. */
-  "beforeStartTime"?: string;
+  beforeStartTime?: string;
   /** Filter by after StartTime. */
-  "afterStartTime"?: string;
+  afterStartTime?: string;
   /** Filter by before DateCreated. */
-  "beforeDateCreated"?: string;
+  beforeDateCreated?: string;
   /** Filter by after DateCreated. */
-  "afterDateCreated"?: string;
+  afterDateCreated?: string;
   /** Filter by status. */
-  "status"?: string;
+  status?: string;
   /** Filter by Language Code. */
-  "languageCode"?: string;
+  languageCode?: string;
   /** Filter by SourceSid. */
-  "sourceSid"?: string;
+  sourceSid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface TranscriptListInstancePageOptions {
   /** The unique SID identifier of the Service. */
-  "serviceSid"?: string;
+  serviceSid?: string;
   /** Filter by before StartTime. */
-  "beforeStartTime"?: string;
+  beforeStartTime?: string;
   /** Filter by after StartTime. */
-  "afterStartTime"?: string;
+  afterStartTime?: string;
   /** Filter by before DateCreated. */
-  "beforeDateCreated"?: string;
+  beforeDateCreated?: string;
   /** Filter by after DateCreated. */
-  "afterDateCreated"?: string;
+  afterDateCreated?: string;
   /** Filter by status. */
-  "status"?: string;
+  status?: string;
   /** Filter by Language Code. */
-  "languageCode"?: string;
+  languageCode?: string;
   /** Filter by SourceSid. */
-  "sourceSid"?: string;
+  sourceSid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface TranscriptContext {
   encryptedOperatorResults: EncryptedOperatorResultsListInstance;
@@ -151,7 +151,9 @@ export interface TranscriptContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a TranscriptInstance and return HTTP info
@@ -160,7 +162,9 @@ export interface TranscriptContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a TranscriptInstance
@@ -169,7 +173,9 @@ export interface TranscriptContext {
    *
    * @returns Resolves to processed TranscriptInstance
    */
-  fetch(callback?: (error: Error | null, item?: TranscriptInstance) => any): Promise<TranscriptInstance>
+  fetch(
+    callback?: (error: Error | null, item?: TranscriptInstance) => any,
+  ): Promise<TranscriptInstance>;
 
   /**
    * Fetch a TranscriptInstance and return HTTP info
@@ -178,7 +184,12 @@ export interface TranscriptContext {
    *
    * @returns Resolves to processed TranscriptInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptInstance>) => any): Promise<ApiResponse<TranscriptInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -188,7 +199,7 @@ export interface TranscriptContext {
 }
 
 export interface TranscriptContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class TranscriptContextImpl implements TranscriptContext {
@@ -201,104 +212,156 @@ export class TranscriptContextImpl implements TranscriptContext {
   protected _operatorResults?: OperatorResultListInstance;
   protected _sentences?: SentenceListInstance;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Transcripts/${sid}`;
   }
 
   get encryptedOperatorResults(): EncryptedOperatorResultsListInstance {
-    this._encryptedOperatorResults = this._encryptedOperatorResults || EncryptedOperatorResultsListInstance(this._version, this._solution.sid);
+    this._encryptedOperatorResults =
+      this._encryptedOperatorResults ||
+      EncryptedOperatorResultsListInstance(this._version, this._solution.sid);
     return this._encryptedOperatorResults;
   }
 
   get encryptedSentences(): EncryptedSentencesListInstance {
-    this._encryptedSentences = this._encryptedSentences || EncryptedSentencesListInstance(this._version, this._solution.sid);
+    this._encryptedSentences =
+      this._encryptedSentences ||
+      EncryptedSentencesListInstance(this._version, this._solution.sid);
     return this._encryptedSentences;
   }
 
   get media(): MediaListInstance {
-    this._media = this._media || MediaListInstance(this._version, this._solution.sid);
+    this._media =
+      this._media || MediaListInstance(this._version, this._solution.sid);
     return this._media;
   }
 
   get operatorResults(): OperatorResultListInstance {
-    this._operatorResults = this._operatorResults || OperatorResultListInstance(this._version, this._solution.sid);
+    this._operatorResults =
+      this._operatorResults ||
+      OperatorResultListInstance(this._version, this._solution.sid);
     return this._operatorResults;
   }
 
   get sentences(): SentenceListInstance {
-    this._sentences = this._sentences || SentenceListInstance(this._version, this._solution.sid);
+    this._sentences =
+      this._sentences ||
+      SentenceListInstance(this._version, this._solution.sid);
     return this._sentences;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: TranscriptInstance) => any): Promise<TranscriptInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: TranscriptInstance) => any,
+  ): Promise<TranscriptInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new TranscriptInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TranscriptInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptInstance>) => any): Promise<ApiResponse<TranscriptInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<TranscriptResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TranscriptInstance> => ({
-      ...response,
-      body: new TranscriptInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TranscriptResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<TranscriptInstance> => ({
+        ...response,
+        body: new TranscriptInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -315,9 +378,8 @@ export class TranscriptContextImpl implements TranscriptContext {
   }
 }
 
-
-  interface TranscriptPayload extends TwilioResponsePayload {
-    transcripts: TranscriptResource[];
+interface TranscriptPayload extends TwilioResponsePayload {
+  transcripts: TranscriptResource[];
 }
 
 interface TranscriptResource {
@@ -343,26 +405,29 @@ export class TranscriptInstance {
   protected _solution: TranscriptContextSolution;
   protected _context?: TranscriptContext;
 
-  constructor(protected _version: V2, payload: TranscriptResource, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.serviceSid = (payload.service_sid);
-    this.sid = (payload.sid);
+  constructor(
+    protected _version: V2,
+    payload: TranscriptResource,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.sid = payload.sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.status = payload.status;
-    this.channel = (payload.channel);
-    this.dataLogging = (payload.data_logging);
-    this.languageCode = (payload.language_code);
-    this.customerKey = (payload.customer_key);
+    this.channel = payload.channel;
+    this.dataLogging = payload.data_logging;
+    this.languageCode = payload.language_code;
+    this.customerKey = payload.customer_key;
     this.mediaStartTime = deserialize.iso8601DateTime(payload.media_start_time);
     this.duration = deserialize.integer(payload.duration);
-    this.url = (payload.url);
-    this.redaction = (payload.redaction);
-    this.encryptionCredentialSid = (payload.encryption_credential_sid);
-    this.links = (payload.links);
+    this.url = payload.url;
+    this.redaction = payload.redaction;
+    this.encryptionCredentialSid = payload.encryption_credential_sid;
+    this.links = payload.links;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -422,7 +487,9 @@ export class TranscriptInstance {
   links: Record<string, string>;
 
   private get _proxy(): TranscriptContext {
-    this._context = this._context || new TranscriptContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new TranscriptContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -433,9 +500,9 @@ export class TranscriptInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -446,9 +513,9 @@ export class TranscriptInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -459,9 +526,9 @@ export class TranscriptInstance {
    *
    * @returns Resolves to processed TranscriptInstance
    */
-  fetch(callback?: (error: Error | null, item?: TranscriptInstance) => any): Promise<TranscriptInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: TranscriptInstance) => any,
+  ): Promise<TranscriptInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -472,9 +539,12 @@ export class TranscriptInstance {
    *
    * @returns Resolves to processed TranscriptInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptInstance>) => any): Promise<ApiResponse<TranscriptInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -544,22 +614,15 @@ export class TranscriptInstance {
   }
 }
 
-
-export interface TranscriptSolution {
-}
+export interface TranscriptSolution {}
 
 export interface TranscriptListInstance {
   _version: V2;
   _solution: TranscriptSolution;
   _uri: string;
 
-  (sid: string, ): TranscriptContext;
-  get(sid: string, ): TranscriptContext;
-
-
-
-
-
+  (sid: string): TranscriptContext;
+  get(sid: string): TranscriptContext;
 
   /**
    * Create a TranscriptInstance
@@ -569,7 +632,10 @@ export interface TranscriptListInstance {
    *
    * @returns Resolves to processed TranscriptInstance
    */
-  create(params: TranscriptListInstanceCreateOptions, callback?: (error: Error | null, item?: TranscriptInstance) => any): Promise<TranscriptInstance>;
+  create(
+    params: TranscriptListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TranscriptInstance) => any,
+  ): Promise<TranscriptInstance>;
 
   /**
    * Create a TranscriptInstance and return HTTP info
@@ -579,10 +645,13 @@ export interface TranscriptListInstance {
    *
    * @returns Resolves to processed TranscriptInstance with HTTP metadata
    */
-  createWithHttpInfo(params: TranscriptListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<TranscriptInstance>) => any): Promise<ApiResponse<TranscriptInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: TranscriptListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<TranscriptInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance>>;
 
   /**
    * Streams TranscriptInstance records from the API.
@@ -599,8 +668,13 @@ export interface TranscriptListInstance {
    * @param { TranscriptListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void): void;
-  each(params: TranscriptListInstanceEachOptions, callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: TranscriptListInstanceEachOptions,
+    callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams TranscriptInstance records from the API with HTTP metadata captured per page.
    *
@@ -616,8 +690,13 @@ export interface TranscriptListInstance {
    * @param { TranscriptListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: TranscriptListInstanceEachOptions, callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: TranscriptListInstanceEachOptions,
+    callback?: (item: TranscriptInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of TranscriptInstance records from the API.
    *
@@ -626,7 +705,10 @@ export interface TranscriptListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: TranscriptPage) => any): Promise<TranscriptPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: TranscriptPage) => any,
+  ): Promise<TranscriptPage>;
   /**
    * Retrieve a single target page of TranscriptInstance records from the API with HTTP metadata.
    *
@@ -635,7 +717,10 @@ export interface TranscriptListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any): Promise<ApiResponse<TranscriptPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any,
+  ): Promise<ApiResponse<TranscriptPage>>;
   /**
    * Lists TranscriptInstance records from the API as a list.
    *
@@ -645,8 +730,13 @@ export interface TranscriptListInstance {
    * @param { TranscriptListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TranscriptInstance[]) => any): Promise<TranscriptInstance[]>;
-  list(params: TranscriptListInstanceOptions, callback?: (error: Error | null, items: TranscriptInstance[]) => any): Promise<TranscriptInstance[]>;
+  list(
+    callback?: (error: Error | null, items: TranscriptInstance[]) => any,
+  ): Promise<TranscriptInstance[]>;
+  list(
+    params: TranscriptListInstanceOptions,
+    callback?: (error: Error | null, items: TranscriptInstance[]) => any,
+  ): Promise<TranscriptInstance[]>;
   /**
    * Lists TranscriptInstance records from the API as a list with HTTP metadata.
    *
@@ -658,8 +748,19 @@ export interface TranscriptListInstance {
    * @param { TranscriptListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TranscriptInstance[]>) => any): Promise<ApiResponse<TranscriptInstance[]>>;
-  listWithHttpInfo(params: TranscriptListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<TranscriptInstance[]>) => any): Promise<ApiResponse<TranscriptInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance[]>>;
+  listWithHttpInfo(
+    params: TranscriptListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance[]>>;
   /**
    * Retrieve a single page of TranscriptInstance records from the API.
    *
@@ -671,8 +772,13 @@ export interface TranscriptListInstance {
    * @param { TranscriptListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TranscriptPage) => any): Promise<TranscriptPage>;
-  page(params: TranscriptListInstancePageOptions, callback?: (error: Error | null, items: TranscriptPage) => any): Promise<TranscriptPage>;
+  page(
+    callback?: (error: Error | null, items: TranscriptPage) => any,
+  ): Promise<TranscriptPage>;
+  page(
+    params: TranscriptListInstancePageOptions,
+    callback?: (error: Error | null, items: TranscriptPage) => any,
+  ): Promise<TranscriptPage>;
   /**
    * Retrieve a single page of TranscriptInstance records from the API with HTTP metadata.
    *
@@ -684,9 +790,13 @@ export interface TranscriptListInstance {
    * @param { TranscriptListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any): Promise<ApiResponse<TranscriptPage>>;
-  pageWithHttpInfo(params: TranscriptListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any): Promise<ApiResponse<TranscriptPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any,
+  ): Promise<ApiResponse<TranscriptPage>>;
+  pageWithHttpInfo(
+    params: TranscriptListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any,
+  ): Promise<ApiResponse<TranscriptPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -696,106 +806,129 @@ export interface TranscriptListInstance {
 }
 
 export function TranscriptListInstance(version: V2): TranscriptListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as TranscriptListInstance;
+  const instance = ((sid) => instance.get(sid)) as TranscriptListInstance;
 
-  instance.get = function get(sid, ): TranscriptContext {
+  instance.get = function get(sid): TranscriptContext {
     return new TranscriptContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Transcripts`;
 
-  instance.create = function create(params: TranscriptListInstanceCreateOptions, callback?: (error: Error | null, items: TranscriptInstance) => any): Promise<TranscriptInstance> {
+  instance.create = function create(
+    params: TranscriptListInstanceCreateOptions,
+    callback?: (error: Error | null, items: TranscriptInstance) => any,
+  ): Promise<TranscriptInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["serviceSid"] === null || params["serviceSid"] === undefined) {
-      throw new Error('Required parameter "params[\'serviceSid\']" missing.');
+      throw new Error("Required parameter \"params['serviceSid']\" missing.");
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error('Required parameter "params[\'channel\']" missing.');
+      throw new Error("Required parameter \"params['channel']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["ServiceSid"] = params["serviceSid"];
-    
+
     data["Channel"] = serialize.object(params["channel"]);
     if (params["customerKey"] !== undefined)
-    data["CustomerKey"] = params["customerKey"];
+      data["CustomerKey"] = params["customerKey"];
     if (params["mediaStartTime"] !== undefined)
-    data["MediaStartTime"] = serialize.iso8601DateTime(params["mediaStartTime"]);
+      data["MediaStartTime"] = serialize.iso8601DateTime(
+        params["mediaStartTime"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TranscriptInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TranscriptInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: TranscriptListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<TranscriptInstance>) => any): Promise<ApiResponse<TranscriptInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: TranscriptListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TranscriptInstance>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["serviceSid"] === null || params["serviceSid"] === undefined) {
-      throw new Error('Required parameter "params[\'serviceSid\']" missing.');
+      throw new Error("Required parameter \"params['serviceSid']\" missing.");
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error('Required parameter "params[\'channel\']" missing.');
+      throw new Error("Required parameter \"params['channel']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["ServiceSid"] = params["serviceSid"];
-    
+
     data["Channel"] = serialize.object(params["channel"]);
     if (params["customerKey"] !== undefined)
-    data["CustomerKey"] = params["customerKey"];
+      data["CustomerKey"] = params["customerKey"];
     if (params["mediaStartTime"] !== undefined)
-    data["MediaStartTime"] = serialize.iso8601DateTime(params["mediaStartTime"]);
+      data["MediaStartTime"] = serialize.iso8601DateTime(
+        params["mediaStartTime"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<TranscriptResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TranscriptInstance> => ({
-      ...response,
-      body: new TranscriptInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TranscriptResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<TranscriptInstance> => ({
+        ...response,
+        body: new TranscriptInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: TranscriptListInstancePageOptions | ((error: Error | null, items: TranscriptPage) => any), callback?: (error: Error | null, items: TranscriptPage) => any): Promise<TranscriptPage> {
+  instance.page = function page(
+    params?:
+      | TranscriptListInstancePageOptions
+      | ((error: Error | null, items: TranscriptPage) => any),
+    callback?: (error: Error | null, items: TranscriptPage) => any,
+  ): Promise<TranscriptPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -805,60 +938,74 @@ export function TranscriptListInstance(version: V2): TranscriptListInstance {
 
     let data: any = {};
 
-        if (params["serviceSid"] !== undefined)
-    data["ServiceSid"] = params["serviceSid"];
+    if (params["serviceSid"] !== undefined)
+      data["ServiceSid"] = params["serviceSid"];
     if (params["beforeStartTime"] !== undefined)
-    data["BeforeStartTime"] = params["beforeStartTime"];
+      data["BeforeStartTime"] = params["beforeStartTime"];
     if (params["afterStartTime"] !== undefined)
-    data["AfterStartTime"] = params["afterStartTime"];
+      data["AfterStartTime"] = params["afterStartTime"];
     if (params["beforeDateCreated"] !== undefined)
-    data["BeforeDateCreated"] = params["beforeDateCreated"];
+      data["BeforeDateCreated"] = params["beforeDateCreated"];
     if (params["afterDateCreated"] !== undefined)
-    data["AfterDateCreated"] = params["afterDateCreated"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["AfterDateCreated"] = params["afterDateCreated"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["languageCode"] !== undefined)
-    data["LanguageCode"] = params["languageCode"];
+      data["LanguageCode"] = params["languageCode"];
     if (params["sourceSid"] !== undefined)
-    data["SourceSid"] = params["sourceSid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["SourceSid"] = params["sourceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new TranscriptPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TranscriptPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TranscriptPage) => any): Promise<TranscriptPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new TranscriptPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: TranscriptPage) => any,
+  ): Promise<TranscriptPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TranscriptPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: TranscriptListInstancePageOptions | ((error: Error | null, items: ApiResponse<TranscriptPage>) => any), callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any): Promise<ApiResponse<TranscriptPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TranscriptListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<TranscriptPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TranscriptPage>) => any,
+  ): Promise<ApiResponse<TranscriptPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -868,108 +1015,130 @@ export function TranscriptListInstance(version: V2): TranscriptListInstance {
 
     let data: any = {};
 
-        if (params["serviceSid"] !== undefined)
-    data["ServiceSid"] = params["serviceSid"];
+    if (params["serviceSid"] !== undefined)
+      data["ServiceSid"] = params["serviceSid"];
     if (params["beforeStartTime"] !== undefined)
-    data["BeforeStartTime"] = params["beforeStartTime"];
+      data["BeforeStartTime"] = params["beforeStartTime"];
     if (params["afterStartTime"] !== undefined)
-    data["AfterStartTime"] = params["afterStartTime"];
+      data["AfterStartTime"] = params["afterStartTime"];
     if (params["beforeDateCreated"] !== undefined)
-    data["BeforeDateCreated"] = params["beforeDateCreated"];
+      data["BeforeDateCreated"] = params["beforeDateCreated"];
     if (params["afterDateCreated"] !== undefined)
-    data["AfterDateCreated"] = params["afterDateCreated"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["AfterDateCreated"] = params["afterDateCreated"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["languageCode"] !== undefined)
-    data["LanguageCode"] = params["languageCode"];
+      data["LanguageCode"] = params["languageCode"];
     if (params["sourceSid"] !== undefined)
-    data["SourceSid"] = params["sourceSid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["SourceSid"] = params["sourceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<TranscriptPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new TranscriptPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<TranscriptPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TranscriptPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<TranscriptPage>) => any): Promise<ApiResponse<TranscriptPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<TranscriptPage>,
+    ) => any,
+  ): Promise<ApiResponse<TranscriptPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<TranscriptPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new TranscriptPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TranscriptPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TranscriptPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class TranscriptPage extends Page<V2, TranscriptPayload, TranscriptResource, TranscriptInstance> {
-/**
-* Initialize the TranscriptPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: TranscriptSolution) {
+export class TranscriptPage extends Page<
+  V2,
+  TranscriptPayload,
+  TranscriptResource,
+  TranscriptInstance
+> {
+  /**
+   * Initialize the TranscriptPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: TranscriptSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TranscriptInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TranscriptResource): TranscriptInstance {
+  /**
+   * Build an instance of TranscriptInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TranscriptResource): TranscriptInstance {
+    return new TranscriptInstance(this._version, payload);
+  }
 
-    return new TranscriptInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

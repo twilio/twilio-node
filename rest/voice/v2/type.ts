@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class VoiceV2ConfigurationRequest {
   /**
@@ -38,7 +36,6 @@ export class VoiceV2ConfigurationRequest {
     this.configuration = payload["configuration"];
   }
 }
-
 
 export class VoiceV2ConfigurationResponse {
   /**
@@ -79,7 +76,6 @@ export class VoiceV2ConfigurationResponse {
   }
 }
 
-
 export class VoiceV2PaginatedConfigurationResponseMeta {
   "listKey"?: string;
   "previousToken"?: string;
@@ -96,20 +92,15 @@ export class VoiceV2PaginatedConfigurationResponseMeta {
   }
 }
 
-
-
-
-
 /**
  * Options to pass to update a TypeInstance
  */
 export interface TypeContextUpdateOptions {
   /**  */
-  "voiceV2ConfigurationRequest"?: VoiceV2ConfigurationRequest;
+  voiceV2ConfigurationRequest?: VoiceV2ConfigurationRequest;
 }
 
 export interface TypeContext {
-
   /**
    * Remove a TypeInstance
    *
@@ -117,7 +108,9 @@ export interface TypeContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a TypeInstance and return HTTP info
@@ -126,7 +119,9 @@ export interface TypeContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a TypeInstance
@@ -135,7 +130,9 @@ export interface TypeContext {
    *
    * @returns Resolves to processed TypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>
+  fetch(
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance>;
 
   /**
    * Fetch a TypeInstance and return HTTP info
@@ -144,7 +141,9 @@ export interface TypeContext {
    *
    * @returns Resolves to processed TypeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>>;
 
   /**
    * Update a TypeInstance
@@ -153,7 +152,9 @@ export interface TypeContext {
    *
    * @returns Resolves to processed TypeInstance
    */
-  update(callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>;
+  update(
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance>;
   /**
    * Update a TypeInstance
    *
@@ -163,7 +164,11 @@ export interface TypeContext {
    *
    * @returns Resolves to processed TypeInstance
    */
-  update(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>;
+  update(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance>;
 
   /**
    * Update a TypeInstance and return HTTP info
@@ -172,7 +177,9 @@ export interface TypeContext {
    *
    * @returns Resolves to processed TypeInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>>;
   /**
    * Update a TypeInstance and return HTTP info
    *
@@ -182,7 +189,11 @@ export interface TypeContext {
    *
    * @returns Resolves to processed TypeInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>;
+  updateWithHttpInfo(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -192,161 +203,243 @@ export interface TypeContext {
 }
 
 export interface TypeContextSolution {
-  "type": string;
-  "idOrUniqueName": string;
+  type: string;
+  idOrUniqueName: string;
 }
 
 export class TypeContextImpl implements TypeContext {
   protected _solution: TypeContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, type: string, idOrUniqueName: string) {
+  constructor(
+    protected _version: V2,
+    type: string,
+    idOrUniqueName: string,
+  ) {
     if (!isValidPathParam(type)) {
-      throw new Error('Parameter \'type\' is not valid.');
+      throw new Error("Parameter 'type' is not valid.");
     }
 
     if (!isValidPathParam(idOrUniqueName)) {
-      throw new Error('Parameter \'idOrUniqueName\' is not valid.');
+      throw new Error("Parameter 'idOrUniqueName' is not valid.");
     }
 
-    this._solution = { type, idOrUniqueName,  };
+    this._solution = { type, idOrUniqueName };
     this._uri = `/Configurations/${type}/${idOrUniqueName}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new TypeInstance(operationVersion, payload, instance._solution.type, instance._solution.idOrUniqueName));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TypeInstance(
+          operationVersion,
+          payload,
+          instance._solution.type,
+          instance._solution.idOrUniqueName,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<TypeResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TypeInstance> => ({
-      ...response,
-      body: new TypeInstance(operationVersion, response.body, instance._solution.type, instance._solution.idOrUniqueName)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TypeResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<TypeInstance> => ({
+        ...response,
+        body: new TypeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.type,
+          instance._solution.idOrUniqueName,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: VoiceV2ConfigurationRequest | ((error: Error | null, item?: TypeInstance) => any), headers?: any,callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | VoiceV2ConfigurationRequest
+      | ((error: Error | null, item?: TypeInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TypeInstance(operationVersion, payload, instance._solution.type, instance._solution.idOrUniqueName));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TypeInstance(
+          operationVersion,
+          payload,
+          instance._solution.type,
+          instance._solution.idOrUniqueName,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: VoiceV2ConfigurationRequest | ((error: Error | null, item?: ApiResponse<TypeInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | VoiceV2ConfigurationRequest
+      | ((error: Error | null, item?: ApiResponse<TypeInstance>) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<TypeResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<TypeInstance> => ({
-      ...response,
-      body: new TypeInstance(operationVersion, response.body, instance._solution.type, instance._solution.idOrUniqueName)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TypeResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<TypeInstance> => ({
+        ...response,
+        body: new TypeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.type,
+          instance._solution.idOrUniqueName,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -363,8 +456,7 @@ export class TypeContextImpl implements TypeContext {
   }
 }
 
-
-  interface TypePayload extends TypeResource {}
+interface TypePayload extends TypeResource {}
 
 interface TypeResource {
   message: string;
@@ -389,25 +481,35 @@ export class TypeInstance {
   protected _solution: TypeContextSolution;
   protected _context?: TypeContext;
 
-  constructor(protected _version: V2, payload: TypeResource, type?: string, idOrUniqueName?: string) {
-    
-    this.message = (payload.message);
-    this.code = (payload.code);
-    this.status = (payload.status);
-    this.moreInfo = (payload.more_info);
-    this.id = (payload.id);
-    this.accountSid = (payload.account_sid);
-    this.uniqueName = (payload.unique_name);
-    this.description = (payload.description);
+  constructor(
+    protected _version: V2,
+    payload: TypeResource,
+    type?: string,
+    idOrUniqueName?: string,
+  ) {
+    this.message = payload.message;
+    this.code = payload.code;
+    this.status = payload.status;
+    this.moreInfo = payload.more_info;
+    this.id = payload.id;
+    this.accountSid = payload.account_sid;
+    this.uniqueName = payload.unique_name;
+    this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.configuration = (payload.configuration);
-    this.content =  payload.content !== null && payload.content !== undefined ? payload.content.map(
-      (payload: any) => new VoiceV2ConfigurationResponse(payload)
-    ) : null;
-    this.meta = payload.meta !== null && payload.meta !== undefined ? new VoiceV2PaginatedConfigurationResponseMeta(payload.meta) : null;
+    this.configuration = payload.configuration;
+    this.content =
+      payload.content !== null && payload.content !== undefined
+        ? payload.content.map(
+            (payload: any) => new VoiceV2ConfigurationResponse(payload),
+          )
+        : null;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new VoiceV2PaginatedConfigurationResponseMeta(payload.meta)
+        : null;
 
-    this._solution = { type: type, idOrUniqueName: idOrUniqueName,  };
+    this._solution = { type: type, idOrUniqueName: idOrUniqueName };
   }
 
   /**
@@ -452,7 +554,13 @@ export class TypeInstance {
   meta: VoiceV2PaginatedConfigurationResponseMeta;
 
   private get _proxy(): TypeContext {
-    this._context = this._context || new TypeContextImpl(this._version, this._solution.type, this._solution.idOrUniqueName);
+    this._context =
+      this._context ||
+      new TypeContextImpl(
+        this._version,
+        this._solution.type,
+        this._solution.idOrUniqueName,
+      );
     return this._context;
   }
 
@@ -463,9 +571,9 @@ export class TypeInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -476,9 +584,9 @@ export class TypeInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -489,9 +597,9 @@ export class TypeInstance {
    *
    * @returns Resolves to processed TypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -502,9 +610,9 @@ export class TypeInstance {
    *
    * @returns Resolves to processed TypeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -515,7 +623,9 @@ export class TypeInstance {
    *
    * @returns Resolves to processed TypeInstance
    */
-  update(callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>;
+  update(
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance>;
   /**
    * Update a TypeInstance
    *
@@ -525,10 +635,16 @@ export class TypeInstance {
    *
    * @returns Resolves to processed TypeInstance
    */
-  update(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>;
+  update(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: TypeInstance) => any): Promise<TypeInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TypeInstance) => any,
+  ): Promise<TypeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -539,7 +655,9 @@ export class TypeInstance {
    *
    * @returns Resolves to processed TypeInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>>;
   /**
    * Update a TypeInstance and return HTTP info
    *
@@ -549,10 +667,16 @@ export class TypeInstance {
    *
    * @returns Resolves to processed TypeInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>;
+  updateWithHttpInfo(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any): Promise<ApiResponse<TypeInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TypeInstance>) => any,
+  ): Promise<ApiResponse<TypeInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -584,24 +708,15 @@ export class TypeInstance {
   }
 }
 
-
-export interface TypeSolution {
-}
+export interface TypeSolution {}
 
 export interface TypeListInstance {
   _version: V2;
   _solution: TypeSolution;
   _uri: string;
 
-  (type: string, idOrUniqueName: string, ): TypeContext;
-  get(type: string, idOrUniqueName: string, ): TypeContext;
-
-
-
-
-
-
-
+  (type: string, idOrUniqueName: string): TypeContext;
+  get(type: string, idOrUniqueName: string): TypeContext;
 
   /**
    * Provide a user-friendly representation
@@ -611,25 +726,27 @@ export interface TypeListInstance {
 }
 
 export function TypeListInstance(version: V2): TypeListInstance {
-  const instance = ((type, idOrUniqueName, ) => instance.get(type, idOrUniqueName, )) as TypeListInstance;
+  const instance = ((type, idOrUniqueName) =>
+    instance.get(type, idOrUniqueName)) as TypeListInstance;
 
-  instance.get = function get(type, idOrUniqueName, ): TypeContext {
+  instance.get = function get(type, idOrUniqueName): TypeContext {
     return new TypeContextImpl(version, type, idOrUniqueName);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

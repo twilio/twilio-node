@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,28 +20,32 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-export type NewApiKeyKeytype = "restricted";
+
 
 /**
  * Options to pass to create a NewApiKeyInstance
  */
 export interface NewApiKeyListInstanceCreateOptions {
   /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource. */
-  accountSid: string;
+  "accountSid": string;
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  friendlyName?: string;
-  /**  */
-  keyType?: NewApiKeyKeytype;
+  "friendlyName"?: string;
+  /** The \\\\`KeyType\\\\` form parameter is used to specify the type of key you want to create.  **Default Behavior**: If \\\\`KeyType\\\\` is not specified, the API will generate a standard key.  **Restricted Key**: If \\\\`KeyType\\\\` is set to \\\\`restricted\\\\`, the API will create a new restricted key. In this case, a policy object is required to define the permissions. */
+  "keyType"?: string;
   /** The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys). */
-  policy?: any;
+  "policy"?: any;
 }
 
-export interface NewApiKeySolution {}
+
+export interface NewApiKeySolution {
+}
 
 export interface NewApiKeyListInstance {
   _version: V1;
   _solution: NewApiKeySolution;
   _uri: string;
+
+
 
   /**
    * Create a NewApiKeyInstance
@@ -50,10 +55,7 @@ export interface NewApiKeyListInstance {
    *
    * @returns Resolves to processed NewApiKeyInstance
    */
-  create(
-    params: NewApiKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewApiKeyInstance) => any
-  ): Promise<NewApiKeyInstance>;
+  create(params: NewApiKeyListInstanceCreateOptions, callback?: (error: Error | null, item?: NewApiKeyInstance) => any): Promise<NewApiKeyInstance>;
 
   /**
    * Create a NewApiKeyInstance and return HTTP info
@@ -63,13 +65,9 @@ export interface NewApiKeyListInstance {
    *
    * @returns Resolves to processed NewApiKeyInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: NewApiKeyListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewApiKeyInstance>
-    ) => any
-  ): Promise<ApiResponse<NewApiKeyInstance>>;
+  createWithHttpInfo(params: NewApiKeyListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<NewApiKeyInstance>) => any): Promise<ApiResponse<NewApiKeyInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -82,119 +80,102 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
   const instance = {} as NewApiKeyListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Keys`;
 
-  instance.create = function create(
-    params: NewApiKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, items: NewApiKeyInstance) => any
-  ): Promise<NewApiKeyInstance> {
+  instance.create = function create(params: NewApiKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewApiKeyInstance) => any): Promise<NewApiKeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["accountSid"] === null || params["accountSid"] === undefined) {
-      throw new Error("Required parameter \"params['accountSid']\" missing.");
+      throw new Error('Required parameter "params[\'accountSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["AccountSid"] = params["accountSid"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["keyType"] !== undefined) data["KeyType"] = params["keyType"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["keyType"] !== undefined)
+    data["KeyType"] = params["keyType"];
     if (params["policy"] !== undefined)
-      data["Policy"] = serialize.object(params["policy"]);
+    data["Policy"] = serialize.object(params["policy"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new NewApiKeyInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new NewApiKeyInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: NewApiKeyListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<NewApiKeyInstance>
-    ) => any
-  ): Promise<ApiResponse<NewApiKeyInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: NewApiKeyListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<NewApiKeyInstance>) => any): Promise<ApiResponse<NewApiKeyInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["accountSid"] === null || params["accountSid"] === undefined) {
-      throw new Error("Required parameter \"params['accountSid']\" missing.");
+      throw new Error('Required parameter "params[\'accountSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["AccountSid"] = params["accountSid"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["keyType"] !== undefined) data["KeyType"] = params["keyType"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["keyType"] !== undefined)
+    data["KeyType"] = params["keyType"];
     if (params["policy"] !== undefined)
-      data["Policy"] = serialize.object(params["policy"]);
+    data["Policy"] = serialize.object(params["policy"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<NewApiKeyResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<NewApiKeyInstance> => ({
-          ...response,
-          body: new NewApiKeyInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<NewApiKeyResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<NewApiKeyInstance> => ({
+      ...response,
+      body: new NewApiKeyInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface NewApiKeyPayload extends NewApiKeyResource {}
+  interface NewApiKeyPayload extends NewApiKeyResource {}
 
 interface NewApiKeyResource {
   sid: string;
@@ -206,13 +187,16 @@ interface NewApiKeyResource {
 }
 
 export class NewApiKeyInstance {
+
   constructor(protected _version: V1, payload: NewApiKeyResource) {
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
+    
+    this.sid = (payload.sid);
+    this.friendlyName = (payload.friendly_name);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.secret = payload.secret;
-    this.policy = payload.policy;
+    this.secret = (payload.secret);
+    this.policy = (payload.policy);
+
   }
 
   /**
@@ -260,3 +244,5 @@ export class NewApiKeyInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

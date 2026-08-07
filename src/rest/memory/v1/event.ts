@@ -148,7 +148,7 @@ export interface EventListInstance {
    * @returns Resolves to processed EventInstance
    */
   create(
-    callback?: (error: Error | null, item?: EventInstance) => any
+    callback?: (error: Error | null, item?: EventInstance) => any,
   ): Promise<EventInstance>;
   /**
    * Create a EventInstance
@@ -162,7 +162,7 @@ export interface EventListInstance {
   create(
     params: ProfileEventRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: EventInstance) => any
+    callback?: (error: Error | null, item?: EventInstance) => any,
   ): Promise<EventInstance>;
 
   /**
@@ -173,7 +173,7 @@ export interface EventListInstance {
    * @returns Resolves to processed EventInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any,
   ): Promise<ApiResponse<EventInstance>>;
   /**
    * Create a EventInstance and return HTTP info
@@ -187,7 +187,7 @@ export interface EventListInstance {
   createWithHttpInfo(
     params: ProfileEventRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any,
   ): Promise<ApiResponse<EventInstance>>;
 
   /**
@@ -200,7 +200,7 @@ export interface EventListInstance {
 export function EventListInstance(
   version: V1,
   storeId: string,
-  profileId: string
+  profileId: string,
 ): EventListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -221,7 +221,7 @@ export function EventListInstance(
       | ProfileEventRequest
       | ((error: Error | null, items: EventInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: EventInstance) => any
+    callback?: (error: Error | null, items: EventInstance) => any,
   ): Promise<EventInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -256,13 +256,13 @@ export function EventListInstance(
           operationVersion,
           payload,
           instance._solution.storeId,
-          instance._solution.profileId
-        )
+          instance._solution.profileId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -272,7 +272,7 @@ export function EventListInstance(
       | ProfileEventRequest
       | ((error: Error | null, items: ApiResponse<EventInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<EventInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<EventInstance>) => any,
   ): Promise<ApiResponse<EventInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -302,21 +302,19 @@ export function EventListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<EventInstance> => ({
-          ...response,
-          body: new EventInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId,
-            instance._solution.profileId
-          ),
-        })
-      );
+      .then((response): ApiResponse<EventInstance> => ({
+        ...response,
+        body: new EventInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -327,7 +325,7 @@ export function EventListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -344,7 +342,7 @@ export class EventInstance {
     protected _version: V1,
     _payload: EventResource,
     storeId: string,
-    profileId: string
+    profileId: string,
   ) {
     const payload = _payload;
     this.message = payload.message;

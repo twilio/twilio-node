@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Represents a single identifier value paired with its `idType`. Write operations obey limits, uniqueness, and normalization rules configured via identifier settings.
@@ -39,7 +37,6 @@ export class Identifier {
     this.value = payload["value"];
   }
 }
-
 
 export class IdentifierUpdate {
   /**
@@ -62,23 +59,20 @@ export class IdentifierUpdate {
   }
 }
 
-
-
 /**
  * Options to pass to remove a IdentifierInstance
  */
 export interface IdentifierContextRemoveOptions {
   /** When true, removes every stored value for the identifier type in a single operation. Defaults to false. */
-  "removeAll"?: boolean;
+  removeAll?: boolean;
 }
-
 
 /**
  * Options to pass to patch a IdentifierInstance
  */
 export interface IdentifierContextPatchOptions {
   /**  */
-  "identifierUpdate": IdentifierUpdate;
+  identifierUpdate: IdentifierUpdate;
 }
 
 /**
@@ -86,7 +80,7 @@ export interface IdentifierContextPatchOptions {
  */
 export interface IdentifierListInstanceCreateOptions {
   /**  */
-  "identifier": Identifier;
+  identifier: Identifier;
 }
 
 /**
@@ -97,10 +91,7 @@ export interface IdentifierListInstanceOptions {
   limit?: number;
 }
 
-
-
 export interface IdentifierContext {
-
   /**
    * Remove a IdentifierInstance
    *
@@ -108,7 +99,9 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  remove(callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  remove(
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
   /**
    * Remove a IdentifierInstance
    *
@@ -117,7 +110,10 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  remove(params: IdentifierContextRemoveOptions, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  remove(
+    params: IdentifierContextRemoveOptions,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
 
   /**
    * Remove a IdentifierInstance and return HTTP info
@@ -126,7 +122,12 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
   /**
    * Remove a IdentifierInstance and return HTTP info
    *
@@ -135,7 +136,13 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  removeWithHttpInfo(params: IdentifierContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
+  removeWithHttpInfo(
+    params: IdentifierContextRemoveOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
 
   /**
    * Fetch a IdentifierInstance
@@ -144,7 +151,9 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  fetch(callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>
+  fetch(
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
 
   /**
    * Fetch a IdentifierInstance and return HTTP info
@@ -153,7 +162,12 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
 
   /**
    * Patch a IdentifierInstance
@@ -164,7 +178,11 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  patch(params: IdentifierUpdate, headers?: any, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  patch(
+    params: IdentifierUpdate,
+    headers?: any,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
 
   /**
    * Patch a IdentifierInstance and return HTTP info
@@ -175,7 +193,14 @@ export interface IdentifierContext {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: IdentifierUpdate, headers?: any, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
+  patchWithHttpInfo(
+    params: IdentifierUpdate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -185,196 +210,301 @@ export interface IdentifierContext {
 }
 
 export interface IdentifierContextSolution {
-  "storeId": string;
-  "profileId": string;
-  "idType": string;
+  storeId: string;
+  profileId: string;
+  idType: string;
 }
 
 export class IdentifierContextImpl implements IdentifierContext {
   protected _solution: IdentifierContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, storeId: string, profileId: string, idType: string) {
+  constructor(
+    protected _version: V1,
+    storeId: string,
+    profileId: string,
+    idType: string,
+  ) {
     if (!isValidPathParam(storeId)) {
-      throw new Error('Parameter \'storeId\' is not valid.');
+      throw new Error("Parameter 'storeId' is not valid.");
     }
 
     if (!isValidPathParam(profileId)) {
-      throw new Error('Parameter \'profileId\' is not valid.');
+      throw new Error("Parameter 'profileId' is not valid.");
     }
 
     if (!isValidPathParam(idType)) {
-      throw new Error('Parameter \'idType\' is not valid.');
+      throw new Error("Parameter 'idType' is not valid.");
     }
 
-    this._solution = { storeId, profileId, idType,  };
+    this._solution = { storeId, profileId, idType };
     this._uri = `/Stores/${storeId}/Profiles/${profileId}/Identifiers/${idType}`;
   }
 
-  remove(params?: IdentifierContextRemoveOptions | ((error: Error | null, item?: IdentifierInstance) => any),callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance> {
-      if (params instanceof Function) {
+  remove(
+    params?:
+      | IdentifierContextRemoveOptions
+      | ((error: Error | null, item?: IdentifierInstance) => any),
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["removeAll"] !== undefined)
-    data["removeAll"] = serialize.bool(params["removeAll"]);
+    if (params["removeAll"] !== undefined)
+      data["removeAll"] = serialize.bool(params["removeAll"]);
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "delete", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new IdentifierInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId, instance._solution.idType));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IdentifierInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.idType,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(params?: IdentifierContextRemoveOptions | ((error: Error | null, item?: ApiResponse<IdentifierInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>> {
-      if (params instanceof Function) {
+  removeWithHttpInfo(
+    params?:
+      | IdentifierContextRemoveOptions
+      | ((error: Error | null, item?: ApiResponse<IdentifierInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["removeAll"] !== undefined)
-    data["removeAll"] = serialize.bool(params["removeAll"]);
+    if (params["removeAll"] !== undefined)
+      data["removeAll"] = serialize.bool(params["removeAll"]);
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation that returns a response model
-    let operationPromise = operationVersion.fetchWithResponseInfo<IdentifierResource>({ uri: instance._uri, method: "delete", params: data, headers}).then((response) : ApiResponse<IdentifierInstance> => ({
-      ...response,
-      body: new IdentifierInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId, instance._solution.idType)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<IdentifierResource>({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<IdentifierInstance> => ({
+        ...response,
+        body: new IdentifierInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.idType,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new IdentifierInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId, instance._solution.idType));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IdentifierInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.idType,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<IdentifierResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<IdentifierInstance> => ({
-      ...response,
-      body: new IdentifierInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId, instance._solution.idType)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<IdentifierResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<IdentifierInstance> => ({
+        ...response,
+        body: new IdentifierInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.idType,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patch(params: IdentifierUpdate, headers?: any,callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance> {
-      if (params === null || params === undefined) {
+  patch(
+    params: IdentifierUpdate,
+    headers?: any,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new IdentifierInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId, instance._solution.idType));
-    
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IdentifierInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.idType,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patchWithHttpInfo(params: IdentifierUpdate, headers?: any,callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>> {
-      if (params === null || params === undefined) {
+  patchWithHttpInfo(
+    params: IdentifierUpdate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.patchWithResponseInfo<IdentifierResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<IdentifierInstance> => ({
-      ...response,
-      body: new IdentifierInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId, instance._solution.idType)
-    }));
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<IdentifierResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<IdentifierInstance> => ({
+        ...response,
+        body: new IdentifierInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+          instance._solution.idType,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -406,10 +536,6 @@ export interface IdentifierUpdate {
   oldValue: string;
   newValue: string;
 }
-
-
-
-
 
 /**
  * Response model for CreateProfileIdentifier202Response operations
@@ -443,19 +569,29 @@ interface PatchProfileIdentifier202Response_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type IdentifierResource = CreateProfileIdentifier202Response_ResponseResource | IdentifierSet_ResponseResource | DeleteProfileIdentifier202Response_ResponseResource | PatchProfileIdentifier202Response_ResponseResource;
+type IdentifierResource =
+  | CreateProfileIdentifier202Response_ResponseResource
+  | IdentifierSet_ResponseResource
+  | DeleteProfileIdentifier202Response_ResponseResource
+  | PatchProfileIdentifier202Response_ResponseResource;
 
 export class IdentifierInstance {
   protected _solution: IdentifierContextSolution;
   protected _context?: IdentifierContext;
 
-  constructor(protected _version: V1, _payload: IdentifierResource, storeId: string, profileId: string, idType?: string) {
+  constructor(
+    protected _version: V1,
+    _payload: IdentifierResource,
+    storeId: string,
+    profileId: string,
+    idType?: string,
+  ) {
     const payload: any = _payload;
-    this.message = (payload.message);
-    this.idType = (payload.idType);
-    this.values = (payload.values);
+    this.message = payload.message;
+    this.idType = payload.idType;
+    this.values = payload.values;
 
-    this._solution = { storeId, profileId, idType: idType,  };
+    this._solution = { storeId, profileId, idType: idType };
   }
 
   message?: string;
@@ -469,7 +605,14 @@ export class IdentifierInstance {
   values?: Array<string>;
 
   private get _proxy(): IdentifierContext {
-    this._context = this._context || new IdentifierContextImpl(this._version, this._solution.storeId, this._solution.profileId, this._solution.idType);
+    this._context =
+      this._context ||
+      new IdentifierContextImpl(
+        this._version,
+        this._solution.storeId,
+        this._solution.profileId,
+        this._solution.idType,
+      );
     return this._context;
   }
 
@@ -480,7 +623,9 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  remove(callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  remove(
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
   /**
    * Remove a IdentifierInstance
    *
@@ -489,10 +634,15 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  remove(params: IdentifierContextRemoveOptions, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  remove(
+    params: IdentifierContextRemoveOptions,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
 
-    remove(params?: any, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>
-    {
+  remove(
+    params?: any,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
     return this._proxy.remove(params, callback);
   }
 
@@ -503,7 +653,12 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
   /**
    * Remove a IdentifierInstance and return HTTP info
    *
@@ -512,10 +667,21 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  removeWithHttpInfo(params: IdentifierContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
+  removeWithHttpInfo(
+    params: IdentifierContextRemoveOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
 
-    removeWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>
-    {
+  removeWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
 
@@ -526,9 +692,9 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  fetch(callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -539,9 +705,12 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -554,10 +723,16 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  patch(params: IdentifierUpdate, headers?: any, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  patch(
+    params: IdentifierUpdate,
+    headers?: any,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
 
-    patch(params?: any, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>
-    {
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
     return this._proxy.patch(params, callback);
   }
 
@@ -570,10 +745,22 @@ export class IdentifierInstance {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: IdentifierUpdate, headers?: any, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
+  patchWithHttpInfo(
+    params: IdentifierUpdate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
 
-    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>
-    {
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -595,7 +782,6 @@ export class IdentifierInstance {
   }
 }
 
-
 export interface IdentifierSolution {
   storeId: string;
   profileId: string;
@@ -606,15 +792,8 @@ export interface IdentifierListInstance {
   _solution: IdentifierSolution;
   _uri: string;
 
-  (idType: string, ): IdentifierContext;
-  get(idType: string, ): IdentifierContext;
-
-
-
-
-
-
-
+  (idType: string): IdentifierContext;
+  get(idType: string): IdentifierContext;
 
   /**
    * Create a IdentifierInstance
@@ -625,7 +804,11 @@ export interface IdentifierListInstance {
    *
    * @returns Resolves to processed IdentifierInstance
    */
-  create(params: Identifier, headers?: any, callback?: (error: Error | null, item?: IdentifierInstance) => any): Promise<IdentifierInstance>;
+  create(
+    params: Identifier,
+    headers?: any,
+    callback?: (error: Error | null, item?: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance>;
 
   /**
    * Create a IdentifierInstance and return HTTP info
@@ -636,10 +819,14 @@ export interface IdentifierListInstance {
    *
    * @returns Resolves to processed IdentifierInstance with HTTP metadata
    */
-  createWithHttpInfo(params: Identifier, headers?: any, callback?: (error: Error | null, item?: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: Identifier,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>>;
 
   /**
    * Lists IdentifierInstance records from the API as a list.
@@ -650,8 +837,10 @@ export interface IdentifierListInstance {
    * @param { IdentifierListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: IdentifierInstance[]) => any): Promise<IdentifierInstance[]>;
-  
+  list(
+    callback?: (error: Error | null, items: IdentifierInstance[]) => any,
+  ): Promise<IdentifierInstance[]>;
+
   /**
    * Lists IdentifierInstance records from the API as a list with HTTP metadata.
    *
@@ -663,9 +852,12 @@ export interface IdentifierListInstance {
    * @param { IdentifierListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<IdentifierInstance[]>) => any): Promise<ApiResponse<IdentifierInstance[]>>;
-  
-
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IdentifierInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance[]>>;
 
   /**
    * Provide a user-friendly representation
@@ -674,139 +866,205 @@ export interface IdentifierListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function IdentifierListInstance(version: V1, storeId: string, profileId: string): IdentifierListInstance {
+export function IdentifierListInstance(
+  version: V1,
+  storeId: string,
+  profileId: string,
+): IdentifierListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
   if (!isValidPathParam(profileId)) {
-    throw new Error('Parameter \'profileId\' is not valid.');
+    throw new Error("Parameter 'profileId' is not valid.");
   }
 
-  const instance = ((idType, ) => instance.get(idType, )) as IdentifierListInstance;
+  const instance = ((idType) => instance.get(idType)) as IdentifierListInstance;
 
-  instance.get = function get(idType, ): IdentifierContext {
+  instance.get = function get(idType): IdentifierContext {
     return new IdentifierContextImpl(version, storeId, profileId, idType);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { storeId, profileId,  };
+  instance._solution = { storeId, profileId };
   instance._uri = `/Stores/${storeId}/Profiles/${profileId}/Identifiers`;
 
-  instance.create = function create(params: Identifier, headers?: any, callback?: (error: Error | null, items: IdentifierInstance) => any): Promise<IdentifierInstance> {
+  instance.create = function create(
+    params: Identifier,
+    headers?: any,
+    callback?: (error: Error | null, items: IdentifierInstance) => any,
+  ): Promise<IdentifierInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new IdentifierInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IdentifierInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: Identifier, headers?: any, callback?: (error: Error | null, items: ApiResponse<IdentifierInstance>) => any): Promise<ApiResponse<IdentifierInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: Identifier,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IdentifierInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<IdentifierResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<IdentifierInstance> => ({
-      ...response,
-      body: new IdentifierInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<IdentifierResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<IdentifierInstance> => ({
+        ...response,
+        body: new IdentifierInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.list = function list( callback?: (error: Error | null, items: IdentifierInstance[]) => any): Promise<IdentifierInstance[]> {
+  instance.list = function list(
+    callback?: (error: Error | null, items: IdentifierInstance[]) => any,
+  ): Promise<IdentifierInstance[]> {
     const headers: any = {};
     const data: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = operationPromise.then((payload: any) => (payload["identifiers"] || []).map(
-        (item: any) => new IdentifierInstance(operationVersion, item, instance._solution.storeId, instance._solution.profileId)
-    ));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then((payload: any) =>
+      (payload["identifiers"] || []).map(
+        (item: any) =>
+          new IdentifierInstance(
+            operationVersion,
+            item,
+            instance._solution.storeId,
+            instance._solution.profileId,
+          ),
+      ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-  }
-  
-
-
-  instance.listWithHttpInfo = function listWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<IdentifierInstance[]>) => any): Promise<ApiResponse<IdentifierInstance[]>> {
+  instance.listWithHttpInfo = function listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IdentifierInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<IdentifierInstance[]>> {
     const headers: any = {};
     const data: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
 
-    let operationPromise = operationVersion.fetchWithResponseInfo<IdentifierResource>({ uri: instance._uri, method: "get", headers}).then((response): ApiResponse<IdentifierInstance[]> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: ((response.body as any)["identifiers"] || []).map(
-          (item: any) => new IdentifierInstance(operationVersion, item, instance._solution.storeId, instance._solution.profileId)
-      )
-    }));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<IdentifierResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<IdentifierInstance[]> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: ((response.body as any)["identifiers"] || []).map(
+          (item: any) =>
+            new IdentifierInstance(
+              operationVersion,
+              item,
+              instance._solution.storeId,
+              instance._solution.profileId,
+            ),
+        ),
+      }));
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
-  
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

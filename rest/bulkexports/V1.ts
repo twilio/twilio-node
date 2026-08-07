@@ -43,7 +43,8 @@ export default class V1 extends Version {
 
   /** Getter for exportConfiguration resource */
   get exportConfiguration(): ExportConfigurationListInstance {
-    this._exportConfiguration = this._exportConfiguration || ExportConfigurationListInstance(this);
+    this._exportConfiguration =
+      this._exportConfiguration || ExportConfigurationListInstance(this);
     return this._exportConfiguration;
   }
 
@@ -52,5 +53,4 @@ export default class V1 extends Version {
     this._jobs = this._jobs || JobListInstance(this);
     return this._jobs;
   }
-
 }

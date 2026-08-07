@@ -15,7 +15,7 @@ const TASKROUTER_VERSION = "v1";
 export function defaultWorkerPolicies(
   version: string,
   workspaceSid: string,
-  workerSid: string
+  workerSid: string,
 ): Policy[] {
   var activities = new Policy({
     url: [
@@ -79,7 +79,7 @@ export function defaultWorkerPolicies(
  */
 export function defaultEventBridgePolicies(
   accountSid: string,
-  channelId: string
+  channelId: string,
 ): Policy[] {
   var url = [EVENT_URL_BASE, accountSid, channelId].join("/");
   return [
@@ -117,7 +117,7 @@ export function workspacesUrl(workspaceSid?: string): string {
  */
 export function taskQueuesUrl(
   workspaceSid: string,
-  taskQueueSid?: string
+  taskQueueSid?: string,
 ): string {
   return [workspacesUrl(workspaceSid), "TaskQueues", taskQueueSid]
     .filter((item) => typeof item === "string")
@@ -146,7 +146,7 @@ export function tasksUrl(workspaceSid: string, taskSid?: string): string {
  */
 export function activitiesUrl(
   workspaceSid: string,
-  activitySid?: string
+  activitySid?: string,
 ): string {
   return [workspacesUrl(workspaceSid), "Activities", activitySid]
     .filter((item) => typeof item === "string")
@@ -177,7 +177,7 @@ export function workersUrl(workspaceSid: string, workerSid?: string): string {
 export function reservationsUrl(
   workspaceSid: string,
   workerSid: string,
-  reservationSid?: string
+  reservationSid?: string,
 ): string {
   return [workersUrl(workspaceSid, workerSid), "Reservations", reservationSid]
     .filter((item) => typeof item === "string")

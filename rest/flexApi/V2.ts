@@ -43,5 +43,4 @@ export default class V2 extends Version {
     this._webChannels = this._webChannels || WebChannelsListInstance(this);
     return this._webChannels;
   }
-
 }

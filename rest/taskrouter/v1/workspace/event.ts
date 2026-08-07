@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -23,37 +22,34 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
-
 /**
  * Options to pass to each
  */
 export interface EventListInstanceEachOptions {
   /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  "endDate"?: Date;
+  endDate?: Date;
   /** The type of Events to read. Returns only Events of the type specified. */
-  "eventType"?: string;
+  eventType?: string;
   /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
-  "minutes"?: number;
+  minutes?: number;
   /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
-  "reservationSid"?: string;
+  reservationSid?: string;
   /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
-  "startDate"?: Date;
+  startDate?: Date;
   /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
-  "taskQueueSid"?: string;
+  taskQueueSid?: string;
   /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
-  "taskSid"?: string;
+  taskSid?: string;
   /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
-  "workerSid"?: string;
+  workerSid?: string;
   /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
-  "workflowSid"?: string;
+  workflowSid?: string;
   /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
-  "taskChannel"?: string;
+  taskChannel?: string;
   /** The SID of the Event resource to read. */
-  "sid"?: string;
+  sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -67,71 +63,68 @@ export interface EventListInstanceEachOptions {
  */
 export interface EventListInstanceOptions {
   /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  "endDate"?: Date;
+  endDate?: Date;
   /** The type of Events to read. Returns only Events of the type specified. */
-  "eventType"?: string;
+  eventType?: string;
   /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
-  "minutes"?: number;
+  minutes?: number;
   /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
-  "reservationSid"?: string;
+  reservationSid?: string;
   /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
-  "startDate"?: Date;
+  startDate?: Date;
   /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
-  "taskQueueSid"?: string;
+  taskQueueSid?: string;
   /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
-  "taskSid"?: string;
+  taskSid?: string;
   /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
-  "workerSid"?: string;
+  workerSid?: string;
   /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
-  "workflowSid"?: string;
+  workflowSid?: string;
   /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
-  "taskChannel"?: string;
+  taskChannel?: string;
   /** The SID of the Event resource to read. */
-  "sid"?: string;
+  sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface EventListInstancePageOptions {
   /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  "endDate"?: Date;
+  endDate?: Date;
   /** The type of Events to read. Returns only Events of the type specified. */
-  "eventType"?: string;
+  eventType?: string;
   /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
-  "minutes"?: number;
+  minutes?: number;
   /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
-  "reservationSid"?: string;
+  reservationSid?: string;
   /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
-  "startDate"?: Date;
+  startDate?: Date;
   /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
-  "taskQueueSid"?: string;
+  taskQueueSid?: string;
   /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
-  "taskSid"?: string;
+  taskSid?: string;
   /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
-  "workerSid"?: string;
+  workerSid?: string;
   /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
-  "workflowSid"?: string;
+  workflowSid?: string;
   /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
-  "taskChannel"?: string;
+  taskChannel?: string;
   /** The SID of the Event resource to read. */
-  "sid"?: string;
+  sid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface EventContext {
-
   /**
    * Fetch a EventInstance
    *
@@ -139,7 +132,9 @@ export interface EventContext {
    *
    * @returns Resolves to processed EventInstance
    */
-  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance>
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any,
+  ): Promise<EventInstance>;
 
   /**
    * Fetch a EventInstance and return HTTP info
@@ -148,7 +143,9 @@ export interface EventContext {
    *
    * @returns Resolves to processed EventInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any): Promise<ApiResponse<EventInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any,
+  ): Promise<ApiResponse<EventInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -158,61 +155,92 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  "workspaceSid": string;
-  "sid": string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class EventContextImpl implements EventContext {
   protected _solution: EventContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, workspaceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error('Parameter \'workspaceSid\' is not valid.');
+      throw new Error("Parameter 'workspaceSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { workspaceSid, sid,  };
+    this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Events/${sid}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any,
+  ): Promise<EventInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new EventInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EventInstance(
+          operationVersion,
+          payload,
+          instance._solution.workspaceSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any): Promise<ApiResponse<EventInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any,
+  ): Promise<ApiResponse<EventInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<EventResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<EventInstance> => ({
-      ...response,
-      body: new EventInstance(operationVersion, response.body, instance._solution.workspaceSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<EventResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<EventInstance> => ({
+        ...response,
+        body: new EventInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -229,9 +257,8 @@ export class EventContextImpl implements EventContext {
   }
 }
 
-
-  interface EventPayload extends TwilioResponsePayload {
-    events: EventResource[];
+interface EventPayload extends TwilioResponsePayload {
+  events: EventResource[];
 }
 
 interface EventResource {
@@ -258,27 +285,31 @@ export class EventInstance {
   protected _solution: EventContextSolution;
   protected _context?: EventContext;
 
-  constructor(protected _version: V1, payload: EventResource, workspaceSid: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.actorSid = (payload.actor_sid);
-    this.actorType = (payload.actor_type);
-    this.actorUrl = (payload.actor_url);
-    this.description = (payload.description);
-    this.eventData = (payload.event_data);
+  constructor(
+    protected _version: V1,
+    payload: EventResource,
+    workspaceSid: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.actorSid = payload.actor_sid;
+    this.actorType = payload.actor_type;
+    this.actorUrl = payload.actor_url;
+    this.description = payload.description;
+    this.eventData = payload.event_data;
     this.eventDate = deserialize.iso8601DateTime(payload.event_date);
-    this.eventDateMs = (payload.event_date_ms);
-    this.eventType = (payload.event_type);
-    this.resourceSid = (payload.resource_sid);
-    this.resourceType = (payload.resource_type);
-    this.resourceUrl = (payload.resource_url);
-    this.sid = (payload.sid);
-    this.source = (payload.source);
-    this.sourceIpAddress = (payload.source_ip_address);
-    this.url = (payload.url);
-    this.workspaceSid = (payload.workspace_sid);
+    this.eventDateMs = payload.event_date_ms;
+    this.eventType = payload.event_type;
+    this.resourceSid = payload.resource_sid;
+    this.resourceType = payload.resource_type;
+    this.resourceUrl = payload.resource_url;
+    this.sid = payload.sid;
+    this.source = payload.source;
+    this.sourceIpAddress = payload.source_ip_address;
+    this.url = payload.url;
+    this.workspaceSid = payload.workspace_sid;
 
-    this._solution = { workspaceSid, sid: sid,  };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**
@@ -351,7 +382,13 @@ export class EventInstance {
   workspaceSid: string;
 
   private get _proxy(): EventContext {
-    this._context = this._context || new EventContextImpl(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new EventContextImpl(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -362,9 +399,9 @@ export class EventInstance {
    *
    * @returns Resolves to processed EventInstance
    */
-  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any,
+  ): Promise<EventInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -375,9 +412,9 @@ export class EventInstance {
    *
    * @returns Resolves to processed EventInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any): Promise<ApiResponse<EventInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<EventInstance>) => any,
+  ): Promise<ApiResponse<EventInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -413,7 +450,6 @@ export class EventInstance {
   }
 }
 
-
 export interface EventSolution {
   workspaceSid: string;
 }
@@ -423,12 +459,8 @@ export interface EventListInstance {
   _solution: EventSolution;
   _uri: string;
 
-  (sid: string, ): EventContext;
-  get(sid: string, ): EventContext;
-
-
-
-
+  (sid: string): EventContext;
+  get(sid: string): EventContext;
 
   /**
    * Streams EventInstance records from the API.
@@ -445,8 +477,13 @@ export interface EventListInstance {
    * @param { EventListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
-  each(params: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: EventListInstanceEachOptions,
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams EventInstance records from the API with HTTP metadata captured per page.
    *
@@ -462,8 +499,13 @@ export interface EventListInstance {
    * @param { EventListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: EventListInstanceEachOptions,
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of EventInstance records from the API.
    *
@@ -472,7 +514,10 @@ export interface EventListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: EventPage) => any,
+  ): Promise<EventPage>;
   /**
    * Retrieve a single target page of EventInstance records from the API with HTTP metadata.
    *
@@ -481,7 +526,10 @@ export interface EventListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<EventPage>) => any): Promise<ApiResponse<EventPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any,
+  ): Promise<ApiResponse<EventPage>>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -491,8 +539,13 @@ export interface EventListInstance {
    * @param { EventListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
-  list(params: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EventInstance[]) => any,
+  ): Promise<EventInstance[]>;
+  list(
+    params: EventListInstanceOptions,
+    callback?: (error: Error | null, items: EventInstance[]) => any,
+  ): Promise<EventInstance[]>;
   /**
    * Lists EventInstance records from the API as a list with HTTP metadata.
    *
@@ -504,8 +557,19 @@ export interface EventListInstance {
    * @param { EventListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<EventInstance[]>) => any): Promise<ApiResponse<EventInstance[]>>;
-  listWithHttpInfo(params: EventListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<EventInstance[]>) => any): Promise<ApiResponse<EventInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EventInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<EventInstance[]>>;
+  listWithHttpInfo(
+    params: EventListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EventInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<EventInstance[]>>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -517,8 +581,13 @@ export interface EventListInstance {
    * @param { EventListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
-  page(params: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(
+    callback?: (error: Error | null, items: EventPage) => any,
+  ): Promise<EventPage>;
+  page(
+    params: EventListInstancePageOptions,
+    callback?: (error: Error | null, items: EventPage) => any,
+  ): Promise<EventPage>;
   /**
    * Retrieve a single page of EventInstance records from the API with HTTP metadata.
    *
@@ -530,9 +599,13 @@ export interface EventListInstance {
    * @param { EventListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<EventPage>) => any): Promise<ApiResponse<EventPage>>;
-  pageWithHttpInfo(params: EventListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<EventPage>) => any): Promise<ApiResponse<EventPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any,
+  ): Promise<ApiResponse<EventPage>>;
+  pageWithHttpInfo(
+    params: EventListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any,
+  ): Promise<ApiResponse<EventPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -541,22 +614,30 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function EventListInstance(version: V1, workspaceSid: string): EventListInstance {
+export function EventListInstance(
+  version: V1,
+  workspaceSid: string,
+): EventListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error('Parameter \'workspaceSid\' is not valid.');
+    throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as EventListInstance;
+  const instance = ((sid) => instance.get(sid)) as EventListInstance;
 
-  instance.get = function get(sid, ): EventContext {
+  instance.get = function get(sid): EventContext {
     return new EventContextImpl(version, workspaceSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { workspaceSid,  };
+  instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/Events`;
 
-  instance.page = function page(params?: EventListInstancePageOptions | ((error: Error | null, items: EventPage) => any), callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage> {
+  instance.page = function page(
+    params?:
+      | EventListInstancePageOptions
+      | ((error: Error | null, items: EventPage) => any),
+    callback?: (error: Error | null, items: EventPage) => any,
+  ): Promise<EventPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -566,66 +647,77 @@ export function EventListInstance(version: V1, workspaceSid: string): EventListI
 
     let data: any = {};
 
-        if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["eventType"] !== undefined)
-    data["EventType"] = params["eventType"];
-    if (params["minutes"] !== undefined)
-    data["Minutes"] = params["minutes"];
+      data["EventType"] = params["eventType"];
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
     if (params["reservationSid"] !== undefined)
-    data["ReservationSid"] = params["reservationSid"];
+      data["ReservationSid"] = params["reservationSid"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["taskQueueSid"] !== undefined)
-    data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["taskSid"] !== undefined)
-    data["TaskSid"] = params["taskSid"];
+      data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskSid"] !== undefined) data["TaskSid"] = params["taskSid"];
     if (params["workerSid"] !== undefined)
-    data["WorkerSid"] = params["workerSid"];
+      data["WorkerSid"] = params["workerSid"];
     if (params["workflowSid"] !== undefined)
-    data["WorkflowSid"] = params["workflowSid"];
+      data["WorkflowSid"] = params["workflowSid"];
     if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
-    if (params["sid"] !== undefined)
-    data["Sid"] = params["sid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new EventPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EventPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new EventPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: EventPage) => any,
+  ): Promise<EventPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EventPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: EventListInstancePageOptions | ((error: Error | null, items: ApiResponse<EventPage>) => any), callback?: (error: Error | null, items: ApiResponse<EventPage>) => any): Promise<ApiResponse<EventPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | EventListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<EventPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<EventPage>) => any,
+  ): Promise<ApiResponse<EventPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -635,115 +727,127 @@ export function EventListInstance(version: V1, workspaceSid: string): EventListI
 
     let data: any = {};
 
-        if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["endDate"] !== undefined)
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["eventType"] !== undefined)
-    data["EventType"] = params["eventType"];
-    if (params["minutes"] !== undefined)
-    data["Minutes"] = params["minutes"];
+      data["EventType"] = params["eventType"];
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
     if (params["reservationSid"] !== undefined)
-    data["ReservationSid"] = params["reservationSid"];
+      data["ReservationSid"] = params["reservationSid"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["taskQueueSid"] !== undefined)
-    data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["taskSid"] !== undefined)
-    data["TaskSid"] = params["taskSid"];
+      data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskSid"] !== undefined) data["TaskSid"] = params["taskSid"];
     if (params["workerSid"] !== undefined)
-    data["WorkerSid"] = params["workerSid"];
+      data["WorkerSid"] = params["workerSid"];
     if (params["workflowSid"] !== undefined)
-    data["WorkflowSid"] = params["workflowSid"];
+      data["WorkflowSid"] = params["workflowSid"];
     if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
-    if (params["sid"] !== undefined)
-    data["Sid"] = params["sid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["TaskChannel"] = params["taskChannel"];
+    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<EventPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new EventPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<EventPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EventPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<EventPage>) => any): Promise<ApiResponse<EventPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<EventPage>) => any,
+  ): Promise<ApiResponse<EventPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<EventPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new EventPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<EventPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EventPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
-/**
-* Initialize the EventPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: EventSolution) {
+export class EventPage extends Page<
+  V1,
+  EventPayload,
+  EventResource,
+  EventInstance
+> {
+  /**
+   * Initialize the EventPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: EventSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EventInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EventResource): EventInstance {
-
+  /**
+   * Build an instance of EventInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EventResource): EventInstance {
     return new EventInstance(
-    this._version,
-    payload,
-        this._solution.workspaceSid,
+      this._version,
+      payload,
+      this._solution.workspaceSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

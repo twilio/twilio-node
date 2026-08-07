@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
-
 
 export class VerifyPasskeysFactorRequest {
   /**
@@ -49,7 +47,6 @@ export class VerifyPasskeysFactorRequest {
   }
 }
 
-
 /**
  * The result of a WebAuthn credential registration via `navigator.credentials.create()`, as specified in [AuthenticatorAttestationResponse](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse).
  */
@@ -74,16 +71,13 @@ export class VerifyPasskeysFactorRequestResponse {
   }
 }
 
-
-
 /**
  * Options to pass to update a NewVerifyFactorInstance
  */
 export interface NewVerifyFactorListInstanceUpdateOptions {
   /**  */
-  "verifyPasskeysFactorRequest": VerifyPasskeysFactorRequest;
+  verifyPasskeysFactorRequest: VerifyPasskeysFactorRequest;
 }
-
 
 export interface NewVerifyFactorSolution {
   serviceSid: string;
@@ -94,8 +88,6 @@ export interface NewVerifyFactorListInstance {
   _solution: NewVerifyFactorSolution;
   _uri: string;
 
-
-
   /**
    * Update a NewVerifyFactorInstance
    *
@@ -105,7 +97,11 @@ export interface NewVerifyFactorListInstance {
    *
    * @returns Resolves to processed NewVerifyFactorInstance
    */
-  update(params: VerifyPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, item?: NewVerifyFactorInstance) => any): Promise<NewVerifyFactorInstance>;
+  update(
+    params: VerifyPasskeysFactorRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: NewVerifyFactorInstance) => any,
+  ): Promise<NewVerifyFactorInstance>;
 
   /**
    * Update a NewVerifyFactorInstance and return HTTP info
@@ -116,9 +112,14 @@ export interface NewVerifyFactorListInstance {
    *
    * @returns Resolves to processed NewVerifyFactorInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VerifyPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<NewVerifyFactorInstance>) => any): Promise<ApiResponse<NewVerifyFactorInstance>>;
-
-
+  updateWithHttpInfo(
+    params: VerifyPasskeysFactorRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewVerifyFactorInstance>,
+    ) => any,
+  ): Promise<ApiResponse<NewVerifyFactorInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -127,90 +128,127 @@ export interface NewVerifyFactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NewVerifyFactorListInstance(version: V2, serviceSid: string): NewVerifyFactorListInstance {
+export function NewVerifyFactorListInstance(
+  version: V2,
+  serviceSid: string,
+): NewVerifyFactorListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error('Parameter \'serviceSid\' is not valid.');
+    throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
   const instance = {} as NewVerifyFactorListInstance;
 
   instance._version = version;
-  instance._solution = { serviceSid,  };
+  instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Passkeys/VerifyFactor`;
 
-  instance.update = function update(params: VerifyPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, items: NewVerifyFactorInstance) => any): Promise<NewVerifyFactorInstance> {
+  instance.update = function update(
+    params: VerifyPasskeysFactorRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: NewVerifyFactorInstance) => any,
+  ): Promise<NewVerifyFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new NewVerifyFactorInstance(operationVersion, payload, instance._solution.serviceSid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NewVerifyFactorInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.updateWithHttpInfo = function updateWithHttpInfo(params: VerifyPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<NewVerifyFactorInstance>) => any): Promise<ApiResponse<NewVerifyFactorInstance>> {
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: VerifyPasskeysFactorRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<NewVerifyFactorInstance>,
+    ) => any,
+  ): Promise<ApiResponse<NewVerifyFactorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<NewVerifyFactorResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<NewVerifyFactorInstance> => ({
-      ...response,
-      body: new NewVerifyFactorInstance(operationVersion, response.body, instance._solution.serviceSid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<NewVerifyFactorResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<NewVerifyFactorInstance> => ({
+        ...response,
+        body: new NewVerifyFactorInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface NewVerifyFactorPayload extends NewVerifyFactorResource {}
+interface NewVerifyFactorPayload extends NewVerifyFactorResource {}
 
 interface NewVerifyFactorResource {
   sid: string;
@@ -229,23 +267,24 @@ interface NewVerifyFactorResource {
 }
 
 export class NewVerifyFactorInstance {
-
-  constructor(protected _version: V2, payload: NewVerifyFactorResource, serviceSid: string) {
-    
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.serviceSid = (payload.service_sid);
-    this.entitySid = (payload.entity_sid);
-    this.identity = (payload.identity);
+  constructor(
+    protected _version: V2,
+    payload: NewVerifyFactorResource,
+    serviceSid: string,
+  ) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.entitySid = payload.entity_sid;
+    this.identity = payload.identity;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = (payload.friendly_name);
-    this.status = (payload.status);
-    this.factorType = (payload.factor_type);
-    this.config = (payload.config);
-    this.metadata = (payload.metadata);
-    this.url = (payload.url);
-
+    this.friendlyName = payload.friendly_name;
+    this.status = payload.status;
+    this.factorType = payload.factor_type;
+    this.config = payload.config;
+    this.metadata = payload.metadata;
+    this.url = payload.url;
   }
 
   /**
@@ -328,5 +367,3 @@ export class NewVerifyFactorInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

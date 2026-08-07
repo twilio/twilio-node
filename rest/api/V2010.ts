@@ -15,12 +15,27 @@
 import ApiBase from "../ApiBase";
 import Version from "../../base/Version";
 import { AccountListInstance } from "./v2010/account";
-import { AuthCallsCredentialListMappingListInstance, AuthCallsCredentialListMappingContext } from "./v2010/authCallsCredentialListMapping";
-import { AuthCallsIpAccessControlListMappingListInstance, AuthCallsIpAccessControlListMappingContext } from "./v2010/authCallsIpAccessControlListMapping";
-import { AuthRegistrationsCredentialListMappingListInstance, AuthRegistrationsCredentialListMappingContext } from "./v2010/authRegistrationsCredentialListMapping";
-import { CredentialListListInstance, CredentialListContext } from "./v2010/credentialList";
+import {
+  AuthCallsCredentialListMappingListInstance,
+  AuthCallsCredentialListMappingContext,
+} from "./v2010/authCallsCredentialListMapping";
+import {
+  AuthCallsIpAccessControlListMappingListInstance,
+  AuthCallsIpAccessControlListMappingContext,
+} from "./v2010/authCallsIpAccessControlListMapping";
+import {
+  AuthRegistrationsCredentialListMappingListInstance,
+  AuthRegistrationsCredentialListMappingContext,
+} from "./v2010/authRegistrationsCredentialListMapping";
+import {
+  CredentialListListInstance,
+  CredentialListContext,
+} from "./v2010/credentialList";
 import { DomainListInstance, DomainContext } from "./v2010/domain";
-import { IpAccessControlListListInstance, IpAccessControlListContext } from "./v2010/ipAccessControlList";
+import {
+  IpAccessControlListListInstance,
+  IpAccessControlListContext,
+} from "./v2010/ipAccessControlList";
 import { RecordListInstance } from "./v2010/record";
 import { TriggerListInstance } from "./v2010/trigger";
 import { AccountContext } from "./v2010/account";
@@ -49,12 +64,29 @@ export default class V2010 extends Version {
   }
 
   /** Accessor for credentialListMappings resource - list operations */
-  credentialListMappings(AccountSid: string, DomainSid: string): AuthCallsCredentialListMappingListInstance;
+  credentialListMappings(
+    AccountSid: string,
+    DomainSid: string,
+  ): AuthCallsCredentialListMappingListInstance;
   /** Accessor for credentialListMappings resource - instance operations */
-  credentialListMappings(AccountSid: string, DomainSid: string, sid: string): AuthCallsCredentialListMappingContext;
+  credentialListMappings(
+    AccountSid: string,
+    DomainSid: string,
+    sid: string,
+  ): AuthCallsCredentialListMappingContext;
   /** Implementation */
-  credentialListMappings(AccountSid: string, DomainSid: string, sid?: string): AuthCallsCredentialListMappingListInstance | AuthCallsCredentialListMappingContext {
-    const listInstance = AuthCallsCredentialListMappingListInstance(this, AccountSid, DomainSid);
+  credentialListMappings(
+    AccountSid: string,
+    DomainSid: string,
+    sid?: string,
+  ):
+    | AuthCallsCredentialListMappingListInstance
+    | AuthCallsCredentialListMappingContext {
+    const listInstance = AuthCallsCredentialListMappingListInstance(
+      this,
+      AccountSid,
+      DomainSid,
+    );
     if (sid !== undefined) {
       return listInstance.get(sid);
     }
@@ -62,12 +94,29 @@ export default class V2010 extends Version {
   }
 
   /** Accessor for ipAccessControlListMappings resource - list operations */
-  ipAccessControlListMappings(AccountSid: string, DomainSid: string): AuthCallsIpAccessControlListMappingListInstance;
+  ipAccessControlListMappings(
+    AccountSid: string,
+    DomainSid: string,
+  ): AuthCallsIpAccessControlListMappingListInstance;
   /** Accessor for ipAccessControlListMappings resource - instance operations */
-  ipAccessControlListMappings(AccountSid: string, DomainSid: string, sid: string): AuthCallsIpAccessControlListMappingContext;
+  ipAccessControlListMappings(
+    AccountSid: string,
+    DomainSid: string,
+    sid: string,
+  ): AuthCallsIpAccessControlListMappingContext;
   /** Implementation */
-  ipAccessControlListMappings(AccountSid: string, DomainSid: string, sid?: string): AuthCallsIpAccessControlListMappingListInstance | AuthCallsIpAccessControlListMappingContext {
-    const listInstance = AuthCallsIpAccessControlListMappingListInstance(this, AccountSid, DomainSid);
+  ipAccessControlListMappings(
+    AccountSid: string,
+    DomainSid: string,
+    sid?: string,
+  ):
+    | AuthCallsIpAccessControlListMappingListInstance
+    | AuthCallsIpAccessControlListMappingContext {
+    const listInstance = AuthCallsIpAccessControlListMappingListInstance(
+      this,
+      AccountSid,
+      DomainSid,
+    );
     if (sid !== undefined) {
       return listInstance.get(sid);
     }
@@ -75,12 +124,29 @@ export default class V2010 extends Version {
   }
 
   /** Accessor for credentialListMappings resource - list operations */
-  credentialListMappings(AccountSid: string, DomainSid: string): AuthRegistrationsCredentialListMappingListInstance;
+  credentialListMappings(
+    AccountSid: string,
+    DomainSid: string,
+  ): AuthRegistrationsCredentialListMappingListInstance;
   /** Accessor for credentialListMappings resource - instance operations */
-  credentialListMappings(AccountSid: string, DomainSid: string, sid: string): AuthRegistrationsCredentialListMappingContext;
+  credentialListMappings(
+    AccountSid: string,
+    DomainSid: string,
+    sid: string,
+  ): AuthRegistrationsCredentialListMappingContext;
   /** Implementation */
-  credentialListMappings(AccountSid: string, DomainSid: string, sid?: string): AuthRegistrationsCredentialListMappingListInstance | AuthRegistrationsCredentialListMappingContext {
-    const listInstance = AuthRegistrationsCredentialListMappingListInstance(this, AccountSid, DomainSid);
+  credentialListMappings(
+    AccountSid: string,
+    DomainSid: string,
+    sid?: string,
+  ):
+    | AuthRegistrationsCredentialListMappingListInstance
+    | AuthRegistrationsCredentialListMappingContext {
+    const listInstance = AuthRegistrationsCredentialListMappingListInstance(
+      this,
+      AccountSid,
+      DomainSid,
+    );
     if (sid !== undefined) {
       return listInstance.get(sid);
     }
@@ -92,7 +158,10 @@ export default class V2010 extends Version {
   /** Accessor for credentialLists resource - instance operations */
   credentialLists(AccountSid: string, sid: string): CredentialListContext;
   /** Implementation */
-  credentialLists(AccountSid: string, sid?: string): CredentialListListInstance | CredentialListContext {
+  credentialLists(
+    AccountSid: string,
+    sid?: string,
+  ): CredentialListListInstance | CredentialListContext {
     const listInstance = CredentialListListInstance(this, AccountSid);
     if (sid !== undefined) {
       return listInstance.get(sid);
@@ -105,7 +174,10 @@ export default class V2010 extends Version {
   /** Accessor for domains resource - instance operations */
   domains(AccountSid: string, sid: string): DomainContext;
   /** Implementation */
-  domains(AccountSid: string, sid?: string): DomainListInstance | DomainContext {
+  domains(
+    AccountSid: string,
+    sid?: string,
+  ): DomainListInstance | DomainContext {
     const listInstance = DomainListInstance(this, AccountSid);
     if (sid !== undefined) {
       return listInstance.get(sid);
@@ -116,9 +188,15 @@ export default class V2010 extends Version {
   /** Accessor for ipAccessControlLists resource - list operations */
   ipAccessControlLists(AccountSid: string): IpAccessControlListListInstance;
   /** Accessor for ipAccessControlLists resource - instance operations */
-  ipAccessControlLists(AccountSid: string, sid: string): IpAccessControlListContext;
+  ipAccessControlLists(
+    AccountSid: string,
+    sid: string,
+  ): IpAccessControlListContext;
   /** Implementation */
-  ipAccessControlLists(AccountSid: string, sid?: string): IpAccessControlListListInstance | IpAccessControlListContext {
+  ipAccessControlLists(
+    AccountSid: string,
+    sid?: string,
+  ): IpAccessControlListListInstance | IpAccessControlListContext {
     const listInstance = IpAccessControlListListInstance(this, AccountSid);
     if (sid !== undefined) {
       return listInstance.get(sid);
@@ -139,8 +217,8 @@ export default class V2010 extends Version {
 
   /** Getter for account resource */
   get account(): AccountContext {
-    this._account = this._account || AccountListInstance(this)(this.domain.twilio.accountSid);
+    this._account =
+      this._account || AccountListInstance(this)(this.domain.twilio.accountSid);
     return this._account;
   }
-
 }

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -23,18 +22,17 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
-
-
 /**
  * Options to pass to each
  */
 export interface AssistantsToolListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: AssistantsToolInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: AssistantsToolInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -46,27 +44,24 @@ export interface AssistantsToolListInstanceEachOptions {
  */
 export interface AssistantsToolListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface AssistantsToolListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface AssistantsToolContext {
-
   /**
    * Create a AssistantsToolInstance
    *
@@ -74,7 +69,9 @@ export interface AssistantsToolContext {
    *
    * @returns Resolves to processed AssistantsToolInstance
    */
-  create(callback?: (error: Error | null, item?: AssistantsToolInstance) => any): Promise<AssistantsToolInstance>
+  create(
+    callback?: (error: Error | null, item?: AssistantsToolInstance) => any,
+  ): Promise<AssistantsToolInstance>;
 
   /**
    * Create a AssistantsToolInstance and return HTTP info
@@ -83,7 +80,12 @@ export interface AssistantsToolContext {
    *
    * @returns Resolves to processed AssistantsToolInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AssistantsToolInstance>) => any): Promise<ApiResponse<AssistantsToolInstance>>
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssistantsToolInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolInstance>>;
 
   /**
    * Remove a AssistantsToolInstance
@@ -92,7 +94,9 @@ export interface AssistantsToolContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a AssistantsToolInstance and return HTTP info
@@ -101,7 +105,9 @@ export interface AssistantsToolContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -111,90 +117,135 @@ export interface AssistantsToolContext {
 }
 
 export interface AssistantsToolContextSolution {
-  "assistantId": string;
-  "id": string;
+  assistantId: string;
+  id: string;
 }
 
 export class AssistantsToolContextImpl implements AssistantsToolContext {
   protected _solution: AssistantsToolContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, assistantId: string, id: string) {
+  constructor(
+    protected _version: V1,
+    assistantId: string,
+    id: string,
+  ) {
     if (!isValidPathParam(assistantId)) {
-      throw new Error('Parameter \'assistantId\' is not valid.');
+      throw new Error("Parameter 'assistantId' is not valid.");
     }
 
     if (!isValidPathParam(id)) {
-      throw new Error('Parameter \'id\' is not valid.');
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { assistantId, id,  };
+    this._solution = { assistantId, id };
     this._uri = `/Assistants/${assistantId}/Tools/${id}`;
   }
 
-  create(callback?: (error: Error | null, item?: AssistantsToolInstance) => any): Promise<AssistantsToolInstance> {
-      const headers: any = {};
+  create(
+    callback?: (error: Error | null, item?: AssistantsToolInstance) => any,
+  ): Promise<AssistantsToolInstance> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", headers});
-    
-    operationPromise = operationPromise.then(payload => new AssistantsToolInstance(operationVersion, payload, instance._solution.assistantId, instance._solution.id));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssistantsToolInstance(
+          operationVersion,
+          payload,
+          instance._solution.assistantId,
+          instance._solution.id,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AssistantsToolInstance>) => any): Promise<ApiResponse<AssistantsToolInstance>> {
-      const headers: any = {};
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssistantsToolInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolInstance>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<AssistantsToolResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<AssistantsToolInstance> => ({
-      ...response,
-      body: new AssistantsToolInstance(operationVersion, response.body, instance._solution.assistantId, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AssistantsToolResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then((response): ApiResponse<AssistantsToolInstance> => ({
+        ...response,
+        body: new AssistantsToolInstance(
+          operationVersion,
+          response.body,
+          instance._solution.assistantId,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -211,9 +262,8 @@ export class AssistantsToolContextImpl implements AssistantsToolContext {
   }
 }
 
-
-  interface AssistantsToolPayload extends TwilioResponsePayload {
-    tools: AssistantsToolResource[];
+interface AssistantsToolPayload extends TwilioResponsePayload {
+  tools: AssistantsToolResource[];
 }
 
 interface AssistantsToolResource {
@@ -234,21 +284,25 @@ export class AssistantsToolInstance {
   protected _solution: AssistantsToolContextSolution;
   protected _context?: AssistantsToolContext;
 
-  constructor(protected _version: V1, payload: AssistantsToolResource, assistantId: string, id?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.description = (payload.description);
-    this.enabled = (payload.enabled);
-    this.id = (payload.id);
-    this.meta = (payload.meta);
-    this.name = (payload.name);
-    this.requiresAuth = (payload.requires_auth);
-    this.type = (payload.type);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V1,
+    payload: AssistantsToolResource,
+    assistantId: string,
+    id?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.description = payload.description;
+    this.enabled = payload.enabled;
+    this.id = payload.id;
+    this.meta = payload.meta;
+    this.name = payload.name;
+    this.requiresAuth = payload.requires_auth;
+    this.type = payload.type;
+    this.url = payload.url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { assistantId, id: id,  };
+    this._solution = { assistantId, id: id };
   }
 
   /**
@@ -297,7 +351,13 @@ export class AssistantsToolInstance {
   dateUpdated: Date;
 
   private get _proxy(): AssistantsToolContext {
-    this._context = this._context || new AssistantsToolContextImpl(this._version, this._solution.assistantId, this._solution.id);
+    this._context =
+      this._context ||
+      new AssistantsToolContextImpl(
+        this._version,
+        this._solution.assistantId,
+        this._solution.id,
+      );
     return this._context;
   }
 
@@ -308,9 +368,9 @@ export class AssistantsToolInstance {
    *
    * @returns Resolves to processed AssistantsToolInstance
    */
-  create(callback?: (error: Error | null, item?: AssistantsToolInstance) => any): Promise<AssistantsToolInstance>
-
-    {
+  create(
+    callback?: (error: Error | null, item?: AssistantsToolInstance) => any,
+  ): Promise<AssistantsToolInstance> {
     return this._proxy.create(callback);
   }
 
@@ -321,9 +381,12 @@ export class AssistantsToolInstance {
    *
    * @returns Resolves to processed AssistantsToolInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AssistantsToolInstance>) => any): Promise<ApiResponse<AssistantsToolInstance>>
-
-    {
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AssistantsToolInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolInstance>> {
     return this._proxy.createWithHttpInfo(callback);
   }
 
@@ -334,9 +397,9 @@ export class AssistantsToolInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -347,9 +410,9 @@ export class AssistantsToolInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -379,7 +442,6 @@ export class AssistantsToolInstance {
   }
 }
 
-
 export interface AssistantsToolSolution {
   assistantId: string;
 }
@@ -389,14 +451,8 @@ export interface AssistantsToolListInstance {
   _solution: AssistantsToolSolution;
   _uri: string;
 
-  (id: string, ): AssistantsToolContext;
-  get(id: string, ): AssistantsToolContext;
-
-
-
-
-
-
+  (id: string): AssistantsToolContext;
+  get(id: string): AssistantsToolContext;
 
   /**
    * Streams AssistantsToolInstance records from the API.
@@ -413,8 +469,19 @@ export interface AssistantsToolListInstance {
    * @param { AssistantsToolListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AssistantsToolInstance, done: (err?: Error) => void) => void): void;
-  each(params: AssistantsToolListInstanceEachOptions, callback?: (item: AssistantsToolInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: AssistantsToolInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: AssistantsToolListInstanceEachOptions,
+    callback?: (
+      item: AssistantsToolInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams AssistantsToolInstance records from the API with HTTP metadata captured per page.
    *
@@ -430,8 +497,19 @@ export interface AssistantsToolListInstance {
    * @param { AssistantsToolListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: AssistantsToolInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: AssistantsToolListInstanceEachOptions, callback?: (item: AssistantsToolInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: AssistantsToolInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: AssistantsToolListInstanceEachOptions,
+    callback?: (
+      item: AssistantsToolInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of AssistantsToolInstance records from the API.
    *
@@ -440,7 +518,10 @@ export interface AssistantsToolListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: AssistantsToolPage) => any): Promise<AssistantsToolPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssistantsToolPage) => any,
+  ): Promise<AssistantsToolPage>;
   /**
    * Retrieve a single target page of AssistantsToolInstance records from the API with HTTP metadata.
    *
@@ -449,7 +530,13 @@ export interface AssistantsToolListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<AssistantsToolPage>) => any): Promise<ApiResponse<AssistantsToolPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolPage>>;
   /**
    * Lists AssistantsToolInstance records from the API as a list.
    *
@@ -459,8 +546,13 @@ export interface AssistantsToolListInstance {
    * @param { AssistantsToolListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AssistantsToolInstance[]) => any): Promise<AssistantsToolInstance[]>;
-  list(params: AssistantsToolListInstanceOptions, callback?: (error: Error | null, items: AssistantsToolInstance[]) => any): Promise<AssistantsToolInstance[]>;
+  list(
+    callback?: (error: Error | null, items: AssistantsToolInstance[]) => any,
+  ): Promise<AssistantsToolInstance[]>;
+  list(
+    params: AssistantsToolListInstanceOptions,
+    callback?: (error: Error | null, items: AssistantsToolInstance[]) => any,
+  ): Promise<AssistantsToolInstance[]>;
   /**
    * Lists AssistantsToolInstance records from the API as a list with HTTP metadata.
    *
@@ -472,8 +564,19 @@ export interface AssistantsToolListInstance {
    * @param { AssistantsToolListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<AssistantsToolInstance[]>) => any): Promise<ApiResponse<AssistantsToolInstance[]>>;
-  listWithHttpInfo(params: AssistantsToolListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<AssistantsToolInstance[]>) => any): Promise<ApiResponse<AssistantsToolInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolInstance[]>>;
+  listWithHttpInfo(
+    params: AssistantsToolListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolInstance[]>>;
   /**
    * Retrieve a single page of AssistantsToolInstance records from the API.
    *
@@ -485,8 +588,13 @@ export interface AssistantsToolListInstance {
    * @param { AssistantsToolListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AssistantsToolPage) => any): Promise<AssistantsToolPage>;
-  page(params: AssistantsToolListInstancePageOptions, callback?: (error: Error | null, items: AssistantsToolPage) => any): Promise<AssistantsToolPage>;
+  page(
+    callback?: (error: Error | null, items: AssistantsToolPage) => any,
+  ): Promise<AssistantsToolPage>;
+  page(
+    params: AssistantsToolListInstancePageOptions,
+    callback?: (error: Error | null, items: AssistantsToolPage) => any,
+  ): Promise<AssistantsToolPage>;
   /**
    * Retrieve a single page of AssistantsToolInstance records from the API with HTTP metadata.
    *
@@ -498,9 +606,19 @@ export interface AssistantsToolListInstance {
    * @param { AssistantsToolListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<AssistantsToolPage>) => any): Promise<ApiResponse<AssistantsToolPage>>;
-  pageWithHttpInfo(params: AssistantsToolListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<AssistantsToolPage>) => any): Promise<ApiResponse<AssistantsToolPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolPage>>;
+  pageWithHttpInfo(
+    params: AssistantsToolListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -509,22 +627,30 @@ export interface AssistantsToolListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AssistantsToolListInstance(version: V1, assistantId: string): AssistantsToolListInstance {
+export function AssistantsToolListInstance(
+  version: V1,
+  assistantId: string,
+): AssistantsToolListInstance {
   if (!isValidPathParam(assistantId)) {
-    throw new Error('Parameter \'assistantId\' is not valid.');
+    throw new Error("Parameter 'assistantId' is not valid.");
   }
 
-  const instance = ((id, ) => instance.get(id, )) as AssistantsToolListInstance;
+  const instance = ((id) => instance.get(id)) as AssistantsToolListInstance;
 
-  instance.get = function get(id, ): AssistantsToolContext {
+  instance.get = function get(id): AssistantsToolContext {
     return new AssistantsToolContextImpl(version, assistantId, id);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { assistantId,  };
+  instance._solution = { assistantId };
   instance._uri = `/Assistants/${assistantId}/Tools`;
 
-  instance.page = function page(params?: AssistantsToolListInstancePageOptions | ((error: Error | null, items: AssistantsToolPage) => any), callback?: (error: Error | null, items: AssistantsToolPage) => any): Promise<AssistantsToolPage> {
+  instance.page = function page(
+    params?:
+      | AssistantsToolListInstancePageOptions
+      | ((error: Error | null, items: AssistantsToolPage) => any),
+    callback?: (error: Error | null, items: AssistantsToolPage) => any,
+  ): Promise<AssistantsToolPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -534,44 +660,62 @@ export function AssistantsToolListInstance(version: V1, assistantId: string): As
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new AssistantsToolPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssistantsToolPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AssistantsToolPage) => any): Promise<AssistantsToolPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new AssistantsToolPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssistantsToolPage) => any,
+  ): Promise<AssistantsToolPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssistantsToolPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: AssistantsToolListInstancePageOptions | ((error: Error | null, items: ApiResponse<AssistantsToolPage>) => any), callback?: (error: Error | null, items: ApiResponse<AssistantsToolPage>) => any): Promise<ApiResponse<AssistantsToolPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AssistantsToolListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<AssistantsToolPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssistantsToolPage>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -581,93 +725,119 @@ export function AssistantsToolListInstance(version: V1, assistantId: string): As
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<AssistantsToolPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new AssistantsToolPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<AssistantsToolPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssistantsToolPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<AssistantsToolPage>) => any): Promise<ApiResponse<AssistantsToolPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<AssistantsToolPage>,
+    ) => any,
+  ): Promise<ApiResponse<AssistantsToolPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<AssistantsToolPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new AssistantsToolPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AssistantsToolPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssistantsToolPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class AssistantsToolPage extends Page<V1, AssistantsToolPayload, AssistantsToolResource, AssistantsToolInstance> {
-/**
-* Initialize the AssistantsToolPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: AssistantsToolSolution) {
+export class AssistantsToolPage extends Page<
+  V1,
+  AssistantsToolPayload,
+  AssistantsToolResource,
+  AssistantsToolInstance
+> {
+  /**
+   * Initialize the AssistantsToolPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: AssistantsToolSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AssistantsToolInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AssistantsToolResource): AssistantsToolInstance {
-
+  /**
+   * Build an instance of AssistantsToolInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AssistantsToolResource): AssistantsToolInstance {
     return new AssistantsToolInstance(
-    this._version,
-    payload,
-        this._solution.assistantId,
+      this._version,
+      payload,
+      this._solution.assistantId,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

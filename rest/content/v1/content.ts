@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -25,7 +24,6 @@ import { ApiResponse } from "../../../base/ApiResponse";
 import { ApprovalCreateListInstance } from "./content/approvalCreate";
 import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
-
 export class AuthenticationAction {
   "type": AuthenticationActionType;
   "copyCodeText": string;
@@ -36,8 +34,7 @@ export class AuthenticationAction {
   }
 }
 
-
-export type AuthenticationActionType = 'COPY_CODE';
+export type AuthenticationActionType = "COPY_CODE";
 
 export class CallToActionAction {
   "type": CallToActionActionType;
@@ -57,8 +54,13 @@ export class CallToActionAction {
   }
 }
 
-
-export type CallToActionActionType = 'URL'|'PHONE_NUMBER'|'COPY_CODE'|'VOICE_CALL'|'VOICE_CALL_REQUEST'|'REQUEST_CONTACT_INFO';
+export type CallToActionActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "COPY_CODE"
+  | "VOICE_CALL"
+  | "VOICE_CALL_REQUEST"
+  | "REQUEST_CONTACT_INFO";
 
 export class CardAction {
   "type": CardActionType;
@@ -80,8 +82,8 @@ export class CardAction {
   }
 }
 
-
-export type CardActionType = 'URL'|'PHONE_NUMBER'|'QUICK_REPLY'|'COPY_CODE'|'VOICE_CALL';
+export type CardActionType =
+  "URL" | "PHONE_NUMBER" | "QUICK_REPLY" | "COPY_CODE" | "VOICE_CALL";
 
 export class CarouselAction {
   "type": CarouselActionType;
@@ -99,8 +101,7 @@ export class CarouselAction {
   }
 }
 
-
-export type CarouselActionType = 'URL'|'PHONE_NUMBER'|'QUICK_REPLY';
+export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
 
 export class CarouselCard {
   "title"?: string;
@@ -115,7 +116,6 @@ export class CarouselCard {
     this.actions = payload["actions"];
   }
 }
-
 
 export class CatalogItem {
   "id"?: string;
@@ -135,7 +135,6 @@ export class CatalogItem {
   }
 }
 
-
 /**
  * Content creation request body
  */
@@ -147,7 +146,7 @@ export class ContentCreateRequest {
   /**
    * Key value pairs of variable name to value
    */
-  "variables"?: { [key: string]: string; };
+  "variables"?: { [key: string]: string };
   /**
    * Language code for the content
    */
@@ -162,7 +161,6 @@ export class ContentCreateRequest {
   }
 }
 
-
 /**
  * Content update request body
  */
@@ -174,7 +172,7 @@ export class ContentUpdateRequest {
   /**
    * Key value pairs of variable name to value
    */
-  "variables"?: { [key: string]: string; };
+  "variables"?: { [key: string]: string };
   /**
    * Language code for the content
    */
@@ -188,7 +186,6 @@ export class ContentUpdateRequest {
     this.types = payload["types"];
   }
 }
-
 
 export class FlowsPage {
   "id": string;
@@ -206,7 +203,6 @@ export class FlowsPage {
   }
 }
 
-
 export class FlowsPageComponent {
   "label"?: string;
   "type": string;
@@ -216,7 +212,6 @@ export class FlowsPageComponent {
     this.type = payload["type"];
   }
 }
-
 
 export class ListItem {
   "id": string;
@@ -230,7 +225,6 @@ export class ListItem {
   }
 }
 
-
 export class QuickReplyAction {
   "type"?: QuickReplyActionType;
   "title": string;
@@ -243,8 +237,7 @@ export class QuickReplyAction {
   }
 }
 
-
-export type QuickReplyActionType = 'QUICK_REPLY';
+export type QuickReplyActionType = "QUICK_REPLY";
 
 /**
  * twilio/call-to-action buttons let recipients tap to trigger actions such as launching a website or making a phone call.
@@ -258,7 +251,6 @@ export class TwilioCallToAction {
     this.actions = payload["actions"];
   }
 }
-
 
 /**
  * twilio/card is a structured template which can be used to send a series of related information. It must include a title and at least one additional field.
@@ -277,7 +269,6 @@ export class TwilioCard {
   }
 }
 
-
 /**
  * twilio/carousel templates allow you to send a single text message accompanied by a set of up to 10 carousel cards in a horizontally scrollable view
  */
@@ -290,7 +281,6 @@ export class TwilioCarousel {
     this.cards = payload["cards"];
   }
 }
-
 
 /**
  * twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
@@ -313,7 +303,6 @@ export class TwilioCatalog {
   }
 }
 
-
 /**
  * twilio/flows templates allow you to send multiple messages in a set order with text or select options
  */
@@ -335,7 +324,6 @@ export class TwilioFlows {
   }
 }
 
-
 /**
  * twilio/list-picker includes a menu of up to 10 options, which offers a simple way for users to make a selection.
  */
@@ -350,7 +338,6 @@ export class TwilioListPicker {
     this.items = payload["items"];
   }
 }
-
 
 /**
  * twilio/location type contains a location pin and an optional label, which can be used to enhance delivery notifications or connect recipients to physical experiences you offer.
@@ -371,7 +358,6 @@ export class TwilioLocation {
   }
 }
 
-
 /**
  * twilio/media is used to send file attachments, or to send long text via MMS in the US and Canada. As such, the twilio/media type must contain at least ONE of text or media content.
  */
@@ -385,7 +371,6 @@ export class TwilioMedia {
   }
 }
 
-
 /**
  * twilio/quick-reply templates let recipients tap, rather than type, to respond to the message.
  */
@@ -398,7 +383,6 @@ export class TwilioQuickReply {
     this.actions = payload["actions"];
   }
 }
-
 
 /**
  * twilio/schedule templates allow us to send a message with a schedule with different time slots
@@ -415,7 +399,6 @@ export class TwilioSchedule {
   }
 }
 
-
 /**
  * Type containing only plain text-based content
  */
@@ -426,7 +409,6 @@ export class TwilioText {
     this.body = payload["body"];
   }
 }
-
 
 /**
  * Content types
@@ -465,8 +447,7 @@ export class Types {
   }
 }
 
-
-export type WebviewSizeType = 'TALL'|'FULL'|'HALF'|'NONE';
+export type WebviewSizeType = "TALL" | "FULL" | "HALF" | "NONE";
 
 /**
  * whatsApp/authentication templates let companies deliver WA approved one-time-password button.
@@ -482,7 +463,6 @@ export class WhatsappAuthentication {
     this.actions = payload["actions"];
   }
 }
-
 
 /**
  * whatsapp/card is a structured template which can be used to send a series of related information. It must include a body and at least one additional field.
@@ -502,7 +482,6 @@ export class WhatsappCard {
     this.actions = payload["actions"];
   }
 }
-
 
 /**
  * whatsapp/flows templates allow you to send multiple messages in a set order with text or select options
@@ -529,16 +508,12 @@ export class WhatsappFlows {
   }
 }
 
-
-
-
-
 /**
  * Options to pass to update a ContentInstance
  */
 export interface ContentContextUpdateOptions {
   /**  */
-  "contentUpdateRequest": ContentUpdateRequest;
+  contentUpdateRequest: ContentUpdateRequest;
 }
 
 /**
@@ -546,7 +521,7 @@ export interface ContentContextUpdateOptions {
  */
 export interface ContentListInstanceCreateOptions {
   /**  */
-  "contentCreateRequest": ContentCreateRequest;
+  contentCreateRequest: ContentCreateRequest;
 }
 
 /**
@@ -554,7 +529,7 @@ export interface ContentListInstanceCreateOptions {
  */
 export interface ContentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ContentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -568,24 +543,22 @@ export interface ContentListInstanceEachOptions {
  */
 export interface ContentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ContentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface ContentContext {
   approvalCreate: ApprovalCreateListInstance;
@@ -598,7 +571,9 @@ export interface ContentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a ContentInstance and return HTTP info
@@ -607,7 +582,9 @@ export interface ContentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a ContentInstance
@@ -616,7 +593,9 @@ export interface ContentContext {
    *
    * @returns Resolves to processed ContentInstance
    */
-  fetch(callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance>;
 
   /**
    * Fetch a ContentInstance and return HTTP info
@@ -625,7 +604,12 @@ export interface ContentContext {
    *
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>>;
 
   /**
    * Update a ContentInstance
@@ -636,7 +620,11 @@ export interface ContentContext {
    *
    * @returns Resolves to processed ContentInstance
    */
-  update(params: ContentUpdateRequest, headers?: any, callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>;
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance>;
 
   /**
    * Update a ContentInstance and return HTTP info
@@ -647,7 +635,14 @@ export interface ContentContext {
    *
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ContentUpdateRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>>;
+  updateWithHttpInfo(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -657,7 +652,7 @@ export interface ContentContext {
 }
 
 export interface ContentContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class ContentContextImpl implements ContentContext {
@@ -667,152 +662,222 @@ export class ContentContextImpl implements ContentContext {
   protected _approvalCreate?: ApprovalCreateListInstance;
   protected _approvalFetch?: ApprovalFetchListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Content/${sid}`;
   }
 
   get approvalCreate(): ApprovalCreateListInstance {
-    this._approvalCreate = this._approvalCreate || ApprovalCreateListInstance(this._version, this._solution.sid);
+    this._approvalCreate =
+      this._approvalCreate ||
+      ApprovalCreateListInstance(this._version, this._solution.sid);
     return this._approvalCreate;
   }
 
   get approvalFetch(): ApprovalFetchListInstance {
-    this._approvalFetch = this._approvalFetch || ApprovalFetchListInstance(this._version, this._solution.sid);
+    this._approvalFetch =
+      this._approvalFetch ||
+      ApprovalFetchListInstance(this._version, this._solution.sid);
     return this._approvalFetch;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ContentInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ContentInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ContentResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ContentInstance> => ({
-      ...response,
-      body: new ContentInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ContentResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<ContentInstance> => ({
+        ...response,
+        body: new ContentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params: ContentUpdateRequest, headers?: any,callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance> {
-      if (params === null || params === undefined) {
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ContentInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ContentInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params: ContentUpdateRequest, headers?: any,callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>> {
-      if (params === null || params === undefined) {
+  updateWithHttpInfo(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<ContentResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<ContentInstance> => ({
-      ...response,
-      body: new ContentInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ContentResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ContentInstance> => ({
+        ...response,
+        body: new ContentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -829,9 +894,8 @@ export class ContentContextImpl implements ContentContext {
   }
 }
 
-
-  interface ContentPayload extends TwilioResponsePayload {
-    contents: ContentResource[];
+interface ContentPayload extends TwilioResponsePayload {
+  contents: ContentResource[];
 }
 
 interface ContentResource {
@@ -851,20 +915,23 @@ export class ContentInstance {
   protected _solution: ContentContextSolution;
   protected _context?: ContentContext;
 
-  constructor(protected _version: V1, payload: ContentResource, sid?: string) {
-    
+  constructor(
+    protected _version: V1,
+    payload: ContentResource,
+    sid?: string,
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.friendlyName = (payload.friendly_name);
-    this.language = (payload.language);
-    this.variables = (payload.variables);
-    this.types = (payload.types);
-    this.url = (payload.url);
-    this.links = (payload.links);
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
+    this.language = payload.language;
+    this.variables = payload.variables;
+    this.types = payload.types;
+    this.url = payload.url;
+    this.links = payload.links;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -909,7 +976,9 @@ export class ContentInstance {
   links: Record<string, string>;
 
   private get _proxy(): ContentContext {
-    this._context = this._context || new ContentContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new ContentContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -920,9 +989,9 @@ export class ContentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -933,9 +1002,9 @@ export class ContentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -946,9 +1015,9 @@ export class ContentInstance {
    *
    * @returns Resolves to processed ContentInstance
    */
-  fetch(callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -959,9 +1028,12 @@ export class ContentInstance {
    *
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -974,10 +1046,16 @@ export class ContentInstance {
    *
    * @returns Resolves to processed ContentInstance
    */
-  update(params: ContentUpdateRequest, headers?: any, callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>;
+  update(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -990,10 +1068,22 @@ export class ContentInstance {
    *
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ContentUpdateRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>>;
+  updateWithHttpInfo(
+    params: ContentUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -1036,24 +1126,15 @@ export class ContentInstance {
   }
 }
 
-
-export interface ContentSolution {
-}
+export interface ContentSolution {}
 
 export interface ContentListInstance {
   _version: V1;
   _solution: ContentSolution;
   _uri: string;
 
-  (sid: string, ): ContentContext;
-  get(sid: string, ): ContentContext;
-
-
-
-
-
-
-
+  (sid: string): ContentContext;
+  get(sid: string): ContentContext;
 
   /**
    * Create a ContentInstance
@@ -1064,7 +1145,11 @@ export interface ContentListInstance {
    *
    * @returns Resolves to processed ContentInstance
    */
-  create(params: ContentCreateRequest, headers?: any, callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>;
+  create(
+    params: ContentCreateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ContentInstance) => any,
+  ): Promise<ContentInstance>;
 
   /**
    * Create a ContentInstance and return HTTP info
@@ -1075,10 +1160,14 @@ export interface ContentListInstance {
    *
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ContentCreateRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: ContentCreateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>>;
 
   /**
    * Streams ContentInstance records from the API.
@@ -1095,8 +1184,13 @@ export interface ContentListInstance {
    * @param { ContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
-  each(params: ContentListInstanceEachOptions, callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: ContentListInstanceEachOptions,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams ContentInstance records from the API with HTTP metadata captured per page.
    *
@@ -1112,8 +1206,13 @@ export interface ContentListInstance {
    * @param { ContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ContentListInstanceEachOptions, callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ContentListInstanceEachOptions,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
    *
@@ -1122,7 +1221,10 @@ export interface ContentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ContentPage) => any,
+  ): Promise<ContentPage>;
   /**
    * Retrieve a single target page of ContentInstance records from the API with HTTP metadata.
    *
@@ -1131,7 +1233,10 @@ export interface ContentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any): Promise<ApiResponse<ContentPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+  ): Promise<ApiResponse<ContentPage>>;
   /**
    * Lists ContentInstance records from the API as a list.
    *
@@ -1141,8 +1246,13 @@ export interface ContentListInstance {
    * @param { ContentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ContentInstance[]) => any): Promise<ContentInstance[]>;
-  list(params: ContentListInstanceOptions, callback?: (error: Error | null, items: ContentInstance[]) => any): Promise<ContentInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ContentInstance[]) => any,
+  ): Promise<ContentInstance[]>;
+  list(
+    params: ContentListInstanceOptions,
+    callback?: (error: Error | null, items: ContentInstance[]) => any,
+  ): Promise<ContentInstance[]>;
   /**
    * Lists ContentInstance records from the API as a list with HTTP metadata.
    *
@@ -1154,8 +1264,19 @@ export interface ContentListInstance {
    * @param { ContentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ContentInstance[]>) => any): Promise<ApiResponse<ContentInstance[]>>;
-  listWithHttpInfo(params: ContentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ContentInstance[]>) => any): Promise<ApiResponse<ContentInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance[]>>;
+  listWithHttpInfo(
+    params: ContentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance[]>>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
    *
@@ -1167,8 +1288,13 @@ export interface ContentListInstance {
    * @param { ContentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
-  page(params: ContentListInstancePageOptions, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
+  page(
+    callback?: (error: Error | null, items: ContentPage) => any,
+  ): Promise<ContentPage>;
+  page(
+    params: ContentListInstancePageOptions,
+    callback?: (error: Error | null, items: ContentPage) => any,
+  ): Promise<ContentPage>;
   /**
    * Retrieve a single page of ContentInstance records from the API with HTTP metadata.
    *
@@ -1180,9 +1306,13 @@ export interface ContentListInstance {
    * @param { ContentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any): Promise<ApiResponse<ContentPage>>;
-  pageWithHttpInfo(params: ContentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any): Promise<ApiResponse<ContentPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+  ): Promise<ApiResponse<ContentPage>>;
+  pageWithHttpInfo(
+    params: ContentListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+  ): Promise<ApiResponse<ContentPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -1192,78 +1322,105 @@ export interface ContentListInstance {
 }
 
 export function ContentListInstance(version: V1): ContentListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as ContentListInstance;
+  const instance = ((sid) => instance.get(sid)) as ContentListInstance;
 
-  instance.get = function get(sid, ): ContentContext {
+  instance.get = function get(sid): ContentContext {
     return new ContentContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Content`;
 
-  instance.create = function create(params: ContentCreateRequest, headers?: any, callback?: (error: Error | null, items: ContentInstance) => any): Promise<ContentInstance> {
+  instance.create = function create(
+    params: ContentCreateRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: ContentInstance) => any,
+  ): Promise<ContentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ContentInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ContentInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: ContentCreateRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<ContentInstance>) => any): Promise<ApiResponse<ContentInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ContentCreateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ContentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ContentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ContentInstance> => ({
-      ...response,
-      body: new ContentInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ContentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ContentInstance> => ({
+        ...response,
+        body: new ContentInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ContentListInstancePageOptions | ((error: Error | null, items: ContentPage) => any), callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage> {
+  instance.page = function page(
+    params?:
+      | ContentListInstancePageOptions
+      | ((error: Error | null, items: ContentPage) => any),
+    callback?: (error: Error | null, items: ContentPage) => any,
+  ): Promise<ContentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1273,44 +1430,59 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ContentPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ContentPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ContentPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ContentPage) => any,
+  ): Promise<ContentPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ContentPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ContentListInstancePageOptions | ((error: Error | null, items: ApiResponse<ContentPage>) => any), callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any): Promise<ApiResponse<ContentPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ContentListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ContentPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+  ): Promise<ApiResponse<ContentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1320,92 +1492,104 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ContentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ContentPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ContentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ContentPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ContentPage>) => any): Promise<ApiResponse<ContentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<ContentPage>) => any,
+  ): Promise<ApiResponse<ContentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ContentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ContentPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ContentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ContentPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ContentPage extends Page<V1, ContentPayload, ContentResource, ContentInstance> {
-/**
-* Initialize the ContentPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ContentSolution) {
+export class ContentPage extends Page<
+  V1,
+  ContentPayload,
+  ContentResource,
+  ContentInstance
+> {
+  /**
+   * Initialize the ContentPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ContentSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ContentInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ContentResource): ContentInstance {
+  /**
+   * Build an instance of ContentInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ContentResource): ContentInstance {
+    return new ContentInstance(this._version, payload);
+  }
 
-    return new ContentInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

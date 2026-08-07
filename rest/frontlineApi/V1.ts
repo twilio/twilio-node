@@ -34,5 +34,4 @@ export default class V1 extends Version {
     this._users = this._users || UserListInstance(this);
     return this._users;
   }
-
 }

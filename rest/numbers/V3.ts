@@ -31,8 +31,8 @@ export default class V3 extends Version {
 
   /** Getter for hostedNumberOrders resource */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
-    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    this._hostedNumberOrders =
+      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
     return this._hostedNumberOrders;
   }
-
 }

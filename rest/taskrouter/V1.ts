@@ -34,5 +34,4 @@ export default class V1 extends Version {
     this._workspaces = this._workspaces || WorkspaceListInstance(this);
     return this._workspaces;
   }
-
 }

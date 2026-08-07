@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,16 +22,12 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
-
 /**
  * Options to pass to create a AuthRegistrationsCredentialListMappingInstance
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceCreateOptions {
   /** The SID of the CredentialList resource to map to the SIP domain. */
-  "credentialListSid": string;
+  credentialListSid: string;
 }
 
 /**
@@ -40,9 +35,12 @@ export interface AuthRegistrationsCredentialListMappingListInstanceCreateOptions
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: AuthRegistrationsCredentialListMappingInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: AuthRegistrationsCredentialListMappingInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -54,27 +52,24 @@ export interface AuthRegistrationsCredentialListMappingListInstanceEachOptions {
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface AuthRegistrationsCredentialListMappingListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface AuthRegistrationsCredentialListMappingContext {
-
   /**
    * Remove a AuthRegistrationsCredentialListMappingInstance
    *
@@ -82,7 +77,9 @@ export interface AuthRegistrationsCredentialListMappingContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a AuthRegistrationsCredentialListMappingInstance and return HTTP info
@@ -91,7 +88,9 @@ export interface AuthRegistrationsCredentialListMappingContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a AuthRegistrationsCredentialListMappingInstance
@@ -100,7 +99,12 @@ export interface AuthRegistrationsCredentialListMappingContext {
    *
    * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance
    */
-  fetch(callback?: (error: Error | null, item?: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AuthRegistrationsCredentialListMappingInstance,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance>;
 
   /**
    * Fetch a AuthRegistrationsCredentialListMappingInstance and return HTTP info
@@ -109,7 +113,12 @@ export interface AuthRegistrationsCredentialListMappingContext {
    *
    * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -119,97 +128,152 @@ export interface AuthRegistrationsCredentialListMappingContext {
 }
 
 export interface AuthRegistrationsCredentialListMappingContextSolution {
-  "accountSid": string;
-  "domainSid": string;
-  "sid": string;
+  accountSid: string;
+  domainSid: string;
+  sid: string;
 }
 
 export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRegistrationsCredentialListMappingContext {
   protected _solution: AuthRegistrationsCredentialListMappingContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, domainSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    domainSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error('Parameter \'accountSid\' is not valid.');
+      throw new Error("Parameter 'accountSid' is not valid.");
     }
 
     if (!isValidPathParam(domainSid)) {
-      throw new Error('Parameter \'domainSid\' is not valid.');
+      throw new Error("Parameter 'domainSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { accountSid, domainSid, sid,  };
+    this._solution = { accountSid, domainSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings/${sid}.json`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AuthRegistrationsCredentialListMappingInstance,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.domainSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AuthRegistrationsCredentialListMappingInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<AuthRegistrationsCredentialListMappingResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<AuthRegistrationsCredentialListMappingInstance> => ({
-      ...response,
-      body: new AuthRegistrationsCredentialListMappingInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.domainSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AuthRegistrationsCredentialListMappingResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (
+          response,
+        ): ApiResponse<AuthRegistrationsCredentialListMappingInstance> => ({
+          ...response,
+          body: new AuthRegistrationsCredentialListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid,
+            instance._solution.sid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -226,9 +290,8 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
   }
 }
 
-
-  interface AuthRegistrationsCredentialListMappingPayload extends TwilioResponsePayload {
-    contents: AuthRegistrationsCredentialListMappingResource[];
+interface AuthRegistrationsCredentialListMappingPayload extends TwilioResponsePayload {
+  contents: AuthRegistrationsCredentialListMappingResource[];
 }
 
 interface AuthRegistrationsCredentialListMappingResource {
@@ -243,15 +306,20 @@ export class AuthRegistrationsCredentialListMappingInstance {
   protected _solution: AuthRegistrationsCredentialListMappingContextSolution;
   protected _context?: AuthRegistrationsCredentialListMappingContext;
 
-  constructor(protected _version: V2010, payload: AuthRegistrationsCredentialListMappingResource, accountSid?: string, domainSid?: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
+  constructor(
+    protected _version: V2010,
+    payload: AuthRegistrationsCredentialListMappingResource,
+    accountSid?: string,
+    domainSid?: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.friendlyName = (payload.friendly_name);
-    this.sid = (payload.sid);
+    this.friendlyName = payload.friendly_name;
+    this.sid = payload.sid;
 
-    this._solution = { accountSid: accountSid, domainSid: domainSid, sid: sid,  };
+    this._solution = { accountSid: accountSid, domainSid: domainSid, sid: sid };
   }
 
   /**
@@ -276,7 +344,14 @@ export class AuthRegistrationsCredentialListMappingInstance {
   sid: string;
 
   private get _proxy(): AuthRegistrationsCredentialListMappingContext {
-    this._context = this._context || new AuthRegistrationsCredentialListMappingContextImpl(this._version, this._solution.accountSid, this._solution.domainSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new AuthRegistrationsCredentialListMappingContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.domainSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -287,9 +362,9 @@ export class AuthRegistrationsCredentialListMappingInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -300,9 +375,9 @@ export class AuthRegistrationsCredentialListMappingInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -313,9 +388,12 @@ export class AuthRegistrationsCredentialListMappingInstance {
    *
    * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance
    */
-  fetch(callback?: (error: Error | null, item?: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AuthRegistrationsCredentialListMappingInstance,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -326,9 +404,12 @@ export class AuthRegistrationsCredentialListMappingInstance {
    *
    * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -352,7 +433,6 @@ export class AuthRegistrationsCredentialListMappingInstance {
   }
 }
 
-
 export interface AuthRegistrationsCredentialListMappingSolution {
   accountSid: string;
   domainSid: string;
@@ -363,13 +443,16 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
   _solution: AuthRegistrationsCredentialListMappingSolution;
   _uri: string;
 
-  (accountSid: string, domainSid: string, sid: string, ): AuthRegistrationsCredentialListMappingContext;
-  get(accountSid: string, domainSid: string, sid: string, ): AuthRegistrationsCredentialListMappingContext;
-
-
-
-
-
+  (
+    accountSid: string,
+    domainSid: string,
+    sid: string,
+  ): AuthRegistrationsCredentialListMappingContext;
+  get(
+    accountSid: string,
+    domainSid: string,
+    sid: string,
+  ): AuthRegistrationsCredentialListMappingContext;
 
   /**
    * Create a AuthRegistrationsCredentialListMappingInstance
@@ -379,7 +462,13 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    *
    * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance
    */
-  create(params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, item?: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
+  create(
+    params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AuthRegistrationsCredentialListMappingInstance,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance>;
 
   /**
    * Create a AuthRegistrationsCredentialListMappingInstance and return HTTP info
@@ -389,10 +478,13 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    *
    * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance with HTTP metadata
    */
-  createWithHttpInfo(params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthRegistrationsCredentialListMappingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>>;
 
   /**
    * Streams AuthRegistrationsCredentialListMappingInstance records from the API.
@@ -409,8 +501,19 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { AuthRegistrationsCredentialListMappingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AuthRegistrationsCredentialListMappingInstance, done: (err?: Error) => void) => void): void;
-  each(params: AuthRegistrationsCredentialListMappingListInstanceEachOptions, callback?: (item: AuthRegistrationsCredentialListMappingInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: AuthRegistrationsCredentialListMappingInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: AuthRegistrationsCredentialListMappingListInstanceEachOptions,
+    callback?: (
+      item: AuthRegistrationsCredentialListMappingInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams AuthRegistrationsCredentialListMappingInstance records from the API with HTTP metadata captured per page.
    *
@@ -426,8 +529,19 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { AuthRegistrationsCredentialListMappingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: AuthRegistrationsCredentialListMappingInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: AuthRegistrationsCredentialListMappingListInstanceEachOptions, callback?: (item: AuthRegistrationsCredentialListMappingInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: AuthRegistrationsCredentialListMappingInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: AuthRegistrationsCredentialListMappingListInstanceEachOptions,
+    callback?: (
+      item: AuthRegistrationsCredentialListMappingInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of AuthRegistrationsCredentialListMappingInstance records from the API.
    *
@@ -436,7 +550,13 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any): Promise<AuthRegistrationsCredentialListMappingPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingPage,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingPage>;
   /**
    * Retrieve a single target page of AuthRegistrationsCredentialListMappingInstance records from the API with HTTP metadata.
    *
@@ -445,7 +565,13 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingPage>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingPage>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>>;
   /**
    * Lists AuthRegistrationsCredentialListMappingInstance records from the API as a list.
    *
@@ -455,8 +581,19 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { AuthRegistrationsCredentialListMappingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance[]) => any): Promise<AuthRegistrationsCredentialListMappingInstance[]>;
-  list(params: AuthRegistrationsCredentialListMappingListInstanceOptions, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance[]) => any): Promise<AuthRegistrationsCredentialListMappingInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingInstance[],
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance[]>;
+  list(
+    params: AuthRegistrationsCredentialListMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingInstance[],
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance[]>;
   /**
    * Lists AuthRegistrationsCredentialListMappingInstance records from the API as a list with HTTP metadata.
    *
@@ -468,8 +605,19 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { AuthRegistrationsCredentialListMappingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>>;
-  listWithHttpInfo(params: AuthRegistrationsCredentialListMappingListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>>;
+  listWithHttpInfo(
+    params: AuthRegistrationsCredentialListMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance[]>>;
   /**
    * Retrieve a single page of AuthRegistrationsCredentialListMappingInstance records from the API.
    *
@@ -481,8 +629,19 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { AuthRegistrationsCredentialListMappingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any): Promise<AuthRegistrationsCredentialListMappingPage>;
-  page(params: AuthRegistrationsCredentialListMappingListInstancePageOptions, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any): Promise<AuthRegistrationsCredentialListMappingPage>;
+  page(
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingPage,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingPage>;
+  page(
+    params: AuthRegistrationsCredentialListMappingListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingPage,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingPage>;
   /**
    * Retrieve a single page of AuthRegistrationsCredentialListMappingInstance records from the API with HTTP metadata.
    *
@@ -494,9 +653,19 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    * @param { AuthRegistrationsCredentialListMappingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingPage>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>>;
-  pageWithHttpInfo(params: AuthRegistrationsCredentialListMappingListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingPage>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingPage>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>>;
+  pageWithHttpInfo(
+    params: AuthRegistrationsCredentialListMappingListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingPage>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -505,95 +674,166 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AuthRegistrationsCredentialListMappingListInstance(version: V2010, accountSid: string, domainSid: string): AuthRegistrationsCredentialListMappingListInstance {
+export function AuthRegistrationsCredentialListMappingListInstance(
+  version: V2010,
+  accountSid: string,
+  domainSid: string,
+): AuthRegistrationsCredentialListMappingListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   if (!isValidPathParam(domainSid)) {
-    throw new Error('Parameter \'domainSid\' is not valid.');
+    throw new Error("Parameter 'domainSid' is not valid.");
   }
 
-  const instance = ((accountSid, domainSid, sid, ) => instance.get(accountSid, domainSid, sid, )) as AuthRegistrationsCredentialListMappingListInstance;
+  const instance = ((accountSid, domainSid, sid) =>
+    instance.get(
+      accountSid,
+      domainSid,
+      sid,
+    )) as AuthRegistrationsCredentialListMappingListInstance;
 
-  instance.get = function get(accountSid, domainSid, sid, ): AuthRegistrationsCredentialListMappingContext {
-    return new AuthRegistrationsCredentialListMappingContextImpl(version, accountSid, domainSid, sid);
-  }
+  instance.get = function get(
+    accountSid,
+    domainSid,
+    sid,
+  ): AuthRegistrationsCredentialListMappingContext {
+    return new AuthRegistrationsCredentialListMappingContextImpl(
+      version,
+      accountSid,
+      domainSid,
+      sid,
+    );
+  };
 
   instance._version = version;
-  instance._solution = { accountSid, domainSid,  };
+  instance._solution = { accountSid, domainSid };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings.json`;
 
-  instance.create = function create(params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance> {
+  instance.create = function create(
+    params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingInstance,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["credentialListSid"] === null || params["credentialListSid"] === undefined) {
-      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
+    if (
+      params["credentialListSid"] === null ||
+      params["credentialListSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['credentialListSid']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["CredentialListSid"] = params["credentialListSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.domainSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AuthRegistrationsCredentialListMappingInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingInstance>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["credentialListSid"] === null || params["credentialListSid"] === undefined) {
-      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
+    if (
+      params["credentialListSid"] === null ||
+      params["credentialListSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['credentialListSid']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["CredentialListSid"] = params["credentialListSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<AuthRegistrationsCredentialListMappingResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<AuthRegistrationsCredentialListMappingInstance> => ({
-      ...response,
-      body: new AuthRegistrationsCredentialListMappingInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.domainSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<AuthRegistrationsCredentialListMappingResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (
+          response,
+        ): ApiResponse<AuthRegistrationsCredentialListMappingInstance> => ({
+          ...response,
+          body: new AuthRegistrationsCredentialListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: AuthRegistrationsCredentialListMappingListInstancePageOptions | ((error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any), callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any): Promise<AuthRegistrationsCredentialListMappingPage> {
+  instance.page = function page(
+    params?:
+      | AuthRegistrationsCredentialListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: AuthRegistrationsCredentialListMappingPage,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingPage,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -603,44 +843,76 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AuthRegistrationsCredentialListMappingPage(
+          operationVersion,
+          payload,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any): Promise<AuthRegistrationsCredentialListMappingPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: AuthRegistrationsCredentialListMappingPage,
+    ) => any,
+  ): Promise<AuthRegistrationsCredentialListMappingPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AuthRegistrationsCredentialListMappingPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: AuthRegistrationsCredentialListMappingListInstancePageOptions | ((error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingPage>) => any), callback?: (error: Error | null, items: ApiResponse<AuthRegistrationsCredentialListMappingPage>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AuthRegistrationsCredentialListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<AuthRegistrationsCredentialListMappingPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthRegistrationsCredentialListMappingPage>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -650,94 +922,126 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<AuthRegistrationsCredentialListMappingPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new AuthRegistrationsCredentialListMappingPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (
+          response,
+        ): ApiResponse<AuthRegistrationsCredentialListMappingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AuthRegistrationsCredentialListMappingPage(
+            operationVersion,
+            response,
+            instance._solution,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<AuthRegistrationsCredentialListMappingPage>) => any): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<AuthRegistrationsCredentialListMappingPage>,
+    ) => any,
+  ): Promise<ApiResponse<AuthRegistrationsCredentialListMappingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<AuthRegistrationsCredentialListMappingPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new AuthRegistrationsCredentialListMappingPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AuthRegistrationsCredentialListMappingPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AuthRegistrationsCredentialListMappingPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class AuthRegistrationsCredentialListMappingPage extends Page<V2010, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingInstance> {
-/**
-* Initialize the AuthRegistrationsCredentialListMappingPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: AuthRegistrationsCredentialListMappingSolution) {
+export class AuthRegistrationsCredentialListMappingPage extends Page<
+  V2010,
+  AuthRegistrationsCredentialListMappingPayload,
+  AuthRegistrationsCredentialListMappingResource,
+  AuthRegistrationsCredentialListMappingInstance
+> {
+  /**
+   * Initialize the AuthRegistrationsCredentialListMappingPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: AuthRegistrationsCredentialListMappingSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AuthRegistrationsCredentialListMappingInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AuthRegistrationsCredentialListMappingResource): AuthRegistrationsCredentialListMappingInstance {
-
+  /**
+   * Build an instance of AuthRegistrationsCredentialListMappingInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: AuthRegistrationsCredentialListMappingResource,
+  ): AuthRegistrationsCredentialListMappingInstance {
     return new AuthRegistrationsCredentialListMappingInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.domainSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.domainSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

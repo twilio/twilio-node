@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../../../V2";
 const deserialize = require("../../../../../../base/deserialize");
@@ -19,13 +20,16 @@ const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 import { ApiResponse } from "../../../../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a NotificationInstance
  */
 export interface NotificationListInstanceCreateOptions {
   /** How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. */
-  ttl?: number;
+  "ttl"?: number;
 }
+
 
 export interface NotificationSolution {
   serviceSid: string;
@@ -38,6 +42,8 @@ export interface NotificationListInstance {
   _solution: NotificationSolution;
   _uri: string;
 
+
+
   /**
    * Create a NotificationInstance
    *
@@ -45,9 +51,7 @@ export interface NotificationListInstance {
    *
    * @returns Resolves to processed NotificationInstance
    */
-  create(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
-  ): Promise<NotificationInstance>;
+  create(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
   /**
    * Create a NotificationInstance
    *
@@ -56,10 +60,7 @@ export interface NotificationListInstance {
    *
    * @returns Resolves to processed NotificationInstance
    */
-  create(
-    params: NotificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NotificationInstance) => any
-  ): Promise<NotificationInstance>;
+  create(params: NotificationListInstanceCreateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
 
   /**
    * Create a NotificationInstance and return HTTP info
@@ -68,12 +69,7 @@ export interface NotificationListInstance {
    *
    * @returns Resolves to processed NotificationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
-  ): Promise<ApiResponse<NotificationInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NotificationInstance>) => any): Promise<ApiResponse<NotificationInstance>>;
   /**
    * Create a NotificationInstance and return HTTP info
    *
@@ -82,13 +78,9 @@ export interface NotificationListInstance {
    *
    * @returns Resolves to processed NotificationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: NotificationListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
-  ): Promise<ApiResponse<NotificationInstance>>;
+  createWithHttpInfo(params: NotificationListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<NotificationInstance>) => any): Promise<ApiResponse<NotificationInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -97,148 +89,104 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NotificationListInstance(
-  version: V2,
-  serviceSid: string,
-  identity: string,
-  challengeSid: string
-): NotificationListInstance {
+export function NotificationListInstance(version: V2, serviceSid: string, identity: string, challengeSid: string): NotificationListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(identity)) {
-    throw new Error("Parameter 'identity' is not valid.");
+    throw new Error('Parameter \'identity\' is not valid.');
   }
 
   if (!isValidPathParam(challengeSid)) {
-    throw new Error("Parameter 'challengeSid' is not valid.");
+    throw new Error('Parameter \'challengeSid\' is not valid.');
   }
 
   const instance = {} as NotificationListInstance;
 
   instance._version = version;
-  instance._solution = { serviceSid, identity, challengeSid };
+  instance._solution = { serviceSid, identity, challengeSid,  };
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Challenges/${challengeSid}/Notifications`;
 
-  instance.create = function create(
-    params?:
-      | NotificationListInstanceCreateOptions
-      | ((error: Error | null, items: NotificationInstance) => any),
-    callback?: (error: Error | null, items: NotificationInstance) => any
-  ): Promise<NotificationInstance> {
+  instance.create = function create(params?: NotificationListInstanceCreateOptions | ((error: Error | null, items: NotificationInstance) => any), callback?: (error: Error | null, items: NotificationInstance) => any): Promise<NotificationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    
+        if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.identity, instance._solution.challengeSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NotificationInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.challengeSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | NotificationListInstanceCreateOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<NotificationInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<NotificationInstance>
-    ) => any
-  ): Promise<ApiResponse<NotificationInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: NotificationListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<NotificationInstance>) => any), callback?: (error: Error | null, items: ApiResponse<NotificationInstance>) => any): Promise<ApiResponse<NotificationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    
+        if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<NotificationResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<NotificationInstance> => ({
-          ...response,
-          body: new NotificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.identity,
-            instance._solution.challengeSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<NotificationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<NotificationInstance> => ({
+      ...response,
+      body: new NotificationInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.identity, instance._solution.challengeSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface NotificationPayload extends NotificationResource {}
+  interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
   sid: string;
@@ -253,22 +201,19 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-  constructor(
-    protected _version: V2,
-    payload: NotificationResource,
-    serviceSid: string,
-    identity: string,
-    challengeSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.entitySid = payload.entity_sid;
-    this.identity = payload.identity;
-    this.challengeSid = payload.challenge_sid;
-    this.priority = payload.priority;
+
+  constructor(protected _version: V2, payload: NotificationResource, serviceSid: string, identity: string, challengeSid: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.entitySid = (payload.entity_sid);
+    this.identity = (payload.identity);
+    this.challengeSid = (payload.challenge_sid);
+    this.priority = (payload.priority);
     this.ttl = deserialize.integer(payload.ttl);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+
   }
 
   /**
@@ -331,3 +276,5 @@ export class NotificationInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

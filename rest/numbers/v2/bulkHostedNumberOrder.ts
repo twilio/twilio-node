@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -20,19 +19,18 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * A string that shows the status of the current Bulk Hosting request, it can vary between these values: \'QUEUED\',\'IN_PROGRESS\',\'PROCESSED\'
  */
-export type BulkHostedNumberOrderRequestStatus = 'QUEUED'|'IN_PROGRESS'|'PROCESSED';
-
+export type BulkHostedNumberOrderRequestStatus =
+  "QUEUED" | "IN_PROGRESS" | "PROCESSED";
 
 /**
  * Options to pass to fetch a BulkHostedNumberOrderInstance
  */
 export interface BulkHostedNumberOrderContextFetchOptions {
   /** Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check \'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values\'. */
-  "orderStatus"?: string;
+  orderStatus?: string;
 }
 
 /**
@@ -40,11 +38,10 @@ export interface BulkHostedNumberOrderContextFetchOptions {
  */
 export interface BulkHostedNumberOrderListInstanceCreateOptions {
   /**  */
-  "body"?: object;
+  body?: object;
 }
 
 export interface BulkHostedNumberOrderContext {
-
   /**
    * Fetch a BulkHostedNumberOrderInstance
    *
@@ -52,7 +49,12 @@ export interface BulkHostedNumberOrderContext {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance>;
   /**
    * Fetch a BulkHostedNumberOrderInstance
    *
@@ -61,7 +63,13 @@ export interface BulkHostedNumberOrderContext {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(params: BulkHostedNumberOrderContextFetchOptions, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+  fetch(
+    params: BulkHostedNumberOrderContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance>;
 
   /**
    * Fetch a BulkHostedNumberOrderInstance and return HTTP info
@@ -70,7 +78,12 @@ export interface BulkHostedNumberOrderContext {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
   /**
    * Fetch a BulkHostedNumberOrderInstance and return HTTP info
    *
@@ -79,7 +92,13 @@ export interface BulkHostedNumberOrderContext {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: BulkHostedNumberOrderContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
+  fetchWithHttpInfo(
+    params: BulkHostedNumberOrderContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -89,88 +108,125 @@ export interface BulkHostedNumberOrderContext {
 }
 
 export interface BulkHostedNumberOrderContextSolution {
-  "bulkHostingSid": string;
+  bulkHostingSid: string;
 }
 
 export class BulkHostedNumberOrderContextImpl implements BulkHostedNumberOrderContext {
   protected _solution: BulkHostedNumberOrderContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, bulkHostingSid: string) {
+  constructor(
+    protected _version: V2,
+    bulkHostingSid: string,
+  ) {
     if (!isValidPathParam(bulkHostingSid)) {
-      throw new Error('Parameter \'bulkHostingSid\' is not valid.');
+      throw new Error("Parameter 'bulkHostingSid' is not valid.");
     }
 
-    this._solution = { bulkHostingSid,  };
+    this._solution = { bulkHostingSid };
     this._uri = `/HostedNumber/Orders/Bulk/${bulkHostingSid}`;
   }
 
-  fetch(params?: BulkHostedNumberOrderContextFetchOptions | ((error: Error | null, item?: BulkHostedNumberOrderInstance) => any),callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | BulkHostedNumberOrderContextFetchOptions
+      | ((error: Error | null, item?: BulkHostedNumberOrderInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["orderStatus"] !== undefined)
-    data["OrderStatus"] = params["orderStatus"];
+    if (params["orderStatus"] !== undefined)
+      data["OrderStatus"] = params["orderStatus"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new BulkHostedNumberOrderInstance(operationVersion, payload, instance._solution.bulkHostingSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BulkHostedNumberOrderInstance(
+          operationVersion,
+          payload,
+          instance._solution.bulkHostingSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: BulkHostedNumberOrderContextFetchOptions | ((error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | BulkHostedNumberOrderContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<BulkHostedNumberOrderInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["orderStatus"] !== undefined)
-    data["OrderStatus"] = params["orderStatus"];
+    if (params["orderStatus"] !== undefined)
+      data["OrderStatus"] = params["orderStatus"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<BulkHostedNumberOrderResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<BulkHostedNumberOrderInstance> => ({
-      ...response,
-      body: new BulkHostedNumberOrderInstance(operationVersion, response.body, instance._solution.bulkHostingSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<BulkHostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<BulkHostedNumberOrderInstance> => ({
+        ...response,
+        body: new BulkHostedNumberOrderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.bulkHostingSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -187,8 +243,7 @@ export class BulkHostedNumberOrderContextImpl implements BulkHostedNumberOrderCo
   }
 }
 
-
-  interface BulkHostedNumberOrderPayload extends BulkHostedNumberOrderResource {}
+interface BulkHostedNumberOrderPayload extends BulkHostedNumberOrderResource {}
 
 interface BulkHostedNumberOrderResource {
   bulk_hosting_sid: string;
@@ -206,19 +261,22 @@ export class BulkHostedNumberOrderInstance {
   protected _solution: BulkHostedNumberOrderContextSolution;
   protected _context?: BulkHostedNumberOrderContext;
 
-  constructor(protected _version: V2, payload: BulkHostedNumberOrderResource, bulkHostingSid?: string) {
-    
-    this.bulkHostingSid = (payload.bulk_hosting_sid);
+  constructor(
+    protected _version: V2,
+    payload: BulkHostedNumberOrderResource,
+    bulkHostingSid?: string,
+  ) {
+    this.bulkHostingSid = payload.bulk_hosting_sid;
     this.requestStatus = payload.request_status;
-    this.friendlyName = (payload.friendly_name);
-    this.notificationEmail = (payload.notification_email);
+    this.friendlyName = payload.friendly_name;
+    this.notificationEmail = payload.notification_email;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
-    this.url = (payload.url);
+    this.url = payload.url;
     this.totalCount = deserialize.integer(payload.total_count);
-    this.results = (payload.results);
+    this.results = payload.results;
 
-    this._solution = { bulkHostingSid: bulkHostingSid,  };
+    this._solution = { bulkHostingSid: bulkHostingSid };
   }
 
   /**
@@ -256,7 +314,12 @@ export class BulkHostedNumberOrderInstance {
   results: Array<any>;
 
   private get _proxy(): BulkHostedNumberOrderContext {
-    this._context = this._context || new BulkHostedNumberOrderContextImpl(this._version, this._solution.bulkHostingSid);
+    this._context =
+      this._context ||
+      new BulkHostedNumberOrderContextImpl(
+        this._version,
+        this._solution.bulkHostingSid,
+      );
     return this._context;
   }
 
@@ -267,7 +330,12 @@ export class BulkHostedNumberOrderInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance>;
   /**
    * Fetch a BulkHostedNumberOrderInstance
    *
@@ -276,10 +344,21 @@ export class BulkHostedNumberOrderInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(params: BulkHostedNumberOrderContextFetchOptions, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+  fetch(
+    params: BulkHostedNumberOrderContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -290,7 +369,12 @@ export class BulkHostedNumberOrderInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
   /**
    * Fetch a BulkHostedNumberOrderInstance and return HTTP info
    *
@@ -299,10 +383,21 @@ export class BulkHostedNumberOrderInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: BulkHostedNumberOrderContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
+  fetchWithHttpInfo(
+    params: BulkHostedNumberOrderContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -330,20 +425,15 @@ export class BulkHostedNumberOrderInstance {
   }
 }
 
-
-export interface BulkHostedNumberOrderSolution {
-}
+export interface BulkHostedNumberOrderSolution {}
 
 export interface BulkHostedNumberOrderListInstance {
   _version: V2;
   _solution: BulkHostedNumberOrderSolution;
   _uri: string;
 
-  (bulkHostingSid: string, ): BulkHostedNumberOrderContext;
-  get(bulkHostingSid: string, ): BulkHostedNumberOrderContext;
-
-
-
+  (bulkHostingSid: string): BulkHostedNumberOrderContext;
+  get(bulkHostingSid: string): BulkHostedNumberOrderContext;
 
   /**
    * Create a BulkHostedNumberOrderInstance
@@ -352,7 +442,12 @@ export interface BulkHostedNumberOrderListInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  create(callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+  create(
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance>;
   /**
    * Create a BulkHostedNumberOrderInstance
    *
@@ -362,7 +457,14 @@ export interface BulkHostedNumberOrderListInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  create(params: object, headers?: any, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+  create(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance>;
 
   /**
    * Create a BulkHostedNumberOrderInstance and return HTTP info
@@ -371,7 +473,12 @@ export interface BulkHostedNumberOrderListInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
   /**
    * Create a BulkHostedNumberOrderInstance and return HTTP info
    *
@@ -381,9 +488,14 @@ export interface BulkHostedNumberOrderListInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance with HTTP metadata
    */
-  createWithHttpInfo(params: object, headers?: any, callback?: (error: Error | null, item?: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
-
-
+  createWithHttpInfo(
+    params: object,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -392,93 +504,132 @@ export interface BulkHostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BulkHostedNumberOrderListInstance(version: V2): BulkHostedNumberOrderListInstance {
-  const instance = ((bulkHostingSid, ) => instance.get(bulkHostingSid, )) as BulkHostedNumberOrderListInstance;
+export function BulkHostedNumberOrderListInstance(
+  version: V2,
+): BulkHostedNumberOrderListInstance {
+  const instance = ((bulkHostingSid) =>
+    instance.get(bulkHostingSid)) as BulkHostedNumberOrderListInstance;
 
-  instance.get = function get(bulkHostingSid, ): BulkHostedNumberOrderContext {
+  instance.get = function get(bulkHostingSid): BulkHostedNumberOrderContext {
     return new BulkHostedNumberOrderContextImpl(version, bulkHostingSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/HostedNumber/Orders/Bulk`;
 
-  instance.create = function create(params?: object | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any), headers?: any, callback?: (error: Error | null, items: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance> {
+  instance.create = function create(
+    params?:
+      | object
+      | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: BulkHostedNumberOrderInstance,
+    ) => any,
+  ): Promise<BulkHostedNumberOrderInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<object> as object;
     } else {
-      params = params || {} as Partial<object> as object;
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new BulkHostedNumberOrderInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BulkHostedNumberOrderInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: object | ((error: Error | null, items: ApiResponse<BulkHostedNumberOrderInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<BulkHostedNumberOrderInstance>) => any): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | object
+      | ((
+          error: Error | null,
+          items: ApiResponse<BulkHostedNumberOrderInstance>,
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BulkHostedNumberOrderInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<object> as object;
     } else {
-      params = params || {} as Partial<object> as object;
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<BulkHostedNumberOrderResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<BulkHostedNumberOrderInstance> => ({
-      ...response,
-      body: new BulkHostedNumberOrderInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BulkHostedNumberOrderResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<BulkHostedNumberOrderInstance> => ({
+        ...response,
+        body: new BulkHostedNumberOrderInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -21,16 +22,18 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to each
  */
 export interface RevisionListInstanceEachOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** The token for the page of results to retrieve. */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  acceptEncoding?: string;
+  "acceptEncoding"?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RevisionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -44,26 +47,29 @@ export interface RevisionListInstanceEachOptions {
  */
 export interface RevisionListInstanceOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** The token for the page of results to retrieve. */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  acceptEncoding?: string;
+  "acceptEncoding"?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface RevisionListInstancePageOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** The token for the page of results to retrieve. */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Compression algorithms supported by the client (e.g., gzip, deflate, br) */
-  acceptEncoding?: string;
+  "acceptEncoding"?: string;
 }
+
+
 
 export interface RevisionSolution {
   storeId: string;
@@ -75,6 +81,9 @@ export interface RevisionListInstance {
   _version: V1;
   _solution: RevisionSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams RevisionInstance records from the API.
@@ -91,13 +100,8 @@ export interface RevisionListInstance {
    * @param { RevisionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: RevisionInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: RevisionListInstanceEachOptions,
-    callback?: (item: RevisionInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: RevisionInstance, done: (err?: Error) => void) => void): void;
+  each(params: RevisionListInstanceEachOptions, callback?: (item: RevisionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams RevisionInstance records from the API with HTTP metadata captured per page.
    *
@@ -113,13 +117,8 @@ export interface RevisionListInstance {
    * @param { RevisionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: RevisionInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: RevisionListInstanceEachOptions,
-    callback?: (item: RevisionInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: RevisionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: RevisionListInstanceEachOptions, callback?: (item: RevisionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of RevisionInstance records from the API.
    *
@@ -128,10 +127,7 @@ export interface RevisionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RevisionPage) => any
-  ): Promise<RevisionPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: RevisionPage) => any): Promise<RevisionPage>;
   /**
    * Retrieve a single target page of RevisionInstance records from the API with HTTP metadata.
    *
@@ -140,10 +136,7 @@ export interface RevisionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any
-  ): Promise<ApiResponse<RevisionPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any): Promise<ApiResponse<RevisionPage>>;
   /**
    * Lists RevisionInstance records from the API as a list.
    *
@@ -153,13 +146,8 @@ export interface RevisionListInstance {
    * @param { RevisionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: RevisionInstance[]) => any
-  ): Promise<RevisionInstance[]>;
-  list(
-    params: RevisionListInstanceOptions,
-    callback?: (error: Error | null, items: RevisionInstance[]) => any
-  ): Promise<RevisionInstance[]>;
+  list(callback?: (error: Error | null, items: RevisionInstance[]) => any): Promise<RevisionInstance[]>;
+  list(params: RevisionListInstanceOptions, callback?: (error: Error | null, items: RevisionInstance[]) => any): Promise<RevisionInstance[]>;
   /**
    * Lists RevisionInstance records from the API as a list with HTTP metadata.
    *
@@ -171,19 +159,8 @@ export interface RevisionListInstance {
    * @param { RevisionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<RevisionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<RevisionInstance[]>>;
-  listWithHttpInfo(
-    params: RevisionListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<RevisionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<RevisionInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RevisionInstance[]>) => any): Promise<ApiResponse<RevisionInstance[]>>;
+  listWithHttpInfo(params: RevisionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<RevisionInstance[]>) => any): Promise<ApiResponse<RevisionInstance[]>>;
   /**
    * Retrieve a single page of RevisionInstance records from the API.
    *
@@ -195,13 +172,8 @@ export interface RevisionListInstance {
    * @param { RevisionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: RevisionPage) => any
-  ): Promise<RevisionPage>;
-  page(
-    params: RevisionListInstancePageOptions,
-    callback?: (error: Error | null, items: RevisionPage) => any
-  ): Promise<RevisionPage>;
+  page(callback?: (error: Error | null, items: RevisionPage) => any): Promise<RevisionPage>;
+  page(params: RevisionListInstancePageOptions, callback?: (error: Error | null, items: RevisionPage) => any): Promise<RevisionPage>;
   /**
    * Retrieve a single page of RevisionInstance records from the API with HTTP metadata.
    *
@@ -213,13 +185,9 @@ export interface RevisionListInstance {
    * @param { RevisionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any
-  ): Promise<ApiResponse<RevisionPage>>;
-  pageWithHttpInfo(
-    params: RevisionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any
-  ): Promise<ApiResponse<RevisionPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any): Promise<ApiResponse<RevisionPage>>;
+  pageWithHttpInfo(params: RevisionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any): Promise<ApiResponse<RevisionPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -228,36 +196,26 @@ export interface RevisionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RevisionListInstance(
-  version: V1,
-  storeId: string,
-  profileId: string,
-  observationId: string
-): RevisionListInstance {
+export function RevisionListInstance(version: V1, storeId: string, profileId: string, observationId: string): RevisionListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error("Parameter 'storeId' is not valid.");
+    throw new Error('Parameter \'storeId\' is not valid.');
   }
 
   if (!isValidPathParam(profileId)) {
-    throw new Error("Parameter 'profileId' is not valid.");
+    throw new Error('Parameter \'profileId\' is not valid.');
   }
 
   if (!isValidPathParam(observationId)) {
-    throw new Error("Parameter 'observationId' is not valid.");
+    throw new Error('Parameter \'observationId\' is not valid.');
   }
 
   const instance = {} as RevisionListInstance;
 
   instance._version = version;
-  instance._solution = { storeId, profileId, observationId };
+  instance._solution = { storeId, profileId, observationId,  };
   instance._uri = `/Stores/${storeId}/Profiles/${profileId}/Observations/${observationId}/Revisions`;
 
-  instance.page = function page(
-    params?:
-      | RevisionListInstancePageOptions
-      | ((error: Error | null, items: RevisionPage) => any),
-    callback?: (error: Error | null, items: RevisionPage) => any
-  ): Promise<RevisionPage> {
+  instance.page = function page(params?: RevisionListInstancePageOptions | ((error: Error | null, items: RevisionPage) => any), callback?: (error: Error | null, items: RevisionPage) => any): Promise<RevisionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -267,72 +225,45 @@ export function RevisionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
+    data["pageToken"] = params["pageToken"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["acceptEncoding"] !== undefined)
-      headers["Accept-Encoding"] = params["acceptEncoding"];
+    headers["Accept"] = "application/json"
+    if (params["acceptEncoding"] !== undefined) headers["Accept-Encoding"] = params["acceptEncoding"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RevisionPage(
-          operationVersion,
-          payload,
-          instance._uri,
-          data,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new RevisionPage(operationVersion, payload, instance._uri, data, instance._solution));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RevisionPage) => any
-  ): Promise<RevisionPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new RevisionPage(
-          instance._version,
-          payload,
-          instance._uri,
-          {},
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: RevisionPage) => any): Promise<RevisionPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new RevisionPage(instance._version, payload, instance._uri, {}, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | RevisionListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<RevisionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any
-  ): Promise<ApiResponse<RevisionPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: RevisionListInstancePageOptions | ((error: Error | null, items: ApiResponse<RevisionPage>) => any), callback?: (error: Error | null, items: ApiResponse<RevisionPage>) => any): Promise<ApiResponse<RevisionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -342,90 +273,68 @@ export function RevisionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
+    data["pageToken"] = params["pageToken"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["acceptEncoding"] !== undefined)
-      headers["Accept-Encoding"] = params["acceptEncoding"];
+    headers["Accept"] = "application/json"
+    if (params["acceptEncoding"] !== undefined) headers["Accept-Encoding"] = params["acceptEncoding"];
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RevisionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RevisionPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<RevisionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new RevisionPage(operationVersion, response, instance._uri, data, instance._solution)
+    }));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RevisionPage>) => any
-  ): Promise<ApiResponse<RevisionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<RevisionPage>) => any): Promise<ApiResponse<RevisionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<RevisionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RevisionPage(
-          instance._version,
-          response,
-          instance._uri,
-          {},
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<RevisionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new RevisionPage(instance._version, response, instance._uri, {}, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface RevisionPayload extends TokenPaginationPayload {
-  revisions: RevisionResource[];
+  interface RevisionPayload extends TokenPaginationPayload {
+    revisions: RevisionResource[];
 }
 
 interface RevisionResource {
@@ -442,21 +351,17 @@ interface RevisionResource {
  * A transient and mutable observation memory associated with a profile.
  */
 export class RevisionInstance {
-  constructor(
-    protected _version: V1,
-    _payload: RevisionResource,
-    storeId: string,
-    profileId: string,
-    observationId: string
-  ) {
+
+  constructor(protected _version: V1, _payload: RevisionResource, storeId: string, profileId: string, observationId: string) {
     const payload = _payload;
-    this.content = payload.content;
+    this.content = (payload.content);
     this.occurredAt = deserialize.iso8601DateTime(payload.occurredAt);
-    this.source = payload.source;
-    this.conversationIds = payload.conversationIds;
-    this.id = payload.id;
+    this.source = (payload.source);
+    this.conversationIds = (payload.conversationIds);
+    this.id = (payload.id);
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
+
   }
 
   /**
@@ -510,47 +415,38 @@ export class RevisionInstance {
   }
 }
 
-export class RevisionPage extends TokenPage<
-  V1,
-  RevisionPayload,
-  RevisionResource,
-  RevisionInstance
-> {
-  /**
-   * Initialize the RevisionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param uri - URI of the resource
-   * @param params - Query parameters
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    uri: string,
-    params: any,
-    solution: RevisionSolution
-  ) {
+export class RevisionPage extends TokenPage<V1, RevisionPayload, RevisionResource, RevisionInstance> {
+/**
+* Initialize the RevisionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param uri - URI of the resource
+* @param params - Query parameters
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, uri: string, params: any, solution: RevisionSolution) {
     super(version, response, uri, params, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RevisionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RevisionResource): RevisionInstance {
+    /**
+    * Build an instance of RevisionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RevisionResource): RevisionInstance {
+
     return new RevisionInstance(
-      this._version,
-      payload,
-      this._solution.storeId,
-      this._solution.profileId,
-      this._solution.observationId
+    this._version,
+    payload,
+        this._solution.storeId,
+        this._solution.profileId,
+        this._solution.observationId,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

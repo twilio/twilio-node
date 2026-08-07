@@ -34,5 +34,4 @@ export default class V3 extends Version {
     this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
     return this._phoneNumbers;
   }
-
 }

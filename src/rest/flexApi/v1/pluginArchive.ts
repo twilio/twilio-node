@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,15 +20,18 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to update a PluginArchiveInstance
  */
 export interface PluginArchiveContextUpdateOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
 }
 
 export interface PluginArchiveContext {
+
   /**
    * Update a PluginArchiveInstance
    *
@@ -35,9 +39,7 @@ export interface PluginArchiveContext {
    *
    * @returns Resolves to processed PluginArchiveInstance
    */
-  update(
-    callback?: (error: Error | null, item?: PluginArchiveInstance) => any
-  ): Promise<PluginArchiveInstance>;
+  update(callback?: (error: Error | null, item?: PluginArchiveInstance) => any): Promise<PluginArchiveInstance>;
   /**
    * Update a PluginArchiveInstance
    *
@@ -46,10 +48,7 @@ export interface PluginArchiveContext {
    *
    * @returns Resolves to processed PluginArchiveInstance
    */
-  update(
-    params: PluginArchiveContextUpdateOptions,
-    callback?: (error: Error | null, item?: PluginArchiveInstance) => any
-  ): Promise<PluginArchiveInstance>;
+  update(params: PluginArchiveContextUpdateOptions, callback?: (error: Error | null, item?: PluginArchiveInstance) => any): Promise<PluginArchiveInstance>;
 
   /**
    * Update a PluginArchiveInstance and return HTTP info
@@ -58,12 +57,7 @@ export interface PluginArchiveContext {
    *
    * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PluginArchiveInstance>
-    ) => any
-  ): Promise<ApiResponse<PluginArchiveInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any): Promise<ApiResponse<PluginArchiveInstance>>;
   /**
    * Update a PluginArchiveInstance and return HTTP info
    *
@@ -72,13 +66,7 @@ export interface PluginArchiveContext {
    *
    * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: PluginArchiveContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PluginArchiveInstance>
-    ) => any
-  ): Promise<ApiResponse<PluginArchiveInstance>>;
+  updateWithHttpInfo(params: PluginArchiveContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any): Promise<ApiResponse<PluginArchiveInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -88,119 +76,86 @@ export interface PluginArchiveContext {
 }
 
 export interface PluginArchiveContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class PluginArchiveContextImpl implements PluginArchiveContext {
   protected _solution: PluginArchiveContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/PluginService/Plugins/${sid}/Archive`;
   }
 
-  update(
-    params?:
-      | PluginArchiveContextUpdateOptions
-      | ((error: Error | null, item?: PluginArchiveInstance) => any),
-    callback?: (error: Error | null, item?: PluginArchiveInstance) => any
-  ): Promise<PluginArchiveInstance> {
-    if (params instanceof Function) {
+  update(params?: PluginArchiveContextUpdateOptions | ((error: Error | null, item?: PluginArchiveInstance) => any),callback?: (error: Error | null, item?: PluginArchiveInstance) => any): Promise<PluginArchiveInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["flexMetadata"] !== undefined)
-      headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Accept"] = "application/json"
+    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new PluginArchiveInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginArchiveInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | PluginArchiveContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<PluginArchiveInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PluginArchiveInstance>
-    ) => any
-  ): Promise<ApiResponse<PluginArchiveInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: PluginArchiveContextUpdateOptions | ((error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any): Promise<ApiResponse<PluginArchiveInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["flexMetadata"] !== undefined)
-      headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Accept"] = "application/json"
+    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<PluginArchiveResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<PluginArchiveInstance> => ({
-          ...response,
-          body: new PluginArchiveInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<PluginArchiveResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<PluginArchiveInstance> => ({
+      ...response,
+      body: new PluginArchiveInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -217,7 +172,8 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
   }
 }
 
-interface PluginArchivePayload extends PluginArchiveResource {}
+
+  interface PluginArchivePayload extends PluginArchiveResource {}
 
 interface PluginArchiveResource {
   sid: string;
@@ -235,22 +191,19 @@ export class PluginArchiveInstance {
   protected _solution: PluginArchiveContextSolution;
   protected _context?: PluginArchiveContext;
 
-  constructor(
-    protected _version: V1,
-    payload: PluginArchiveResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.uniqueName = payload.unique_name;
-    this.friendlyName = payload.friendly_name;
-    this.description = payload.description;
-    this.archived = payload.archived;
+  constructor(protected _version: V1, payload: PluginArchiveResource, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.uniqueName = (payload.unique_name);
+    this.friendlyName = (payload.friendly_name);
+    this.description = (payload.description);
+    this.archived = (payload.archived);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -291,9 +244,7 @@ export class PluginArchiveInstance {
   url: string;
 
   private get _proxy(): PluginArchiveContext {
-    this._context =
-      this._context ||
-      new PluginArchiveContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new PluginArchiveContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -304,9 +255,7 @@ export class PluginArchiveInstance {
    *
    * @returns Resolves to processed PluginArchiveInstance
    */
-  update(
-    callback?: (error: Error | null, item?: PluginArchiveInstance) => any
-  ): Promise<PluginArchiveInstance>;
+  update(callback?: (error: Error | null, item?: PluginArchiveInstance) => any): Promise<PluginArchiveInstance>;
   /**
    * Update a PluginArchiveInstance
    *
@@ -315,15 +264,10 @@ export class PluginArchiveInstance {
    *
    * @returns Resolves to processed PluginArchiveInstance
    */
-  update(
-    params: PluginArchiveContextUpdateOptions,
-    callback?: (error: Error | null, item?: PluginArchiveInstance) => any
-  ): Promise<PluginArchiveInstance>;
+  update(params: PluginArchiveContextUpdateOptions, callback?: (error: Error | null, item?: PluginArchiveInstance) => any): Promise<PluginArchiveInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: PluginArchiveInstance) => any
-  ): Promise<PluginArchiveInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: PluginArchiveInstance) => any): Promise<PluginArchiveInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -334,12 +278,7 @@ export class PluginArchiveInstance {
    *
    * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PluginArchiveInstance>
-    ) => any
-  ): Promise<ApiResponse<PluginArchiveInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any): Promise<ApiResponse<PluginArchiveInstance>>;
   /**
    * Update a PluginArchiveInstance and return HTTP info
    *
@@ -348,21 +287,10 @@ export class PluginArchiveInstance {
    *
    * @returns Resolves to processed PluginArchiveInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: PluginArchiveContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PluginArchiveInstance>
-    ) => any
-  ): Promise<ApiResponse<PluginArchiveInstance>>;
+  updateWithHttpInfo(params: PluginArchiveContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any): Promise<ApiResponse<PluginArchiveInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PluginArchiveInstance>
-    ) => any
-  ): Promise<ApiResponse<PluginArchiveInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<PluginArchiveInstance>) => any): Promise<ApiResponse<PluginArchiveInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -390,15 +318,20 @@ export class PluginArchiveInstance {
   }
 }
 
-export interface PluginArchiveSolution {}
+
+export interface PluginArchiveSolution {
+}
 
 export interface PluginArchiveListInstance {
   _version: V1;
   _solution: PluginArchiveSolution;
   _uri: string;
 
-  (sid: string): PluginArchiveContext;
-  get(sid: string): PluginArchiveContext;
+  (sid: string, ): PluginArchiveContext;
+  get(sid: string, ): PluginArchiveContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -407,29 +340,26 @@ export interface PluginArchiveListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PluginArchiveListInstance(
-  version: V1
-): PluginArchiveListInstance {
-  const instance = ((sid) => instance.get(sid)) as PluginArchiveListInstance;
+export function PluginArchiveListInstance(version: V1): PluginArchiveListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as PluginArchiveListInstance;
 
-  instance.get = function get(sid): PluginArchiveContext {
+  instance.get = function get(sid, ): PluginArchiveContext {
     return new PluginArchiveContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

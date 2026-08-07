@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,27 +19,21 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a InsightsSettingsAnswerSetsInstance
  */
 export interface InsightsSettingsAnswerSetsListInstanceFetchOptions {
   /** The Authorization HTTP request header */
-  "authorization"?: string;
+  authorization?: string;
 }
 
-
-export interface InsightsSettingsAnswerSetsSolution {
-}
+export interface InsightsSettingsAnswerSetsSolution {}
 
 export interface InsightsSettingsAnswerSetsListInstance {
   _version: V1;
   _solution: InsightsSettingsAnswerSetsSolution;
   _uri: string;
 
-
-
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance
    *
@@ -48,7 +41,12 @@ export interface InsightsSettingsAnswerSetsListInstance {
    *
    * @returns Resolves to processed InsightsSettingsAnswerSetsInstance
    */
-  fetch(callback?: (error: Error | null, item?: InsightsSettingsAnswerSetsInstance) => any): Promise<InsightsSettingsAnswerSetsInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: InsightsSettingsAnswerSetsInstance,
+    ) => any,
+  ): Promise<InsightsSettingsAnswerSetsInstance>;
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance
    *
@@ -57,7 +55,13 @@ export interface InsightsSettingsAnswerSetsListInstance {
    *
    * @returns Resolves to processed InsightsSettingsAnswerSetsInstance
    */
-  fetch(params: InsightsSettingsAnswerSetsListInstanceFetchOptions, callback?: (error: Error | null, item?: InsightsSettingsAnswerSetsInstance) => any): Promise<InsightsSettingsAnswerSetsInstance>;
+  fetch(
+    params: InsightsSettingsAnswerSetsListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: InsightsSettingsAnswerSetsInstance,
+    ) => any,
+  ): Promise<InsightsSettingsAnswerSetsInstance>;
 
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance and return HTTP info
@@ -66,7 +70,12 @@ export interface InsightsSettingsAnswerSetsListInstance {
    *
    * @returns Resolves to processed InsightsSettingsAnswerSetsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InsightsSettingsAnswerSetsInstance>) => any): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>>;
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance and return HTTP info
    *
@@ -75,9 +84,13 @@ export interface InsightsSettingsAnswerSetsListInstance {
    *
    * @returns Resolves to processed InsightsSettingsAnswerSetsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: InsightsSettingsAnswerSetsListInstanceFetchOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsSettingsAnswerSetsInstance>) => any): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>>;
-
-
+  fetchWithHttpInfo(
+    params: InsightsSettingsAnswerSetsListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -86,88 +99,126 @@ export interface InsightsSettingsAnswerSetsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsSettingsAnswerSetsListInstance(version: V1): InsightsSettingsAnswerSetsListInstance {
+export function InsightsSettingsAnswerSetsListInstance(
+  version: V1,
+): InsightsSettingsAnswerSetsListInstance {
   const instance = {} as InsightsSettingsAnswerSetsListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Insights/QualityManagement/Settings/AnswerSets`;
 
-  instance.fetch = function fetch(params?: InsightsSettingsAnswerSetsListInstanceFetchOptions | ((error: Error | null, items: InsightsSettingsAnswerSetsInstance) => any), callback?: (error: Error | null, items: InsightsSettingsAnswerSetsInstance) => any): Promise<InsightsSettingsAnswerSetsInstance> {
+  instance.fetch = function fetch(
+    params?:
+      | InsightsSettingsAnswerSetsListInstanceFetchOptions
+      | ((
+          error: Error | null,
+          items: InsightsSettingsAnswerSetsInstance,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: InsightsSettingsAnswerSetsInstance,
+    ) => any,
+  ): Promise<InsightsSettingsAnswerSetsInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new InsightsSettingsAnswerSetsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InsightsSettingsAnswerSetsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(params?: InsightsSettingsAnswerSetsListInstanceFetchOptions | ((error: Error | null, items: ApiResponse<InsightsSettingsAnswerSetsInstance>) => any), callback?: (error: Error | null, items: ApiResponse<InsightsSettingsAnswerSetsInstance>) => any): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>> {
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | InsightsSettingsAnswerSetsListInstanceFetchOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<InsightsSettingsAnswerSetsResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InsightsSettingsAnswerSetsInstance> => ({
-      ...response,
-      body: new InsightsSettingsAnswerSetsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InsightsSettingsAnswerSetsResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<InsightsSettingsAnswerSetsInstance> => ({
+        ...response,
+        body: new InsightsSettingsAnswerSetsInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface InsightsSettingsAnswerSetsPayload extends InsightsSettingsAnswerSetsResource {}
+interface InsightsSettingsAnswerSetsPayload extends InsightsSettingsAnswerSetsResource {}
 
 interface InsightsSettingsAnswerSetsResource {
   account_sid: string;
@@ -178,15 +229,15 @@ interface InsightsSettingsAnswerSetsResource {
 }
 
 export class InsightsSettingsAnswerSetsInstance {
-
-  constructor(protected _version: V1, payload: InsightsSettingsAnswerSetsResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.answerSets = (payload.answer_sets);
-    this.answerSetCategories = (payload.answer_set_categories);
-    this.notApplicable = (payload.not_applicable);
-    this.url = (payload.url);
-
+  constructor(
+    protected _version: V1,
+    payload: InsightsSettingsAnswerSetsResource,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.answerSets = payload.answer_sets;
+    this.answerSetCategories = payload.answer_set_categories;
+    this.notApplicable = payload.not_applicable;
+    this.url = payload.url;
   }
 
   /**
@@ -226,5 +277,3 @@ export class InsightsSettingsAnswerSetsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

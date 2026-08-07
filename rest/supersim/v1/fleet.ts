@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,32 +22,29 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * The model by which a SIMs usage is metered and billed. Defaults to `payg`.
  */
-export type FleetDataMetering = 'payg';
-
-
+export type FleetDataMetering = "payg";
 
 /**
  * Options to pass to update a FleetInstance
  */
 export interface FleetContextUpdateOptions {
   /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
-  "uniqueName"?: string;
+  uniqueName?: string;
   /** The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to. */
-  "networkAccessProfile"?: string;
+  networkAccessProfile?: string;
   /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
-  "ipCommandsUrl"?: string;
+  ipCommandsUrl?: string;
   /** A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
-  "ipCommandsMethod"?: string;
+  ipCommandsMethod?: string;
   /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
-  "smsCommandsUrl"?: string;
+  smsCommandsUrl?: string;
   /** A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
-  "smsCommandsMethod"?: string;
+  smsCommandsMethod?: string;
   /** The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). */
-  "dataLimit"?: number;
+  dataLimit?: number;
 }
 
 /**
@@ -56,23 +52,23 @@ export interface FleetContextUpdateOptions {
  */
 export interface FleetListInstanceCreateOptions {
   /** The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to. */
-  "networkAccessProfile": string;
+  networkAccessProfile: string;
   /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
-  "uniqueName"?: string;
+  uniqueName?: string;
   /** Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`. */
-  "dataEnabled"?: boolean;
+  dataEnabled?: boolean;
   /** The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). */
-  "dataLimit"?: number;
+  dataLimit?: number;
   /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
-  "ipCommandsUrl"?: string;
+  ipCommandsUrl?: string;
   /** A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
-  "ipCommandsMethod"?: string;
+  ipCommandsMethod?: string;
   /** Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`. */
-  "smsCommandsEnabled"?: boolean;
+  smsCommandsEnabled?: boolean;
   /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
-  "smsCommandsUrl"?: string;
+  smsCommandsUrl?: string;
   /** A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
-  "smsCommandsMethod"?: string;
+  smsCommandsMethod?: string;
 }
 
 /**
@@ -80,9 +76,9 @@ export interface FleetListInstanceCreateOptions {
  */
 export interface FleetListInstanceEachOptions {
   /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
-  "networkAccessProfile"?: string;
+  networkAccessProfile?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -96,31 +92,28 @@ export interface FleetListInstanceEachOptions {
  */
 export interface FleetListInstanceOptions {
   /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
-  "networkAccessProfile"?: string;
+  networkAccessProfile?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface FleetListInstancePageOptions {
   /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
-  "networkAccessProfile"?: string;
+  networkAccessProfile?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface FleetContext {
-
   /**
    * Fetch a FleetInstance
    *
@@ -128,7 +121,9 @@ export interface FleetContext {
    *
    * @returns Resolves to processed FleetInstance
    */
-  fetch(callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>
+  fetch(
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance>;
 
   /**
    * Fetch a FleetInstance and return HTTP info
@@ -137,7 +132,9 @@ export interface FleetContext {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>>;
 
   /**
    * Update a FleetInstance
@@ -146,7 +143,9 @@ export interface FleetContext {
    *
    * @returns Resolves to processed FleetInstance
    */
-  update(callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>;
+  update(
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance>;
   /**
    * Update a FleetInstance
    *
@@ -155,7 +154,10 @@ export interface FleetContext {
    *
    * @returns Resolves to processed FleetInstance
    */
-  update(params: FleetContextUpdateOptions, callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>;
+  update(
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance>;
 
   /**
    * Update a FleetInstance and return HTTP info
@@ -164,7 +166,9 @@ export interface FleetContext {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>>;
   /**
    * Update a FleetInstance and return HTTP info
    *
@@ -173,7 +177,10 @@ export interface FleetContext {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: FleetContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>;
+  updateWithHttpInfo(
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -183,149 +190,195 @@ export interface FleetContext {
 }
 
 export interface FleetContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class FleetContextImpl implements FleetContext {
   protected _solution: FleetContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Fleets/${sid}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new FleetInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FleetInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<FleetResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<FleetInstance> => ({
-      ...response,
-      body: new FleetInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FleetResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: FleetContextUpdateOptions | ((error: Error | null, item?: FleetInstance) => any),callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: FleetInstance) => any),
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["networkAccessProfile"] !== undefined)
-    data["NetworkAccessProfile"] = params["networkAccessProfile"];
+      data["NetworkAccessProfile"] = params["networkAccessProfile"];
     if (params["ipCommandsUrl"] !== undefined)
-    data["IpCommandsUrl"] = params["ipCommandsUrl"];
+      data["IpCommandsUrl"] = params["ipCommandsUrl"];
     if (params["ipCommandsMethod"] !== undefined)
-    data["IpCommandsMethod"] = params["ipCommandsMethod"];
+      data["IpCommandsMethod"] = params["ipCommandsMethod"];
     if (params["smsCommandsUrl"] !== undefined)
-    data["SmsCommandsUrl"] = params["smsCommandsUrl"];
+      data["SmsCommandsUrl"] = params["smsCommandsUrl"];
     if (params["smsCommandsMethod"] !== undefined)
-    data["SmsCommandsMethod"] = params["smsCommandsMethod"];
+      data["SmsCommandsMethod"] = params["smsCommandsMethod"];
     if (params["dataLimit"] !== undefined)
-    data["DataLimit"] = params["dataLimit"];
+      data["DataLimit"] = params["dataLimit"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new FleetInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FleetInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: FleetContextUpdateOptions | ((error: Error | null, item?: ApiResponse<FleetInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<FleetInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["networkAccessProfile"] !== undefined)
-    data["NetworkAccessProfile"] = params["networkAccessProfile"];
+      data["NetworkAccessProfile"] = params["networkAccessProfile"];
     if (params["ipCommandsUrl"] !== undefined)
-    data["IpCommandsUrl"] = params["ipCommandsUrl"];
+      data["IpCommandsUrl"] = params["ipCommandsUrl"];
     if (params["ipCommandsMethod"] !== undefined)
-    data["IpCommandsMethod"] = params["ipCommandsMethod"];
+      data["IpCommandsMethod"] = params["ipCommandsMethod"];
     if (params["smsCommandsUrl"] !== undefined)
-    data["SmsCommandsUrl"] = params["smsCommandsUrl"];
+      data["SmsCommandsUrl"] = params["smsCommandsUrl"];
     if (params["smsCommandsMethod"] !== undefined)
-    data["SmsCommandsMethod"] = params["smsCommandsMethod"];
+      data["SmsCommandsMethod"] = params["smsCommandsMethod"];
     if (params["dataLimit"] !== undefined)
-    data["DataLimit"] = params["dataLimit"];
+      data["DataLimit"] = params["dataLimit"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<FleetResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<FleetInstance> => ({
-      ...response,
-      body: new FleetInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FleetResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -342,9 +395,8 @@ export class FleetContextImpl implements FleetContext {
   }
 }
 
-
-  interface FleetPayload extends TwilioResponsePayload {
-    fleets: FleetResource[];
+interface FleetPayload extends TwilioResponsePayload {
+  fleets: FleetResource[];
 }
 
 interface FleetResource {
@@ -369,25 +421,28 @@ export class FleetInstance {
   protected _solution: FleetContextSolution;
   protected _context?: FleetContext;
 
-  constructor(protected _version: V1, payload: FleetResource, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.sid = (payload.sid);
-    this.uniqueName = (payload.unique_name);
+  constructor(
+    protected _version: V1,
+    payload: FleetResource,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.sid = payload.sid;
+    this.uniqueName = payload.unique_name;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
-    this.dataEnabled = (payload.data_enabled);
+    this.url = payload.url;
+    this.dataEnabled = payload.data_enabled;
     this.dataLimit = deserialize.integer(payload.data_limit);
     this.dataMetering = payload.data_metering;
-    this.smsCommandsEnabled = (payload.sms_commands_enabled);
-    this.smsCommandsUrl = (payload.sms_commands_url);
-    this.smsCommandsMethod = (payload.sms_commands_method);
-    this.networkAccessProfileSid = (payload.network_access_profile_sid);
-    this.ipCommandsUrl = (payload.ip_commands_url);
-    this.ipCommandsMethod = (payload.ip_commands_method);
+    this.smsCommandsEnabled = payload.sms_commands_enabled;
+    this.smsCommandsUrl = payload.sms_commands_url;
+    this.smsCommandsMethod = payload.sms_commands_method;
+    this.networkAccessProfileSid = payload.network_access_profile_sid;
+    this.ipCommandsUrl = payload.ip_commands_url;
+    this.ipCommandsMethod = payload.ip_commands_method;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -449,7 +504,8 @@ export class FleetInstance {
   ipCommandsMethod: string;
 
   private get _proxy(): FleetContext {
-    this._context = this._context || new FleetContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new FleetContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -460,9 +516,9 @@ export class FleetInstance {
    *
    * @returns Resolves to processed FleetInstance
    */
-  fetch(callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -473,9 +529,9 @@ export class FleetInstance {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -486,7 +542,9 @@ export class FleetInstance {
    *
    * @returns Resolves to processed FleetInstance
    */
-  update(callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>;
+  update(
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance>;
   /**
    * Update a FleetInstance
    *
@@ -495,10 +553,15 @@ export class FleetInstance {
    *
    * @returns Resolves to processed FleetInstance
    */
-  update(params: FleetContextUpdateOptions, callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>;
+  update(
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -509,7 +572,9 @@ export class FleetInstance {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>>;
   /**
    * Update a FleetInstance and return HTTP info
    *
@@ -518,10 +583,15 @@ export class FleetInstance {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: FleetContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>;
+  updateWithHttpInfo(
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -555,22 +625,15 @@ export class FleetInstance {
   }
 }
 
-
-export interface FleetSolution {
-}
+export interface FleetSolution {}
 
 export interface FleetListInstance {
   _version: V1;
   _solution: FleetSolution;
   _uri: string;
 
-  (sid: string, ): FleetContext;
-  get(sid: string, ): FleetContext;
-
-
-
-
-
+  (sid: string): FleetContext;
+  get(sid: string): FleetContext;
 
   /**
    * Create a FleetInstance
@@ -580,7 +643,10 @@ export interface FleetListInstance {
    *
    * @returns Resolves to processed FleetInstance
    */
-  create(params: FleetListInstanceCreateOptions, callback?: (error: Error | null, item?: FleetInstance) => any): Promise<FleetInstance>;
+  create(
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FleetInstance) => any,
+  ): Promise<FleetInstance>;
 
   /**
    * Create a FleetInstance and return HTTP info
@@ -590,10 +656,10 @@ export interface FleetListInstance {
    *
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
-  createWithHttpInfo(params: FleetListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>>;
 
   /**
    * Streams FleetInstance records from the API.
@@ -610,8 +676,13 @@ export interface FleetListInstance {
    * @param { FleetListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
-  each(params: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: FleetListInstanceEachOptions,
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams FleetInstance records from the API with HTTP metadata captured per page.
    *
@@ -627,8 +698,13 @@ export interface FleetListInstance {
    * @param { FleetListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: FleetListInstanceEachOptions,
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of FleetInstance records from the API.
    *
@@ -637,7 +713,10 @@ export interface FleetListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: FleetPage) => any,
+  ): Promise<FleetPage>;
   /**
    * Retrieve a single target page of FleetInstance records from the API with HTTP metadata.
    *
@@ -646,7 +725,10 @@ export interface FleetListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any): Promise<ApiResponse<FleetPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
+  ): Promise<ApiResponse<FleetPage>>;
   /**
    * Lists FleetInstance records from the API as a list.
    *
@@ -656,8 +738,13 @@ export interface FleetListInstance {
    * @param { FleetListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
-  list(params: FleetListInstanceOptions, callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FleetInstance[]) => any,
+  ): Promise<FleetInstance[]>;
+  list(
+    params: FleetListInstanceOptions,
+    callback?: (error: Error | null, items: FleetInstance[]) => any,
+  ): Promise<FleetInstance[]>;
   /**
    * Lists FleetInstance records from the API as a list with HTTP metadata.
    *
@@ -669,8 +756,19 @@ export interface FleetListInstance {
    * @param { FleetListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FleetInstance[]>) => any): Promise<ApiResponse<FleetInstance[]>>;
-  listWithHttpInfo(params: FleetListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<FleetInstance[]>) => any): Promise<ApiResponse<FleetInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FleetInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<FleetInstance[]>>;
+  listWithHttpInfo(
+    params: FleetListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FleetInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<FleetInstance[]>>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    *
@@ -682,8 +780,13 @@ export interface FleetListInstance {
    * @param { FleetListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
-  page(params: FleetListInstancePageOptions, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  page(
+    callback?: (error: Error | null, items: FleetPage) => any,
+  ): Promise<FleetPage>;
+  page(
+    params: FleetListInstancePageOptions,
+    callback?: (error: Error | null, items: FleetPage) => any,
+  ): Promise<FleetPage>;
   /**
    * Retrieve a single page of FleetInstance records from the API with HTTP metadata.
    *
@@ -695,9 +798,13 @@ export interface FleetListInstance {
    * @param { FleetListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any): Promise<ApiResponse<FleetPage>>;
-  pageWithHttpInfo(params: FleetListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any): Promise<ApiResponse<FleetPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
+  ): Promise<ApiResponse<FleetPage>>;
+  pageWithHttpInfo(
+    params: FleetListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
+  ): Promise<ApiResponse<FleetPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -707,118 +814,144 @@ export interface FleetListInstance {
 }
 
 export function FleetListInstance(version: V1): FleetListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as FleetListInstance;
+  const instance = ((sid) => instance.get(sid)) as FleetListInstance;
 
-  instance.get = function get(sid, ): FleetContext {
+  instance.get = function get(sid): FleetContext {
     return new FleetContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Fleets`;
 
-  instance.create = function create(params: FleetListInstanceCreateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance> {
+  instance.create = function create(
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, items: FleetInstance) => any,
+  ): Promise<FleetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["networkAccessProfile"] === null || params["networkAccessProfile"] === undefined) {
-      throw new Error('Required parameter "params[\'networkAccessProfile\']" missing.');
+    if (
+      params["networkAccessProfile"] === null ||
+      params["networkAccessProfile"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['networkAccessProfile']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["NetworkAccessProfile"] = params["networkAccessProfile"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["dataEnabled"] !== undefined)
-    data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+      data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
     if (params["dataLimit"] !== undefined)
-    data["DataLimit"] = params["dataLimit"];
+      data["DataLimit"] = params["dataLimit"];
     if (params["ipCommandsUrl"] !== undefined)
-    data["IpCommandsUrl"] = params["ipCommandsUrl"];
+      data["IpCommandsUrl"] = params["ipCommandsUrl"];
     if (params["ipCommandsMethod"] !== undefined)
-    data["IpCommandsMethod"] = params["ipCommandsMethod"];
+      data["IpCommandsMethod"] = params["ipCommandsMethod"];
     if (params["smsCommandsEnabled"] !== undefined)
-    data["SmsCommandsEnabled"] = serialize.bool(params["smsCommandsEnabled"]);
+      data["SmsCommandsEnabled"] = serialize.bool(params["smsCommandsEnabled"]);
     if (params["smsCommandsUrl"] !== undefined)
-    data["SmsCommandsUrl"] = params["smsCommandsUrl"];
+      data["SmsCommandsUrl"] = params["smsCommandsUrl"];
     if (params["smsCommandsMethod"] !== undefined)
-    data["SmsCommandsMethod"] = params["smsCommandsMethod"];
+      data["SmsCommandsMethod"] = params["smsCommandsMethod"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new FleetInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FleetInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: FleetListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<FleetInstance>) => any): Promise<ApiResponse<FleetInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<FleetInstance>) => any,
+  ): Promise<ApiResponse<FleetInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["networkAccessProfile"] === null || params["networkAccessProfile"] === undefined) {
-      throw new Error('Required parameter "params[\'networkAccessProfile\']" missing.');
+    if (
+      params["networkAccessProfile"] === null ||
+      params["networkAccessProfile"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['networkAccessProfile']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["NetworkAccessProfile"] = params["networkAccessProfile"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["dataEnabled"] !== undefined)
-    data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+      data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
     if (params["dataLimit"] !== undefined)
-    data["DataLimit"] = params["dataLimit"];
+      data["DataLimit"] = params["dataLimit"];
     if (params["ipCommandsUrl"] !== undefined)
-    data["IpCommandsUrl"] = params["ipCommandsUrl"];
+      data["IpCommandsUrl"] = params["ipCommandsUrl"];
     if (params["ipCommandsMethod"] !== undefined)
-    data["IpCommandsMethod"] = params["ipCommandsMethod"];
+      data["IpCommandsMethod"] = params["ipCommandsMethod"];
     if (params["smsCommandsEnabled"] !== undefined)
-    data["SmsCommandsEnabled"] = serialize.bool(params["smsCommandsEnabled"]);
+      data["SmsCommandsEnabled"] = serialize.bool(params["smsCommandsEnabled"]);
     if (params["smsCommandsUrl"] !== undefined)
-    data["SmsCommandsUrl"] = params["smsCommandsUrl"];
+      data["SmsCommandsUrl"] = params["smsCommandsUrl"];
     if (params["smsCommandsMethod"] !== undefined)
-    data["SmsCommandsMethod"] = params["smsCommandsMethod"];
+      data["SmsCommandsMethod"] = params["smsCommandsMethod"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<FleetResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<FleetInstance> => ({
-      ...response,
-      body: new FleetInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<FleetResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: FleetListInstancePageOptions | ((error: Error | null, items: FleetPage) => any), callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage> {
+  instance.page = function page(
+    params?:
+      | FleetListInstancePageOptions
+      | ((error: Error | null, items: FleetPage) => any),
+    callback?: (error: Error | null, items: FleetPage) => any,
+  ): Promise<FleetPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -828,46 +961,60 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
     let data: any = {};
 
-        if (params["networkAccessProfile"] !== undefined)
-    data["NetworkAccessProfile"] = params["networkAccessProfile"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["networkAccessProfile"] !== undefined)
+      data["NetworkAccessProfile"] = params["networkAccessProfile"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new FleetPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FleetPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new FleetPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: FleetPage) => any,
+  ): Promise<FleetPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FleetPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: FleetListInstancePageOptions | ((error: Error | null, items: ApiResponse<FleetPage>) => any), callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any): Promise<ApiResponse<FleetPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | FleetListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<FleetPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
+  ): Promise<ApiResponse<FleetPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -877,94 +1024,106 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
     let data: any = {};
 
-        if (params["networkAccessProfile"] !== undefined)
-    data["NetworkAccessProfile"] = params["networkAccessProfile"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["networkAccessProfile"] !== undefined)
+      data["NetworkAccessProfile"] = params["networkAccessProfile"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<FleetPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new FleetPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<FleetPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FleetPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<FleetPage>) => any): Promise<ApiResponse<FleetPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<FleetPage>) => any,
+  ): Promise<ApiResponse<FleetPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<FleetPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new FleetPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<FleetPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FleetPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class FleetPage extends Page<V1, FleetPayload, FleetResource, FleetInstance> {
-/**
-* Initialize the FleetPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: FleetSolution) {
+export class FleetPage extends Page<
+  V1,
+  FleetPayload,
+  FleetResource,
+  FleetInstance
+> {
+  /**
+   * Initialize the FleetPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: FleetSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FleetInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FleetResource): FleetInstance {
+  /**
+   * Build an instance of FleetInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FleetResource): FleetInstance {
+    return new FleetInstance(this._version, payload);
+  }
 
-    return new FleetInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

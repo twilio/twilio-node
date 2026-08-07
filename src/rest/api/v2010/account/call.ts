@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -32,43 +33,39 @@ import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
 import TwiML from "../../../../twiml/TwiML";
 
+
 /**
  * The status of this call. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy` or `no-answer`. See [Call Status Values](https://www.twilio.com/docs/voice/api/call-resource#call-status-values) below for more information.
  */
-export type CallStatus =
-  | "queued"
-  | "ringing"
-  | "in-progress"
-  | "completed"
-  | "busy"
-  | "failed"
-  | "no-answer"
-  | "canceled";
+export type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
 
-export type CallUpdateStatus = "canceled" | "completed";
+export type CallUpdateStatus = 'canceled'|'completed';
+
+
+
 
 /**
  * Options to pass to update a CallInstance
  */
 export interface CallContextUpdateOptions {
   /** The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). */
-  url?: string;
+  "url"?: string;
   /** The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
-  method?: string;
+  "method"?: string;
   /**  */
-  status?: CallUpdateStatus;
+  "status"?: CallUpdateStatus;
   /** The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored. */
-  fallbackUrl?: string;
+  "fallbackUrl"?: string;
   /** The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
-  fallbackMethod?: string;
+  "fallbackMethod"?: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted). */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive */
-  twiml?: TwiML | string;
+  "twiml"?: TwiML | string;
   /** The maximum duration of the call in seconds. Constraints depend on account and configuration. */
-  timeLimit?: number;
+  "timeLimit"?: number;
 }
 
 /**
@@ -76,79 +73,81 @@ export interface CallContextUpdateOptions {
  */
 export interface CallListInstanceCreateOptions {
   /** The phone number, SIP address, or client identifier to call. */
-  to: string;
+  "to": string;
   /** The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number. */
-  from: string;
+  "from": string;
   /** The HTTP method we should use when calling the `url` parameter\\\'s value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
-  method?: string;
+  "method"?: string;
   /** The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored. */
-  fallbackUrl?: string;
+  "fallbackUrl"?: string;
   /** The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
-  fallbackMethod?: string;
+  "fallbackMethod"?: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted). */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored. */
-  statusCallbackEvent?: Array<string>;
+  "statusCallbackEvent"?: Array<string>;
   /** The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** The string of keys to dial after connecting to the number, with a maximum length of 32 digits. Valid digits in the string include any digit (`0`-`9`), \\\'`A`\\\', \\\'`B`\\\', \\\'`C`\\\', \\\'`D`\\\', \\\'`#`\\\', and \\\'`*`\\\'. You can also use \\\'`w`\\\' to insert a half-second pause and \\\'`W`\\\' to insert a one-second pause. For example, to pause for one second after connecting and then dial extension 1234 followed by the # key, set this parameter to `W1234#`. Be sure to URL-encode this string because the \\\'`#`\\\' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored. */
-  sendDigits?: string;
+  "sendDigits"?: string;
   /** The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail. */
-  timeout?: number;
+  "timeout"?: number;
   /** Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL. */
-  record?: boolean;
+  "record"?: boolean;
   /** The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call. */
-  recordingChannels?: string;
+  "recordingChannels"?: string;
   /** The URL that we call when the recording is available to be accessed. */
-  recordingStatusCallback?: string;
+  "recordingStatusCallback"?: string;
   /** The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
-  recordingStatusCallbackMethod?: string;
+  "recordingStatusCallbackMethod"?: string;
   /** The identifier of the configuration to be used when creating and processing the recording */
-  recordingConfigurationId?: string;
+  "recordingConfigurationId"?: string;
   /** The username used to authenticate the caller making a SIP call. */
-  sipAuthUsername?: string;
+  "sipAuthUsername"?: string;
   /** The password required to authenticate the user account specified in `sip_auth_username`. */
-  sipAuthPassword?: string;
+  "sipAuthPassword"?: string;
   /** Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection). */
-  machineDetection?: string;
+  "machineDetection"?: string;
   /** The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds. */
-  machineDetectionTimeout?: number;
+  "machineDetectionTimeout"?: number;
   /** The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space. */
-  recordingStatusCallbackEvent?: Array<string>;
+  "recordingStatusCallbackEvent"?: Array<string>;
   /** Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`. */
-  trim?: string;
+  "trim"?: string;
   /** The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. */
-  callerId?: string;
+  "callerId"?: string;
   /** The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400. */
-  machineDetectionSpeechThreshold?: number;
+  "machineDetectionSpeechThreshold"?: number;
   /** The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200. */
-  machineDetectionSpeechEndThreshold?: number;
+  "machineDetectionSpeechEndThreshold"?: number;
   /** The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000. */
-  machineDetectionSilenceTimeout?: number;
+  "machineDetectionSilenceTimeout"?: number;
   /** Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`. */
-  asyncAmd?: string;
+  "asyncAmd"?: string;
   /** The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax. */
-  asyncAmdStatusCallback?: string;
+  "asyncAmdStatusCallback"?: string;
   /** The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
-  asyncAmdStatusCallbackMethod?: string;
+  "asyncAmdStatusCallbackMethod"?: string;
+  /** The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string */
+  "passports"?: string;
   /** The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta) */
-  byoc?: string;
+  "byoc"?: string;
   /** The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party\\\'s phone. (Branded Calls Beta) */
-  callReason?: string;
+  "callReason"?: string;
   /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
-  callToken?: string;
+  "callToken"?: string;
   /** The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio. */
-  recordingTrack?: string;
+  "recordingTrack"?: string;
   /** The maximum duration of the call in seconds. Constraints depend on account and configuration. */
-  timeLimit?: number;
+  "timeLimit"?: number;
   /** The URL that we should use to deliver `push call notification`. */
-  clientNotificationUrl?: string;
+  "clientNotificationUrl"?: string;
   /** The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). */
-  url?: string;
+  "url"?: string;
   /** TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters. */
-  twiml?: TwiML | string;
+  "twiml"?: TwiML | string;
   /** The SID of the Application resource that will handle the call, if the call will be handled by an application. */
-  applicationSid?: string;
+  "applicationSid"?: string;
 }
 
 /**
@@ -156,27 +155,27 @@ export interface CallListInstanceCreateOptions {
  */
 export interface CallListInstanceEachOptions {
   /** Only show calls made to this phone number, SIP address, Client identifier or SIM SID. */
-  to?: string;
+  "to"?: string;
   /** Only include calls from this phone number, SIP address, Client identifier or SIM SID. */
-  from?: string;
+  "from"?: string;
   /** Only include calls spawned by calls with this SID. */
-  parentCallSid?: string;
+  "parentCallSid"?: string;
   /** The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`. */
-  status?: CallStatus;
+  "status"?: CallStatus;
   /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. */
-  startTime?: Date;
+  "startTime"?: Date;
   /** Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date. */
-  startTimeBefore?: Date;
+  "startTimeBefore"?: Date;
   /** Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date. */
-  startTimeAfter?: Date;
+  "startTimeAfter"?: Date;
   /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. */
-  endTime?: Date;
+  "endTime"?: Date;
   /** Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date. */
-  endTimeBefore?: Date;
+  "endTimeBefore"?: Date;
   /** Only include calls that ended on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on or after this date. */
-  endTimeAfter?: Date;
+  "endTimeAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CallInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -190,62 +189,64 @@ export interface CallListInstanceEachOptions {
  */
 export interface CallListInstanceOptions {
   /** Only show calls made to this phone number, SIP address, Client identifier or SIM SID. */
-  to?: string;
+  "to"?: string;
   /** Only include calls from this phone number, SIP address, Client identifier or SIM SID. */
-  from?: string;
+  "from"?: string;
   /** Only include calls spawned by calls with this SID. */
-  parentCallSid?: string;
+  "parentCallSid"?: string;
   /** The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`. */
-  status?: CallStatus;
+  "status"?: CallStatus;
   /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. */
-  startTime?: Date;
+  "startTime"?: Date;
   /** Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date. */
-  startTimeBefore?: Date;
+  "startTimeBefore"?: Date;
   /** Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date. */
-  startTimeAfter?: Date;
+  "startTimeAfter"?: Date;
   /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. */
-  endTime?: Date;
+  "endTime"?: Date;
   /** Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date. */
-  endTimeBefore?: Date;
+  "endTimeBefore"?: Date;
   /** Only include calls that ended on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on or after this date. */
-  endTimeAfter?: Date;
+  "endTimeAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface CallListInstancePageOptions {
   /** Only show calls made to this phone number, SIP address, Client identifier or SIM SID. */
-  to?: string;
+  "to"?: string;
   /** Only include calls from this phone number, SIP address, Client identifier or SIM SID. */
-  from?: string;
+  "from"?: string;
   /** Only include calls spawned by calls with this SID. */
-  parentCallSid?: string;
+  "parentCallSid"?: string;
   /** The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`. */
-  status?: CallStatus;
+  "status"?: CallStatus;
   /** Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. */
-  startTime?: Date;
+  "startTime"?: Date;
   /** Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date. */
-  startTimeBefore?: Date;
+  "startTimeBefore"?: Date;
   /** Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date. */
-  startTimeAfter?: Date;
+  "startTimeAfter"?: Date;
   /** Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. */
-  endTime?: Date;
+  "endTime"?: Date;
   /** Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date. */
-  endTimeBefore?: Date;
+  "endTimeBefore"?: Date;
   /** Only include calls that ended on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on or after this date. */
-  endTimeAfter?: Date;
+  "endTimeAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface CallContext {
   events: EventListInstance;
@@ -265,9 +266,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a CallInstance and return HTTP info
@@ -276,9 +275,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a CallInstance
@@ -287,9 +284,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
 
   /**
    * Fetch a CallInstance and return HTTP info
@@ -298,9 +293,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>
 
   /**
    * Update a CallInstance
@@ -309,9 +302,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance
    */
-  update(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  update(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
   /**
    * Update a CallInstance
    *
@@ -320,10 +311,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance
    */
-  update(
-    params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  update(params: CallContextUpdateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
 
   /**
    * Update a CallInstance and return HTTP info
@@ -332,9 +320,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>;
   /**
    * Update a CallInstance and return HTTP info
    *
@@ -343,10 +329,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>>;
+  updateWithHttpInfo(params: CallContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -356,8 +339,8 @@ export interface CallContext {
 }
 
 export interface CallContextSolution {
-  accountSid: string;
-  sid: string;
+  "accountSid": string;
+  "sid": string;
 }
 
 export class CallContextImpl implements CallContext {
@@ -376,348 +359,227 @@ export class CallContextImpl implements CallContext {
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, sid };
+    this._solution = { accountSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Calls/${sid}.json`;
   }
 
   get events(): EventListInstance {
-    this._events =
-      this._events ||
-      EventListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._events = this._events || EventListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._events;
   }
 
   get notifications(): NotificationListInstance {
-    this._notifications =
-      this._notifications ||
-      NotificationListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._notifications;
   }
 
   get payments(): PaymentListInstance {
-    this._payments =
-      this._payments ||
-      PaymentListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._payments = this._payments || PaymentListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._payments;
   }
 
   get recordings(): RecordingListInstance {
-    this._recordings =
-      this._recordings ||
-      RecordingListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._recordings = this._recordings || RecordingListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._recordings;
   }
 
   get siprec(): SiprecListInstance {
-    this._siprec =
-      this._siprec ||
-      SiprecListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._siprec = this._siprec || SiprecListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._siprec;
   }
 
   get streams(): StreamListInstance {
-    this._streams =
-      this._streams ||
-      StreamListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._streams = this._streams || StreamListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._streams;
   }
 
   get transcriptions(): TranscriptionListInstance {
-    this._transcriptions =
-      this._transcriptions ||
-      TranscriptionListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._transcriptions = this._transcriptions || TranscriptionListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._transcriptions;
   }
 
   get userDefinedMessages(): UserDefinedMessageListInstance {
-    this._userDefinedMessages =
-      this._userDefinedMessages ||
-      UserDefinedMessageListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._userDefinedMessages = this._userDefinedMessages || UserDefinedMessageListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._userDefinedMessages;
   }
 
   get userDefinedMessageSubscriptions(): UserDefinedMessageSubscriptionListInstance {
-    this._userDefinedMessageSubscriptions =
-      this._userDefinedMessageSubscriptions ||
-      UserDefinedMessageSubscriptionListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._userDefinedMessageSubscriptions = this._userDefinedMessageSubscriptions || UserDefinedMessageSubscriptionListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._userDefinedMessageSubscriptions;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CallInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<CallResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CallInstance> => ({
-          ...response,
-          body: new CallInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<CallResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<CallInstance> => ({
+      ...response,
+      body: new CallInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | CallContextUpdateOptions
-      | ((error: Error | null, item?: CallInstance) => any),
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance> {
-    if (params instanceof Function) {
+  update(params?: CallContextUpdateOptions | ((error: Error | null, item?: CallInstance) => any),callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["url"] !== undefined) data["Url"] = params["url"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["url"] !== undefined)
+    data["Url"] = params["url"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["fallbackUrl"] !== undefined)
-      data["FallbackUrl"] = params["fallbackUrl"];
+    data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-      data["FallbackMethod"] = params["fallbackMethod"];
+    data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["twiml"] !== undefined)
-      data["Twiml"] = serialize.twiml(params["twiml"]);
+    data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["timeLimit"] !== undefined)
-      data["TimeLimit"] = params["timeLimit"];
+    data["TimeLimit"] = params["timeLimit"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CallInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | CallContextUpdateOptions
-      | ((error: Error | null, item?: ApiResponse<CallInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: CallContextUpdateOptions | ((error: Error | null, item?: ApiResponse<CallInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["url"] !== undefined) data["Url"] = params["url"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["url"] !== undefined)
+    data["Url"] = params["url"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["fallbackUrl"] !== undefined)
-      data["FallbackUrl"] = params["fallbackUrl"];
+    data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-      data["FallbackMethod"] = params["fallbackMethod"];
+    data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["twiml"] !== undefined)
-      data["Twiml"] = serialize.twiml(params["twiml"]);
+    data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["timeLimit"] !== undefined)
-      data["TimeLimit"] = params["timeLimit"];
+    data["TimeLimit"] = params["timeLimit"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<CallResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CallInstance> => ({
-          ...response,
-          body: new CallInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<CallResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CallInstance> => ({
+      ...response,
+      body: new CallInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -734,8 +596,9 @@ export class CallContextImpl implements CallContext {
   }
 }
 
-interface CallPayload extends TwilioResponsePayload {
-  calls: CallResource[];
+
+  interface CallPayload extends TwilioResponsePayload {
+    calls: CallResource[];
 }
 
 interface CallResource {
@@ -771,40 +634,36 @@ export class CallInstance {
   protected _solution: CallContextSolution;
   protected _context?: CallContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: CallResource,
-    accountSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
+  constructor(protected _version: V2010, payload: CallResource, accountSid: string, sid?: string) {
+    
+    this.sid = (payload.sid);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.parentCallSid = payload.parent_call_sid;
-    this.accountSid = payload.account_sid;
-    this.to = payload.to;
-    this.toFormatted = payload.to_formatted;
-    this.from = payload.from;
-    this.fromFormatted = payload.from_formatted;
-    this.phoneNumberSid = payload.phone_number_sid;
+    this.parentCallSid = (payload.parent_call_sid);
+    this.accountSid = (payload.account_sid);
+    this.to = (payload.to);
+    this.toFormatted = (payload.to_formatted);
+    this.from = (payload.from);
+    this.fromFormatted = (payload.from_formatted);
+    this.phoneNumberSid = (payload.phone_number_sid);
     this.status = payload.status;
     this.startTime = deserialize.rfc2822DateTime(payload.start_time);
     this.endTime = deserialize.rfc2822DateTime(payload.end_time);
-    this.duration = payload.duration;
-    this.price = payload.price;
-    this.priceUnit = payload.price_unit;
-    this.direction = payload.direction;
-    this.answeredBy = payload.answered_by;
-    this.apiVersion = payload.api_version;
-    this.forwardedFrom = payload.forwarded_from;
-    this.groupSid = payload.group_sid;
-    this.callerName = payload.caller_name;
-    this.queueTime = payload.queue_time;
-    this.trunkSid = payload.trunk_sid;
-    this.uri = payload.uri;
-    this.subresourceUris = payload.subresource_uris;
+    this.duration = (payload.duration);
+    this.price = (payload.price);
+    this.priceUnit = (payload.price_unit);
+    this.direction = (payload.direction);
+    this.answeredBy = (payload.answered_by);
+    this.apiVersion = (payload.api_version);
+    this.forwardedFrom = (payload.forwarded_from);
+    this.groupSid = (payload.group_sid);
+    this.callerName = (payload.caller_name);
+    this.queueTime = (payload.queue_time);
+    this.trunkSid = (payload.trunk_sid);
+    this.uri = (payload.uri);
+    this.subresourceUris = (payload.subresource_uris);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid,  };
   }
 
   /**
@@ -910,13 +769,7 @@ export class CallInstance {
   subresourceUris: Record<string, string>;
 
   private get _proxy(): CallContext {
-    this._context =
-      this._context ||
-      new CallContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._context = this._context || new CallContextImpl(this._version, this._solution.accountSid, this._solution.sid);
     return this._context;
   }
 
@@ -927,9 +780,9 @@ export class CallInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -940,9 +793,9 @@ export class CallInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -953,9 +806,9 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance> {
+  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -966,9 +819,9 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -979,9 +832,7 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance
    */
-  update(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  update(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
   /**
    * Update a CallInstance
    *
@@ -990,15 +841,10 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance
    */
-  update(
-    params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  update(params: CallContextUpdateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -1009,9 +855,7 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>;
   /**
    * Update a CallInstance and return HTTP info
    *
@@ -1020,15 +864,10 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>>;
+  updateWithHttpInfo(params: CallContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -1136,6 +975,7 @@ export class CallInstance {
   }
 }
 
+
 export interface CallSolution {
   accountSid: string;
 }
@@ -1145,8 +985,15 @@ export interface CallListInstance {
   _solution: CallSolution;
   _uri: string;
 
-  (sid: string): CallContext;
-  get(sid: string): CallContext;
+  (sid: string, ): CallContext;
+  get(sid: string, ): CallContext;
+
+
+
+
+
+
+
 
   /**
    * Create a CallInstance
@@ -1156,10 +1003,7 @@ export interface CallListInstance {
    *
    * @returns Resolves to processed CallInstance
    */
-  create(
-    params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  create(params: CallListInstanceCreateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
 
   /**
    * Create a CallInstance and return HTTP info
@@ -1169,10 +1013,10 @@ export interface CallListInstance {
    *
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>>;
+  createWithHttpInfo(params: CallListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>>;
+
+
+
 
   /**
    * Streams CallInstance records from the API.
@@ -1189,13 +1033,8 @@ export interface CallListInstance {
    * @param { CallListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: CallListInstanceEachOptions,
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
+  each(params: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams CallInstance records from the API with HTTP metadata captured per page.
    *
@@ -1211,13 +1050,8 @@ export interface CallListInstance {
    * @param { CallListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: CallListInstanceEachOptions,
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of CallInstance records from the API.
    *
@@ -1226,10 +1060,7 @@ export interface CallListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
   /**
    * Retrieve a single target page of CallInstance records from the API with HTTP metadata.
    *
@@ -1238,10 +1069,7 @@ export interface CallListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
-  ): Promise<ApiResponse<CallPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<CallPage>) => any): Promise<ApiResponse<CallPage>>;
   /**
    * Lists CallInstance records from the API as a list.
    *
@@ -1251,13 +1079,8 @@ export interface CallListInstance {
    * @param { CallListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: CallInstance[]) => any
-  ): Promise<CallInstance[]>;
-  list(
-    params: CallListInstanceOptions,
-    callback?: (error: Error | null, items: CallInstance[]) => any
-  ): Promise<CallInstance[]>;
+  list(callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
+  list(params: CallListInstanceOptions, callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
   /**
    * Lists CallInstance records from the API as a list with HTTP metadata.
    *
@@ -1269,13 +1092,8 @@ export interface CallListInstance {
    * @param { CallListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any
-  ): Promise<ApiResponse<CallInstance[]>>;
-  listWithHttpInfo(
-    params: CallListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any
-  ): Promise<ApiResponse<CallInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any): Promise<ApiResponse<CallInstance[]>>;
+  listWithHttpInfo(params: CallListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any): Promise<ApiResponse<CallInstance[]>>;
   /**
    * Retrieve a single page of CallInstance records from the API.
    *
@@ -1287,13 +1105,8 @@ export interface CallListInstance {
    * @param { CallListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage>;
-  page(
-    params: CallListInstancePageOptions,
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage>;
+  page(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  page(params: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
   /**
    * Retrieve a single page of CallInstance records from the API with HTTP metadata.
    *
@@ -1305,13 +1118,9 @@ export interface CallListInstance {
    * @param { CallListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
-  ): Promise<ApiResponse<CallPage>>;
-  pageWithHttpInfo(
-    params: CallListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
-  ): Promise<ApiResponse<CallPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CallPage>) => any): Promise<ApiResponse<CallPage>>;
+  pageWithHttpInfo(params: CallListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<CallPage>) => any): Promise<ApiResponse<CallPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1320,281 +1129,247 @@ export interface CallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CallListInstance(
-  version: V2010,
-  accountSid: string
-): CallListInstance {
+export function CallListInstance(version: V2010, accountSid: string): CallListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as CallListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as CallListInstance;
 
-  instance.get = function get(sid): CallContext {
+  instance.get = function get(sid, ): CallContext {
     return new CallContextImpl(version, accountSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/Calls.json`;
 
-  instance.create = function create(
-    params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CallInstance) => any
-  ): Promise<CallInstance> {
+  instance.create = function create(params: CallListInstanceCreateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error("Required parameter \"params['to']\" missing.");
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
     if (params["from"] === null || params["from"] === undefined) {
-      throw new Error("Required parameter \"params['from']\" missing.");
+      throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["To"] = params["to"];
-
+    
     data["From"] = params["from"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
     if (params["fallbackUrl"] !== undefined)
-      data["FallbackUrl"] = params["fallbackUrl"];
+    data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-      data["FallbackMethod"] = params["fallbackMethod"];
+    data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackEvent"] !== undefined)
-      data["StatusCallbackEvent"] = serialize.map(
-        params["statusCallbackEvent"],
-        (e: string) => e
-      );
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e: string) => (e));
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["sendDigits"] !== undefined)
-      data["SendDigits"] = params["sendDigits"];
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    data["SendDigits"] = params["sendDigits"];
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-      data["Record"] = serialize.bool(params["record"]);
+    data["Record"] = serialize.bool(params["record"]);
     if (params["recordingChannels"] !== undefined)
-      data["RecordingChannels"] = params["recordingChannels"];
+    data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-      data["RecordingStatusCallbackMethod"] =
-        params["recordingStatusCallbackMethod"];
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
     if (params["recordingConfigurationId"] !== undefined)
-      data["RecordingConfigurationId"] = params["recordingConfigurationId"];
+    data["RecordingConfigurationId"] = params["recordingConfigurationId"];
     if (params["sipAuthUsername"] !== undefined)
-      data["SipAuthUsername"] = params["sipAuthUsername"];
+    data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-      data["SipAuthPassword"] = params["sipAuthPassword"];
+    data["SipAuthPassword"] = params["sipAuthPassword"];
     if (params["machineDetection"] !== undefined)
-      data["MachineDetection"] = params["machineDetection"];
+    data["MachineDetection"] = params["machineDetection"];
     if (params["machineDetectionTimeout"] !== undefined)
-      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-      data["RecordingStatusCallbackEvent"] = serialize.map(
-        params["recordingStatusCallbackEvent"],
-        (e: string) => e
-      );
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
-    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e: string) => (e));
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
+    if (params["callerId"] !== undefined)
+    data["CallerId"] = params["callerId"];
     if (params["machineDetectionSpeechThreshold"] !== undefined)
-      data["MachineDetectionSpeechThreshold"] =
-        params["machineDetectionSpeechThreshold"];
+    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
     if (params["machineDetectionSpeechEndThreshold"] !== undefined)
-      data["MachineDetectionSpeechEndThreshold"] =
-        params["machineDetectionSpeechEndThreshold"];
+    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
     if (params["machineDetectionSilenceTimeout"] !== undefined)
-      data["MachineDetectionSilenceTimeout"] =
-        params["machineDetectionSilenceTimeout"];
-    if (params["asyncAmd"] !== undefined) data["AsyncAmd"] = params["asyncAmd"];
+    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
+    if (params["asyncAmd"] !== undefined)
+    data["AsyncAmd"] = params["asyncAmd"];
     if (params["asyncAmdStatusCallback"] !== undefined)
-      data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
+    data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
-      data["AsyncAmdStatusCallbackMethod"] =
-        params["asyncAmdStatusCallbackMethod"];
-    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
+    data["AsyncAmdStatusCallbackMethod"] = params["asyncAmdStatusCallbackMethod"];
+    if (params["passports"] !== undefined)
+    data["Passports"] = params["passports"];
+    if (params["byoc"] !== undefined)
+    data["Byoc"] = params["byoc"];
     if (params["callReason"] !== undefined)
-      data["CallReason"] = params["callReason"];
+    data["CallReason"] = params["callReason"];
     if (params["callToken"] !== undefined)
-      data["CallToken"] = params["callToken"];
+    data["CallToken"] = params["callToken"];
     if (params["recordingTrack"] !== undefined)
-      data["RecordingTrack"] = params["recordingTrack"];
+    data["RecordingTrack"] = params["recordingTrack"];
     if (params["timeLimit"] !== undefined)
-      data["TimeLimit"] = params["timeLimit"];
+    data["TimeLimit"] = params["timeLimit"];
     if (params["clientNotificationUrl"] !== undefined)
-      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
-    if (params["url"] !== undefined) data["Url"] = params["url"];
+    data["ClientNotificationUrl"] = params["clientNotificationUrl"];
+    if (params["url"] !== undefined)
+    data["Url"] = params["url"];
     if (params["twiml"] !== undefined)
-      data["Twiml"] = serialize.twiml(params["twiml"]);
+    data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["applicationSid"] !== undefined)
-      data["ApplicationSid"] = params["applicationSid"];
+    data["ApplicationSid"] = params["applicationSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, instance._solution.accountSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CallInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<CallInstance>) => any
-  ): Promise<ApiResponse<CallInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CallListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<CallInstance>) => any): Promise<ApiResponse<CallInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error("Required parameter \"params['to']\" missing.");
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
     if (params["from"] === null || params["from"] === undefined) {
-      throw new Error("Required parameter \"params['from']\" missing.");
+      throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["To"] = params["to"];
-
+    
     data["From"] = params["from"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
     if (params["fallbackUrl"] !== undefined)
-      data["FallbackUrl"] = params["fallbackUrl"];
+    data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-      data["FallbackMethod"] = params["fallbackMethod"];
+    data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackEvent"] !== undefined)
-      data["StatusCallbackEvent"] = serialize.map(
-        params["statusCallbackEvent"],
-        (e: string) => e
-      );
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e: string) => (e));
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["sendDigits"] !== undefined)
-      data["SendDigits"] = params["sendDigits"];
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    data["SendDigits"] = params["sendDigits"];
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-      data["Record"] = serialize.bool(params["record"]);
+    data["Record"] = serialize.bool(params["record"]);
     if (params["recordingChannels"] !== undefined)
-      data["RecordingChannels"] = params["recordingChannels"];
+    data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-      data["RecordingStatusCallbackMethod"] =
-        params["recordingStatusCallbackMethod"];
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
     if (params["recordingConfigurationId"] !== undefined)
-      data["RecordingConfigurationId"] = params["recordingConfigurationId"];
+    data["RecordingConfigurationId"] = params["recordingConfigurationId"];
     if (params["sipAuthUsername"] !== undefined)
-      data["SipAuthUsername"] = params["sipAuthUsername"];
+    data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-      data["SipAuthPassword"] = params["sipAuthPassword"];
+    data["SipAuthPassword"] = params["sipAuthPassword"];
     if (params["machineDetection"] !== undefined)
-      data["MachineDetection"] = params["machineDetection"];
+    data["MachineDetection"] = params["machineDetection"];
     if (params["machineDetectionTimeout"] !== undefined)
-      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-      data["RecordingStatusCallbackEvent"] = serialize.map(
-        params["recordingStatusCallbackEvent"],
-        (e: string) => e
-      );
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
-    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e: string) => (e));
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
+    if (params["callerId"] !== undefined)
+    data["CallerId"] = params["callerId"];
     if (params["machineDetectionSpeechThreshold"] !== undefined)
-      data["MachineDetectionSpeechThreshold"] =
-        params["machineDetectionSpeechThreshold"];
+    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
     if (params["machineDetectionSpeechEndThreshold"] !== undefined)
-      data["MachineDetectionSpeechEndThreshold"] =
-        params["machineDetectionSpeechEndThreshold"];
+    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
     if (params["machineDetectionSilenceTimeout"] !== undefined)
-      data["MachineDetectionSilenceTimeout"] =
-        params["machineDetectionSilenceTimeout"];
-    if (params["asyncAmd"] !== undefined) data["AsyncAmd"] = params["asyncAmd"];
+    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
+    if (params["asyncAmd"] !== undefined)
+    data["AsyncAmd"] = params["asyncAmd"];
     if (params["asyncAmdStatusCallback"] !== undefined)
-      data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
+    data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
-      data["AsyncAmdStatusCallbackMethod"] =
-        params["asyncAmdStatusCallbackMethod"];
-    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
+    data["AsyncAmdStatusCallbackMethod"] = params["asyncAmdStatusCallbackMethod"];
+    if (params["passports"] !== undefined)
+    data["Passports"] = params["passports"];
+    if (params["byoc"] !== undefined)
+    data["Byoc"] = params["byoc"];
     if (params["callReason"] !== undefined)
-      data["CallReason"] = params["callReason"];
+    data["CallReason"] = params["callReason"];
     if (params["callToken"] !== undefined)
-      data["CallToken"] = params["callToken"];
+    data["CallToken"] = params["callToken"];
     if (params["recordingTrack"] !== undefined)
-      data["RecordingTrack"] = params["recordingTrack"];
+    data["RecordingTrack"] = params["recordingTrack"];
     if (params["timeLimit"] !== undefined)
-      data["TimeLimit"] = params["timeLimit"];
+    data["TimeLimit"] = params["timeLimit"];
     if (params["clientNotificationUrl"] !== undefined)
-      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
-    if (params["url"] !== undefined) data["Url"] = params["url"];
+    data["ClientNotificationUrl"] = params["clientNotificationUrl"];
+    if (params["url"] !== undefined)
+    data["Url"] = params["url"];
     if (params["twiml"] !== undefined)
-      data["Twiml"] = serialize.twiml(params["twiml"]);
+    data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["applicationSid"] !== undefined)
-      data["ApplicationSid"] = params["applicationSid"];
+    data["ApplicationSid"] = params["applicationSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<CallResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CallInstance> => ({
-          ...response,
-          body: new CallInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<CallResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CallInstance> => ({
+      ...response,
+      body: new CallInstance(operationVersion, response.body, instance._solution.accountSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | CallListInstancePageOptions
-      | ((error: Error | null, items: CallPage) => any),
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage> {
+
+    }
+
+  instance.page = function page(params?: CallListInstancePageOptions | ((error: Error | null, items: CallPage) => any), callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1604,74 +1379,64 @@ export function CallListInstance(
 
     let data: any = {};
 
-    if (params["to"] !== undefined) data["To"] = params["to"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
+        if (params["to"] !== undefined)
+    data["To"] = params["to"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
     if (params["parentCallSid"] !== undefined)
-      data["ParentCallSid"] = params["parentCallSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    data["ParentCallSid"] = params["parentCallSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["startTime"] !== undefined)
-      data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
     if (params["startTimeBefore"] !== undefined)
-      data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
+    data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
     if (params["startTimeAfter"] !== undefined)
-      data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
+    data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
     if (params["endTime"] !== undefined)
-      data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
     if (params["endTimeBefore"] !== undefined)
-      data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
+    data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
     if (params["endTimeAfter"] !== undefined)
-      data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new CallPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new CallPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) => new CallPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new CallPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | CallListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<CallPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
-  ): Promise<ApiResponse<CallPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: CallListInstancePageOptions | ((error: Error | null, items: ApiResponse<CallPage>) => any), callback?: (error: Error | null, items: ApiResponse<CallPage>) => any): Promise<ApiResponse<CallPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1681,123 +1446,113 @@ export function CallListInstance(
 
     let data: any = {};
 
-    if (params["to"] !== undefined) data["To"] = params["to"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
+        if (params["to"] !== undefined)
+    data["To"] = params["to"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
     if (params["parentCallSid"] !== undefined)
-      data["ParentCallSid"] = params["parentCallSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    data["ParentCallSid"] = params["parentCallSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["startTime"] !== undefined)
-      data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
     if (params["startTimeBefore"] !== undefined)
-      data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
+    data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
     if (params["startTimeAfter"] !== undefined)
-      data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
+    data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
     if (params["endTime"] !== undefined)
-      data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
     if (params["endTimeBefore"] !== undefined)
-      data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
+    data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
     if (params["endTimeAfter"] !== undefined)
-      data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CallPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CallPage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<CallPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new CallPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<CallPage>) => any
-  ): Promise<ApiResponse<CallPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<CallPage>) => any): Promise<ApiResponse<CallPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<CallPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CallPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<CallPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new CallPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class CallPage extends Page<
-  V2010,
-  CallPayload,
-  CallResource,
-  CallInstance
-> {
-  /**
-   * Initialize the CallPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: CallSolution
-  ) {
+export class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
+/**
+* Initialize the CallPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: CallSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CallInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CallResource): CallInstance {
-    return new CallInstance(this._version, payload, this._solution.accountSid);
-  }
+    /**
+    * Build an instance of CallInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CallResource): CallInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new CallInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

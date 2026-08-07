@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,7 +20,11 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
+
 export interface RequestManagedCertContext {
+
   /**
    * Update a RequestManagedCertInstance
    *
@@ -27,9 +32,7 @@ export interface RequestManagedCertContext {
    *
    * @returns Resolves to processed RequestManagedCertInstance
    */
-  update(
-    callback?: (error: Error | null, item?: RequestManagedCertInstance) => any
-  ): Promise<RequestManagedCertInstance>;
+  update(callback?: (error: Error | null, item?: RequestManagedCertInstance) => any): Promise<RequestManagedCertInstance>
 
   /**
    * Update a RequestManagedCertInstance and return HTTP info
@@ -38,12 +41,7 @@ export interface RequestManagedCertContext {
    *
    * @returns Resolves to processed RequestManagedCertInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<RequestManagedCertInstance>
-    ) => any
-  ): Promise<ApiResponse<RequestManagedCertInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RequestManagedCertInstance>) => any): Promise<ApiResponse<RequestManagedCertInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -53,88 +51,56 @@ export interface RequestManagedCertContext {
 }
 
 export interface RequestManagedCertContextSolution {
-  domainSid: string;
+  "domainSid": string;
 }
 
-export class RequestManagedCertContextImpl
-  implements RequestManagedCertContext
-{
+export class RequestManagedCertContextImpl implements RequestManagedCertContext {
   protected _solution: RequestManagedCertContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, domainSid: string) {
     if (!isValidPathParam(domainSid)) {
-      throw new Error("Parameter 'domainSid' is not valid.");
+      throw new Error('Parameter \'domainSid\' is not valid.');
     }
 
-    this._solution = { domainSid };
+    this._solution = { domainSid,  };
     this._uri = `/LinkShortening/Domains/${domainSid}/RequestManagedCert`;
   }
 
-  update(
-    callback?: (error: Error | null, item?: RequestManagedCertInstance) => any
-  ): Promise<RequestManagedCertInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  update(callback?: (error: Error | null, item?: RequestManagedCertInstance) => any): Promise<RequestManagedCertInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", headers});
+    
+    operationPromise = operationPromise.then(payload => new RequestManagedCertInstance(operationVersion, payload, instance._solution.domainSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RequestManagedCertInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<RequestManagedCertInstance>
-    ) => any
-  ): Promise<ApiResponse<RequestManagedCertInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RequestManagedCertInstance>) => any): Promise<ApiResponse<RequestManagedCertInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<RequestManagedCertResource>({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<RequestManagedCertInstance> => ({
-          ...response,
-          body: new RequestManagedCertInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<RequestManagedCertResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<RequestManagedCertInstance> => ({
+      ...response,
+      body: new RequestManagedCertInstance(operationVersion, response.body, instance._solution.domainSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -151,7 +117,8 @@ export class RequestManagedCertContextImpl
   }
 }
 
-interface RequestManagedCertPayload extends RequestManagedCertResource {}
+
+  interface RequestManagedCertPayload extends RequestManagedCertResource {}
 
 interface RequestManagedCertResource {
   domain_sid: string;
@@ -169,22 +136,19 @@ export class RequestManagedCertInstance {
   protected _solution: RequestManagedCertContextSolution;
   protected _context?: RequestManagedCertContext;
 
-  constructor(
-    protected _version: V1,
-    payload: RequestManagedCertResource,
-    domainSid?: string
-  ) {
-    this.domainSid = payload.domain_sid;
+  constructor(protected _version: V1, payload: RequestManagedCertResource, domainSid?: string) {
+    
+    this.domainSid = (payload.domain_sid);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateExpires = deserialize.iso8601DateTime(payload.date_expires);
-    this.domainName = payload.domain_name;
-    this.certificateSid = payload.certificate_sid;
-    this.url = payload.url;
-    this.managed = payload.managed;
-    this.requesting = payload.requesting;
+    this.domainName = (payload.domain_name);
+    this.certificateSid = (payload.certificate_sid);
+    this.url = (payload.url);
+    this.managed = (payload.managed);
+    this.requesting = (payload.requesting);
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid,  };
   }
 
   /**
@@ -222,12 +186,7 @@ export class RequestManagedCertInstance {
   requesting: boolean;
 
   private get _proxy(): RequestManagedCertContext {
-    this._context =
-      this._context ||
-      new RequestManagedCertContextImpl(
-        this._version,
-        this._solution.domainSid
-      );
+    this._context = this._context || new RequestManagedCertContextImpl(this._version, this._solution.domainSid);
     return this._context;
   }
 
@@ -238,9 +197,9 @@ export class RequestManagedCertInstance {
    *
    * @returns Resolves to processed RequestManagedCertInstance
    */
-  update(
-    callback?: (error: Error | null, item?: RequestManagedCertInstance) => any
-  ): Promise<RequestManagedCertInstance> {
+  update(callback?: (error: Error | null, item?: RequestManagedCertInstance) => any): Promise<RequestManagedCertInstance>
+
+    {
     return this._proxy.update(callback);
   }
 
@@ -251,12 +210,9 @@ export class RequestManagedCertInstance {
    *
    * @returns Resolves to processed RequestManagedCertInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<RequestManagedCertInstance>
-    ) => any
-  ): Promise<ApiResponse<RequestManagedCertInstance>> {
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RequestManagedCertInstance>) => any): Promise<ApiResponse<RequestManagedCertInstance>>
+
+    {
     return this._proxy.updateWithHttpInfo(callback);
   }
 
@@ -284,15 +240,20 @@ export class RequestManagedCertInstance {
   }
 }
 
-export interface RequestManagedCertSolution {}
+
+export interface RequestManagedCertSolution {
+}
 
 export interface RequestManagedCertListInstance {
   _version: V1;
   _solution: RequestManagedCertSolution;
   _uri: string;
 
-  (domainSid: string): RequestManagedCertContext;
-  get(domainSid: string): RequestManagedCertContext;
+  (domainSid: string, ): RequestManagedCertContext;
+  get(domainSid: string, ): RequestManagedCertContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -301,30 +262,26 @@ export interface RequestManagedCertListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RequestManagedCertListInstance(
-  version: V1
-): RequestManagedCertListInstance {
-  const instance = ((domainSid) =>
-    instance.get(domainSid)) as RequestManagedCertListInstance;
+export function RequestManagedCertListInstance(version: V1): RequestManagedCertListInstance {
+  const instance = ((domainSid, ) => instance.get(domainSid, )) as RequestManagedCertListInstance;
 
-  instance.get = function get(domainSid): RequestManagedCertContext {
+  instance.get = function get(domainSid, ): RequestManagedCertContext {
     return new RequestManagedCertContextImpl(version, domainSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,12 +20,19 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-export interface WebhookSolution {}
+
+
+
+
+export interface WebhookSolution {
+}
 
 export interface WebhookListInstance {
   _version: V1;
   _solution: WebhookSolution;
   _uri: string;
+
+
 
   /**
    * Fetch a WebhookInstance
@@ -33,9 +41,7 @@ export interface WebhookListInstance {
    *
    * @returns Resolves to processed WebhookInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
-  ): Promise<WebhookInstance>;
+  fetch(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>
 
   /**
    * Fetch a WebhookInstance and return HTTP info
@@ -44,9 +50,9 @@ export interface WebhookListInstance {
    *
    * @returns Resolves to processed WebhookInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
-  ): Promise<ApiResponse<WebhookInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any): Promise<ApiResponse<WebhookInstance>>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -59,76 +65,54 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
   const instance = {} as WebhookListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Porting/Configuration/Webhook`;
 
-  instance.fetch = function fetch(
-    callback?: (error: Error | null, items: WebhookInstance) => any
-  ): Promise<WebhookInstance> {
+  instance.fetch = function fetch( callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance> {
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebhookInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<WebhookInstance>) => any
-  ): Promise<ApiResponse<WebhookInstance>> {
+
+    }
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<WebhookInstance>) => any): Promise<ApiResponse<WebhookInstance>> {
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<WebhookResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<WebhookInstance> => ({
-          ...response,
-          body: new WebhookInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<WebhookResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<WebhookInstance> => ({
+      ...response,
+      body: new WebhookInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface WebhookPayload extends WebhookResource {}
+  interface WebhookPayload extends WebhookResource {}
 
 interface WebhookResource {
   url: string;
@@ -140,17 +124,16 @@ interface WebhookResource {
 }
 
 export class WebhookInstance {
+
   constructor(protected _version: V1, payload: WebhookResource) {
-    this.url = payload.url;
-    this.portInTargetUrl = payload.port_in_target_url;
-    this.portOutTargetUrl = payload.port_out_target_url;
-    this.notificationsOf = payload.notifications_of;
-    this.portInTargetDateCreated = deserialize.iso8601DateTime(
-      payload.port_in_target_date_created
-    );
-    this.portOutTargetDateCreated = deserialize.iso8601DateTime(
-      payload.port_out_target_date_created
-    );
+    
+    this.url = (payload.url);
+    this.portInTargetUrl = (payload.port_in_target_url);
+    this.portOutTargetUrl = (payload.port_out_target_url);
+    this.notificationsOf = (payload.notifications_of);
+    this.portInTargetDateCreated = deserialize.iso8601DateTime(payload.port_in_target_date_created);
+    this.portOutTargetDateCreated = deserialize.iso8601DateTime(payload.port_out_target_date_created);
+
   }
 
   /**
@@ -198,3 +181,5 @@ export class WebhookInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

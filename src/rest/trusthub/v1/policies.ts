@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -22,12 +23,15 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
+
 /**
  * Options to pass to each
  */
 export interface PoliciesListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -41,24 +45,27 @@ export interface PoliciesListInstanceEachOptions {
  */
 export interface PoliciesListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface PoliciesListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface PoliciesContext {
+
   /**
    * Fetch a PoliciesInstance
    *
@@ -66,9 +73,7 @@ export interface PoliciesContext {
    *
    * @returns Resolves to processed PoliciesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PoliciesInstance) => any
-  ): Promise<PoliciesInstance>;
+  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
 
   /**
    * Fetch a PoliciesInstance and return HTTP info
@@ -77,12 +82,7 @@ export interface PoliciesContext {
    *
    * @returns Resolves to processed PoliciesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PoliciesInstance>
-    ) => any
-  ): Promise<ApiResponse<PoliciesInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PoliciesInstance>) => any): Promise<ApiResponse<PoliciesInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -92,82 +92,56 @@ export interface PoliciesContext {
 }
 
 export interface PoliciesContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class PoliciesContextImpl implements PoliciesContext {
   protected _solution: PoliciesContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Policies/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: PoliciesInstance) => any
-  ): Promise<PoliciesInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new PoliciesInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PoliciesInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PoliciesInstance>
-    ) => any
-  ): Promise<ApiResponse<PoliciesInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PoliciesInstance>) => any): Promise<ApiResponse<PoliciesInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<PoliciesResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<PoliciesInstance> => ({
-          ...response,
-          body: new PoliciesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<PoliciesResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<PoliciesInstance> => ({
+      ...response,
+      body: new PoliciesInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -184,8 +158,9 @@ export class PoliciesContextImpl implements PoliciesContext {
   }
 }
 
-interface PoliciesPayload extends TwilioResponsePayload {
-  results: PoliciesResource[];
+
+  interface PoliciesPayload extends TwilioResponsePayload {
+    results: PoliciesResource[];
 }
 
 interface PoliciesResource {
@@ -200,12 +175,13 @@ export class PoliciesInstance {
   protected _context?: PoliciesContext;
 
   constructor(protected _version: V1, payload: PoliciesResource, sid?: string) {
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
-    this.requirements = payload.requirements;
-    this.url = payload.url;
+    
+    this.sid = (payload.sid);
+    this.friendlyName = (payload.friendly_name);
+    this.requirements = (payload.requirements);
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -226,9 +202,7 @@ export class PoliciesInstance {
   url: string;
 
   private get _proxy(): PoliciesContext {
-    this._context =
-      this._context ||
-      new PoliciesContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new PoliciesContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -239,9 +213,9 @@ export class PoliciesInstance {
    *
    * @returns Resolves to processed PoliciesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PoliciesInstance) => any
-  ): Promise<PoliciesInstance> {
+  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -252,12 +226,9 @@ export class PoliciesInstance {
    *
    * @returns Resolves to processed PoliciesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<PoliciesInstance>
-    ) => any
-  ): Promise<ApiResponse<PoliciesInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PoliciesInstance>) => any): Promise<ApiResponse<PoliciesInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -280,15 +251,21 @@ export class PoliciesInstance {
   }
 }
 
-export interface PoliciesSolution {}
+
+export interface PoliciesSolution {
+}
 
 export interface PoliciesListInstance {
   _version: V1;
   _solution: PoliciesSolution;
   _uri: string;
 
-  (sid: string): PoliciesContext;
-  get(sid: string): PoliciesContext;
+  (sid: string, ): PoliciesContext;
+  get(sid: string, ): PoliciesContext;
+
+
+
+
 
   /**
    * Streams PoliciesInstance records from the API.
@@ -305,13 +282,8 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: PoliciesListInstanceEachOptions,
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
+  each(params: PoliciesListInstanceEachOptions, callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams PoliciesInstance records from the API with HTTP metadata captured per page.
    *
@@ -327,13 +299,8 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: PoliciesListInstanceEachOptions,
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: PoliciesListInstanceEachOptions, callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of PoliciesInstance records from the API.
    *
@@ -342,10 +309,7 @@ export interface PoliciesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: PoliciesPage) => any
-  ): Promise<PoliciesPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
   /**
    * Retrieve a single target page of PoliciesInstance records from the API with HTTP metadata.
    *
@@ -354,10 +318,7 @@ export interface PoliciesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
-  ): Promise<ApiResponse<PoliciesPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any): Promise<ApiResponse<PoliciesPage>>;
   /**
    * Lists PoliciesInstance records from the API as a list.
    *
@@ -367,13 +328,8 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: PoliciesInstance[]) => any
-  ): Promise<PoliciesInstance[]>;
-  list(
-    params: PoliciesListInstanceOptions,
-    callback?: (error: Error | null, items: PoliciesInstance[]) => any
-  ): Promise<PoliciesInstance[]>;
+  list(callback?: (error: Error | null, items: PoliciesInstance[]) => any): Promise<PoliciesInstance[]>;
+  list(params: PoliciesListInstanceOptions, callback?: (error: Error | null, items: PoliciesInstance[]) => any): Promise<PoliciesInstance[]>;
   /**
    * Lists PoliciesInstance records from the API as a list with HTTP metadata.
    *
@@ -385,19 +341,8 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<PoliciesInstance[]>
-    ) => any
-  ): Promise<ApiResponse<PoliciesInstance[]>>;
-  listWithHttpInfo(
-    params: PoliciesListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<PoliciesInstance[]>
-    ) => any
-  ): Promise<ApiResponse<PoliciesInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PoliciesInstance[]>) => any): Promise<ApiResponse<PoliciesInstance[]>>;
+  listWithHttpInfo(params: PoliciesListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<PoliciesInstance[]>) => any): Promise<ApiResponse<PoliciesInstance[]>>;
   /**
    * Retrieve a single page of PoliciesInstance records from the API.
    *
@@ -409,13 +354,8 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: PoliciesPage) => any
-  ): Promise<PoliciesPage>;
-  page(
-    params: PoliciesListInstancePageOptions,
-    callback?: (error: Error | null, items: PoliciesPage) => any
-  ): Promise<PoliciesPage>;
+  page(callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
+  page(params: PoliciesListInstancePageOptions, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
   /**
    * Retrieve a single page of PoliciesInstance records from the API with HTTP metadata.
    *
@@ -427,13 +367,9 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
-  ): Promise<ApiResponse<PoliciesPage>>;
-  pageWithHttpInfo(
-    params: PoliciesListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
-  ): Promise<ApiResponse<PoliciesPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any): Promise<ApiResponse<PoliciesPage>>;
+  pageWithHttpInfo(params: PoliciesListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any): Promise<ApiResponse<PoliciesPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -443,22 +379,17 @@ export interface PoliciesListInstance {
 }
 
 export function PoliciesListInstance(version: V1): PoliciesListInstance {
-  const instance = ((sid) => instance.get(sid)) as PoliciesListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as PoliciesListInstance;
 
-  instance.get = function get(sid): PoliciesContext {
+  instance.get = function get(sid, ): PoliciesContext {
     return new PoliciesContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Policies`;
 
-  instance.page = function page(
-    params?:
-      | PoliciesListInstancePageOptions
-      | ((error: Error | null, items: PoliciesPage) => any),
-    callback?: (error: Error | null, items: PoliciesPage) => any
-  ): Promise<PoliciesPage> {
+  instance.page = function page(params?: PoliciesListInstancePageOptions | ((error: Error | null, items: PoliciesPage) => any), callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -468,59 +399,44 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new PoliciesPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PoliciesPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: PoliciesPage) => any
-  ): Promise<PoliciesPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new PoliciesPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new PoliciesPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | PoliciesListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<PoliciesPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
-  ): Promise<ApiResponse<PoliciesPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: PoliciesListInstancePageOptions | ((error: Error | null, items: ApiResponse<PoliciesPage>) => any), callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any): Promise<ApiResponse<PoliciesPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -530,110 +446,92 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<PoliciesPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new PoliciesPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PoliciesPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new PoliciesPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<PoliciesPage>) => any
-  ): Promise<ApiResponse<PoliciesPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<PoliciesPage>) => any): Promise<ApiResponse<PoliciesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<PoliciesPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new PoliciesPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<PoliciesPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new PoliciesPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class PoliciesPage extends Page<
-  V1,
-  PoliciesPayload,
-  PoliciesResource,
-  PoliciesInstance
-> {
-  /**
-   * Initialize the PoliciesPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: PoliciesSolution
-  ) {
+export class PoliciesPage extends Page<V1, PoliciesPayload, PoliciesResource, PoliciesInstance> {
+/**
+* Initialize the PoliciesPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: PoliciesSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of PoliciesInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PoliciesResource): PoliciesInstance {
-    return new PoliciesInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of PoliciesInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PoliciesResource): PoliciesInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new PoliciesInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
