@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -20,23 +19,19 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
-
-
-
 /**
  * Options to pass to create a UserDefinedMessageSubscriptionInstance
  */
 export interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
   /** The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted). */
-  "callback": string;
+  callback: string;
   /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
-  "idempotencyKey"?: string;
+  idempotencyKey?: string;
   /** The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`. */
-  "method"?: string;
+  method?: string;
 }
 
 export interface UserDefinedMessageSubscriptionContext {
-
   /**
    * Remove a UserDefinedMessageSubscriptionInstance
    *
@@ -44,7 +39,9 @@ export interface UserDefinedMessageSubscriptionContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a UserDefinedMessageSubscriptionInstance and return HTTP info
@@ -53,7 +50,9 @@ export interface UserDefinedMessageSubscriptionContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -63,62 +62,77 @@ export interface UserDefinedMessageSubscriptionContext {
 }
 
 export interface UserDefinedMessageSubscriptionContextSolution {
-  "accountSid": string;
-  "callSid": string;
-  "sid": string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMessageSubscriptionContext {
   protected _solution: UserDefinedMessageSubscriptionContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, callSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    callSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error('Parameter \'accountSid\' is not valid.');
+      throw new Error("Parameter 'accountSid' is not valid.");
     }
 
     if (!isValidPathParam(callSid)) {
-      throw new Error('Parameter \'callSid\' is not valid.');
+      throw new Error("Parameter 'callSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { accountSid, callSid, sid,  };
+    this._solution = { accountSid, callSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions/${sid}.json`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -135,8 +149,7 @@ export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMes
   }
 }
 
-
-  interface UserDefinedMessageSubscriptionPayload extends UserDefinedMessageSubscriptionResource {}
+interface UserDefinedMessageSubscriptionPayload extends UserDefinedMessageSubscriptionResource {}
 
 interface UserDefinedMessageSubscriptionResource {
   account_sid: string;
@@ -150,15 +163,20 @@ export class UserDefinedMessageSubscriptionInstance {
   protected _solution: UserDefinedMessageSubscriptionContextSolution;
   protected _context?: UserDefinedMessageSubscriptionContext;
 
-  constructor(protected _version: V2010, payload: UserDefinedMessageSubscriptionResource, accountSid: string, callSid: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.callSid = (payload.call_sid);
-    this.sid = (payload.sid);
+  constructor(
+    protected _version: V2010,
+    payload: UserDefinedMessageSubscriptionResource,
+    accountSid: string,
+    callSid: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.callSid = payload.call_sid;
+    this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-    this.uri = (payload.uri);
+    this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid,  };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -183,7 +201,14 @@ export class UserDefinedMessageSubscriptionInstance {
   uri: string;
 
   private get _proxy(): UserDefinedMessageSubscriptionContext {
-    this._context = this._context || new UserDefinedMessageSubscriptionContextImpl(this._version, this._solution.accountSid, this._solution.callSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new UserDefinedMessageSubscriptionContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.callSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -194,9 +219,9 @@ export class UserDefinedMessageSubscriptionInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -207,9 +232,9 @@ export class UserDefinedMessageSubscriptionInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -233,7 +258,6 @@ export class UserDefinedMessageSubscriptionInstance {
   }
 }
 
-
 export interface UserDefinedMessageSubscriptionSolution {
   accountSid: string;
   callSid: string;
@@ -244,11 +268,8 @@ export interface UserDefinedMessageSubscriptionListInstance {
   _solution: UserDefinedMessageSubscriptionSolution;
   _uri: string;
 
-  (sid: string, ): UserDefinedMessageSubscriptionContext;
-  get(sid: string, ): UserDefinedMessageSubscriptionContext;
-
-
-
+  (sid: string): UserDefinedMessageSubscriptionContext;
+  get(sid: string): UserDefinedMessageSubscriptionContext;
 
   /**
    * Create a UserDefinedMessageSubscriptionInstance
@@ -258,7 +279,13 @@ export interface UserDefinedMessageSubscriptionListInstance {
    *
    * @returns Resolves to processed UserDefinedMessageSubscriptionInstance
    */
-  create(params: UserDefinedMessageSubscriptionListInstanceCreateOptions, callback?: (error: Error | null, item?: UserDefinedMessageSubscriptionInstance) => any): Promise<UserDefinedMessageSubscriptionInstance>;
+  create(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: UserDefinedMessageSubscriptionInstance,
+    ) => any,
+  ): Promise<UserDefinedMessageSubscriptionInstance>;
 
   /**
    * Create a UserDefinedMessageSubscriptionInstance and return HTTP info
@@ -268,9 +295,13 @@ export interface UserDefinedMessageSubscriptionListInstance {
    *
    * @returns Resolves to processed UserDefinedMessageSubscriptionInstance with HTTP metadata
    */
-  createWithHttpInfo(params: UserDefinedMessageSubscriptionListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<UserDefinedMessageSubscriptionInstance>) => any): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>>;
-
-
+  createWithHttpInfo(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<UserDefinedMessageSubscriptionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -279,111 +310,150 @@ export interface UserDefinedMessageSubscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UserDefinedMessageSubscriptionListInstance(version: V2010, accountSid: string, callSid: string): UserDefinedMessageSubscriptionListInstance {
+export function UserDefinedMessageSubscriptionListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string,
+): UserDefinedMessageSubscriptionListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   if (!isValidPathParam(callSid)) {
-    throw new Error('Parameter \'callSid\' is not valid.');
+    throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as UserDefinedMessageSubscriptionListInstance;
+  const instance = ((sid) =>
+    instance.get(sid)) as UserDefinedMessageSubscriptionListInstance;
 
-  instance.get = function get(sid, ): UserDefinedMessageSubscriptionContext {
-    return new UserDefinedMessageSubscriptionContextImpl(version, accountSid, callSid, sid);
-  }
+  instance.get = function get(sid): UserDefinedMessageSubscriptionContext {
+    return new UserDefinedMessageSubscriptionContextImpl(
+      version,
+      accountSid,
+      callSid,
+      sid,
+    );
+  };
 
   instance._version = version;
-  instance._solution = { accountSid, callSid,  };
+  instance._solution = { accountSid, callSid };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions.json`;
 
-  instance.create = function create(params: UserDefinedMessageSubscriptionListInstanceCreateOptions, callback?: (error: Error | null, items: UserDefinedMessageSubscriptionInstance) => any): Promise<UserDefinedMessageSubscriptionInstance> {
+  instance.create = function create(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: UserDefinedMessageSubscriptionInstance,
+    ) => any,
+  ): Promise<UserDefinedMessageSubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["callback"] === null || params["callback"] === undefined) {
-      throw new Error('Required parameter "params[\'callback\']" missing.');
+      throw new Error("Required parameter \"params['callback']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Callback"] = params["callback"];
     if (params["idempotencyKey"] !== undefined)
-    data["IdempotencyKey"] = params["idempotencyKey"];
-    if (params["method"] !== undefined)
-    data["Method"] = params["method"];
+      data["IdempotencyKey"] = params["idempotencyKey"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new UserDefinedMessageSubscriptionInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserDefinedMessageSubscriptionInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: UserDefinedMessageSubscriptionListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<UserDefinedMessageSubscriptionInstance>) => any): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserDefinedMessageSubscriptionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["callback"] === null || params["callback"] === undefined) {
-      throw new Error('Required parameter "params[\'callback\']" missing.');
+      throw new Error("Required parameter \"params['callback']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Callback"] = params["callback"];
     if (params["idempotencyKey"] !== undefined)
-    data["IdempotencyKey"] = params["idempotencyKey"];
-    if (params["method"] !== undefined)
-    data["Method"] = params["method"];
+      data["IdempotencyKey"] = params["idempotencyKey"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<UserDefinedMessageSubscriptionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<UserDefinedMessageSubscriptionInstance> => ({
-      ...response,
-      body: new UserDefinedMessageSubscriptionInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.callSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<UserDefinedMessageSubscriptionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserDefinedMessageSubscriptionInstance> => ({
+          ...response,
+          body: new UserDefinedMessageSubscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

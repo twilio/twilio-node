@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -19,7 +20,12 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
+
+
 export interface OperatorAttachmentContext {
+
   /**
    * Create a OperatorAttachmentInstance
    *
@@ -27,9 +33,7 @@ export interface OperatorAttachmentContext {
    *
    * @returns Resolves to processed OperatorAttachmentInstance
    */
-  create(
-    callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any
-  ): Promise<OperatorAttachmentInstance>;
+  create(callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any): Promise<OperatorAttachmentInstance>
 
   /**
    * Create a OperatorAttachmentInstance and return HTTP info
@@ -38,12 +42,7 @@ export interface OperatorAttachmentContext {
    *
    * @returns Resolves to processed OperatorAttachmentInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<OperatorAttachmentInstance>
-    ) => any
-  ): Promise<ApiResponse<OperatorAttachmentInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OperatorAttachmentInstance>) => any): Promise<ApiResponse<OperatorAttachmentInstance>>
 
   /**
    * Remove a OperatorAttachmentInstance
@@ -52,9 +51,7 @@ export interface OperatorAttachmentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a OperatorAttachmentInstance and return HTTP info
@@ -63,9 +60,7 @@ export interface OperatorAttachmentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Provide a user-friendly representation
@@ -75,139 +70,92 @@ export interface OperatorAttachmentContext {
 }
 
 export interface OperatorAttachmentContextSolution {
-  serviceSid: string;
-  operatorSid: string;
+  "serviceSid": string;
+  "operatorSid": string;
 }
 
-export class OperatorAttachmentContextImpl
-  implements OperatorAttachmentContext
-{
+export class OperatorAttachmentContextImpl implements OperatorAttachmentContext {
   protected _solution: OperatorAttachmentContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, serviceSid: string, operatorSid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(operatorSid)) {
-      throw new Error("Parameter 'operatorSid' is not valid.");
+      throw new Error('Parameter \'operatorSid\' is not valid.');
     }
 
-    this._solution = { serviceSid, operatorSid };
+    this._solution = { serviceSid, operatorSid,  };
     this._uri = `/Services/${serviceSid}/Operators/${operatorSid}`;
   }
 
-  create(
-    callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any
-  ): Promise<OperatorAttachmentInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  create(callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any): Promise<OperatorAttachmentInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", headers});
+    
+    operationPromise = operationPromise.then(payload => new OperatorAttachmentInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.operatorSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OperatorAttachmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.operatorSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<OperatorAttachmentInstance>
-    ) => any
-  ): Promise<ApiResponse<OperatorAttachmentInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OperatorAttachmentInstance>) => any): Promise<ApiResponse<OperatorAttachmentInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<OperatorAttachmentResource>({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<OperatorAttachmentInstance> => ({
-          ...response,
-          body: new OperatorAttachmentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.operatorSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<OperatorAttachmentResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<OperatorAttachmentInstance> => ({
+      ...response,
+      body: new OperatorAttachmentInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.operatorSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -224,7 +172,8 @@ export class OperatorAttachmentContextImpl
   }
 }
 
-interface OperatorAttachmentPayload extends OperatorAttachmentResource {}
+
+  interface OperatorAttachmentPayload extends OperatorAttachmentResource {}
 
 interface OperatorAttachmentResource {
   service_sid: string;
@@ -236,20 +185,13 @@ export class OperatorAttachmentInstance {
   protected _solution: OperatorAttachmentContextSolution;
   protected _context?: OperatorAttachmentContext;
 
-  constructor(
-    protected _version: V2,
-    payload: OperatorAttachmentResource,
-    serviceSid?: string,
-    operatorSid?: string
-  ) {
-    this.serviceSid = payload.service_sid;
-    this.operatorSid = payload.operator_sid;
-    this.url = payload.url;
+  constructor(protected _version: V2, payload: OperatorAttachmentResource, serviceSid?: string, operatorSid?: string) {
+    
+    this.serviceSid = (payload.service_sid);
+    this.operatorSid = (payload.operator_sid);
+    this.url = (payload.url);
 
-    this._solution = {
-      serviceSid: serviceSid || this.serviceSid,
-      operatorSid: operatorSid || this.operatorSid,
-    };
+    this._solution = { serviceSid: serviceSid, operatorSid: operatorSid,  };
   }
 
   /**
@@ -266,13 +208,7 @@ export class OperatorAttachmentInstance {
   url: string;
 
   private get _proxy(): OperatorAttachmentContext {
-    this._context =
-      this._context ||
-      new OperatorAttachmentContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.operatorSid
-      );
+    this._context = this._context || new OperatorAttachmentContextImpl(this._version, this._solution.serviceSid, this._solution.operatorSid);
     return this._context;
   }
 
@@ -283,9 +219,9 @@ export class OperatorAttachmentInstance {
    *
    * @returns Resolves to processed OperatorAttachmentInstance
    */
-  create(
-    callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any
-  ): Promise<OperatorAttachmentInstance> {
+  create(callback?: (error: Error | null, item?: OperatorAttachmentInstance) => any): Promise<OperatorAttachmentInstance>
+
+    {
     return this._proxy.create(callback);
   }
 
@@ -296,12 +232,9 @@ export class OperatorAttachmentInstance {
    *
    * @returns Resolves to processed OperatorAttachmentInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<OperatorAttachmentInstance>
-    ) => any
-  ): Promise<ApiResponse<OperatorAttachmentInstance>> {
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<OperatorAttachmentInstance>) => any): Promise<ApiResponse<OperatorAttachmentInstance>>
+
+    {
     return this._proxy.createWithHttpInfo(callback);
   }
 
@@ -312,9 +245,9 @@ export class OperatorAttachmentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -325,9 +258,9 @@ export class OperatorAttachmentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -349,15 +282,22 @@ export class OperatorAttachmentInstance {
   }
 }
 
-export interface OperatorAttachmentSolution {}
+
+export interface OperatorAttachmentSolution {
+}
 
 export interface OperatorAttachmentListInstance {
   _version: V2;
   _solution: OperatorAttachmentSolution;
   _uri: string;
 
-  (serviceSid: string, operatorSid: string): OperatorAttachmentContext;
-  get(serviceSid: string, operatorSid: string): OperatorAttachmentContext;
+  (serviceSid: string, operatorSid: string, ): OperatorAttachmentContext;
+  get(serviceSid: string, operatorSid: string, ): OperatorAttachmentContext;
+
+
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -366,33 +306,26 @@ export interface OperatorAttachmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function OperatorAttachmentListInstance(
-  version: V2
-): OperatorAttachmentListInstance {
-  const instance = ((serviceSid, operatorSid) =>
-    instance.get(serviceSid, operatorSid)) as OperatorAttachmentListInstance;
+export function OperatorAttachmentListInstance(version: V2): OperatorAttachmentListInstance {
+  const instance = ((serviceSid, operatorSid, ) => instance.get(serviceSid, operatorSid, )) as OperatorAttachmentListInstance;
 
-  instance.get = function get(
-    serviceSid,
-    operatorSid
-  ): OperatorAttachmentContext {
+  instance.get = function get(serviceSid, operatorSid, ): OperatorAttachmentContext {
     return new OperatorAttachmentContextImpl(version, serviceSid, operatorSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

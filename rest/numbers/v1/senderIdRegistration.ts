@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class NumbersV1CreateEmbeddedRegistrationRequest {
   /**
@@ -53,7 +51,7 @@ export class NumbersV1CreateEmbeddedRegistrationRequest {
   /**
    * Registration data organized by section (alphanumericSender, business, useCase, authorizedRepresentative, officer, businessAddress).
    */
-  "data": { [key: string]: any; };
+  "data": { [key: string]: any };
 
   constructor(payload) {
     this.regulationId = payload["regulationId"];
@@ -66,7 +64,6 @@ export class NumbersV1CreateEmbeddedRegistrationRequest {
     this.data = payload["data"];
   }
 }
-
 
 export class NumbersV1EmbeddedSession {
   /**
@@ -84,26 +81,20 @@ export class NumbersV1EmbeddedSession {
   }
 }
 
-
-
 /**
  * Options to pass to create a SenderIdRegistrationInstance
  */
 export interface SenderIdRegistrationListInstanceCreateOptions {
   /**  */
-  "numbersV1CreateEmbeddedRegistrationRequest": NumbersV1CreateEmbeddedRegistrationRequest;
+  numbersV1CreateEmbeddedRegistrationRequest: NumbersV1CreateEmbeddedRegistrationRequest;
 }
 
-
-export interface SenderIdRegistrationSolution {
-}
+export interface SenderIdRegistrationSolution {}
 
 export interface SenderIdRegistrationListInstance {
   _version: V1;
   _solution: SenderIdRegistrationSolution;
   _uri: string;
-
-
 
   /**
    * Create a SenderIdRegistrationInstance
@@ -114,7 +105,14 @@ export interface SenderIdRegistrationListInstance {
    *
    * @returns Resolves to processed SenderIdRegistrationInstance
    */
-  create(params: NumbersV1CreateEmbeddedRegistrationRequest, headers?: any, callback?: (error: Error | null, item?: SenderIdRegistrationInstance) => any): Promise<SenderIdRegistrationInstance>;
+  create(
+    params: NumbersV1CreateEmbeddedRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: SenderIdRegistrationInstance,
+    ) => any,
+  ): Promise<SenderIdRegistrationInstance>;
 
   /**
    * Create a SenderIdRegistrationInstance and return HTTP info
@@ -125,9 +123,14 @@ export interface SenderIdRegistrationListInstance {
    *
    * @returns Resolves to processed SenderIdRegistrationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: NumbersV1CreateEmbeddedRegistrationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<SenderIdRegistrationInstance>) => any): Promise<ApiResponse<SenderIdRegistrationInstance>>;
-
-
+  createWithHttpInfo(
+    params: NumbersV1CreateEmbeddedRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SenderIdRegistrationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SenderIdRegistrationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -136,86 +139,116 @@ export interface SenderIdRegistrationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SenderIdRegistrationListInstance(version: V1): SenderIdRegistrationListInstance {
+export function SenderIdRegistrationListInstance(
+  version: V1,
+): SenderIdRegistrationListInstance {
   const instance = {} as SenderIdRegistrationListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/SenderIdRegistrations`;
 
-  instance.create = function create(params: NumbersV1CreateEmbeddedRegistrationRequest, headers?: any, callback?: (error: Error | null, items: SenderIdRegistrationInstance) => any): Promise<SenderIdRegistrationInstance> {
+  instance.create = function create(
+    params: NumbersV1CreateEmbeddedRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: SenderIdRegistrationInstance,
+    ) => any,
+  ): Promise<SenderIdRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new SenderIdRegistrationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SenderIdRegistrationInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: NumbersV1CreateEmbeddedRegistrationRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<SenderIdRegistrationInstance>) => any): Promise<ApiResponse<SenderIdRegistrationInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1CreateEmbeddedRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SenderIdRegistrationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SenderIdRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<SenderIdRegistrationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SenderIdRegistrationInstance> => ({
-      ...response,
-      body: new SenderIdRegistrationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<SenderIdRegistrationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<SenderIdRegistrationInstance> => ({
+        ...response,
+        body: new SenderIdRegistrationInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface SenderIdRegistrationPayload extends SenderIdRegistrationResource {}
+interface SenderIdRegistrationPayload extends SenderIdRegistrationResource {}
 
 interface SenderIdRegistrationResource {
   id: string;
@@ -227,28 +260,31 @@ interface SenderIdRegistrationResource {
   statusCallbackUrl: string;
   comments: string;
   embeddedSession: NumbersV1EmbeddedSession;
-  data: { [key: string]: any; };
+  data: { [key: string]: any };
   dateCreated: Date;
   dateUpdated: Date;
 }
 
 export class SenderIdRegistrationInstance {
-
-  constructor(protected _version: V1, payload: SenderIdRegistrationResource) {
-    
-    this.id = (payload.id);
-    this.regulationId = (payload.regulationId);
+  constructor(
+    protected _version: V1,
+    payload: SenderIdRegistrationResource,
+  ) {
+    this.id = payload.id;
+    this.regulationId = payload.regulationId;
     this.regulationVersion = deserialize.integer(payload.regulationVersion);
-    this.friendlyName = (payload.friendlyName);
-    this.status = (payload.status);
-    this.statusNotificationEmail = (payload.statusNotificationEmail);
-    this.statusCallbackUrl = (payload.statusCallbackUrl);
-    this.comments = (payload.comments);
-    this.embeddedSession = payload.embeddedSession !== null && payload.embeddedSession !== undefined ? new NumbersV1EmbeddedSession(payload.embeddedSession) : null;
-    this.data = (payload.data);
+    this.friendlyName = payload.friendlyName;
+    this.status = payload.status;
+    this.statusNotificationEmail = payload.statusNotificationEmail;
+    this.statusCallbackUrl = payload.statusCallbackUrl;
+    this.comments = payload.comments;
+    this.embeddedSession =
+      payload.embeddedSession !== null && payload.embeddedSession !== undefined
+        ? new NumbersV1EmbeddedSession(payload.embeddedSession)
+        : null;
+    this.data = payload.data;
     this.dateCreated = deserialize.iso8601DateTime(payload.dateCreated);
     this.dateUpdated = deserialize.iso8601DateTime(payload.dateUpdated);
-
   }
 
   /**
@@ -287,7 +323,7 @@ export class SenderIdRegistrationInstance {
   /**
    * Registration data echoed from the request.
    */
-  data: { [key: string]: any; };
+  data: { [key: string]: any };
   /**
    * Timestamp of creation.
    */
@@ -323,5 +359,3 @@ export class SenderIdRegistrationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

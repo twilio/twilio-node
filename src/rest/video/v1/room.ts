@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -26,21 +27,24 @@ import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
 import { TranscriptionsListInstance } from "./room/transcriptions";
 
-export type RoomRoomStatus = "in-progress" | "completed" | "failed";
+
+export type RoomRoomStatus = 'in-progress'|'completed'|'failed';
 
 /**
  * Type of room. Use `group` for new implementations. `go`, `peer-to-peer`, and `group-small` are deprecated.
  */
-export type RoomRoomType = "group" | "go" | "peer-to-peer" | "group-small";
+export type RoomRoomType = 'group'|'go'|'peer-to-peer'|'group-small';
 
-export type RoomVideoCodec = "VP8" | "H264";
+export type RoomVideoCodec = 'VP8'|'H264';
+
+
 
 /**
  * Options to pass to update a RoomInstance
  */
 export interface RoomContextUpdateOptions {
   /**  */
-  status: RoomRoomStatus;
+  "status": RoomRoomStatus;
 }
 
 /**
@@ -48,39 +52,39 @@ export interface RoomContextUpdateOptions {
  */
 export interface RoomListInstanceCreateOptions {
   /** Deprecated, now always considered to be true. */
-  enableTurn?: boolean;
+  "enableTurn"?: boolean;
   /**  */
-  type?: RoomRoomType;
+  "type"?: RoomRoomType;
   /** An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource\\\'s `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`. */
-  uniqueName?: string;
+  "uniqueName"?: string;
   /** The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info. */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`. */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50. */
-  maxParticipants?: number;
+  "maxParticipants"?: number;
   /** Whether to start recording when Participants connect. */
-  recordParticipantsOnConnect?: boolean;
+  "recordParticipantsOnConnect"?: boolean;
   /** Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used. */
-  transcribeParticipantsOnConnect?: boolean;
+  "transcribeParticipantsOnConnect"?: boolean;
   /** An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`. */
-  videoCodecs?: Array<RoomVideoCodec>;
+  "videoCodecs"?: Array<RoomVideoCodec>;
   /** The region for the Room\\\'s media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). */
-  mediaRegion?: string;
+  "mediaRegion"?: string;
   /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
-  recordingRules?: any;
+  "recordingRules"?: any;
   /** A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used. */
-  transcriptionsConfiguration?: object;
+  "transcriptionsConfiguration"?: object;
   /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. */
-  audioOnly?: boolean;
+  "audioOnly"?: boolean;
   /** The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours). */
-  maxParticipantDuration?: number;
+  "maxParticipantDuration"?: number;
   /** Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions). */
-  emptyRoomTimeout?: number;
+  "emptyRoomTimeout"?: number;
   /** Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions). */
-  unusedRoomTimeout?: number;
+  "unusedRoomTimeout"?: number;
   /** When set to true, indicated that this is the large room. */
-  largeRoom?: boolean;
+  "largeRoom"?: boolean;
 }
 
 /**
@@ -88,15 +92,15 @@ export interface RoomListInstanceCreateOptions {
  */
 export interface RoomListInstanceEachOptions {
   /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
-  status?: RoomRoomStatus;
+  "status"?: RoomRoomStatus;
   /** Read only rooms with the this `unique_name`. */
-  uniqueName?: string;
+  "uniqueName"?: string;
   /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -110,38 +114,40 @@ export interface RoomListInstanceEachOptions {
  */
 export interface RoomListInstanceOptions {
   /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
-  status?: RoomRoomStatus;
+  "status"?: RoomRoomStatus;
   /** Read only rooms with the this `unique_name`. */
-  uniqueName?: string;
+  "uniqueName"?: string;
   /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface RoomListInstancePageOptions {
   /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
-  status?: RoomRoomStatus;
+  "status"?: RoomRoomStatus;
   /** Read only rooms with the this `unique_name`. */
-  uniqueName?: string;
+  "uniqueName"?: string;
   /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface RoomContext {
   participants: ParticipantListInstance;
@@ -156,9 +162,7 @@ export interface RoomContext {
    *
    * @returns Resolves to processed RoomInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance>;
+  fetch(callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>
 
   /**
    * Fetch a RoomInstance and return HTTP info
@@ -167,9 +171,7 @@ export interface RoomContext {
    *
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>
 
   /**
    * Update a RoomInstance
@@ -179,10 +181,7 @@ export interface RoomContext {
    *
    * @returns Resolves to processed RoomInstance
    */
-  update(
-    params: RoomContextUpdateOptions,
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance>;
+  update(params: RoomContextUpdateOptions, callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>;
 
   /**
    * Update a RoomInstance and return HTTP info
@@ -192,10 +191,7 @@ export interface RoomContext {
    *
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: RoomContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>>;
+  updateWithHttpInfo(params: RoomContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -205,7 +201,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -219,187 +215,137 @@ export class RoomContextImpl implements RoomContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Rooms/${sid}`;
   }
 
   get participants(): ParticipantListInstance {
-    this._participants =
-      this._participants ||
-      ParticipantListInstance(this._version, this._solution.sid);
+    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.sid);
     return this._participants;
   }
 
   get recordingRules(): RecordingRulesListInstance {
-    this._recordingRules =
-      this._recordingRules ||
-      RecordingRulesListInstance(this._version, this._solution.sid);
+    this._recordingRules = this._recordingRules || RecordingRulesListInstance(this._version, this._solution.sid);
     return this._recordingRules;
   }
 
   get recordings(): RoomRecordingListInstance {
-    this._recordings =
-      this._recordings ||
-      RoomRecordingListInstance(this._version, this._solution.sid);
+    this._recordings = this._recordings || RoomRecordingListInstance(this._version, this._solution.sid);
     return this._recordings;
   }
 
   get transcriptions(): TranscriptionsListInstance {
-    this._transcriptions =
-      this._transcriptions ||
-      TranscriptionsListInstance(this._version, this._solution.sid);
+    this._transcriptions = this._transcriptions || TranscriptionsListInstance(this._version, this._solution.sid);
     return this._transcriptions;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new RoomInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoomInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<RoomResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<RoomInstance> => ({
-          ...response,
-          body: new RoomInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<RoomResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<RoomInstance> => ({
+      ...response,
+      body: new RoomInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: RoomContextUpdateOptions,
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance> {
-    if (params === null || params === undefined) {
+  update(params: RoomContextUpdateOptions,callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new RoomInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoomInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params: RoomContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>> {
-    if (params === null || params === undefined) {
+  updateWithHttpInfo(params: RoomContextUpdateOptions,callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<RoomResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<RoomInstance> => ({
-          ...response,
-          body: new RoomInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<RoomResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<RoomInstance> => ({
+      ...response,
+      body: new RoomInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -416,8 +362,9 @@ export class RoomContextImpl implements RoomContext {
   }
 }
 
-interface RoomPayload extends TwilioResponsePayload {
-  rooms: RoomResource[];
+
+  interface RoomPayload extends TwilioResponsePayload {
+    rooms: RoomResource[];
 }
 
 interface RoomResource {
@@ -452,36 +399,33 @@ export class RoomInstance {
   protected _context?: RoomContext;
 
   constructor(protected _version: V1, payload: RoomResource, sid?: string) {
-    this.sid = payload.sid;
+    
+    this.sid = (payload.sid);
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.accountSid = payload.account_sid;
-    this.enableTurn = payload.enable_turn;
-    this.uniqueName = payload.unique_name;
-    this.statusCallback = payload.status_callback;
-    this.statusCallbackMethod = payload.status_callback_method;
+    this.accountSid = (payload.account_sid);
+    this.enableTurn = (payload.enable_turn);
+    this.uniqueName = (payload.unique_name);
+    this.statusCallback = (payload.status_callback);
+    this.statusCallbackMethod = (payload.status_callback_method);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.duration = deserialize.integer(payload.duration);
     this.type = payload.type;
     this.maxParticipants = deserialize.integer(payload.max_participants);
-    this.maxParticipantDuration = deserialize.integer(
-      payload.max_participant_duration
-    );
-    this.maxConcurrentPublishedTracks = deserialize.integer(
-      payload.max_concurrent_published_tracks
-    );
-    this.recordParticipantsOnConnect = payload.record_participants_on_connect;
-    this.videoCodecs = payload.video_codecs;
-    this.mediaRegion = payload.media_region;
-    this.audioOnly = payload.audio_only;
+    this.maxParticipantDuration = deserialize.integer(payload.max_participant_duration);
+    this.maxConcurrentPublishedTracks = deserialize.integer(payload.max_concurrent_published_tracks);
+    this.recordParticipantsOnConnect = (payload.record_participants_on_connect);
+    this.videoCodecs = (payload.video_codecs);
+    this.mediaRegion = (payload.media_region);
+    this.audioOnly = (payload.audio_only);
     this.emptyRoomTimeout = deserialize.integer(payload.empty_room_timeout);
     this.unusedRoomTimeout = deserialize.integer(payload.unused_room_timeout);
-    this.largeRoom = payload.large_room;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.largeRoom = (payload.large_room);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -527,7 +471,7 @@ export class RoomInstance {
   duration: number;
   type: RoomRoomType;
   /**
-   * The maximum number of concurrent Participants allowed in the room.
+   * The maximum number of concurrent Participants allowed in the room. 
    */
   maxParticipants: number;
   /**
@@ -576,8 +520,7 @@ export class RoomInstance {
   links: Record<string, string>;
 
   private get _proxy(): RoomContext {
-    this._context =
-      this._context || new RoomContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new RoomContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -588,9 +531,9 @@ export class RoomInstance {
    *
    * @returns Resolves to processed RoomInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance> {
+  fetch(callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -601,9 +544,9 @@ export class RoomInstance {
    *
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -615,15 +558,10 @@ export class RoomInstance {
    *
    * @returns Resolves to processed RoomInstance
    */
-  update(
-    params: RoomContextUpdateOptions,
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance>;
+  update(params: RoomContextUpdateOptions, callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -635,15 +573,10 @@ export class RoomInstance {
    *
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: RoomContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>>;
+  updateWithHttpInfo(params: RoomContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -714,15 +647,22 @@ export class RoomInstance {
   }
 }
 
-export interface RoomSolution {}
+
+export interface RoomSolution {
+}
 
 export interface RoomListInstance {
   _version: V1;
   _solution: RoomSolution;
   _uri: string;
 
-  (sid: string): RoomContext;
-  get(sid: string): RoomContext;
+  (sid: string, ): RoomContext;
+  get(sid: string, ): RoomContext;
+
+
+
+
+
 
   /**
    * Create a RoomInstance
@@ -731,9 +671,7 @@ export interface RoomListInstance {
    *
    * @returns Resolves to processed RoomInstance
    */
-  create(
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance>;
+  create(callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>;
   /**
    * Create a RoomInstance
    *
@@ -742,10 +680,7 @@ export interface RoomListInstance {
    *
    * @returns Resolves to processed RoomInstance
    */
-  create(
-    params: RoomListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance>;
+  create(params: RoomListInstanceCreateOptions, callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>;
 
   /**
    * Create a RoomInstance and return HTTP info
@@ -754,9 +689,7 @@ export interface RoomListInstance {
    *
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>;
   /**
    * Create a RoomInstance and return HTTP info
    *
@@ -765,10 +698,10 @@ export interface RoomListInstance {
    *
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: RoomListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>>;
+  createWithHttpInfo(params: RoomListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>>;
+
+
+
 
   /**
    * Streams RoomInstance records from the API.
@@ -785,13 +718,8 @@ export interface RoomListInstance {
    * @param { RoomListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: RoomListInstanceEachOptions,
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
+  each(params: RoomListInstanceEachOptions, callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams RoomInstance records from the API with HTTP metadata captured per page.
    *
@@ -807,13 +735,8 @@ export interface RoomListInstance {
    * @param { RoomListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: RoomListInstanceEachOptions,
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: RoomListInstanceEachOptions, callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
    *
@@ -822,10 +745,7 @@ export interface RoomListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
   /**
    * Retrieve a single target page of RoomInstance records from the API with HTTP metadata.
    *
@@ -834,10 +754,7 @@ export interface RoomListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
-  ): Promise<ApiResponse<RoomPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any): Promise<ApiResponse<RoomPage>>;
   /**
    * Lists RoomInstance records from the API as a list.
    *
@@ -847,13 +764,8 @@ export interface RoomListInstance {
    * @param { RoomListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: RoomInstance[]) => any
-  ): Promise<RoomInstance[]>;
-  list(
-    params: RoomListInstanceOptions,
-    callback?: (error: Error | null, items: RoomInstance[]) => any
-  ): Promise<RoomInstance[]>;
+  list(callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
+  list(params: RoomListInstanceOptions, callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
   /**
    * Lists RoomInstance records from the API as a list with HTTP metadata.
    *
@@ -865,13 +777,8 @@ export interface RoomListInstance {
    * @param { RoomListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any
-  ): Promise<ApiResponse<RoomInstance[]>>;
-  listWithHttpInfo(
-    params: RoomListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any
-  ): Promise<ApiResponse<RoomInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any): Promise<ApiResponse<RoomInstance[]>>;
+  listWithHttpInfo(params: RoomListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any): Promise<ApiResponse<RoomInstance[]>>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    *
@@ -883,13 +790,8 @@ export interface RoomListInstance {
    * @param { RoomListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage>;
-  page(
-    params: RoomListInstancePageOptions,
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage>;
+  page(callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  page(params: RoomListInstancePageOptions, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
   /**
    * Retrieve a single page of RoomInstance records from the API with HTTP metadata.
    *
@@ -901,13 +803,9 @@ export interface RoomListInstance {
    * @param { RoomListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
-  ): Promise<ApiResponse<RoomPage>>;
-  pageWithHttpInfo(
-    params: RoomListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
-  ): Promise<ApiResponse<RoomPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any): Promise<ApiResponse<RoomPage>>;
+  pageWithHttpInfo(params: RoomListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any): Promise<ApiResponse<RoomPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -917,188 +815,148 @@ export interface RoomListInstance {
 }
 
 export function RoomListInstance(version: V1): RoomListInstance {
-  const instance = ((sid) => instance.get(sid)) as RoomListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as RoomListInstance;
 
-  instance.get = function get(sid): RoomContext {
+  instance.get = function get(sid, ): RoomContext {
     return new RoomContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Rooms`;
 
-  instance.create = function create(
-    params?:
-      | RoomListInstanceCreateOptions
-      | ((error: Error | null, items: RoomInstance) => any),
-    callback?: (error: Error | null, items: RoomInstance) => any
-  ): Promise<RoomInstance> {
+  instance.create = function create(params?: RoomListInstanceCreateOptions | ((error: Error | null, items: RoomInstance) => any), callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["enableTurn"] !== undefined)
-      data["EnableTurn"] = serialize.bool(params["enableTurn"]);
-    if (params["type"] !== undefined) data["Type"] = params["type"];
+    
+        if (params["enableTurn"] !== undefined)
+    data["EnableTurn"] = serialize.bool(params["enableTurn"]);
+    if (params["type"] !== undefined)
+    data["Type"] = params["type"];
     if (params["uniqueName"] !== undefined)
-      data["UniqueName"] = params["uniqueName"];
+    data["UniqueName"] = params["uniqueName"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["maxParticipants"] !== undefined)
-      data["MaxParticipants"] = params["maxParticipants"];
+    data["MaxParticipants"] = params["maxParticipants"];
     if (params["recordParticipantsOnConnect"] !== undefined)
-      data["RecordParticipantsOnConnect"] = serialize.bool(
-        params["recordParticipantsOnConnect"]
-      );
+    data["RecordParticipantsOnConnect"] = serialize.bool(params["recordParticipantsOnConnect"]);
     if (params["transcribeParticipantsOnConnect"] !== undefined)
-      data["TranscribeParticipantsOnConnect"] = serialize.bool(
-        params["transcribeParticipantsOnConnect"]
-      );
+    data["TranscribeParticipantsOnConnect"] = serialize.bool(params["transcribeParticipantsOnConnect"]);
     if (params["videoCodecs"] !== undefined)
-      data["VideoCodecs"] = serialize.map(
-        params["videoCodecs"],
-        (e: RoomVideoCodec) => e
-      );
+    data["VideoCodecs"] = serialize.map(params["videoCodecs"], (e: RoomVideoCodec) => (e));
     if (params["mediaRegion"] !== undefined)
-      data["MediaRegion"] = params["mediaRegion"];
+    data["MediaRegion"] = params["mediaRegion"];
     if (params["recordingRules"] !== undefined)
-      data["RecordingRules"] = serialize.object(params["recordingRules"]);
+    data["RecordingRules"] = serialize.object(params["recordingRules"]);
     if (params["transcriptionsConfiguration"] !== undefined)
-      data["TranscriptionsConfiguration"] = serialize.object(
-        params["transcriptionsConfiguration"]
-      );
+    data["TranscriptionsConfiguration"] = serialize.object(params["transcriptionsConfiguration"]);
     if (params["audioOnly"] !== undefined)
-      data["AudioOnly"] = serialize.bool(params["audioOnly"]);
+    data["AudioOnly"] = serialize.bool(params["audioOnly"]);
     if (params["maxParticipantDuration"] !== undefined)
-      data["MaxParticipantDuration"] = params["maxParticipantDuration"];
+    data["MaxParticipantDuration"] = params["maxParticipantDuration"];
     if (params["emptyRoomTimeout"] !== undefined)
-      data["EmptyRoomTimeout"] = params["emptyRoomTimeout"];
+    data["EmptyRoomTimeout"] = params["emptyRoomTimeout"];
     if (params["unusedRoomTimeout"] !== undefined)
-      data["UnusedRoomTimeout"] = params["unusedRoomTimeout"];
+    data["UnusedRoomTimeout"] = params["unusedRoomTimeout"];
     if (params["largeRoom"] !== undefined)
-      data["LargeRoom"] = serialize.bool(params["largeRoom"]);
+    data["LargeRoom"] = serialize.bool(params["largeRoom"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new RoomInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new RoomInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | RoomListInstanceCreateOptions
-      | ((error: Error | null, items: ApiResponse<RoomInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RoomInstance>) => any
-  ): Promise<ApiResponse<RoomInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: RoomListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<RoomInstance>) => any), callback?: (error: Error | null, items: ApiResponse<RoomInstance>) => any): Promise<ApiResponse<RoomInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["enableTurn"] !== undefined)
-      data["EnableTurn"] = serialize.bool(params["enableTurn"]);
-    if (params["type"] !== undefined) data["Type"] = params["type"];
+    
+        if (params["enableTurn"] !== undefined)
+    data["EnableTurn"] = serialize.bool(params["enableTurn"]);
+    if (params["type"] !== undefined)
+    data["Type"] = params["type"];
     if (params["uniqueName"] !== undefined)
-      data["UniqueName"] = params["uniqueName"];
+    data["UniqueName"] = params["uniqueName"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["maxParticipants"] !== undefined)
-      data["MaxParticipants"] = params["maxParticipants"];
+    data["MaxParticipants"] = params["maxParticipants"];
     if (params["recordParticipantsOnConnect"] !== undefined)
-      data["RecordParticipantsOnConnect"] = serialize.bool(
-        params["recordParticipantsOnConnect"]
-      );
+    data["RecordParticipantsOnConnect"] = serialize.bool(params["recordParticipantsOnConnect"]);
     if (params["transcribeParticipantsOnConnect"] !== undefined)
-      data["TranscribeParticipantsOnConnect"] = serialize.bool(
-        params["transcribeParticipantsOnConnect"]
-      );
+    data["TranscribeParticipantsOnConnect"] = serialize.bool(params["transcribeParticipantsOnConnect"]);
     if (params["videoCodecs"] !== undefined)
-      data["VideoCodecs"] = serialize.map(
-        params["videoCodecs"],
-        (e: RoomVideoCodec) => e
-      );
+    data["VideoCodecs"] = serialize.map(params["videoCodecs"], (e: RoomVideoCodec) => (e));
     if (params["mediaRegion"] !== undefined)
-      data["MediaRegion"] = params["mediaRegion"];
+    data["MediaRegion"] = params["mediaRegion"];
     if (params["recordingRules"] !== undefined)
-      data["RecordingRules"] = serialize.object(params["recordingRules"]);
+    data["RecordingRules"] = serialize.object(params["recordingRules"]);
     if (params["transcriptionsConfiguration"] !== undefined)
-      data["TranscriptionsConfiguration"] = serialize.object(
-        params["transcriptionsConfiguration"]
-      );
+    data["TranscriptionsConfiguration"] = serialize.object(params["transcriptionsConfiguration"]);
     if (params["audioOnly"] !== undefined)
-      data["AudioOnly"] = serialize.bool(params["audioOnly"]);
+    data["AudioOnly"] = serialize.bool(params["audioOnly"]);
     if (params["maxParticipantDuration"] !== undefined)
-      data["MaxParticipantDuration"] = params["maxParticipantDuration"];
+    data["MaxParticipantDuration"] = params["maxParticipantDuration"];
     if (params["emptyRoomTimeout"] !== undefined)
-      data["EmptyRoomTimeout"] = params["emptyRoomTimeout"];
+    data["EmptyRoomTimeout"] = params["emptyRoomTimeout"];
     if (params["unusedRoomTimeout"] !== undefined)
-      data["UnusedRoomTimeout"] = params["unusedRoomTimeout"];
+    data["UnusedRoomTimeout"] = params["unusedRoomTimeout"];
     if (params["largeRoom"] !== undefined)
-      data["LargeRoom"] = serialize.bool(params["largeRoom"]);
+    data["LargeRoom"] = serialize.bool(params["largeRoom"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<RoomResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<RoomInstance> => ({
-          ...response,
-          body: new RoomInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<RoomResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<RoomInstance> => ({
+      ...response,
+      body: new RoomInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | RoomListInstancePageOptions
-      | ((error: Error | null, items: RoomPage) => any),
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage> {
+
+    }
+
+  instance.page = function page(params?: RoomListInstancePageOptions | ((error: Error | null, items: RoomPage) => any), callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1108,68 +966,52 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["uniqueName"] !== undefined)
-      data["UniqueName"] = params["uniqueName"];
+    data["UniqueName"] = params["uniqueName"];
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
-      );
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new RoomPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new RoomPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) => new RoomPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new RoomPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | RoomListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<RoomPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
-  ): Promise<ApiResponse<RoomPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: RoomListInstancePageOptions | ((error: Error | null, items: ApiResponse<RoomPage>) => any), callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any): Promise<ApiResponse<RoomPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1179,113 +1021,100 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["uniqueName"] !== undefined)
-      data["UniqueName"] = params["uniqueName"];
+    data["UniqueName"] = params["uniqueName"];
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
-      );
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RoomPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RoomPage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<RoomPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new RoomPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RoomPage>) => any
-  ): Promise<ApiResponse<RoomPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<RoomPage>) => any): Promise<ApiResponse<RoomPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<RoomPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RoomPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<RoomPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new RoomPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class RoomPage extends Page<
-  V1,
-  RoomPayload,
-  RoomResource,
-  RoomInstance
-> {
-  /**
-   * Initialize the RoomPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RoomSolution) {
+export class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
+/**
+* Initialize the RoomPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: RoomSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RoomInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RoomResource): RoomInstance {
-    return new RoomInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of RoomInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RoomResource): RoomInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new RoomInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

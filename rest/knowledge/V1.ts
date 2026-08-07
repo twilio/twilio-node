@@ -34,5 +34,4 @@ export default class V1 extends Version {
     this._knowledge = this._knowledge || KnowledgeListInstance(this);
     return this._knowledge;
   }
-
 }

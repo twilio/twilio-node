@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -22,10 +21,9 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 export class IdentityProfilesMeta {
   /**
-   * The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+   * The key of the list property contains the actual data items. This enables programmatic iteration over paginated results.
    */
   "key"?: string;
   "pageSize"?: number;
@@ -40,7 +38,6 @@ export class IdentityProfilesMeta {
   }
 }
 
-
 /**
  * Data for creating or updating a profile, including traits.
  */
@@ -48,34 +45,30 @@ export class ProfileData {
   /**
    * Multiple trait groups.
    */
-  "traits"?: { [key: string]: { [key: string]: any; }; };
+  "traits"?: { [key: string]: { [key: string]: any } };
 
   constructor(payload) {
     this.traits = payload["traits"];
   }
 }
-
 
 export class ProfilePatch {
   /**
    * Multiple trait groups.
    */
-  "traits"?: { [key: string]: { [key: string]: any; }; };
+  "traits"?: { [key: string]: { [key: string]: any } };
 
   constructor(payload) {
     this.traits = payload["traits"];
   }
 }
-
-
-
 
 /**
  * Options to pass to fetch a ProfileInstance
  */
 export interface ProfileContextFetchOptions {
   /** Comma separated list of trait group names to include. */
-  "traitGroups"?: string;
+  traitGroups?: string;
 }
 
 /**
@@ -83,7 +76,7 @@ export interface ProfileContextFetchOptions {
  */
 export interface ProfileContextPatchOptions {
   /**  */
-  "profilePatch": ProfilePatch;
+  profilePatch: ProfilePatch;
 }
 
 /**
@@ -91,7 +84,7 @@ export interface ProfileContextPatchOptions {
  */
 export interface ProfileListInstanceCreateOptions {
   /**  */
-  "profileData": ProfileData;
+  profileData: ProfileData;
 }
 
 /**
@@ -99,11 +92,11 @@ export interface ProfileListInstanceCreateOptions {
  */
 export interface ProfileListInstanceEachOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ProfileInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -117,31 +110,28 @@ export interface ProfileListInstanceEachOptions {
  */
 export interface ProfileListInstanceOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ProfileListInstancePageOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
 }
 
-
 export interface ProfileContext {
-
   /**
    * Remove a ProfileInstance
    *
@@ -149,7 +139,9 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  remove(callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>
+  remove(
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
 
   /**
    * Remove a ProfileInstance and return HTTP info
@@ -158,7 +150,12 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
    * Fetch a ProfileInstance
@@ -167,7 +164,9 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  fetch(callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
   /**
    * Fetch a ProfileInstance
    *
@@ -176,7 +175,10 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  fetch(params: ProfileContextFetchOptions, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  fetch(
+    params: ProfileContextFetchOptions,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
 
   /**
    * Fetch a ProfileInstance and return HTTP info
@@ -185,7 +187,12 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
   /**
    * Fetch a ProfileInstance and return HTTP info
    *
@@ -194,7 +201,13 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: ProfileContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
+  fetchWithHttpInfo(
+    params: ProfileContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
    * Patch a ProfileInstance
@@ -205,7 +218,11 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  patch(params: ProfilePatch, headers?: any, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  patch(
+    params: ProfilePatch,
+    headers?: any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
 
   /**
    * Patch a ProfileInstance and return HTTP info
@@ -216,7 +233,14 @@ export interface ProfileContext {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: ProfilePatch, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
+  patchWithHttpInfo(
+    params: ProfilePatch,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -226,191 +250,289 @@ export interface ProfileContext {
 }
 
 export interface ProfileContextSolution {
-  "storeId": string;
-  "profileId": string;
+  storeId: string;
+  profileId: string;
 }
 
 export class ProfileContextImpl implements ProfileContext {
   protected _solution: ProfileContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, storeId: string, profileId: string) {
+  constructor(
+    protected _version: V1,
+    storeId: string,
+    profileId: string,
+  ) {
     if (!isValidPathParam(storeId)) {
-      throw new Error('Parameter \'storeId\' is not valid.');
+      throw new Error("Parameter 'storeId' is not valid.");
     }
 
     if (!isValidPathParam(profileId)) {
-      throw new Error('Parameter \'profileId\' is not valid.');
+      throw new Error("Parameter 'profileId' is not valid.");
     }
 
-    this._solution = { storeId, profileId,  };
+    this._solution = { storeId, profileId };
     this._uri = `/Stores/${storeId}/Profiles/${profileId}`;
   }
 
-  remove(callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  remove(
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "delete", headers});
-    
-    operationPromise = operationPromise.then(payload => new ProfileInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ProfileInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation that returns a response model
-    let operationPromise = operationVersion.fetchWithResponseInfo<ProfileResource>({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<ProfileInstance> => ({
-      ...response,
-      body: new ProfileInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ProfileResource>({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      })
+      .then((response): ApiResponse<ProfileInstance> => ({
+        ...response,
+        body: new ProfileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(params?: ProfileContextFetchOptions | ((error: Error | null, item?: ProfileInstance) => any),callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | ProfileContextFetchOptions
+      | ((error: Error | null, item?: ProfileInstance) => any),
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["traitGroups"] !== undefined)
-    data["traitGroups"] = params["traitGroups"];
+    if (params["traitGroups"] !== undefined)
+      data["traitGroups"] = params["traitGroups"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ProfileInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ProfileInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: ProfileContextFetchOptions | ((error: Error | null, item?: ApiResponse<ProfileInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | ProfileContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<ProfileInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["traitGroups"] !== undefined)
-    data["traitGroups"] = params["traitGroups"];
+    if (params["traitGroups"] !== undefined)
+      data["traitGroups"] = params["traitGroups"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ProfileResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ProfileInstance> => ({
-      ...response,
-      body: new ProfileInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ProfileResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<ProfileInstance> => ({
+        ...response,
+        body: new ProfileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patch(params: ProfilePatch, headers?: any,callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance> {
-      if (params === null || params === undefined) {
+  patch(
+    params: ProfilePatch,
+    headers?: any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ProfileInstance(operationVersion, payload, instance._solution.storeId, instance._solution.profileId));
-    
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ProfileInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  patchWithHttpInfo(params: ProfilePatch, headers?: any,callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>> {
-      if (params === null || params === undefined) {
+  patchWithHttpInfo(
+    params: ProfilePatch,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.patchWithResponseInfo<ProfileResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<ProfileInstance> => ({
-      ...response,
-      body: new ProfileInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.profileId)
-    }));
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<ProfileResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ProfileInstance> => ({
+        ...response,
+        body: new ProfileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+          instance._solution.profileId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -440,20 +562,18 @@ export interface IdentityProfilesMeta {
  * Nested model for ProfileData
  */
 export interface ProfileData {
-  traits?: { [key: string]: { [key: string]: any; }; };
+  traits?: { [key: string]: { [key: string]: any } };
 }
 
 /**
  * Nested model for ProfilePatch
  */
 export interface ProfilePatch {
-  traits?: { [key: string]: { [key: string]: any; }; };
+  traits?: { [key: string]: { [key: string]: any } };
 }
 
-
-
-  interface ProfilePayload extends TokenPaginationPayload {
-    profiles: string[];
+interface ProfilePayload extends TokenPaginationPayload {
+  profiles: string[];
 }
 
 /**
@@ -492,28 +612,41 @@ interface ListProfiles200Response_ResponseResource {
 interface Profile_ResponseResource {
   id?: string;
   createdAt?: Date;
-  traits?: { [key: string]: { [key: string]: any; }; };
+  traits?: { [key: string]: { [key: string]: any } };
 }
 
 /**
  * Union type for all possible response models
  */
-type ProfileResource = CreateProfile202Response_ResponseResource | DeleteProfile202Response_ResponseResource | PatchProfileTraits202Response_ResponseResource | ListProfiles200Response_ResponseResource | Profile_ResponseResource;
+type ProfileResource =
+  | CreateProfile202Response_ResponseResource
+  | DeleteProfile202Response_ResponseResource
+  | PatchProfileTraits202Response_ResponseResource
+  | ListProfiles200Response_ResponseResource
+  | Profile_ResponseResource;
 
 export class ProfileInstance {
   protected _solution: ProfileContextSolution;
   protected _context?: ProfileContext;
 
-  constructor(protected _version: V1, _payload: ProfileResource, storeId: string, profileId?: string) {
+  constructor(
+    protected _version: V1,
+    _payload: ProfileResource,
+    storeId: string,
+    profileId?: string,
+  ) {
     const payload: any = _payload;
-    this.id = (payload.id);
-    this.message = (payload.message);
-    this.profiles = (payload.profiles);
-    this.meta = payload.meta !== null && payload.meta !== undefined ? new IdentityProfilesMeta(payload.meta) : null;
+    this.id = payload.id;
+    this.message = payload.message;
+    this.profiles = payload.profiles;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new IdentityProfilesMeta(payload.meta)
+        : null;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
-    this.traits = (payload.traits);
+    this.traits = payload.traits;
 
-    this._solution = { storeId, profileId: profileId,  };
+    this._solution = { storeId, profileId: profileId };
   }
 
   /**
@@ -530,10 +663,16 @@ export class ProfileInstance {
   /**
    * Multiple trait groups.
    */
-  traits?: { [key: string]: { [key: string]: any; }; };
+  traits?: { [key: string]: { [key: string]: any } };
 
   private get _proxy(): ProfileContext {
-    this._context = this._context || new ProfileContextImpl(this._version, this._solution.storeId, this._solution.profileId);
+    this._context =
+      this._context ||
+      new ProfileContextImpl(
+        this._version,
+        this._solution.storeId,
+        this._solution.profileId,
+      );
     return this._context;
   }
 
@@ -544,9 +683,9 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  remove(callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
     return this._proxy.remove(callback);
   }
 
@@ -557,9 +696,12 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -570,7 +712,9 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  fetch(callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
   /**
    * Fetch a ProfileInstance
    *
@@ -579,10 +723,15 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  fetch(params: ProfileContextFetchOptions, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  fetch(
+    params: ProfileContextFetchOptions,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -593,7 +742,12 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
   /**
    * Fetch a ProfileInstance and return HTTP info
    *
@@ -602,10 +756,21 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: ProfileContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
+  fetchWithHttpInfo(
+    params: ProfileContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -618,10 +783,16 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  patch(params: ProfilePatch, headers?: any, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  patch(
+    params: ProfilePatch,
+    headers?: any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
 
-    patch(params?: any, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>
-    {
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
     return this._proxy.patch(params, callback);
   }
 
@@ -634,10 +805,22 @@ export class ProfileInstance {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  patchWithHttpInfo(params: ProfilePatch, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
+  patchWithHttpInfo(
+    params: ProfilePatch,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
 
-    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>
-    {
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -662,7 +845,6 @@ export class ProfileInstance {
   }
 }
 
-
 export interface ProfileSolution {
   storeId: string;
 }
@@ -672,15 +854,8 @@ export interface ProfileListInstance {
   _solution: ProfileSolution;
   _uri: string;
 
-  (profileId: string, ): ProfileContext;
-  get(profileId: string, ): ProfileContext;
-
-
-
-
-
-
-
+  (profileId: string): ProfileContext;
+  get(profileId: string): ProfileContext;
 
   /**
    * Create a ProfileInstance
@@ -691,7 +866,11 @@ export interface ProfileListInstance {
    *
    * @returns Resolves to processed ProfileInstance
    */
-  create(params: ProfileData, headers?: any, callback?: (error: Error | null, item?: ProfileInstance) => any): Promise<ProfileInstance>;
+  create(
+    params: ProfileData,
+    headers?: any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any,
+  ): Promise<ProfileInstance>;
 
   /**
    * Create a ProfileInstance and return HTTP info
@@ -702,10 +881,14 @@ export interface ProfileListInstance {
    *
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ProfileData, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: ProfileData,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
    * Streams ProfileInstance records from the API.
@@ -723,7 +906,10 @@ export interface ProfileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(callback?: (item: string, done: (err?: Error) => void) => void): void;
-  each(params: ProfileListInstanceEachOptions, callback?: (item: string, done: (err?: Error) => void) => void): void;
+  each(
+    params: ProfileListInstanceEachOptions,
+    callback?: (item: string, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams ProfileInstance records from the API with HTTP metadata captured per page.
    *
@@ -739,8 +925,13 @@ export interface ProfileListInstance {
    * @param { ProfileListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: string, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ProfileListInstanceEachOptions, callback?: (item: string, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: string, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ProfileListInstanceEachOptions,
+    callback?: (item: string, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of ProfileInstance records from the API.
    *
@@ -749,7 +940,10 @@ export interface ProfileListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ProfilePage) => any): Promise<ProfilePage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ProfilePage) => any,
+  ): Promise<ProfilePage>;
   /**
    * Retrieve a single target page of ProfileInstance records from the API with HTTP metadata.
    *
@@ -758,7 +952,10 @@ export interface ProfileListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any): Promise<ApiResponse<ProfilePage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+  ): Promise<ApiResponse<ProfilePage>>;
   /**
    * Lists ProfileInstance records from the API as a list.
    *
@@ -768,8 +965,13 @@ export interface ProfileListInstance {
    * @param { ProfileListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: string[]) => any): Promise<string[]>;
-  list(params: ProfileListInstanceOptions, callback?: (error: Error | null, items: string[]) => any): Promise<string[]>;
+  list(
+    callback?: (error: Error | null, items: string[]) => any,
+  ): Promise<string[]>;
+  list(
+    params: ProfileListInstanceOptions,
+    callback?: (error: Error | null, items: string[]) => any,
+  ): Promise<string[]>;
   /**
    * Lists ProfileInstance records from the API as a list with HTTP metadata.
    *
@@ -781,8 +983,13 @@ export interface ProfileListInstance {
    * @param { ProfileListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>>;
-  listWithHttpInfo(params: ProfileListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>>;
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+  ): Promise<ApiResponse<string[]>>;
+  listWithHttpInfo(
+    params: ProfileListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+  ): Promise<ApiResponse<string[]>>;
   /**
    * Retrieve a single page of ProfileInstance records from the API.
    *
@@ -794,8 +1001,13 @@ export interface ProfileListInstance {
    * @param { ProfileListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ProfilePage) => any): Promise<ProfilePage>;
-  page(params: ProfileListInstancePageOptions, callback?: (error: Error | null, items: ProfilePage) => any): Promise<ProfilePage>;
+  page(
+    callback?: (error: Error | null, items: ProfilePage) => any,
+  ): Promise<ProfilePage>;
+  page(
+    params: ProfileListInstancePageOptions,
+    callback?: (error: Error | null, items: ProfilePage) => any,
+  ): Promise<ProfilePage>;
   /**
    * Retrieve a single page of ProfileInstance records from the API with HTTP metadata.
    *
@@ -807,9 +1019,13 @@ export interface ProfileListInstance {
    * @param { ProfileListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any): Promise<ApiResponse<ProfilePage>>;
-  pageWithHttpInfo(params: ProfileListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any): Promise<ApiResponse<ProfilePage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+  ): Promise<ApiResponse<ProfilePage>>;
+  pageWithHttpInfo(
+    params: ProfileListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+  ): Promise<ApiResponse<ProfilePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -818,83 +1034,123 @@ export interface ProfileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ProfileListInstance(version: V1, storeId: string): ProfileListInstance {
+export function ProfileListInstance(
+  version: V1,
+  storeId: string,
+): ProfileListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
-  const instance = ((profileId, ) => instance.get(profileId, )) as ProfileListInstance;
+  const instance = ((profileId) =>
+    instance.get(profileId)) as ProfileListInstance;
 
-  instance.get = function get(profileId, ): ProfileContext {
+  instance.get = function get(profileId): ProfileContext {
     return new ProfileContextImpl(version, storeId, profileId);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { storeId,  };
+  instance._solution = { storeId };
   instance._uri = `/Stores/${storeId}/Profiles`;
 
-  instance.create = function create(params: ProfileData, headers?: any, callback?: (error: Error | null, items: ProfileInstance) => any): Promise<ProfileInstance> {
+  instance.create = function create(
+    params: ProfileData,
+    headers?: any,
+    callback?: (error: Error | null, items: ProfileInstance) => any,
+  ): Promise<ProfileInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ProfileInstance(operationVersion, payload, instance._solution.storeId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ProfileInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: ProfileData, headers?: any, callback?: (error: Error | null, items: ApiResponse<ProfileInstance>) => any): Promise<ApiResponse<ProfileInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ProfileData,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ProfileInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ProfileInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ProfileResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ProfileInstance> => ({
-      ...response,
-      body: new ProfileInstance(operationVersion, response.body, instance._solution.storeId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ProfileResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ProfileInstance> => ({
+        ...response,
+        body: new ProfileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ProfileListInstancePageOptions | ((error: Error | null, items: ProfilePage) => any), callback?: (error: Error | null, items: ProfilePage) => any): Promise<ProfilePage> {
+  instance.page = function page(
+    params?:
+      | ProfileListInstancePageOptions
+      | ((error: Error | null, items: ProfilePage) => any),
+    callback?: (error: Error | null, items: ProfilePage) => any,
+  ): Promise<ProfilePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -904,34 +1160,45 @@ export function ProfileListInstance(version: V1, storeId: string): ProfileListIn
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ProfilePage(operationVersion, payload, instance._uri, data, instance._solution));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-  }
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ProfilePage(
+          operationVersion,
+          payload,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
 
-  instance.list = function list(params?: any, callback?: (error: Error | null, items: string[]) => any): Promise<string[]> {
+  instance.list = function list(
+    params?: any,
+    callback?: (error: Error | null, items: string[]) => any,
+  ): Promise<string[]> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -942,8 +1209,9 @@ export function ProfileListInstance(version: V1, storeId: string): ProfileListIn
 
     function fetchNextPage(nextPageParams: any): Promise<string[]> {
       return instance.page(nextPageParams).then((page: any) => {
-        const payload = page['_payload'];
-        const records = payload && payload['profiles'] ? payload['profiles'] : [];
+        const payload = page["_payload"];
+        const records =
+          payload && payload["profiles"] ? payload["profiles"] : [];
         allRecords = allRecords.concat(records);
 
         if (params.limit && allRecords.length >= params.limit) {
@@ -951,7 +1219,9 @@ export function ProfileListInstance(version: V1, storeId: string): ProfileListIn
           return allRecords;
         }
 
-        const nextToken = page.nextPageUrl ? new URL(page.nextPageUrl).searchParams.get('PageToken') : null;
+        const nextToken = page.nextPageUrl
+          ? new URL(page.nextPageUrl).searchParams.get("PageToken")
+          : null;
         if (nextToken) {
           return fetchNextPage({ ...nextPageParams, pageToken: nextToken });
         }
@@ -962,17 +1232,35 @@ export function ProfileListInstance(version: V1, storeId: string): ProfileListIn
     const promise = fetchNextPage(params);
     return instance._version.setPromiseCallback(promise, callback);
   };
-    
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ProfilePage) => any): Promise<ProfilePage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ProfilePage(instance._version, payload, instance._uri, {}, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ProfilePage) => any,
+  ): Promise<ProfilePage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ProfilePage(
+          instance._version,
+          payload,
+          instance._uri,
+          {},
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ProfileListInstancePageOptions | ((error: Error | null, items: ApiResponse<ProfilePage>) => any), callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any): Promise<ApiResponse<ProfilePage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ProfileListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ProfilePage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+  ): Promise<ApiResponse<ProfilePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -982,39 +1270,45 @@ export function ProfileListInstance(version: V1, storeId: string): ProfileListIn
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ProfilePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ProfilePage(operationVersion, response, instance._uri, data, instance._solution)
-    }));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ProfilePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ProfilePage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
-  }
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
 
-  instance.listWithHttpInfo = function listWithHttpInfo(params?: any, callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>> {
+  instance.listWithHttpInfo = function listWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+  ): Promise<ApiResponse<string[]>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1024,93 +1318,125 @@ export function ProfileListInstance(version: V1, storeId: string): ProfileListIn
     let allRecords: string[] = [];
     let lastResponse: any;
 
-    function fetchNextPage(nextPageParams: any): Promise<ApiResponse<string[]>> {
-      return instance.pageWithHttpInfo(nextPageParams).then((response: ApiResponse<any>) => {
-        lastResponse = response;
-        const page = response.body;
-        // For primitive arrays, directly access the records array from the payload
-        // Access _payload using bracket notation to bypass TypeScript protected access
-        const payload = page['_payload'];
-        const records = payload && payload['profiles'] ? payload['profiles'] : [];
-        allRecords = allRecords.concat(records);
+    function fetchNextPage(
+      nextPageParams: any,
+    ): Promise<ApiResponse<string[]>> {
+      return instance
+        .pageWithHttpInfo(nextPageParams)
+        .then((response: ApiResponse<any>) => {
+          lastResponse = response;
+          const page = response.body;
+          // For primitive arrays, directly access the records array from the payload
+          // Access _payload using bracket notation to bypass TypeScript protected access
+          const payload = page["_payload"];
+          const records =
+            payload && payload["profiles"] ? payload["profiles"] : [];
+          allRecords = allRecords.concat(records);
 
-        if (params.limit && allRecords.length >= params.limit) {
-          allRecords = allRecords.slice(0, params.limit);
+          if (params.limit && allRecords.length >= params.limit) {
+            allRecords = allRecords.slice(0, params.limit);
+            return {
+              statusCode: lastResponse.statusCode,
+              headers: lastResponse.headers,
+              body: allRecords,
+            };
+          }
+
+          const nextToken = page.nextPageUrl
+            ? new URL(page.nextPageUrl).searchParams.get("PageToken")
+            : null;
+          if (nextToken) {
+            return fetchNextPage({ ...nextPageParams, pageToken: nextToken });
+          }
           return {
             statusCode: lastResponse.statusCode,
             headers: lastResponse.headers,
-            body: allRecords
+            body: allRecords,
           };
-        }
-
-        const nextToken = page.nextPageUrl ? new URL(page.nextPageUrl).searchParams.get('PageToken') : null;
-        if (nextToken) {
-          return fetchNextPage({ ...nextPageParams, pageToken: nextToken });
-        }
-        return {
-          statusCode: lastResponse.statusCode,
-          headers: lastResponse.headers,
-          body: allRecords
-        };
-      });
+        });
     }
 
     const promise = fetchNextPage(params);
     return instance._version.setPromiseCallback(promise, callback);
   };
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ProfilePage>) => any): Promise<ApiResponse<ProfilePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<ProfilePage>) => any,
+  ): Promise<ApiResponse<ProfilePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ProfilePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ProfilePage(instance._version, response, instance._uri, {}, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ProfilePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ProfilePage(
+          instance._version,
+          response,
+          instance._uri,
+          {},
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ProfilePage extends TokenPage<V1, ProfilePayload, ProfileResource, string> {
-/**
-* Initialize the ProfilePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param uri - URI of the resource
-* @param params - Query parameters
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, uri: string, params: any, solution: ProfileSolution) {
+export class ProfilePage extends TokenPage<
+  V1,
+  ProfilePayload,
+  ProfileResource,
+  string
+> {
+  /**
+   * Initialize the ProfilePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param uri - URI of the resource
+   * @param params - Query parameters
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    uri: string,
+    params: any,
+    solution: ProfileSolution,
+  ) {
     super(version, response, uri, params, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ProfileInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ProfileResource): string {
+  /**
+   * Build an instance of ProfileInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ProfileResource): string {
     // Array items are primitives (strings, numbers), return directly
     return payload as any;
-        }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

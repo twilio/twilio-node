@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,26 +22,27 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to each
  */
 export interface PortingAllPortInListInstanceEachOptions {
   /** Page start token, if null then it will start from the beginning */
-  "token"?: string;
+  token?: string;
   /** Number of items per page */
-  "size"?: number;
+  size?: number;
   /** Filter by Port in request SID, supports multiple values separated by comma */
-  "portInRequestSid"?: string;
+  portInRequestSid?: string;
   /** Filter by Port In request status */
-  "portInRequestStatus"?: string;
+  portInRequestStatus?: string;
   /** Find all created before a certain date */
-  "createdBefore"?: string;
+  createdBefore?: string;
   /** Find all created after a certain date */
-  "createdAfter"?: string;
+  createdAfter?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: PortingAllPortInInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: PortingAllPortInInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -54,56 +54,49 @@ export interface PortingAllPortInListInstanceEachOptions {
  */
 export interface PortingAllPortInListInstanceOptions {
   /** Page start token, if null then it will start from the beginning */
-  "token"?: string;
+  token?: string;
   /** Number of items per page */
-  "size"?: number;
+  size?: number;
   /** Filter by Port in request SID, supports multiple values separated by comma */
-  "portInRequestSid"?: string;
+  portInRequestSid?: string;
   /** Filter by Port In request status */
-  "portInRequestStatus"?: string;
+  portInRequestStatus?: string;
   /** Find all created before a certain date */
-  "createdBefore"?: string;
+  createdBefore?: string;
   /** Find all created after a certain date */
-  "createdAfter"?: string;
+  createdAfter?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface PortingAllPortInListInstancePageOptions {
   /** Page start token, if null then it will start from the beginning */
-  "token"?: string;
+  token?: string;
   /** Number of items per page */
-  "size"?: number;
+  size?: number;
   /** Filter by Port in request SID, supports multiple values separated by comma */
-  "portInRequestSid"?: string;
+  portInRequestSid?: string;
   /** Filter by Port In request status */
-  "portInRequestStatus"?: string;
+  portInRequestStatus?: string;
   /** Find all created before a certain date */
-  "createdBefore"?: string;
+  createdBefore?: string;
   /** Find all created after a certain date */
-  "createdAfter"?: string;
+  createdAfter?: string;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
-
-export interface PortingAllPortInSolution {
-}
+export interface PortingAllPortInSolution {}
 
 export interface PortingAllPortInListInstance {
   _version: V1;
   _solution: PortingAllPortInSolution;
   _uri: string;
-
-
-
 
   /**
    * Streams PortingAllPortInInstance records from the API.
@@ -120,8 +113,19 @@ export interface PortingAllPortInListInstance {
    * @param { PortingAllPortInListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: PortingAllPortInInstance, done: (err?: Error) => void) => void): void;
-  each(params: PortingAllPortInListInstanceEachOptions, callback?: (item: PortingAllPortInInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: PortingAllPortInInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: PortingAllPortInListInstanceEachOptions,
+    callback?: (
+      item: PortingAllPortInInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams PortingAllPortInInstance records from the API with HTTP metadata captured per page.
    *
@@ -137,8 +141,19 @@ export interface PortingAllPortInListInstance {
    * @param { PortingAllPortInListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: PortingAllPortInInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: PortingAllPortInListInstanceEachOptions, callback?: (item: PortingAllPortInInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: PortingAllPortInInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: PortingAllPortInListInstanceEachOptions,
+    callback?: (
+      item: PortingAllPortInInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of PortingAllPortInInstance records from the API.
    *
@@ -147,7 +162,10 @@ export interface PortingAllPortInListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: PortingAllPortInPage) => any): Promise<PortingAllPortInPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PortingAllPortInPage) => any,
+  ): Promise<PortingAllPortInPage>;
   /**
    * Retrieve a single target page of PortingAllPortInInstance records from the API with HTTP metadata.
    *
@@ -156,7 +174,13 @@ export interface PortingAllPortInListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<PortingAllPortInPage>) => any): Promise<ApiResponse<PortingAllPortInPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingAllPortInPage>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInPage>>;
   /**
    * Lists PortingAllPortInInstance records from the API as a list.
    *
@@ -166,8 +190,13 @@ export interface PortingAllPortInListInstance {
    * @param { PortingAllPortInListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: PortingAllPortInInstance[]) => any): Promise<PortingAllPortInInstance[]>;
-  list(params: PortingAllPortInListInstanceOptions, callback?: (error: Error | null, items: PortingAllPortInInstance[]) => any): Promise<PortingAllPortInInstance[]>;
+  list(
+    callback?: (error: Error | null, items: PortingAllPortInInstance[]) => any,
+  ): Promise<PortingAllPortInInstance[]>;
+  list(
+    params: PortingAllPortInListInstanceOptions,
+    callback?: (error: Error | null, items: PortingAllPortInInstance[]) => any,
+  ): Promise<PortingAllPortInInstance[]>;
   /**
    * Lists PortingAllPortInInstance records from the API as a list with HTTP metadata.
    *
@@ -179,8 +208,19 @@ export interface PortingAllPortInListInstance {
    * @param { PortingAllPortInListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PortingAllPortInInstance[]>) => any): Promise<ApiResponse<PortingAllPortInInstance[]>>;
-  listWithHttpInfo(params: PortingAllPortInListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<PortingAllPortInInstance[]>) => any): Promise<ApiResponse<PortingAllPortInInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingAllPortInInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInInstance[]>>;
+  listWithHttpInfo(
+    params: PortingAllPortInListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingAllPortInInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInInstance[]>>;
   /**
    * Retrieve a single page of PortingAllPortInInstance records from the API.
    *
@@ -192,8 +232,13 @@ export interface PortingAllPortInListInstance {
    * @param { PortingAllPortInListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: PortingAllPortInPage) => any): Promise<PortingAllPortInPage>;
-  page(params: PortingAllPortInListInstancePageOptions, callback?: (error: Error | null, items: PortingAllPortInPage) => any): Promise<PortingAllPortInPage>;
+  page(
+    callback?: (error: Error | null, items: PortingAllPortInPage) => any,
+  ): Promise<PortingAllPortInPage>;
+  page(
+    params: PortingAllPortInListInstancePageOptions,
+    callback?: (error: Error | null, items: PortingAllPortInPage) => any,
+  ): Promise<PortingAllPortInPage>;
   /**
    * Retrieve a single page of PortingAllPortInInstance records from the API with HTTP metadata.
    *
@@ -205,9 +250,19 @@ export interface PortingAllPortInListInstance {
    * @param { PortingAllPortInListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PortingAllPortInPage>) => any): Promise<ApiResponse<PortingAllPortInPage>>;
-  pageWithHttpInfo(params: PortingAllPortInListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<PortingAllPortInPage>) => any): Promise<ApiResponse<PortingAllPortInPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingAllPortInPage>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInPage>>;
+  pageWithHttpInfo(
+    params: PortingAllPortInListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingAllPortInPage>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -216,14 +271,21 @@ export interface PortingAllPortInListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingAllPortInListInstance(version: V1): PortingAllPortInListInstance {
+export function PortingAllPortInListInstance(
+  version: V1,
+): PortingAllPortInListInstance {
   const instance = {} as PortingAllPortInListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Porting/PortIn/PortInRequests`;
 
-  instance.page = function page(params?: PortingAllPortInListInstancePageOptions | ((error: Error | null, items: PortingAllPortInPage) => any), callback?: (error: Error | null, items: PortingAllPortInPage) => any): Promise<PortingAllPortInPage> {
+  instance.page = function page(
+    params?:
+      | PortingAllPortInListInstancePageOptions
+      | ((error: Error | null, items: PortingAllPortInPage) => any),
+    callback?: (error: Error | null, items: PortingAllPortInPage) => any,
+  ): Promise<PortingAllPortInPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -233,54 +295,78 @@ export function PortingAllPortInListInstance(version: V1): PortingAllPortInListI
 
     let data: any = {};
 
-        if (params["token"] !== undefined)
-    data["Token"] = params["token"];
-    if (params["size"] !== undefined)
-    data["Size"] = params["size"];
+    if (params["token"] !== undefined) data["Token"] = params["token"];
+    if (params["size"] !== undefined) data["Size"] = params["size"];
     if (params["portInRequestSid"] !== undefined)
-    data["PortInRequestSid"] = params["portInRequestSid"];
+      data["PortInRequestSid"] = params["portInRequestSid"];
     if (params["portInRequestStatus"] !== undefined)
-    data["PortInRequestStatus"] = params["portInRequestStatus"];
+      data["PortInRequestStatus"] = params["portInRequestStatus"];
     if (params["createdBefore"] !== undefined)
-    data["CreatedBefore"] = params["createdBefore"];
+      data["CreatedBefore"] = params["createdBefore"];
     if (params["createdAfter"] !== undefined)
-    data["CreatedAfter"] = params["createdAfter"];
+      data["CreatedAfter"] = params["createdAfter"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new PortingAllPortInPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PortingAllPortInPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PortingAllPortInPage) => any): Promise<PortingAllPortInPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new PortingAllPortInPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PortingAllPortInPage) => any,
+  ): Promise<PortingAllPortInPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PortingAllPortInPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: PortingAllPortInListInstancePageOptions | ((error: Error | null, items: ApiResponse<PortingAllPortInPage>) => any), callback?: (error: Error | null, items: ApiResponse<PortingAllPortInPage>) => any): Promise<ApiResponse<PortingAllPortInPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | PortingAllPortInListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<PortingAllPortInPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingAllPortInPage>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -290,77 +376,95 @@ export function PortingAllPortInListInstance(version: V1): PortingAllPortInListI
 
     let data: any = {};
 
-        if (params["token"] !== undefined)
-    data["Token"] = params["token"];
-    if (params["size"] !== undefined)
-    data["Size"] = params["size"];
+    if (params["token"] !== undefined) data["Token"] = params["token"];
+    if (params["size"] !== undefined) data["Size"] = params["size"];
     if (params["portInRequestSid"] !== undefined)
-    data["PortInRequestSid"] = params["portInRequestSid"];
+      data["PortInRequestSid"] = params["portInRequestSid"];
     if (params["portInRequestStatus"] !== undefined)
-    data["PortInRequestStatus"] = params["portInRequestStatus"];
+      data["PortInRequestStatus"] = params["portInRequestStatus"];
     if (params["createdBefore"] !== undefined)
-    data["CreatedBefore"] = params["createdBefore"];
+      data["CreatedBefore"] = params["createdBefore"];
     if (params["createdAfter"] !== undefined)
-    data["CreatedAfter"] = params["createdAfter"];
+      data["CreatedAfter"] = params["createdAfter"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PortingAllPortInPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PortingAllPortInPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<PortingAllPortInPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PortingAllPortInPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<PortingAllPortInPage>) => any): Promise<ApiResponse<PortingAllPortInPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<PortingAllPortInPage>,
+    ) => any,
+  ): Promise<ApiResponse<PortingAllPortInPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<PortingAllPortInPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PortingAllPortInPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<PortingAllPortInPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PortingAllPortInPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface PortingAllPortInPayload extends TwilioResponsePayload {
-    port_in_requests: PortingAllPortInResource[];
+interface PortingAllPortInPayload extends TwilioResponsePayload {
+  port_in_requests: PortingAllPortInResource[];
 }
 
 interface PortingAllPortInResource {
@@ -373,16 +477,18 @@ interface PortingAllPortInResource {
 }
 
 export class PortingAllPortInInstance {
-
-  constructor(protected _version: V1, payload: PortingAllPortInResource) {
-    
-    this.portInRequestSid = (payload.port_in_request_sid);
-    this.portInRequestStatus = (payload.port_in_request_status);
-    this.statusLastUpdatedTimestamp = (payload.status_last_updated_timestamp);
-    this.phoneNumbersRequested = deserialize.integer(payload.phone_numbers_requested);
+  constructor(
+    protected _version: V1,
+    payload: PortingAllPortInResource,
+  ) {
+    this.portInRequestSid = payload.port_in_request_sid;
+    this.portInRequestStatus = payload.port_in_request_status;
+    this.statusLastUpdatedTimestamp = payload.status_last_updated_timestamp;
+    this.phoneNumbersRequested = deserialize.integer(
+      payload.phone_numbers_requested,
+    );
     this.phoneNumbersPorted = deserialize.integer(payload.phone_numbers_ported);
-    this.suggestedAction = (payload.suggested_action);
-
+    this.suggestedAction = payload.suggested_action;
   }
 
   /**
@@ -431,33 +537,37 @@ export class PortingAllPortInInstance {
   }
 }
 
-export class PortingAllPortInPage extends Page<V1, PortingAllPortInPayload, PortingAllPortInResource, PortingAllPortInInstance> {
-/**
-* Initialize the PortingAllPortInPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: PortingAllPortInSolution) {
+export class PortingAllPortInPage extends Page<
+  V1,
+  PortingAllPortInPayload,
+  PortingAllPortInResource,
+  PortingAllPortInInstance
+> {
+  /**
+   * Initialize the PortingAllPortInPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: PortingAllPortInSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of PortingAllPortInInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: PortingAllPortInResource): PortingAllPortInInstance {
+  /**
+   * Build an instance of PortingAllPortInInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PortingAllPortInResource): PortingAllPortInInstance {
+    return new PortingAllPortInInstance(this._version, payload);
+  }
 
-    return new PortingAllPortInInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

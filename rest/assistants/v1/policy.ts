@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,18 +22,16 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to each
  */
 export interface PolicyListInstanceEachOptions {
   /** The tool ID. */
-  "toolId"?: string;
+  toolId?: string;
   /** The knowledge ID. */
-  "knowledgeId"?: string;
+  knowledgeId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PolicyInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -48,44 +45,37 @@ export interface PolicyListInstanceEachOptions {
  */
 export interface PolicyListInstanceOptions {
   /** The tool ID. */
-  "toolId"?: string;
+  toolId?: string;
   /** The knowledge ID. */
-  "knowledgeId"?: string;
+  knowledgeId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface PolicyListInstancePageOptions {
   /** The tool ID. */
-  "toolId"?: string;
+  toolId?: string;
   /** The knowledge ID. */
-  "knowledgeId"?: string;
+  knowledgeId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
-
-export interface PolicySolution {
-}
+export interface PolicySolution {}
 
 export interface PolicyListInstance {
   _version: V1;
   _solution: PolicySolution;
   _uri: string;
-
-
-
 
   /**
    * Streams PolicyInstance records from the API.
@@ -102,8 +92,13 @@ export interface PolicyListInstance {
    * @param { PolicyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: PolicyInstance, done: (err?: Error) => void) => void): void;
-  each(params: PolicyListInstanceEachOptions, callback?: (item: PolicyInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: PolicyListInstanceEachOptions,
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams PolicyInstance records from the API with HTTP metadata captured per page.
    *
@@ -119,8 +114,13 @@ export interface PolicyListInstance {
    * @param { PolicyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: PolicyInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: PolicyListInstanceEachOptions, callback?: (item: PolicyInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: PolicyListInstanceEachOptions,
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of PolicyInstance records from the API.
    *
@@ -129,7 +129,10 @@ export interface PolicyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: PolicyPage) => any): Promise<PolicyPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PolicyPage) => any,
+  ): Promise<PolicyPage>;
   /**
    * Retrieve a single target page of PolicyInstance records from the API with HTTP metadata.
    *
@@ -138,7 +141,10 @@ export interface PolicyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any): Promise<ApiResponse<PolicyPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
+  ): Promise<ApiResponse<PolicyPage>>;
   /**
    * Lists PolicyInstance records from the API as a list.
    *
@@ -148,8 +154,13 @@ export interface PolicyListInstance {
    * @param { PolicyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: PolicyInstance[]) => any): Promise<PolicyInstance[]>;
-  list(params: PolicyListInstanceOptions, callback?: (error: Error | null, items: PolicyInstance[]) => any): Promise<PolicyInstance[]>;
+  list(
+    callback?: (error: Error | null, items: PolicyInstance[]) => any,
+  ): Promise<PolicyInstance[]>;
+  list(
+    params: PolicyListInstanceOptions,
+    callback?: (error: Error | null, items: PolicyInstance[]) => any,
+  ): Promise<PolicyInstance[]>;
   /**
    * Lists PolicyInstance records from the API as a list with HTTP metadata.
    *
@@ -161,8 +172,19 @@ export interface PolicyListInstance {
    * @param { PolicyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PolicyInstance[]>) => any): Promise<ApiResponse<PolicyInstance[]>>;
-  listWithHttpInfo(params: PolicyListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<PolicyInstance[]>) => any): Promise<ApiResponse<PolicyInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PolicyInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PolicyInstance[]>>;
+  listWithHttpInfo(
+    params: PolicyListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PolicyInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PolicyInstance[]>>;
   /**
    * Retrieve a single page of PolicyInstance records from the API.
    *
@@ -174,8 +196,13 @@ export interface PolicyListInstance {
    * @param { PolicyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: PolicyPage) => any): Promise<PolicyPage>;
-  page(params: PolicyListInstancePageOptions, callback?: (error: Error | null, items: PolicyPage) => any): Promise<PolicyPage>;
+  page(
+    callback?: (error: Error | null, items: PolicyPage) => any,
+  ): Promise<PolicyPage>;
+  page(
+    params: PolicyListInstancePageOptions,
+    callback?: (error: Error | null, items: PolicyPage) => any,
+  ): Promise<PolicyPage>;
   /**
    * Retrieve a single page of PolicyInstance records from the API with HTTP metadata.
    *
@@ -187,9 +214,13 @@ export interface PolicyListInstance {
    * @param { PolicyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any): Promise<ApiResponse<PolicyPage>>;
-  pageWithHttpInfo(params: PolicyListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any): Promise<ApiResponse<PolicyPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
+  ): Promise<ApiResponse<PolicyPage>>;
+  pageWithHttpInfo(
+    params: PolicyListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
+  ): Promise<ApiResponse<PolicyPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -202,10 +233,15 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
   const instance = {} as PolicyListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Policies`;
 
-  instance.page = function page(params?: PolicyListInstancePageOptions | ((error: Error | null, items: PolicyPage) => any), callback?: (error: Error | null, items: PolicyPage) => any): Promise<PolicyPage> {
+  instance.page = function page(
+    params?:
+      | PolicyListInstancePageOptions
+      | ((error: Error | null, items: PolicyPage) => any),
+    callback?: (error: Error | null, items: PolicyPage) => any,
+  ): Promise<PolicyPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -215,48 +251,62 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
 
     let data: any = {};
 
-        if (params["toolId"] !== undefined)
-    data["ToolId"] = params["toolId"];
+    if (params["toolId"] !== undefined) data["ToolId"] = params["toolId"];
     if (params["knowledgeId"] !== undefined)
-    data["KnowledgeId"] = params["knowledgeId"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["KnowledgeId"] = params["knowledgeId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new PolicyPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PolicyPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PolicyPage) => any): Promise<PolicyPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new PolicyPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PolicyPage) => any,
+  ): Promise<PolicyPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PolicyPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: PolicyListInstancePageOptions | ((error: Error | null, items: ApiResponse<PolicyPage>) => any), callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any): Promise<ApiResponse<PolicyPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | PolicyListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<PolicyPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
+  ): Promise<ApiResponse<PolicyPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -266,71 +316,78 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
 
     let data: any = {};
 
-        if (params["toolId"] !== undefined)
-    data["ToolId"] = params["toolId"];
+    if (params["toolId"] !== undefined) data["ToolId"] = params["toolId"];
     if (params["knowledgeId"] !== undefined)
-    data["KnowledgeId"] = params["knowledgeId"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["KnowledgeId"] = params["knowledgeId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PolicyPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PolicyPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<PolicyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PolicyPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<PolicyPage>) => any): Promise<ApiResponse<PolicyPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<PolicyPage>) => any,
+  ): Promise<ApiResponse<PolicyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<PolicyPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PolicyPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<PolicyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PolicyPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface PolicyPayload extends TwilioResponsePayload {
-    policies: PolicyResource[];
+interface PolicyPayload extends TwilioResponsePayload {
+  policies: PolicyResource[];
 }
 
 interface PolicyResource {
@@ -346,19 +403,19 @@ interface PolicyResource {
 }
 
 export class PolicyInstance {
-
-  constructor(protected _version: V1, payload: PolicyResource) {
-    
-    this.id = (payload.id);
-    this.name = (payload.name);
-    this.description = (payload.description);
-    this.accountSid = (payload.account_sid);
-    this.userSid = (payload.user_sid);
-    this.type = (payload.type);
-    this.policyDetails = (payload.policy_details);
+  constructor(
+    protected _version: V1,
+    payload: PolicyResource,
+  ) {
+    this.id = payload.id;
+    this.name = payload.name;
+    this.description = payload.description;
+    this.accountSid = payload.account_sid;
+    this.userSid = payload.user_sid;
+    this.type = payload.type;
+    this.policyDetails = payload.policy_details;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-
   }
 
   /**
@@ -422,33 +479,37 @@ export class PolicyInstance {
   }
 }
 
-export class PolicyPage extends Page<V1, PolicyPayload, PolicyResource, PolicyInstance> {
-/**
-* Initialize the PolicyPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: PolicySolution) {
+export class PolicyPage extends Page<
+  V1,
+  PolicyPayload,
+  PolicyResource,
+  PolicyInstance
+> {
+  /**
+   * Initialize the PolicyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: PolicySolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of PolicyInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: PolicyResource): PolicyInstance {
+  /**
+   * Build an instance of PolicyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PolicyResource): PolicyInstance {
+    return new PolicyInstance(this._version, payload);
+  }
 
-    return new PolicyInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

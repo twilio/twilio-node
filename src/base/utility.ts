@@ -9,6 +9,6 @@ export function isValidPathParam(param: any): boolean {
   const paramString = param.toString();
 
   return INVALID_PATH_PARAM_CHARS.every(
-    (invalidChar) => !paramString.includes(invalidChar)
+    (invalidChar) => !paramString.includes(invalidChar),
   );
 }

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,12 +23,14 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to each
  */
 export interface DataSessionListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -41,22 +44,25 @@ export interface DataSessionListInstanceEachOptions {
  */
 export interface DataSessionListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface DataSessionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface DataSessionSolution {
   simSid: string;
@@ -66,6 +72,9 @@ export interface DataSessionListInstance {
   _version: V1;
   _solution: DataSessionSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams DataSessionInstance records from the API.
@@ -82,13 +91,8 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: DataSessionListInstanceEachOptions,
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
+  each(params: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams DataSessionInstance records from the API with HTTP metadata captured per page.
    *
@@ -104,13 +108,8 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: DataSessionListInstanceEachOptions,
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    *
@@ -119,10 +118,7 @@ export interface DataSessionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API with HTTP metadata.
    *
@@ -131,10 +127,7 @@ export interface DataSessionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
-  ): Promise<ApiResponse<DataSessionPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any): Promise<ApiResponse<DataSessionPage>>;
   /**
    * Lists DataSessionInstance records from the API as a list.
    *
@@ -144,13 +137,8 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: DataSessionInstance[]) => any
-  ): Promise<DataSessionInstance[]>;
-  list(
-    params: DataSessionListInstanceOptions,
-    callback?: (error: Error | null, items: DataSessionInstance[]) => any
-  ): Promise<DataSessionInstance[]>;
+  list(callback?: (error: Error | null, items: DataSessionInstance[]) => any): Promise<DataSessionInstance[]>;
+  list(params: DataSessionListInstanceOptions, callback?: (error: Error | null, items: DataSessionInstance[]) => any): Promise<DataSessionInstance[]>;
   /**
    * Lists DataSessionInstance records from the API as a list with HTTP metadata.
    *
@@ -162,19 +150,8 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DataSessionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<DataSessionInstance[]>>;
-  listWithHttpInfo(
-    params: DataSessionListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DataSessionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<DataSessionInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DataSessionInstance[]>) => any): Promise<ApiResponse<DataSessionInstance[]>>;
+  listWithHttpInfo(params: DataSessionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<DataSessionInstance[]>) => any): Promise<ApiResponse<DataSessionInstance[]>>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    *
@@ -186,13 +163,8 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
-  page(
-    params: DataSessionListInstancePageOptions,
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
+  page(callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
+  page(params: DataSessionListInstancePageOptions, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API with HTTP metadata.
    *
@@ -204,13 +176,9 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
-  ): Promise<ApiResponse<DataSessionPage>>;
-  pageWithHttpInfo(
-    params: DataSessionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
-  ): Promise<ApiResponse<DataSessionPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any): Promise<ApiResponse<DataSessionPage>>;
+  pageWithHttpInfo(params: DataSessionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any): Promise<ApiResponse<DataSessionPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -219,26 +187,18 @@ export interface DataSessionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DataSessionListInstance(
-  version: V1,
-  simSid: string
-): DataSessionListInstance {
+export function DataSessionListInstance(version: V1, simSid: string): DataSessionListInstance {
   if (!isValidPathParam(simSid)) {
-    throw new Error("Parameter 'simSid' is not valid.");
+    throw new Error('Parameter \'simSid\' is not valid.');
   }
 
   const instance = {} as DataSessionListInstance;
 
   instance._version = version;
-  instance._solution = { simSid };
+  instance._solution = { simSid,  };
   instance._uri = `/Sims/${simSid}/DataSessions`;
 
-  instance.page = function page(
-    params?:
-      | DataSessionListInstancePageOptions
-      | ((error: Error | null, items: DataSessionPage) => any),
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage> {
+  instance.page = function page(params?: DataSessionListInstancePageOptions | ((error: Error | null, items: DataSessionPage) => any), callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -248,59 +208,44 @@ export function DataSessionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new DataSessionPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataSessionPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new DataSessionPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new DataSessionPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | DataSessionListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<DataSessionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
-  ): Promise<ApiResponse<DataSessionPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: DataSessionListInstancePageOptions | ((error: Error | null, items: ApiResponse<DataSessionPage>) => any), callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any): Promise<ApiResponse<DataSessionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -310,88 +255,67 @@ export function DataSessionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DataSessionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DataSessionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<DataSessionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new DataSessionPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<DataSessionPage>
-    ) => any
-  ): Promise<ApiResponse<DataSessionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<DataSessionPage>) => any): Promise<ApiResponse<DataSessionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<DataSessionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new DataSessionPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<DataSessionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new DataSessionPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface DataSessionPayload extends TwilioResponsePayload {
-  data_sessions: DataSessionResource[];
+  interface DataSessionPayload extends TwilioResponsePayload {
+    data_sessions: DataSessionResource[];
 }
 
 interface DataSessionResource {
@@ -414,27 +338,26 @@ interface DataSessionResource {
 }
 
 export class DataSessionInstance {
-  constructor(
-    protected _version: V1,
-    payload: DataSessionResource,
-    simSid: string
-  ) {
-    this.sid = payload.sid;
-    this.simSid = payload.sim_sid;
-    this.accountSid = payload.account_sid;
-    this.radioLink = payload.radio_link;
-    this.operatorMcc = payload.operator_mcc;
-    this.operatorMnc = payload.operator_mnc;
-    this.operatorCountry = payload.operator_country;
-    this.operatorName = payload.operator_name;
-    this.cellId = payload.cell_id;
-    this.cellLocationEstimate = payload.cell_location_estimate;
+
+  constructor(protected _version: V1, payload: DataSessionResource, simSid: string) {
+    
+    this.sid = (payload.sid);
+    this.simSid = (payload.sim_sid);
+    this.accountSid = (payload.account_sid);
+    this.radioLink = (payload.radio_link);
+    this.operatorMcc = (payload.operator_mcc);
+    this.operatorMnc = (payload.operator_mnc);
+    this.operatorCountry = (payload.operator_country);
+    this.operatorName = (payload.operator_name);
+    this.cellId = (payload.cell_id);
+    this.cellLocationEstimate = (payload.cell_location_estimate);
     this.packetsUploaded = deserialize.integer(payload.packets_uploaded);
     this.packetsDownloaded = deserialize.integer(payload.packets_downloaded);
     this.lastUpdated = deserialize.iso8601DateTime(payload.last_updated);
     this.start = deserialize.iso8601DateTime(payload.start);
     this.end = deserialize.iso8601DateTime(payload.end);
-    this.imei = payload.imei;
+    this.imei = (payload.imei);
+
   }
 
   /**
@@ -474,7 +397,7 @@ export class DataSessionInstance {
    */
   cellId: string;
   /**
-   * An object that describes the estimated location in latitude and longitude where the device\'s Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).
+   * An object that describes the estimated location in latitude and longitude where the device\'s Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object). 
    */
   cellLocationEstimate: any;
   /**
@@ -533,41 +456,34 @@ export class DataSessionInstance {
   }
 }
 
-export class DataSessionPage extends Page<
-  V1,
-  DataSessionPayload,
-  DataSessionResource,
-  DataSessionInstance
-> {
-  /**
-   * Initialize the DataSessionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: DataSessionSolution
-  ) {
+export class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
+/**
+* Initialize the DataSessionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DataSessionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DataSessionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DataSessionResource): DataSessionInstance {
+    /**
+    * Build an instance of DataSessionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DataSessionResource): DataSessionInstance {
+
     return new DataSessionInstance(
-      this._version,
-      payload,
-      this._solution.simSid
+    this._version,
+    payload,
+        this._solution.simSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,26 +23,25 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
 /**
  * The current state of this User Conversation. One of `inactive`, `active` or `closed`.
  */
-export type ParticipantConversationState = "inactive" | "active" | "closed";
+export type ParticipantConversationState = 'inactive'|'active'|'closed';
+
 
 /**
  * Options to pass to each
  */
 export interface ParticipantConversationListInstanceEachOptions {
   /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. */
-  identity?: string;
+  "identity"?: string;
   /** A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded. */
-  address?: string;
+  "address"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: ParticipantConversationInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -53,30 +53,33 @@ export interface ParticipantConversationListInstanceEachOptions {
  */
 export interface ParticipantConversationListInstanceOptions {
   /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. */
-  identity?: string;
+  "identity"?: string;
   /** A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded. */
-  address?: string;
+  "address"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ParticipantConversationListInstancePageOptions {
   /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. */
-  identity?: string;
+  "identity"?: string;
   /** A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded. */
-  address?: string;
+  "address"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface ParticipantConversationSolution {
   chatServiceSid: string;
@@ -86,6 +89,9 @@ export interface ParticipantConversationListInstance {
   _version: V1;
   _solution: ParticipantConversationSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams ParticipantConversationInstance records from the API.
@@ -102,19 +108,8 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: ParticipantConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: ParticipantConversationListInstanceEachOptions,
-    callback?: (
-      item: ParticipantConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void): void;
+  each(params: ParticipantConversationListInstanceEachOptions, callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ParticipantConversationInstance records from the API with HTTP metadata captured per page.
    *
@@ -130,19 +125,8 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: ParticipantConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ParticipantConversationListInstanceEachOptions,
-    callback?: (
-      item: ParticipantConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ParticipantConversationListInstanceEachOptions, callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ParticipantConversationInstance records from the API.
    *
@@ -151,10 +135,7 @@ export interface ParticipantConversationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
   /**
    * Retrieve a single target page of ParticipantConversationInstance records from the API with HTTP metadata.
    *
@@ -163,13 +144,7 @@ export interface ParticipantConversationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantConversationPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ParticipantConversationPage>) => any): Promise<ApiResponse<ParticipantConversationPage>>;
   /**
    * Lists ParticipantConversationInstance records from the API as a list.
    *
@@ -179,19 +154,8 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: ParticipantConversationInstance[]
-    ) => any
-  ): Promise<ParticipantConversationInstance[]>;
-  list(
-    params: ParticipantConversationListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ParticipantConversationInstance[]
-    ) => any
-  ): Promise<ParticipantConversationInstance[]>;
+  list(callback?: (error: Error | null, items: ParticipantConversationInstance[]) => any): Promise<ParticipantConversationInstance[]>;
+  list(params: ParticipantConversationListInstanceOptions, callback?: (error: Error | null, items: ParticipantConversationInstance[]) => any): Promise<ParticipantConversationInstance[]>;
   /**
    * Lists ParticipantConversationInstance records from the API as a list with HTTP metadata.
    *
@@ -203,19 +167,8 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantConversationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationInstance[]>>;
-  listWithHttpInfo(
-    params: ParticipantConversationListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantConversationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ParticipantConversationInstance[]>) => any): Promise<ApiResponse<ParticipantConversationInstance[]>>;
+  listWithHttpInfo(params: ParticipantConversationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantConversationInstance[]>) => any): Promise<ApiResponse<ParticipantConversationInstance[]>>;
   /**
    * Retrieve a single page of ParticipantConversationInstance records from the API.
    *
@@ -227,13 +180,8 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
-  page(
-    params: ParticipantConversationListInstancePageOptions,
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
+  page(callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
+  page(params: ParticipantConversationListInstancePageOptions, callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
   /**
    * Retrieve a single page of ParticipantConversationInstance records from the API with HTTP metadata.
    *
@@ -245,19 +193,9 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantConversationPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationPage>>;
-  pageWithHttpInfo(
-    params: ParticipantConversationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantConversationPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ParticipantConversationPage>) => any): Promise<ApiResponse<ParticipantConversationPage>>;
+  pageWithHttpInfo(params: ParticipantConversationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantConversationPage>) => any): Promise<ApiResponse<ParticipantConversationPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -266,26 +204,18 @@ export interface ParticipantConversationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ParticipantConversationListInstance(
-  version: V1,
-  chatServiceSid: string
-): ParticipantConversationListInstance {
+export function ParticipantConversationListInstance(version: V1, chatServiceSid: string): ParticipantConversationListInstance {
   if (!isValidPathParam(chatServiceSid)) {
-    throw new Error("Parameter 'chatServiceSid' is not valid.");
+    throw new Error('Parameter \'chatServiceSid\' is not valid.');
   }
 
   const instance = {} as ParticipantConversationListInstance;
 
   instance._version = version;
-  instance._solution = { chatServiceSid };
+  instance._solution = { chatServiceSid,  };
   instance._uri = `/Services/${chatServiceSid}/ParticipantConversations`;
 
-  instance.page = function page(
-    params?:
-      | ParticipantConversationListInstancePageOptions
-      | ((error: Error | null, items: ParticipantConversationPage) => any),
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage> {
+  instance.page = function page(params?: ParticipantConversationListInstancePageOptions | ((error: Error | null, items: ParticipantConversationPage) => any), callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -295,75 +225,48 @@ export function ParticipantConversationListInstance(
 
     let data: any = {};
 
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["address"] !== undefined) data["Address"] = params["address"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["address"] !== undefined)
+    data["Address"] = params["address"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ParticipantConversationPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantConversationPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ParticipantConversationPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ParticipantConversationPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ParticipantConversationListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<ParticipantConversationPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantConversationPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ParticipantConversationListInstancePageOptions | ((error: Error | null, items: ApiResponse<ParticipantConversationPage>) => any), callback?: (error: Error | null, items: ApiResponse<ParticipantConversationPage>) => any): Promise<ApiResponse<ParticipantConversationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -373,90 +276,71 @@ export function ParticipantConversationListInstance(
 
     let data: any = {};
 
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["address"] !== undefined) data["Address"] = params["address"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["address"] !== undefined)
+    data["Address"] = params["address"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantConversationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantConversationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ParticipantConversationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ParticipantConversationPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ParticipantConversationPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantConversationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ParticipantConversationPage>) => any): Promise<ApiResponse<ParticipantConversationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ParticipantConversationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ParticipantConversationPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ParticipantConversationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ParticipantConversationPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface ParticipantConversationPayload extends TwilioResponsePayload {
-  conversations: ParticipantConversationResource[];
+  interface ParticipantConversationPayload extends TwilioResponsePayload {
+    conversations: ParticipantConversationResource[];
 }
 
 interface ParticipantConversationResource {
@@ -479,31 +363,26 @@ interface ParticipantConversationResource {
 }
 
 export class ParticipantConversationInstance {
-  constructor(
-    protected _version: V1,
-    payload: ParticipantConversationResource,
-    chatServiceSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.chatServiceSid = payload.chat_service_sid;
-    this.participantSid = payload.participant_sid;
-    this.participantUserSid = payload.participant_user_sid;
-    this.participantIdentity = payload.participant_identity;
-    this.participantMessagingBinding = payload.participant_messaging_binding;
-    this.conversationSid = payload.conversation_sid;
-    this.conversationUniqueName = payload.conversation_unique_name;
-    this.conversationFriendlyName = payload.conversation_friendly_name;
-    this.conversationAttributes = payload.conversation_attributes;
-    this.conversationDateCreated = deserialize.iso8601DateTime(
-      payload.conversation_date_created
-    );
-    this.conversationDateUpdated = deserialize.iso8601DateTime(
-      payload.conversation_date_updated
-    );
-    this.conversationCreatedBy = payload.conversation_created_by;
+
+  constructor(protected _version: V1, payload: ParticipantConversationResource, chatServiceSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.chatServiceSid = (payload.chat_service_sid);
+    this.participantSid = (payload.participant_sid);
+    this.participantUserSid = (payload.participant_user_sid);
+    this.participantIdentity = (payload.participant_identity);
+    this.participantMessagingBinding = (payload.participant_messaging_binding);
+    this.conversationSid = (payload.conversation_sid);
+    this.conversationUniqueName = (payload.conversation_unique_name);
+    this.conversationFriendlyName = (payload.conversation_friendly_name);
+    this.conversationAttributes = (payload.conversation_attributes);
+    this.conversationDateCreated = deserialize.iso8601DateTime(payload.conversation_date_created);
+    this.conversationDateUpdated = deserialize.iso8601DateTime(payload.conversation_date_updated);
+    this.conversationCreatedBy = (payload.conversation_created_by);
     this.conversationState = payload.conversation_state;
-    this.conversationTimers = payload.conversation_timers;
-    this.links = payload.links;
+    this.conversationTimers = (payload.conversation_timers);
+    this.links = (payload.links);
+
   }
 
   /**
@@ -599,43 +478,34 @@ export class ParticipantConversationInstance {
   }
 }
 
-export class ParticipantConversationPage extends Page<
-  V1,
-  ParticipantConversationPayload,
-  ParticipantConversationResource,
-  ParticipantConversationInstance
-> {
-  /**
-   * Initialize the ParticipantConversationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ParticipantConversationSolution
-  ) {
+export class ParticipantConversationPage extends Page<V1, ParticipantConversationPayload, ParticipantConversationResource, ParticipantConversationInstance> {
+/**
+* Initialize the ParticipantConversationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ParticipantConversationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantConversationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: ParticipantConversationResource
-  ): ParticipantConversationInstance {
+    /**
+    * Build an instance of ParticipantConversationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantConversationResource): ParticipantConversationInstance {
+
     return new ParticipantConversationInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid
+    this._version,
+    payload,
+        this._solution.chatServiceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

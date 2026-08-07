@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -24,15 +23,12 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { MessageListInstance } from "./session/message";
 
-
-
-
 /**
  * Options to pass to each
  */
 export interface SessionListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -46,24 +42,22 @@ export interface SessionListInstanceEachOptions {
  */
 export interface SessionListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface SessionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface SessionContext {
   messages: MessageListInstance;
@@ -75,7 +69,9 @@ export interface SessionContext {
    *
    * @returns Resolves to processed SessionInstance
    */
-  fetch(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any,
+  ): Promise<SessionInstance>;
 
   /**
    * Fetch a SessionInstance and return HTTP info
@@ -84,7 +80,12 @@ export interface SessionContext {
    *
    * @returns Resolves to processed SessionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SessionInstance>) => any): Promise<ApiResponse<SessionInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SessionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -94,7 +95,7 @@ export interface SessionContext {
 }
 
 export interface SessionContextSolution {
-  "id": string;
+  id: string;
 }
 
 export class SessionContextImpl implements SessionContext {
@@ -103,53 +104,82 @@ export class SessionContextImpl implements SessionContext {
 
   protected _messages?: MessageListInstance;
 
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
-      throw new Error('Parameter \'id\' is not valid.');
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { id,  };
+    this._solution = { id };
     this._uri = `/Sessions/${id}`;
   }
 
   get messages(): MessageListInstance {
-    this._messages = this._messages || MessageListInstance(this._version, this._solution.id);
+    this._messages =
+      this._messages || MessageListInstance(this._version, this._solution.id);
     return this._messages;
   }
 
-  fetch(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any,
+  ): Promise<SessionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SessionInstance(operationVersion, payload, instance._solution.id),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SessionInstance>) => any): Promise<ApiResponse<SessionInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SessionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<SessionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<SessionInstance> => ({
-      ...response,
-      body: new SessionInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SessionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<SessionInstance> => ({
+        ...response,
+        body: new SessionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -166,9 +196,8 @@ export class SessionContextImpl implements SessionContext {
   }
 }
 
-
-  interface SessionPayload extends TwilioResponsePayload {
-    sessions: SessionResource[];
+interface SessionPayload extends TwilioResponsePayload {
+  sessions: SessionResource[];
 }
 
 interface SessionResource {
@@ -185,17 +214,20 @@ export class SessionInstance {
   protected _solution: SessionContextSolution;
   protected _context?: SessionContext;
 
-  constructor(protected _version: V1, payload: SessionResource, id?: string) {
-    
-    this.id = (payload.id);
-    this.accountSid = (payload.account_sid);
-    this.assistantId = (payload.assistant_id);
-    this.verified = (payload.verified);
-    this.identity = (payload.identity);
+  constructor(
+    protected _version: V1,
+    payload: SessionResource,
+    id?: string,
+  ) {
+    this.id = payload.id;
+    this.accountSid = payload.account_sid;
+    this.assistantId = payload.assistant_id;
+    this.verified = payload.verified;
+    this.identity = payload.identity;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { id: id,  };
+    this._solution = { id: id };
   }
 
   /**
@@ -228,7 +260,8 @@ export class SessionInstance {
   dateUpdated: Date;
 
   private get _proxy(): SessionContext {
-    this._context = this._context || new SessionContextImpl(this._version, this._solution.id);
+    this._context =
+      this._context || new SessionContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -239,9 +272,9 @@ export class SessionInstance {
    *
    * @returns Resolves to processed SessionInstance
    */
-  fetch(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any,
+  ): Promise<SessionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -252,9 +285,12 @@ export class SessionInstance {
    *
    * @returns Resolves to processed SessionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SessionInstance>) => any): Promise<ApiResponse<SessionInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SessionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -287,21 +323,15 @@ export class SessionInstance {
   }
 }
 
-
-export interface SessionSolution {
-}
+export interface SessionSolution {}
 
 export interface SessionListInstance {
   _version: V1;
   _solution: SessionSolution;
   _uri: string;
 
-  (id: string, ): SessionContext;
-  get(id: string, ): SessionContext;
-
-
-
-
+  (id: string): SessionContext;
+  get(id: string): SessionContext;
 
   /**
    * Streams SessionInstance records from the API.
@@ -318,8 +348,13 @@ export interface SessionListInstance {
    * @param { SessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
-  each(params: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: SessionListInstanceEachOptions,
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams SessionInstance records from the API with HTTP metadata captured per page.
    *
@@ -335,8 +370,13 @@ export interface SessionListInstance {
    * @param { SessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: SessionListInstanceEachOptions,
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
    *
@@ -345,7 +385,10 @@ export interface SessionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: SessionPage) => any,
+  ): Promise<SessionPage>;
   /**
    * Retrieve a single target page of SessionInstance records from the API with HTTP metadata.
    *
@@ -354,7 +397,10 @@ export interface SessionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any): Promise<ApiResponse<SessionPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any,
+  ): Promise<ApiResponse<SessionPage>>;
   /**
    * Lists SessionInstance records from the API as a list.
    *
@@ -364,8 +410,13 @@ export interface SessionListInstance {
    * @param { SessionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
-  list(params: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SessionInstance[]) => any,
+  ): Promise<SessionInstance[]>;
+  list(
+    params: SessionListInstanceOptions,
+    callback?: (error: Error | null, items: SessionInstance[]) => any,
+  ): Promise<SessionInstance[]>;
   /**
    * Lists SessionInstance records from the API as a list with HTTP metadata.
    *
@@ -377,8 +428,19 @@ export interface SessionListInstance {
    * @param { SessionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<SessionInstance[]>) => any): Promise<ApiResponse<SessionInstance[]>>;
-  listWithHttpInfo(params: SessionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<SessionInstance[]>) => any): Promise<ApiResponse<SessionInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SessionInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<SessionInstance[]>>;
+  listWithHttpInfo(
+    params: SessionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SessionInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<SessionInstance[]>>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    *
@@ -390,8 +452,13 @@ export interface SessionListInstance {
    * @param { SessionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
-  page(params: SessionListInstancePageOptions, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  page(
+    callback?: (error: Error | null, items: SessionPage) => any,
+  ): Promise<SessionPage>;
+  page(
+    params: SessionListInstancePageOptions,
+    callback?: (error: Error | null, items: SessionPage) => any,
+  ): Promise<SessionPage>;
   /**
    * Retrieve a single page of SessionInstance records from the API with HTTP metadata.
    *
@@ -403,9 +470,13 @@ export interface SessionListInstance {
    * @param { SessionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any): Promise<ApiResponse<SessionPage>>;
-  pageWithHttpInfo(params: SessionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any): Promise<ApiResponse<SessionPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any,
+  ): Promise<ApiResponse<SessionPage>>;
+  pageWithHttpInfo(
+    params: SessionListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any,
+  ): Promise<ApiResponse<SessionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -415,17 +486,22 @@ export interface SessionListInstance {
 }
 
 export function SessionListInstance(version: V1): SessionListInstance {
-  const instance = ((id, ) => instance.get(id, )) as SessionListInstance;
+  const instance = ((id) => instance.get(id)) as SessionListInstance;
 
-  instance.get = function get(id, ): SessionContext {
+  instance.get = function get(id): SessionContext {
     return new SessionContextImpl(version, id);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Sessions`;
 
-  instance.page = function page(params?: SessionListInstancePageOptions | ((error: Error | null, items: SessionPage) => any), callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage> {
+  instance.page = function page(
+    params?:
+      | SessionListInstancePageOptions
+      | ((error: Error | null, items: SessionPage) => any),
+    callback?: (error: Error | null, items: SessionPage) => any,
+  ): Promise<SessionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -435,44 +511,59 @@ export function SessionListInstance(version: V1): SessionListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new SessionPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SessionPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new SessionPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: SessionPage) => any,
+  ): Promise<SessionPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SessionPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: SessionListInstancePageOptions | ((error: Error | null, items: ApiResponse<SessionPage>) => any), callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any): Promise<ApiResponse<SessionPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | SessionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<SessionPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<SessionPage>) => any,
+  ): Promise<ApiResponse<SessionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -482,92 +573,104 @@ export function SessionListInstance(version: V1): SessionListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<SessionPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new SessionPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<SessionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SessionPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<SessionPage>) => any): Promise<ApiResponse<SessionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<SessionPage>) => any,
+  ): Promise<ApiResponse<SessionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<SessionPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new SessionPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<SessionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SessionPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
-/**
-* Initialize the SessionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SessionSolution) {
+export class SessionPage extends Page<
+  V1,
+  SessionPayload,
+  SessionResource,
+  SessionInstance
+> {
+  /**
+   * Initialize the SessionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: SessionSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SessionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SessionResource): SessionInstance {
+  /**
+   * Build an instance of SessionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SessionResource): SessionInstance {
+    return new SessionInstance(this._version, payload);
+  }
 
-    return new SessionInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

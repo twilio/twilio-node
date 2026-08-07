@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -22,45 +23,43 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
 /**
  * The status of the participant\'s call in a session. Can be: `queued`, `connecting`, `ringing`, `connected`, `complete`, or `failed`.
  */
-export type ParticipantStatus =
-  | "queued"
-  | "connecting"
-  | "ringing"
-  | "connected"
-  | "complete"
-  | "failed";
+export type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|'failed';
+
+
+
 
 /**
  * Options to pass to update a ParticipantInstance
  */
 export interface ParticipantContextUpdateOptions {
   /** Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`. */
-  muted?: boolean;
+  "muted"?: boolean;
   /** Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference. */
-  hold?: boolean;
+  "hold"?: boolean;
   /** The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. */
-  holdUrl?: string;
+  "holdUrl"?: string;
   /** The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`. */
-  holdMethod?: string;
+  "holdMethod"?: string;
   /** The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. */
-  announceUrl?: string;
+  "announceUrl"?: string;
   /** The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`. */
-  announceMethod?: string;
+  "announceMethod"?: string;
   /** The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `\\\'\\\'`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl). */
-  waitUrl?: string;
+  "waitUrl"?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
-  waitMethod?: string;
+  "waitMethod"?: string;
   /** Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`. */
-  beepOnExit?: boolean;
+  "beepOnExit"?: boolean;
   /** Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`. */
-  endConferenceOnExit?: boolean;
+  "endConferenceOnExit"?: boolean;
   /** Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined. */
-  coaching?: boolean;
+  "coaching"?: boolean;
   /** The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`. */
-  callSidToCoach?: string;
+  "callSidToCoach"?: string;
 }
 
 /**
@@ -68,107 +67,125 @@ export interface ParticipantContextUpdateOptions {
  */
 export interface ParticipantListInstanceCreateOptions {
   /** The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint. */
-  from: string;
+  "from": string;
   /** The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. */
-  to: string;
+  "to": string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`. */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`. */
-  statusCallbackEvent?: Array<string>;
+  "statusCallbackEvent"?: Array<string>;
   /** A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant. */
-  label?: string;
+  "label"?: string;
   /** The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds. */
-  timeout?: number;
+  "timeout"?: number;
   /** Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`. */
-  record?: boolean;
+  "record"?: boolean;
   /** Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`. */
-  muted?: boolean;
+  "muted"?: boolean;
   /** Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`. */
-  beep?: string;
+  "beep"?: string;
   /** Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference. */
-  startConferenceOnEnter?: boolean;
+  "startConferenceOnEnter"?: boolean;
   /** Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`. */
-  endConferenceOnExit?: boolean;
+  "endConferenceOnExit"?: boolean;
   /** The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `\\\'\\\'`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl). */
-  waitUrl?: string;
+  "waitUrl"?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
-  waitMethod?: string;
+  "waitMethod"?: string;
   /** Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`. */
-  earlyMedia?: boolean;
+  "earlyMedia"?: boolean;
   /** The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`. */
-  maxParticipants?: number;
+  "maxParticipants"?: number;
   /** Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`. */
-  conferenceRecord?: string;
+  "conferenceRecord"?: string;
   /** Whether to trim leading and trailing silence from the conference recording. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`. */
-  conferenceTrim?: string;
+  "conferenceTrim"?: string;
   /** The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored. */
-  conferenceStatusCallback?: string;
+  "conferenceStatusCallback"?: string;
   /** The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  conferenceStatusCallbackMethod?: string;
+  "conferenceStatusCallbackMethod"?: string;
   /** The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`. */
-  conferenceStatusCallbackEvent?: Array<string>;
+  "conferenceStatusCallbackEvent"?: Array<string>;
   /** The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`. */
-  recordingChannels?: string;
+  "recordingChannels"?: string;
   /** The URL that we should call using the `recording_status_callback_method` when the recording status changes. */
-  recordingStatusCallback?: string;
+  "recordingStatusCallback"?: string;
   /** The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  recordingStatusCallbackMethod?: string;
+  "recordingStatusCallbackMethod"?: string;
   /** The SIP username used for authentication. */
-  sipAuthUsername?: string;
+  "sipAuthUsername"?: string;
   /** The SIP password for authentication. */
-  sipAuthPassword?: string;
+  "sipAuthPassword"?: string;
   /** The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`. */
-  region?: string;
+  "region"?: string;
   /** The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available. */
-  conferenceRecordingStatusCallback?: string;
+  "conferenceRecordingStatusCallback"?: string;
   /** The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  conferenceRecordingStatusCallbackMethod?: string;
+  "conferenceRecordingStatusCallbackMethod"?: string;
   /** The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `\\\'in-progress completed failed\\\'`. */
-  recordingStatusCallbackEvent?: Array<string>;
+  "recordingStatusCallbackEvent"?: Array<string>;
   /** The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `\\\'in-progress completed failed\\\'` */
-  conferenceRecordingStatusCallbackEvent?: Array<string>;
+  "conferenceRecordingStatusCallbackEvent"?: Array<string>;
   /** Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined. */
-  coaching?: boolean;
+  "coaching"?: boolean;
   /** The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`. */
-  callSidToCoach?: string;
+  "callSidToCoach"?: string;
   /** Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant\\\'s audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`. */
-  jitterBufferSize?: string;
+  "jitterBufferSize"?: string;
   /** The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta) */
-  byoc?: string;
+  "byoc"?: string;
   /** The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint. */
-  callerId?: string;
+  "callerId"?: string;
   /** The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party\\\'s phone. (Branded Calls Beta) */
-  callReason?: string;
+  "callReason"?: string;
   /** The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio. */
-  recordingTrack?: string;
+  "recordingTrack"?: string;
   /** The identifier of the configuration to be used when creating and processing the recording */
-  recordingConfigurationId?: string;
+  "recordingConfigurationId"?: string;
   /** The maximum duration of the call in seconds. Constraints depend on account and configuration. */
-  timeLimit?: number;
+  "timeLimit"?: number;
   /** Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection). */
-  machineDetection?: string;
+  "machineDetection"?: string;
   /** The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds. */
-  machineDetectionTimeout?: number;
+  "machineDetectionTimeout"?: number;
   /** The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400. */
-  machineDetectionSpeechThreshold?: number;
+  "machineDetectionSpeechThreshold"?: number;
   /** The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200. */
-  machineDetectionSpeechEndThreshold?: number;
+  "machineDetectionSpeechEndThreshold"?: number;
   /** The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000. */
-  machineDetectionSilenceTimeout?: number;
+  "machineDetectionSilenceTimeout"?: number;
   /** The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax. */
-  amdStatusCallback?: string;
+  "amdStatusCallback"?: string;
   /** The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
-  amdStatusCallbackMethod?: string;
+  "amdStatusCallbackMethod"?: string;
   /** Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`. */
-  trim?: string;
+  "trim"?: string;
   /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
-  callToken?: string;
+  "callToken"?: string;
+  /** The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string */
+  "passports"?: string;
   /** The URL that we should use to deliver `push call notification`. */
-  clientNotificationUrl?: string;
+  "clientNotificationUrl"?: string;
   /** The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address. */
-  callerDisplayName?: string;
+  "callerDisplayName"?: string;
+  /** The emergency caller\\\'s GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.  */
+  "emergencyCallerPosition"?: string;
+  /** The emergency caller\\\'s physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  "emergencyCallerLocation"?: string;
+  /** The emergency caller\\\'s organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  "emergencyName"?: string;
+  /** The emergency caller\\\'s street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.  */
+  "emergencyAddress"?: string;
+  /** The emergency caller\\\'s postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  "emergencyZipCode"?: string;
+  /** The emergency caller\\\'s city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  "emergencyCity"?: string;
+  /** The emergency caller\\\'s state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  "emergencyState"?: string;
+  /** The emergency caller\\\'s country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  "emergencyCountry"?: string;
 }
 
 /**
@@ -176,13 +193,13 @@ export interface ParticipantListInstanceCreateOptions {
  */
 export interface ParticipantListInstanceEachOptions {
   /** Whether to return only participants that are muted. Can be: `true` or `false`. */
-  muted?: boolean;
+  "muted"?: boolean;
   /** Whether to return only participants that are on hold. Can be: `true` or `false`. */
-  hold?: boolean;
+  "hold"?: boolean;
   /** Whether to return only participants who are coaching another call. Can be: `true` or `false`. */
-  coaching?: boolean;
+  "coaching"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -196,36 +213,39 @@ export interface ParticipantListInstanceEachOptions {
  */
 export interface ParticipantListInstanceOptions {
   /** Whether to return only participants that are muted. Can be: `true` or `false`. */
-  muted?: boolean;
+  "muted"?: boolean;
   /** Whether to return only participants that are on hold. Can be: `true` or `false`. */
-  hold?: boolean;
+  "hold"?: boolean;
   /** Whether to return only participants who are coaching another call. Can be: `true` or `false`. */
-  coaching?: boolean;
+  "coaching"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ParticipantListInstancePageOptions {
   /** Whether to return only participants that are muted. Can be: `true` or `false`. */
-  muted?: boolean;
+  "muted"?: boolean;
   /** Whether to return only participants that are on hold. Can be: `true` or `false`. */
-  hold?: boolean;
+  "hold"?: boolean;
   /** Whether to return only participants who are coaching another call. Can be: `true` or `false`. */
-  coaching?: boolean;
+  "coaching"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ParticipantContext {
+
   /**
    * Remove a ParticipantInstance
    *
@@ -233,9 +253,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a ParticipantInstance and return HTTP info
@@ -244,9 +262,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a ParticipantInstance
@@ -255,9 +271,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
 
   /**
    * Fetch a ParticipantInstance and return HTTP info
@@ -266,12 +280,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>
 
   /**
    * Update a ParticipantInstance
@@ -280,9 +289,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  update(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -291,10 +298,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  update(
-    params: ParticipantContextUpdateOptions,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  update(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
 
   /**
    * Update a ParticipantInstance and return HTTP info
@@ -303,12 +307,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>;
   /**
    * Update a ParticipantInstance and return HTTP info
    *
@@ -317,13 +316,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ParticipantContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  updateWithHttpInfo(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -333,297 +326,210 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  accountSid: string;
-  conferenceSid: string;
-  callSid: string;
+  "accountSid": string;
+  "conferenceSid": string;
+  "callSid": string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    conferenceSid: string,
-    callSid: string
-  ) {
+
+  constructor(protected _version: V2010, accountSid: string, conferenceSid: string, callSid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(conferenceSid)) {
-      throw new Error("Parameter 'conferenceSid' is not valid.");
+      throw new Error('Parameter \'conferenceSid\' is not valid.');
     }
 
     if (!isValidPathParam(callSid)) {
-      throw new Error("Parameter 'callSid' is not valid.");
+      throw new Error('Parameter \'callSid\' is not valid.');
     }
 
-    this._solution = { accountSid, conferenceSid, callSid };
+    this._solution = { accountSid, conferenceSid, callSid,  };
     this._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Participants/${callSid}.json`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.conferenceSid, instance._solution.callSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.callSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ParticipantResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ParticipantResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ParticipantInstance> => ({
+      ...response,
+      body: new ParticipantInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.conferenceSid, instance._solution.callSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ParticipantContextUpdateOptions
-      | ((error: Error | null, item?: ParticipantInstance) => any),
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
-    if (params instanceof Function) {
+  update(params?: ParticipantContextUpdateOptions | ((error: Error | null, item?: ParticipantInstance) => any),callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["muted"] !== undefined)
-      data["Muted"] = serialize.bool(params["muted"]);
+    
+        if (params["muted"] !== undefined)
+    data["Muted"] = serialize.bool(params["muted"]);
     if (params["hold"] !== undefined)
-      data["Hold"] = serialize.bool(params["hold"]);
-    if (params["holdUrl"] !== undefined) data["HoldUrl"] = params["holdUrl"];
+    data["Hold"] = serialize.bool(params["hold"]);
+    if (params["holdUrl"] !== undefined)
+    data["HoldUrl"] = params["holdUrl"];
     if (params["holdMethod"] !== undefined)
-      data["HoldMethod"] = params["holdMethod"];
+    data["HoldMethod"] = params["holdMethod"];
     if (params["announceUrl"] !== undefined)
-      data["AnnounceUrl"] = params["announceUrl"];
+    data["AnnounceUrl"] = params["announceUrl"];
     if (params["announceMethod"] !== undefined)
-      data["AnnounceMethod"] = params["announceMethod"];
-    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
+    data["AnnounceMethod"] = params["announceMethod"];
+    if (params["waitUrl"] !== undefined)
+    data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-      data["WaitMethod"] = params["waitMethod"];
+    data["WaitMethod"] = params["waitMethod"];
     if (params["beepOnExit"] !== undefined)
-      data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
+    data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
     if (params["endConferenceOnExit"] !== undefined)
-      data["EndConferenceOnExit"] = serialize.bool(
-        params["endConferenceOnExit"]
-      );
+    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
     if (params["coaching"] !== undefined)
-      data["Coaching"] = serialize.bool(params["coaching"]);
+    data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)
-      data["CallSidToCoach"] = params["callSidToCoach"];
+    data["CallSidToCoach"] = params["callSidToCoach"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.conferenceSid, instance._solution.callSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.callSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | ParticipantContextUpdateOptions
-      | ((error: Error | null, item?: ApiResponse<ParticipantInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: ParticipantContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ParticipantInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["muted"] !== undefined)
-      data["Muted"] = serialize.bool(params["muted"]);
+    
+        if (params["muted"] !== undefined)
+    data["Muted"] = serialize.bool(params["muted"]);
     if (params["hold"] !== undefined)
-      data["Hold"] = serialize.bool(params["hold"]);
-    if (params["holdUrl"] !== undefined) data["HoldUrl"] = params["holdUrl"];
+    data["Hold"] = serialize.bool(params["hold"]);
+    if (params["holdUrl"] !== undefined)
+    data["HoldUrl"] = params["holdUrl"];
     if (params["holdMethod"] !== undefined)
-      data["HoldMethod"] = params["holdMethod"];
+    data["HoldMethod"] = params["holdMethod"];
     if (params["announceUrl"] !== undefined)
-      data["AnnounceUrl"] = params["announceUrl"];
+    data["AnnounceUrl"] = params["announceUrl"];
     if (params["announceMethod"] !== undefined)
-      data["AnnounceMethod"] = params["announceMethod"];
-    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
+    data["AnnounceMethod"] = params["announceMethod"];
+    if (params["waitUrl"] !== undefined)
+    data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-      data["WaitMethod"] = params["waitMethod"];
+    data["WaitMethod"] = params["waitMethod"];
     if (params["beepOnExit"] !== undefined)
-      data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
+    data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
     if (params["endConferenceOnExit"] !== undefined)
-      data["EndConferenceOnExit"] = serialize.bool(
-        params["endConferenceOnExit"]
-      );
+    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
     if (params["coaching"] !== undefined)
-      data["Coaching"] = serialize.bool(params["coaching"]);
+    data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)
-      data["CallSidToCoach"] = params["callSidToCoach"];
+    data["CallSidToCoach"] = params["callSidToCoach"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ParticipantResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ParticipantResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ParticipantInstance> => ({
+      ...response,
+      body: new ParticipantInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.conferenceSid, instance._solution.callSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -640,8 +546,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload extends TwilioResponsePayload {
-  participants: ParticipantResource[];
+
+  interface ParticipantPayload extends TwilioResponsePayload {
+    participants: ParticipantResource[];
 }
 
 interface ParticipantResource {
@@ -666,34 +573,25 @@ export class ParticipantInstance {
   protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: ParticipantResource,
-    accountSid: string,
-    conferenceSid: string,
-    callSid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.callSid = payload.call_sid;
-    this.label = payload.label;
-    this.callSidToCoach = payload.call_sid_to_coach;
-    this.coaching = payload.coaching;
-    this.conferenceSid = payload.conference_sid;
+  constructor(protected _version: V2010, payload: ParticipantResource, accountSid: string, conferenceSid: string, callSid?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.callSid = (payload.call_sid);
+    this.label = (payload.label);
+    this.callSidToCoach = (payload.call_sid_to_coach);
+    this.coaching = (payload.coaching);
+    this.conferenceSid = (payload.conference_sid);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.endConferenceOnExit = payload.end_conference_on_exit;
-    this.muted = payload.muted;
-    this.hold = payload.hold;
-    this.startConferenceOnEnter = payload.start_conference_on_enter;
+    this.endConferenceOnExit = (payload.end_conference_on_exit);
+    this.muted = (payload.muted);
+    this.hold = (payload.hold);
+    this.startConferenceOnEnter = (payload.start_conference_on_enter);
     this.status = payload.status;
-    this.queueTime = payload.queue_time;
-    this.uri = payload.uri;
+    this.queueTime = (payload.queue_time);
+    this.uri = (payload.uri);
 
-    this._solution = {
-      accountSid,
-      conferenceSid,
-      callSid: callSid || this.callSid,
-    };
+    this._solution = { accountSid, conferenceSid, callSid: callSid,  };
   }
 
   /**
@@ -755,14 +653,7 @@ export class ParticipantInstance {
   uri: string;
 
   private get _proxy(): ParticipantContext {
-    this._context =
-      this._context ||
-      new ParticipantContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.conferenceSid,
-        this._solution.callSid
-      );
+    this._context = this._context || new ParticipantContextImpl(this._version, this._solution.accountSid, this._solution.conferenceSid, this._solution.callSid);
     return this._context;
   }
 
@@ -773,9 +664,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -786,9 +677,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -799,9 +690,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -812,12 +703,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -828,9 +716,7 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  update(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -839,15 +725,10 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  update(
-    params: ParticipantContextUpdateOptions,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  update(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -858,12 +739,7 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>;
   /**
    * Update a ParticipantInstance and return HTTP info
    *
@@ -872,21 +748,10 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ParticipantContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  updateWithHttpInfo(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -920,6 +785,7 @@ export class ParticipantInstance {
   }
 }
 
+
 export interface ParticipantSolution {
   accountSid: string;
   conferenceSid: string;
@@ -930,8 +796,15 @@ export interface ParticipantListInstance {
   _solution: ParticipantSolution;
   _uri: string;
 
-  (callSid: string): ParticipantContext;
-  get(callSid: string): ParticipantContext;
+  (callSid: string, ): ParticipantContext;
+  get(callSid: string, ): ParticipantContext;
+
+
+
+
+
+
+
 
   /**
    * Create a ParticipantInstance
@@ -941,10 +814,7 @@ export interface ParticipantListInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  create(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
 
   /**
    * Create a ParticipantInstance and return HTTP info
@@ -954,13 +824,10 @@ export interface ParticipantListInstance {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  createWithHttpInfo(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>;
+
+
+
 
   /**
    * Streams ParticipantInstance records from the API.
@@ -977,13 +844,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(params: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ParticipantInstance records from the API with HTTP metadata captured per page.
    *
@@ -999,13 +861,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
@@ -1014,10 +871,7 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API with HTTP metadata.
    *
@@ -1026,10 +880,7 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -1039,13 +890,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
-  list(
-    params: ParticipantListInstanceOptions,
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
+  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(params: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list with HTTP metadata.
    *
@@ -1057,19 +903,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance[]>>;
-  listWithHttpInfo(
-    params: ParticipantListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ParticipantInstance[]>) => any): Promise<ApiResponse<ParticipantInstance[]>>;
+  listWithHttpInfo(params: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantInstance[]>) => any): Promise<ApiResponse<ParticipantInstance[]>>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -1081,13 +916,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
-  page(
-    params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API with HTTP metadata.
    *
@@ -1099,13 +929,9 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>>;
-  pageWithHttpInfo(
-    params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>>;
+  pageWithHttpInfo(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1114,375 +940,339 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ParticipantListInstance(
-  version: V2010,
-  accountSid: string,
-  conferenceSid: string
-): ParticipantListInstance {
+export function ParticipantListInstance(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(conferenceSid)) {
-    throw new Error("Parameter 'conferenceSid' is not valid.");
+    throw new Error('Parameter \'conferenceSid\' is not valid.');
   }
 
-  const instance = ((callSid) =>
-    instance.get(callSid)) as ParticipantListInstance;
+  const instance = ((callSid, ) => instance.get(callSid, )) as ParticipantListInstance;
 
-  instance.get = function get(callSid): ParticipantContext {
-    return new ParticipantContextImpl(
-      version,
-      accountSid,
-      conferenceSid,
-      callSid
-    );
-  };
+  instance.get = function get(callSid, ): ParticipantContext {
+    return new ParticipantContextImpl(version, accountSid, conferenceSid, callSid);
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, conferenceSid };
+  instance._solution = { accountSid, conferenceSid,  };
   instance._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Participants.json`;
 
-  instance.create = function create(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+  instance.create = function create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["from"] === null || params["from"] === undefined) {
-      throw new Error("Required parameter \"params['from']\" missing.");
+      throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error("Required parameter \"params['to']\" missing.");
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["From"] = params["from"];
-
+    
     data["To"] = params["to"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-      data["StatusCallbackEvent"] = serialize.map(
-        params["statusCallbackEvent"],
-        (e: string) => e
-      );
-    if (params["label"] !== undefined) data["Label"] = params["label"];
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e: string) => (e));
+    if (params["label"] !== undefined)
+    data["Label"] = params["label"];
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-      data["Record"] = serialize.bool(params["record"]);
+    data["Record"] = serialize.bool(params["record"]);
     if (params["muted"] !== undefined)
-      data["Muted"] = serialize.bool(params["muted"]);
-    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
+    data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined)
+    data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
-      data["StartConferenceOnEnter"] = serialize.bool(
-        params["startConferenceOnEnter"]
-      );
+    data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
     if (params["endConferenceOnExit"] !== undefined)
-      data["EndConferenceOnExit"] = serialize.bool(
-        params["endConferenceOnExit"]
-      );
-    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
+    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
+    if (params["waitUrl"] !== undefined)
+    data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-      data["WaitMethod"] = params["waitMethod"];
+    data["WaitMethod"] = params["waitMethod"];
     if (params["earlyMedia"] !== undefined)
-      data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+    data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
     if (params["maxParticipants"] !== undefined)
-      data["MaxParticipants"] = params["maxParticipants"];
+    data["MaxParticipants"] = params["maxParticipants"];
     if (params["conferenceRecord"] !== undefined)
-      data["ConferenceRecord"] = params["conferenceRecord"];
+    data["ConferenceRecord"] = params["conferenceRecord"];
     if (params["conferenceTrim"] !== undefined)
-      data["ConferenceTrim"] = params["conferenceTrim"];
+    data["ConferenceTrim"] = params["conferenceTrim"];
     if (params["conferenceStatusCallback"] !== undefined)
-      data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+    data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
     if (params["conferenceStatusCallbackMethod"] !== undefined)
-      data["ConferenceStatusCallbackMethod"] =
-        params["conferenceStatusCallbackMethod"];
+    data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-      data["ConferenceStatusCallbackEvent"] = serialize.map(
-        params["conferenceStatusCallbackEvent"],
-        (e: string) => e
-      );
+    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e: string) => (e));
     if (params["recordingChannels"] !== undefined)
-      data["RecordingChannels"] = params["recordingChannels"];
+    data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-      data["RecordingStatusCallbackMethod"] =
-        params["recordingStatusCallbackMethod"];
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
     if (params["sipAuthUsername"] !== undefined)
-      data["SipAuthUsername"] = params["sipAuthUsername"];
+    data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-      data["SipAuthPassword"] = params["sipAuthPassword"];
-    if (params["region"] !== undefined) data["Region"] = params["region"];
+    data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["region"] !== undefined)
+    data["Region"] = params["region"];
     if (params["conferenceRecordingStatusCallback"] !== undefined)
-      data["ConferenceRecordingStatusCallback"] =
-        params["conferenceRecordingStatusCallback"];
+    data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
     if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
-      data["ConferenceRecordingStatusCallbackMethod"] =
-        params["conferenceRecordingStatusCallbackMethod"];
+    data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-      data["RecordingStatusCallbackEvent"] = serialize.map(
-        params["recordingStatusCallbackEvent"],
-        (e: string) => e
-      );
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e: string) => (e));
     if (params["conferenceRecordingStatusCallbackEvent"] !== undefined)
-      data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(
-        params["conferenceRecordingStatusCallbackEvent"],
-        (e: string) => e
-      );
+    data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(params["conferenceRecordingStatusCallbackEvent"], (e: string) => (e));
     if (params["coaching"] !== undefined)
-      data["Coaching"] = serialize.bool(params["coaching"]);
+    data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)
-      data["CallSidToCoach"] = params["callSidToCoach"];
+    data["CallSidToCoach"] = params["callSidToCoach"];
     if (params["jitterBufferSize"] !== undefined)
-      data["JitterBufferSize"] = params["jitterBufferSize"];
-    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
-    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    data["JitterBufferSize"] = params["jitterBufferSize"];
+    if (params["byoc"] !== undefined)
+    data["Byoc"] = params["byoc"];
+    if (params["callerId"] !== undefined)
+    data["CallerId"] = params["callerId"];
     if (params["callReason"] !== undefined)
-      data["CallReason"] = params["callReason"];
+    data["CallReason"] = params["callReason"];
     if (params["recordingTrack"] !== undefined)
-      data["RecordingTrack"] = params["recordingTrack"];
+    data["RecordingTrack"] = params["recordingTrack"];
     if (params["recordingConfigurationId"] !== undefined)
-      data["RecordingConfigurationId"] = params["recordingConfigurationId"];
+    data["RecordingConfigurationId"] = params["recordingConfigurationId"];
     if (params["timeLimit"] !== undefined)
-      data["TimeLimit"] = params["timeLimit"];
+    data["TimeLimit"] = params["timeLimit"];
     if (params["machineDetection"] !== undefined)
-      data["MachineDetection"] = params["machineDetection"];
+    data["MachineDetection"] = params["machineDetection"];
     if (params["machineDetectionTimeout"] !== undefined)
-      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
     if (params["machineDetectionSpeechThreshold"] !== undefined)
-      data["MachineDetectionSpeechThreshold"] =
-        params["machineDetectionSpeechThreshold"];
+    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
     if (params["machineDetectionSpeechEndThreshold"] !== undefined)
-      data["MachineDetectionSpeechEndThreshold"] =
-        params["machineDetectionSpeechEndThreshold"];
+    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
     if (params["machineDetectionSilenceTimeout"] !== undefined)
-      data["MachineDetectionSilenceTimeout"] =
-        params["machineDetectionSilenceTimeout"];
+    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
     if (params["amdStatusCallback"] !== undefined)
-      data["AmdStatusCallback"] = params["amdStatusCallback"];
+    data["AmdStatusCallback"] = params["amdStatusCallback"];
     if (params["amdStatusCallbackMethod"] !== undefined)
-      data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
-      data["CallToken"] = params["callToken"];
+    data["CallToken"] = params["callToken"];
+    if (params["passports"] !== undefined)
+    data["Passports"] = params["passports"];
     if (params["clientNotificationUrl"] !== undefined)
-      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
+    data["ClientNotificationUrl"] = params["clientNotificationUrl"];
     if (params["callerDisplayName"] !== undefined)
-      data["CallerDisplayName"] = params["callerDisplayName"];
+    data["CallerDisplayName"] = params["callerDisplayName"];
+    if (params["emergencyCallerPosition"] !== undefined)
+    data["EmergencyCallerPosition"] = params["emergencyCallerPosition"];
+    if (params["emergencyCallerLocation"] !== undefined)
+    data["EmergencyCallerLocation"] = params["emergencyCallerLocation"];
+    if (params["emergencyName"] !== undefined)
+    data["EmergencyName"] = params["emergencyName"];
+    if (params["emergencyAddress"] !== undefined)
+    data["EmergencyAddress"] = params["emergencyAddress"];
+    if (params["emergencyZipCode"] !== undefined)
+    data["EmergencyZipCode"] = params["emergencyZipCode"];
+    if (params["emergencyCity"] !== undefined)
+    data["EmergencyCity"] = params["emergencyCity"];
+    if (params["emergencyState"] !== undefined)
+    data["EmergencyState"] = params["emergencyState"];
+    if (params["emergencyCountry"] !== undefined)
+    data["EmergencyCountry"] = params["emergencyCountry"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.conferenceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["from"] === null || params["from"] === undefined) {
-      throw new Error("Required parameter \"params['from']\" missing.");
+      throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error("Required parameter \"params['to']\" missing.");
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["From"] = params["from"];
-
+    
     data["To"] = params["to"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-      data["StatusCallbackEvent"] = serialize.map(
-        params["statusCallbackEvent"],
-        (e: string) => e
-      );
-    if (params["label"] !== undefined) data["Label"] = params["label"];
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e: string) => (e));
+    if (params["label"] !== undefined)
+    data["Label"] = params["label"];
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-      data["Record"] = serialize.bool(params["record"]);
+    data["Record"] = serialize.bool(params["record"]);
     if (params["muted"] !== undefined)
-      data["Muted"] = serialize.bool(params["muted"]);
-    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
+    data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined)
+    data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
-      data["StartConferenceOnEnter"] = serialize.bool(
-        params["startConferenceOnEnter"]
-      );
+    data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
     if (params["endConferenceOnExit"] !== undefined)
-      data["EndConferenceOnExit"] = serialize.bool(
-        params["endConferenceOnExit"]
-      );
-    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
+    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
+    if (params["waitUrl"] !== undefined)
+    data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-      data["WaitMethod"] = params["waitMethod"];
+    data["WaitMethod"] = params["waitMethod"];
     if (params["earlyMedia"] !== undefined)
-      data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+    data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
     if (params["maxParticipants"] !== undefined)
-      data["MaxParticipants"] = params["maxParticipants"];
+    data["MaxParticipants"] = params["maxParticipants"];
     if (params["conferenceRecord"] !== undefined)
-      data["ConferenceRecord"] = params["conferenceRecord"];
+    data["ConferenceRecord"] = params["conferenceRecord"];
     if (params["conferenceTrim"] !== undefined)
-      data["ConferenceTrim"] = params["conferenceTrim"];
+    data["ConferenceTrim"] = params["conferenceTrim"];
     if (params["conferenceStatusCallback"] !== undefined)
-      data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+    data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
     if (params["conferenceStatusCallbackMethod"] !== undefined)
-      data["ConferenceStatusCallbackMethod"] =
-        params["conferenceStatusCallbackMethod"];
+    data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-      data["ConferenceStatusCallbackEvent"] = serialize.map(
-        params["conferenceStatusCallbackEvent"],
-        (e: string) => e
-      );
+    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e: string) => (e));
     if (params["recordingChannels"] !== undefined)
-      data["RecordingChannels"] = params["recordingChannels"];
+    data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-      data["RecordingStatusCallbackMethod"] =
-        params["recordingStatusCallbackMethod"];
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
     if (params["sipAuthUsername"] !== undefined)
-      data["SipAuthUsername"] = params["sipAuthUsername"];
+    data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-      data["SipAuthPassword"] = params["sipAuthPassword"];
-    if (params["region"] !== undefined) data["Region"] = params["region"];
+    data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["region"] !== undefined)
+    data["Region"] = params["region"];
     if (params["conferenceRecordingStatusCallback"] !== undefined)
-      data["ConferenceRecordingStatusCallback"] =
-        params["conferenceRecordingStatusCallback"];
+    data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
     if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
-      data["ConferenceRecordingStatusCallbackMethod"] =
-        params["conferenceRecordingStatusCallbackMethod"];
+    data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-      data["RecordingStatusCallbackEvent"] = serialize.map(
-        params["recordingStatusCallbackEvent"],
-        (e: string) => e
-      );
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e: string) => (e));
     if (params["conferenceRecordingStatusCallbackEvent"] !== undefined)
-      data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(
-        params["conferenceRecordingStatusCallbackEvent"],
-        (e: string) => e
-      );
+    data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(params["conferenceRecordingStatusCallbackEvent"], (e: string) => (e));
     if (params["coaching"] !== undefined)
-      data["Coaching"] = serialize.bool(params["coaching"]);
+    data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)
-      data["CallSidToCoach"] = params["callSidToCoach"];
+    data["CallSidToCoach"] = params["callSidToCoach"];
     if (params["jitterBufferSize"] !== undefined)
-      data["JitterBufferSize"] = params["jitterBufferSize"];
-    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
-    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    data["JitterBufferSize"] = params["jitterBufferSize"];
+    if (params["byoc"] !== undefined)
+    data["Byoc"] = params["byoc"];
+    if (params["callerId"] !== undefined)
+    data["CallerId"] = params["callerId"];
     if (params["callReason"] !== undefined)
-      data["CallReason"] = params["callReason"];
+    data["CallReason"] = params["callReason"];
     if (params["recordingTrack"] !== undefined)
-      data["RecordingTrack"] = params["recordingTrack"];
+    data["RecordingTrack"] = params["recordingTrack"];
     if (params["recordingConfigurationId"] !== undefined)
-      data["RecordingConfigurationId"] = params["recordingConfigurationId"];
+    data["RecordingConfigurationId"] = params["recordingConfigurationId"];
     if (params["timeLimit"] !== undefined)
-      data["TimeLimit"] = params["timeLimit"];
+    data["TimeLimit"] = params["timeLimit"];
     if (params["machineDetection"] !== undefined)
-      data["MachineDetection"] = params["machineDetection"];
+    data["MachineDetection"] = params["machineDetection"];
     if (params["machineDetectionTimeout"] !== undefined)
-      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
     if (params["machineDetectionSpeechThreshold"] !== undefined)
-      data["MachineDetectionSpeechThreshold"] =
-        params["machineDetectionSpeechThreshold"];
+    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
     if (params["machineDetectionSpeechEndThreshold"] !== undefined)
-      data["MachineDetectionSpeechEndThreshold"] =
-        params["machineDetectionSpeechEndThreshold"];
+    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
     if (params["machineDetectionSilenceTimeout"] !== undefined)
-      data["MachineDetectionSilenceTimeout"] =
-        params["machineDetectionSilenceTimeout"];
+    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
     if (params["amdStatusCallback"] !== undefined)
-      data["AmdStatusCallback"] = params["amdStatusCallback"];
+    data["AmdStatusCallback"] = params["amdStatusCallback"];
     if (params["amdStatusCallbackMethod"] !== undefined)
-      data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
-      data["CallToken"] = params["callToken"];
+    data["CallToken"] = params["callToken"];
+    if (params["passports"] !== undefined)
+    data["Passports"] = params["passports"];
     if (params["clientNotificationUrl"] !== undefined)
-      data["ClientNotificationUrl"] = params["clientNotificationUrl"];
+    data["ClientNotificationUrl"] = params["clientNotificationUrl"];
     if (params["callerDisplayName"] !== undefined)
-      data["CallerDisplayName"] = params["callerDisplayName"];
+    data["CallerDisplayName"] = params["callerDisplayName"];
+    if (params["emergencyCallerPosition"] !== undefined)
+    data["EmergencyCallerPosition"] = params["emergencyCallerPosition"];
+    if (params["emergencyCallerLocation"] !== undefined)
+    data["EmergencyCallerLocation"] = params["emergencyCallerLocation"];
+    if (params["emergencyName"] !== undefined)
+    data["EmergencyName"] = params["emergencyName"];
+    if (params["emergencyAddress"] !== undefined)
+    data["EmergencyAddress"] = params["emergencyAddress"];
+    if (params["emergencyZipCode"] !== undefined)
+    data["EmergencyZipCode"] = params["emergencyZipCode"];
+    if (params["emergencyCity"] !== undefined)
+    data["EmergencyCity"] = params["emergencyCity"];
+    if (params["emergencyState"] !== undefined)
+    data["EmergencyState"] = params["emergencyState"];
+    if (params["emergencyCountry"] !== undefined)
+    data["EmergencyCountry"] = params["emergencyCountry"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ParticipantResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ParticipantResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ParticipantInstance> => ({
+      ...response,
+      body: new ParticipantInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.conferenceSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ParticipantPage) => any),
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage> {
+
+    }
+
+  instance.page = function page(params?: ParticipantListInstancePageOptions | ((error: Error | null, items: ParticipantPage) => any), callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1492,65 +1282,50 @@ export function ParticipantListInstance(
 
     let data: any = {};
 
-    if (params["muted"] !== undefined)
-      data["Muted"] = serialize.bool(params["muted"]);
+        if (params["muted"] !== undefined)
+    data["Muted"] = serialize.bool(params["muted"]);
     if (params["hold"] !== undefined)
-      data["Hold"] = serialize.bool(params["hold"]);
+    data["Hold"] = serialize.bool(params["hold"]);
     if (params["coaching"] !== undefined)
-      data["Coaching"] = serialize.bool(params["coaching"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["Coaching"] = serialize.bool(params["coaching"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ParticipantPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ParticipantPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ParticipantListInstancePageOptions | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any), callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1560,128 +1335,100 @@ export function ParticipantListInstance(
 
     let data: any = {};
 
-    if (params["muted"] !== undefined)
-      data["Muted"] = serialize.bool(params["muted"]);
+        if (params["muted"] !== undefined)
+    data["Muted"] = serialize.bool(params["muted"]);
     if (params["hold"] !== undefined)
-      data["Hold"] = serialize.bool(params["hold"]);
+    data["Hold"] = serialize.bool(params["hold"]);
     if (params["coaching"] !== undefined)
-      data["Coaching"] = serialize.bool(params["coaching"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["Coaching"] = serialize.bool(params["coaching"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ParticipantPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ParticipantPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ParticipantPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ParticipantPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ParticipantPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ParticipantPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ParticipantPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ParticipantPage extends Page<
-  V2010,
-  ParticipantPayload,
-  ParticipantResource,
-  ParticipantInstance
-> {
-  /**
-   * Initialize the ParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: ParticipantSolution
-  ) {
+export class ParticipantPage extends Page<V2010, ParticipantPayload, ParticipantResource, ParticipantInstance> {
+/**
+* Initialize the ParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: ParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ParticipantResource): ParticipantInstance {
+    /**
+    * Build an instance of ParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantResource): ParticipantInstance {
+
     return new ParticipantInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.conferenceSid
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.conferenceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

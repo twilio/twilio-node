@@ -52,7 +52,8 @@ export default class V2 extends Version {
 
   /** Getter for customOperators resource */
   get customOperators(): CustomOperatorListInstance {
-    this._customOperators = this._customOperators || CustomOperatorListInstance(this);
+    this._customOperators =
+      this._customOperators || CustomOperatorListInstance(this);
     return this._customOperators;
   }
 
@@ -64,13 +65,15 @@ export default class V2 extends Version {
 
   /** Getter for operatorAttachment resource */
   get operatorAttachment(): OperatorAttachmentListInstance {
-    this._operatorAttachment = this._operatorAttachment || OperatorAttachmentListInstance(this);
+    this._operatorAttachment =
+      this._operatorAttachment || OperatorAttachmentListInstance(this);
     return this._operatorAttachment;
   }
 
   /** Getter for operatorAttachments resource */
   get operatorAttachments(): OperatorAttachmentsListInstance {
-    this._operatorAttachments = this._operatorAttachments || OperatorAttachmentsListInstance(this);
+    this._operatorAttachments =
+      this._operatorAttachments || OperatorAttachmentsListInstance(this);
     return this._operatorAttachments;
   }
 
@@ -82,7 +85,8 @@ export default class V2 extends Version {
 
   /** Getter for prebuiltOperators resource */
   get prebuiltOperators(): PrebuiltOperatorListInstance {
-    this._prebuiltOperators = this._prebuiltOperators || PrebuiltOperatorListInstance(this);
+    this._prebuiltOperators =
+      this._prebuiltOperators || PrebuiltOperatorListInstance(this);
     return this._prebuiltOperators;
   }
 
@@ -97,5 +101,4 @@ export default class V2 extends Version {
     this._transcripts = this._transcripts || TranscriptListInstance(this);
     return this._transcripts;
   }
-
 }

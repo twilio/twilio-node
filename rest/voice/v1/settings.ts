@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,19 +19,15 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
 /**
  * Options to pass to update a SettingsInstance
  */
 export interface SettingsContextUpdateOptions {
   /** `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`. */
-  "dialingPermissionsInheritance"?: boolean;
+  dialingPermissionsInheritance?: boolean;
 }
 
 export interface SettingsContext {
-
   /**
    * Fetch a SettingsInstance
    *
@@ -40,7 +35,9 @@ export interface SettingsContext {
    *
    * @returns Resolves to processed SettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance>;
 
   /**
    * Fetch a SettingsInstance and return HTTP info
@@ -49,7 +46,12 @@ export interface SettingsContext {
    *
    * @returns Resolves to processed SettingsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>>;
 
   /**
    * Update a SettingsInstance
@@ -58,7 +60,9 @@ export interface SettingsContext {
    *
    * @returns Resolves to processed SettingsInstance
    */
-  update(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance>;
   /**
    * Update a SettingsInstance
    *
@@ -67,7 +71,10 @@ export interface SettingsContext {
    *
    * @returns Resolves to processed SettingsInstance
    */
-  update(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(
+    params: SettingsContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance>;
 
   /**
    * Update a SettingsInstance and return HTTP info
@@ -76,7 +83,12 @@ export interface SettingsContext {
    *
    * @returns Resolves to processed SettingsInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>>;
   /**
    * Update a SettingsInstance and return HTTP info
    *
@@ -85,7 +97,13 @@ export interface SettingsContext {
    *
    * @returns Resolves to processed SettingsInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>;
+  updateWithHttpInfo(
+    params: SettingsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -94,121 +112,163 @@ export interface SettingsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsContextSolution {
-}
+export interface SettingsContextSolution {}
 
 export class SettingsContextImpl implements SettingsContext {
   protected _solution: SettingsContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/Settings`;
   }
 
-  fetch(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SettingsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<SettingsResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<SettingsInstance> => ({
-      ...response,
-      body: new SettingsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<SettingsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<SettingsInstance> => ({
+        ...response,
+        body: new SettingsInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: SettingsContextUpdateOptions | ((error: Error | null, item?: SettingsInstance) => any),callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: SettingsInstance) => any),
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["dialingPermissionsInheritance"] !== undefined)
-    data["DialingPermissionsInheritance"] = serialize.bool(params["dialingPermissionsInheritance"]);
+    if (params["dialingPermissionsInheritance"] !== undefined)
+      data["DialingPermissionsInheritance"] = serialize.bool(
+        params["dialingPermissionsInheritance"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SettingsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: SettingsContextUpdateOptions | ((error: Error | null, item?: ApiResponse<SettingsInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<SettingsInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["dialingPermissionsInheritance"] !== undefined)
-    data["DialingPermissionsInheritance"] = serialize.bool(params["dialingPermissionsInheritance"]);
+    if (params["dialingPermissionsInheritance"] !== undefined)
+      data["DialingPermissionsInheritance"] = serialize.bool(
+        params["dialingPermissionsInheritance"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<SettingsResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SettingsInstance> => ({
-      ...response,
-      body: new SettingsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<SettingsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<SettingsInstance> => ({
+        ...response,
+        body: new SettingsInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -225,8 +285,7 @@ export class SettingsContextImpl implements SettingsContext {
   }
 }
 
-
-  interface SettingsPayload extends SettingsResource {}
+interface SettingsPayload extends SettingsResource {}
 
 interface SettingsResource {
   dialing_permissions_inheritance: boolean;
@@ -237,12 +296,15 @@ export class SettingsInstance {
   protected _solution: SettingsContextSolution;
   protected _context?: SettingsContext;
 
-  constructor(protected _version: V1, payload: SettingsResource) {
-    
-    this.dialingPermissionsInheritance = (payload.dialing_permissions_inheritance);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V1,
+    payload: SettingsResource,
+  ) {
+    this.dialingPermissionsInheritance =
+      payload.dialing_permissions_inheritance;
+    this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -266,9 +328,9 @@ export class SettingsInstance {
    *
    * @returns Resolves to processed SettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -279,9 +341,12 @@ export class SettingsInstance {
    *
    * @returns Resolves to processed SettingsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -292,7 +357,9 @@ export class SettingsInstance {
    *
    * @returns Resolves to processed SettingsInstance
    */
-  update(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance>;
   /**
    * Update a SettingsInstance
    *
@@ -301,10 +368,15 @@ export class SettingsInstance {
    *
    * @returns Resolves to processed SettingsInstance
    */
-  update(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(
+    params: SettingsContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SettingsInstance) => any,
+  ): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -315,7 +387,12 @@ export class SettingsInstance {
    *
    * @returns Resolves to processed SettingsInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>>;
   /**
    * Update a SettingsInstance and return HTTP info
    *
@@ -324,10 +401,21 @@ export class SettingsInstance {
    *
    * @returns Resolves to processed SettingsInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>;
+  updateWithHttpInfo(
+    params: SettingsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<SettingsInstance>) => any): Promise<ApiResponse<SettingsInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SettingsInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -348,9 +436,7 @@ export class SettingsInstance {
   }
 }
 
-
-export interface SettingsSolution {
-}
+export interface SettingsSolution {}
 
 export interface SettingsListInstance {
   _version: V1;
@@ -359,11 +445,6 @@ export interface SettingsListInstance {
 
   (): SettingsContext;
   get(): SettingsContext;
-
-
-
-
-
 
   /**
    * Provide a user-friendly representation
@@ -377,21 +458,22 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
 
   instance.get = function get(): SettingsContext {
     return new SettingsContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

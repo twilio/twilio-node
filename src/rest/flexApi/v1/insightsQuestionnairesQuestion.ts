@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -22,12 +23,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to remove a InsightsQuestionnairesQuestionInstance
  */
 export interface InsightsQuestionnairesQuestionContextRemoveOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
 /**
@@ -35,17 +38,17 @@ export interface InsightsQuestionnairesQuestionContextRemoveOptions {
  */
 export interface InsightsQuestionnairesQuestionContextUpdateOptions {
   /** The flag to enable for disable NA for answer. */
-  allowNa: boolean;
+  "allowNa": boolean;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The SID of the category */
-  categorySid?: string;
+  "categorySid"?: string;
   /** The question. */
-  question?: string;
+  "question"?: string;
   /** The description for the question. */
-  description?: string;
+  "description"?: string;
   /** The answer_set for the question. */
-  answerSetId?: string;
+  "answerSetId"?: string;
 }
 
 /**
@@ -53,17 +56,17 @@ export interface InsightsQuestionnairesQuestionContextUpdateOptions {
  */
 export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
   /** The SID of the category */
-  categorySid: string;
+  "categorySid": string;
   /** The question. */
-  question: string;
+  "question": string;
   /** The answer_set for the question. */
-  answerSetId: string;
+  "answerSetId": string;
   /** The flag to enable for disable NA for answer. */
-  allowNa: boolean;
+  "allowNa": boolean;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The description for the question. */
-  description?: string;
+  "description"?: string;
 }
 
 /**
@@ -71,16 +74,13 @@ export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
  */
 export interface InsightsQuestionnairesQuestionListInstanceEachOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The list of category SIDs */
-  categorySid?: Array<string>;
+  "categorySid"?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: InsightsQuestionnairesQuestionInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: InsightsQuestionnairesQuestionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -92,32 +92,35 @@ export interface InsightsQuestionnairesQuestionListInstanceEachOptions {
  */
 export interface InsightsQuestionnairesQuestionListInstanceOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The list of category SIDs */
-  categorySid?: Array<string>;
+  "categorySid"?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface InsightsQuestionnairesQuestionListInstancePageOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The list of category SIDs */
-  categorySid?: Array<string>;
+  "categorySid"?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface InsightsQuestionnairesQuestionContext {
+
   /**
    * Remove a InsightsQuestionnairesQuestionInstance
    *
@@ -125,9 +128,7 @@ export interface InsightsQuestionnairesQuestionContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a InsightsQuestionnairesQuestionInstance
    *
@@ -136,10 +137,7 @@ export interface InsightsQuestionnairesQuestionContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance
    */
-  remove(
-    params: InsightsQuestionnairesQuestionContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: InsightsQuestionnairesQuestionContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
   /**
    * Remove a InsightsQuestionnairesQuestionInstance and return HTTP info
@@ -148,9 +146,7 @@ export interface InsightsQuestionnairesQuestionContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
   /**
    * Remove a InsightsQuestionnairesQuestionInstance and return HTTP info
    *
@@ -159,10 +155,7 @@ export interface InsightsQuestionnairesQuestionContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    params: InsightsQuestionnairesQuestionContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(params: InsightsQuestionnairesQuestionContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
 
   /**
    * Update a InsightsQuestionnairesQuestionInstance
@@ -172,13 +165,7 @@ export interface InsightsQuestionnairesQuestionContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance
    */
-  update(
-    params: InsightsQuestionnairesQuestionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesQuestionInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance>;
+  update(params: InsightsQuestionnairesQuestionContextUpdateOptions, callback?: (error: Error | null, item?: InsightsQuestionnairesQuestionInstance) => any): Promise<InsightsQuestionnairesQuestionInstance>;
 
   /**
    * Update a InsightsQuestionnairesQuestionInstance and return HTTP info
@@ -188,13 +175,7 @@ export interface InsightsQuestionnairesQuestionContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: InsightsQuestionnairesQuestionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesQuestionInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>;
+  updateWithHttpInfo(params: InsightsQuestionnairesQuestionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesQuestionInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -204,217 +185,171 @@ export interface InsightsQuestionnairesQuestionContext {
 }
 
 export interface InsightsQuestionnairesQuestionContextSolution {
-  questionSid: string;
+  "questionSid": string;
 }
 
-export class InsightsQuestionnairesQuestionContextImpl
-  implements InsightsQuestionnairesQuestionContext
-{
+export class InsightsQuestionnairesQuestionContextImpl implements InsightsQuestionnairesQuestionContext {
   protected _solution: InsightsQuestionnairesQuestionContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, questionSid: string) {
     if (!isValidPathParam(questionSid)) {
-      throw new Error("Parameter 'questionSid' is not valid.");
+      throw new Error('Parameter \'questionSid\' is not valid.');
     }
 
-    this._solution = { questionSid };
+    this._solution = { questionSid,  };
     this._uri = `/Insights/QualityManagement/Questions/${questionSid}`;
   }
 
-  remove(
-    params?:
-      | InsightsQuestionnairesQuestionContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    if (params instanceof Function) {
+  remove(params?: InsightsQuestionnairesQuestionContextRemoveOptions | ((error: Error | null, item?: boolean) => any),callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", params: data, headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    params?:
-      | InsightsQuestionnairesQuestionContextRemoveOptions
-      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    if (params instanceof Function) {
+  removeWithHttpInfo(params?: InsightsQuestionnairesQuestionContextRemoveOptions | ((error: Error | null, item?: ApiResponse<boolean>) => any),callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", params: data, headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: InsightsQuestionnairesQuestionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesQuestionInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance> {
-    if (params === null || params === undefined) {
+  update(params: InsightsQuestionnairesQuestionContextUpdateOptions,callback?: (error: Error | null, item?: InsightsQuestionnairesQuestionInstance) => any): Promise<InsightsQuestionnairesQuestionInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["allowNa"] === null || params["allowNa"] === undefined) {
-      throw new Error("Required parameter \"params['allowNa']\" missing.");
+      throw new Error('Required parameter "params[\'allowNa\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["AllowNa"] = serialize.bool(params["allowNa"]);
     if (params["categorySid"] !== undefined)
-      data["CategorySid"] = params["categorySid"];
-    if (params["question"] !== undefined) data["Question"] = params["question"];
+    data["CategorySid"] = params["categorySid"];
+    if (params["question"] !== undefined)
+    data["Question"] = params["question"];
     if (params["description"] !== undefined)
-      data["Description"] = params["description"];
+    data["Description"] = params["description"];
     if (params["answerSetId"] !== undefined)
-      data["AnswerSetId"] = params["answerSetId"];
+    data["AnswerSetId"] = params["answerSetId"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new InsightsQuestionnairesQuestionInstance(operationVersion, payload, instance._solution.questionSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesQuestionInstance(
-          operationVersion,
-          payload,
-          instance._solution.questionSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params: InsightsQuestionnairesQuestionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesQuestionInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>> {
-    if (params === null || params === undefined) {
+  updateWithHttpInfo(params: InsightsQuestionnairesQuestionContextUpdateOptions,callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesQuestionInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["allowNa"] === null || params["allowNa"] === undefined) {
-      throw new Error("Required parameter \"params['allowNa']\" missing.");
+      throw new Error('Required parameter "params[\'allowNa\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["AllowNa"] = serialize.bool(params["allowNa"]);
     if (params["categorySid"] !== undefined)
-      data["CategorySid"] = params["categorySid"];
-    if (params["question"] !== undefined) data["Question"] = params["question"];
+    data["CategorySid"] = params["categorySid"];
+    if (params["question"] !== undefined)
+    data["Question"] = params["question"];
     if (params["description"] !== undefined)
-      data["Description"] = params["description"];
+    data["Description"] = params["description"];
     if (params["answerSetId"] !== undefined)
-      data["AnswerSetId"] = params["answerSetId"];
+    data["AnswerSetId"] = params["answerSetId"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<InsightsQuestionnairesQuestionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesQuestionInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesQuestionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.questionSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<InsightsQuestionnairesQuestionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InsightsQuestionnairesQuestionInstance> => ({
+      ...response,
+      body: new InsightsQuestionnairesQuestionInstance(operationVersion, response.body, instance._solution.questionSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -431,8 +366,9 @@ export class InsightsQuestionnairesQuestionContextImpl
   }
 }
 
-interface InsightsQuestionnairesQuestionPayload extends TwilioResponsePayload {
-  questions: InsightsQuestionnairesQuestionResource[];
+
+  interface InsightsQuestionnairesQuestionPayload extends TwilioResponsePayload {
+    questions: InsightsQuestionnairesQuestionResource[];
 }
 
 interface InsightsQuestionnairesQuestionResource {
@@ -452,23 +388,20 @@ export class InsightsQuestionnairesQuestionInstance {
   protected _solution: InsightsQuestionnairesQuestionContextSolution;
   protected _context?: InsightsQuestionnairesQuestionContext;
 
-  constructor(
-    protected _version: V1,
-    payload: InsightsQuestionnairesQuestionResource,
-    questionSid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.questionSid = payload.question_sid;
-    this.question = payload.question;
-    this.description = payload.description;
-    this.category = payload.category;
-    this.answerSetId = payload.answer_set_id;
-    this.allowNa = payload.allow_na;
+  constructor(protected _version: V1, payload: InsightsQuestionnairesQuestionResource, questionSid?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.questionSid = (payload.question_sid);
+    this.question = (payload.question);
+    this.description = (payload.description);
+    this.category = (payload.category);
+    this.answerSetId = (payload.answer_set_id);
+    this.allowNa = (payload.allow_na);
     this.usage = deserialize.integer(payload.usage);
-    this.answerSet = payload.answer_set;
-    this.url = payload.url;
+    this.answerSet = (payload.answer_set);
+    this.url = (payload.url);
 
-    this._solution = { questionSid: questionSid || this.questionSid };
+    this._solution = { questionSid: questionSid,  };
   }
 
   /**
@@ -510,12 +443,7 @@ export class InsightsQuestionnairesQuestionInstance {
   url: string;
 
   private get _proxy(): InsightsQuestionnairesQuestionContext {
-    this._context =
-      this._context ||
-      new InsightsQuestionnairesQuestionContextImpl(
-        this._version,
-        this._solution.questionSid
-      );
+    this._context = this._context || new InsightsQuestionnairesQuestionContextImpl(this._version, this._solution.questionSid);
     return this._context;
   }
 
@@ -526,9 +454,7 @@ export class InsightsQuestionnairesQuestionInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a InsightsQuestionnairesQuestionInstance
    *
@@ -537,15 +463,10 @@ export class InsightsQuestionnairesQuestionInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance
    */
-  remove(
-    params: InsightsQuestionnairesQuestionContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: InsightsQuestionnairesQuestionContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
-  remove(
-    params?: any,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+    remove(params?: any, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+    {
     return this._proxy.remove(params, callback);
   }
 
@@ -556,9 +477,7 @@ export class InsightsQuestionnairesQuestionInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
   /**
    * Remove a InsightsQuestionnairesQuestionInstance and return HTTP info
    *
@@ -567,15 +486,10 @@ export class InsightsQuestionnairesQuestionInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    params: InsightsQuestionnairesQuestionContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(params: InsightsQuestionnairesQuestionContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
 
-  removeWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+    removeWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+    {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
 
@@ -587,21 +501,10 @@ export class InsightsQuestionnairesQuestionInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance
    */
-  update(
-    params: InsightsQuestionnairesQuestionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesQuestionInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance>;
+  update(params: InsightsQuestionnairesQuestionContextUpdateOptions, callback?: (error: Error | null, item?: InsightsQuestionnairesQuestionInstance) => any): Promise<InsightsQuestionnairesQuestionInstance>;
 
-  update(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesQuestionInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: InsightsQuestionnairesQuestionInstance) => any): Promise<InsightsQuestionnairesQuestionInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -613,21 +516,10 @@ export class InsightsQuestionnairesQuestionInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: InsightsQuestionnairesQuestionContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesQuestionInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>;
+  updateWithHttpInfo(params: InsightsQuestionnairesQuestionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesQuestionInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesQuestionInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesQuestionInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -656,15 +548,22 @@ export class InsightsQuestionnairesQuestionInstance {
   }
 }
 
-export interface InsightsQuestionnairesQuestionSolution {}
+
+export interface InsightsQuestionnairesQuestionSolution {
+}
 
 export interface InsightsQuestionnairesQuestionListInstance {
   _version: V1;
   _solution: InsightsQuestionnairesQuestionSolution;
   _uri: string;
 
-  (questionSid: string): InsightsQuestionnairesQuestionContext;
-  get(questionSid: string): InsightsQuestionnairesQuestionContext;
+  (questionSid: string, ): InsightsQuestionnairesQuestionContext;
+  get(questionSid: string, ): InsightsQuestionnairesQuestionContext;
+
+
+
+
+
 
   /**
    * Create a InsightsQuestionnairesQuestionInstance
@@ -674,13 +573,7 @@ export interface InsightsQuestionnairesQuestionListInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance
    */
-  create(
-    params: InsightsQuestionnairesQuestionListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesQuestionInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance>;
+  create(params: InsightsQuestionnairesQuestionListInstanceCreateOptions, callback?: (error: Error | null, item?: InsightsQuestionnairesQuestionInstance) => any): Promise<InsightsQuestionnairesQuestionInstance>;
 
   /**
    * Create a InsightsQuestionnairesQuestionInstance and return HTTP info
@@ -690,13 +583,10 @@ export interface InsightsQuestionnairesQuestionListInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesQuestionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: InsightsQuestionnairesQuestionListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesQuestionInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>;
+  createWithHttpInfo(params: InsightsQuestionnairesQuestionListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesQuestionInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>>;
+
+
+
 
   /**
    * Streams InsightsQuestionnairesQuestionInstance records from the API.
@@ -713,19 +603,8 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { InsightsQuestionnairesQuestionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: InsightsQuestionnairesQuestionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: InsightsQuestionnairesQuestionListInstanceEachOptions,
-    callback?: (
-      item: InsightsQuestionnairesQuestionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: InsightsQuestionnairesQuestionInstance, done: (err?: Error) => void) => void): void;
+  each(params: InsightsQuestionnairesQuestionListInstanceEachOptions, callback?: (item: InsightsQuestionnairesQuestionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams InsightsQuestionnairesQuestionInstance records from the API with HTTP metadata captured per page.
    *
@@ -741,19 +620,8 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { InsightsQuestionnairesQuestionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: InsightsQuestionnairesQuestionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: InsightsQuestionnairesQuestionListInstanceEachOptions,
-    callback?: (
-      item: InsightsQuestionnairesQuestionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: InsightsQuestionnairesQuestionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: InsightsQuestionnairesQuestionListInstanceEachOptions, callback?: (item: InsightsQuestionnairesQuestionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of InsightsQuestionnairesQuestionInstance records from the API.
    *
@@ -762,13 +630,7 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionPage
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsQuestionnairesQuestionPage) => any): Promise<InsightsQuestionnairesQuestionPage>;
   /**
    * Retrieve a single target page of InsightsQuestionnairesQuestionInstance records from the API with HTTP metadata.
    *
@@ -777,13 +639,7 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionPage>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>>;
   /**
    * Lists InsightsQuestionnairesQuestionInstance records from the API as a list.
    *
@@ -793,19 +649,8 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { InsightsQuestionnairesQuestionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionInstance[]
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance[]>;
-  list(
-    params: InsightsQuestionnairesQuestionListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionInstance[]
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance[]>;
+  list(callback?: (error: Error | null, items: InsightsQuestionnairesQuestionInstance[]) => any): Promise<InsightsQuestionnairesQuestionInstance[]>;
+  list(params: InsightsQuestionnairesQuestionListInstanceOptions, callback?: (error: Error | null, items: InsightsQuestionnairesQuestionInstance[]) => any): Promise<InsightsQuestionnairesQuestionInstance[]>;
   /**
    * Lists InsightsQuestionnairesQuestionInstance records from the API as a list with HTTP metadata.
    *
@@ -817,19 +662,8 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { InsightsQuestionnairesQuestionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance[]>>;
-  listWithHttpInfo(
-    params: InsightsQuestionnairesQuestionListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionInstance[]>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance[]>>;
+  listWithHttpInfo(params: InsightsQuestionnairesQuestionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionInstance[]>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance[]>>;
   /**
    * Retrieve a single page of InsightsQuestionnairesQuestionInstance records from the API.
    *
@@ -841,19 +675,8 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { InsightsQuestionnairesQuestionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionPage
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionPage>;
-  page(
-    params: InsightsQuestionnairesQuestionListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionPage
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionPage>;
+  page(callback?: (error: Error | null, items: InsightsQuestionnairesQuestionPage) => any): Promise<InsightsQuestionnairesQuestionPage>;
+  page(params: InsightsQuestionnairesQuestionListInstancePageOptions, callback?: (error: Error | null, items: InsightsQuestionnairesQuestionPage) => any): Promise<InsightsQuestionnairesQuestionPage>;
   /**
    * Retrieve a single page of InsightsQuestionnairesQuestionInstance records from the API with HTTP metadata.
    *
@@ -865,19 +688,9 @@ export interface InsightsQuestionnairesQuestionListInstance {
    * @param { InsightsQuestionnairesQuestionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>>;
-  pageWithHttpInfo(
-    params: InsightsQuestionnairesQuestionListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionPage>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>>;
+  pageWithHttpInfo(params: InsightsQuestionnairesQuestionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionPage>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -886,170 +699,129 @@ export interface InsightsQuestionnairesQuestionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsQuestionnairesQuestionListInstance(
-  version: V1
-): InsightsQuestionnairesQuestionListInstance {
-  const instance = ((questionSid) =>
-    instance.get(questionSid)) as InsightsQuestionnairesQuestionListInstance;
+export function InsightsQuestionnairesQuestionListInstance(version: V1): InsightsQuestionnairesQuestionListInstance {
+  const instance = ((questionSid, ) => instance.get(questionSid, )) as InsightsQuestionnairesQuestionListInstance;
 
-  instance.get = function get(
-    questionSid
-  ): InsightsQuestionnairesQuestionContext {
+  instance.get = function get(questionSid, ): InsightsQuestionnairesQuestionContext {
     return new InsightsQuestionnairesQuestionContextImpl(version, questionSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/QualityManagement/Questions`;
 
-  instance.create = function create(
-    params: InsightsQuestionnairesQuestionListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionInstance> {
+  instance.create = function create(params: InsightsQuestionnairesQuestionListInstanceCreateOptions, callback?: (error: Error | null, items: InsightsQuestionnairesQuestionInstance) => any): Promise<InsightsQuestionnairesQuestionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["categorySid"] === null || params["categorySid"] === undefined) {
-      throw new Error("Required parameter \"params['categorySid']\" missing.");
+      throw new Error('Required parameter "params[\'categorySid\']" missing.');
     }
 
     if (params["question"] === null || params["question"] === undefined) {
-      throw new Error("Required parameter \"params['question']\" missing.");
+      throw new Error('Required parameter "params[\'question\']" missing.');
     }
 
     if (params["answerSetId"] === null || params["answerSetId"] === undefined) {
-      throw new Error("Required parameter \"params['answerSetId']\" missing.");
+      throw new Error('Required parameter "params[\'answerSetId\']" missing.');
     }
 
     if (params["allowNa"] === null || params["allowNa"] === undefined) {
-      throw new Error("Required parameter \"params['allowNa']\" missing.");
+      throw new Error('Required parameter "params[\'allowNa\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CategorySid"] = params["categorySid"];
-
+    
     data["Question"] = params["question"];
-
+    
     data["AnswerSetId"] = params["answerSetId"];
-
+    
     data["AllowNa"] = serialize.bool(params["allowNa"]);
     if (params["description"] !== undefined)
-      data["Description"] = params["description"];
+    data["Description"] = params["description"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new InsightsQuestionnairesQuestionInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesQuestionInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: InsightsQuestionnairesQuestionListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: InsightsQuestionnairesQuestionListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["categorySid"] === null || params["categorySid"] === undefined) {
-      throw new Error("Required parameter \"params['categorySid']\" missing.");
+      throw new Error('Required parameter "params[\'categorySid\']" missing.');
     }
 
     if (params["question"] === null || params["question"] === undefined) {
-      throw new Error("Required parameter \"params['question']\" missing.");
+      throw new Error('Required parameter "params[\'question\']" missing.');
     }
 
     if (params["answerSetId"] === null || params["answerSetId"] === undefined) {
-      throw new Error("Required parameter \"params['answerSetId']\" missing.");
+      throw new Error('Required parameter "params[\'answerSetId\']" missing.');
     }
 
     if (params["allowNa"] === null || params["allowNa"] === undefined) {
-      throw new Error("Required parameter \"params['allowNa']\" missing.");
+      throw new Error('Required parameter "params[\'allowNa\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CategorySid"] = params["categorySid"];
-
+    
     data["Question"] = params["question"];
-
+    
     data["AnswerSetId"] = params["answerSetId"];
-
+    
     data["AllowNa"] = serialize.bool(params["allowNa"]);
     if (params["description"] !== undefined)
-      data["Description"] = params["description"];
+    data["Description"] = params["description"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<InsightsQuestionnairesQuestionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesQuestionInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesQuestionInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<InsightsQuestionnairesQuestionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InsightsQuestionnairesQuestionInstance> => ({
+      ...response,
+      body: new InsightsQuestionnairesQuestionInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | InsightsQuestionnairesQuestionListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: InsightsQuestionnairesQuestionPage
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionPage
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionPage> {
+
+    }
+
+  instance.page = function page(params?: InsightsQuestionnairesQuestionListInstancePageOptions | ((error: Error | null, items: InsightsQuestionnairesQuestionPage) => any), callback?: (error: Error | null, items: InsightsQuestionnairesQuestionPage) => any): Promise<InsightsQuestionnairesQuestionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1059,83 +831,47 @@ export function InsightsQuestionnairesQuestionListInstance(
 
     let data: any = {};
 
-    if (params["categorySid"] !== undefined)
-      data["CategorySid"] = serialize.map(
-        params["categorySid"],
-        (e: string) => e
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["categorySid"] !== undefined)
+    data["CategorySid"] = serialize.map(params["categorySid"], (e: string) => (e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new InsightsQuestionnairesQuestionPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesQuestionPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesQuestionPage
-    ) => any
-  ): Promise<InsightsQuestionnairesQuestionPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesQuestionPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsQuestionnairesQuestionPage) => any): Promise<InsightsQuestionnairesQuestionPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new InsightsQuestionnairesQuestionPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | InsightsQuestionnairesQuestionListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<InsightsQuestionnairesQuestionPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesQuestionPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: InsightsQuestionnairesQuestionListInstancePageOptions | ((error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionPage>) => any), callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesQuestionPage>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1145,126 +881,95 @@ export function InsightsQuestionnairesQuestionListInstance(
 
     let data: any = {};
 
-    if (params["categorySid"] !== undefined)
-      data["CategorySid"] = serialize.map(
-        params["categorySid"],
-        (e: string) => e
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["categorySid"] !== undefined)
+    data["CategorySid"] = serialize.map(params["categorySid"], (e: string) => (e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesQuestionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsQuestionnairesQuestionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InsightsQuestionnairesQuestionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new InsightsQuestionnairesQuestionPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<InsightsQuestionnairesQuestionPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<InsightsQuestionnairesQuestionPage>) => any): Promise<ApiResponse<InsightsQuestionnairesQuestionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<InsightsQuestionnairesQuestionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InsightsQuestionnairesQuestionPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<InsightsQuestionnairesQuestionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new InsightsQuestionnairesQuestionPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class InsightsQuestionnairesQuestionPage extends Page<
-  V1,
-  InsightsQuestionnairesQuestionPayload,
-  InsightsQuestionnairesQuestionResource,
-  InsightsQuestionnairesQuestionInstance
-> {
-  /**
-   * Initialize the InsightsQuestionnairesQuestionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: InsightsQuestionnairesQuestionSolution
-  ) {
+export class InsightsQuestionnairesQuestionPage extends Page<V1, InsightsQuestionnairesQuestionPayload, InsightsQuestionnairesQuestionResource, InsightsQuestionnairesQuestionInstance> {
+/**
+* Initialize the InsightsQuestionnairesQuestionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InsightsQuestionnairesQuestionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InsightsQuestionnairesQuestionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: InsightsQuestionnairesQuestionResource
-  ): InsightsQuestionnairesQuestionInstance {
-    return new InsightsQuestionnairesQuestionInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of InsightsQuestionnairesQuestionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InsightsQuestionnairesQuestionResource): InsightsQuestionnairesQuestionInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new InsightsQuestionnairesQuestionInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

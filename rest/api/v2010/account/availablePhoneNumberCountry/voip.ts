@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -24,50 +23,48 @@ import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
-
-
 /**
  * Options to pass to each
  */
 export interface VoipListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
-  "areaCode"?: number;
+  areaCode?: number;
   /** Matching pattern to identify phone numbers. This pattern can be between 2 and 16 characters long and allows all digits (0-9) and all non-diacritic latin alphabet letters (a-z, A-Z). It accepts four meta-characters: `*`, `%`, `+`, `$`. The `*` and `%` meta-characters can appear multiple times in the pattern. To match wildcards at the beginning or end of the pattern, use `*` to match any single character or `%` to match a sequence of characters. If you use the wildcard patterns, it must include at least two non-meta-characters, and wildcards cannot be used between non-meta-characters. To match the beginning of a pattern, start the pattern with `+`. To match the end of the pattern, append the pattern with `$`. These meta-characters can\'t be adjacent to each other. */
-  "contains"?: string;
+  contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
-  "smsEnabled"?: boolean;
+  smsEnabled?: boolean;
   /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
-  "mmsEnabled"?: boolean;
+  mmsEnabled?: boolean;
   /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
-  "voiceEnabled"?: boolean;
+  voiceEnabled?: boolean;
   /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeAllAddressRequired"?: boolean;
+  excludeAllAddressRequired?: boolean;
   /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeLocalAddressRequired"?: boolean;
+  excludeLocalAddressRequired?: boolean;
   /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeForeignAddressRequired"?: boolean;
+  excludeForeignAddressRequired?: boolean;
   /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  "beta"?: boolean;
+  beta?: boolean;
   /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
-  "nearNumber"?: string;
+  nearNumber?: string;
   /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
-  "nearLatLong"?: string;
+  nearLatLong?: string;
   /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
-  "distance"?: number;
+  distance?: number;
   /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
-  "inPostalCode"?: string;
+  inPostalCode?: string;
   /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
-  "inRegion"?: string;
+  inRegion?: string;
   /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
-  "inRateCenter"?: string;
+  inRateCenter?: string;
   /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
-  "inLata"?: string;
+  inLata?: string;
   /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
-  "inLocality"?: string;
+  inLocality?: string;
   /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
-  "faxEnabled"?: boolean;
+  faxEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: VoipInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -81,97 +78,94 @@ export interface VoipListInstanceEachOptions {
  */
 export interface VoipListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
-  "areaCode"?: number;
+  areaCode?: number;
   /** Matching pattern to identify phone numbers. This pattern can be between 2 and 16 characters long and allows all digits (0-9) and all non-diacritic latin alphabet letters (a-z, A-Z). It accepts four meta-characters: `*`, `%`, `+`, `$`. The `*` and `%` meta-characters can appear multiple times in the pattern. To match wildcards at the beginning or end of the pattern, use `*` to match any single character or `%` to match a sequence of characters. If you use the wildcard patterns, it must include at least two non-meta-characters, and wildcards cannot be used between non-meta-characters. To match the beginning of a pattern, start the pattern with `+`. To match the end of the pattern, append the pattern with `$`. These meta-characters can\'t be adjacent to each other. */
-  "contains"?: string;
+  contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
-  "smsEnabled"?: boolean;
+  smsEnabled?: boolean;
   /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
-  "mmsEnabled"?: boolean;
+  mmsEnabled?: boolean;
   /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
-  "voiceEnabled"?: boolean;
+  voiceEnabled?: boolean;
   /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeAllAddressRequired"?: boolean;
+  excludeAllAddressRequired?: boolean;
   /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeLocalAddressRequired"?: boolean;
+  excludeLocalAddressRequired?: boolean;
   /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeForeignAddressRequired"?: boolean;
+  excludeForeignAddressRequired?: boolean;
   /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  "beta"?: boolean;
+  beta?: boolean;
   /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
-  "nearNumber"?: string;
+  nearNumber?: string;
   /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
-  "nearLatLong"?: string;
+  nearLatLong?: string;
   /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
-  "distance"?: number;
+  distance?: number;
   /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
-  "inPostalCode"?: string;
+  inPostalCode?: string;
   /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
-  "inRegion"?: string;
+  inRegion?: string;
   /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
-  "inRateCenter"?: string;
+  inRateCenter?: string;
   /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
-  "inLata"?: string;
+  inLata?: string;
   /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
-  "inLocality"?: string;
+  inLocality?: string;
   /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
-  "faxEnabled"?: boolean;
+  faxEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface VoipListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
-  "areaCode"?: number;
+  areaCode?: number;
   /** Matching pattern to identify phone numbers. This pattern can be between 2 and 16 characters long and allows all digits (0-9) and all non-diacritic latin alphabet letters (a-z, A-Z). It accepts four meta-characters: `*`, `%`, `+`, `$`. The `*` and `%` meta-characters can appear multiple times in the pattern. To match wildcards at the beginning or end of the pattern, use `*` to match any single character or `%` to match a sequence of characters. If you use the wildcard patterns, it must include at least two non-meta-characters, and wildcards cannot be used between non-meta-characters. To match the beginning of a pattern, start the pattern with `+`. To match the end of the pattern, append the pattern with `$`. These meta-characters can\'t be adjacent to each other. */
-  "contains"?: string;
+  contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
-  "smsEnabled"?: boolean;
+  smsEnabled?: boolean;
   /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
-  "mmsEnabled"?: boolean;
+  mmsEnabled?: boolean;
   /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
-  "voiceEnabled"?: boolean;
+  voiceEnabled?: boolean;
   /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeAllAddressRequired"?: boolean;
+  excludeAllAddressRequired?: boolean;
   /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeLocalAddressRequired"?: boolean;
+  excludeLocalAddressRequired?: boolean;
   /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  "excludeForeignAddressRequired"?: boolean;
+  excludeForeignAddressRequired?: boolean;
   /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  "beta"?: boolean;
+  beta?: boolean;
   /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
-  "nearNumber"?: string;
+  nearNumber?: string;
   /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
-  "nearLatLong"?: string;
+  nearLatLong?: string;
   /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
-  "distance"?: number;
+  distance?: number;
   /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
-  "inPostalCode"?: string;
+  inPostalCode?: string;
   /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
-  "inRegion"?: string;
+  inRegion?: string;
   /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
-  "inRateCenter"?: string;
+  inRateCenter?: string;
   /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
-  "inLata"?: string;
+  inLata?: string;
   /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
-  "inLocality"?: string;
+  inLocality?: string;
   /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
-  "faxEnabled"?: boolean;
+  faxEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
-
 
 export interface VoipSolution {
   accountSid: string;
@@ -182,9 +176,6 @@ export interface VoipListInstance {
   _version: V2010;
   _solution: VoipSolution;
   _uri: string;
-
-
-
 
   /**
    * Streams VoipInstance records from the API.
@@ -201,8 +192,13 @@ export interface VoipListInstance {
    * @param { VoipListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: VoipInstance, done: (err?: Error) => void) => void): void;
-  each(params: VoipListInstanceEachOptions, callback?: (item: VoipInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: VoipListInstanceEachOptions,
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams VoipInstance records from the API with HTTP metadata captured per page.
    *
@@ -218,8 +214,13 @@ export interface VoipListInstance {
    * @param { VoipListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: VoipInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: VoipListInstanceEachOptions, callback?: (item: VoipInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: VoipListInstanceEachOptions,
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of VoipInstance records from the API.
    *
@@ -228,7 +229,10 @@ export interface VoipListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: VoipPage) => any,
+  ): Promise<VoipPage>;
   /**
    * Retrieve a single target page of VoipInstance records from the API with HTTP metadata.
    *
@@ -237,7 +241,10 @@ export interface VoipListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any): Promise<ApiResponse<VoipPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
+  ): Promise<ApiResponse<VoipPage>>;
   /**
    * Lists VoipInstance records from the API as a list.
    *
@@ -247,8 +254,13 @@ export interface VoipListInstance {
    * @param { VoipListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: VoipInstance[]) => any): Promise<VoipInstance[]>;
-  list(params: VoipListInstanceOptions, callback?: (error: Error | null, items: VoipInstance[]) => any): Promise<VoipInstance[]>;
+  list(
+    callback?: (error: Error | null, items: VoipInstance[]) => any,
+  ): Promise<VoipInstance[]>;
+  list(
+    params: VoipListInstanceOptions,
+    callback?: (error: Error | null, items: VoipInstance[]) => any,
+  ): Promise<VoipInstance[]>;
   /**
    * Lists VoipInstance records from the API as a list with HTTP metadata.
    *
@@ -260,8 +272,13 @@ export interface VoipListInstance {
    * @param { VoipListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any): Promise<ApiResponse<VoipInstance[]>>;
-  listWithHttpInfo(params: VoipListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any): Promise<ApiResponse<VoipInstance[]>>;
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any,
+  ): Promise<ApiResponse<VoipInstance[]>>;
+  listWithHttpInfo(
+    params: VoipListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any,
+  ): Promise<ApiResponse<VoipInstance[]>>;
   /**
    * Retrieve a single page of VoipInstance records from the API.
    *
@@ -273,8 +290,13 @@ export interface VoipListInstance {
    * @param { VoipListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage>;
-  page(params: VoipListInstancePageOptions, callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage>;
+  page(
+    callback?: (error: Error | null, items: VoipPage) => any,
+  ): Promise<VoipPage>;
+  page(
+    params: VoipListInstancePageOptions,
+    callback?: (error: Error | null, items: VoipPage) => any,
+  ): Promise<VoipPage>;
   /**
    * Retrieve a single page of VoipInstance records from the API with HTTP metadata.
    *
@@ -286,9 +308,13 @@ export interface VoipListInstance {
    * @param { VoipListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any): Promise<ApiResponse<VoipPage>>;
-  pageWithHttpInfo(params: VoipListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any): Promise<ApiResponse<VoipPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
+  ): Promise<ApiResponse<VoipPage>>;
+  pageWithHttpInfo(
+    params: VoipListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
+  ): Promise<ApiResponse<VoipPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -297,22 +323,31 @@ export interface VoipListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function VoipListInstance(version: V2010, accountSid: string, countryCode: string): VoipListInstance {
+export function VoipListInstance(
+  version: V2010,
+  accountSid: string,
+  countryCode: string,
+): VoipListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   if (!isValidPathParam(countryCode)) {
-    throw new Error('Parameter \'countryCode\' is not valid.');
+    throw new Error("Parameter 'countryCode' is not valid.");
   }
 
   const instance = {} as VoipListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid, countryCode,  };
+  instance._solution = { accountSid, countryCode };
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Voip.json`;
 
-  instance.page = function page(params?: VoipListInstancePageOptions | ((error: Error | null, items: VoipPage) => any), callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage> {
+  instance.page = function page(
+    params?:
+      | VoipListInstancePageOptions
+      | ((error: Error | null, items: VoipPage) => any),
+    callback?: (error: Error | null, items: VoipPage) => any,
+  ): Promise<VoipPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -322,80 +357,94 @@ export function VoipListInstance(version: V2010, accountSid: string, countryCode
 
     let data: any = {};
 
-        if (params["areaCode"] !== undefined)
-    data["AreaCode"] = params["areaCode"];
-    if (params["contains"] !== undefined)
-    data["Contains"] = params["contains"];
+    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
     if (params["smsEnabled"] !== undefined)
-    data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+      data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
     if (params["mmsEnabled"] !== undefined)
-    data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+      data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
     if (params["voiceEnabled"] !== undefined)
-    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
-    data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
+      data["ExcludeAllAddressRequired"] = serialize.bool(
+        params["excludeAllAddressRequired"],
+      );
     if (params["excludeLocalAddressRequired"] !== undefined)
-    data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
+      data["ExcludeLocalAddressRequired"] = serialize.bool(
+        params["excludeLocalAddressRequired"],
+      );
     if (params["excludeForeignAddressRequired"] !== undefined)
-    data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
+      data["ExcludeForeignAddressRequired"] = serialize.bool(
+        params["excludeForeignAddressRequired"],
+      );
     if (params["beta"] !== undefined)
-    data["Beta"] = serialize.bool(params["beta"]);
+      data["Beta"] = serialize.bool(params["beta"]);
     if (params["nearNumber"] !== undefined)
-    data["NearNumber"] = params["nearNumber"];
+      data["NearNumber"] = params["nearNumber"];
     if (params["nearLatLong"] !== undefined)
-    data["NearLatLong"] = params["nearLatLong"];
-    if (params["distance"] !== undefined)
-    data["Distance"] = params["distance"];
+      data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
     if (params["inPostalCode"] !== undefined)
-    data["InPostalCode"] = params["inPostalCode"];
-    if (params["inRegion"] !== undefined)
-    data["InRegion"] = params["inRegion"];
+      data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
     if (params["inRateCenter"] !== undefined)
-    data["InRateCenter"] = params["inRateCenter"];
-    if (params["inLata"] !== undefined)
-    data["InLata"] = params["inLata"];
+      data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
     if (params["inLocality"] !== undefined)
-    data["InLocality"] = params["inLocality"];
+      data["InLocality"] = params["inLocality"];
     if (params["faxEnabled"] !== undefined)
-    data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new VoipPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new VoipPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new VoipPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: VoipPage) => any,
+  ): Promise<VoipPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) => new VoipPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: VoipListInstancePageOptions | ((error: Error | null, items: ApiResponse<VoipPage>) => any), callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any): Promise<ApiResponse<VoipPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | VoipListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<VoipPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
+  ): Promise<ApiResponse<VoipPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -405,103 +454,112 @@ export function VoipListInstance(version: V2010, accountSid: string, countryCode
 
     let data: any = {};
 
-        if (params["areaCode"] !== undefined)
-    data["AreaCode"] = params["areaCode"];
-    if (params["contains"] !== undefined)
-    data["Contains"] = params["contains"];
+    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
     if (params["smsEnabled"] !== undefined)
-    data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+      data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
     if (params["mmsEnabled"] !== undefined)
-    data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+      data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
     if (params["voiceEnabled"] !== undefined)
-    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
-    data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
+      data["ExcludeAllAddressRequired"] = serialize.bool(
+        params["excludeAllAddressRequired"],
+      );
     if (params["excludeLocalAddressRequired"] !== undefined)
-    data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
+      data["ExcludeLocalAddressRequired"] = serialize.bool(
+        params["excludeLocalAddressRequired"],
+      );
     if (params["excludeForeignAddressRequired"] !== undefined)
-    data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
+      data["ExcludeForeignAddressRequired"] = serialize.bool(
+        params["excludeForeignAddressRequired"],
+      );
     if (params["beta"] !== undefined)
-    data["Beta"] = serialize.bool(params["beta"]);
+      data["Beta"] = serialize.bool(params["beta"]);
     if (params["nearNumber"] !== undefined)
-    data["NearNumber"] = params["nearNumber"];
+      data["NearNumber"] = params["nearNumber"];
     if (params["nearLatLong"] !== undefined)
-    data["NearLatLong"] = params["nearLatLong"];
-    if (params["distance"] !== undefined)
-    data["Distance"] = params["distance"];
+      data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
     if (params["inPostalCode"] !== undefined)
-    data["InPostalCode"] = params["inPostalCode"];
-    if (params["inRegion"] !== undefined)
-    data["InRegion"] = params["inRegion"];
+      data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
     if (params["inRateCenter"] !== undefined)
-    data["InRateCenter"] = params["inRateCenter"];
-    if (params["inLata"] !== undefined)
-    data["InLata"] = params["inLata"];
+      data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
     if (params["inLocality"] !== undefined)
-    data["InLocality"] = params["inLocality"];
+      data["InLocality"] = params["inLocality"];
     if (params["faxEnabled"] !== undefined)
-    data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<VoipPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new VoipPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<VoipPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new VoipPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<VoipPage>) => any): Promise<ApiResponse<VoipPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<VoipPage>) => any,
+  ): Promise<ApiResponse<VoipPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<VoipPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new VoipPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<VoipPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new VoipPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface VoipPayload extends TwilioResponsePayload {
-    available_phone_numbers: VoipResource[];
+interface VoipPayload extends TwilioResponsePayload {
+  available_phone_numbers: VoipResource[];
 }
 
 interface VoipResource {
@@ -521,23 +579,25 @@ interface VoipResource {
 }
 
 export class VoipInstance {
-
-  constructor(protected _version: V2010, payload: VoipResource, accountSid: string, countryCode: string) {
-    
-    this.friendlyName = (payload.friendly_name);
-    this.phoneNumber = (payload.phone_number);
-    this.lata = (payload.lata);
-    this.locality = (payload.locality);
-    this.rateCenter = (payload.rate_center);
-    this.latitude = (payload.latitude);
-    this.longitude = (payload.longitude);
-    this.region = (payload.region);
-    this.postalCode = (payload.postal_code);
-    this.isoCountry = (payload.iso_country);
-    this.addressRequirements = (payload.address_requirements);
-    this.beta = (payload.beta);
-    this.capabilities = (payload.capabilities);
-
+  constructor(
+    protected _version: V2010,
+    payload: VoipResource,
+    accountSid: string,
+    countryCode: string,
+  ) {
+    this.friendlyName = payload.friendly_name;
+    this.phoneNumber = payload.phone_number;
+    this.lata = payload.lata;
+    this.locality = payload.locality;
+    this.rateCenter = payload.rate_center;
+    this.latitude = payload.latitude;
+    this.longitude = payload.longitude;
+    this.region = payload.region;
+    this.postalCode = payload.postal_code;
+    this.isoCountry = payload.iso_country;
+    this.addressRequirements = payload.address_requirements;
+    this.beta = payload.beta;
+    this.capabilities = payload.capabilities;
   }
 
   /**
@@ -618,35 +678,42 @@ export class VoipInstance {
   }
 }
 
-export class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstance> {
-/**
-* Initialize the VoipPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: VoipSolution) {
+export class VoipPage extends Page<
+  V2010,
+  VoipPayload,
+  VoipResource,
+  VoipInstance
+> {
+  /**
+   * Initialize the VoipPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: VoipSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of VoipInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: VoipResource): VoipInstance {
-
+  /**
+   * Build an instance of VoipInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: VoipResource): VoipInstance {
     return new VoipInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.countryCode,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.countryCode,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

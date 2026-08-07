@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -20,6 +21,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 /**
  * A data mapping connects external data sources to a Memory Store, enabling automatic ingestion and mapping of data to profile traits.
@@ -38,7 +40,7 @@ export class CreateDataMappingInput {
    */
   "isEnabled"?: boolean;
   "mappingTo": DataMappingToTraits;
-  "mappingFrom": DataMappingFromDataSet;
+  "mappingFrom": DataMappingFromTypes;
 
   constructor(payload) {
     this.displayName = payload["displayName"];
@@ -48,6 +50,7 @@ export class CreateDataMappingInput {
     this.mappingFrom = payload["mappingFrom"];
   }
 }
+
 
 /**
  * Writable fields of a data mapping. Used directly as the PATCH request body (all fields optional). Composed into CreateDataMappingInput via allOf.
@@ -75,14 +78,19 @@ export class DataMappingCore {
   }
 }
 
+
 /**
- * Configuration for mapping from a TDI dataset.
+ * Details of where to map data items from. Each data mapping from type has its own set of configuration parameters and source specific properties.
  */
-export class DataMappingFromDataSet {
+export class DataMappingFromTypes {
   /**
    * The source data type, which determines the source of the data and the required configuration parameters.
    */
   "type": string;
+  /**
+   * The list of CSV column names that serve as the source fields.
+   */
+  "columns": Array<string>;
   /**
    * The unique identifier of the TDI dataset to connect.
    */
@@ -90,9 +98,11 @@ export class DataMappingFromDataSet {
 
   constructor(payload) {
     this.type = payload["type"];
+    this.columns = payload["columns"];
     this.datasetId = payload["datasetId"];
   }
 }
+
 
 /**
  * Configuration for mapping data to traits in a Memory Store.
@@ -113,23 +123,20 @@ export class DataMappingToTraits {
   }
 }
 
+
 /**
  * The type of data mapping defining how data flows into the Memory Store.
  */
-export type DataMappingType = "DATASET";
+export type DataMappingType = 'CSV'|'DATASET';
 
 /**
  * Maps a field from a source to a Trait in the Memory Store.
  */
 export class MappingTraitItem {
   /**
-   * The name of the field/column in the source. Deprecated in favor of expression.
-   */
-  "fieldName": string;
-  /**
    * The expression identifying the field/column in the source.
    */
-  "expression"?: string;
+  "expression": string;
   /**
    * The name of the Trait Group to map to.
    */
@@ -140,21 +147,24 @@ export class MappingTraitItem {
   "traitName": string;
 
   constructor(payload) {
-    this.fieldName = payload["fieldName"];
     this.expression = payload["expression"];
     this.traitGroup = payload["traitGroup"];
     this.traitName = payload["traitName"];
   }
 }
 
+
+
+
+
 /**
  * Options to pass to patch a DataMappingInstance
  */
 export interface DataMappingContextPatchOptions {
   /** Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource\'s current Entity Tag (ETag) matches the one provided, preventing accidental overwrites. */
-  ifMatch?: string;
+  "ifMatch"?: string;
   /**  */
-  dataMappingCore?: DataMappingCore;
+  "dataMappingCore"?: DataMappingCore;
 }
 
 /**
@@ -162,7 +172,7 @@ export interface DataMappingContextPatchOptions {
  */
 export interface DataMappingListInstanceCreateOptions {
   /**  */
-  createDataMappingInput: CreateDataMappingInput;
+  "createDataMappingInput": CreateDataMappingInput;
 }
 
 /**
@@ -170,13 +180,13 @@ export interface DataMappingListInstanceCreateOptions {
  */
 export interface DataMappingListInstanceEachOptions {
   /** The maximum number of items to return per page, maximum of 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** The token for the page of results to retrieve. */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  orderBy?: "ASC" | "DESC";
+  "orderBy"?: 'ASC' | 'DESC';
   /** Filter data mappings by type. */
-  type?: DataMappingType;
+  "type"?: DataMappingType;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -190,32 +200,35 @@ export interface DataMappingListInstanceEachOptions {
  */
 export interface DataMappingListInstanceOptions {
   /** The maximum number of items to return per page, maximum of 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** The token for the page of results to retrieve. */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  orderBy?: "ASC" | "DESC";
+  "orderBy"?: 'ASC' | 'DESC';
   /** Filter data mappings by type. */
-  type?: DataMappingType;
+  "type"?: DataMappingType;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface DataMappingListInstancePageOptions {
   /** The maximum number of items to return per page, maximum of 100. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** The token for the page of results to retrieve. */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  orderBy?: "ASC" | "DESC";
+  "orderBy"?: 'ASC' | 'DESC';
   /** Filter data mappings by type. */
-  type?: DataMappingType;
+  "type"?: DataMappingType;
 }
 
+
 export interface DataMappingContext {
+
   /**
    * Remove a DataMappingInstance
    *
@@ -223,9 +236,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  remove(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  remove(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>
 
   /**
    * Remove a DataMappingInstance and return HTTP info
@@ -234,12 +245,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>
 
   /**
    * Fetch a DataMappingInstance
@@ -248,9 +254,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  fetch(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>
 
   /**
    * Fetch a DataMappingInstance and return HTTP info
@@ -259,12 +263,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>
 
   /**
    * Patch a DataMappingInstance
@@ -273,9 +272,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  patch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  patch(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>;
   /**
    * Patch a DataMappingInstance
    *
@@ -285,11 +282,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  patch(
-    params: DataMappingCore,
-    headers?: any,
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  patch(params: DataMappingCore, headers?: any, callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>;
 
   /**
    * Patch a DataMappingInstance and return HTTP info
@@ -298,12 +291,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  patchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>;
   /**
    * Patch a DataMappingInstance and return HTTP info
    *
@@ -313,14 +301,7 @@ export interface DataMappingContext {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    params: DataMappingCore,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  patchWithHttpInfo(params: DataMappingCore, headers?: any, callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -330,269 +311,165 @@ export interface DataMappingContext {
 }
 
 export interface DataMappingContextSolution {
-  storeId: string;
-  dataMappingId: string;
+  "storeId": string;
+  "dataMappingId": string;
 }
 
 export class DataMappingContextImpl implements DataMappingContext {
   protected _solution: DataMappingContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, storeId: string, dataMappingId: string) {
     if (!isValidPathParam(storeId)) {
-      throw new Error("Parameter 'storeId' is not valid.");
+      throw new Error('Parameter \'storeId\' is not valid.');
     }
 
     if (!isValidPathParam(dataMappingId)) {
-      throw new Error("Parameter 'dataMappingId' is not valid.");
+      throw new Error('Parameter \'dataMappingId\' is not valid.');
     }
 
-    this._solution = { storeId, dataMappingId };
+    this._solution = { storeId, dataMappingId,  };
     this._uri = `/ControlPlane/Stores/${storeId}/DataMappings/${dataMappingId}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  remove(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "delete", headers});
+    
+    operationPromise = operationPromise.then(payload => new DataMappingInstance(operationVersion, payload, instance._solution.storeId, instance._solution.dataMappingId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataMappingInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-          instance._solution.dataMappingId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation that returns a response model
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<DataMappingResource>({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<DataMappingInstance> => ({
-          ...response,
-          body: new DataMappingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId,
-            instance._solution.dataMappingId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<DataMappingResource>({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<DataMappingInstance> => ({
+      ...response,
+      body: new DataMappingInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.dataMappingId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new DataMappingInstance(operationVersion, payload, instance._solution.storeId, instance._solution.dataMappingId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataMappingInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-          instance._solution.dataMappingId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<DataMappingResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<DataMappingInstance> => ({
-          ...response,
-          body: new DataMappingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId,
-            instance._solution.dataMappingId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<DataMappingResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<DataMappingInstance> => ({
+      ...response,
+      body: new DataMappingInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.dataMappingId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  patch(
-    params?:
-      | DataMappingCore
-      | ((error: Error | null, item?: DataMappingInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
-    if (params instanceof Function) {
+  patch(params?: DataMappingCore | ((error: Error | null, item?: DataMappingInstance) => any), headers?: any,callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {} as Partial<DataMappingCore> as DataMappingCore;
     } else {
-      params = params || ({} as Partial<DataMappingCore> as DataMappingCore);
+      params = params || {} as Partial<DataMappingCore> as DataMappingCore;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.patch({
-        uri: instance._uri,
-        method: "patch",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new DataMappingInstance(operationVersion, payload, instance._solution.storeId, instance._solution.dataMappingId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataMappingInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-          instance._solution.dataMappingId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  patchWithHttpInfo(
-    params?:
-      | DataMappingCore
-      | ((error: Error | null, item?: ApiResponse<DataMappingInstance>) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
-    if (params instanceof Function) {
+  patchWithHttpInfo(params?: DataMappingCore | ((error: Error | null, item?: ApiResponse<DataMappingInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>> {
+      if (params instanceof Function) {
       callback = params;
       params = {} as Partial<DataMappingCore> as DataMappingCore;
     } else {
-      params = params || ({} as Partial<DataMappingCore> as DataMappingCore);
+      params = params || {} as Partial<DataMappingCore> as DataMappingCore;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .patchWithResponseInfo<DataMappingResource>({
-        uri: instance._uri,
-        method: "patch",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<DataMappingInstance> => ({
-          ...response,
-          body: new DataMappingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId,
-            instance._solution.dataMappingId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.patchWithResponseInfo<DataMappingResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<DataMappingInstance> => ({
+      ...response,
+      body: new DataMappingInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.dataMappingId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -616,7 +493,7 @@ export interface CreateDataMappingInput {
   description?: string;
   isEnabled?: boolean;
   mappingTo: DataMappingToTraits;
-  mappingFrom: DataMappingFromDataSet;
+  mappingFrom: DataMappingFromTypes;
 }
 
 /**
@@ -630,10 +507,11 @@ export interface DataMappingCore {
 }
 
 /**
- * Nested model for DataMappingFromDataSet
+ * Nested model for DataMappingFromTypes
  */
-export interface DataMappingFromDataSet {
+export interface DataMappingFromTypes {
   type: string;
+  columns: Array<string>;
   datasetId: string;
 }
 
@@ -649,14 +527,15 @@ export interface DataMappingToTraits {
  * Nested model for MappingTraitItem
  */
 export interface MappingTraitItem {
-  fieldName: string;
-  expression?: string;
+  expression: string;
   traitGroup: string;
   traitName: string;
 }
 
-interface DataMappingPayload extends TokenPaginationPayload {
-  dataMappings: DataMappingResource[];
+
+
+  interface DataMappingPayload extends TokenPaginationPayload {
+    dataMappings: DataMappingResource[];
 }
 
 /**
@@ -683,7 +562,7 @@ interface DataMapping_ResponseResource {
   description?: string;
   isEnabled?: boolean;
   mappingTo: DataMappingToTraits;
-  mappingFrom: DataMappingFromDataSet;
+  mappingFrom: DataMappingFromTypes;
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -701,42 +580,27 @@ interface DeleteDataMapping202Response_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type DataMappingResource =
-  | CreateDataMapping202Response_ResponseResource
-  | PatchDataMapping202Response_ResponseResource
-  | DataMapping_ResponseResource
-  | DeleteDataMapping202Response_ResponseResource;
+type DataMappingResource = CreateDataMapping202Response_ResponseResource | PatchDataMapping202Response_ResponseResource | DataMapping_ResponseResource | DeleteDataMapping202Response_ResponseResource;
 
 export class DataMappingInstance {
   protected _solution: DataMappingContextSolution;
   protected _context?: DataMappingContext;
 
-  constructor(
-    protected _version: V1,
-    _payload: DataMappingResource,
-    storeId: string,
-    dataMappingId?: string
-  ) {
+  constructor(protected _version: V1, _payload: DataMappingResource, storeId: string, dataMappingId?: string) {
     const payload: any = _payload;
-    this.message = payload.message;
-    this.statusUrl = payload.statusUrl;
-    this.displayName = payload.displayName;
-    this.description = payload.description;
-    this.isEnabled = payload.isEnabled;
-    this.mappingTo =
-      payload.mappingTo !== null && payload.mappingTo !== undefined
-        ? new DataMappingToTraits(payload.mappingTo)
-        : null;
-    this.mappingFrom =
-      payload.mappingFrom !== null && payload.mappingFrom !== undefined
-        ? new DataMappingFromDataSet(payload.mappingFrom)
-        : null;
-    this.id = payload.id;
+    this.message = (payload.message);
+    this.statusUrl = (payload.statusUrl);
+    this.displayName = (payload.displayName);
+    this.description = (payload.description);
+    this.isEnabled = (payload.isEnabled);
+    this.mappingTo = payload.mappingTo !== null && payload.mappingTo !== undefined ? new DataMappingToTraits(payload.mappingTo) : null;
+    this.mappingFrom = payload.mappingFrom !== null && payload.mappingFrom !== undefined ? new DataMappingFromTypes(payload.mappingFrom) : null;
+    this.id = (payload.id);
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.version = deserialize.integer(payload.version);
 
-    this._solution = { storeId, dataMappingId: dataMappingId };
+    this._solution = { storeId, dataMappingId: dataMappingId,  };
   }
 
   message?: string;
@@ -757,7 +621,7 @@ export class DataMappingInstance {
    */
   isEnabled?: boolean;
   mappingTo?: DataMappingToTraits;
-  mappingFrom?: DataMappingFromDataSet;
+  mappingFrom?: DataMappingFromTypes;
   /**
    * The unique identifier for the data mapping.
    */
@@ -776,13 +640,7 @@ export class DataMappingInstance {
   version?: number;
 
   private get _proxy(): DataMappingContext {
-    this._context =
-      this._context ||
-      new DataMappingContextImpl(
-        this._version,
-        this._solution.storeId,
-        this._solution.dataMappingId
-      );
+    this._context = this._context || new DataMappingContextImpl(this._version, this._solution.storeId, this._solution.dataMappingId);
     return this._context;
   }
 
@@ -793,9 +651,9 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  remove(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
+  remove(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -806,12 +664,9 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -822,9 +677,9 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
+  fetch(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -835,12 +690,9 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -851,9 +703,7 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  patch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  patch(callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>;
   /**
    * Patch a DataMappingInstance
    *
@@ -863,16 +713,10 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  patch(
-    params: DataMappingCore,
-    headers?: any,
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  patch(params: DataMappingCore, headers?: any, callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>;
 
-  patch(
-    params?: any,
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
+    patch(params?: any, callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>
+    {
     return this._proxy.patch(params, callback);
   }
 
@@ -883,12 +727,7 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  patchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>;
   /**
    * Patch a DataMappingInstance and return HTTP info
    *
@@ -898,22 +737,10 @@ export class DataMappingInstance {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    params: DataMappingCore,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  patchWithHttpInfo(params: DataMappingCore, headers?: any, callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>;
 
-  patchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
+    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>
+    {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -943,6 +770,7 @@ export class DataMappingInstance {
   }
 }
 
+
 export interface DataMappingSolution {
   storeId: string;
 }
@@ -952,8 +780,15 @@ export interface DataMappingListInstance {
   _solution: DataMappingSolution;
   _uri: string;
 
-  (dataMappingId: string): DataMappingContext;
-  get(dataMappingId: string): DataMappingContext;
+  (dataMappingId: string, ): DataMappingContext;
+  get(dataMappingId: string, ): DataMappingContext;
+
+
+
+
+
+
+
 
   /**
    * Create a DataMappingInstance
@@ -964,11 +799,7 @@ export interface DataMappingListInstance {
    *
    * @returns Resolves to processed DataMappingInstance
    */
-  create(
-    params: CreateDataMappingInput,
-    headers?: any,
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
+  create(params: CreateDataMappingInput, headers?: any, callback?: (error: Error | null, item?: DataMappingInstance) => any): Promise<DataMappingInstance>;
 
   /**
    * Create a DataMappingInstance and return HTTP info
@@ -979,14 +810,10 @@ export interface DataMappingListInstance {
    *
    * @returns Resolves to processed DataMappingInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateDataMappingInput,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
+  createWithHttpInfo(params: CreateDataMappingInput, headers?: any, callback?: (error: Error | null, item?: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>>;
+
+
+
 
   /**
    * Streams DataMappingInstance records from the API.
@@ -1003,13 +830,8 @@ export interface DataMappingListInstance {
    * @param { DataMappingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: DataMappingListInstanceEachOptions,
-    callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void): void;
+  each(params: DataMappingListInstanceEachOptions, callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams DataMappingInstance records from the API with HTTP metadata captured per page.
    *
@@ -1025,13 +847,8 @@ export interface DataMappingListInstance {
    * @param { DataMappingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: DataMappingListInstanceEachOptions,
-    callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: DataMappingListInstanceEachOptions, callback?: (item: DataMappingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DataMappingInstance records from the API.
    *
@@ -1040,10 +857,7 @@ export interface DataMappingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DataMappingPage) => any
-  ): Promise<DataMappingPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: DataMappingPage) => any): Promise<DataMappingPage>;
   /**
    * Retrieve a single target page of DataMappingInstance records from the API with HTTP metadata.
    *
@@ -1052,10 +866,7 @@ export interface DataMappingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any
-  ): Promise<ApiResponse<DataMappingPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any): Promise<ApiResponse<DataMappingPage>>;
   /**
    * Lists DataMappingInstance records from the API as a list.
    *
@@ -1065,13 +876,8 @@ export interface DataMappingListInstance {
    * @param { DataMappingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: DataMappingInstance[]) => any
-  ): Promise<DataMappingInstance[]>;
-  list(
-    params: DataMappingListInstanceOptions,
-    callback?: (error: Error | null, items: DataMappingInstance[]) => any
-  ): Promise<DataMappingInstance[]>;
+  list(callback?: (error: Error | null, items: DataMappingInstance[]) => any): Promise<DataMappingInstance[]>;
+  list(params: DataMappingListInstanceOptions, callback?: (error: Error | null, items: DataMappingInstance[]) => any): Promise<DataMappingInstance[]>;
   /**
    * Lists DataMappingInstance records from the API as a list with HTTP metadata.
    *
@@ -1083,19 +889,8 @@ export interface DataMappingListInstance {
    * @param { DataMappingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DataMappingInstance[]>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance[]>>;
-  listWithHttpInfo(
-    params: DataMappingListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DataMappingInstance[]>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DataMappingInstance[]>) => any): Promise<ApiResponse<DataMappingInstance[]>>;
+  listWithHttpInfo(params: DataMappingListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<DataMappingInstance[]>) => any): Promise<ApiResponse<DataMappingInstance[]>>;
   /**
    * Retrieve a single page of DataMappingInstance records from the API.
    *
@@ -1107,13 +902,8 @@ export interface DataMappingListInstance {
    * @param { DataMappingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: DataMappingPage) => any
-  ): Promise<DataMappingPage>;
-  page(
-    params: DataMappingListInstancePageOptions,
-    callback?: (error: Error | null, items: DataMappingPage) => any
-  ): Promise<DataMappingPage>;
+  page(callback?: (error: Error | null, items: DataMappingPage) => any): Promise<DataMappingPage>;
+  page(params: DataMappingListInstancePageOptions, callback?: (error: Error | null, items: DataMappingPage) => any): Promise<DataMappingPage>;
   /**
    * Retrieve a single page of DataMappingInstance records from the API with HTTP metadata.
    *
@@ -1125,13 +915,9 @@ export interface DataMappingListInstance {
    * @param { DataMappingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any
-  ): Promise<ApiResponse<DataMappingPage>>;
-  pageWithHttpInfo(
-    params: DataMappingListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any
-  ): Promise<ApiResponse<DataMappingPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any): Promise<ApiResponse<DataMappingPage>>;
+  pageWithHttpInfo(params: DataMappingListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any): Promise<ApiResponse<DataMappingPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1140,125 +926,83 @@ export interface DataMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DataMappingListInstance(
-  version: V1,
-  storeId: string
-): DataMappingListInstance {
+export function DataMappingListInstance(version: V1, storeId: string): DataMappingListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error("Parameter 'storeId' is not valid.");
+    throw new Error('Parameter \'storeId\' is not valid.');
   }
 
-  const instance = ((dataMappingId) =>
-    instance.get(dataMappingId)) as DataMappingListInstance;
+  const instance = ((dataMappingId, ) => instance.get(dataMappingId, )) as DataMappingListInstance;
 
-  instance.get = function get(dataMappingId): DataMappingContext {
+  instance.get = function get(dataMappingId, ): DataMappingContext {
     return new DataMappingContextImpl(version, storeId, dataMappingId);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { storeId };
+  instance._solution = { storeId,  };
   instance._uri = `/ControlPlane/Stores/${storeId}/DataMappings`;
 
-  instance.create = function create(
-    params: CreateDataMappingInput,
-    headers?: any,
-    callback?: (error: Error | null, items: DataMappingInstance) => any
-  ): Promise<DataMappingInstance> {
+  instance.create = function create(params: CreateDataMappingInput, headers?: any, callback?: (error: Error | null, items: DataMappingInstance) => any): Promise<DataMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new DataMappingInstance(operationVersion, payload, instance._solution.storeId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataMappingInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CreateDataMappingInput,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateDataMappingInput, headers?: any, callback?: (error: Error | null, items: ApiResponse<DataMappingInstance>) => any): Promise<ApiResponse<DataMappingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<DataMappingResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<DataMappingInstance> => ({
-          ...response,
-          body: new DataMappingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.storeId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<DataMappingResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<DataMappingInstance> => ({
+      ...response,
+      body: new DataMappingInstance(operationVersion, response.body, instance._solution.storeId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | DataMappingListInstancePageOptions
-      | ((error: Error | null, items: DataMappingPage) => any),
-    callback?: (error: Error | null, items: DataMappingPage) => any
-  ): Promise<DataMappingPage> {
+
+    }
+
+  instance.page = function page(params?: DataMappingListInstancePageOptions | ((error: Error | null, items: DataMappingPage) => any), callback?: (error: Error | null, items: DataMappingPage) => any): Promise<DataMappingPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1268,72 +1012,48 @@ export function DataMappingListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
-    if (params["type"] !== undefined) data["type"] = params["type"];
+    data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined)
+    data["orderBy"] = params["orderBy"];
+    if (params["type"] !== undefined)
+    data["type"] = params["type"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataMappingPage(
-          operationVersion,
-          payload,
-          instance._uri,
-          data,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new DataMappingPage(operationVersion, payload, instance._uri, data, instance._solution));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DataMappingPage) => any
-  ): Promise<DataMappingPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new DataMappingPage(
-          instance._version,
-          payload,
-          instance._uri,
-          {},
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: DataMappingPage) => any): Promise<DataMappingPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new DataMappingPage(instance._version, payload, instance._uri, {}, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | DataMappingListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<DataMappingPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any
-  ): Promise<ApiResponse<DataMappingPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: DataMappingListInstancePageOptions | ((error: Error | null, items: ApiResponse<DataMappingPage>) => any), callback?: (error: Error | null, items: ApiResponse<DataMappingPage>) => any): Promise<ApiResponse<DataMappingPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1343,130 +1063,99 @@ export function DataMappingListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
-    if (params["type"] !== undefined) data["type"] = params["type"];
+    data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined)
+    data["orderBy"] = params["orderBy"];
+    if (params["type"] !== undefined)
+    data["type"] = params["type"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DataMappingPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DataMappingPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<DataMappingPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new DataMappingPage(operationVersion, response, instance._uri, data, instance._solution)
+    }));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<DataMappingPage>
-    ) => any
-  ): Promise<ApiResponse<DataMappingPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<DataMappingPage>) => any): Promise<ApiResponse<DataMappingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<DataMappingPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new DataMappingPage(
-          instance._version,
-          response,
-          instance._uri,
-          {},
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<DataMappingPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new DataMappingPage(instance._version, response, instance._uri, {}, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class DataMappingPage extends TokenPage<
-  V1,
-  DataMappingPayload,
-  DataMappingResource,
-  DataMappingInstance
-> {
-  /**
-   * Initialize the DataMappingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param uri - URI of the resource
-   * @param params - Query parameters
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    uri: string,
-    params: any,
-    solution: DataMappingSolution
-  ) {
+export class DataMappingPage extends TokenPage<V1, DataMappingPayload, DataMappingResource, DataMappingInstance> {
+/**
+* Initialize the DataMappingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param uri - URI of the resource
+* @param params - Query parameters
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, uri: string, params: any, solution: DataMappingSolution) {
     super(version, response, uri, params, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DataMappingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DataMappingResource): DataMappingInstance {
+    /**
+    * Build an instance of DataMappingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DataMappingResource): DataMappingInstance {
+
     return new DataMappingInstance(
-      this._version,
-      payload,
-      this._solution.storeId
+    this._version,
+    payload,
+        this._solution.storeId,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,11 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
 export interface DomainValidateDnContext {
-
   /**
    * Fetch a DomainValidateDnInstance
    *
@@ -32,7 +27,9 @@ export interface DomainValidateDnContext {
    *
    * @returns Resolves to processed DomainValidateDnInstance
    */
-  fetch(callback?: (error: Error | null, item?: DomainValidateDnInstance) => any): Promise<DomainValidateDnInstance>
+  fetch(
+    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any,
+  ): Promise<DomainValidateDnInstance>;
 
   /**
    * Fetch a DomainValidateDnInstance and return HTTP info
@@ -41,7 +38,12 @@ export interface DomainValidateDnContext {
    *
    * @returns Resolves to processed DomainValidateDnInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DomainValidateDnInstance>) => any): Promise<ApiResponse<DomainValidateDnInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainValidateDnInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DomainValidateDnInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -51,56 +53,87 @@ export interface DomainValidateDnContext {
 }
 
 export interface DomainValidateDnContextSolution {
-  "domainSid": string;
+  domainSid: string;
 }
 
 export class DomainValidateDnContextImpl implements DomainValidateDnContext {
   protected _solution: DomainValidateDnContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, domainSid: string) {
+  constructor(
+    protected _version: V1,
+    domainSid: string,
+  ) {
     if (!isValidPathParam(domainSid)) {
-      throw new Error('Parameter \'domainSid\' is not valid.');
+      throw new Error("Parameter 'domainSid' is not valid.");
     }
 
-    this._solution = { domainSid,  };
+    this._solution = { domainSid };
     this._uri = `/LinkShortening/Domains/${domainSid}/ValidateDns`;
   }
 
-  fetch(callback?: (error: Error | null, item?: DomainValidateDnInstance) => any): Promise<DomainValidateDnInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any,
+  ): Promise<DomainValidateDnInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new DomainValidateDnInstance(operationVersion, payload, instance._solution.domainSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DomainValidateDnInstance(
+          operationVersion,
+          payload,
+          instance._solution.domainSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DomainValidateDnInstance>) => any): Promise<ApiResponse<DomainValidateDnInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainValidateDnInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DomainValidateDnInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<DomainValidateDnResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<DomainValidateDnInstance> => ({
-      ...response,
-      body: new DomainValidateDnInstance(operationVersion, response.body, instance._solution.domainSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DomainValidateDnResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<DomainValidateDnInstance> => ({
+        ...response,
+        body: new DomainValidateDnInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -117,8 +150,7 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
   }
 }
 
-
-  interface DomainValidateDnPayload extends DomainValidateDnResource {}
+interface DomainValidateDnPayload extends DomainValidateDnResource {}
 
 interface DomainValidateDnResource {
   domain_sid: string;
@@ -131,14 +163,17 @@ export class DomainValidateDnInstance {
   protected _solution: DomainValidateDnContextSolution;
   protected _context?: DomainValidateDnContext;
 
-  constructor(protected _version: V1, payload: DomainValidateDnResource, domainSid?: string) {
-    
-    this.domainSid = (payload.domain_sid);
-    this.isValid = (payload.is_valid);
-    this.reason = (payload.reason);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V1,
+    payload: DomainValidateDnResource,
+    domainSid?: string,
+  ) {
+    this.domainSid = payload.domain_sid;
+    this.isValid = payload.is_valid;
+    this.reason = payload.reason;
+    this.url = payload.url;
 
-    this._solution = { domainSid: domainSid,  };
+    this._solution = { domainSid: domainSid };
   }
 
   /**
@@ -150,7 +185,9 @@ export class DomainValidateDnInstance {
   url: string;
 
   private get _proxy(): DomainValidateDnContext {
-    this._context = this._context || new DomainValidateDnContextImpl(this._version, this._solution.domainSid);
+    this._context =
+      this._context ||
+      new DomainValidateDnContextImpl(this._version, this._solution.domainSid);
     return this._context;
   }
 
@@ -161,9 +198,9 @@ export class DomainValidateDnInstance {
    *
    * @returns Resolves to processed DomainValidateDnInstance
    */
-  fetch(callback?: (error: Error | null, item?: DomainValidateDnInstance) => any): Promise<DomainValidateDnInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any,
+  ): Promise<DomainValidateDnInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -174,9 +211,12 @@ export class DomainValidateDnInstance {
    *
    * @returns Resolves to processed DomainValidateDnInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DomainValidateDnInstance>) => any): Promise<ApiResponse<DomainValidateDnInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DomainValidateDnInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DomainValidateDnInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -199,20 +239,15 @@ export class DomainValidateDnInstance {
   }
 }
 
-
-export interface DomainValidateDnSolution {
-}
+export interface DomainValidateDnSolution {}
 
 export interface DomainValidateDnListInstance {
   _version: V1;
   _solution: DomainValidateDnSolution;
   _uri: string;
 
-  (domainSid: string, ): DomainValidateDnContext;
-  get(domainSid: string, ): DomainValidateDnContext;
-
-
-
+  (domainSid: string): DomainValidateDnContext;
+  get(domainSid: string): DomainValidateDnContext;
 
   /**
    * Provide a user-friendly representation
@@ -221,26 +256,30 @@ export interface DomainValidateDnListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DomainValidateDnListInstance(version: V1): DomainValidateDnListInstance {
-  const instance = ((domainSid, ) => instance.get(domainSid, )) as DomainValidateDnListInstance;
+export function DomainValidateDnListInstance(
+  version: V1,
+): DomainValidateDnListInstance {
+  const instance = ((domainSid) =>
+    instance.get(domainSid)) as DomainValidateDnListInstance;
 
-  instance.get = function get(domainSid, ): DomainValidateDnContext {
+  instance.get = function get(domainSid): DomainValidateDnContext {
     return new DomainValidateDnContextImpl(version, domainSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

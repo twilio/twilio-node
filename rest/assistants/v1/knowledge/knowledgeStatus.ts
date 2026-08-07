@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -20,11 +19,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
-
 export interface KnowledgeStatusContext {
-
   /**
    * Fetch a KnowledgeStatusInstance
    *
@@ -32,7 +27,9 @@ export interface KnowledgeStatusContext {
    *
    * @returns Resolves to processed KnowledgeStatusInstance
    */
-  fetch(callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any): Promise<KnowledgeStatusInstance>
+  fetch(
+    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any,
+  ): Promise<KnowledgeStatusInstance>;
 
   /**
    * Fetch a KnowledgeStatusInstance and return HTTP info
@@ -41,7 +38,12 @@ export interface KnowledgeStatusContext {
    *
    * @returns Resolves to processed KnowledgeStatusInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeStatusInstance>) => any): Promise<ApiResponse<KnowledgeStatusInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeStatusInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeStatusInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -51,56 +53,87 @@ export interface KnowledgeStatusContext {
 }
 
 export interface KnowledgeStatusContextSolution {
-  "id": string;
+  id: string;
 }
 
 export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
   protected _solution: KnowledgeStatusContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
-      throw new Error('Parameter \'id\' is not valid.');
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { id,  };
+    this._solution = { id };
     this._uri = `/Knowledge/${id}/Status`;
   }
 
-  fetch(callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any): Promise<KnowledgeStatusInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any,
+  ): Promise<KnowledgeStatusInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new KnowledgeStatusInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KnowledgeStatusInstance(
+          operationVersion,
+          payload,
+          instance._solution.id,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeStatusInstance>) => any): Promise<ApiResponse<KnowledgeStatusInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeStatusInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeStatusInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<KnowledgeStatusResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<KnowledgeStatusInstance> => ({
-      ...response,
-      body: new KnowledgeStatusInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<KnowledgeStatusResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<KnowledgeStatusInstance> => ({
+        ...response,
+        body: new KnowledgeStatusInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -117,8 +150,7 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
   }
 }
 
-
-  interface KnowledgeStatusPayload extends KnowledgeStatusResource {}
+interface KnowledgeStatusPayload extends KnowledgeStatusResource {}
 
 interface KnowledgeStatusResource {
   account_sid: string;
@@ -131,14 +163,17 @@ export class KnowledgeStatusInstance {
   protected _solution: KnowledgeStatusContextSolution;
   protected _context?: KnowledgeStatusContext;
 
-  constructor(protected _version: V1, payload: KnowledgeStatusResource, id: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.status = (payload.status);
-    this.lastStatus = (payload.last_status);
+  constructor(
+    protected _version: V1,
+    payload: KnowledgeStatusResource,
+    id: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.status = payload.status;
+    this.lastStatus = payload.last_status;
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { id,  };
+    this._solution = { id };
   }
 
   /**
@@ -159,7 +194,9 @@ export class KnowledgeStatusInstance {
   dateUpdated: Date;
 
   private get _proxy(): KnowledgeStatusContext {
-    this._context = this._context || new KnowledgeStatusContextImpl(this._version, this._solution.id);
+    this._context =
+      this._context ||
+      new KnowledgeStatusContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -170,9 +207,9 @@ export class KnowledgeStatusInstance {
    *
    * @returns Resolves to processed KnowledgeStatusInstance
    */
-  fetch(callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any): Promise<KnowledgeStatusInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any,
+  ): Promise<KnowledgeStatusInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -183,9 +220,12 @@ export class KnowledgeStatusInstance {
    *
    * @returns Resolves to processed KnowledgeStatusInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeStatusInstance>) => any): Promise<ApiResponse<KnowledgeStatusInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeStatusInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeStatusInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -208,7 +248,6 @@ export class KnowledgeStatusInstance {
   }
 }
 
-
 export interface KnowledgeStatusSolution {
   id: string;
 }
@@ -221,9 +260,6 @@ export interface KnowledgeStatusListInstance {
   (): KnowledgeStatusContext;
   get(): KnowledgeStatusContext;
 
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -231,30 +267,34 @@ export interface KnowledgeStatusListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function KnowledgeStatusListInstance(version: V1, id: string): KnowledgeStatusListInstance {
+export function KnowledgeStatusListInstance(
+  version: V1,
+  id: string,
+): KnowledgeStatusListInstance {
   if (!isValidPathParam(id)) {
-    throw new Error('Parameter \'id\' is not valid.');
+    throw new Error("Parameter 'id' is not valid.");
   }
 
   const instance = (() => instance.get()) as KnowledgeStatusListInstance;
 
   instance.get = function get(): KnowledgeStatusContext {
     return new KnowledgeStatusContextImpl(version, id);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { id,  };
+  instance._solution = { id };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

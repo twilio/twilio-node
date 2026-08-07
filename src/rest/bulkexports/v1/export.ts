@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -21,6 +22,9 @@ import { ApiResponse } from "../../../base/ApiResponse";
 import { DayListInstance } from "./export/day";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 import { JobListInstance } from "./export/job";
+
+
+
 
 export interface ExportContext {
   days: DayListInstance;
@@ -33,9 +37,7 @@ export interface ExportContext {
    *
    * @returns Resolves to processed ExportInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ExportInstance) => any
-  ): Promise<ExportInstance>;
+  fetch(callback?: (error: Error | null, item?: ExportInstance) => any): Promise<ExportInstance>
 
   /**
    * Fetch a ExportInstance and return HTTP info
@@ -44,9 +46,7 @@ export interface ExportContext {
    *
    * @returns Resolves to processed ExportInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
-  ): Promise<ApiResponse<ExportInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any): Promise<ApiResponse<ExportInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -56,7 +56,7 @@ export interface ExportContext {
 }
 
 export interface ExportContextSolution {
-  resourceType: string;
+  "resourceType": string;
 }
 
 export class ExportContextImpl implements ExportContext {
@@ -68,87 +68,56 @@ export class ExportContextImpl implements ExportContext {
 
   constructor(protected _version: V1, resourceType: string) {
     if (!isValidPathParam(resourceType)) {
-      throw new Error("Parameter 'resourceType' is not valid.");
+      throw new Error('Parameter \'resourceType\' is not valid.');
     }
 
-    this._solution = { resourceType };
+    this._solution = { resourceType,  };
     this._uri = `/Exports/${resourceType}`;
   }
 
   get days(): DayListInstance {
-    this._days =
-      this._days || DayListInstance(this._version, this._solution.resourceType);
+    this._days = this._days || DayListInstance(this._version, this._solution.resourceType);
     return this._days;
   }
 
   get exportCustomJobs(): ExportCustomJobListInstance {
-    this._exportCustomJobs =
-      this._exportCustomJobs ||
-      ExportCustomJobListInstance(this._version, this._solution.resourceType);
+    this._exportCustomJobs = this._exportCustomJobs || ExportCustomJobListInstance(this._version, this._solution.resourceType);
     return this._exportCustomJobs;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ExportInstance) => any
-  ): Promise<ExportInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ExportInstance) => any): Promise<ExportInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ExportInstance(operationVersion, payload, instance._solution.resourceType));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExportInstance(
-          operationVersion,
-          payload,
-          instance._solution.resourceType
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
-  ): Promise<ApiResponse<ExportInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any): Promise<ApiResponse<ExportInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ExportResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ExportInstance> => ({
-          ...response,
-          body: new ExportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.resourceType
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ExportResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ExportInstance> => ({
+      ...response,
+      body: new ExportInstance(operationVersion, response.body, instance._solution.resourceType)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -165,7 +134,8 @@ export class ExportContextImpl implements ExportContext {
   }
 }
 
-interface ExportPayload extends ExportResource {}
+
+  interface ExportPayload extends ExportResource {}
 
 interface ExportResource {
   resource_type: string;
@@ -177,16 +147,13 @@ export class ExportInstance {
   protected _solution: ExportContextSolution;
   protected _context?: ExportContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ExportResource,
-    resourceType?: string
-  ) {
-    this.resourceType = payload.resource_type;
-    this.url = payload.url;
-    this.links = payload.links;
+  constructor(protected _version: V1, payload: ExportResource, resourceType?: string) {
+    
+    this.resourceType = (payload.resource_type);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { resourceType: resourceType || this.resourceType };
+    this._solution = { resourceType: resourceType,  };
   }
 
   /**
@@ -203,9 +170,7 @@ export class ExportInstance {
   links: Record<string, string>;
 
   private get _proxy(): ExportContext {
-    this._context =
-      this._context ||
-      new ExportContextImpl(this._version, this._solution.resourceType);
+    this._context = this._context || new ExportContextImpl(this._version, this._solution.resourceType);
     return this._context;
   }
 
@@ -216,9 +181,9 @@ export class ExportInstance {
    *
    * @returns Resolves to processed ExportInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ExportInstance) => any
-  ): Promise<ExportInstance> {
+  fetch(callback?: (error: Error | null, item?: ExportInstance) => any): Promise<ExportInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -229,9 +194,9 @@ export class ExportInstance {
    *
    * @returns Resolves to processed ExportInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
-  ): Promise<ApiResponse<ExportInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any): Promise<ApiResponse<ExportInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -267,18 +232,22 @@ export class ExportInstance {
   }
 }
 
-export interface ExportSolution {}
+
+export interface ExportSolution {
+}
 
 export interface ExportListInstance {
   _version: V1;
   _solution: ExportSolution;
   _uri: string;
 
-  (resourceType: string): ExportContext;
-  get(resourceType: string): ExportContext;
+  (resourceType: string, ): ExportContext;
+  get(resourceType: string, ): ExportContext;
 
   _jobs?: JobListInstance;
   jobs: JobListInstance;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -288,15 +257,14 @@ export interface ExportListInstance {
 }
 
 export function ExportListInstance(version: V1): ExportListInstance {
-  const instance = ((resourceType) =>
-    instance.get(resourceType)) as ExportListInstance;
+  const instance = ((resourceType, ) => instance.get(resourceType, )) as ExportListInstance;
 
-  instance.get = function get(resourceType): ExportContext {
+  instance.get = function get(resourceType, ): ExportContext {
     return new ExportContextImpl(version, resourceType);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Exports`;
 
   Object.defineProperty(instance, "jobs", {
@@ -305,19 +273,18 @@ export function ExportListInstance(version: V1): ExportListInstance {
         instance._jobs = JobListInstance(instance._version);
       }
       return instance._jobs;
-    },
+    }
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

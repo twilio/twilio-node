@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,12 +23,16 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
+
+
 /**
  * Options to pass to update a ActivityInstance
  */
 export interface ActivityContextUpdateOptions {
   /** A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`. */
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 
 /**
@@ -35,9 +40,9 @@ export interface ActivityContextUpdateOptions {
  */
 export interface ActivityListInstanceCreateOptions {
   /** A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`. */
-  friendlyName: string;
+  "friendlyName": string;
   /** Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created. */
-  available?: boolean;
+  "available"?: boolean;
 }
 
 /**
@@ -45,11 +50,11 @@ export interface ActivityListInstanceCreateOptions {
  */
 export interface ActivityListInstanceEachOptions {
   /** The `friendly_name` of the Activity resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable. */
-  available?: string;
+  "available"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ActivityInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -63,32 +68,35 @@ export interface ActivityListInstanceEachOptions {
  */
 export interface ActivityListInstanceOptions {
   /** The `friendly_name` of the Activity resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable. */
-  available?: string;
+  "available"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ActivityListInstancePageOptions {
   /** The `friendly_name` of the Activity resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable. */
-  available?: string;
+  "available"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ActivityContext {
+
   /**
    * Remove a ActivityInstance
    *
@@ -96,9 +104,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a ActivityInstance and return HTTP info
@@ -107,9 +113,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a ActivityInstance
@@ -118,9 +122,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
+  fetch(callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>
 
   /**
    * Fetch a ActivityInstance and return HTTP info
@@ -129,12 +131,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>
 
   /**
    * Update a ActivityInstance
@@ -143,9 +140,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
+  update(callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>;
   /**
    * Update a ActivityInstance
    *
@@ -154,10 +149,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  update(
-    params: ActivityContextUpdateOptions,
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
+  update(params: ActivityContextUpdateOptions, callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>;
 
   /**
    * Update a ActivityInstance and return HTTP info
@@ -166,12 +158,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>;
   /**
    * Update a ActivityInstance and return HTTP info
    *
@@ -180,13 +167,7 @@ export interface ActivityContext {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ActivityContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>>;
+  updateWithHttpInfo(params: ActivityContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -196,239 +177,161 @@ export interface ActivityContext {
 }
 
 export interface ActivityContextSolution {
-  workspaceSid: string;
-  sid: string;
+  "workspaceSid": string;
+  "sid": string;
 }
 
 export class ActivityContextImpl implements ActivityContext {
   protected _solution: ActivityContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error("Parameter 'workspaceSid' is not valid.");
+      throw new Error('Parameter \'workspaceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { workspaceSid, sid };
+    this._solution = { workspaceSid, sid,  };
     this._uri = `/Workspaces/${workspaceSid}/Activities/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ActivityInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ActivityInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ActivityResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ActivityInstance> => ({
-          ...response,
-          body: new ActivityInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ActivityResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ActivityInstance> => ({
+      ...response,
+      body: new ActivityInstance(operationVersion, response.body, instance._solution.workspaceSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ActivityContextUpdateOptions
-      | ((error: Error | null, item?: ActivityInstance) => any),
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance> {
-    if (params instanceof Function) {
+  update(params?: ActivityContextUpdateOptions | ((error: Error | null, item?: ActivityInstance) => any),callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ActivityInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ActivityInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | ActivityContextUpdateOptions
-      | ((error: Error | null, item?: ApiResponse<ActivityInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: ActivityContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ActivityInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ActivityResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ActivityInstance> => ({
-          ...response,
-          body: new ActivityInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ActivityResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ActivityInstance> => ({
+      ...response,
+      body: new ActivityInstance(operationVersion, response.body, instance._solution.workspaceSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -445,8 +348,9 @@ export class ActivityContextImpl implements ActivityContext {
   }
 }
 
-interface ActivityPayload extends TwilioResponsePayload {
-  activities: ActivityResource[];
+
+  interface ActivityPayload extends TwilioResponsePayload {
+    activities: ActivityResource[];
 }
 
 interface ActivityResource {
@@ -465,23 +369,19 @@ export class ActivityInstance {
   protected _solution: ActivityContextSolution;
   protected _context?: ActivityContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ActivityResource,
-    workspaceSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.available = payload.available;
+  constructor(protected _version: V1, payload: ActivityResource, workspaceSid: string, sid?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.available = (payload.available);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.sid = payload.sid;
-    this.workspaceSid = payload.workspace_sid;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.friendlyName = (payload.friendly_name);
+    this.sid = (payload.sid);
+    this.workspaceSid = (payload.workspace_sid);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid,  };
   }
 
   /**
@@ -519,13 +419,7 @@ export class ActivityInstance {
   links: Record<string, string>;
 
   private get _proxy(): ActivityContext {
-    this._context =
-      this._context ||
-      new ActivityContextImpl(
-        this._version,
-        this._solution.workspaceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new ActivityContextImpl(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._context;
   }
 
@@ -536,9 +430,9 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -549,9 +443,9 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -562,9 +456,9 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance> {
+  fetch(callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -575,12 +469,9 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -591,9 +482,7 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
+  update(callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>;
   /**
    * Update a ActivityInstance
    *
@@ -602,15 +491,10 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  update(
-    params: ActivityContextUpdateOptions,
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
+  update(params: ActivityContextUpdateOptions, callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -621,12 +505,7 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>;
   /**
    * Update a ActivityInstance and return HTTP info
    *
@@ -635,21 +514,10 @@ export class ActivityInstance {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ActivityContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>>;
+  updateWithHttpInfo(params: ActivityContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -677,6 +545,7 @@ export class ActivityInstance {
   }
 }
 
+
 export interface ActivitySolution {
   workspaceSid: string;
 }
@@ -686,8 +555,15 @@ export interface ActivityListInstance {
   _solution: ActivitySolution;
   _uri: string;
 
-  (sid: string): ActivityContext;
-  get(sid: string): ActivityContext;
+  (sid: string, ): ActivityContext;
+  get(sid: string, ): ActivityContext;
+
+
+
+
+
+
+
 
   /**
    * Create a ActivityInstance
@@ -697,10 +573,7 @@ export interface ActivityListInstance {
    *
    * @returns Resolves to processed ActivityInstance
    */
-  create(
-    params: ActivityListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
+  create(params: ActivityListInstanceCreateOptions, callback?: (error: Error | null, item?: ActivityInstance) => any): Promise<ActivityInstance>;
 
   /**
    * Create a ActivityInstance and return HTTP info
@@ -710,13 +583,10 @@ export interface ActivityListInstance {
    *
    * @returns Resolves to processed ActivityInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ActivityListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>>;
+  createWithHttpInfo(params: ActivityListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>>;
+
+
+
 
   /**
    * Streams ActivityInstance records from the API.
@@ -733,13 +603,8 @@ export interface ActivityListInstance {
    * @param { ActivityListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ActivityListInstanceEachOptions,
-    callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ActivityInstance, done: (err?: Error) => void) => void): void;
+  each(params: ActivityListInstanceEachOptions, callback?: (item: ActivityInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ActivityInstance records from the API with HTTP metadata captured per page.
    *
@@ -755,13 +620,8 @@ export interface ActivityListInstance {
    * @param { ActivityListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ActivityListInstanceEachOptions,
-    callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ActivityInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ActivityListInstanceEachOptions, callback?: (item: ActivityInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ActivityInstance records from the API.
    *
@@ -770,10 +630,7 @@ export interface ActivityListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
   /**
    * Retrieve a single target page of ActivityInstance records from the API with HTTP metadata.
    *
@@ -782,10 +639,7 @@ export interface ActivityListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any
-  ): Promise<ApiResponse<ActivityPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any): Promise<ApiResponse<ActivityPage>>;
   /**
    * Lists ActivityInstance records from the API as a list.
    *
@@ -795,13 +649,8 @@ export interface ActivityListInstance {
    * @param { ActivityListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ActivityInstance[]) => any
-  ): Promise<ActivityInstance[]>;
-  list(
-    params: ActivityListInstanceOptions,
-    callback?: (error: Error | null, items: ActivityInstance[]) => any
-  ): Promise<ActivityInstance[]>;
+  list(callback?: (error: Error | null, items: ActivityInstance[]) => any): Promise<ActivityInstance[]>;
+  list(params: ActivityListInstanceOptions, callback?: (error: Error | null, items: ActivityInstance[]) => any): Promise<ActivityInstance[]>;
   /**
    * Lists ActivityInstance records from the API as a list with HTTP metadata.
    *
@@ -813,19 +662,8 @@ export interface ActivityListInstance {
    * @param { ActivityListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ActivityInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance[]>>;
-  listWithHttpInfo(
-    params: ActivityListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ActivityInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ActivityInstance[]>) => any): Promise<ApiResponse<ActivityInstance[]>>;
+  listWithHttpInfo(params: ActivityListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ActivityInstance[]>) => any): Promise<ApiResponse<ActivityInstance[]>>;
   /**
    * Retrieve a single page of ActivityInstance records from the API.
    *
@@ -837,13 +675,8 @@ export interface ActivityListInstance {
    * @param { ActivityListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage>;
-  page(
-    params: ActivityListInstancePageOptions,
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage>;
+  page(callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
+  page(params: ActivityListInstancePageOptions, callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
   /**
    * Retrieve a single page of ActivityInstance records from the API with HTTP metadata.
    *
@@ -855,13 +688,9 @@ export interface ActivityListInstance {
    * @param { ActivityListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any
-  ): Promise<ApiResponse<ActivityPage>>;
-  pageWithHttpInfo(
-    params: ActivityListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any
-  ): Promise<ApiResponse<ActivityPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any): Promise<ApiResponse<ActivityPage>>;
+  pageWithHttpInfo(params: ActivityListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any): Promise<ApiResponse<ActivityPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -870,134 +699,95 @@ export interface ActivityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ActivityListInstance(
-  version: V1,
-  workspaceSid: string
-): ActivityListInstance {
+export function ActivityListInstance(version: V1, workspaceSid: string): ActivityListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error("Parameter 'workspaceSid' is not valid.");
+    throw new Error('Parameter \'workspaceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as ActivityListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ActivityListInstance;
 
-  instance.get = function get(sid): ActivityContext {
+  instance.get = function get(sid, ): ActivityContext {
     return new ActivityContextImpl(version, workspaceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { workspaceSid };
+  instance._solution = { workspaceSid,  };
   instance._uri = `/Workspaces/${workspaceSid}/Activities`;
 
-  instance.create = function create(
-    params: ActivityListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ActivityInstance) => any
-  ): Promise<ActivityInstance> {
+  instance.create = function create(params: ActivityListInstanceCreateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
     if (params["available"] !== undefined)
-      data["Available"] = serialize.bool(params["available"]);
+    data["Available"] = serialize.bool(params["available"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ActivityInstance(operationVersion, payload, instance._solution.workspaceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ActivityInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ActivityListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ActivityInstance>
-    ) => any
-  ): Promise<ApiResponse<ActivityInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ActivityListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ActivityInstance>) => any): Promise<ApiResponse<ActivityInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
     if (params["available"] !== undefined)
-      data["Available"] = serialize.bool(params["available"]);
+    data["Available"] = serialize.bool(params["available"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ActivityResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ActivityInstance> => ({
-          ...response,
-          body: new ActivityInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ActivityResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ActivityInstance> => ({
+      ...response,
+      body: new ActivityInstance(operationVersion, response.body, instance._solution.workspaceSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ActivityListInstancePageOptions
-      | ((error: Error | null, items: ActivityPage) => any),
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage> {
+
+    }
+
+  instance.page = function page(params?: ActivityListInstancePageOptions | ((error: Error | null, items: ActivityPage) => any), callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1007,63 +797,48 @@ export function ActivityListInstance(
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["available"] !== undefined)
-      data["Available"] = params["available"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["Available"] = params["available"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ActivityPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ActivityPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ActivityPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ActivityPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ActivityListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ActivityPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any
-  ): Promise<ApiResponse<ActivityPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ActivityListInstancePageOptions | ((error: Error | null, items: ApiResponse<ActivityPage>) => any), callback?: (error: Error | null, items: ApiResponse<ActivityPage>) => any): Promise<ApiResponse<ActivityPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1073,118 +848,97 @@ export function ActivityListInstance(
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["available"] !== undefined)
-      data["Available"] = params["available"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["Available"] = params["available"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ActivityPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ActivityPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ActivityPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ActivityPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ActivityPage>) => any
-  ): Promise<ApiResponse<ActivityPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ActivityPage>) => any): Promise<ApiResponse<ActivityPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ActivityPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ActivityPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ActivityPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ActivityPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ActivityPage extends Page<
-  V1,
-  ActivityPayload,
-  ActivityResource,
-  ActivityInstance
-> {
-  /**
-   * Initialize the ActivityPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ActivitySolution
-  ) {
+export class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, ActivityInstance> {
+/**
+* Initialize the ActivityPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ActivitySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ActivityInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ActivityResource): ActivityInstance {
+    /**
+    * Build an instance of ActivityInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ActivityResource): ActivityInstance {
+
     return new ActivityInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid
+    this._version,
+    payload,
+        this._solution.workspaceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

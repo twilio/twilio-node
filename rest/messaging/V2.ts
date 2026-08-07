@@ -37,7 +37,8 @@ export default class V2 extends Version {
 
   /** Getter for channelsSenders resource */
   get channelsSenders(): ChannelsSenderListInstance {
-    this._channelsSenders = this._channelsSenders || ChannelsSenderListInstance(this);
+    this._channelsSenders =
+      this._channelsSenders || ChannelsSenderListInstance(this);
     return this._channelsSenders;
   }
 
@@ -49,8 +50,8 @@ export default class V2 extends Version {
 
   /** Getter for typingIndicator resource */
   get typingIndicator(): TypingIndicatorListInstance {
-    this._typingIndicator = this._typingIndicator || TypingIndicatorListInstance(this);
+    this._typingIndicator =
+      this._typingIndicator || TypingIndicatorListInstance(this);
     return this._typingIndicator;
   }
-
 }

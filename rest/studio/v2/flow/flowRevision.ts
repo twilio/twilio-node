@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -23,20 +22,17 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
 /**
  * The status of the Flow. Can be: `draft` or `published`.
  */
-export type FlowRevisionStatus = 'draft'|'published';
-
-
+export type FlowRevisionStatus = "draft" | "published";
 
 /**
  * Options to pass to each
  */
 export interface FlowRevisionListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -50,27 +46,24 @@ export interface FlowRevisionListInstanceEachOptions {
  */
 export interface FlowRevisionListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface FlowRevisionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface FlowRevisionContext {
-
   /**
    * Fetch a FlowRevisionInstance
    *
@@ -78,7 +71,9 @@ export interface FlowRevisionContext {
    *
    * @returns Resolves to processed FlowRevisionInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlowRevisionInstance) => any): Promise<FlowRevisionInstance>
+  fetch(
+    callback?: (error: Error | null, item?: FlowRevisionInstance) => any,
+  ): Promise<FlowRevisionInstance>;
 
   /**
    * Fetch a FlowRevisionInstance and return HTTP info
@@ -87,7 +82,12 @@ export interface FlowRevisionContext {
    *
    * @returns Resolves to processed FlowRevisionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlowRevisionInstance>) => any): Promise<ApiResponse<FlowRevisionInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowRevisionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -97,61 +97,95 @@ export interface FlowRevisionContext {
 }
 
 export interface FlowRevisionContextSolution {
-  "sid": string;
-  "revision": string;
+  sid: string;
+  revision: string;
 }
 
 export class FlowRevisionContextImpl implements FlowRevisionContext {
   protected _solution: FlowRevisionContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, sid: string, revision: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+    revision: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
     if (!isValidPathParam(revision)) {
-      throw new Error('Parameter \'revision\' is not valid.');
+      throw new Error("Parameter 'revision' is not valid.");
     }
 
-    this._solution = { sid, revision,  };
+    this._solution = { sid, revision };
     this._uri = `/Flows/${sid}/Revisions/${revision}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: FlowRevisionInstance) => any): Promise<FlowRevisionInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: FlowRevisionInstance) => any,
+  ): Promise<FlowRevisionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new FlowRevisionInstance(operationVersion, payload, instance._solution.sid, instance._solution.revision));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlowRevisionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+          instance._solution.revision,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlowRevisionInstance>) => any): Promise<ApiResponse<FlowRevisionInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowRevisionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<FlowRevisionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<FlowRevisionInstance> => ({
-      ...response,
-      body: new FlowRevisionInstance(operationVersion, response.body, instance._solution.sid, instance._solution.revision)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FlowRevisionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<FlowRevisionInstance> => ({
+        ...response,
+        body: new FlowRevisionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+          instance._solution.revision,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -168,9 +202,8 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
   }
 }
 
-
-  interface FlowRevisionPayload extends TwilioResponsePayload {
-    revisions: FlowRevisionResource[];
+interface FlowRevisionPayload extends TwilioResponsePayload {
+  revisions: FlowRevisionResource[];
 }
 
 interface FlowRevisionResource {
@@ -193,23 +226,27 @@ export class FlowRevisionInstance {
   protected _solution: FlowRevisionContextSolution;
   protected _context?: FlowRevisionContext;
 
-  constructor(protected _version: V2, payload: FlowRevisionResource, sid: string, revision?: string) {
-    
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.authorSid = (payload.author_sid);
-    this.friendlyName = (payload.friendly_name);
-    this.definition = (payload.definition);
+  constructor(
+    protected _version: V2,
+    payload: FlowRevisionResource,
+    sid: string,
+    revision?: string,
+  ) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.authorSid = payload.author_sid;
+    this.friendlyName = payload.friendly_name;
+    this.definition = payload.definition;
     this.status = payload.status;
     this.revision = deserialize.integer(payload.revision);
-    this.commitMessage = (payload.commit_message);
-    this.valid = (payload.valid);
-    this.errors = (payload.errors);
+    this.commitMessage = payload.commit_message;
+    this.valid = payload.valid;
+    this.errors = payload.errors;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { sid, revision: revision.toString(),  };
+    this._solution = { sid, revision: revision.toString() };
   }
 
   /**
@@ -263,7 +300,13 @@ export class FlowRevisionInstance {
   url: string;
 
   private get _proxy(): FlowRevisionContext {
-    this._context = this._context || new FlowRevisionContextImpl(this._version, this._solution.sid, this._solution.revision);
+    this._context =
+      this._context ||
+      new FlowRevisionContextImpl(
+        this._version,
+        this._solution.sid,
+        this._solution.revision,
+      );
     return this._context;
   }
 
@@ -274,9 +317,9 @@ export class FlowRevisionInstance {
    *
    * @returns Resolves to processed FlowRevisionInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlowRevisionInstance) => any): Promise<FlowRevisionInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: FlowRevisionInstance) => any,
+  ): Promise<FlowRevisionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -287,9 +330,12 @@ export class FlowRevisionInstance {
    *
    * @returns Resolves to processed FlowRevisionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlowRevisionInstance>) => any): Promise<ApiResponse<FlowRevisionInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlowRevisionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -321,7 +367,6 @@ export class FlowRevisionInstance {
   }
 }
 
-
 export interface FlowRevisionSolution {
   sid: string;
 }
@@ -331,12 +376,8 @@ export interface FlowRevisionListInstance {
   _solution: FlowRevisionSolution;
   _uri: string;
 
-  (revision: string, ): FlowRevisionContext;
-  get(revision: string, ): FlowRevisionContext;
-
-
-
-
+  (revision: string): FlowRevisionContext;
+  get(revision: string): FlowRevisionContext;
 
   /**
    * Streams FlowRevisionInstance records from the API.
@@ -353,8 +394,19 @@ export interface FlowRevisionListInstance {
    * @param { FlowRevisionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void): void;
-  each(params: FlowRevisionListInstanceEachOptions, callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: FlowRevisionInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: FlowRevisionListInstanceEachOptions,
+    callback?: (
+      item: FlowRevisionInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams FlowRevisionInstance records from the API with HTTP metadata captured per page.
    *
@@ -370,8 +422,19 @@ export interface FlowRevisionListInstance {
    * @param { FlowRevisionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: FlowRevisionListInstanceEachOptions, callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: FlowRevisionInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: FlowRevisionListInstanceEachOptions,
+    callback?: (
+      item: FlowRevisionInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of FlowRevisionInstance records from the API.
    *
@@ -380,7 +443,10 @@ export interface FlowRevisionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: FlowRevisionPage) => any): Promise<FlowRevisionPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: FlowRevisionPage) => any,
+  ): Promise<FlowRevisionPage>;
   /**
    * Retrieve a single target page of FlowRevisionInstance records from the API with HTTP metadata.
    *
@@ -389,7 +455,13 @@ export interface FlowRevisionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<FlowRevisionPage>) => any): Promise<ApiResponse<FlowRevisionPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowRevisionPage>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionPage>>;
   /**
    * Lists FlowRevisionInstance records from the API as a list.
    *
@@ -399,8 +471,13 @@ export interface FlowRevisionListInstance {
    * @param { FlowRevisionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FlowRevisionInstance[]) => any): Promise<FlowRevisionInstance[]>;
-  list(params: FlowRevisionListInstanceOptions, callback?: (error: Error | null, items: FlowRevisionInstance[]) => any): Promise<FlowRevisionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FlowRevisionInstance[]) => any,
+  ): Promise<FlowRevisionInstance[]>;
+  list(
+    params: FlowRevisionListInstanceOptions,
+    callback?: (error: Error | null, items: FlowRevisionInstance[]) => any,
+  ): Promise<FlowRevisionInstance[]>;
   /**
    * Lists FlowRevisionInstance records from the API as a list with HTTP metadata.
    *
@@ -412,8 +489,19 @@ export interface FlowRevisionListInstance {
    * @param { FlowRevisionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FlowRevisionInstance[]>) => any): Promise<ApiResponse<FlowRevisionInstance[]>>;
-  listWithHttpInfo(params: FlowRevisionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<FlowRevisionInstance[]>) => any): Promise<ApiResponse<FlowRevisionInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowRevisionInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionInstance[]>>;
+  listWithHttpInfo(
+    params: FlowRevisionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowRevisionInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionInstance[]>>;
   /**
    * Retrieve a single page of FlowRevisionInstance records from the API.
    *
@@ -425,8 +513,13 @@ export interface FlowRevisionListInstance {
    * @param { FlowRevisionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FlowRevisionPage) => any): Promise<FlowRevisionPage>;
-  page(params: FlowRevisionListInstancePageOptions, callback?: (error: Error | null, items: FlowRevisionPage) => any): Promise<FlowRevisionPage>;
+  page(
+    callback?: (error: Error | null, items: FlowRevisionPage) => any,
+  ): Promise<FlowRevisionPage>;
+  page(
+    params: FlowRevisionListInstancePageOptions,
+    callback?: (error: Error | null, items: FlowRevisionPage) => any,
+  ): Promise<FlowRevisionPage>;
   /**
    * Retrieve a single page of FlowRevisionInstance records from the API with HTTP metadata.
    *
@@ -438,9 +531,19 @@ export interface FlowRevisionListInstance {
    * @param { FlowRevisionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FlowRevisionPage>) => any): Promise<ApiResponse<FlowRevisionPage>>;
-  pageWithHttpInfo(params: FlowRevisionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<FlowRevisionPage>) => any): Promise<ApiResponse<FlowRevisionPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowRevisionPage>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionPage>>;
+  pageWithHttpInfo(
+    params: FlowRevisionListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowRevisionPage>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -449,22 +552,31 @@ export interface FlowRevisionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function FlowRevisionListInstance(version: V2, sid: string): FlowRevisionListInstance {
+export function FlowRevisionListInstance(
+  version: V2,
+  sid: string,
+): FlowRevisionListInstance {
   if (!isValidPathParam(sid)) {
-    throw new Error('Parameter \'sid\' is not valid.');
+    throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = ((revision, ) => instance.get(revision, )) as FlowRevisionListInstance;
+  const instance = ((revision) =>
+    instance.get(revision)) as FlowRevisionListInstance;
 
-  instance.get = function get(revision, ): FlowRevisionContext {
+  instance.get = function get(revision): FlowRevisionContext {
     return new FlowRevisionContextImpl(version, sid, revision);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { sid,  };
+  instance._solution = { sid };
   instance._uri = `/Flows/${sid}/Revisions`;
 
-  instance.page = function page(params?: FlowRevisionListInstancePageOptions | ((error: Error | null, items: FlowRevisionPage) => any), callback?: (error: Error | null, items: FlowRevisionPage) => any): Promise<FlowRevisionPage> {
+  instance.page = function page(
+    params?:
+      | FlowRevisionListInstancePageOptions
+      | ((error: Error | null, items: FlowRevisionPage) => any),
+    callback?: (error: Error | null, items: FlowRevisionPage) => any,
+  ): Promise<FlowRevisionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -474,44 +586,62 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new FlowRevisionPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlowRevisionPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: FlowRevisionPage) => any): Promise<FlowRevisionPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new FlowRevisionPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: FlowRevisionPage) => any,
+  ): Promise<FlowRevisionPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FlowRevisionPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: FlowRevisionListInstancePageOptions | ((error: Error | null, items: ApiResponse<FlowRevisionPage>) => any), callback?: (error: Error | null, items: ApiResponse<FlowRevisionPage>) => any): Promise<ApiResponse<FlowRevisionPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | FlowRevisionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<FlowRevisionPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FlowRevisionPage>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -521,93 +651,115 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<FlowRevisionPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new FlowRevisionPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<FlowRevisionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FlowRevisionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<FlowRevisionPage>) => any): Promise<ApiResponse<FlowRevisionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<FlowRevisionPage>,
+    ) => any,
+  ): Promise<ApiResponse<FlowRevisionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<FlowRevisionPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new FlowRevisionPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<FlowRevisionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FlowRevisionPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class FlowRevisionPage extends Page<V2, FlowRevisionPayload, FlowRevisionResource, FlowRevisionInstance> {
-/**
-* Initialize the FlowRevisionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: FlowRevisionSolution) {
+export class FlowRevisionPage extends Page<
+  V2,
+  FlowRevisionPayload,
+  FlowRevisionResource,
+  FlowRevisionInstance
+> {
+  /**
+   * Initialize the FlowRevisionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: FlowRevisionSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FlowRevisionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FlowRevisionResource): FlowRevisionInstance {
+  /**
+   * Build an instance of FlowRevisionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FlowRevisionResource): FlowRevisionInstance {
+    return new FlowRevisionInstance(this._version, payload, this._solution.sid);
+  }
 
-    return new FlowRevisionInstance(
-    this._version,
-    payload,
-        this._solution.sid,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

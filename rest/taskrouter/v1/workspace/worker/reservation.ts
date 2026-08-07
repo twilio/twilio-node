@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -23,128 +22,135 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+export type ReservationCallStatus =
+  "initiated" | "ringing" | "answered" | "completed";
 
-export type ReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
-
-export type ReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
+export type ReservationConferenceEvent =
+  "start" | "end" | "join" | "leave" | "mute" | "hold" | "speaker";
 
 /**
  * The current status of the reservation. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
  */
-export type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded'|'wrapping'|'completed';
-
-
+export type ReservationStatus =
+  | "pending"
+  | "accepted"
+  | "rejected"
+  | "timeout"
+  | "canceled"
+  | "rescinded"
+  | "wrapping"
+  | "completed";
 
 /**
  * Options to pass to update a ReservationInstance
  */
 export interface ReservationContextUpdateOptions {
   /** The If-Match HTTP request header */
-  "ifMatch"?: string;
+  ifMatch?: string;
   /**  */
-  "reservationStatus"?: ReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** The new worker activity SID if rejecting a reservation. */
-  "workerActivitySid"?: string;
+  workerActivitySid?: string;
   /** The assignment instruction for the reservation. */
-  "instruction"?: string;
+  instruction?: string;
   /** The SID of the Activity resource to start after executing a Dequeue instruction. */
-  "dequeuePostWorkActivitySid"?: string;
+  dequeuePostWorkActivitySid?: string;
   /** The caller ID of the call to the worker when executing a Dequeue instruction. */
-  "dequeueFrom"?: string;
+  dequeueFrom?: string;
   /** Whether to record both legs of a call when executing a Dequeue instruction or which leg to record. */
-  "dequeueRecord"?: string;
+  dequeueRecord?: string;
   /** The timeout for call when executing a Dequeue instruction. */
-  "dequeueTimeout"?: number;
+  dequeueTimeout?: number;
   /** The contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination. */
-  "dequeueTo"?: string;
+  dequeueTo?: string;
   /** The callback URL for completed call event when executing a Dequeue instruction. */
-  "dequeueStatusCallbackUrl"?: string;
+  dequeueStatusCallbackUrl?: string;
   /** The Caller ID of the outbound call when executing a Call instruction. */
-  "callFrom"?: string;
+  callFrom?: string;
   /** Whether to record both legs of a call when executing a Call instruction. */
-  "callRecord"?: string;
+  callRecord?: string;
   /** The timeout for a call when executing a Call instruction. */
-  "callTimeout"?: number;
+  callTimeout?: number;
   /** The contact URI of the worker when executing a Call instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination. */
-  "callTo"?: string;
+  callTo?: string;
   /** TwiML URI executed on answering the worker\\\'s leg as a result of the Call instruction. */
-  "callUrl"?: string;
+  callUrl?: string;
   /** The URL to call for the completed call event when executing a Call instruction. */
-  "callStatusCallbackUrl"?: string;
+  callStatusCallbackUrl?: string;
   /** Whether to accept a reservation when executing a Call instruction. */
-  "callAccept"?: boolean;
+  callAccept?: boolean;
   /** The Call SID of the call parked in the queue when executing a Redirect instruction. */
-  "redirectCallSid"?: string;
+  redirectCallSid?: string;
   /** Whether the reservation should be accepted when executing a Redirect instruction. */
-  "redirectAccept"?: boolean;
+  redirectAccept?: boolean;
   /** TwiML URI to redirect the call to when executing the Redirect instruction. */
-  "redirectUrl"?: string;
+  redirectUrl?: string;
   /** The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination. */
-  "to"?: string;
+  to?: string;
   /** The caller ID of the call to the worker when executing a Conference instruction. */
-  "from"?: string;
+  from?: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
-  "statusCallback"?: string;
+  statusCallback?: string;
   /** The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`. */
-  "statusCallbackMethod"?: string;
+  statusCallbackMethod?: string;
   /** The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`. */
-  "statusCallbackEvent"?: Array<ReservationCallStatus>;
+  statusCallbackEvent?: Array<ReservationCallStatus>;
   /** The timeout for a call when executing a Conference instruction. */
-  "timeout"?: number;
+  timeout?: number;
   /** Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`. */
-  "record"?: boolean;
+  record?: boolean;
   /** Whether the agent is muted in the conference. Defaults to `false`. */
-  "muted"?: boolean;
+  muted?: boolean;
   /** Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`. */
-  "beep"?: string;
+  beep?: string;
   /** Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference. */
-  "startConferenceOnEnter"?: boolean;
+  startConferenceOnEnter?: boolean;
   /** Whether to end the conference when the agent leaves. */
-  "endConferenceOnExit"?: boolean;
+  endConferenceOnExit?: boolean;
   /** The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). */
-  "waitUrl"?: string;
+  waitUrl?: string;
   /** The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file. */
-  "waitMethod"?: string;
+  waitMethod?: string;
   /** Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`. */
-  "earlyMedia"?: boolean;
+  earlyMedia?: boolean;
   /** The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`. */
-  "maxParticipants"?: number;
+  maxParticipants?: number;
   /** The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored. */
-  "conferenceStatusCallback"?: string;
+  conferenceStatusCallback?: string;
   /** The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  "conferenceStatusCallbackMethod"?: string;
+  conferenceStatusCallbackMethod?: string;
   /** The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`. */
-  "conferenceStatusCallbackEvent"?: Array<ReservationConferenceEvent>;
+  conferenceStatusCallbackEvent?: Array<ReservationConferenceEvent>;
   /** Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`. */
-  "conferenceRecord"?: string;
+  conferenceRecord?: string;
   /** Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`. */
-  "conferenceTrim"?: string;
+  conferenceTrim?: string;
   /** The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`. */
-  "recordingChannels"?: string;
+  recordingChannels?: string;
   /** The URL that we should call using the `recording_status_callback_method` when the recording status changes. */
-  "recordingStatusCallback"?: string;
+  recordingStatusCallback?: string;
   /** The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  "recordingStatusCallbackMethod"?: string;
+  recordingStatusCallbackMethod?: string;
   /** The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available. */
-  "conferenceRecordingStatusCallback"?: string;
+  conferenceRecordingStatusCallback?: string;
   /** The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  "conferenceRecordingStatusCallbackMethod"?: string;
+  conferenceRecordingStatusCallbackMethod?: string;
   /** The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`. */
-  "region"?: string;
+  region?: string;
   /** The SIP username used for authentication. */
-  "sipAuthUsername"?: string;
+  sipAuthUsername?: string;
   /** The SIP password for authentication. */
-  "sipAuthPassword"?: string;
+  sipAuthPassword?: string;
   /** The call progress events sent via webhooks as a result of a Dequeue instruction. */
-  "dequeueStatusCallbackEvent"?: Array<string>;
+  dequeueStatusCallbackEvent?: Array<string>;
   /** The new worker activity SID after executing a Conference instruction. */
-  "postWorkActivitySid"?: string;
+  postWorkActivitySid?: string;
   /** Whether to end the conference when the customer leaves. */
-  "endConferenceOnCustomerExit"?: boolean;
+  endConferenceOnCustomerExit?: boolean;
   /** Whether to play a notification beep when the customer joins. */
-  "beepOnCustomerEntrance"?: boolean;
+  beepOnCustomerEntrance?: boolean;
   /** The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`. */
-  "jitterBufferSize"?: string;
+  jitterBufferSize?: string;
 }
 
 /**
@@ -152,9 +158,9 @@ export interface ReservationContextUpdateOptions {
  */
 export interface ReservationListInstanceEachOptions {
   /** Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`. */
-  "reservationStatus"?: ReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -168,31 +174,28 @@ export interface ReservationListInstanceEachOptions {
  */
 export interface ReservationListInstanceOptions {
   /** Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`. */
-  "reservationStatus"?: ReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ReservationListInstancePageOptions {
   /** Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`. */
-  "reservationStatus"?: ReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface ReservationContext {
-
   /**
    * Fetch a ReservationInstance
    *
@@ -200,7 +203,9 @@ export interface ReservationContext {
    *
    * @returns Resolves to processed ReservationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance>;
 
   /**
    * Fetch a ReservationInstance and return HTTP info
@@ -209,7 +214,12 @@ export interface ReservationContext {
    *
    * @returns Resolves to processed ReservationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>>;
 
   /**
    * Update a ReservationInstance
@@ -218,7 +228,9 @@ export interface ReservationContext {
    *
    * @returns Resolves to processed ReservationInstance
    */
-  update(callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>;
+  update(
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance>;
   /**
    * Update a ReservationInstance
    *
@@ -227,7 +239,10 @@ export interface ReservationContext {
    *
    * @returns Resolves to processed ReservationInstance
    */
-  update(params: ReservationContextUpdateOptions, callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>;
+  update(
+    params: ReservationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance>;
 
   /**
    * Update a ReservationInstance and return HTTP info
@@ -236,7 +251,12 @@ export interface ReservationContext {
    *
    * @returns Resolves to processed ReservationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>>;
   /**
    * Update a ReservationInstance and return HTTP info
    *
@@ -245,7 +265,13 @@ export interface ReservationContext {
    *
    * @returns Resolves to processed ReservationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ReservationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>;
+  updateWithHttpInfo(
+    params: ReservationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -255,341 +281,437 @@ export interface ReservationContext {
 }
 
 export interface ReservationContextSolution {
-  "workspaceSid": string;
-  "workerSid": string;
-  "sid": string;
+  workspaceSid: string;
+  workerSid: string;
+  sid: string;
 }
 
 export class ReservationContextImpl implements ReservationContext {
   protected _solution: ReservationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, workspaceSid: string, workerSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+    workerSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error('Parameter \'workspaceSid\' is not valid.');
+      throw new Error("Parameter 'workspaceSid' is not valid.");
     }
 
     if (!isValidPathParam(workerSid)) {
-      throw new Error('Parameter \'workerSid\' is not valid.');
+      throw new Error("Parameter 'workerSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { workspaceSid, workerSid, sid,  };
+    this._solution = { workspaceSid, workerSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Reservations/${sid}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ReservationInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.workerSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ReservationInstance(
+          operationVersion,
+          payload,
+          instance._solution.workspaceSid,
+          instance._solution.workerSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ReservationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ReservationInstance> => ({
-      ...response,
-      body: new ReservationInstance(operationVersion, response.body, instance._solution.workspaceSid, instance._solution.workerSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ReservationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<ReservationInstance> => ({
+        ...response,
+        body: new ReservationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workerSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: ReservationContextUpdateOptions | ((error: Error | null, item?: ReservationInstance) => any),callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | ReservationContextUpdateOptions
+      | ((error: Error | null, item?: ReservationInstance) => any),
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["reservationStatus"] !== undefined)
-    data["ReservationStatus"] = params["reservationStatus"];
+    if (params["reservationStatus"] !== undefined)
+      data["ReservationStatus"] = params["reservationStatus"];
     if (params["workerActivitySid"] !== undefined)
-    data["WorkerActivitySid"] = params["workerActivitySid"];
+      data["WorkerActivitySid"] = params["workerActivitySid"];
     if (params["instruction"] !== undefined)
-    data["Instruction"] = params["instruction"];
+      data["Instruction"] = params["instruction"];
     if (params["dequeuePostWorkActivitySid"] !== undefined)
-    data["DequeuePostWorkActivitySid"] = params["dequeuePostWorkActivitySid"];
+      data["DequeuePostWorkActivitySid"] = params["dequeuePostWorkActivitySid"];
     if (params["dequeueFrom"] !== undefined)
-    data["DequeueFrom"] = params["dequeueFrom"];
+      data["DequeueFrom"] = params["dequeueFrom"];
     if (params["dequeueRecord"] !== undefined)
-    data["DequeueRecord"] = params["dequeueRecord"];
+      data["DequeueRecord"] = params["dequeueRecord"];
     if (params["dequeueTimeout"] !== undefined)
-    data["DequeueTimeout"] = params["dequeueTimeout"];
+      data["DequeueTimeout"] = params["dequeueTimeout"];
     if (params["dequeueTo"] !== undefined)
-    data["DequeueTo"] = params["dequeueTo"];
+      data["DequeueTo"] = params["dequeueTo"];
     if (params["dequeueStatusCallbackUrl"] !== undefined)
-    data["DequeueStatusCallbackUrl"] = params["dequeueStatusCallbackUrl"];
-    if (params["callFrom"] !== undefined)
-    data["CallFrom"] = params["callFrom"];
+      data["DequeueStatusCallbackUrl"] = params["dequeueStatusCallbackUrl"];
+    if (params["callFrom"] !== undefined) data["CallFrom"] = params["callFrom"];
     if (params["callRecord"] !== undefined)
-    data["CallRecord"] = params["callRecord"];
+      data["CallRecord"] = params["callRecord"];
     if (params["callTimeout"] !== undefined)
-    data["CallTimeout"] = params["callTimeout"];
-    if (params["callTo"] !== undefined)
-    data["CallTo"] = params["callTo"];
-    if (params["callUrl"] !== undefined)
-    data["CallUrl"] = params["callUrl"];
+      data["CallTimeout"] = params["callTimeout"];
+    if (params["callTo"] !== undefined) data["CallTo"] = params["callTo"];
+    if (params["callUrl"] !== undefined) data["CallUrl"] = params["callUrl"];
     if (params["callStatusCallbackUrl"] !== undefined)
-    data["CallStatusCallbackUrl"] = params["callStatusCallbackUrl"];
+      data["CallStatusCallbackUrl"] = params["callStatusCallbackUrl"];
     if (params["callAccept"] !== undefined)
-    data["CallAccept"] = serialize.bool(params["callAccept"]);
+      data["CallAccept"] = serialize.bool(params["callAccept"]);
     if (params["redirectCallSid"] !== undefined)
-    data["RedirectCallSid"] = params["redirectCallSid"];
+      data["RedirectCallSid"] = params["redirectCallSid"];
     if (params["redirectAccept"] !== undefined)
-    data["RedirectAccept"] = serialize.bool(params["redirectAccept"]);
+      data["RedirectAccept"] = serialize.bool(params["redirectAccept"]);
     if (params["redirectUrl"] !== undefined)
-    data["RedirectUrl"] = params["redirectUrl"];
-    if (params["to"] !== undefined)
-    data["To"] = params["to"];
-    if (params["from"] !== undefined)
-    data["From"] = params["from"];
+      data["RedirectUrl"] = params["redirectUrl"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e: ReservationCallStatus) => (e));
-    if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
+      data["StatusCallbackEvent"] = serialize.map(
+        params["statusCallbackEvent"],
+        (e: ReservationCallStatus) => e,
+      );
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-    data["Record"] = serialize.bool(params["record"]);
+      data["Record"] = serialize.bool(params["record"]);
     if (params["muted"] !== undefined)
-    data["Muted"] = serialize.bool(params["muted"]);
-    if (params["beep"] !== undefined)
-    data["Beep"] = params["beep"];
+      data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
-    data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
+      data["StartConferenceOnEnter"] = serialize.bool(
+        params["startConferenceOnEnter"],
+      );
     if (params["endConferenceOnExit"] !== undefined)
-    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
-    if (params["waitUrl"] !== undefined)
-    data["WaitUrl"] = params["waitUrl"];
+      data["EndConferenceOnExit"] = serialize.bool(
+        params["endConferenceOnExit"],
+      );
+    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-    data["WaitMethod"] = params["waitMethod"];
+      data["WaitMethod"] = params["waitMethod"];
     if (params["earlyMedia"] !== undefined)
-    data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+      data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
     if (params["maxParticipants"] !== undefined)
-    data["MaxParticipants"] = params["maxParticipants"];
+      data["MaxParticipants"] = params["maxParticipants"];
     if (params["conferenceStatusCallback"] !== undefined)
-    data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+      data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
     if (params["conferenceStatusCallbackMethod"] !== undefined)
-    data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
+      data["ConferenceStatusCallbackMethod"] =
+        params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e: ReservationConferenceEvent) => (e));
+      data["ConferenceStatusCallbackEvent"] = serialize.map(
+        params["conferenceStatusCallbackEvent"],
+        (e: ReservationConferenceEvent) => e,
+      );
     if (params["conferenceRecord"] !== undefined)
-    data["ConferenceRecord"] = params["conferenceRecord"];
+      data["ConferenceRecord"] = params["conferenceRecord"];
     if (params["conferenceTrim"] !== undefined)
-    data["ConferenceTrim"] = params["conferenceTrim"];
+      data["ConferenceTrim"] = params["conferenceTrim"];
     if (params["recordingChannels"] !== undefined)
-    data["RecordingChannels"] = params["recordingChannels"];
+      data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
+      data["RecordingStatusCallbackMethod"] =
+        params["recordingStatusCallbackMethod"];
     if (params["conferenceRecordingStatusCallback"] !== undefined)
-    data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
+      data["ConferenceRecordingStatusCallback"] =
+        params["conferenceRecordingStatusCallback"];
     if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
-    data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
-    if (params["region"] !== undefined)
-    data["Region"] = params["region"];
+      data["ConferenceRecordingStatusCallbackMethod"] =
+        params["conferenceRecordingStatusCallbackMethod"];
+    if (params["region"] !== undefined) data["Region"] = params["region"];
     if (params["sipAuthUsername"] !== undefined)
-    data["SipAuthUsername"] = params["sipAuthUsername"];
+      data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-    data["SipAuthPassword"] = params["sipAuthPassword"];
+      data["SipAuthPassword"] = params["sipAuthPassword"];
     if (params["dequeueStatusCallbackEvent"] !== undefined)
-    data["DequeueStatusCallbackEvent"] = serialize.map(params["dequeueStatusCallbackEvent"], (e: string) => (e));
+      data["DequeueStatusCallbackEvent"] = serialize.map(
+        params["dequeueStatusCallbackEvent"],
+        (e: string) => e,
+      );
     if (params["postWorkActivitySid"] !== undefined)
-    data["PostWorkActivitySid"] = params["postWorkActivitySid"];
+      data["PostWorkActivitySid"] = params["postWorkActivitySid"];
     if (params["endConferenceOnCustomerExit"] !== undefined)
-    data["EndConferenceOnCustomerExit"] = serialize.bool(params["endConferenceOnCustomerExit"]);
+      data["EndConferenceOnCustomerExit"] = serialize.bool(
+        params["endConferenceOnCustomerExit"],
+      );
     if (params["beepOnCustomerEntrance"] !== undefined)
-    data["BeepOnCustomerEntrance"] = serialize.bool(params["beepOnCustomerEntrance"]);
+      data["BeepOnCustomerEntrance"] = serialize.bool(
+        params["beepOnCustomerEntrance"],
+      );
     if (params["jitterBufferSize"] !== undefined)
-    data["JitterBufferSize"] = params["jitterBufferSize"];
+      data["JitterBufferSize"] = params["jitterBufferSize"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ReservationInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.workerSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ReservationInstance(
+          operationVersion,
+          payload,
+          instance._solution.workspaceSid,
+          instance._solution.workerSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: ReservationContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ReservationInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | ReservationContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<ReservationInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["reservationStatus"] !== undefined)
-    data["ReservationStatus"] = params["reservationStatus"];
+    if (params["reservationStatus"] !== undefined)
+      data["ReservationStatus"] = params["reservationStatus"];
     if (params["workerActivitySid"] !== undefined)
-    data["WorkerActivitySid"] = params["workerActivitySid"];
+      data["WorkerActivitySid"] = params["workerActivitySid"];
     if (params["instruction"] !== undefined)
-    data["Instruction"] = params["instruction"];
+      data["Instruction"] = params["instruction"];
     if (params["dequeuePostWorkActivitySid"] !== undefined)
-    data["DequeuePostWorkActivitySid"] = params["dequeuePostWorkActivitySid"];
+      data["DequeuePostWorkActivitySid"] = params["dequeuePostWorkActivitySid"];
     if (params["dequeueFrom"] !== undefined)
-    data["DequeueFrom"] = params["dequeueFrom"];
+      data["DequeueFrom"] = params["dequeueFrom"];
     if (params["dequeueRecord"] !== undefined)
-    data["DequeueRecord"] = params["dequeueRecord"];
+      data["DequeueRecord"] = params["dequeueRecord"];
     if (params["dequeueTimeout"] !== undefined)
-    data["DequeueTimeout"] = params["dequeueTimeout"];
+      data["DequeueTimeout"] = params["dequeueTimeout"];
     if (params["dequeueTo"] !== undefined)
-    data["DequeueTo"] = params["dequeueTo"];
+      data["DequeueTo"] = params["dequeueTo"];
     if (params["dequeueStatusCallbackUrl"] !== undefined)
-    data["DequeueStatusCallbackUrl"] = params["dequeueStatusCallbackUrl"];
-    if (params["callFrom"] !== undefined)
-    data["CallFrom"] = params["callFrom"];
+      data["DequeueStatusCallbackUrl"] = params["dequeueStatusCallbackUrl"];
+    if (params["callFrom"] !== undefined) data["CallFrom"] = params["callFrom"];
     if (params["callRecord"] !== undefined)
-    data["CallRecord"] = params["callRecord"];
+      data["CallRecord"] = params["callRecord"];
     if (params["callTimeout"] !== undefined)
-    data["CallTimeout"] = params["callTimeout"];
-    if (params["callTo"] !== undefined)
-    data["CallTo"] = params["callTo"];
-    if (params["callUrl"] !== undefined)
-    data["CallUrl"] = params["callUrl"];
+      data["CallTimeout"] = params["callTimeout"];
+    if (params["callTo"] !== undefined) data["CallTo"] = params["callTo"];
+    if (params["callUrl"] !== undefined) data["CallUrl"] = params["callUrl"];
     if (params["callStatusCallbackUrl"] !== undefined)
-    data["CallStatusCallbackUrl"] = params["callStatusCallbackUrl"];
+      data["CallStatusCallbackUrl"] = params["callStatusCallbackUrl"];
     if (params["callAccept"] !== undefined)
-    data["CallAccept"] = serialize.bool(params["callAccept"]);
+      data["CallAccept"] = serialize.bool(params["callAccept"]);
     if (params["redirectCallSid"] !== undefined)
-    data["RedirectCallSid"] = params["redirectCallSid"];
+      data["RedirectCallSid"] = params["redirectCallSid"];
     if (params["redirectAccept"] !== undefined)
-    data["RedirectAccept"] = serialize.bool(params["redirectAccept"]);
+      data["RedirectAccept"] = serialize.bool(params["redirectAccept"]);
     if (params["redirectUrl"] !== undefined)
-    data["RedirectUrl"] = params["redirectUrl"];
-    if (params["to"] !== undefined)
-    data["To"] = params["to"];
-    if (params["from"] !== undefined)
-    data["From"] = params["from"];
+      data["RedirectUrl"] = params["redirectUrl"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e: ReservationCallStatus) => (e));
-    if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
+      data["StatusCallbackEvent"] = serialize.map(
+        params["statusCallbackEvent"],
+        (e: ReservationCallStatus) => e,
+      );
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-    data["Record"] = serialize.bool(params["record"]);
+      data["Record"] = serialize.bool(params["record"]);
     if (params["muted"] !== undefined)
-    data["Muted"] = serialize.bool(params["muted"]);
-    if (params["beep"] !== undefined)
-    data["Beep"] = params["beep"];
+      data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
-    data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
+      data["StartConferenceOnEnter"] = serialize.bool(
+        params["startConferenceOnEnter"],
+      );
     if (params["endConferenceOnExit"] !== undefined)
-    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
-    if (params["waitUrl"] !== undefined)
-    data["WaitUrl"] = params["waitUrl"];
+      data["EndConferenceOnExit"] = serialize.bool(
+        params["endConferenceOnExit"],
+      );
+    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-    data["WaitMethod"] = params["waitMethod"];
+      data["WaitMethod"] = params["waitMethod"];
     if (params["earlyMedia"] !== undefined)
-    data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+      data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
     if (params["maxParticipants"] !== undefined)
-    data["MaxParticipants"] = params["maxParticipants"];
+      data["MaxParticipants"] = params["maxParticipants"];
     if (params["conferenceStatusCallback"] !== undefined)
-    data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+      data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
     if (params["conferenceStatusCallbackMethod"] !== undefined)
-    data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
+      data["ConferenceStatusCallbackMethod"] =
+        params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e: ReservationConferenceEvent) => (e));
+      data["ConferenceStatusCallbackEvent"] = serialize.map(
+        params["conferenceStatusCallbackEvent"],
+        (e: ReservationConferenceEvent) => e,
+      );
     if (params["conferenceRecord"] !== undefined)
-    data["ConferenceRecord"] = params["conferenceRecord"];
+      data["ConferenceRecord"] = params["conferenceRecord"];
     if (params["conferenceTrim"] !== undefined)
-    data["ConferenceTrim"] = params["conferenceTrim"];
+      data["ConferenceTrim"] = params["conferenceTrim"];
     if (params["recordingChannels"] !== undefined)
-    data["RecordingChannels"] = params["recordingChannels"];
+      data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
+      data["RecordingStatusCallbackMethod"] =
+        params["recordingStatusCallbackMethod"];
     if (params["conferenceRecordingStatusCallback"] !== undefined)
-    data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
+      data["ConferenceRecordingStatusCallback"] =
+        params["conferenceRecordingStatusCallback"];
     if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
-    data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
-    if (params["region"] !== undefined)
-    data["Region"] = params["region"];
+      data["ConferenceRecordingStatusCallbackMethod"] =
+        params["conferenceRecordingStatusCallbackMethod"];
+    if (params["region"] !== undefined) data["Region"] = params["region"];
     if (params["sipAuthUsername"] !== undefined)
-    data["SipAuthUsername"] = params["sipAuthUsername"];
+      data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-    data["SipAuthPassword"] = params["sipAuthPassword"];
+      data["SipAuthPassword"] = params["sipAuthPassword"];
     if (params["dequeueStatusCallbackEvent"] !== undefined)
-    data["DequeueStatusCallbackEvent"] = serialize.map(params["dequeueStatusCallbackEvent"], (e: string) => (e));
+      data["DequeueStatusCallbackEvent"] = serialize.map(
+        params["dequeueStatusCallbackEvent"],
+        (e: string) => e,
+      );
     if (params["postWorkActivitySid"] !== undefined)
-    data["PostWorkActivitySid"] = params["postWorkActivitySid"];
+      data["PostWorkActivitySid"] = params["postWorkActivitySid"];
     if (params["endConferenceOnCustomerExit"] !== undefined)
-    data["EndConferenceOnCustomerExit"] = serialize.bool(params["endConferenceOnCustomerExit"]);
+      data["EndConferenceOnCustomerExit"] = serialize.bool(
+        params["endConferenceOnCustomerExit"],
+      );
     if (params["beepOnCustomerEntrance"] !== undefined)
-    data["BeepOnCustomerEntrance"] = serialize.bool(params["beepOnCustomerEntrance"]);
+      data["BeepOnCustomerEntrance"] = serialize.bool(
+        params["beepOnCustomerEntrance"],
+      );
     if (params["jitterBufferSize"] !== undefined)
-    data["JitterBufferSize"] = params["jitterBufferSize"];
+      data["JitterBufferSize"] = params["jitterBufferSize"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<ReservationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ReservationInstance> => ({
-      ...response,
-      body: new ReservationInstance(operationVersion, response.body, instance._solution.workspaceSid, instance._solution.workerSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ReservationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ReservationInstance> => ({
+        ...response,
+        body: new ReservationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workerSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -606,9 +728,8 @@ export class ReservationContextImpl implements ReservationContext {
   }
 }
 
-
-  interface ReservationPayload extends TwilioResponsePayload {
-    reservations: ReservationResource[];
+interface ReservationPayload extends TwilioResponsePayload {
+  reservations: ReservationResource[];
 }
 
 interface ReservationResource {
@@ -629,21 +750,26 @@ export class ReservationInstance {
   protected _solution: ReservationContextSolution;
   protected _context?: ReservationContext;
 
-  constructor(protected _version: V1, payload: ReservationResource, workspaceSid: string, workerSid: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
+  constructor(
+    protected _version: V1,
+    payload: ReservationResource,
+    workspaceSid: string,
+    workerSid: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.reservationStatus = payload.reservation_status;
-    this.sid = (payload.sid);
-    this.taskSid = (payload.task_sid);
-    this.workerName = (payload.worker_name);
-    this.workerSid = (payload.worker_sid);
-    this.workspaceSid = (payload.workspace_sid);
-    this.url = (payload.url);
-    this.links = (payload.links);
+    this.sid = payload.sid;
+    this.taskSid = payload.task_sid;
+    this.workerName = payload.worker_name;
+    this.workerSid = payload.worker_sid;
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+    this.links = payload.links;
 
-    this._solution = { workspaceSid, workerSid, sid: sid,  };
+    this._solution = { workspaceSid, workerSid, sid: sid };
   }
 
   /**
@@ -689,7 +815,14 @@ export class ReservationInstance {
   links: Record<string, string>;
 
   private get _proxy(): ReservationContext {
-    this._context = this._context || new ReservationContextImpl(this._version, this._solution.workspaceSid, this._solution.workerSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ReservationContextImpl(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.workerSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -700,9 +833,9 @@ export class ReservationInstance {
    *
    * @returns Resolves to processed ReservationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -713,9 +846,12 @@ export class ReservationInstance {
    *
    * @returns Resolves to processed ReservationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -726,7 +862,9 @@ export class ReservationInstance {
    *
    * @returns Resolves to processed ReservationInstance
    */
-  update(callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>;
+  update(
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance>;
   /**
    * Update a ReservationInstance
    *
@@ -735,10 +873,15 @@ export class ReservationInstance {
    *
    * @returns Resolves to processed ReservationInstance
    */
-  update(params: ReservationContextUpdateOptions, callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>;
+  update(
+    params: ReservationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: ReservationInstance) => any): Promise<ReservationInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any,
+  ): Promise<ReservationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -749,7 +892,12 @@ export class ReservationInstance {
    *
    * @returns Resolves to processed ReservationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>>;
   /**
    * Update a ReservationInstance and return HTTP info
    *
@@ -758,10 +906,21 @@ export class ReservationInstance {
    *
    * @returns Resolves to processed ReservationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ReservationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>;
+  updateWithHttpInfo(
+    params: ReservationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ReservationInstance>) => any): Promise<ApiResponse<ReservationInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ReservationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -791,7 +950,6 @@ export class ReservationInstance {
   }
 }
 
-
 export interface ReservationSolution {
   workspaceSid: string;
   workerSid: string;
@@ -802,14 +960,8 @@ export interface ReservationListInstance {
   _solution: ReservationSolution;
   _uri: string;
 
-  (sid: string, ): ReservationContext;
-  get(sid: string, ): ReservationContext;
-
-
-
-
-
-
+  (sid: string): ReservationContext;
+  get(sid: string): ReservationContext;
 
   /**
    * Streams ReservationInstance records from the API.
@@ -826,8 +978,13 @@ export interface ReservationListInstance {
    * @param { ReservationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
-  each(params: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: ReservationListInstanceEachOptions,
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams ReservationInstance records from the API with HTTP metadata captured per page.
    *
@@ -843,8 +1000,13 @@ export interface ReservationListInstance {
    * @param { ReservationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ReservationListInstanceEachOptions,
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of ReservationInstance records from the API.
    *
@@ -853,7 +1015,10 @@ export interface ReservationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ReservationPage) => any,
+  ): Promise<ReservationPage>;
   /**
    * Retrieve a single target page of ReservationInstance records from the API with HTTP metadata.
    *
@@ -862,7 +1027,13 @@ export interface ReservationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any): Promise<ApiResponse<ReservationPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReservationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationPage>>;
   /**
    * Lists ReservationInstance records from the API as a list.
    *
@@ -872,8 +1043,13 @@ export interface ReservationListInstance {
    * @param { ReservationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
-  list(params: ReservationListInstanceOptions, callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ReservationInstance[]) => any,
+  ): Promise<ReservationInstance[]>;
+  list(
+    params: ReservationListInstanceOptions,
+    callback?: (error: Error | null, items: ReservationInstance[]) => any,
+  ): Promise<ReservationInstance[]>;
   /**
    * Lists ReservationInstance records from the API as a list with HTTP metadata.
    *
@@ -885,8 +1061,19 @@ export interface ReservationListInstance {
    * @param { ReservationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ReservationInstance[]>) => any): Promise<ApiResponse<ReservationInstance[]>>;
-  listWithHttpInfo(params: ReservationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ReservationInstance[]>) => any): Promise<ApiResponse<ReservationInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReservationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance[]>>;
+  listWithHttpInfo(
+    params: ReservationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReservationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationInstance[]>>;
   /**
    * Retrieve a single page of ReservationInstance records from the API.
    *
@@ -898,8 +1085,13 @@ export interface ReservationListInstance {
    * @param { ReservationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
-  page(params: ReservationListInstancePageOptions, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  page(
+    callback?: (error: Error | null, items: ReservationPage) => any,
+  ): Promise<ReservationPage>;
+  page(
+    params: ReservationListInstancePageOptions,
+    callback?: (error: Error | null, items: ReservationPage) => any,
+  ): Promise<ReservationPage>;
   /**
    * Retrieve a single page of ReservationInstance records from the API with HTTP metadata.
    *
@@ -911,9 +1103,19 @@ export interface ReservationListInstance {
    * @param { ReservationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any): Promise<ApiResponse<ReservationPage>>;
-  pageWithHttpInfo(params: ReservationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any): Promise<ApiResponse<ReservationPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReservationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationPage>>;
+  pageWithHttpInfo(
+    params: ReservationListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReservationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -922,26 +1124,35 @@ export interface ReservationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ReservationListInstance(version: V1, workspaceSid: string, workerSid: string): ReservationListInstance {
+export function ReservationListInstance(
+  version: V1,
+  workspaceSid: string,
+  workerSid: string,
+): ReservationListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error('Parameter \'workspaceSid\' is not valid.');
+    throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
   if (!isValidPathParam(workerSid)) {
-    throw new Error('Parameter \'workerSid\' is not valid.');
+    throw new Error("Parameter 'workerSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as ReservationListInstance;
+  const instance = ((sid) => instance.get(sid)) as ReservationListInstance;
 
-  instance.get = function get(sid, ): ReservationContext {
+  instance.get = function get(sid): ReservationContext {
     return new ReservationContextImpl(version, workspaceSid, workerSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { workspaceSid, workerSid,  };
+  instance._solution = { workspaceSid, workerSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Reservations`;
 
-  instance.page = function page(params?: ReservationListInstancePageOptions | ((error: Error | null, items: ReservationPage) => any), callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage> {
+  instance.page = function page(
+    params?:
+      | ReservationListInstancePageOptions
+      | ((error: Error | null, items: ReservationPage) => any),
+    callback?: (error: Error | null, items: ReservationPage) => any,
+  ): Promise<ReservationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -951,46 +1162,64 @@ export function ReservationListInstance(version: V1, workspaceSid: string, worke
 
     let data: any = {};
 
-        if (params["reservationStatus"] !== undefined)
-    data["ReservationStatus"] = params["reservationStatus"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["reservationStatus"] !== undefined)
+      data["ReservationStatus"] = params["reservationStatus"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ReservationPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ReservationPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ReservationPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ReservationPage) => any,
+  ): Promise<ReservationPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ReservationPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ReservationListInstancePageOptions | ((error: Error | null, items: ApiResponse<ReservationPage>) => any), callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any): Promise<ApiResponse<ReservationPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ReservationListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ReservationPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ReservationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1000,96 +1229,122 @@ export function ReservationListInstance(version: V1, workspaceSid: string, worke
 
     let data: any = {};
 
-        if (params["reservationStatus"] !== undefined)
-    data["ReservationStatus"] = params["reservationStatus"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["reservationStatus"] !== undefined)
+      data["ReservationStatus"] = params["reservationStatus"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ReservationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ReservationPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ReservationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ReservationPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ReservationPage>) => any): Promise<ApiResponse<ReservationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ReservationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ReservationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ReservationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ReservationPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ReservationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ReservationPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {
-/**
-* Initialize the ReservationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ReservationSolution) {
+export class ReservationPage extends Page<
+  V1,
+  ReservationPayload,
+  ReservationResource,
+  ReservationInstance
+> {
+  /**
+   * Initialize the ReservationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ReservationSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ReservationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ReservationResource): ReservationInstance {
-
+  /**
+   * Build an instance of ReservationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ReservationResource): ReservationInstance {
     return new ReservationInstance(
-    this._version,
-    payload,
-        this._solution.workspaceSid,
-        this._solution.workerSid,
+      this._version,
+      payload,
+      this._solution.workspaceSid,
+      this._solution.workerSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

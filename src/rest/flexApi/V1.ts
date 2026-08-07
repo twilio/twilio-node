@@ -109,8 +109,7 @@ export default class V1 extends Version {
 
   /** Getter for configuration resource */
   get configuration(): ConfigurationListInstance {
-    this._configuration =
-      this._configuration || ConfigurationListInstance(this);
+    this._configuration = this._configuration || ConfigurationListInstance(this);
     return this._configuration;
   }
 
@@ -122,76 +121,61 @@ export default class V1 extends Version {
 
   /** Getter for insightsAssessmentsComment resource */
   get insightsAssessmentsComment(): InsightsAssessmentsCommentListInstance {
-    this._insightsAssessmentsComment =
-      this._insightsAssessmentsComment ||
-      InsightsAssessmentsCommentListInstance(this);
+    this._insightsAssessmentsComment = this._insightsAssessmentsComment || InsightsAssessmentsCommentListInstance(this);
     return this._insightsAssessmentsComment;
   }
 
   /** Getter for insightsConversations resource */
   get insightsConversations(): InsightsConversationsListInstance {
-    this._insightsConversations =
-      this._insightsConversations || InsightsConversationsListInstance(this);
+    this._insightsConversations = this._insightsConversations || InsightsConversationsListInstance(this);
     return this._insightsConversations;
   }
 
   /** Getter for insightsQuestionnaires resource */
   get insightsQuestionnaires(): InsightsQuestionnairesListInstance {
-    this._insightsQuestionnaires =
-      this._insightsQuestionnaires || InsightsQuestionnairesListInstance(this);
+    this._insightsQuestionnaires = this._insightsQuestionnaires || InsightsQuestionnairesListInstance(this);
     return this._insightsQuestionnaires;
   }
 
   /** Getter for insightsQuestionnairesCategory resource */
   get insightsQuestionnairesCategory(): InsightsQuestionnairesCategoryListInstance {
-    this._insightsQuestionnairesCategory =
-      this._insightsQuestionnairesCategory ||
-      InsightsQuestionnairesCategoryListInstance(this);
+    this._insightsQuestionnairesCategory = this._insightsQuestionnairesCategory || InsightsQuestionnairesCategoryListInstance(this);
     return this._insightsQuestionnairesCategory;
   }
 
   /** Getter for insightsQuestionnairesQuestion resource */
   get insightsQuestionnairesQuestion(): InsightsQuestionnairesQuestionListInstance {
-    this._insightsQuestionnairesQuestion =
-      this._insightsQuestionnairesQuestion ||
-      InsightsQuestionnairesQuestionListInstance(this);
+    this._insightsQuestionnairesQuestion = this._insightsQuestionnairesQuestion || InsightsQuestionnairesQuestionListInstance(this);
     return this._insightsQuestionnairesQuestion;
   }
 
   /** Getter for insightsSegments resource */
   get insightsSegments(): InsightsSegmentsListInstance {
-    this._insightsSegments =
-      this._insightsSegments || InsightsSegmentsListInstance(this);
+    this._insightsSegments = this._insightsSegments || InsightsSegmentsListInstance(this);
     return this._insightsSegments;
   }
 
   /** Getter for insightsSession resource */
   get insightsSession(): InsightsSessionListInstance {
-    this._insightsSession =
-      this._insightsSession || InsightsSessionListInstance(this);
+    this._insightsSession = this._insightsSession || InsightsSessionListInstance(this);
     return this._insightsSession;
   }
 
   /** Getter for insightsSettingsAnswerSets resource */
   get insightsSettingsAnswerSets(): InsightsSettingsAnswerSetsListInstance {
-    this._insightsSettingsAnswerSets =
-      this._insightsSettingsAnswerSets ||
-      InsightsSettingsAnswerSetsListInstance(this);
+    this._insightsSettingsAnswerSets = this._insightsSettingsAnswerSets || InsightsSettingsAnswerSetsListInstance(this);
     return this._insightsSettingsAnswerSets;
   }
 
   /** Getter for insightsSettingsComment resource */
   get insightsSettingsComment(): InsightsSettingsCommentListInstance {
-    this._insightsSettingsComment =
-      this._insightsSettingsComment ||
-      InsightsSettingsCommentListInstance(this);
+    this._insightsSettingsComment = this._insightsSettingsComment || InsightsSettingsCommentListInstance(this);
     return this._insightsSettingsComment;
   }
 
   /** Getter for insightsUserRoles resource */
   get insightsUserRoles(): InsightsUserRolesListInstance {
-    this._insightsUserRoles =
-      this._insightsUserRoles || InsightsUserRolesListInstance(this);
+    this._insightsUserRoles = this._insightsUserRoles || InsightsUserRolesListInstance(this);
     return this._insightsUserRoles;
   }
 
@@ -209,44 +193,37 @@ export default class V1 extends Version {
 
   /** Getter for pluginArchive resource */
   get pluginArchive(): PluginArchiveListInstance {
-    this._pluginArchive =
-      this._pluginArchive || PluginArchiveListInstance(this);
+    this._pluginArchive = this._pluginArchive || PluginArchiveListInstance(this);
     return this._pluginArchive;
   }
 
   /** Getter for pluginConfigurations resource */
   get pluginConfigurations(): PluginConfigurationListInstance {
-    this._pluginConfigurations =
-      this._pluginConfigurations || PluginConfigurationListInstance(this);
+    this._pluginConfigurations = this._pluginConfigurations || PluginConfigurationListInstance(this);
     return this._pluginConfigurations;
   }
 
   /** Getter for pluginConfigurationArchive resource */
   get pluginConfigurationArchive(): PluginConfigurationArchiveListInstance {
-    this._pluginConfigurationArchive =
-      this._pluginConfigurationArchive ||
-      PluginConfigurationArchiveListInstance(this);
+    this._pluginConfigurationArchive = this._pluginConfigurationArchive || PluginConfigurationArchiveListInstance(this);
     return this._pluginConfigurationArchive;
   }
 
   /** Getter for pluginReleases resource */
   get pluginReleases(): PluginReleaseListInstance {
-    this._pluginReleases =
-      this._pluginReleases || PluginReleaseListInstance(this);
+    this._pluginReleases = this._pluginReleases || PluginReleaseListInstance(this);
     return this._pluginReleases;
   }
 
   /** Getter for pluginVersionArchive resource */
   get pluginVersionArchive(): PluginVersionArchiveListInstance {
-    this._pluginVersionArchive =
-      this._pluginVersionArchive || PluginVersionArchiveListInstance(this);
+    this._pluginVersionArchive = this._pluginVersionArchive || PluginVersionArchiveListInstance(this);
     return this._pluginVersionArchive;
   }
 
   /** Getter for provisioningStatus resource */
   get provisioningStatus(): ProvisioningStatusListInstance {
-    this._provisioningStatus =
-      this._provisioningStatus || ProvisioningStatusListInstance(this);
+    this._provisioningStatus = this._provisioningStatus || ProvisioningStatusListInstance(this);
     return this._provisioningStatus;
   }
 
@@ -255,4 +232,5 @@ export default class V1 extends Version {
     this._webChannel = this._webChannel || WebChannelListInstance(this);
     return this._webChannel;
   }
+
 }

@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class NumbersV1PortingAddress {
   /**
@@ -56,7 +54,6 @@ export class NumbersV1PortingAddress {
     this.country = payload["country"];
   }
 }
-
 
 export class NumbersV1PortingLosingCarrierInformation {
   /**
@@ -100,15 +97,16 @@ export class NumbersV1PortingLosingCarrierInformation {
     this.addressSid = payload["address_sid"];
     this.address = payload["address"];
     this.authorizedRepresentative = payload["authorized_representative"];
-    this.authorizedRepresentativeEmail = payload["authorized_representative_email"];
+    this.authorizedRepresentativeEmail =
+      payload["authorized_representative_email"];
     this.customerType = payload["customer_type"];
-    this.authorizedRepresentativeKatakana = payload["authorized_representative_katakana"];
+    this.authorizedRepresentativeKatakana =
+      payload["authorized_representative_katakana"];
     this.subMunicipality = payload["sub_municipality"];
     this.building = payload["building"];
     this.katakanaName = payload["katakana_name"];
   }
 }
-
 
 export class NumbersV1PortingPortInCreate {
   /**
@@ -160,14 +158,14 @@ export class NumbersV1PortingPortInCreate {
     this.losingCarrierInformation = payload["losing_carrier_information"];
     this.notificationEmails = payload["notification_emails"];
     this.targetPortInDate = payload["target_port_in_date"];
-    this.targetPortInTimeRangeStart = payload["target_port_in_time_range_start"];
+    this.targetPortInTimeRangeStart =
+      payload["target_port_in_time_range_start"];
     this.targetPortInTimeRangeEnd = payload["target_port_in_time_range_end"];
     this.bundleSid = payload["bundle_sid"];
     this.portabilityAdvanceCarrier = payload["portability_advance_carrier"];
     this.autoCancelApprovalNumbers = payload["auto_cancel_approval_numbers"];
   }
 }
-
 
 export class NumbersV1PortingPortInCreatePhoneNumbers {
   /**
@@ -184,7 +182,6 @@ export class NumbersV1PortingPortInCreatePhoneNumbers {
     this.pin = payload["pin"];
   }
 }
-
 
 export class NumbersV1PortingPortInPhoneNumberResult {
   /**
@@ -244,25 +241,22 @@ export class NumbersV1PortingPortInPhoneNumberResult {
     this.portable = payload["portable"];
     this.rejectionReason = payload["rejection_reason"];
     this.rejectionReasonCode = payload["rejection_reason_code"];
-    this.statusLastTimeUpdatedTimestamp = payload["status_last_time_updated_timestamp"];
-    this.externalPortingVendorPhoneNumberId = payload["external_porting_vendor_phone_number_id"];
+    this.statusLastTimeUpdatedTimestamp =
+      payload["status_last_time_updated_timestamp"];
+    this.externalPortingVendorPhoneNumberId =
+      payload["external_porting_vendor_phone_number_id"];
   }
 }
-
-
-
-
 
 /**
  * Options to pass to create a PortingPortInInstance
  */
 export interface PortingPortInListInstanceCreateOptions {
   /**  */
-  "numbersV1PortingPortInCreate": NumbersV1PortingPortInCreate;
+  numbersV1PortingPortInCreate: NumbersV1PortingPortInCreate;
 }
 
 export interface PortingPortInContext {
-
   /**
    * Remove a PortingPortInInstance
    *
@@ -270,7 +264,9 @@ export interface PortingPortInContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a PortingPortInInstance and return HTTP info
@@ -279,7 +275,9 @@ export interface PortingPortInContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a PortingPortInInstance
@@ -288,7 +286,9 @@ export interface PortingPortInContext {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  fetch(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>
+  fetch(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any,
+  ): Promise<PortingPortInInstance>;
 
   /**
    * Fetch a PortingPortInInstance and return HTTP info
@@ -297,7 +297,12 @@ export interface PortingPortInContext {
    *
    * @returns Resolves to processed PortingPortInInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortInInstance>) => any): Promise<ApiResponse<PortingPortInInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -307,87 +312,129 @@ export interface PortingPortInContext {
 }
 
 export interface PortingPortInContextSolution {
-  "portInRequestSid": string;
+  portInRequestSid: string;
 }
 
 export class PortingPortInContextImpl implements PortingPortInContext {
   protected _solution: PortingPortInContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, portInRequestSid: string) {
+  constructor(
+    protected _version: V1,
+    portInRequestSid: string,
+  ) {
     if (!isValidPathParam(portInRequestSid)) {
-      throw new Error('Parameter \'portInRequestSid\' is not valid.');
+      throw new Error("Parameter 'portInRequestSid' is not valid.");
     }
 
-    this._solution = { portInRequestSid,  };
+    this._solution = { portInRequestSid };
     this._uri = `/Porting/PortIn/${portInRequestSid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any,
+  ): Promise<PortingPortInInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new PortingPortInInstance(operationVersion, payload, instance._solution.portInRequestSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PortingPortInInstance(
+          operationVersion,
+          payload,
+          instance._solution.portInRequestSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortInInstance>) => any): Promise<ApiResponse<PortingPortInInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<PortingPortInResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<PortingPortInInstance> => ({
-      ...response,
-      body: new PortingPortInInstance(operationVersion, response.body, instance._solution.portInRequestSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PortingPortInResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<PortingPortInInstance> => ({
+        ...response,
+        body: new PortingPortInInstance(
+          operationVersion,
+          response.body,
+          instance._solution.portInRequestSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -404,8 +451,7 @@ export class PortingPortInContextImpl implements PortingPortInContext {
   }
 }
 
-
-  interface PortingPortInPayload extends PortingPortInResource {}
+interface PortingPortInPayload extends PortingPortInResource {}
 
 interface PortingPortInResource {
   port_in_request_sid: string;
@@ -432,30 +478,45 @@ export class PortingPortInInstance {
   protected _solution: PortingPortInContextSolution;
   protected _context?: PortingPortInContext;
 
-  constructor(protected _version: V1, payload: PortingPortInResource, portInRequestSid?: string) {
-    
-    this.portInRequestSid = (payload.port_in_request_sid);
-    this.url = (payload.url);
-    this.accountSid = (payload.account_sid);
-    this.notificationEmails = (payload.notification_emails);
-    this.targetPortInDate = deserialize.iso8601Date(payload.target_port_in_date);
-    this.targetPortInTimeRangeStart = (payload.target_port_in_time_range_start);
-    this.targetPortInTimeRangeEnd = (payload.target_port_in_time_range_end);
-    this.portInRequestStatus = (payload.port_in_request_status);
-    this.orderCancellationReason = (payload.order_cancellation_reason);
-    this.losingCarrierInformation = payload.losing_carrier_information !== null && payload.losing_carrier_information !== undefined ? new NumbersV1PortingLosingCarrierInformation(payload.losing_carrier_information) : null;
-    this.phoneNumbers =  payload.phone_numbers !== null && payload.phone_numbers !== undefined ? payload.phone_numbers.map(
-      (payload: any) => new NumbersV1PortingPortInPhoneNumberResult(payload)
-    ) : null;
-    this.bundleSid = (payload.bundle_sid);
-    this.portabilityAdvanceCarrier = (payload.portability_advance_carrier);
-    this.autoCancelApprovalNumbers = (payload.auto_cancel_approval_numbers);
-    this.documents = (payload.documents);
+  constructor(
+    protected _version: V1,
+    payload: PortingPortInResource,
+    portInRequestSid?: string,
+  ) {
+    this.portInRequestSid = payload.port_in_request_sid;
+    this.url = payload.url;
+    this.accountSid = payload.account_sid;
+    this.notificationEmails = payload.notification_emails;
+    this.targetPortInDate = deserialize.iso8601Date(
+      payload.target_port_in_date,
+    );
+    this.targetPortInTimeRangeStart = payload.target_port_in_time_range_start;
+    this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
+    this.portInRequestStatus = payload.port_in_request_status;
+    this.orderCancellationReason = payload.order_cancellation_reason;
+    this.losingCarrierInformation =
+      payload.losing_carrier_information !== null &&
+      payload.losing_carrier_information !== undefined
+        ? new NumbersV1PortingLosingCarrierInformation(
+            payload.losing_carrier_information,
+          )
+        : null;
+    this.phoneNumbers =
+      payload.phone_numbers !== null && payload.phone_numbers !== undefined
+        ? payload.phone_numbers.map(
+            (payload: any) =>
+              new NumbersV1PortingPortInPhoneNumberResult(payload),
+          )
+        : null;
+    this.bundleSid = payload.bundle_sid;
+    this.portabilityAdvanceCarrier = payload.portability_advance_carrier;
+    this.autoCancelApprovalNumbers = payload.auto_cancel_approval_numbers;
+    this.documents = payload.documents;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.supportTicketId = deserialize.integer(payload.support_ticket_id);
-    this.signatureRequestUrl = (payload.signature_request_url);
+    this.signatureRequestUrl = payload.signature_request_url;
 
-    this._solution = { portInRequestSid: portInRequestSid,  };
+    this._solution = { portInRequestSid: portInRequestSid };
   }
 
   /**
@@ -520,7 +581,12 @@ export class PortingPortInInstance {
   signatureRequestUrl: string;
 
   private get _proxy(): PortingPortInContext {
-    this._context = this._context || new PortingPortInContextImpl(this._version, this._solution.portInRequestSid);
+    this._context =
+      this._context ||
+      new PortingPortInContextImpl(
+        this._version,
+        this._solution.portInRequestSid,
+      );
     return this._context;
   }
 
@@ -531,9 +597,9 @@ export class PortingPortInInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -544,9 +610,9 @@ export class PortingPortInInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -557,9 +623,9 @@ export class PortingPortInInstance {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  fetch(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any,
+  ): Promise<PortingPortInInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -570,9 +636,12 @@ export class PortingPortInInstance {
    *
    * @returns Resolves to processed PortingPortInInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortInInstance>) => any): Promise<ApiResponse<PortingPortInInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -609,22 +678,15 @@ export class PortingPortInInstance {
   }
 }
 
-
-export interface PortingPortInSolution {
-}
+export interface PortingPortInSolution {}
 
 export interface PortingPortInListInstance {
   _version: V1;
   _solution: PortingPortInSolution;
   _uri: string;
 
-  (portInRequestSid: string, ): PortingPortInContext;
-  get(portInRequestSid: string, ): PortingPortInContext;
-
-
-
-
-
+  (portInRequestSid: string): PortingPortInContext;
+  get(portInRequestSid: string): PortingPortInContext;
 
   /**
    * Create a PortingPortInInstance
@@ -635,7 +697,11 @@ export interface PortingPortInListInstance {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  create(params: NumbersV1PortingPortInCreate, headers?: any, callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>;
+  create(
+    params: NumbersV1PortingPortInCreate,
+    headers?: any,
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any,
+  ): Promise<PortingPortInInstance>;
 
   /**
    * Create a PortingPortInInstance and return HTTP info
@@ -646,9 +712,14 @@ export interface PortingPortInListInstance {
    *
    * @returns Resolves to processed PortingPortInInstance with HTTP metadata
    */
-  createWithHttpInfo(params: NumbersV1PortingPortInCreate, headers?: any, callback?: (error: Error | null, item?: ApiResponse<PortingPortInInstance>) => any): Promise<ApiResponse<PortingPortInInstance>>;
-
-
+  createWithHttpInfo(
+    params: NumbersV1PortingPortInCreate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -657,87 +728,113 @@ export interface PortingPortInListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingPortInListInstance(version: V1): PortingPortInListInstance {
-  const instance = ((portInRequestSid, ) => instance.get(portInRequestSid, )) as PortingPortInListInstance;
+export function PortingPortInListInstance(
+  version: V1,
+): PortingPortInListInstance {
+  const instance = ((portInRequestSid) =>
+    instance.get(portInRequestSid)) as PortingPortInListInstance;
 
-  instance.get = function get(portInRequestSid, ): PortingPortInContext {
+  instance.get = function get(portInRequestSid): PortingPortInContext {
     return new PortingPortInContextImpl(version, portInRequestSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Porting/PortIn`;
 
-  instance.create = function create(params: NumbersV1PortingPortInCreate, headers?: any, callback?: (error: Error | null, items: PortingPortInInstance) => any): Promise<PortingPortInInstance> {
+  instance.create = function create(
+    params: NumbersV1PortingPortInCreate,
+    headers?: any,
+    callback?: (error: Error | null, items: PortingPortInInstance) => any,
+  ): Promise<PortingPortInInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new PortingPortInInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new PortingPortInInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: NumbersV1PortingPortInCreate, headers?: any, callback?: (error: Error | null, items: ApiResponse<PortingPortInInstance>) => any): Promise<ApiResponse<PortingPortInInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1PortingPortInCreate,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PortingPortInInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<PortingPortInResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<PortingPortInInstance> => ({
-      ...response,
-      body: new PortingPortInInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<PortingPortInResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<PortingPortInInstance> => ({
+        ...response,
+        body: new PortingPortInInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

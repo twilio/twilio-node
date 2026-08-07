@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,12 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
-
 export interface LinkshorteningMessagingServiceContext {
-
   /**
    * Create a LinkshorteningMessagingServiceInstance
    *
@@ -33,7 +27,12 @@ export interface LinkshorteningMessagingServiceContext {
    *
    * @returns Resolves to processed LinkshorteningMessagingServiceInstance
    */
-  create(callback?: (error: Error | null, item?: LinkshorteningMessagingServiceInstance) => any): Promise<LinkshorteningMessagingServiceInstance>
+  create(
+    callback?: (
+      error: Error | null,
+      item?: LinkshorteningMessagingServiceInstance,
+    ) => any,
+  ): Promise<LinkshorteningMessagingServiceInstance>;
 
   /**
    * Create a LinkshorteningMessagingServiceInstance and return HTTP info
@@ -42,7 +41,12 @@ export interface LinkshorteningMessagingServiceContext {
    *
    * @returns Resolves to processed LinkshorteningMessagingServiceInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<LinkshorteningMessagingServiceInstance>) => any): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>>
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>>;
 
   /**
    * Remove a LinkshorteningMessagingServiceInstance
@@ -51,7 +55,9 @@ export interface LinkshorteningMessagingServiceContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a LinkshorteningMessagingServiceInstance and return HTTP info
@@ -60,7 +66,9 @@ export interface LinkshorteningMessagingServiceContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -70,92 +78,142 @@ export interface LinkshorteningMessagingServiceContext {
 }
 
 export interface LinkshorteningMessagingServiceContextSolution {
-  "domainSid": string;
-  "messagingServiceSid": string;
+  domainSid: string;
+  messagingServiceSid: string;
 }
 
 export class LinkshorteningMessagingServiceContextImpl implements LinkshorteningMessagingServiceContext {
   protected _solution: LinkshorteningMessagingServiceContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, domainSid: string, messagingServiceSid: string) {
+  constructor(
+    protected _version: V1,
+    domainSid: string,
+    messagingServiceSid: string,
+  ) {
     if (!isValidPathParam(domainSid)) {
-      throw new Error('Parameter \'domainSid\' is not valid.');
+      throw new Error("Parameter 'domainSid' is not valid.");
     }
 
     if (!isValidPathParam(messagingServiceSid)) {
-      throw new Error('Parameter \'messagingServiceSid\' is not valid.');
+      throw new Error("Parameter 'messagingServiceSid' is not valid.");
     }
 
-    this._solution = { domainSid, messagingServiceSid,  };
+    this._solution = { domainSid, messagingServiceSid };
     this._uri = `/LinkShortening/Domains/${domainSid}/MessagingServices/${messagingServiceSid}`;
   }
 
-  create(callback?: (error: Error | null, item?: LinkshorteningMessagingServiceInstance) => any): Promise<LinkshorteningMessagingServiceInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  create(
+    callback?: (
+      error: Error | null,
+      item?: LinkshorteningMessagingServiceInstance,
+    ) => any,
+  ): Promise<LinkshorteningMessagingServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", headers});
-    
-    operationPromise = operationPromise.then(payload => new LinkshorteningMessagingServiceInstance(operationVersion, payload, instance._solution.domainSid, instance._solution.messagingServiceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new LinkshorteningMessagingServiceInstance(
+          operationVersion,
+          payload,
+          instance._solution.domainSid,
+          instance._solution.messagingServiceSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<LinkshorteningMessagingServiceInstance>) => any): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<LinkshorteningMessagingServiceResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<LinkshorteningMessagingServiceInstance> => ({
-      ...response,
-      body: new LinkshorteningMessagingServiceInstance(operationVersion, response.body, instance._solution.domainSid, instance._solution.messagingServiceSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<LinkshorteningMessagingServiceResource>({
+        uri: instance._uri,
+        method: "post",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<LinkshorteningMessagingServiceInstance> => ({
+          ...response,
+          body: new LinkshorteningMessagingServiceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid,
+            instance._solution.messagingServiceSid,
+          ),
+        }),
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -172,8 +230,7 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
   }
 }
 
-
-  interface LinkshorteningMessagingServicePayload extends LinkshorteningMessagingServiceResource {}
+interface LinkshorteningMessagingServicePayload extends LinkshorteningMessagingServiceResource {}
 
 interface LinkshorteningMessagingServiceResource {
   domain_sid: string;
@@ -185,13 +242,20 @@ export class LinkshorteningMessagingServiceInstance {
   protected _solution: LinkshorteningMessagingServiceContextSolution;
   protected _context?: LinkshorteningMessagingServiceContext;
 
-  constructor(protected _version: V1, payload: LinkshorteningMessagingServiceResource, domainSid?: string, messagingServiceSid?: string) {
-    
-    this.domainSid = (payload.domain_sid);
-    this.messagingServiceSid = (payload.messaging_service_sid);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V1,
+    payload: LinkshorteningMessagingServiceResource,
+    domainSid?: string,
+    messagingServiceSid?: string,
+  ) {
+    this.domainSid = payload.domain_sid;
+    this.messagingServiceSid = payload.messaging_service_sid;
+    this.url = payload.url;
 
-    this._solution = { domainSid: domainSid, messagingServiceSid: messagingServiceSid,  };
+    this._solution = {
+      domainSid: domainSid,
+      messagingServiceSid: messagingServiceSid,
+    };
   }
 
   /**
@@ -205,7 +269,13 @@ export class LinkshorteningMessagingServiceInstance {
   url: string;
 
   private get _proxy(): LinkshorteningMessagingServiceContext {
-    this._context = this._context || new LinkshorteningMessagingServiceContextImpl(this._version, this._solution.domainSid, this._solution.messagingServiceSid);
+    this._context =
+      this._context ||
+      new LinkshorteningMessagingServiceContextImpl(
+        this._version,
+        this._solution.domainSid,
+        this._solution.messagingServiceSid,
+      );
     return this._context;
   }
 
@@ -216,9 +286,12 @@ export class LinkshorteningMessagingServiceInstance {
    *
    * @returns Resolves to processed LinkshorteningMessagingServiceInstance
    */
-  create(callback?: (error: Error | null, item?: LinkshorteningMessagingServiceInstance) => any): Promise<LinkshorteningMessagingServiceInstance>
-
-    {
+  create(
+    callback?: (
+      error: Error | null,
+      item?: LinkshorteningMessagingServiceInstance,
+    ) => any,
+  ): Promise<LinkshorteningMessagingServiceInstance> {
     return this._proxy.create(callback);
   }
 
@@ -229,9 +302,12 @@ export class LinkshorteningMessagingServiceInstance {
    *
    * @returns Resolves to processed LinkshorteningMessagingServiceInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<LinkshorteningMessagingServiceInstance>) => any): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>>
-
-    {
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
     return this._proxy.createWithHttpInfo(callback);
   }
 
@@ -242,9 +318,9 @@ export class LinkshorteningMessagingServiceInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -255,9 +331,9 @@ export class LinkshorteningMessagingServiceInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -279,22 +355,21 @@ export class LinkshorteningMessagingServiceInstance {
   }
 }
 
-
-export interface LinkshorteningMessagingServiceSolution {
-}
+export interface LinkshorteningMessagingServiceSolution {}
 
 export interface LinkshorteningMessagingServiceListInstance {
   _version: V1;
   _solution: LinkshorteningMessagingServiceSolution;
   _uri: string;
 
-  (domainSid: string, messagingServiceSid: string, ): LinkshorteningMessagingServiceContext;
-  get(domainSid: string, messagingServiceSid: string, ): LinkshorteningMessagingServiceContext;
-
-
-
-
-
+  (
+    domainSid: string,
+    messagingServiceSid: string,
+  ): LinkshorteningMessagingServiceContext;
+  get(
+    domainSid: string,
+    messagingServiceSid: string,
+  ): LinkshorteningMessagingServiceContext;
 
   /**
    * Provide a user-friendly representation
@@ -303,26 +378,40 @@ export interface LinkshorteningMessagingServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function LinkshorteningMessagingServiceListInstance(version: V1): LinkshorteningMessagingServiceListInstance {
-  const instance = ((domainSid, messagingServiceSid, ) => instance.get(domainSid, messagingServiceSid, )) as LinkshorteningMessagingServiceListInstance;
+export function LinkshorteningMessagingServiceListInstance(
+  version: V1,
+): LinkshorteningMessagingServiceListInstance {
+  const instance = ((domainSid, messagingServiceSid) =>
+    instance.get(
+      domainSid,
+      messagingServiceSid,
+    )) as LinkshorteningMessagingServiceListInstance;
 
-  instance.get = function get(domainSid, messagingServiceSid, ): LinkshorteningMessagingServiceContext {
-    return new LinkshorteningMessagingServiceContextImpl(version, domainSid, messagingServiceSid);
-  }
+  instance.get = function get(
+    domainSid,
+    messagingServiceSid,
+  ): LinkshorteningMessagingServiceContext {
+    return new LinkshorteningMessagingServiceContextImpl(
+      version,
+      domainSid,
+      messagingServiceSid,
+    );
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

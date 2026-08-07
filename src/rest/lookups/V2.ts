@@ -49,8 +49,7 @@ export default class V2 extends Version {
 
   /** Getter for lookupOverrides resource */
   get lookupOverrides(): LookupOverrideListInstance {
-    this._lookupOverrides =
-      this._lookupOverrides || LookupOverrideListInstance(this);
+    this._lookupOverrides = this._lookupOverrides || LookupOverrideListInstance(this);
     return this._lookupOverrides;
   }
 
@@ -71,4 +70,5 @@ export default class V2 extends Version {
     this._rateLimits = this._rateLimits || RateLimitListInstance(this);
     return this._rateLimits;
   }
+
 }

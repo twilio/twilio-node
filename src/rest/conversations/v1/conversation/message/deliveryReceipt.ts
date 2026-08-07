@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -22,27 +23,22 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
 /**
  * The message delivery status, can be `read`, `failed`, `delivered`, `undelivered`, `sent` or null.
  */
-export type DeliveryReceiptDeliveryStatus =
-  | "read"
-  | "failed"
-  | "delivered"
-  | "undelivered"
-  | "sent";
+export type DeliveryReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'undelivered'|'sent';
+
+
 
 /**
  * Options to pass to each
  */
 export interface DeliveryReceiptListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: DeliveryReceiptInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -54,24 +50,27 @@ export interface DeliveryReceiptListInstanceEachOptions {
  */
 export interface DeliveryReceiptListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface DeliveryReceiptListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 50. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface DeliveryReceiptContext {
+
   /**
    * Fetch a DeliveryReceiptInstance
    *
@@ -79,9 +78,7 @@ export interface DeliveryReceiptContext {
    *
    * @returns Resolves to processed DeliveryReceiptInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any
-  ): Promise<DeliveryReceiptInstance>;
+  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance>
 
   /**
    * Fetch a DeliveryReceiptInstance and return HTTP info
@@ -90,12 +87,7 @@ export interface DeliveryReceiptContext {
    *
    * @returns Resolves to processed DeliveryReceiptInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeliveryReceiptInstance>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DeliveryReceiptInstance>) => any): Promise<ApiResponse<DeliveryReceiptInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -105,105 +97,66 @@ export interface DeliveryReceiptContext {
 }
 
 export interface DeliveryReceiptContextSolution {
-  conversationSid: string;
-  messageSid: string;
-  sid: string;
+  "conversationSid": string;
+  "messageSid": string;
+  "sid": string;
 }
 
 export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   protected _solution: DeliveryReceiptContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    conversationSid: string,
-    messageSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, conversationSid: string, messageSid: string, sid: string) {
     if (!isValidPathParam(conversationSid)) {
-      throw new Error("Parameter 'conversationSid' is not valid.");
+      throw new Error('Parameter \'conversationSid\' is not valid.');
     }
 
     if (!isValidPathParam(messageSid)) {
-      throw new Error("Parameter 'messageSid' is not valid.");
+      throw new Error('Parameter \'messageSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { conversationSid, messageSid, sid };
+    this._solution = { conversationSid, messageSid, sid,  };
     this._uri = `/Conversations/${conversationSid}/Messages/${messageSid}/Receipts/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any
-  ): Promise<DeliveryReceiptInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new DeliveryReceiptInstance(operationVersion, payload, instance._solution.conversationSid, instance._solution.messageSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeliveryReceiptInstance(
-          operationVersion,
-          payload,
-          instance._solution.conversationSid,
-          instance._solution.messageSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeliveryReceiptInstance>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DeliveryReceiptInstance>) => any): Promise<ApiResponse<DeliveryReceiptInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<DeliveryReceiptResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<DeliveryReceiptInstance> => ({
-          ...response,
-          body: new DeliveryReceiptInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.messageSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<DeliveryReceiptResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<DeliveryReceiptInstance> => ({
+      ...response,
+      body: new DeliveryReceiptInstance(operationVersion, response.body, instance._solution.conversationSid, instance._solution.messageSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -220,8 +173,9 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   }
 }
 
-interface DeliveryReceiptPayload extends TwilioResponsePayload {
-  delivery_receipts: DeliveryReceiptResource[];
+
+  interface DeliveryReceiptPayload extends TwilioResponsePayload {
+    delivery_receipts: DeliveryReceiptResource[];
 }
 
 interface DeliveryReceiptResource {
@@ -242,26 +196,21 @@ export class DeliveryReceiptInstance {
   protected _solution: DeliveryReceiptContextSolution;
   protected _context?: DeliveryReceiptContext;
 
-  constructor(
-    protected _version: V1,
-    payload: DeliveryReceiptResource,
-    conversationSid: string,
-    messageSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.conversationSid = payload.conversation_sid;
-    this.sid = payload.sid;
-    this.messageSid = payload.message_sid;
-    this.channelMessageSid = payload.channel_message_sid;
-    this.participantSid = payload.participant_sid;
+  constructor(protected _version: V1, payload: DeliveryReceiptResource, conversationSid: string, messageSid: string, sid?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.conversationSid = (payload.conversation_sid);
+    this.sid = (payload.sid);
+    this.messageSid = (payload.message_sid);
+    this.channelMessageSid = (payload.channel_message_sid);
+    this.participantSid = (payload.participant_sid);
     this.status = payload.status;
     this.errorCode = deserialize.integer(payload.error_code);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { conversationSid, messageSid, sid: sid || this.sid };
+    this._solution = { conversationSid, messageSid, sid: sid,  };
   }
 
   /**
@@ -281,7 +230,7 @@ export class DeliveryReceiptInstance {
    */
   messageSid: string;
   /**
-   * A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc.
+   * A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc. 
    */
   channelMessageSid: string;
   /**
@@ -290,7 +239,7 @@ export class DeliveryReceiptInstance {
   participantSid: string;
   status: DeliveryReceiptDeliveryStatus;
   /**
-   * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,
+   * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status, 
    */
   errorCode: number;
   /**
@@ -307,14 +256,7 @@ export class DeliveryReceiptInstance {
   url: string;
 
   private get _proxy(): DeliveryReceiptContext {
-    this._context =
-      this._context ||
-      new DeliveryReceiptContextImpl(
-        this._version,
-        this._solution.conversationSid,
-        this._solution.messageSid,
-        this._solution.sid
-      );
+    this._context = this._context || new DeliveryReceiptContextImpl(this._version, this._solution.conversationSid, this._solution.messageSid, this._solution.sid);
     return this._context;
   }
 
@@ -325,9 +267,9 @@ export class DeliveryReceiptInstance {
    *
    * @returns Resolves to processed DeliveryReceiptInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any
-  ): Promise<DeliveryReceiptInstance> {
+  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -338,12 +280,9 @@ export class DeliveryReceiptInstance {
    *
    * @returns Resolves to processed DeliveryReceiptInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeliveryReceiptInstance>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DeliveryReceiptInstance>) => any): Promise<ApiResponse<DeliveryReceiptInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -373,6 +312,7 @@ export class DeliveryReceiptInstance {
   }
 }
 
+
 export interface DeliveryReceiptSolution {
   conversationSid: string;
   messageSid: string;
@@ -383,8 +323,12 @@ export interface DeliveryReceiptListInstance {
   _solution: DeliveryReceiptSolution;
   _uri: string;
 
-  (sid: string): DeliveryReceiptContext;
-  get(sid: string): DeliveryReceiptContext;
+  (sid: string, ): DeliveryReceiptContext;
+  get(sid: string, ): DeliveryReceiptContext;
+
+
+
+
 
   /**
    * Streams DeliveryReceiptInstance records from the API.
@@ -401,19 +345,8 @@ export interface DeliveryReceiptListInstance {
    * @param { DeliveryReceiptListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: DeliveryReceiptInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: DeliveryReceiptListInstanceEachOptions,
-    callback?: (
-      item: DeliveryReceiptInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
+  each(params: DeliveryReceiptListInstanceEachOptions, callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams DeliveryReceiptInstance records from the API with HTTP metadata captured per page.
    *
@@ -429,19 +362,8 @@ export interface DeliveryReceiptListInstance {
    * @param { DeliveryReceiptListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: DeliveryReceiptInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: DeliveryReceiptListInstanceEachOptions,
-    callback?: (
-      item: DeliveryReceiptInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: DeliveryReceiptListInstanceEachOptions, callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DeliveryReceiptInstance records from the API.
    *
@@ -450,10 +372,7 @@ export interface DeliveryReceiptListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DeliveryReceiptPage) => any
-  ): Promise<DeliveryReceiptPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
   /**
    * Retrieve a single target page of DeliveryReceiptInstance records from the API with HTTP metadata.
    *
@@ -462,13 +381,7 @@ export interface DeliveryReceiptListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DeliveryReceiptPage>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<DeliveryReceiptPage>) => any): Promise<ApiResponse<DeliveryReceiptPage>>;
   /**
    * Lists DeliveryReceiptInstance records from the API as a list.
    *
@@ -478,13 +391,8 @@ export interface DeliveryReceiptListInstance {
    * @param { DeliveryReceiptListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any
-  ): Promise<DeliveryReceiptInstance[]>;
-  list(
-    params: DeliveryReceiptListInstanceOptions,
-    callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any
-  ): Promise<DeliveryReceiptInstance[]>;
+  list(callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any): Promise<DeliveryReceiptInstance[]>;
+  list(params: DeliveryReceiptListInstanceOptions, callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any): Promise<DeliveryReceiptInstance[]>;
   /**
    * Lists DeliveryReceiptInstance records from the API as a list with HTTP metadata.
    *
@@ -496,19 +404,8 @@ export interface DeliveryReceiptListInstance {
    * @param { DeliveryReceiptListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DeliveryReceiptInstance[]>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptInstance[]>>;
-  listWithHttpInfo(
-    params: DeliveryReceiptListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DeliveryReceiptInstance[]>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DeliveryReceiptInstance[]>) => any): Promise<ApiResponse<DeliveryReceiptInstance[]>>;
+  listWithHttpInfo(params: DeliveryReceiptListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<DeliveryReceiptInstance[]>) => any): Promise<ApiResponse<DeliveryReceiptInstance[]>>;
   /**
    * Retrieve a single page of DeliveryReceiptInstance records from the API.
    *
@@ -520,13 +417,8 @@ export interface DeliveryReceiptListInstance {
    * @param { DeliveryReceiptListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: DeliveryReceiptPage) => any
-  ): Promise<DeliveryReceiptPage>;
-  page(
-    params: DeliveryReceiptListInstancePageOptions,
-    callback?: (error: Error | null, items: DeliveryReceiptPage) => any
-  ): Promise<DeliveryReceiptPage>;
+  page(callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
+  page(params: DeliveryReceiptListInstancePageOptions, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
   /**
    * Retrieve a single page of DeliveryReceiptInstance records from the API with HTTP metadata.
    *
@@ -538,19 +430,9 @@ export interface DeliveryReceiptListInstance {
    * @param { DeliveryReceiptListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DeliveryReceiptPage>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptPage>>;
-  pageWithHttpInfo(
-    params: DeliveryReceiptListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DeliveryReceiptPage>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DeliveryReceiptPage>) => any): Promise<ApiResponse<DeliveryReceiptPage>>;
+  pageWithHttpInfo(params: DeliveryReceiptListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<DeliveryReceiptPage>) => any): Promise<ApiResponse<DeliveryReceiptPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -559,40 +441,26 @@ export interface DeliveryReceiptListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DeliveryReceiptListInstance(
-  version: V1,
-  conversationSid: string,
-  messageSid: string
-): DeliveryReceiptListInstance {
+export function DeliveryReceiptListInstance(version: V1, conversationSid: string, messageSid: string): DeliveryReceiptListInstance {
   if (!isValidPathParam(conversationSid)) {
-    throw new Error("Parameter 'conversationSid' is not valid.");
+    throw new Error('Parameter \'conversationSid\' is not valid.');
   }
 
   if (!isValidPathParam(messageSid)) {
-    throw new Error("Parameter 'messageSid' is not valid.");
+    throw new Error('Parameter \'messageSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as DeliveryReceiptListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as DeliveryReceiptListInstance;
 
-  instance.get = function get(sid): DeliveryReceiptContext {
-    return new DeliveryReceiptContextImpl(
-      version,
-      conversationSid,
-      messageSid,
-      sid
-    );
-  };
+  instance.get = function get(sid, ): DeliveryReceiptContext {
+    return new DeliveryReceiptContextImpl(version, conversationSid, messageSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { conversationSid, messageSid };
+  instance._solution = { conversationSid, messageSid,  };
   instance._uri = `/Conversations/${conversationSid}/Messages/${messageSid}/Receipts`;
 
-  instance.page = function page(
-    params?:
-      | DeliveryReceiptListInstancePageOptions
-      | ((error: Error | null, items: DeliveryReceiptPage) => any),
-    callback?: (error: Error | null, items: DeliveryReceiptPage) => any
-  ): Promise<DeliveryReceiptPage> {
+  instance.page = function page(params?: DeliveryReceiptListInstancePageOptions | ((error: Error | null, items: DeliveryReceiptPage) => any), callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -602,62 +470,44 @@ export function DeliveryReceiptListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeliveryReceiptPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DeliveryReceiptPage) => any
-  ): Promise<DeliveryReceiptPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new DeliveryReceiptPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new DeliveryReceiptPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | DeliveryReceiptListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<DeliveryReceiptPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<DeliveryReceiptPage>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: DeliveryReceiptListInstancePageOptions | ((error: Error | null, items: ApiResponse<DeliveryReceiptPage>) => any), callback?: (error: Error | null, items: ApiResponse<DeliveryReceiptPage>) => any): Promise<ApiResponse<DeliveryReceiptPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -667,122 +517,94 @@ export function DeliveryReceiptListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DeliveryReceiptPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DeliveryReceiptPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<DeliveryReceiptPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new DeliveryReceiptPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<DeliveryReceiptPage>
-    ) => any
-  ): Promise<ApiResponse<DeliveryReceiptPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<DeliveryReceiptPage>) => any): Promise<ApiResponse<DeliveryReceiptPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<DeliveryReceiptPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new DeliveryReceiptPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<DeliveryReceiptPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new DeliveryReceiptPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class DeliveryReceiptPage extends Page<
-  V1,
-  DeliveryReceiptPayload,
-  DeliveryReceiptResource,
-  DeliveryReceiptInstance
-> {
-  /**
-   * Initialize the DeliveryReceiptPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: DeliveryReceiptSolution
-  ) {
+export class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {
+/**
+* Initialize the DeliveryReceiptPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DeliveryReceiptSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DeliveryReceiptInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DeliveryReceiptResource): DeliveryReceiptInstance {
+    /**
+    * Build an instance of DeliveryReceiptInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DeliveryReceiptResource): DeliveryReceiptInstance {
+
     return new DeliveryReceiptInstance(
-      this._version,
-      payload,
-      this._solution.conversationSid,
-      this._solution.messageSid
+    this._version,
+    payload,
+        this._solution.conversationSid,
+        this._solution.messageSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

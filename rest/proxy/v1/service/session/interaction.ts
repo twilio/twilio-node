@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -23,26 +22,43 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
-
 /**
  * The inbound resource status of the Interaction. Will always be `delivered` for messages and `in-progress` for calls.
  */
-export type InteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
+export type InteractionResourceStatus =
+  | "accepted"
+  | "answered"
+  | "busy"
+  | "canceled"
+  | "completed"
+  | "deleted"
+  | "delivered"
+  | "delivery-unknown"
+  | "failed"
+  | "in-progress"
+  | "initiated"
+  | "no-answer"
+  | "queued"
+  | "received"
+  | "receiving"
+  | "ringing"
+  | "scheduled"
+  | "sending"
+  | "sent"
+  | "undelivered"
+  | "unknown";
 
 /**
  * The Type of the Interaction. Can be: `message`, `voice` or `unknown`.
  */
-export type InteractionType = 'message'|'voice'|'unknown';
-
-
-
+export type InteractionType = "message" | "voice" | "unknown";
 
 /**
  * Options to pass to each
  */
 export interface InteractionListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: InteractionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,27 +72,24 @@ export interface InteractionListInstanceEachOptions {
  */
 export interface InteractionListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface InteractionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface InteractionContext {
-
   /**
    * Remove a InteractionInstance
    *
@@ -84,7 +97,9 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a InteractionInstance and return HTTP info
@@ -93,7 +108,9 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a InteractionInstance
@@ -102,7 +119,9 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
 
   /**
    * Fetch a InteractionInstance and return HTTP info
@@ -111,7 +130,12 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -121,97 +145,145 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  "serviceSid": string;
-  "sessionSid": string;
-  "sid": string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
   protected _solution: InteractionContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, serviceSid: string, sessionSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sessionSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error('Parameter \'serviceSid\' is not valid.');
+      throw new Error("Parameter 'serviceSid' is not valid.");
     }
 
     if (!isValidPathParam(sessionSid)) {
-      throw new Error('Parameter \'sessionSid\' is not valid.');
+      throw new Error("Parameter 'sessionSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { serviceSid, sessionSid, sid,  };
+    this._solution = { serviceSid, sessionSid, sid };
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Interactions/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sessionSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InteractionInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<InteractionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<InteractionInstance> => ({
-      ...response,
-      body: new InteractionInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.sessionSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InteractionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -228,9 +300,8 @@ export class InteractionContextImpl implements InteractionContext {
   }
 }
 
-
-  interface InteractionPayload extends TwilioResponsePayload {
-    interactions: InteractionResource[];
+interface InteractionPayload extends TwilioResponsePayload {
+  interactions: InteractionResource[];
 }
 
 interface InteractionResource {
@@ -259,29 +330,34 @@ export class InteractionInstance {
   protected _solution: InteractionContextSolution;
   protected _context?: InteractionContext;
 
-  constructor(protected _version: V1, payload: InteractionResource, serviceSid: string, sessionSid: string, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.sessionSid = (payload.session_sid);
-    this.serviceSid = (payload.service_sid);
-    this.accountSid = (payload.account_sid);
-    this.data = (payload.data);
+  constructor(
+    protected _version: V1,
+    payload: InteractionResource,
+    serviceSid: string,
+    sessionSid: string,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.sessionSid = payload.session_sid;
+    this.serviceSid = payload.service_sid;
+    this.accountSid = payload.account_sid;
+    this.data = payload.data;
     this.type = payload.type;
-    this.inboundParticipantSid = (payload.inbound_participant_sid);
-    this.inboundResourceSid = (payload.inbound_resource_sid);
+    this.inboundParticipantSid = payload.inbound_participant_sid;
+    this.inboundResourceSid = payload.inbound_resource_sid;
     this.inboundResourceStatus = payload.inbound_resource_status;
-    this.inboundResourceType = (payload.inbound_resource_type);
-    this.inboundResourceUrl = (payload.inbound_resource_url);
-    this.outboundParticipantSid = (payload.outbound_participant_sid);
-    this.outboundResourceSid = (payload.outbound_resource_sid);
+    this.inboundResourceType = payload.inbound_resource_type;
+    this.inboundResourceUrl = payload.inbound_resource_url;
+    this.outboundParticipantSid = payload.outbound_participant_sid;
+    this.outboundResourceSid = payload.outbound_resource_sid;
     this.outboundResourceStatus = payload.outbound_resource_status;
-    this.outboundResourceType = (payload.outbound_resource_type);
-    this.outboundResourceUrl = (payload.outbound_resource_url);
+    this.outboundResourceType = payload.outbound_resource_type;
+    this.outboundResourceUrl = payload.outbound_resource_url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { serviceSid, sessionSid, sid: sid,  };
+    this._solution = { serviceSid, sessionSid, sid: sid };
   }
 
   /**
@@ -353,7 +429,14 @@ export class InteractionInstance {
   url: string;
 
   private get _proxy(): InteractionContext {
-    this._context = this._context || new InteractionContextImpl(this._version, this._solution.serviceSid, this._solution.sessionSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new InteractionContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sessionSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -364,9 +447,9 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -377,9 +460,9 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -390,9 +473,9 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -403,9 +486,12 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -443,7 +529,6 @@ export class InteractionInstance {
   }
 }
 
-
 export interface InteractionSolution {
   serviceSid: string;
   sessionSid: string;
@@ -454,14 +539,8 @@ export interface InteractionListInstance {
   _solution: InteractionSolution;
   _uri: string;
 
-  (sid: string, ): InteractionContext;
-  get(sid: string, ): InteractionContext;
-
-
-
-
-
-
+  (sid: string): InteractionContext;
+  get(sid: string): InteractionContext;
 
   /**
    * Streams InteractionInstance records from the API.
@@ -478,8 +557,13 @@ export interface InteractionListInstance {
    * @param { InteractionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
-  each(params: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: InteractionInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: InteractionListInstanceEachOptions,
+    callback?: (item: InteractionInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams InteractionInstance records from the API with HTTP metadata captured per page.
    *
@@ -495,8 +579,13 @@ export interface InteractionListInstance {
    * @param { InteractionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: InteractionInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: InteractionListInstanceEachOptions,
+    callback?: (item: InteractionInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of InteractionInstance records from the API.
    *
@@ -505,7 +594,10 @@ export interface InteractionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: InteractionPage) => any,
+  ): Promise<InteractionPage>;
   /**
    * Retrieve a single target page of InteractionInstance records from the API with HTTP metadata.
    *
@@ -514,7 +606,13 @@ export interface InteractionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<InteractionPage>) => any): Promise<ApiResponse<InteractionPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionPage>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionPage>>;
   /**
    * Lists InteractionInstance records from the API as a list.
    *
@@ -524,8 +622,13 @@ export interface InteractionListInstance {
    * @param { InteractionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
-  list(params: InteractionListInstanceOptions, callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: InteractionInstance[]) => any,
+  ): Promise<InteractionInstance[]>;
+  list(
+    params: InteractionListInstanceOptions,
+    callback?: (error: Error | null, items: InteractionInstance[]) => any,
+  ): Promise<InteractionInstance[]>;
   /**
    * Lists InteractionInstance records from the API as a list with HTTP metadata.
    *
@@ -537,8 +640,19 @@ export interface InteractionListInstance {
    * @param { InteractionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InteractionInstance[]>) => any): Promise<ApiResponse<InteractionInstance[]>>;
-  listWithHttpInfo(params: InteractionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<InteractionInstance[]>) => any): Promise<ApiResponse<InteractionInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance[]>>;
+  listWithHttpInfo(
+    params: InteractionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance[]>>;
   /**
    * Retrieve a single page of InteractionInstance records from the API.
    *
@@ -550,8 +664,13 @@ export interface InteractionListInstance {
    * @param { InteractionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
-  page(params: InteractionListInstancePageOptions, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  page(
+    callback?: (error: Error | null, items: InteractionPage) => any,
+  ): Promise<InteractionPage>;
+  page(
+    params: InteractionListInstancePageOptions,
+    callback?: (error: Error | null, items: InteractionPage) => any,
+  ): Promise<InteractionPage>;
   /**
    * Retrieve a single page of InteractionInstance records from the API with HTTP metadata.
    *
@@ -563,9 +682,19 @@ export interface InteractionListInstance {
    * @param { InteractionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InteractionPage>) => any): Promise<ApiResponse<InteractionPage>>;
-  pageWithHttpInfo(params: InteractionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<InteractionPage>) => any): Promise<ApiResponse<InteractionPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionPage>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionPage>>;
+  pageWithHttpInfo(
+    params: InteractionListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionPage>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -574,26 +703,35 @@ export interface InteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InteractionListInstance(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance {
+export function InteractionListInstance(
+  version: V1,
+  serviceSid: string,
+  sessionSid: string,
+): InteractionListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error('Parameter \'serviceSid\' is not valid.');
+    throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
   if (!isValidPathParam(sessionSid)) {
-    throw new Error('Parameter \'sessionSid\' is not valid.');
+    throw new Error("Parameter 'sessionSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as InteractionListInstance;
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
 
-  instance.get = function get(sid, ): InteractionContext {
+  instance.get = function get(sid): InteractionContext {
     return new InteractionContextImpl(version, serviceSid, sessionSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { serviceSid, sessionSid,  };
+  instance._solution = { serviceSid, sessionSid };
   instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Interactions`;
 
-  instance.page = function page(params?: InteractionListInstancePageOptions | ((error: Error | null, items: InteractionPage) => any), callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage> {
+  instance.page = function page(
+    params?:
+      | InteractionListInstancePageOptions
+      | ((error: Error | null, items: InteractionPage) => any),
+    callback?: (error: Error | null, items: InteractionPage) => any,
+  ): Promise<InteractionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -603,44 +741,62 @@ export function InteractionListInstance(version: V1, serviceSid: string, session
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new InteractionPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InteractionPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new InteractionPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: InteractionPage) => any,
+  ): Promise<InteractionPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InteractionPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: InteractionListInstancePageOptions | ((error: Error | null, items: ApiResponse<InteractionPage>) => any), callback?: (error: Error | null, items: ApiResponse<InteractionPage>) => any): Promise<ApiResponse<InteractionPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | InteractionListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<InteractionPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionPage>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -650,94 +806,120 @@ export function InteractionListInstance(version: V1, serviceSid: string, session
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InteractionPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new InteractionPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<InteractionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InteractionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<InteractionPage>) => any): Promise<ApiResponse<InteractionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<InteractionPage>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<InteractionPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new InteractionPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<InteractionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InteractionPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {
-/**
-* Initialize the InteractionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: InteractionSolution) {
+export class InteractionPage extends Page<
+  V1,
+  InteractionPayload,
+  InteractionResource,
+  InteractionInstance
+> {
+  /**
+   * Initialize the InteractionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: InteractionSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of InteractionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: InteractionResource): InteractionInstance {
-
+  /**
+   * Build an instance of InteractionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: InteractionResource): InteractionInstance {
     return new InteractionInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.sessionSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.sessionSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

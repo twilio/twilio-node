@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -19,32 +20,30 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-export type VerificationAttemptsSummaryChannels =
-  | "sms"
-  | "call"
-  | "email"
-  | "whatsapp"
-  | "rbm";
+
+export type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp'|'rbm';
+
 
 /**
  * Options to pass to fetch a VerificationAttemptsSummaryInstance
  */
 export interface VerificationAttemptsSummaryContextFetchOptions {
   /** Filter used to consider only Verification Attempts of the given verify service on the summary aggregation. */
-  verifyServiceSid?: string;
+  "verifyServiceSid"?: string;
   /** Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation. */
-  country?: string;
+  "country"?: string;
   /** Filter Verification Attempts considered on the summary aggregation by communication channel. */
-  channel?: VerificationAttemptsSummaryChannels;
+  "channel"?: VerificationAttemptsSummaryChannels;
   /** Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format. */
-  destinationPrefix?: string;
+  "destinationPrefix"?: string;
 }
 
 export interface VerificationAttemptsSummaryContext {
+
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
@@ -52,12 +51,7 @@ export interface VerificationAttemptsSummaryContext {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: VerificationAttemptsSummaryInstance
-    ) => any
-  ): Promise<VerificationAttemptsSummaryInstance>;
+  fetch(callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
@@ -66,13 +60,7 @@ export interface VerificationAttemptsSummaryContext {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
-  fetch(
-    params: VerificationAttemptsSummaryContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: VerificationAttemptsSummaryInstance
-    ) => any
-  ): Promise<VerificationAttemptsSummaryInstance>;
+  fetch(params: VerificationAttemptsSummaryContextFetchOptions, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
 
   /**
    * Fetch a VerificationAttemptsSummaryInstance and return HTTP info
@@ -81,12 +69,7 @@ export interface VerificationAttemptsSummaryContext {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<VerificationAttemptsSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
   /**
    * Fetch a VerificationAttemptsSummaryInstance and return HTTP info
    *
@@ -95,13 +78,7 @@ export interface VerificationAttemptsSummaryContext {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: VerificationAttemptsSummaryContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<VerificationAttemptsSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
+  fetchWithHttpInfo(params: VerificationAttemptsSummaryContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -110,143 +87,104 @@ export interface VerificationAttemptsSummaryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationAttemptsSummaryContextSolution {}
+export interface VerificationAttemptsSummaryContextSolution {
+}
 
-export class VerificationAttemptsSummaryContextImpl
-  implements VerificationAttemptsSummaryContext
-{
+export class VerificationAttemptsSummaryContextImpl implements VerificationAttemptsSummaryContext {
   protected _solution: VerificationAttemptsSummaryContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2) {
-    this._solution = {};
+    this._solution = {  };
     this._uri = `/Attempts/Summary`;
   }
 
-  fetch(
-    params?:
-      | VerificationAttemptsSummaryContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: VerificationAttemptsSummaryInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: VerificationAttemptsSummaryInstance
-    ) => any
-  ): Promise<VerificationAttemptsSummaryInstance> {
-    if (params instanceof Function) {
+  fetch(params?: VerificationAttemptsSummaryContextFetchOptions | ((error: Error | null, item?: VerificationAttemptsSummaryInstance) => any),callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["verifyServiceSid"] !== undefined)
-      data["VerifyServiceSid"] = params["verifyServiceSid"];
+        if (params["verifyServiceSid"] !== undefined)
+    data["VerifyServiceSid"] = params["verifyServiceSid"];
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
-      );
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
-      );
-    if (params["country"] !== undefined) data["Country"] = params["country"];
-    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["country"] !== undefined)
+    data["Country"] = params["country"];
+    if (params["channel"] !== undefined)
+    data["Channel"] = params["channel"];
     if (params["destinationPrefix"] !== undefined)
-      data["DestinationPrefix"] = params["destinationPrefix"];
+    data["DestinationPrefix"] = params["destinationPrefix"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
+    
+    operationPromise = operationPromise.then(payload => new VerificationAttemptsSummaryInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new VerificationAttemptsSummaryInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    params?:
-      | VerificationAttemptsSummaryContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<VerificationAttemptsSummaryInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<VerificationAttemptsSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>> {
-    if (params instanceof Function) {
+  fetchWithHttpInfo(params?: VerificationAttemptsSummaryContextFetchOptions | ((error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any): Promise<ApiResponse<VerificationAttemptsSummaryInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["verifyServiceSid"] !== undefined)
-      data["VerifyServiceSid"] = params["verifyServiceSid"];
+        if (params["verifyServiceSid"] !== undefined)
+    data["VerifyServiceSid"] = params["verifyServiceSid"];
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
-      );
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
-      );
-    if (params["country"] !== undefined) data["Country"] = params["country"];
-    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["country"] !== undefined)
+    data["Country"] = params["country"];
+    if (params["channel"] !== undefined)
+    data["Channel"] = params["channel"];
     if (params["destinationPrefix"] !== undefined)
-      data["DestinationPrefix"] = params["destinationPrefix"];
+    data["DestinationPrefix"] = params["destinationPrefix"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<VerificationAttemptsSummaryResource>({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<VerificationAttemptsSummaryInstance> => ({
-          ...response,
-          body: new VerificationAttemptsSummaryInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<VerificationAttemptsSummaryResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<VerificationAttemptsSummaryInstance> => ({
+      ...response,
+      body: new VerificationAttemptsSummaryInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -263,8 +201,8 @@ export class VerificationAttemptsSummaryContextImpl
   }
 }
 
-interface VerificationAttemptsSummaryPayload
-  extends VerificationAttemptsSummaryResource {}
+
+  interface VerificationAttemptsSummaryPayload extends VerificationAttemptsSummaryResource {}
 
 interface VerificationAttemptsSummaryResource {
   total_attempts: number;
@@ -278,17 +216,15 @@ export class VerificationAttemptsSummaryInstance {
   protected _solution: VerificationAttemptsSummaryContextSolution;
   protected _context?: VerificationAttemptsSummaryContext;
 
-  constructor(
-    protected _version: V2,
-    payload: VerificationAttemptsSummaryResource
-  ) {
+  constructor(protected _version: V2, payload: VerificationAttemptsSummaryResource) {
+    
     this.totalAttempts = deserialize.integer(payload.total_attempts);
     this.totalConverted = deserialize.integer(payload.total_converted);
     this.totalUnconverted = deserialize.integer(payload.total_unconverted);
-    this.conversionRatePercentage = payload.conversion_rate_percentage;
-    this.url = payload.url;
+    this.conversionRatePercentage = (payload.conversion_rate_percentage);
+    this.url = (payload.url);
 
-    this._solution = {};
+    this._solution = {  };
   }
 
   /**
@@ -304,15 +240,13 @@ export class VerificationAttemptsSummaryInstance {
    */
   totalUnconverted: number;
   /**
-   * Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
+   * Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100. 
    */
   conversionRatePercentage: string;
   url: string;
 
   private get _proxy(): VerificationAttemptsSummaryContext {
-    this._context =
-      this._context ||
-      new VerificationAttemptsSummaryContextImpl(this._version);
+    this._context = this._context || new VerificationAttemptsSummaryContextImpl(this._version);
     return this._context;
   }
 
@@ -323,12 +257,7 @@ export class VerificationAttemptsSummaryInstance {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: VerificationAttemptsSummaryInstance
-    ) => any
-  ): Promise<VerificationAttemptsSummaryInstance>;
+  fetch(callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
@@ -337,21 +266,10 @@ export class VerificationAttemptsSummaryInstance {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
-  fetch(
-    params: VerificationAttemptsSummaryContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: VerificationAttemptsSummaryInstance
-    ) => any
-  ): Promise<VerificationAttemptsSummaryInstance>;
+  fetch(params: VerificationAttemptsSummaryContextFetchOptions, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: VerificationAttemptsSummaryInstance
-    ) => any
-  ): Promise<VerificationAttemptsSummaryInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -362,12 +280,7 @@ export class VerificationAttemptsSummaryInstance {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<VerificationAttemptsSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
   /**
    * Fetch a VerificationAttemptsSummaryInstance and return HTTP info
    *
@@ -376,21 +289,10 @@ export class VerificationAttemptsSummaryInstance {
    *
    * @returns Resolves to processed VerificationAttemptsSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: VerificationAttemptsSummaryContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<VerificationAttemptsSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
+  fetchWithHttpInfo(params: VerificationAttemptsSummaryContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>;
 
-  fetchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<VerificationAttemptsSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>> {
+    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<VerificationAttemptsSummaryInstance>) => any): Promise<ApiResponse<VerificationAttemptsSummaryInstance>>
+    {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -414,7 +316,9 @@ export class VerificationAttemptsSummaryInstance {
   }
 }
 
-export interface VerificationAttemptsSummarySolution {}
+
+export interface VerificationAttemptsSummarySolution {
+}
 
 export interface VerificationAttemptsSummaryListInstance {
   _version: V2;
@@ -424,6 +328,9 @@ export interface VerificationAttemptsSummaryListInstance {
   (): VerificationAttemptsSummaryContext;
   get(): VerificationAttemptsSummaryContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -431,30 +338,26 @@ export interface VerificationAttemptsSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function VerificationAttemptsSummaryListInstance(
-  version: V2
-): VerificationAttemptsSummaryListInstance {
-  const instance = (() =>
-    instance.get()) as VerificationAttemptsSummaryListInstance;
+export function VerificationAttemptsSummaryListInstance(version: V2): VerificationAttemptsSummaryListInstance {
+  const instance = (() => instance.get()) as VerificationAttemptsSummaryListInstance;
 
   instance.get = function get(): VerificationAttemptsSummaryContext {
     return new VerificationAttemptsSummaryContextImpl(version);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

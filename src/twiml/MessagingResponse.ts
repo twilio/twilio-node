@@ -49,18 +49,18 @@ class MessagingResponse extends TwiML {
   message(body: string): MessagingResponse.Message;
   message(
     attributes: MessagingResponse.MessageAttributes,
-    body: string
+    body: string,
   ): MessagingResponse.Message;
   message(
     attributes: MessagingResponse.MessageAttributes | string,
-    body?: string
+    body?: string,
   ): MessagingResponse.Message {
     if (typeof attributes === "string") {
       body = attributes;
       attributes = {};
     }
     return new MessagingResponse.Message(
-      this.response.ele("Message", attributes, body)
+      this.response.ele("Message", attributes, body),
     );
   }
   /**
@@ -72,18 +72,18 @@ class MessagingResponse extends TwiML {
   redirect(url: string): MessagingResponse.Redirect;
   redirect(
     attributes: MessagingResponse.RedirectAttributes,
-    url: string
+    url: string,
   ): MessagingResponse.Redirect;
   redirect(
     attributes: MessagingResponse.RedirectAttributes | string,
-    url?: string
+    url?: string,
   ): MessagingResponse.Redirect {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
     }
     return new MessagingResponse.Redirect(
-      this.response.ele("Redirect", attributes, url)
+      this.response.ele("Redirect", attributes, url),
     );
   }
 }
@@ -157,14 +157,14 @@ namespace MessagingResponse {
     body(attributes: object, message: string): MessagingResponse.Body;
     body(
       attributes: object | string,
-      message?: string
+      message?: string,
     ): MessagingResponse.Body {
       if (typeof attributes === "string") {
         message = attributes;
         attributes = {};
       }
       return new MessagingResponse.Body(
-        this.message.ele("Body", attributes, message)
+        this.message.ele("Body", attributes, message),
       );
     }
     /**
@@ -181,7 +181,7 @@ namespace MessagingResponse {
         attributes = {};
       }
       return new MessagingResponse.Media(
-        this.message.ele("Media", attributes, url)
+        this.message.ele("Media", attributes, url),
       );
     }
   }

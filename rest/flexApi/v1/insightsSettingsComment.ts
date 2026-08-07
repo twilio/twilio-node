@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,27 +19,21 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a InsightsSettingsCommentInstance
  */
 export interface InsightsSettingsCommentListInstanceFetchOptions {
   /** The Authorization HTTP request header */
-  "authorization"?: string;
+  authorization?: string;
 }
 
-
-export interface InsightsSettingsCommentSolution {
-}
+export interface InsightsSettingsCommentSolution {}
 
 export interface InsightsSettingsCommentListInstance {
   _version: V1;
   _solution: InsightsSettingsCommentSolution;
   _uri: string;
 
-
-
   /**
    * Fetch a InsightsSettingsCommentInstance
    *
@@ -48,7 +41,12 @@ export interface InsightsSettingsCommentListInstance {
    *
    * @returns Resolves to processed InsightsSettingsCommentInstance
    */
-  fetch(callback?: (error: Error | null, item?: InsightsSettingsCommentInstance) => any): Promise<InsightsSettingsCommentInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: InsightsSettingsCommentInstance,
+    ) => any,
+  ): Promise<InsightsSettingsCommentInstance>;
   /**
    * Fetch a InsightsSettingsCommentInstance
    *
@@ -57,7 +55,13 @@ export interface InsightsSettingsCommentListInstance {
    *
    * @returns Resolves to processed InsightsSettingsCommentInstance
    */
-  fetch(params: InsightsSettingsCommentListInstanceFetchOptions, callback?: (error: Error | null, item?: InsightsSettingsCommentInstance) => any): Promise<InsightsSettingsCommentInstance>;
+  fetch(
+    params: InsightsSettingsCommentListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: InsightsSettingsCommentInstance,
+    ) => any,
+  ): Promise<InsightsSettingsCommentInstance>;
 
   /**
    * Fetch a InsightsSettingsCommentInstance and return HTTP info
@@ -66,7 +70,12 @@ export interface InsightsSettingsCommentListInstance {
    *
    * @returns Resolves to processed InsightsSettingsCommentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InsightsSettingsCommentInstance>) => any): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSettingsCommentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
   /**
    * Fetch a InsightsSettingsCommentInstance and return HTTP info
    *
@@ -75,9 +84,13 @@ export interface InsightsSettingsCommentListInstance {
    *
    * @returns Resolves to processed InsightsSettingsCommentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: InsightsSettingsCommentListInstanceFetchOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsSettingsCommentInstance>) => any): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
-
-
+  fetchWithHttpInfo(
+    params: InsightsSettingsCommentListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InsightsSettingsCommentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -86,88 +99,123 @@ export interface InsightsSettingsCommentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsSettingsCommentListInstance(version: V1): InsightsSettingsCommentListInstance {
+export function InsightsSettingsCommentListInstance(
+  version: V1,
+): InsightsSettingsCommentListInstance {
   const instance = {} as InsightsSettingsCommentListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Insights/QualityManagement/Settings/CommentTags`;
 
-  instance.fetch = function fetch(params?: InsightsSettingsCommentListInstanceFetchOptions | ((error: Error | null, items: InsightsSettingsCommentInstance) => any), callback?: (error: Error | null, items: InsightsSettingsCommentInstance) => any): Promise<InsightsSettingsCommentInstance> {
+  instance.fetch = function fetch(
+    params?:
+      | InsightsSettingsCommentListInstanceFetchOptions
+      | ((error: Error | null, items: InsightsSettingsCommentInstance) => any),
+    callback?: (
+      error: Error | null,
+      items: InsightsSettingsCommentInstance,
+    ) => any,
+  ): Promise<InsightsSettingsCommentInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new InsightsSettingsCommentInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InsightsSettingsCommentInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(params?: InsightsSettingsCommentListInstanceFetchOptions | ((error: Error | null, items: ApiResponse<InsightsSettingsCommentInstance>) => any), callback?: (error: Error | null, items: ApiResponse<InsightsSettingsCommentInstance>) => any): Promise<ApiResponse<InsightsSettingsCommentInstance>> {
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | InsightsSettingsCommentListInstanceFetchOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<InsightsSettingsCommentInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InsightsSettingsCommentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InsightsSettingsCommentInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json";
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<InsightsSettingsCommentResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InsightsSettingsCommentInstance> => ({
-      ...response,
-      body: new InsightsSettingsCommentInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InsightsSettingsCommentResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<InsightsSettingsCommentInstance> => ({
+        ...response,
+        body: new InsightsSettingsCommentInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface InsightsSettingsCommentPayload extends InsightsSettingsCommentResource {}
+interface InsightsSettingsCommentPayload extends InsightsSettingsCommentResource {}
 
 interface InsightsSettingsCommentResource {
   account_sid: string;
@@ -176,13 +224,13 @@ interface InsightsSettingsCommentResource {
 }
 
 export class InsightsSettingsCommentInstance {
-
-  constructor(protected _version: V1, payload: InsightsSettingsCommentResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.comments = (payload.comments);
-    this.url = (payload.url);
-
+  constructor(
+    protected _version: V1,
+    payload: InsightsSettingsCommentResource,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.comments = payload.comments;
+    this.url = payload.url;
   }
 
   /**
@@ -209,5 +257,3 @@ export class InsightsSettingsCommentInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,27 +20,31 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
+
 /**
  * Options to pass to update a ModuleDataManagementInstance
  */
 export interface ModuleDataManagementContextUpdateOptions {
   /** A JSON object containing essential attributes that define a Listing. */
-  moduleInfo?: string;
+  "moduleInfo"?: string;
   /** A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable. */
-  description?: string;
+  "description"?: string;
   /** A JSON object for providing comprehensive information, instructions, and resources related to the Listing. */
-  documentation?: string;
+  "documentation"?: string;
   /** A JSON object describing the Listing\\\'s privacy and legal policies. The maximum file size for Policies is 5MB. */
-  policies?: string;
+  "policies"?: string;
   /** A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description. */
-  support?: string;
+  "support"?: string;
   /** A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more. */
-  configuration?: string;
+  "configuration"?: string;
   /** A JSON object for providing Listing\\\'s purchase options. */
-  pricing?: string;
+  "pricing"?: string;
 }
 
 export interface ModuleDataManagementContext {
+
   /**
    * Fetch a ModuleDataManagementInstance
    *
@@ -47,9 +52,7 @@ export interface ModuleDataManagementContext {
    *
    * @returns Resolves to processed ModuleDataManagementInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance>;
+  fetch(callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>
 
   /**
    * Fetch a ModuleDataManagementInstance and return HTTP info
@@ -58,12 +61,7 @@ export interface ModuleDataManagementContext {
    *
    * @returns Resolves to processed ModuleDataManagementInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>
 
   /**
    * Update a ModuleDataManagementInstance
@@ -72,9 +70,7 @@ export interface ModuleDataManagementContext {
    *
    * @returns Resolves to processed ModuleDataManagementInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance>;
+  update(callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>;
   /**
    * Update a ModuleDataManagementInstance
    *
@@ -83,10 +79,7 @@ export interface ModuleDataManagementContext {
    *
    * @returns Resolves to processed ModuleDataManagementInstance
    */
-  update(
-    params: ModuleDataManagementContextUpdateOptions,
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance>;
+  update(params: ModuleDataManagementContextUpdateOptions, callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>;
 
   /**
    * Update a ModuleDataManagementInstance and return HTTP info
@@ -95,12 +88,7 @@ export interface ModuleDataManagementContext {
    *
    * @returns Resolves to processed ModuleDataManagementInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>;
   /**
    * Update a ModuleDataManagementInstance and return HTTP info
    *
@@ -109,13 +97,7 @@ export interface ModuleDataManagementContext {
    *
    * @returns Resolves to processed ModuleDataManagementInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ModuleDataManagementContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>>;
+  updateWithHttpInfo(params: ModuleDataManagementContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -125,209 +107,149 @@ export interface ModuleDataManagementContext {
 }
 
 export interface ModuleDataManagementContextSolution {
-  sid: string;
+  "sid": string;
 }
 
-export class ModuleDataManagementContextImpl
-  implements ModuleDataManagementContext
-{
+export class ModuleDataManagementContextImpl implements ModuleDataManagementContext {
   protected _solution: ModuleDataManagementContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Listing/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ModuleDataManagementInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ModuleDataManagementInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ModuleDataManagementResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ModuleDataManagementInstance> => ({
-          ...response,
-          body: new ModuleDataManagementInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ModuleDataManagementResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ModuleDataManagementInstance> => ({
+      ...response,
+      body: new ModuleDataManagementInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ModuleDataManagementContextUpdateOptions
-      | ((error: Error | null, item?: ModuleDataManagementInstance) => any),
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance> {
-    if (params instanceof Function) {
+  update(params?: ModuleDataManagementContextUpdateOptions | ((error: Error | null, item?: ModuleDataManagementInstance) => any),callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["moduleInfo"] !== undefined)
-      data["ModuleInfo"] = params["moduleInfo"];
+    
+        if (params["moduleInfo"] !== undefined)
+    data["ModuleInfo"] = params["moduleInfo"];
     if (params["description"] !== undefined)
-      data["Description"] = params["description"];
+    data["Description"] = params["description"];
     if (params["documentation"] !== undefined)
-      data["Documentation"] = params["documentation"];
-    if (params["policies"] !== undefined) data["Policies"] = params["policies"];
-    if (params["support"] !== undefined) data["Support"] = params["support"];
+    data["Documentation"] = params["documentation"];
+    if (params["policies"] !== undefined)
+    data["Policies"] = params["policies"];
+    if (params["support"] !== undefined)
+    data["Support"] = params["support"];
     if (params["configuration"] !== undefined)
-      data["Configuration"] = params["configuration"];
-    if (params["pricing"] !== undefined) data["Pricing"] = params["pricing"];
+    data["Configuration"] = params["configuration"];
+    if (params["pricing"] !== undefined)
+    data["Pricing"] = params["pricing"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ModuleDataManagementInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ModuleDataManagementInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | ModuleDataManagementContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<ModuleDataManagementInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: ModuleDataManagementContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["moduleInfo"] !== undefined)
-      data["ModuleInfo"] = params["moduleInfo"];
+    
+        if (params["moduleInfo"] !== undefined)
+    data["ModuleInfo"] = params["moduleInfo"];
     if (params["description"] !== undefined)
-      data["Description"] = params["description"];
+    data["Description"] = params["description"];
     if (params["documentation"] !== undefined)
-      data["Documentation"] = params["documentation"];
-    if (params["policies"] !== undefined) data["Policies"] = params["policies"];
-    if (params["support"] !== undefined) data["Support"] = params["support"];
+    data["Documentation"] = params["documentation"];
+    if (params["policies"] !== undefined)
+    data["Policies"] = params["policies"];
+    if (params["support"] !== undefined)
+    data["Support"] = params["support"];
     if (params["configuration"] !== undefined)
-      data["Configuration"] = params["configuration"];
-    if (params["pricing"] !== undefined) data["Pricing"] = params["pricing"];
+    data["Configuration"] = params["configuration"];
+    if (params["pricing"] !== undefined)
+    data["Pricing"] = params["pricing"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ModuleDataManagementResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ModuleDataManagementInstance> => ({
-          ...response,
-          body: new ModuleDataManagementInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ModuleDataManagementResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ModuleDataManagementInstance> => ({
+      ...response,
+      body: new ModuleDataManagementInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -344,7 +266,8 @@ export class ModuleDataManagementContextImpl
   }
 }
 
-interface ModuleDataManagementPayload extends ModuleDataManagementResource {}
+
+  interface ModuleDataManagementPayload extends ModuleDataManagementResource {}
 
 interface ModuleDataManagementResource {
   url: string;
@@ -363,23 +286,20 @@ export class ModuleDataManagementInstance {
   protected _solution: ModuleDataManagementContextSolution;
   protected _context?: ModuleDataManagementContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ModuleDataManagementResource,
-    sid?: string
-  ) {
-    this.url = payload.url;
-    this.sid = payload.sid;
-    this.description = payload.description;
-    this.support = payload.support;
-    this.policies = payload.policies;
-    this.moduleInfo = payload.module_info;
-    this.documentation = payload.documentation;
-    this.configuration = payload.configuration;
-    this.pricing = payload.pricing;
-    this.listings = payload.listings;
+  constructor(protected _version: V1, payload: ModuleDataManagementResource, sid?: string) {
+    
+    this.url = (payload.url);
+    this.sid = (payload.sid);
+    this.description = (payload.description);
+    this.support = (payload.support);
+    this.policies = (payload.policies);
+    this.moduleInfo = (payload.module_info);
+    this.documentation = (payload.documentation);
+    this.configuration = (payload.configuration);
+    this.pricing = (payload.pricing);
+    this.listings = (payload.listings);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -419,14 +339,12 @@ export class ModuleDataManagementInstance {
    */
   pricing: Record<string, object>;
   /**
-   *
+   * 
    */
   listings: Array<Record<string, object>>;
 
   private get _proxy(): ModuleDataManagementContext {
-    this._context =
-      this._context ||
-      new ModuleDataManagementContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new ModuleDataManagementContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -437,9 +355,9 @@ export class ModuleDataManagementInstance {
    *
    * @returns Resolves to processed ModuleDataManagementInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance> {
+  fetch(callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -450,12 +368,9 @@ export class ModuleDataManagementInstance {
    *
    * @returns Resolves to processed ModuleDataManagementInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -466,9 +381,7 @@ export class ModuleDataManagementInstance {
    *
    * @returns Resolves to processed ModuleDataManagementInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance>;
+  update(callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>;
   /**
    * Update a ModuleDataManagementInstance
    *
@@ -477,15 +390,10 @@ export class ModuleDataManagementInstance {
    *
    * @returns Resolves to processed ModuleDataManagementInstance
    */
-  update(
-    params: ModuleDataManagementContextUpdateOptions,
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance>;
+  update(params: ModuleDataManagementContextUpdateOptions, callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
-  ): Promise<ModuleDataManagementInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any): Promise<ModuleDataManagementInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -496,12 +404,7 @@ export class ModuleDataManagementInstance {
    *
    * @returns Resolves to processed ModuleDataManagementInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>;
   /**
    * Update a ModuleDataManagementInstance and return HTTP info
    *
@@ -510,21 +413,10 @@ export class ModuleDataManagementInstance {
    *
    * @returns Resolves to processed ModuleDataManagementInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ModuleDataManagementContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>>;
+  updateWithHttpInfo(params: ModuleDataManagementContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataManagementInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataManagementInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ModuleDataManagementInstance>) => any): Promise<ApiResponse<ModuleDataManagementInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -553,15 +445,22 @@ export class ModuleDataManagementInstance {
   }
 }
 
-export interface ModuleDataManagementSolution {}
+
+export interface ModuleDataManagementSolution {
+}
 
 export interface ModuleDataManagementListInstance {
   _version: V1;
   _solution: ModuleDataManagementSolution;
   _uri: string;
 
-  (sid: string): ModuleDataManagementContext;
-  get(sid: string): ModuleDataManagementContext;
+  (sid: string, ): ModuleDataManagementContext;
+  get(sid: string, ): ModuleDataManagementContext;
+
+
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -570,30 +469,26 @@ export interface ModuleDataManagementListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ModuleDataManagementListInstance(
-  version: V1
-): ModuleDataManagementListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as ModuleDataManagementListInstance;
+export function ModuleDataManagementListInstance(version: V1): ModuleDataManagementListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as ModuleDataManagementListInstance;
 
-  instance.get = function get(sid): ModuleDataManagementContext {
+  instance.get = function get(sid, ): ModuleDataManagementContext {
     return new ModuleDataManagementContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

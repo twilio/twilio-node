@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -19,18 +20,21 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
 /**
  * Reported outcome indicating whether there is confirmation that the Message recipient performed a tracked user action. Can be: `unconfirmed` or `confirmed`. For more details see [How to Optimize Message Deliverability with Message Feedback](https://www.twilio.com/docs/messaging/guides/send-message-feedback-to-twilio).
  */
-export type FeedbackOutcome = "confirmed" | "unconfirmed";
+export type FeedbackOutcome = 'confirmed'|'unconfirmed';
+
 
 /**
  * Options to pass to create a FeedbackInstance
  */
 export interface FeedbackListInstanceCreateOptions {
   /**  */
-  outcome?: FeedbackOutcome;
+  "outcome"?: FeedbackOutcome;
 }
+
 
 export interface FeedbackSolution {
   accountSid: string;
@@ -42,6 +46,8 @@ export interface FeedbackListInstance {
   _solution: FeedbackSolution;
   _uri: string;
 
+
+
   /**
    * Create a FeedbackInstance
    *
@@ -49,9 +55,7 @@ export interface FeedbackListInstance {
    *
    * @returns Resolves to processed FeedbackInstance
    */
-  create(
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
-  ): Promise<FeedbackInstance>;
+  create(callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
   /**
    * Create a FeedbackInstance
    *
@@ -60,10 +64,7 @@ export interface FeedbackListInstance {
    *
    * @returns Resolves to processed FeedbackInstance
    */
-  create(
-    params: FeedbackListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
-  ): Promise<FeedbackInstance>;
+  create(params: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
 
   /**
    * Create a FeedbackInstance and return HTTP info
@@ -72,12 +73,7 @@ export interface FeedbackListInstance {
    *
    * @returns Resolves to processed FeedbackInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<FeedbackInstance>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FeedbackInstance>) => any): Promise<ApiResponse<FeedbackInstance>>;
   /**
    * Create a FeedbackInstance and return HTTP info
    *
@@ -86,13 +82,9 @@ export interface FeedbackListInstance {
    *
    * @returns Resolves to processed FeedbackInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: FeedbackListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<FeedbackInstance>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance>>;
+  createWithHttpInfo(params: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<FeedbackInstance>) => any): Promise<ApiResponse<FeedbackInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -101,138 +93,100 @@ export interface FeedbackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function FeedbackListInstance(
-  version: V2010,
-  accountSid: string,
-  messageSid: string
-): FeedbackListInstance {
+export function FeedbackListInstance(version: V2010, accountSid: string, messageSid: string): FeedbackListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(messageSid)) {
-    throw new Error("Parameter 'messageSid' is not valid.");
+    throw new Error('Parameter \'messageSid\' is not valid.');
   }
 
   const instance = {} as FeedbackListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid, messageSid };
+  instance._solution = { accountSid, messageSid,  };
   instance._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Feedback.json`;
 
-  instance.create = function create(
-    params?:
-      | FeedbackListInstanceCreateOptions
-      | ((error: Error | null, items: FeedbackInstance) => any),
-    callback?: (error: Error | null, items: FeedbackInstance) => any
-  ): Promise<FeedbackInstance> {
+  instance.create = function create(params?: FeedbackListInstanceCreateOptions | ((error: Error | null, items: FeedbackInstance) => any), callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["outcome"] !== undefined) data["Outcome"] = params["outcome"];
+    
+        if (params["outcome"] !== undefined)
+    data["Outcome"] = params["outcome"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.messageSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FeedbackInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.messageSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | FeedbackListInstanceCreateOptions
-      | ((error: Error | null, items: ApiResponse<FeedbackInstance>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<FeedbackInstance>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: FeedbackListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<FeedbackInstance>) => any), callback?: (error: Error | null, items: ApiResponse<FeedbackInstance>) => any): Promise<ApiResponse<FeedbackInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["outcome"] !== undefined) data["Outcome"] = params["outcome"];
+    
+        if (params["outcome"] !== undefined)
+    data["Outcome"] = params["outcome"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<FeedbackResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<FeedbackInstance> => ({
-          ...response,
-          body: new FeedbackInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.messageSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<FeedbackResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<FeedbackInstance> => ({
+      ...response,
+      body: new FeedbackInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.messageSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface FeedbackPayload extends FeedbackResource {}
+  interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
   account_sid: string;
@@ -244,18 +198,16 @@ interface FeedbackResource {
 }
 
 export class FeedbackInstance {
-  constructor(
-    protected _version: V2010,
-    payload: FeedbackResource,
-    accountSid: string,
-    messageSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.messageSid = payload.message_sid;
+
+  constructor(protected _version: V2010, payload: FeedbackResource, accountSid: string, messageSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.messageSid = (payload.message_sid);
     this.outcome = payload.outcome;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.uri = payload.uri;
+    this.uri = (payload.uri);
+
   }
 
   /**
@@ -300,3 +252,5 @@ export class FeedbackInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

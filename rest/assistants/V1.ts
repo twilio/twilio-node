@@ -70,5 +70,4 @@ export default class V1 extends Version {
     this._tools = this._tools || ToolListInstance(this);
     return this._tools;
   }
-
 }

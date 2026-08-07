@@ -42,7 +42,7 @@ export default class TokenPage<
   TVersion extends Version,
   TPayload extends TokenPaginationPayload,
   TResource,
-  TInstance
+  TInstance,
 > {
   instances: TInstance[];
   protected _version: TVersion;
@@ -65,7 +65,7 @@ export default class TokenPage<
     response: Response<string | TPayload>,
     uri: string,
     data: Record<string, any> = {},
-    solution: Solution = {}
+    solution: Solution = {},
   ) {
     const payload = this.processResponse(response);
 
@@ -109,7 +109,7 @@ export default class TokenPage<
       return payload[payload.meta.key];
     }
     throw new Error(
-      "Token pagination requires meta.key to be present in response"
+      "Token pagination requires meta.key to be present in response",
     );
   }
 
@@ -121,7 +121,7 @@ export default class TokenPage<
    */
   getInstance(payload: TResource): TInstance {
     throw new Error(
-      "TokenPage.getInstance() must be implemented in the derived class"
+      "TokenPage.getInstance() must be implemented in the derived class",
     );
   }
 
@@ -212,7 +212,7 @@ export default class TokenPage<
    * @returns promise that resolves to the page or undefined if no token exists
    */
   private _getPage(
-    token: string | undefined
+    token: string | undefined,
   ): Promise<TokenPage<TVersion, TPayload, TResource, TInstance>> | undefined {
     if (!token) {
       return undefined;
@@ -236,7 +236,7 @@ export default class TokenPage<
         response,
         this._uri,
         this._params,
-        this._solution
+        this._solution,
       );
     });
   }
@@ -249,8 +249,7 @@ export default class TokenPage<
    * or undefined if there isn't a nextToken.
    */
   nextPage():
-    | Promise<TokenPage<TVersion, TPayload, TResource, TInstance>>
-    | undefined {
+    Promise<TokenPage<TVersion, TPayload, TResource, TInstance>> | undefined {
     return this._getPage(this.nextToken);
   }
 
@@ -262,8 +261,7 @@ export default class TokenPage<
    * or undefined if there isn't a previousToken.
    */
   previousPage():
-    | Promise<TokenPage<TVersion, TPayload, TResource, TInstance>>
-    | undefined {
+    Promise<TokenPage<TVersion, TPayload, TResource, TInstance>> | undefined {
     return this._getPage(this.previousToken);
   }
 }

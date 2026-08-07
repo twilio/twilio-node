@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
@@ -19,15 +20,18 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to fetch a WorkflowRealTimeStatisticsInstance
  */
 export interface WorkflowRealTimeStatisticsContextFetchOptions {
   /** Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  taskChannel?: string;
+  "taskChannel"?: string;
 }
 
 export interface WorkflowRealTimeStatisticsContext {
+
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
@@ -35,12 +39,7 @@ export interface WorkflowRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
@@ -49,13 +48,7 @@ export interface WorkflowRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
-  fetch(
-    params: WorkflowRealTimeStatisticsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
+  fetch(params: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
 
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
@@ -64,12 +57,7 @@ export interface WorkflowRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-    ) => any
-  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
    *
@@ -78,13 +66,7 @@ export interface WorkflowRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: WorkflowRealTimeStatisticsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-    ) => any
-  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(params: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -94,140 +76,93 @@ export interface WorkflowRealTimeStatisticsContext {
 }
 
 export interface WorkflowRealTimeStatisticsContextSolution {
-  workspaceSid: string;
-  workflowSid: string;
+  "workspaceSid": string;
+  "workflowSid": string;
 }
 
-export class WorkflowRealTimeStatisticsContextImpl
-  implements WorkflowRealTimeStatisticsContext
-{
+export class WorkflowRealTimeStatisticsContextImpl implements WorkflowRealTimeStatisticsContext {
   protected _solution: WorkflowRealTimeStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    workspaceSid: string,
-    workflowSid: string
-  ) {
+
+  constructor(protected _version: V1, workspaceSid: string, workflowSid: string) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error("Parameter 'workspaceSid' is not valid.");
+      throw new Error('Parameter \'workspaceSid\' is not valid.');
     }
 
     if (!isValidPathParam(workflowSid)) {
-      throw new Error("Parameter 'workflowSid' is not valid.");
+      throw new Error('Parameter \'workflowSid\' is not valid.');
     }
 
-    this._solution = { workspaceSid, workflowSid };
+    this._solution = { workspaceSid, workflowSid,  };
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
   }
 
-  fetch(
-    params?:
-      | WorkflowRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkflowRealTimeStatisticsInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance> {
-    if (params instanceof Function) {
+  fetch(params?: WorkflowRealTimeStatisticsContextFetchOptions | ((error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any),callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["taskChannel"] !== undefined)
-      data["TaskChannel"] = params["taskChannel"];
+        if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
+    
+    operationPromise = operationPromise.then(payload => new WorkflowRealTimeStatisticsInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.workflowSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkflowRealTimeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    params?:
-      | WorkflowRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-    ) => any
-  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
-    if (params instanceof Function) {
+  fetchWithHttpInfo(params?: WorkflowRealTimeStatisticsContextFetchOptions | ((error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["taskChannel"] !== undefined)
-      data["TaskChannel"] = params["taskChannel"];
+        if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<WorkflowRealTimeStatisticsResource>({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<WorkflowRealTimeStatisticsInstance> => ({
-          ...response,
-          body: new WorkflowRealTimeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.workflowSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<WorkflowRealTimeStatisticsResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<WorkflowRealTimeStatisticsInstance> => ({
+      ...response,
+      body: new WorkflowRealTimeStatisticsInstance(operationVersion, response.body, instance._solution.workspaceSid, instance._solution.workflowSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -244,8 +179,8 @@ export class WorkflowRealTimeStatisticsContextImpl
   }
 }
 
-interface WorkflowRealTimeStatisticsPayload
-  extends WorkflowRealTimeStatisticsResource {}
+
+  interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource {}
 
 interface WorkflowRealTimeStatisticsResource {
   account_sid: string;
@@ -263,25 +198,19 @@ export class WorkflowRealTimeStatisticsInstance {
   protected _solution: WorkflowRealTimeStatisticsContextSolution;
   protected _context?: WorkflowRealTimeStatisticsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: WorkflowRealTimeStatisticsResource,
-    workspaceSid: string,
-    workflowSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.longestTaskWaitingAge = deserialize.integer(
-      payload.longest_task_waiting_age
-    );
-    this.longestTaskWaitingSid = payload.longest_task_waiting_sid;
-    this.tasksByPriority = payload.tasks_by_priority;
-    this.tasksByStatus = payload.tasks_by_status;
+  constructor(protected _version: V1, payload: WorkflowRealTimeStatisticsResource, workspaceSid: string, workflowSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.longestTaskWaitingAge = deserialize.integer(payload.longest_task_waiting_age);
+    this.longestTaskWaitingSid = (payload.longest_task_waiting_sid);
+    this.tasksByPriority = (payload.tasks_by_priority);
+    this.tasksByStatus = (payload.tasks_by_status);
     this.totalTasks = deserialize.integer(payload.total_tasks);
-    this.workflowSid = payload.workflow_sid;
-    this.workspaceSid = payload.workspace_sid;
-    this.url = payload.url;
+    this.workflowSid = (payload.workflow_sid);
+    this.workspaceSid = (payload.workspace_sid);
+    this.url = (payload.url);
 
-    this._solution = { workspaceSid, workflowSid };
+    this._solution = { workspaceSid, workflowSid,  };
   }
 
   /**
@@ -322,13 +251,7 @@ export class WorkflowRealTimeStatisticsInstance {
   url: string;
 
   private get _proxy(): WorkflowRealTimeStatisticsContext {
-    this._context =
-      this._context ||
-      new WorkflowRealTimeStatisticsContextImpl(
-        this._version,
-        this._solution.workspaceSid,
-        this._solution.workflowSid
-      );
+    this._context = this._context || new WorkflowRealTimeStatisticsContextImpl(this._version, this._solution.workspaceSid, this._solution.workflowSid);
     return this._context;
   }
 
@@ -339,12 +262,7 @@ export class WorkflowRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
@@ -353,21 +271,10 @@ export class WorkflowRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
-  fetch(
-    params: WorkflowRealTimeStatisticsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
+  fetch(params: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -378,12 +285,7 @@ export class WorkflowRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-    ) => any
-  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance and return HTTP info
    *
@@ -392,21 +294,10 @@ export class WorkflowRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkflowRealTimeStatisticsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: WorkflowRealTimeStatisticsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-    ) => any
-  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
+  fetchWithHttpInfo(params: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>;
 
-  fetchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<WorkflowRealTimeStatisticsInstance>
-    ) => any
-  ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
+    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<WorkflowRealTimeStatisticsInstance>) => any): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>>
+    {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -434,6 +325,7 @@ export class WorkflowRealTimeStatisticsInstance {
   }
 }
 
+
 export interface WorkflowRealTimeStatisticsSolution {
   workspaceSid: string;
   workflowSid: string;
@@ -447,6 +339,9 @@ export interface WorkflowRealTimeStatisticsListInstance {
   (): WorkflowRealTimeStatisticsContext;
   get(): WorkflowRealTimeStatisticsContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -454,44 +349,34 @@ export interface WorkflowRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function WorkflowRealTimeStatisticsListInstance(
-  version: V1,
-  workspaceSid: string,
-  workflowSid: string
-): WorkflowRealTimeStatisticsListInstance {
+export function WorkflowRealTimeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error("Parameter 'workspaceSid' is not valid.");
+    throw new Error('Parameter \'workspaceSid\' is not valid.');
   }
 
   if (!isValidPathParam(workflowSid)) {
-    throw new Error("Parameter 'workflowSid' is not valid.");
+    throw new Error('Parameter \'workflowSid\' is not valid.');
   }
 
-  const instance = (() =>
-    instance.get()) as WorkflowRealTimeStatisticsListInstance;
+  const instance = (() => instance.get()) as WorkflowRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkflowRealTimeStatisticsContext {
-    return new WorkflowRealTimeStatisticsContextImpl(
-      version,
-      workspaceSid,
-      workflowSid
-    );
-  };
+    return new WorkflowRealTimeStatisticsContextImpl(version, workspaceSid, workflowSid);
+  }
 
   instance._version = version;
-  instance._solution = { workspaceSid, workflowSid };
+  instance._solution = { workspaceSid, workflowSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -20,45 +19,54 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
-
 /**
  * Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
  */
-export type PaymentBankAccountType = 'consumer-checking'|'consumer-savings'|'commercial-checking';
+export type PaymentBankAccountType =
+  "consumer-checking" | "consumer-savings" | "commercial-checking";
 
 /**
  * The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, `bank-account-number`, or their `-matcher` variants for input confirmation when `RequireMatchingInputs` is enabled.
  */
-export type PaymentCapture = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'bank-routing-number'|'bank-account-number'|'payment-card-number-matcher'|'expiration-date-matcher'|'security-code-matcher'|'postal-code-matcher';
+export type PaymentCapture =
+  | "payment-card-number"
+  | "expiration-date"
+  | "security-code"
+  | "postal-code"
+  | "bank-routing-number"
+  | "bank-account-number"
+  | "payment-card-number-matcher"
+  | "expiration-date-matcher"
+  | "security-code-matcher"
+  | "postal-code-matcher";
 
 /**
  * Type of payment being captured. One of `credit-card` or `ach-debit`. The default value is `credit-card`.
  */
-export type PaymentPaymentMethod = 'credit-card'|'ach-debit';
+export type PaymentPaymentMethod = "credit-card" | "ach-debit";
 
 /**
  * Indicates whether the current payment session should be cancelled or completed. When `cancel` the payment session is cancelled. When `complete`, Twilio sends the payment information to the selected Pay Connector for processing.
  */
-export type PaymentStatus = 'complete'|'cancel';
+export type PaymentStatus = "complete" | "cancel";
 
 /**
  * Indicates whether the payment method should be tokenized as a `one-time`, `reusable`, or `payment-method` token. The default value is `reusable`. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized.
  */
-export type PaymentTokenType = 'one-time'|'reusable'|'payment-method';
-
+export type PaymentTokenType = "one-time" | "reusable" | "payment-method";
 
 /**
  * Options to pass to update a PaymentInstance
  */
 export interface PaymentContextUpdateOptions {
   /** A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. */
-  "idempotencyKey": string;
+  idempotencyKey: string;
   /** Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests. */
-  "statusCallback": string;
+  statusCallback: string;
   /**  */
-  "capture"?: PaymentCapture;
+  capture?: PaymentCapture;
   /**  */
-  "status"?: PaymentStatus;
+  status?: PaymentStatus;
 }
 
 /**
@@ -66,45 +74,44 @@ export interface PaymentContextUpdateOptions {
  */
 export interface PaymentListInstanceCreateOptions {
   /** A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. */
-  "idempotencyKey": string;
+  idempotencyKey: string;
   /** Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback) */
-  "statusCallback": string;
+  statusCallback: string;
   /**  */
-  "bankAccountType"?: PaymentBankAccountType;
+  bankAccountType?: PaymentBankAccountType;
   /** A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize. */
-  "chargeAmount"?: number;
+  chargeAmount?: number;
   /** The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted. */
-  "currency"?: string;
+  currency?: string;
   /** The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions. */
-  "description"?: string;
+  description?: string;
   /** A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs. */
-  "input"?: string;
+  input?: string;
   /** A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits. */
-  "minPostalCodeLength"?: number;
+  minPostalCodeLength?: number;
   /** A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors). */
-  "parameter"?: any;
+  parameter?: any;
   /** This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`. */
-  "paymentConnector"?: string;
+  paymentConnector?: string;
   /**  */
-  "paymentMethod"?: PaymentPaymentMethod;
+  paymentMethod?: PaymentPaymentMethod;
   /** Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`. */
-  "postalCode"?: boolean;
+  postalCode?: boolean;
   /** Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`. */
-  "securityCode"?: boolean;
+  securityCode?: boolean;
   /** The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`. */
-  "timeout"?: number;
+  timeout?: number;
   /**  */
-  "tokenType"?: PaymentTokenType;
+  tokenType?: PaymentTokenType;
   /** Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex` */
-  "validCardTypes"?: string;
+  validCardTypes?: string;
   /** A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`. */
-  "requireMatchingInputs"?: string;
+  requireMatchingInputs?: string;
   /** Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`. */
-  "confirmation"?: string;
+  confirmation?: string;
 }
 
 export interface PaymentContext {
-
   /**
    * Update a PaymentInstance
    *
@@ -113,7 +120,10 @@ export interface PaymentContext {
    *
    * @returns Resolves to processed PaymentInstance
    */
-  update(params: PaymentContextUpdateOptions, callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance>;
+  update(
+    params: PaymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
+  ): Promise<PaymentInstance>;
 
   /**
    * Update a PaymentInstance and return HTTP info
@@ -123,7 +133,13 @@ export interface PaymentContext {
    *
    * @returns Resolves to processed PaymentInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: PaymentContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any): Promise<ApiResponse<PaymentInstance>>;
+  updateWithHttpInfo(
+    params: PaymentContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PaymentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -133,122 +149,169 @@ export interface PaymentContext {
 }
 
 export interface PaymentContextSolution {
-  "accountSid": string;
-  "callSid": string;
-  "sid": string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class PaymentContextImpl implements PaymentContext {
   protected _solution: PaymentContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, callSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    callSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error('Parameter \'accountSid\' is not valid.');
+      throw new Error("Parameter 'accountSid' is not valid.");
     }
 
     if (!isValidPathParam(callSid)) {
-      throw new Error('Parameter \'callSid\' is not valid.');
+      throw new Error("Parameter 'callSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { accountSid, callSid, sid,  };
+    this._solution = { accountSid, callSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments/${sid}.json`;
   }
 
-  update(params: PaymentContextUpdateOptions,callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance> {
-      if (params === null || params === undefined) {
+  update(
+    params: PaymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
+  ): Promise<PaymentInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["idempotencyKey"] === null || params["idempotencyKey"] === undefined) {
-      throw new Error('Required parameter "params[\'idempotencyKey\']" missing.');
+    if (
+      params["idempotencyKey"] === null ||
+      params["idempotencyKey"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['idempotencyKey']\" missing.",
+      );
     }
 
-    if (params["statusCallback"] === null || params["statusCallback"] === undefined) {
-      throw new Error('Required parameter "params[\'statusCallback\']" missing.');
+    if (
+      params["statusCallback"] === null ||
+      params["statusCallback"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['statusCallback']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["IdempotencyKey"] = params["idempotencyKey"];
-    
-    data["StatusCallback"] = params["statusCallback"];
-    if (params["capture"] !== undefined)
-    data["Capture"] = params["capture"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
 
-    
-    
-    
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["capture"] !== undefined) data["Capture"] = params["capture"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new PaymentInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PaymentInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params: PaymentContextUpdateOptions,callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any): Promise<ApiResponse<PaymentInstance>> {
-      if (params === null || params === undefined) {
+  updateWithHttpInfo(
+    params: PaymentContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PaymentInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["idempotencyKey"] === null || params["idempotencyKey"] === undefined) {
-      throw new Error('Required parameter "params[\'idempotencyKey\']" missing.');
+    if (
+      params["idempotencyKey"] === null ||
+      params["idempotencyKey"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['idempotencyKey']\" missing.",
+      );
     }
 
-    if (params["statusCallback"] === null || params["statusCallback"] === undefined) {
-      throw new Error('Required parameter "params[\'statusCallback\']" missing.');
+    if (
+      params["statusCallback"] === null ||
+      params["statusCallback"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['statusCallback']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["IdempotencyKey"] = params["idempotencyKey"];
-    
-    data["StatusCallback"] = params["statusCallback"];
-    if (params["capture"] !== undefined)
-    data["Capture"] = params["capture"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
 
-    
-    
-    
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["capture"] !== undefined) data["Capture"] = params["capture"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<PaymentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<PaymentInstance> => ({
-      ...response,
-      body: new PaymentInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<PaymentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<PaymentInstance> => ({
+        ...response,
+        body: new PaymentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -265,8 +328,7 @@ export class PaymentContextImpl implements PaymentContext {
   }
 }
 
-
-  interface PaymentPayload extends PaymentResource {}
+interface PaymentPayload extends PaymentResource {}
 
 interface PaymentResource {
   account_sid: string;
@@ -281,16 +343,21 @@ export class PaymentInstance {
   protected _solution: PaymentContextSolution;
   protected _context?: PaymentContext;
 
-  constructor(protected _version: V2010, payload: PaymentResource, accountSid: string, callSid: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.callSid = (payload.call_sid);
-    this.sid = (payload.sid);
+  constructor(
+    protected _version: V2010,
+    payload: PaymentResource,
+    accountSid: string,
+    callSid: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.callSid = payload.call_sid;
+    this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.uri = (payload.uri);
+    this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid,  };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -319,7 +386,14 @@ export class PaymentInstance {
   uri: string;
 
   private get _proxy(): PaymentContext {
-    this._context = this._context || new PaymentContextImpl(this._version, this._solution.accountSid, this._solution.callSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new PaymentContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.callSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -331,10 +405,15 @@ export class PaymentInstance {
    *
    * @returns Resolves to processed PaymentInstance
    */
-  update(params: PaymentContextUpdateOptions, callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance>;
+  update(
+    params: PaymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
+  ): Promise<PaymentInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
+  ): Promise<PaymentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -346,10 +425,21 @@ export class PaymentInstance {
    *
    * @returns Resolves to processed PaymentInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: PaymentContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any): Promise<ApiResponse<PaymentInstance>>;
+  updateWithHttpInfo(
+    params: PaymentContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PaymentInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any): Promise<ApiResponse<PaymentInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PaymentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -374,7 +464,6 @@ export class PaymentInstance {
   }
 }
 
-
 export interface PaymentSolution {
   accountSid: string;
   callSid: string;
@@ -385,11 +474,8 @@ export interface PaymentListInstance {
   _solution: PaymentSolution;
   _uri: string;
 
-  (sid: string, ): PaymentContext;
-  get(sid: string, ): PaymentContext;
-
-
-
+  (sid: string): PaymentContext;
+  get(sid: string): PaymentContext;
 
   /**
    * Create a PaymentInstance
@@ -399,7 +485,10 @@ export interface PaymentListInstance {
    *
    * @returns Resolves to processed PaymentInstance
    */
-  create(params: PaymentListInstanceCreateOptions, callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance>;
+  create(
+    params: PaymentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
+  ): Promise<PaymentInstance>;
 
   /**
    * Create a PaymentInstance and return HTTP info
@@ -409,9 +498,13 @@ export interface PaymentListInstance {
    *
    * @returns Resolves to processed PaymentInstance with HTTP metadata
    */
-  createWithHttpInfo(params: PaymentListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any): Promise<ApiResponse<PaymentInstance>>;
-
-
+  createWithHttpInfo(
+    params: PaymentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PaymentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -420,179 +513,223 @@ export interface PaymentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PaymentListInstance(version: V2010, accountSid: string, callSid: string): PaymentListInstance {
+export function PaymentListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string,
+): PaymentListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   if (!isValidPathParam(callSid)) {
-    throw new Error('Parameter \'callSid\' is not valid.');
+    throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as PaymentListInstance;
+  const instance = ((sid) => instance.get(sid)) as PaymentListInstance;
 
-  instance.get = function get(sid, ): PaymentContext {
+  instance.get = function get(sid): PaymentContext {
     return new PaymentContextImpl(version, accountSid, callSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { accountSid, callSid,  };
+  instance._solution = { accountSid, callSid };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments.json`;
 
-  instance.create = function create(params: PaymentListInstanceCreateOptions, callback?: (error: Error | null, items: PaymentInstance) => any): Promise<PaymentInstance> {
+  instance.create = function create(
+    params: PaymentListInstanceCreateOptions,
+    callback?: (error: Error | null, items: PaymentInstance) => any,
+  ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["idempotencyKey"] === null || params["idempotencyKey"] === undefined) {
-      throw new Error('Required parameter "params[\'idempotencyKey\']" missing.');
+    if (
+      params["idempotencyKey"] === null ||
+      params["idempotencyKey"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['idempotencyKey']\" missing.",
+      );
     }
 
-    if (params["statusCallback"] === null || params["statusCallback"] === undefined) {
-      throw new Error('Required parameter "params[\'statusCallback\']" missing.');
+    if (
+      params["statusCallback"] === null ||
+      params["statusCallback"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['statusCallback']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["IdempotencyKey"] = params["idempotencyKey"];
-    
+
     data["StatusCallback"] = params["statusCallback"];
     if (params["bankAccountType"] !== undefined)
-    data["BankAccountType"] = params["bankAccountType"];
+      data["BankAccountType"] = params["bankAccountType"];
     if (params["chargeAmount"] !== undefined)
-    data["ChargeAmount"] = params["chargeAmount"];
-    if (params["currency"] !== undefined)
-    data["Currency"] = params["currency"];
+      data["ChargeAmount"] = params["chargeAmount"];
+    if (params["currency"] !== undefined) data["Currency"] = params["currency"];
     if (params["description"] !== undefined)
-    data["Description"] = params["description"];
-    if (params["input"] !== undefined)
-    data["Input"] = params["input"];
+      data["Description"] = params["description"];
+    if (params["input"] !== undefined) data["Input"] = params["input"];
     if (params["minPostalCodeLength"] !== undefined)
-    data["MinPostalCodeLength"] = params["minPostalCodeLength"];
+      data["MinPostalCodeLength"] = params["minPostalCodeLength"];
     if (params["parameter"] !== undefined)
-    data["Parameter"] = serialize.object(params["parameter"]);
+      data["Parameter"] = serialize.object(params["parameter"]);
     if (params["paymentConnector"] !== undefined)
-    data["PaymentConnector"] = params["paymentConnector"];
+      data["PaymentConnector"] = params["paymentConnector"];
     if (params["paymentMethod"] !== undefined)
-    data["PaymentMethod"] = params["paymentMethod"];
+      data["PaymentMethod"] = params["paymentMethod"];
     if (params["postalCode"] !== undefined)
-    data["PostalCode"] = serialize.bool(params["postalCode"]);
+      data["PostalCode"] = serialize.bool(params["postalCode"]);
     if (params["securityCode"] !== undefined)
-    data["SecurityCode"] = serialize.bool(params["securityCode"]);
-    if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
+      data["SecurityCode"] = serialize.bool(params["securityCode"]);
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["tokenType"] !== undefined)
-    data["TokenType"] = params["tokenType"];
+      data["TokenType"] = params["tokenType"];
     if (params["validCardTypes"] !== undefined)
-    data["ValidCardTypes"] = params["validCardTypes"];
+      data["ValidCardTypes"] = params["validCardTypes"];
     if (params["requireMatchingInputs"] !== undefined)
-    data["RequireMatchingInputs"] = params["requireMatchingInputs"];
+      data["RequireMatchingInputs"] = params["requireMatchingInputs"];
     if (params["confirmation"] !== undefined)
-    data["Confirmation"] = params["confirmation"];
+      data["Confirmation"] = params["confirmation"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new PaymentInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PaymentInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: PaymentListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<PaymentInstance>) => any): Promise<ApiResponse<PaymentInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: PaymentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PaymentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PaymentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["idempotencyKey"] === null || params["idempotencyKey"] === undefined) {
-      throw new Error('Required parameter "params[\'idempotencyKey\']" missing.');
+    if (
+      params["idempotencyKey"] === null ||
+      params["idempotencyKey"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['idempotencyKey']\" missing.",
+      );
     }
 
-    if (params["statusCallback"] === null || params["statusCallback"] === undefined) {
-      throw new Error('Required parameter "params[\'statusCallback\']" missing.');
+    if (
+      params["statusCallback"] === null ||
+      params["statusCallback"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['statusCallback']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["IdempotencyKey"] = params["idempotencyKey"];
-    
+
     data["StatusCallback"] = params["statusCallback"];
     if (params["bankAccountType"] !== undefined)
-    data["BankAccountType"] = params["bankAccountType"];
+      data["BankAccountType"] = params["bankAccountType"];
     if (params["chargeAmount"] !== undefined)
-    data["ChargeAmount"] = params["chargeAmount"];
-    if (params["currency"] !== undefined)
-    data["Currency"] = params["currency"];
+      data["ChargeAmount"] = params["chargeAmount"];
+    if (params["currency"] !== undefined) data["Currency"] = params["currency"];
     if (params["description"] !== undefined)
-    data["Description"] = params["description"];
-    if (params["input"] !== undefined)
-    data["Input"] = params["input"];
+      data["Description"] = params["description"];
+    if (params["input"] !== undefined) data["Input"] = params["input"];
     if (params["minPostalCodeLength"] !== undefined)
-    data["MinPostalCodeLength"] = params["minPostalCodeLength"];
+      data["MinPostalCodeLength"] = params["minPostalCodeLength"];
     if (params["parameter"] !== undefined)
-    data["Parameter"] = serialize.object(params["parameter"]);
+      data["Parameter"] = serialize.object(params["parameter"]);
     if (params["paymentConnector"] !== undefined)
-    data["PaymentConnector"] = params["paymentConnector"];
+      data["PaymentConnector"] = params["paymentConnector"];
     if (params["paymentMethod"] !== undefined)
-    data["PaymentMethod"] = params["paymentMethod"];
+      data["PaymentMethod"] = params["paymentMethod"];
     if (params["postalCode"] !== undefined)
-    data["PostalCode"] = serialize.bool(params["postalCode"]);
+      data["PostalCode"] = serialize.bool(params["postalCode"]);
     if (params["securityCode"] !== undefined)
-    data["SecurityCode"] = serialize.bool(params["securityCode"]);
-    if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
+      data["SecurityCode"] = serialize.bool(params["securityCode"]);
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["tokenType"] !== undefined)
-    data["TokenType"] = params["tokenType"];
+      data["TokenType"] = params["tokenType"];
     if (params["validCardTypes"] !== undefined)
-    data["ValidCardTypes"] = params["validCardTypes"];
+      data["ValidCardTypes"] = params["validCardTypes"];
     if (params["requireMatchingInputs"] !== undefined)
-    data["RequireMatchingInputs"] = params["requireMatchingInputs"];
+      data["RequireMatchingInputs"] = params["requireMatchingInputs"];
     if (params["confirmation"] !== undefined)
-    data["Confirmation"] = params["confirmation"];
+      data["Confirmation"] = params["confirmation"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<PaymentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<PaymentInstance> => ({
-      ...response,
-      body: new PaymentInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.callSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<PaymentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<PaymentInstance> => ({
+        ...response,
+        body: new PaymentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

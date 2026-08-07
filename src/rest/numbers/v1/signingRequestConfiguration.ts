@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -22,12 +23,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a SigningRequestConfigurationInstance
  */
 export interface SigningRequestConfigurationListInstanceCreateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
 /**
@@ -35,16 +38,13 @@ export interface SigningRequestConfigurationListInstanceCreateOptions {
  */
 export interface SigningRequestConfigurationListInstanceEachOptions {
   /** The country ISO code to apply this configuration, this is an optional field, Example: US, MX */
-  country?: string;
+  "country"?: string;
   /** The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting */
-  product?: string;
+  "product"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: SigningRequestConfigurationInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: SigningRequestConfigurationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -56,38 +56,44 @@ export interface SigningRequestConfigurationListInstanceEachOptions {
  */
 export interface SigningRequestConfigurationListInstanceOptions {
   /** The country ISO code to apply this configuration, this is an optional field, Example: US, MX */
-  country?: string;
+  "country"?: string;
   /** The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting */
-  product?: string;
+  "product"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface SigningRequestConfigurationListInstancePageOptions {
   /** The country ISO code to apply this configuration, this is an optional field, Example: US, MX */
-  country?: string;
+  "country"?: string;
   /** The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting */
-  product?: string;
+  "product"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-export interface SigningRequestConfigurationSolution {}
+
+
+export interface SigningRequestConfigurationSolution {
+}
 
 export interface SigningRequestConfigurationListInstance {
   _version: V1;
   _solution: SigningRequestConfigurationSolution;
   _uri: string;
 
+
+
   /**
    * Create a SigningRequestConfigurationInstance
    *
@@ -95,12 +101,7 @@ export interface SigningRequestConfigurationListInstance {
    *
    * @returns Resolves to processed SigningRequestConfigurationInstance
    */
-  create(
-    callback?: (
-      error: Error | null,
-      item?: SigningRequestConfigurationInstance
-    ) => any
-  ): Promise<SigningRequestConfigurationInstance>;
+  create(callback?: (error: Error | null, item?: SigningRequestConfigurationInstance) => any): Promise<SigningRequestConfigurationInstance>;
   /**
    * Create a SigningRequestConfigurationInstance
    *
@@ -110,14 +111,7 @@ export interface SigningRequestConfigurationListInstance {
    *
    * @returns Resolves to processed SigningRequestConfigurationInstance
    */
-  create(
-    params: object,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: SigningRequestConfigurationInstance
-    ) => any
-  ): Promise<SigningRequestConfigurationInstance>;
+  create(params: object, headers?: any, callback?: (error: Error | null, item?: SigningRequestConfigurationInstance) => any): Promise<SigningRequestConfigurationInstance>;
 
   /**
    * Create a SigningRequestConfigurationInstance and return HTTP info
@@ -126,12 +120,7 @@ export interface SigningRequestConfigurationListInstance {
    *
    * @returns Resolves to processed SigningRequestConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SigningRequestConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SigningRequestConfigurationInstance>) => any): Promise<ApiResponse<SigningRequestConfigurationInstance>>;
   /**
    * Create a SigningRequestConfigurationInstance and return HTTP info
    *
@@ -141,14 +130,10 @@ export interface SigningRequestConfigurationListInstance {
    *
    * @returns Resolves to processed SigningRequestConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: object,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SigningRequestConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationInstance>>;
+  createWithHttpInfo(params: object, headers?: any, callback?: (error: Error | null, item?: ApiResponse<SigningRequestConfigurationInstance>) => any): Promise<ApiResponse<SigningRequestConfigurationInstance>>;
+
+
+
 
   /**
    * Streams SigningRequestConfigurationInstance records from the API.
@@ -165,19 +150,8 @@ export interface SigningRequestConfigurationListInstance {
    * @param { SigningRequestConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: SigningRequestConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: SigningRequestConfigurationListInstanceEachOptions,
-    callback?: (
-      item: SigningRequestConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: SigningRequestConfigurationInstance, done: (err?: Error) => void) => void): void;
+  each(params: SigningRequestConfigurationListInstanceEachOptions, callback?: (item: SigningRequestConfigurationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams SigningRequestConfigurationInstance records from the API with HTTP metadata captured per page.
    *
@@ -193,19 +167,8 @@ export interface SigningRequestConfigurationListInstance {
    * @param { SigningRequestConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: SigningRequestConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: SigningRequestConfigurationListInstanceEachOptions,
-    callback?: (
-      item: SigningRequestConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: SigningRequestConfigurationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: SigningRequestConfigurationListInstanceEachOptions, callback?: (item: SigningRequestConfigurationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SigningRequestConfigurationInstance records from the API.
    *
@@ -214,13 +177,7 @@ export interface SigningRequestConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationPage
-    ) => any
-  ): Promise<SigningRequestConfigurationPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: SigningRequestConfigurationPage) => any): Promise<SigningRequestConfigurationPage>;
   /**
    * Retrieve a single target page of SigningRequestConfigurationInstance records from the API with HTTP metadata.
    *
@@ -229,13 +186,7 @@ export interface SigningRequestConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationPage>) => any): Promise<ApiResponse<SigningRequestConfigurationPage>>;
   /**
    * Lists SigningRequestConfigurationInstance records from the API as a list.
    *
@@ -245,19 +196,8 @@ export interface SigningRequestConfigurationListInstance {
    * @param { SigningRequestConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationInstance[]
-    ) => any
-  ): Promise<SigningRequestConfigurationInstance[]>;
-  list(
-    params: SigningRequestConfigurationListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationInstance[]
-    ) => any
-  ): Promise<SigningRequestConfigurationInstance[]>;
+  list(callback?: (error: Error | null, items: SigningRequestConfigurationInstance[]) => any): Promise<SigningRequestConfigurationInstance[]>;
+  list(params: SigningRequestConfigurationListInstanceOptions, callback?: (error: Error | null, items: SigningRequestConfigurationInstance[]) => any): Promise<SigningRequestConfigurationInstance[]>;
   /**
    * Lists SigningRequestConfigurationInstance records from the API as a list with HTTP metadata.
    *
@@ -269,19 +209,8 @@ export interface SigningRequestConfigurationListInstance {
    * @param { SigningRequestConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationInstance[]>>;
-  listWithHttpInfo(
-    params: SigningRequestConfigurationListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationInstance[]>) => any): Promise<ApiResponse<SigningRequestConfigurationInstance[]>>;
+  listWithHttpInfo(params: SigningRequestConfigurationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationInstance[]>) => any): Promise<ApiResponse<SigningRequestConfigurationInstance[]>>;
   /**
    * Retrieve a single page of SigningRequestConfigurationInstance records from the API.
    *
@@ -293,19 +222,8 @@ export interface SigningRequestConfigurationListInstance {
    * @param { SigningRequestConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationPage
-    ) => any
-  ): Promise<SigningRequestConfigurationPage>;
-  page(
-    params: SigningRequestConfigurationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationPage
-    ) => any
-  ): Promise<SigningRequestConfigurationPage>;
+  page(callback?: (error: Error | null, items: SigningRequestConfigurationPage) => any): Promise<SigningRequestConfigurationPage>;
+  page(params: SigningRequestConfigurationListInstancePageOptions, callback?: (error: Error | null, items: SigningRequestConfigurationPage) => any): Promise<SigningRequestConfigurationPage>;
   /**
    * Retrieve a single page of SigningRequestConfigurationInstance records from the API with HTTP metadata.
    *
@@ -317,19 +235,9 @@ export interface SigningRequestConfigurationListInstance {
    * @param { SigningRequestConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationPage>>;
-  pageWithHttpInfo(
-    params: SigningRequestConfigurationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationPage>) => any): Promise<ApiResponse<SigningRequestConfigurationPage>>;
+  pageWithHttpInfo(params: SigningRequestConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationPage>) => any): Promise<ApiResponse<SigningRequestConfigurationPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -338,132 +246,81 @@ export interface SigningRequestConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SigningRequestConfigurationListInstance(
-  version: V1
-): SigningRequestConfigurationListInstance {
+export function SigningRequestConfigurationListInstance(version: V1): SigningRequestConfigurationListInstance {
   const instance = {} as SigningRequestConfigurationListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/SigningRequest/Configuration`;
 
-  instance.create = function create(
-    params?:
-      | object
-      | ((
-          error: Error | null,
-          items: SigningRequestConfigurationInstance
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationInstance
-    ) => any
-  ): Promise<SigningRequestConfigurationInstance> {
+  instance.create = function create(params?: object | ((error: Error | null, items: SigningRequestConfigurationInstance) => any), headers?: any, callback?: (error: Error | null, items: SigningRequestConfigurationInstance) => any): Promise<SigningRequestConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || {} as Partial<object> as object;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new SigningRequestConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SigningRequestConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | object
-      | ((
-          error: Error | null,
-          items: ApiResponse<SigningRequestConfigurationInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: object | ((error: Error | null, items: ApiResponse<SigningRequestConfigurationInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationInstance>) => any): Promise<ApiResponse<SigningRequestConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || {} as Partial<object> as object;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<SigningRequestConfigurationResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<SigningRequestConfigurationInstance> => ({
-          ...response,
-          body: new SigningRequestConfigurationInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<SigningRequestConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SigningRequestConfigurationInstance> => ({
+      ...response,
+      body: new SigningRequestConfigurationInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | SigningRequestConfigurationListInstancePageOptions
-      | ((error: Error | null, items: SigningRequestConfigurationPage) => any),
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationPage
-    ) => any
-  ): Promise<SigningRequestConfigurationPage> {
+
+    }
+
+  instance.page = function page(params?: SigningRequestConfigurationListInstancePageOptions | ((error: Error | null, items: SigningRequestConfigurationPage) => any), callback?: (error: Error | null, items: SigningRequestConfigurationPage) => any): Promise<SigningRequestConfigurationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -473,78 +330,48 @@ export function SigningRequestConfigurationListInstance(
 
     let data: any = {};
 
-    if (params["country"] !== undefined) data["Country"] = params["country"];
-    if (params["product"] !== undefined) data["Product"] = params["product"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["country"] !== undefined)
+    data["Country"] = params["country"];
+    if (params["product"] !== undefined)
+    data["Product"] = params["product"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new SigningRequestConfigurationPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SigningRequestConfigurationPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: SigningRequestConfigurationPage
-    ) => any
-  ): Promise<SigningRequestConfigurationPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new SigningRequestConfigurationPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: SigningRequestConfigurationPage) => any): Promise<SigningRequestConfigurationPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new SigningRequestConfigurationPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | SigningRequestConfigurationListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<SigningRequestConfigurationPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SigningRequestConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: SigningRequestConfigurationListInstancePageOptions | ((error: Error | null, items: ApiResponse<SigningRequestConfigurationPage>) => any), callback?: (error: Error | null, items: ApiResponse<SigningRequestConfigurationPage>) => any): Promise<ApiResponse<SigningRequestConfigurationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -554,90 +381,71 @@ export function SigningRequestConfigurationListInstance(
 
     let data: any = {};
 
-    if (params["country"] !== undefined) data["Country"] = params["country"];
-    if (params["product"] !== undefined) data["Product"] = params["product"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["country"] !== undefined)
+    data["Country"] = params["country"];
+    if (params["product"] !== undefined)
+    data["Product"] = params["product"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SigningRequestConfigurationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SigningRequestConfigurationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<SigningRequestConfigurationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new SigningRequestConfigurationPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<SigningRequestConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<SigningRequestConfigurationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<SigningRequestConfigurationPage>) => any): Promise<ApiResponse<SigningRequestConfigurationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<SigningRequestConfigurationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SigningRequestConfigurationPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<SigningRequestConfigurationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new SigningRequestConfigurationPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface SigningRequestConfigurationPayload extends TwilioResponsePayload {
-  configurations: SigningRequestConfigurationResource[];
+  interface SigningRequestConfigurationPayload extends TwilioResponsePayload {
+    configurations: SigningRequestConfigurationResource[];
 }
 
 interface SigningRequestConfigurationResource {
@@ -652,22 +460,22 @@ interface SigningRequestConfigurationResource {
 }
 
 export class SigningRequestConfigurationInstance {
-  constructor(
-    protected _version: V1,
-    payload: SigningRequestConfigurationResource
-  ) {
-    this.logoSid = payload.logo_sid;
-    this.friendlyName = payload.friendly_name;
-    this.product = payload.product;
-    this.country = payload.country;
-    this.emailSubject = payload.email_subject;
-    this.emailMessage = payload.email_message;
-    this.urlRedirection = payload.url_redirection;
-    this.url = payload.url;
+
+  constructor(protected _version: V1, payload: SigningRequestConfigurationResource) {
+    
+    this.logoSid = (payload.logo_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.product = (payload.product);
+    this.country = (payload.country);
+    this.emailSubject = (payload.email_subject);
+    this.emailMessage = (payload.email_message);
+    this.urlRedirection = (payload.url_redirection);
+    this.url = (payload.url);
+
   }
 
   /**
-   * The SID of the document  that includes the logo that will appear in the LOA. To upload documents follow the following guide: https://www.twilio.com/docs/phone-numbers/regulatory/getting-started/create-new-bundle-public-rest-apis#supporting-document-create
+   * The SID of the document  that includes the logo that will appear in the LOA. To upload documents follow the following guide: https://www.twilio.com/docs/phone-numbers/regulatory/getting-started/create-new-bundle-public-rest-apis#supporting-document-create 
    */
   logoSid: string;
   /**
@@ -719,39 +527,33 @@ export class SigningRequestConfigurationInstance {
   }
 }
 
-export class SigningRequestConfigurationPage extends Page<
-  V1,
-  SigningRequestConfigurationPayload,
-  SigningRequestConfigurationResource,
-  SigningRequestConfigurationInstance
-> {
-  /**
-   * Initialize the SigningRequestConfigurationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: SigningRequestConfigurationSolution
-  ) {
+export class SigningRequestConfigurationPage extends Page<V1, SigningRequestConfigurationPayload, SigningRequestConfigurationResource, SigningRequestConfigurationInstance> {
+/**
+* Initialize the SigningRequestConfigurationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SigningRequestConfigurationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SigningRequestConfigurationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: SigningRequestConfigurationResource
-  ): SigningRequestConfigurationInstance {
-    return new SigningRequestConfigurationInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of SigningRequestConfigurationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SigningRequestConfigurationResource): SigningRequestConfigurationInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new SigningRequestConfigurationInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

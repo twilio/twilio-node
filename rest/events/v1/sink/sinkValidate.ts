@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -20,16 +19,13 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to create a SinkValidateInstance
  */
 export interface SinkValidateListInstanceCreateOptions {
   /** A 34 character string that uniquely identifies the test event for a Sink being validated. */
-  "testId": string;
+  testId: string;
 }
-
 
 export interface SinkValidateSolution {
   sid: string;
@@ -40,8 +36,6 @@ export interface SinkValidateListInstance {
   _solution: SinkValidateSolution;
   _uri: string;
 
-
-
   /**
    * Create a SinkValidateInstance
    *
@@ -50,7 +44,10 @@ export interface SinkValidateListInstance {
    *
    * @returns Resolves to processed SinkValidateInstance
    */
-  create(params: SinkValidateListInstanceCreateOptions, callback?: (error: Error | null, item?: SinkValidateInstance) => any): Promise<SinkValidateInstance>;
+  create(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SinkValidateInstance) => any,
+  ): Promise<SinkValidateInstance>;
 
   /**
    * Create a SinkValidateInstance and return HTTP info
@@ -60,9 +57,13 @@ export interface SinkValidateListInstance {
    *
    * @returns Resolves to processed SinkValidateInstance with HTTP metadata
    */
-  createWithHttpInfo(params: SinkValidateListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<SinkValidateInstance>) => any): Promise<ApiResponse<SinkValidateInstance>>;
-
-
+  createWithHttpInfo(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SinkValidateInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SinkValidateInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -71,109 +72,139 @@ export interface SinkValidateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SinkValidateListInstance(version: V1, sid: string): SinkValidateListInstance {
+export function SinkValidateListInstance(
+  version: V1,
+  sid: string,
+): SinkValidateListInstance {
   if (!isValidPathParam(sid)) {
-    throw new Error('Parameter \'sid\' is not valid.');
+    throw new Error("Parameter 'sid' is not valid.");
   }
 
   const instance = {} as SinkValidateListInstance;
 
   instance._version = version;
-  instance._solution = { sid,  };
+  instance._solution = { sid };
   instance._uri = `/Sinks/${sid}/Validate`;
 
-  instance.create = function create(params: SinkValidateListInstanceCreateOptions, callback?: (error: Error | null, items: SinkValidateInstance) => any): Promise<SinkValidateInstance> {
+  instance.create = function create(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (error: Error | null, items: SinkValidateInstance) => any,
+  ): Promise<SinkValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["testId"] === null || params["testId"] === undefined) {
-      throw new Error('Required parameter "params[\'testId\']" missing.');
+      throw new Error("Required parameter \"params['testId']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["TestId"] = params["testId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new SinkValidateInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SinkValidateInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: SinkValidateListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<SinkValidateInstance>) => any): Promise<ApiResponse<SinkValidateInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<SinkValidateInstance>,
+    ) => any,
+  ): Promise<ApiResponse<SinkValidateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["testId"] === null || params["testId"] === undefined) {
-      throw new Error('Required parameter "params[\'testId\']" missing.');
+      throw new Error("Required parameter \"params['testId']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["TestId"] = params["testId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<SinkValidateResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SinkValidateInstance> => ({
-      ...response,
-      body: new SinkValidateInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<SinkValidateResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<SinkValidateInstance> => ({
+        ...response,
+        body: new SinkValidateInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface SinkValidatePayload extends SinkValidateResource {}
+interface SinkValidatePayload extends SinkValidateResource {}
 
 interface SinkValidateResource {
   result: string;
 }
 
 export class SinkValidateInstance {
-
-  constructor(protected _version: V1, payload: SinkValidateResource, sid: string) {
-    
-    this.result = (payload.result);
-
+  constructor(
+    protected _version: V1,
+    payload: SinkValidateResource,
+    sid: string,
+  ) {
+    this.result = payload.result;
   }
 
   /**
@@ -196,5 +227,3 @@ export class SinkValidateInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

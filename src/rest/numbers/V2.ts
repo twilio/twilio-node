@@ -18,6 +18,7 @@ import { ApplicationListInstance } from "./v2/application";
 import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument";
 import { BulkHostedNumberOrderListInstance } from "./v2/bulkHostedNumberOrder";
 import { BundleCloneListInstance } from "./v2/bundleClone";
+import { CallerIdListInstance } from "./v2/callerId";
 import { HostedNumberOrderListInstance } from "./v2/hostedNumberOrder";
 import { RegulatoryComplianceListInstance } from "./v2/regulatoryCompliance";
 
@@ -39,6 +40,8 @@ export default class V2 extends Version {
   protected _bulkHostedNumberOrders?: BulkHostedNumberOrderListInstance;
   /** bundleClone - { Twilio.Numbers.V2.BundleCloneListInstance } resource */
   protected _bundleClone?: BundleCloneListInstance;
+  /** callerIds - { Twilio.Numbers.V2.CallerIdListInstance } resource */
+  protected _callerIds?: CallerIdListInstance;
   /** hostedNumberOrders - { Twilio.Numbers.V2.HostedNumberOrderListInstance } resource */
   protected _hostedNumberOrders?: HostedNumberOrderListInstance;
   /** regulatoryCompliance - { Twilio.Numbers.V2.RegulatoryComplianceListInstance } resource */
@@ -52,15 +55,13 @@ export default class V2 extends Version {
 
   /** Getter for authorizationDocuments resource */
   get authorizationDocuments(): AuthorizationDocumentListInstance {
-    this._authorizationDocuments =
-      this._authorizationDocuments || AuthorizationDocumentListInstance(this);
+    this._authorizationDocuments = this._authorizationDocuments || AuthorizationDocumentListInstance(this);
     return this._authorizationDocuments;
   }
 
   /** Getter for bulkHostedNumberOrders resource */
   get bulkHostedNumberOrders(): BulkHostedNumberOrderListInstance {
-    this._bulkHostedNumberOrders =
-      this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
+    this._bulkHostedNumberOrders = this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
     return this._bulkHostedNumberOrders;
   }
 
@@ -70,17 +71,22 @@ export default class V2 extends Version {
     return this._bundleClone;
   }
 
+  /** Getter for callerIds resource */
+  get callerIds(): CallerIdListInstance {
+    this._callerIds = this._callerIds || CallerIdListInstance(this);
+    return this._callerIds;
+  }
+
   /** Getter for hostedNumberOrders resource */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
-    this._hostedNumberOrders =
-      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
     return this._hostedNumberOrders;
   }
 
   /** Getter for regulatoryCompliance resource */
   get regulatoryCompliance(): RegulatoryComplianceListInstance {
-    this._regulatoryCompliance =
-      this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
+    this._regulatoryCompliance = this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
     return this._regulatoryCompliance;
   }
+
 }

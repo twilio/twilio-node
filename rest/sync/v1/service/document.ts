@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -24,20 +23,16 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 import { DocumentPermissionListInstance } from "./document/documentPermission";
 
-
-
-
-
 /**
  * Options to pass to update a DocumentInstance
  */
 export interface DocumentContextUpdateOptions {
   /** The If-Match HTTP request header */
-  "ifMatch"?: string;
+  ifMatch?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
-  "data"?: any;
+  data?: any;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live). */
-  "ttl"?: number;
+  ttl?: number;
 }
 
 /**
@@ -45,11 +40,11 @@ export interface DocumentContextUpdateOptions {
  */
 export interface DocumentListInstanceCreateOptions {
   /** An application-defined string that uniquely identifies the Sync Document */
-  "uniqueName"?: string;
+  uniqueName?: string;
   /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
-  "data"?: any;
+  data?: any;
   /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\'s time-to-live). */
-  "ttl"?: number;
+  ttl?: number;
 }
 
 /**
@@ -57,7 +52,7 @@ export interface DocumentListInstanceCreateOptions {
  */
 export interface DocumentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -71,24 +66,22 @@ export interface DocumentListInstanceEachOptions {
  */
 export interface DocumentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface DocumentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface DocumentContext {
   documentPermissions: DocumentPermissionListInstance;
@@ -100,7 +93,9 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a DocumentInstance and return HTTP info
@@ -109,7 +104,9 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a DocumentInstance
@@ -118,7 +115,9 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  fetch(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>
+  fetch(
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
 
   /**
    * Fetch a DocumentInstance and return HTTP info
@@ -127,7 +126,12 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
 
   /**
    * Update a DocumentInstance
@@ -136,7 +140,9 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  update(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  update(
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
   /**
    * Update a DocumentInstance
    *
@@ -145,7 +151,10 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  update(params: DocumentContextUpdateOptions, callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  update(
+    params: DocumentContextUpdateOptions,
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
 
   /**
    * Update a DocumentInstance and return HTTP info
@@ -154,7 +163,12 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
   /**
    * Update a DocumentInstance and return HTTP info
    *
@@ -163,7 +177,13 @@ export interface DocumentContext {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: DocumentContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>;
+  updateWithHttpInfo(
+    params: DocumentContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -173,8 +193,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  "serviceSid": string;
-  "sid": string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -183,163 +203,246 @@ export class DocumentContextImpl implements DocumentContext {
 
   protected _documentPermissions?: DocumentPermissionListInstance;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error('Parameter \'serviceSid\' is not valid.');
+      throw new Error("Parameter 'serviceSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { serviceSid, sid,  };
+    this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Documents/${sid}`;
   }
 
   get documentPermissions(): DocumentPermissionListInstance {
-    this._documentPermissions = this._documentPermissions || DocumentPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    this._documentPermissions =
+      this._documentPermissions ||
+      DocumentPermissionListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid,
+      );
     return this._documentPermissions;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<DocumentResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<DocumentInstance> => ({
-      ...response,
-      body: new DocumentInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DocumentResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<DocumentInstance> => ({
+        ...response,
+        body: new DocumentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: DocumentContextUpdateOptions | ((error: Error | null, item?: DocumentInstance) => any),callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | DocumentContextUpdateOptions
+      | ((error: Error | null, item?: DocumentInstance) => any),
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["data"] !== undefined)
-    data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
+    if (params["data"] !== undefined)
+      data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: DocumentContextUpdateOptions | ((error: Error | null, item?: ApiResponse<DocumentInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | DocumentContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<DocumentInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["data"] !== undefined)
-    data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
+    if (params["data"] !== undefined)
+      data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<DocumentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<DocumentInstance> => ({
-      ...response,
-      body: new DocumentInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<DocumentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<DocumentInstance> => ({
+        ...response,
+        body: new DocumentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -356,9 +459,8 @@ export class DocumentContextImpl implements DocumentContext {
   }
 }
 
-
-  interface DocumentPayload extends TwilioResponsePayload {
-    documents: DocumentResource[];
+interface DocumentPayload extends TwilioResponsePayload {
+  documents: DocumentResource[];
 }
 
 interface DocumentResource {
@@ -380,22 +482,26 @@ export class DocumentInstance {
   protected _solution: DocumentContextSolution;
   protected _context?: DocumentContext;
 
-  constructor(protected _version: V1, payload: DocumentResource, serviceSid: string, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.uniqueName = (payload.unique_name);
-    this.accountSid = (payload.account_sid);
-    this.serviceSid = (payload.service_sid);
-    this.url = (payload.url);
-    this.links = (payload.links);
-    this.revision = (payload.revision);
-    this.data = (payload.data);
+  constructor(
+    protected _version: V1,
+    payload: DocumentResource,
+    serviceSid: string,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.uniqueName = payload.unique_name;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.url = payload.url;
+    this.links = payload.links;
+    this.revision = payload.revision;
+    this.data = payload.data;
     this.dateExpires = deserialize.iso8601DateTime(payload.date_expires);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.createdBy = (payload.created_by);
+    this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, sid: sid,  };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -448,7 +554,13 @@ export class DocumentInstance {
   createdBy: string;
 
   private get _proxy(): DocumentContext {
-    this._context = this._context || new DocumentContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new DocumentContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -459,9 +571,9 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -472,9 +584,9 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -485,9 +597,9 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  fetch(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -498,9 +610,12 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -511,7 +626,9 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  update(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  update(
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
   /**
    * Update a DocumentInstance
    *
@@ -520,10 +637,15 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  update(params: DocumentContextUpdateOptions, callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  update(
+    params: DocumentContextUpdateOptions,
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -534,7 +656,12 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
   /**
    * Update a DocumentInstance and return HTTP info
    *
@@ -543,10 +670,21 @@ export class DocumentInstance {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: DocumentContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>;
+  updateWithHttpInfo(
+    params: DocumentContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -584,7 +722,6 @@ export class DocumentInstance {
   }
 }
 
-
 export interface DocumentSolution {
   serviceSid: string;
 }
@@ -594,15 +731,8 @@ export interface DocumentListInstance {
   _solution: DocumentSolution;
   _uri: string;
 
-  (sid: string, ): DocumentContext;
-  get(sid: string, ): DocumentContext;
-
-
-
-
-
-
-
+  (sid: string): DocumentContext;
+  get(sid: string): DocumentContext;
 
   /**
    * Create a DocumentInstance
@@ -611,7 +741,9 @@ export interface DocumentListInstance {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  create(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  create(
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
   /**
    * Create a DocumentInstance
    *
@@ -620,7 +752,10 @@ export interface DocumentListInstance {
    *
    * @returns Resolves to processed DocumentInstance
    */
-  create(params: DocumentListInstanceCreateOptions, callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  create(
+    params: DocumentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: DocumentInstance) => any,
+  ): Promise<DocumentInstance>;
 
   /**
    * Create a DocumentInstance and return HTTP info
@@ -629,7 +764,12 @@ export interface DocumentListInstance {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
   /**
    * Create a DocumentInstance and return HTTP info
    *
@@ -638,10 +778,13 @@ export interface DocumentListInstance {
    *
    * @returns Resolves to processed DocumentInstance with HTTP metadata
    */
-  createWithHttpInfo(params: DocumentListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: DocumentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>>;
 
   /**
    * Streams DocumentInstance records from the API.
@@ -658,8 +801,13 @@ export interface DocumentListInstance {
    * @param { DocumentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
-  each(params: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: DocumentListInstanceEachOptions,
+    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams DocumentInstance records from the API with HTTP metadata captured per page.
    *
@@ -675,8 +823,13 @@ export interface DocumentListInstance {
    * @param { DocumentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: DocumentListInstanceEachOptions,
+    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of DocumentInstance records from the API.
    *
@@ -685,7 +838,10 @@ export interface DocumentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: DocumentPage) => any,
+  ): Promise<DocumentPage>;
   /**
    * Retrieve a single target page of DocumentInstance records from the API with HTTP metadata.
    *
@@ -694,7 +850,10 @@ export interface DocumentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any): Promise<ApiResponse<DocumentPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any,
+  ): Promise<ApiResponse<DocumentPage>>;
   /**
    * Lists DocumentInstance records from the API as a list.
    *
@@ -704,8 +863,13 @@ export interface DocumentListInstance {
    * @param { DocumentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
-  list(params: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
+  list(
+    callback?: (error: Error | null, items: DocumentInstance[]) => any,
+  ): Promise<DocumentInstance[]>;
+  list(
+    params: DocumentListInstanceOptions,
+    callback?: (error: Error | null, items: DocumentInstance[]) => any,
+  ): Promise<DocumentInstance[]>;
   /**
    * Lists DocumentInstance records from the API as a list with HTTP metadata.
    *
@@ -717,8 +881,19 @@ export interface DocumentListInstance {
    * @param { DocumentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DocumentInstance[]>) => any): Promise<ApiResponse<DocumentInstance[]>>;
-  listWithHttpInfo(params: DocumentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<DocumentInstance[]>) => any): Promise<ApiResponse<DocumentInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DocumentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance[]>>;
+  listWithHttpInfo(
+    params: DocumentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DocumentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance[]>>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    *
@@ -730,8 +905,13 @@ export interface DocumentListInstance {
    * @param { DocumentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-  page(params: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  page(
+    callback?: (error: Error | null, items: DocumentPage) => any,
+  ): Promise<DocumentPage>;
+  page(
+    params: DocumentListInstancePageOptions,
+    callback?: (error: Error | null, items: DocumentPage) => any,
+  ): Promise<DocumentPage>;
   /**
    * Retrieve a single page of DocumentInstance records from the API with HTTP metadata.
    *
@@ -743,9 +923,13 @@ export interface DocumentListInstance {
    * @param { DocumentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any): Promise<ApiResponse<DocumentPage>>;
-  pageWithHttpInfo(params: DocumentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any): Promise<ApiResponse<DocumentPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any,
+  ): Promise<ApiResponse<DocumentPage>>;
+  pageWithHttpInfo(
+    params: DocumentListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any,
+  ): Promise<ApiResponse<DocumentPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -754,97 +938,132 @@ export interface DocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DocumentListInstance(version: V1, serviceSid: string): DocumentListInstance {
+export function DocumentListInstance(
+  version: V1,
+  serviceSid: string,
+): DocumentListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error('Parameter \'serviceSid\' is not valid.');
+    throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as DocumentListInstance;
+  const instance = ((sid) => instance.get(sid)) as DocumentListInstance;
 
-  instance.get = function get(sid, ): DocumentContext {
+  instance.get = function get(sid): DocumentContext {
     return new DocumentContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { serviceSid,  };
+  instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Documents`;
 
-  instance.create = function create(params?: DocumentListInstanceCreateOptions | ((error: Error | null, items: DocumentInstance) => any), callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance> {
+  instance.create = function create(
+    params?:
+      | DocumentListInstanceCreateOptions
+      | ((error: Error | null, items: DocumentInstance) => any),
+    callback?: (error: Error | null, items: DocumentInstance) => any,
+  ): Promise<DocumentInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["data"] !== undefined)
-    data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
+      data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, instance._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: DocumentListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<DocumentInstance>) => any), callback?: (error: Error | null, items: ApiResponse<DocumentInstance>) => any): Promise<ApiResponse<DocumentInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | DocumentListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<DocumentInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DocumentInstance>,
+    ) => any,
+  ): Promise<ApiResponse<DocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["data"] !== undefined)
-    data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
+      data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<DocumentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<DocumentInstance> => ({
-      ...response,
-      body: new DocumentInstance(operationVersion, response.body, instance._solution.serviceSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<DocumentResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<DocumentInstance> => ({
+        ...response,
+        body: new DocumentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: DocumentListInstancePageOptions | ((error: Error | null, items: DocumentPage) => any), callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage> {
+  instance.page = function page(
+    params?:
+      | DocumentListInstancePageOptions
+      | ((error: Error | null, items: DocumentPage) => any),
+    callback?: (error: Error | null, items: DocumentPage) => any,
+  ): Promise<DocumentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -854,44 +1073,59 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new DocumentPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new DocumentPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: DocumentPage) => any,
+  ): Promise<DocumentPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DocumentPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: DocumentListInstancePageOptions | ((error: Error | null, items: ApiResponse<DocumentPage>) => any), callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any): Promise<ApiResponse<DocumentPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | DocumentListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<DocumentPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<DocumentPage>) => any,
+  ): Promise<ApiResponse<DocumentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -901,93 +1135,108 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<DocumentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new DocumentPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<DocumentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DocumentPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<DocumentPage>) => any): Promise<ApiResponse<DocumentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<DocumentPage>) => any,
+  ): Promise<ApiResponse<DocumentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<DocumentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new DocumentPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<DocumentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DocumentPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, DocumentInstance> {
-/**
-* Initialize the DocumentPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: DocumentSolution) {
+export class DocumentPage extends Page<
+  V1,
+  DocumentPayload,
+  DocumentResource,
+  DocumentInstance
+> {
+  /**
+   * Initialize the DocumentPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: DocumentSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of DocumentInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: DocumentResource): DocumentInstance {
-
+  /**
+   * Build an instance of DocumentInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DocumentResource): DocumentInstance {
     return new DocumentInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

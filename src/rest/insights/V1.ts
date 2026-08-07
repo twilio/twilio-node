@@ -49,8 +49,7 @@ export default class V1 extends Version {
 
   /** Getter for callSummaries resource */
   get callSummaries(): CallSummariesListInstance {
-    this._callSummaries =
-      this._callSummaries || CallSummariesListInstance(this);
+    this._callSummaries = this._callSummaries || CallSummariesListInstance(this);
     return this._callSummaries;
   }
 
@@ -71,4 +70,5 @@ export default class V1 extends Version {
     this._settings = this._settings || SettingListInstance(this);
     return this._settings;
   }
+
 }

@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 export class CreateNewPasskeysFactorRequest {
   "friendlyName": string;
@@ -30,6 +32,7 @@ export class CreateNewPasskeysFactorRequest {
     this.config = payload["config"];
   }
 }
+
 
 export class CreateNewPasskeysFactorRequestConfig {
   "relyingParty"?: CreateNewPasskeysFactorRequestConfigRelyingParty;
@@ -44,6 +47,7 @@ export class CreateNewPasskeysFactorRequestConfig {
     this.userVerification = payload["user_verification"];
   }
 }
+
 
 /**
  * Contains the information of the party requesting the user for authentication
@@ -60,13 +64,16 @@ export class CreateNewPasskeysFactorRequestConfigRelyingParty {
   }
 }
 
+
+
 /**
  * Options to pass to create a NewFactorInstance
  */
 export interface NewFactorListInstanceCreateOptions {
   /**  */
-  createNewPasskeysFactorRequest: CreateNewPasskeysFactorRequest;
+  "createNewPasskeysFactorRequest": CreateNewPasskeysFactorRequest;
 }
+
 
 export interface NewFactorSolution {
   serviceSid: string;
@@ -77,6 +84,8 @@ export interface NewFactorListInstance {
   _solution: NewFactorSolution;
   _uri: string;
 
+
+
   /**
    * Create a NewFactorInstance
    *
@@ -86,11 +95,7 @@ export interface NewFactorListInstance {
    *
    * @returns Resolves to processed NewFactorInstance
    */
-  create(
-    params: CreateNewPasskeysFactorRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: NewFactorInstance) => any
-  ): Promise<NewFactorInstance>;
+  create(params: CreateNewPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, item?: NewFactorInstance) => any): Promise<NewFactorInstance>;
 
   /**
    * Create a NewFactorInstance and return HTTP info
@@ -101,14 +106,9 @@ export interface NewFactorListInstance {
    *
    * @returns Resolves to processed NewFactorInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateNewPasskeysFactorRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewFactorInstance>
-    ) => any
-  ): Promise<ApiResponse<NewFactorInstance>>;
+  createWithHttpInfo(params: CreateNewPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<NewFactorInstance>) => any): Promise<ApiResponse<NewFactorInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -117,129 +117,90 @@ export interface NewFactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NewFactorListInstance(
-  version: V2,
-  serviceSid: string
-): NewFactorListInstance {
+export function NewFactorListInstance(version: V2, serviceSid: string): NewFactorListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   const instance = {} as NewFactorListInstance;
 
   instance._version = version;
-  instance._solution = { serviceSid };
+  instance._solution = { serviceSid,  };
   instance._uri = `/Services/${serviceSid}/Passkeys/Factors`;
 
-  instance.create = function create(
-    params: CreateNewPasskeysFactorRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: NewFactorInstance) => any
-  ): Promise<NewFactorInstance> {
+  instance.create = function create(params: CreateNewPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, items: NewFactorInstance) => any): Promise<NewFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new NewFactorInstance(operationVersion, payload, instance._solution.serviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NewFactorInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CreateNewPasskeysFactorRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<NewFactorInstance>
-    ) => any
-  ): Promise<ApiResponse<NewFactorInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateNewPasskeysFactorRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<NewFactorInstance>) => any): Promise<ApiResponse<NewFactorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<NewFactorResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<NewFactorInstance> => ({
-          ...response,
-          body: new NewFactorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<NewFactorResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<NewFactorInstance> => ({
+      ...response,
+      body: new NewFactorInstance(operationVersion, response.body, instance._solution.serviceSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface NewFactorPayload extends NewFactorResource {}
+  interface NewFactorPayload extends NewFactorResource {}
 
 interface NewFactorResource {
   sid: string;
@@ -260,26 +221,25 @@ interface NewFactorResource {
 }
 
 export class NewFactorInstance {
-  constructor(
-    protected _version: V2,
-    payload: NewFactorResource,
-    serviceSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.entitySid = payload.entity_sid;
-    this.identity = payload.identity;
-    this.binding = payload.binding;
-    this.options = payload.options;
+
+  constructor(protected _version: V2, payload: NewFactorResource, serviceSid: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.entitySid = (payload.entity_sid);
+    this.identity = (payload.identity);
+    this.binding = (payload.binding);
+    this.options = (payload.options);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
-    this.factorType = payload.factor_type;
-    this.config = payload.config;
-    this.metadata = payload.metadata;
-    this.url = payload.url;
+    this.friendlyName = (payload.friendly_name);
+    this.status = (payload.status);
+    this.factorType = (payload.factor_type);
+    this.config = (payload.config);
+    this.metadata = (payload.metadata);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -369,3 +329,5 @@ export class NewFactorInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

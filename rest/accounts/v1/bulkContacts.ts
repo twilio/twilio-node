@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,26 +19,20 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to create a BulkContactsInstance
  */
 export interface BulkContactsListInstanceCreateOptions {
   /** A list of objects where each object represents a contact\\\'s details. Each object includes the following fields: `contact_id`, which must be a string representing phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164); `correlation_id`, a unique 32-character UUID that maps the response to the original request; `country_iso_code`, a string representing the country using the ISO format (e.g., US for the United States); and `zip_code`, a string representing the postal code. */
-  "items": Array<any>;
+  items: Array<any>;
 }
 
-
-export interface BulkContactsSolution {
-}
+export interface BulkContactsSolution {}
 
 export interface BulkContactsListInstance {
   _version: V1;
   _solution: BulkContactsSolution;
   _uri: string;
-
-
 
   /**
    * Create a BulkContactsInstance
@@ -49,7 +42,10 @@ export interface BulkContactsListInstance {
    *
    * @returns Resolves to processed BulkContactsInstance
    */
-  create(params: BulkContactsListInstanceCreateOptions, callback?: (error: Error | null, item?: BulkContactsInstance) => any): Promise<BulkContactsInstance>;
+  create(
+    params: BulkContactsListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BulkContactsInstance) => any,
+  ): Promise<BulkContactsInstance>;
 
   /**
    * Create a BulkContactsInstance and return HTTP info
@@ -59,9 +55,13 @@ export interface BulkContactsListInstance {
    *
    * @returns Resolves to processed BulkContactsInstance with HTTP metadata
    */
-  createWithHttpInfo(params: BulkContactsListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<BulkContactsInstance>) => any): Promise<ApiResponse<BulkContactsInstance>>;
-
-
+  createWithHttpInfo(
+    params: BulkContactsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BulkContactsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkContactsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -70,105 +70,128 @@ export interface BulkContactsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BulkContactsListInstance(version: V1): BulkContactsListInstance {
+export function BulkContactsListInstance(
+  version: V1,
+): BulkContactsListInstance {
   const instance = {} as BulkContactsListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Contacts/Bulk`;
 
-  instance.create = function create(params: BulkContactsListInstanceCreateOptions, callback?: (error: Error | null, items: BulkContactsInstance) => any): Promise<BulkContactsInstance> {
+  instance.create = function create(
+    params: BulkContactsListInstanceCreateOptions,
+    callback?: (error: Error | null, items: BulkContactsInstance) => any,
+  ): Promise<BulkContactsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["items"] === null || params["items"] === undefined) {
-      throw new Error('Required parameter "params[\'items\']" missing.');
+      throw new Error("Required parameter \"params['items']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
-    data["Items"] = serialize.map(params["items"], (e: any) => serialize.object(e));
+    data["Items"] = serialize.map(params["items"], (e: any) =>
+      serialize.object(e),
+    );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new BulkContactsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BulkContactsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: BulkContactsListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<BulkContactsInstance>) => any): Promise<ApiResponse<BulkContactsInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: BulkContactsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BulkContactsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<BulkContactsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["items"] === null || params["items"] === undefined) {
-      throw new Error('Required parameter "params[\'items\']" missing.');
+      throw new Error("Required parameter \"params['items']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
-    data["Items"] = serialize.map(params["items"], (e: any) => serialize.object(e));
+    data["Items"] = serialize.map(params["items"], (e: any) =>
+      serialize.object(e),
+    );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<BulkContactsResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<BulkContactsInstance> => ({
-      ...response,
-      body: new BulkContactsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<BulkContactsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<BulkContactsInstance> => ({
+        ...response,
+        body: new BulkContactsInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface BulkContactsPayload extends BulkContactsResource {}
+interface BulkContactsPayload extends BulkContactsResource {}
 
 interface BulkContactsResource {
   items: any;
 }
 
 export class BulkContactsInstance {
-
-  constructor(protected _version: V1, payload: BulkContactsResource) {
-    
-    this.items = (payload.items);
-
+  constructor(
+    protected _version: V1,
+    payload: BulkContactsResource,
+  ) {
+    this.items = payload.items;
   }
 
   /**
@@ -191,5 +214,3 @@ export class BulkContactsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

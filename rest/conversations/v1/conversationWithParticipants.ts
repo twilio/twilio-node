@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,35 +19,34 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
  */
-export type ConversationWithParticipantsState = 'initializing'|'inactive'|'active'|'closed';
+export type ConversationWithParticipantsState =
+  "initializing" | "inactive" | "active" | "closed";
 
-export type ConversationWithParticipantsWebhookEnabledType = 'true'|'false';
-
+export type ConversationWithParticipantsWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to create a ConversationWithParticipantsInstance
  */
 export interface ConversationWithParticipantsListInstanceCreateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  "xTwilioWebhookEnabled"?: ConversationWithParticipantsWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationWithParticipantsWebhookEnabledType;
   /** The human-readable name of this conversation, limited to 256 characters. Optional. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. */
-  "uniqueName"?: string;
+  uniqueName?: string;
   /** The date that this resource was created. */
-  "dateCreated"?: Date;
+  dateCreated?: Date;
   /** The date that this resource was last updated. */
-  "dateUpdated"?: Date;
+  dateUpdated?: Date;
   /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to. */
-  "messagingServiceSid"?: string;
+  messagingServiceSid?: string;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
-  "attributes"?: string;
+  attributes?: string;
   /**  */
-  "state"?: ConversationWithParticipantsState;
+  state?: ConversationWithParticipantsState;
   /** ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   "timers.inactive"?: string;
   /** ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
@@ -58,20 +56,16 @@ export interface ConversationWithParticipantsListInstanceCreateOptions {
   /** The default name that will be used when sending outbound emails in this conversation. */
   "bindings.email.name"?: string;
   /** The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10. */
-  "participant"?: Array<string>;
+  participant?: Array<string>;
 }
 
-
-export interface ConversationWithParticipantsSolution {
-}
+export interface ConversationWithParticipantsSolution {}
 
 export interface ConversationWithParticipantsListInstance {
   _version: V1;
   _solution: ConversationWithParticipantsSolution;
   _uri: string;
 
-
-
   /**
    * Create a ConversationWithParticipantsInstance
    *
@@ -79,7 +73,12 @@ export interface ConversationWithParticipantsListInstance {
    *
    * @returns Resolves to processed ConversationWithParticipantsInstance
    */
-  create(callback?: (error: Error | null, item?: ConversationWithParticipantsInstance) => any): Promise<ConversationWithParticipantsInstance>;
+  create(
+    callback?: (
+      error: Error | null,
+      item?: ConversationWithParticipantsInstance,
+    ) => any,
+  ): Promise<ConversationWithParticipantsInstance>;
   /**
    * Create a ConversationWithParticipantsInstance
    *
@@ -88,7 +87,13 @@ export interface ConversationWithParticipantsListInstance {
    *
    * @returns Resolves to processed ConversationWithParticipantsInstance
    */
-  create(params: ConversationWithParticipantsListInstanceCreateOptions, callback?: (error: Error | null, item?: ConversationWithParticipantsInstance) => any): Promise<ConversationWithParticipantsInstance>;
+  create(
+    params: ConversationWithParticipantsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ConversationWithParticipantsInstance,
+    ) => any,
+  ): Promise<ConversationWithParticipantsInstance>;
 
   /**
    * Create a ConversationWithParticipantsInstance and return HTTP info
@@ -97,7 +102,12 @@ export interface ConversationWithParticipantsListInstance {
    *
    * @returns Resolves to processed ConversationWithParticipantsInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConversationWithParticipantsInstance>) => any): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationWithParticipantsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
   /**
    * Create a ConversationWithParticipantsInstance and return HTTP info
    *
@@ -106,9 +116,13 @@ export interface ConversationWithParticipantsListInstance {
    *
    * @returns Resolves to processed ConversationWithParticipantsInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ConversationWithParticipantsListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ConversationWithParticipantsInstance>) => any): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
-
-
+  createWithHttpInfo(
+    params: ConversationWithParticipantsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConversationWithParticipantsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -117,138 +131,182 @@ export interface ConversationWithParticipantsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConversationWithParticipantsListInstance(version: V1): ConversationWithParticipantsListInstance {
+export function ConversationWithParticipantsListInstance(
+  version: V1,
+): ConversationWithParticipantsListInstance {
   const instance = {} as ConversationWithParticipantsListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/ConversationWithParticipants`;
 
-  instance.create = function create(params?: ConversationWithParticipantsListInstanceCreateOptions | ((error: Error | null, items: ConversationWithParticipantsInstance) => any), callback?: (error: Error | null, items: ConversationWithParticipantsInstance) => any): Promise<ConversationWithParticipantsInstance> {
+  instance.create = function create(
+    params?:
+      | ConversationWithParticipantsListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ConversationWithParticipantsInstance,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ConversationWithParticipantsInstance,
+    ) => any,
+  ): Promise<ConversationWithParticipantsInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["dateCreated"] !== undefined)
-    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateUpdated"] !== undefined)
-    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
     if (params["messagingServiceSid"] !== undefined)
-    data["MessagingServiceSid"] = params["messagingServiceSid"];
+      data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
-    if (params["state"] !== undefined)
-    data["State"] = params["state"];
+      data["Attributes"] = params["attributes"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
     if (params["timers.inactive"] !== undefined)
-    data["Timers.Inactive"] = params["timers.inactive"];
+      data["Timers.Inactive"] = params["timers.inactive"];
     if (params["timers.closed"] !== undefined)
-    data["Timers.Closed"] = params["timers.closed"];
+      data["Timers.Closed"] = params["timers.closed"];
     if (params["bindings.email.address"] !== undefined)
-    data["Bindings.Email.Address"] = params["bindings.email.address"];
+      data["Bindings.Email.Address"] = params["bindings.email.address"];
     if (params["bindings.email.name"] !== undefined)
-    data["Bindings.Email.Name"] = params["bindings.email.name"];
+      data["Bindings.Email.Name"] = params["bindings.email.name"];
     if (params["participant"] !== undefined)
-    data["Participant"] = serialize.map(params["participant"], (e: string) => (e));
+      data["Participant"] = serialize.map(
+        params["participant"],
+        (e: string) => e,
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ConversationWithParticipantsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConversationWithParticipantsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: ConversationWithParticipantsListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<ConversationWithParticipantsInstance>) => any), callback?: (error: Error | null, items: ApiResponse<ConversationWithParticipantsInstance>) => any): Promise<ApiResponse<ConversationWithParticipantsInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | ConversationWithParticipantsListInstanceCreateOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<ConversationWithParticipantsInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ConversationWithParticipantsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ConversationWithParticipantsInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["dateCreated"] !== undefined)
-    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateUpdated"] !== undefined)
-    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
     if (params["messagingServiceSid"] !== undefined)
-    data["MessagingServiceSid"] = params["messagingServiceSid"];
+      data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
-    if (params["state"] !== undefined)
-    data["State"] = params["state"];
+      data["Attributes"] = params["attributes"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
     if (params["timers.inactive"] !== undefined)
-    data["Timers.Inactive"] = params["timers.inactive"];
+      data["Timers.Inactive"] = params["timers.inactive"];
     if (params["timers.closed"] !== undefined)
-    data["Timers.Closed"] = params["timers.closed"];
+      data["Timers.Closed"] = params["timers.closed"];
     if (params["bindings.email.address"] !== undefined)
-    data["Bindings.Email.Address"] = params["bindings.email.address"];
+      data["Bindings.Email.Address"] = params["bindings.email.address"];
     if (params["bindings.email.name"] !== undefined)
-    data["Bindings.Email.Name"] = params["bindings.email.name"];
+      data["Bindings.Email.Name"] = params["bindings.email.name"];
     if (params["participant"] !== undefined)
-    data["Participant"] = serialize.map(params["participant"], (e: string) => (e));
+      data["Participant"] = serialize.map(
+        params["participant"],
+        (e: string) => e,
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ConversationWithParticipantsResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConversationWithParticipantsInstance> => ({
-      ...response,
-      body: new ConversationWithParticipantsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ConversationWithParticipantsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ConversationWithParticipantsInstance> => ({
+        ...response,
+        body: new ConversationWithParticipantsInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface ConversationWithParticipantsPayload extends ConversationWithParticipantsResource {}
+interface ConversationWithParticipantsPayload extends ConversationWithParticipantsResource {}
 
 interface ConversationWithParticipantsResource {
   account_sid: string;
@@ -268,24 +326,24 @@ interface ConversationWithParticipantsResource {
 }
 
 export class ConversationWithParticipantsInstance {
-
-  constructor(protected _version: V1, payload: ConversationWithParticipantsResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.chatServiceSid = (payload.chat_service_sid);
-    this.messagingServiceSid = (payload.messaging_service_sid);
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
-    this.uniqueName = (payload.unique_name);
-    this.attributes = (payload.attributes);
+  constructor(
+    protected _version: V1,
+    payload: ConversationWithParticipantsResource,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.chatServiceSid = payload.chat_service_sid;
+    this.messagingServiceSid = payload.messaging_service_sid;
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
+    this.uniqueName = payload.unique_name;
+    this.attributes = payload.attributes;
     this.state = payload.state;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.timers = (payload.timers);
-    this.links = (payload.links);
-    this.bindings = (payload.bindings);
-    this.url = (payload.url);
-
+    this.timers = payload.timers;
+    this.links = payload.links;
+    this.bindings = payload.bindings;
+    this.url = payload.url;
   }
 
   /**
@@ -367,5 +425,3 @@ export class ConversationWithParticipantsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

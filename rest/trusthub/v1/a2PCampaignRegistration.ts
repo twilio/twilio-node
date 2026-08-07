@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class TrusthubV1A2pCampaignRegistrationRequest {
   /**
@@ -152,26 +150,20 @@ export class TrusthubV1A2pCampaignRegistrationRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a A2PCampaignRegistrationInstance
  */
 export interface A2PCampaignRegistrationListInstanceCreateOptions {
   /**  */
-  "trusthubV1A2PCampaignRegistrationRequest": TrusthubV1A2pCampaignRegistrationRequest;
+  trusthubV1A2PCampaignRegistrationRequest: TrusthubV1A2pCampaignRegistrationRequest;
 }
 
-
-export interface A2PCampaignRegistrationSolution {
-}
+export interface A2PCampaignRegistrationSolution {}
 
 export interface A2PCampaignRegistrationListInstance {
   _version: V1;
   _solution: A2PCampaignRegistrationSolution;
   _uri: string;
-
-
 
   /**
    * Create a A2PCampaignRegistrationInstance
@@ -182,7 +174,14 @@ export interface A2PCampaignRegistrationListInstance {
    *
    * @returns Resolves to processed A2PCampaignRegistrationInstance
    */
-  create(params: TrusthubV1A2pCampaignRegistrationRequest, headers?: any, callback?: (error: Error | null, item?: A2PCampaignRegistrationInstance) => any): Promise<A2PCampaignRegistrationInstance>;
+  create(
+    params: TrusthubV1A2pCampaignRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: A2PCampaignRegistrationInstance,
+    ) => any,
+  ): Promise<A2PCampaignRegistrationInstance>;
 
   /**
    * Create a A2PCampaignRegistrationInstance and return HTTP info
@@ -193,9 +192,14 @@ export interface A2PCampaignRegistrationListInstance {
    *
    * @returns Resolves to processed A2PCampaignRegistrationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: TrusthubV1A2pCampaignRegistrationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<A2PCampaignRegistrationInstance>) => any): Promise<ApiResponse<A2PCampaignRegistrationInstance>>;
-
-
+  createWithHttpInfo(
+    params: TrusthubV1A2pCampaignRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<A2PCampaignRegistrationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<A2PCampaignRegistrationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -204,86 +208,120 @@ export interface A2PCampaignRegistrationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function A2PCampaignRegistrationListInstance(version: V1): A2PCampaignRegistrationListInstance {
+export function A2PCampaignRegistrationListInstance(
+  version: V1,
+): A2PCampaignRegistrationListInstance {
   const instance = {} as A2PCampaignRegistrationListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/A2PCampaignRegistrations`;
 
-  instance.create = function create(params: TrusthubV1A2pCampaignRegistrationRequest, headers?: any, callback?: (error: Error | null, items: A2PCampaignRegistrationInstance) => any): Promise<A2PCampaignRegistrationInstance> {
+  instance.create = function create(
+    params: TrusthubV1A2pCampaignRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: A2PCampaignRegistrationInstance,
+    ) => any,
+  ): Promise<A2PCampaignRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new A2PCampaignRegistrationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new A2PCampaignRegistrationInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: TrusthubV1A2pCampaignRegistrationRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<A2PCampaignRegistrationInstance>) => any): Promise<ApiResponse<A2PCampaignRegistrationInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: TrusthubV1A2pCampaignRegistrationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<A2PCampaignRegistrationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<A2PCampaignRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<A2PCampaignRegistrationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<A2PCampaignRegistrationInstance> => ({
-      ...response,
-      body: new A2PCampaignRegistrationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<A2PCampaignRegistrationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<A2PCampaignRegistrationInstance> => ({
+        ...response,
+        body: new A2PCampaignRegistrationInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface A2PCampaignRegistrationPayload extends A2PCampaignRegistrationResource {}
+interface A2PCampaignRegistrationPayload extends A2PCampaignRegistrationResource {}
 
 interface A2PCampaignRegistrationResource {
   id: string;
@@ -292,13 +330,13 @@ interface A2PCampaignRegistrationResource {
 }
 
 export class A2PCampaignRegistrationInstance {
-
-  constructor(protected _version: V1, payload: A2PCampaignRegistrationResource) {
-    
-    this.id = (payload.id);
-    this.sessionId = (payload.sessionId);
-    this.sessionToken = (payload.sessionToken);
-
+  constructor(
+    protected _version: V1,
+    payload: A2PCampaignRegistrationResource,
+  ) {
+    this.id = payload.id;
+    this.sessionId = payload.sessionId;
+    this.sessionToken = payload.sessionToken;
   }
 
   /**
@@ -331,5 +369,3 @@ export class A2PCampaignRegistrationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

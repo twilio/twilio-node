@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -22,12 +23,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to remove a InsightsQuestionnairesCategoryInstance
  */
 export interface InsightsQuestionnairesCategoryContextRemoveOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
 /**
@@ -35,9 +38,9 @@ export interface InsightsQuestionnairesCategoryContextRemoveOptions {
  */
 export interface InsightsQuestionnairesCategoryContextUpdateOptions {
   /** The name of this category. */
-  name: string;
+  "name": string;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
 /**
@@ -45,9 +48,9 @@ export interface InsightsQuestionnairesCategoryContextUpdateOptions {
  */
 export interface InsightsQuestionnairesCategoryListInstanceCreateOptions {
   /** The name of this category. */
-  name: string;
+  "name": string;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
 /**
@@ -55,14 +58,11 @@ export interface InsightsQuestionnairesCategoryListInstanceCreateOptions {
  */
 export interface InsightsQuestionnairesCategoryListInstanceEachOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: InsightsQuestionnairesCategoryInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: InsightsQuestionnairesCategoryInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -74,28 +74,31 @@ export interface InsightsQuestionnairesCategoryListInstanceEachOptions {
  */
 export interface InsightsQuestionnairesCategoryListInstanceOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface InsightsQuestionnairesCategoryListInstancePageOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface InsightsQuestionnairesCategoryContext {
+
   /**
    * Remove a InsightsQuestionnairesCategoryInstance
    *
@@ -103,9 +106,7 @@ export interface InsightsQuestionnairesCategoryContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance
    *
@@ -114,10 +115,7 @@ export interface InsightsQuestionnairesCategoryContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance
    */
-  remove(
-    params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: InsightsQuestionnairesCategoryContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
   /**
    * Remove a InsightsQuestionnairesCategoryInstance and return HTTP info
@@ -126,9 +124,7 @@ export interface InsightsQuestionnairesCategoryContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance and return HTTP info
    *
@@ -137,10 +133,7 @@ export interface InsightsQuestionnairesCategoryContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(params: InsightsQuestionnairesCategoryContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
 
   /**
    * Update a InsightsQuestionnairesCategoryInstance
@@ -150,13 +143,7 @@ export interface InsightsQuestionnairesCategoryContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance
    */
-  update(
-    params: InsightsQuestionnairesCategoryContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance>;
+  update(params: InsightsQuestionnairesCategoryContextUpdateOptions, callback?: (error: Error | null, item?: InsightsQuestionnairesCategoryInstance) => any): Promise<InsightsQuestionnairesCategoryInstance>;
 
   /**
    * Update a InsightsQuestionnairesCategoryInstance and return HTTP info
@@ -166,13 +153,7 @@ export interface InsightsQuestionnairesCategoryContext {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: InsightsQuestionnairesCategoryContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
+  updateWithHttpInfo(params: InsightsQuestionnairesCategoryContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesCategoryInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -182,203 +163,155 @@ export interface InsightsQuestionnairesCategoryContext {
 }
 
 export interface InsightsQuestionnairesCategoryContextSolution {
-  categorySid: string;
+  "categorySid": string;
 }
 
-export class InsightsQuestionnairesCategoryContextImpl
-  implements InsightsQuestionnairesCategoryContext
-{
+export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuestionnairesCategoryContext {
   protected _solution: InsightsQuestionnairesCategoryContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, categorySid: string) {
     if (!isValidPathParam(categorySid)) {
-      throw new Error("Parameter 'categorySid' is not valid.");
+      throw new Error('Parameter \'categorySid\' is not valid.');
     }
 
-    this._solution = { categorySid };
+    this._solution = { categorySid,  };
     this._uri = `/Insights/QualityManagement/Categories/${categorySid}`;
   }
 
-  remove(
-    params?:
-      | InsightsQuestionnairesCategoryContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    if (params instanceof Function) {
+  remove(params?: InsightsQuestionnairesCategoryContextRemoveOptions | ((error: Error | null, item?: boolean) => any),callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", params: data, headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    params?:
-      | InsightsQuestionnairesCategoryContextRemoveOptions
-      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    if (params instanceof Function) {
+  removeWithHttpInfo(params?: InsightsQuestionnairesCategoryContextRemoveOptions | ((error: Error | null, item?: ApiResponse<boolean>) => any),callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", params: data, headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: InsightsQuestionnairesCategoryContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance> {
-    if (params === null || params === undefined) {
+  update(params: InsightsQuestionnairesCategoryContextUpdateOptions,callback?: (error: Error | null, item?: InsightsQuestionnairesCategoryInstance) => any): Promise<InsightsQuestionnairesCategoryInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["name"] === null || params["name"] === undefined) {
-      throw new Error("Required parameter \"params['name']\" missing.");
+      throw new Error('Required parameter "params[\'name\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Name"] = params["name"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new InsightsQuestionnairesCategoryInstance(operationVersion, payload, instance._solution.categorySid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesCategoryInstance(
-          operationVersion,
-          payload,
-          instance._solution.categorySid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params: InsightsQuestionnairesCategoryContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
-    if (params === null || params === undefined) {
+  updateWithHttpInfo(params: InsightsQuestionnairesCategoryContextUpdateOptions,callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesCategoryInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["name"] === null || params["name"] === undefined) {
-      throw new Error("Required parameter \"params['name']\" missing.");
+      throw new Error('Required parameter "params[\'name\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Name"] = params["name"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<InsightsQuestionnairesCategoryResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesCategoryInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesCategoryInstance(
-            operationVersion,
-            response.body,
-            instance._solution.categorySid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<InsightsQuestionnairesCategoryResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InsightsQuestionnairesCategoryInstance> => ({
+      ...response,
+      body: new InsightsQuestionnairesCategoryInstance(operationVersion, response.body, instance._solution.categorySid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -395,8 +328,9 @@ export class InsightsQuestionnairesCategoryContextImpl
   }
 }
 
-interface InsightsQuestionnairesCategoryPayload extends TwilioResponsePayload {
-  categories: InsightsQuestionnairesCategoryResource[];
+
+  interface InsightsQuestionnairesCategoryPayload extends TwilioResponsePayload {
+    categories: InsightsQuestionnairesCategoryResource[];
 }
 
 interface InsightsQuestionnairesCategoryResource {
@@ -410,17 +344,14 @@ export class InsightsQuestionnairesCategoryInstance {
   protected _solution: InsightsQuestionnairesCategoryContextSolution;
   protected _context?: InsightsQuestionnairesCategoryContext;
 
-  constructor(
-    protected _version: V1,
-    payload: InsightsQuestionnairesCategoryResource,
-    categorySid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.categorySid = payload.category_sid;
-    this.name = payload.name;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: InsightsQuestionnairesCategoryResource, categorySid?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.categorySid = (payload.category_sid);
+    this.name = (payload.name);
+    this.url = (payload.url);
 
-    this._solution = { categorySid: categorySid || this.categorySid };
+    this._solution = { categorySid: categorySid,  };
   }
 
   /**
@@ -438,12 +369,7 @@ export class InsightsQuestionnairesCategoryInstance {
   url: string;
 
   private get _proxy(): InsightsQuestionnairesCategoryContext {
-    this._context =
-      this._context ||
-      new InsightsQuestionnairesCategoryContextImpl(
-        this._version,
-        this._solution.categorySid
-      );
+    this._context = this._context || new InsightsQuestionnairesCategoryContextImpl(this._version, this._solution.categorySid);
     return this._context;
   }
 
@@ -454,9 +380,7 @@ export class InsightsQuestionnairesCategoryInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance
    *
@@ -465,15 +389,10 @@ export class InsightsQuestionnairesCategoryInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance
    */
-  remove(
-    params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: InsightsQuestionnairesCategoryContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
-  remove(
-    params?: any,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+    remove(params?: any, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+    {
     return this._proxy.remove(params, callback);
   }
 
@@ -484,9 +403,7 @@ export class InsightsQuestionnairesCategoryInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance and return HTTP info
    *
@@ -495,15 +412,10 @@ export class InsightsQuestionnairesCategoryInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(params: InsightsQuestionnairesCategoryContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>;
 
-  removeWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+    removeWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+    {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
 
@@ -515,21 +427,10 @@ export class InsightsQuestionnairesCategoryInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance
    */
-  update(
-    params: InsightsQuestionnairesCategoryContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance>;
+  update(params: InsightsQuestionnairesCategoryContextUpdateOptions, callback?: (error: Error | null, item?: InsightsQuestionnairesCategoryInstance) => any): Promise<InsightsQuestionnairesCategoryInstance>;
 
-  update(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: InsightsQuestionnairesCategoryInstance) => any): Promise<InsightsQuestionnairesCategoryInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -541,21 +442,10 @@ export class InsightsQuestionnairesCategoryInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: InsightsQuestionnairesCategoryContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
+  updateWithHttpInfo(params: InsightsQuestionnairesCategoryContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesCategoryInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesCategoryInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -578,15 +468,22 @@ export class InsightsQuestionnairesCategoryInstance {
   }
 }
 
-export interface InsightsQuestionnairesCategorySolution {}
+
+export interface InsightsQuestionnairesCategorySolution {
+}
 
 export interface InsightsQuestionnairesCategoryListInstance {
   _version: V1;
   _solution: InsightsQuestionnairesCategorySolution;
   _uri: string;
 
-  (categorySid: string): InsightsQuestionnairesCategoryContext;
-  get(categorySid: string): InsightsQuestionnairesCategoryContext;
+  (categorySid: string, ): InsightsQuestionnairesCategoryContext;
+  get(categorySid: string, ): InsightsQuestionnairesCategoryContext;
+
+
+
+
+
 
   /**
    * Create a InsightsQuestionnairesCategoryInstance
@@ -596,13 +493,7 @@ export interface InsightsQuestionnairesCategoryListInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance
    */
-  create(
-    params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance>;
+  create(params: InsightsQuestionnairesCategoryListInstanceCreateOptions, callback?: (error: Error | null, item?: InsightsQuestionnairesCategoryInstance) => any): Promise<InsightsQuestionnairesCategoryInstance>;
 
   /**
    * Create a InsightsQuestionnairesCategoryInstance and return HTTP info
@@ -612,13 +503,10 @@ export interface InsightsQuestionnairesCategoryListInstance {
    *
    * @returns Resolves to processed InsightsQuestionnairesCategoryInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
+  createWithHttpInfo(params: InsightsQuestionnairesCategoryListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsQuestionnairesCategoryInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
+
+
+
 
   /**
    * Streams InsightsQuestionnairesCategoryInstance records from the API.
@@ -635,19 +523,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { InsightsQuestionnairesCategoryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: InsightsQuestionnairesCategoryListInstanceEachOptions,
-    callback?: (
-      item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: InsightsQuestionnairesCategoryInstance, done: (err?: Error) => void) => void): void;
+  each(params: InsightsQuestionnairesCategoryListInstanceEachOptions, callback?: (item: InsightsQuestionnairesCategoryInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams InsightsQuestionnairesCategoryInstance records from the API with HTTP metadata captured per page.
    *
@@ -663,19 +540,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { InsightsQuestionnairesCategoryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: InsightsQuestionnairesCategoryListInstanceEachOptions,
-    callback?: (
-      item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: InsightsQuestionnairesCategoryInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: InsightsQuestionnairesCategoryListInstanceEachOptions, callback?: (item: InsightsQuestionnairesCategoryInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of InsightsQuestionnairesCategoryInstance records from the API.
    *
@@ -684,13 +550,7 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryPage
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsQuestionnairesCategoryPage) => any): Promise<InsightsQuestionnairesCategoryPage>;
   /**
    * Retrieve a single target page of InsightsQuestionnairesCategoryInstance records from the API with HTTP metadata.
    *
@@ -699,13 +559,7 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryPage>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
   /**
    * Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
    *
@@ -715,19 +569,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { InsightsQuestionnairesCategoryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryInstance[]
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance[]>;
-  list(
-    params: InsightsQuestionnairesCategoryListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryInstance[]
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance[]>;
+  list(callback?: (error: Error | null, items: InsightsQuestionnairesCategoryInstance[]) => any): Promise<InsightsQuestionnairesCategoryInstance[]>;
+  list(params: InsightsQuestionnairesCategoryListInstanceOptions, callback?: (error: Error | null, items: InsightsQuestionnairesCategoryInstance[]) => any): Promise<InsightsQuestionnairesCategoryInstance[]>;
   /**
    * Lists InsightsQuestionnairesCategoryInstance records from the API as a list with HTTP metadata.
    *
@@ -739,19 +582,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { InsightsQuestionnairesCategoryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance[]>>;
-  listWithHttpInfo(
-    params: InsightsQuestionnairesCategoryListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance[]>>;
+  listWithHttpInfo(params: InsightsQuestionnairesCategoryListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance[]>>;
   /**
    * Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
    *
@@ -763,19 +595,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { InsightsQuestionnairesCategoryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryPage
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryPage>;
-  page(
-    params: InsightsQuestionnairesCategoryListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryPage
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryPage>;
+  page(callback?: (error: Error | null, items: InsightsQuestionnairesCategoryPage) => any): Promise<InsightsQuestionnairesCategoryPage>;
+  page(params: InsightsQuestionnairesCategoryListInstancePageOptions, callback?: (error: Error | null, items: InsightsQuestionnairesCategoryPage) => any): Promise<InsightsQuestionnairesCategoryPage>;
   /**
    * Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API with HTTP metadata.
    *
@@ -787,19 +608,9 @@ export interface InsightsQuestionnairesCategoryListInstance {
    * @param { InsightsQuestionnairesCategoryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
-  pageWithHttpInfo(
-    params: InsightsQuestionnairesCategoryListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryPage>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
+  pageWithHttpInfo(params: InsightsQuestionnairesCategoryListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryPage>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -808,130 +619,89 @@ export interface InsightsQuestionnairesCategoryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsQuestionnairesCategoryListInstance(
-  version: V1
-): InsightsQuestionnairesCategoryListInstance {
-  const instance = ((categorySid) =>
-    instance.get(categorySid)) as InsightsQuestionnairesCategoryListInstance;
+export function InsightsQuestionnairesCategoryListInstance(version: V1): InsightsQuestionnairesCategoryListInstance {
+  const instance = ((categorySid, ) => instance.get(categorySid, )) as InsightsQuestionnairesCategoryListInstance;
 
-  instance.get = function get(
-    categorySid
-  ): InsightsQuestionnairesCategoryContext {
+  instance.get = function get(categorySid, ): InsightsQuestionnairesCategoryContext {
     return new InsightsQuestionnairesCategoryContextImpl(version, categorySid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/QualityManagement/Categories`;
 
-  instance.create = function create(
-    params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryInstance
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryInstance> {
+  instance.create = function create(params: InsightsQuestionnairesCategoryListInstanceCreateOptions, callback?: (error: Error | null, items: InsightsQuestionnairesCategoryInstance) => any): Promise<InsightsQuestionnairesCategoryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["name"] === null || params["name"] === undefined) {
-      throw new Error("Required parameter \"params['name']\" missing.");
+      throw new Error('Required parameter "params[\'name\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Name"] = params["name"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new InsightsQuestionnairesCategoryInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesCategoryInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: InsightsQuestionnairesCategoryListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryInstance>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["name"] === null || params["name"] === undefined) {
-      throw new Error("Required parameter \"params['name']\" missing.");
+      throw new Error('Required parameter "params[\'name\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Name"] = params["name"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<InsightsQuestionnairesCategoryResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesCategoryInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesCategoryInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<InsightsQuestionnairesCategoryResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InsightsQuestionnairesCategoryInstance> => ({
+      ...response,
+      body: new InsightsQuestionnairesCategoryInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | InsightsQuestionnairesCategoryListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: InsightsQuestionnairesCategoryPage
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryPage
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryPage> {
+
+    }
+
+  instance.page = function page(params?: InsightsQuestionnairesCategoryListInstancePageOptions | ((error: Error | null, items: InsightsQuestionnairesCategoryPage) => any), callback?: (error: Error | null, items: InsightsQuestionnairesCategoryPage) => any): Promise<InsightsQuestionnairesCategoryPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -941,78 +711,45 @@ export function InsightsQuestionnairesCategoryListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new InsightsQuestionnairesCategoryPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesCategoryPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InsightsQuestionnairesCategoryPage
-    ) => any
-  ): Promise<InsightsQuestionnairesCategoryPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesCategoryPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsQuestionnairesCategoryPage) => any): Promise<InsightsQuestionnairesCategoryPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new InsightsQuestionnairesCategoryPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | InsightsQuestionnairesCategoryListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<InsightsQuestionnairesCategoryPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: InsightsQuestionnairesCategoryListInstancePageOptions | ((error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryPage>) => any), callback?: (error: Error | null, items: ApiResponse<InsightsQuestionnairesCategoryPage>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1022,121 +759,93 @@ export function InsightsQuestionnairesCategoryListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesCategoryPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsQuestionnairesCategoryPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InsightsQuestionnairesCategoryPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new InsightsQuestionnairesCategoryPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<InsightsQuestionnairesCategoryPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<InsightsQuestionnairesCategoryPage>) => any): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<InsightsQuestionnairesCategoryPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InsightsQuestionnairesCategoryPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<InsightsQuestionnairesCategoryPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new InsightsQuestionnairesCategoryPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class InsightsQuestionnairesCategoryPage extends Page<
-  V1,
-  InsightsQuestionnairesCategoryPayload,
-  InsightsQuestionnairesCategoryResource,
-  InsightsQuestionnairesCategoryInstance
-> {
-  /**
-   * Initialize the InsightsQuestionnairesCategoryPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: InsightsQuestionnairesCategorySolution
-  ) {
+export class InsightsQuestionnairesCategoryPage extends Page<V1, InsightsQuestionnairesCategoryPayload, InsightsQuestionnairesCategoryResource, InsightsQuestionnairesCategoryInstance> {
+/**
+* Initialize the InsightsQuestionnairesCategoryPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InsightsQuestionnairesCategorySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InsightsQuestionnairesCategoryInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: InsightsQuestionnairesCategoryResource
-  ): InsightsQuestionnairesCategoryInstance {
-    return new InsightsQuestionnairesCategoryInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of InsightsQuestionnairesCategoryInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InsightsQuestionnairesCategoryResource): InsightsQuestionnairesCategoryInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new InsightsQuestionnairesCategoryInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

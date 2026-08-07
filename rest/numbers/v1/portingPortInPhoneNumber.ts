@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,12 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
-
 export interface PortingPortInPhoneNumberContext {
-
   /**
    * Remove a PortingPortInPhoneNumberInstance
    *
@@ -33,7 +27,9 @@ export interface PortingPortInPhoneNumberContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a PortingPortInPhoneNumberInstance and return HTTP info
@@ -42,7 +38,9 @@ export interface PortingPortInPhoneNumberContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a PortingPortInPhoneNumberInstance
@@ -51,7 +49,12 @@ export interface PortingPortInPhoneNumberContext {
    *
    * @returns Resolves to processed PortingPortInPhoneNumberInstance
    */
-  fetch(callback?: (error: Error | null, item?: PortingPortInPhoneNumberInstance) => any): Promise<PortingPortInPhoneNumberInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: PortingPortInPhoneNumberInstance,
+    ) => any,
+  ): Promise<PortingPortInPhoneNumberInstance>;
 
   /**
    * Fetch a PortingPortInPhoneNumberInstance and return HTTP info
@@ -60,7 +63,12 @@ export interface PortingPortInPhoneNumberContext {
    *
    * @returns Resolves to processed PortingPortInPhoneNumberInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortInPhoneNumberInstance>) => any): Promise<ApiResponse<PortingPortInPhoneNumberInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInPhoneNumberInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInPhoneNumberInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -70,92 +78,140 @@ export interface PortingPortInPhoneNumberContext {
 }
 
 export interface PortingPortInPhoneNumberContextSolution {
-  "portInRequestSid": string;
-  "phoneNumberSid": string;
+  portInRequestSid: string;
+  phoneNumberSid: string;
 }
 
 export class PortingPortInPhoneNumberContextImpl implements PortingPortInPhoneNumberContext {
   protected _solution: PortingPortInPhoneNumberContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, portInRequestSid: string, phoneNumberSid: string) {
+  constructor(
+    protected _version: V1,
+    portInRequestSid: string,
+    phoneNumberSid: string,
+  ) {
     if (!isValidPathParam(portInRequestSid)) {
-      throw new Error('Parameter \'portInRequestSid\' is not valid.');
+      throw new Error("Parameter 'portInRequestSid' is not valid.");
     }
 
     if (!isValidPathParam(phoneNumberSid)) {
-      throw new Error('Parameter \'phoneNumberSid\' is not valid.');
+      throw new Error("Parameter 'phoneNumberSid' is not valid.");
     }
 
-    this._solution = { portInRequestSid, phoneNumberSid,  };
+    this._solution = { portInRequestSid, phoneNumberSid };
     this._uri = `/Porting/PortIn/${portInRequestSid}/PhoneNumber/${phoneNumberSid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: PortingPortInPhoneNumberInstance) => any): Promise<PortingPortInPhoneNumberInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: PortingPortInPhoneNumberInstance,
+    ) => any,
+  ): Promise<PortingPortInPhoneNumberInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new PortingPortInPhoneNumberInstance(operationVersion, payload, instance._solution.portInRequestSid, instance._solution.phoneNumberSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PortingPortInPhoneNumberInstance(
+          operationVersion,
+          payload,
+          instance._solution.portInRequestSid,
+          instance._solution.phoneNumberSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortInPhoneNumberInstance>) => any): Promise<ApiResponse<PortingPortInPhoneNumberInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInPhoneNumberInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInPhoneNumberInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<PortingPortInPhoneNumberResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<PortingPortInPhoneNumberInstance> => ({
-      ...response,
-      body: new PortingPortInPhoneNumberInstance(operationVersion, response.body, instance._solution.portInRequestSid, instance._solution.phoneNumberSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PortingPortInPhoneNumberResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<PortingPortInPhoneNumberInstance> => ({
+        ...response,
+        body: new PortingPortInPhoneNumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.portInRequestSid,
+          instance._solution.phoneNumberSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -172,8 +228,7 @@ export class PortingPortInPhoneNumberContextImpl implements PortingPortInPhoneNu
   }
 }
 
-
-  interface PortingPortInPhoneNumberPayload extends PortingPortInPhoneNumberResource {}
+interface PortingPortInPhoneNumberPayload extends PortingPortInPhoneNumberResource {}
 
 interface PortingPortInPhoneNumberResource {
   port_in_request_sid: string;
@@ -200,28 +255,39 @@ export class PortingPortInPhoneNumberInstance {
   protected _solution: PortingPortInPhoneNumberContextSolution;
   protected _context?: PortingPortInPhoneNumberContext;
 
-  constructor(protected _version: V1, payload: PortingPortInPhoneNumberResource, portInRequestSid?: string, phoneNumberSid?: string) {
-    
-    this.portInRequestSid = (payload.port_in_request_sid);
-    this.phoneNumberSid = (payload.phone_number_sid);
-    this.url = (payload.url);
-    this.accountSid = (payload.account_sid);
-    this.phoneNumberType = (payload.phone_number_type);
+  constructor(
+    protected _version: V1,
+    payload: PortingPortInPhoneNumberResource,
+    portInRequestSid?: string,
+    phoneNumberSid?: string,
+  ) {
+    this.portInRequestSid = payload.port_in_request_sid;
+    this.phoneNumberSid = payload.phone_number_sid;
+    this.url = payload.url;
+    this.accountSid = payload.account_sid;
+    this.phoneNumberType = payload.phone_number_type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.country = (payload.country);
-    this.missingRequiredFields = (payload.missing_required_fields);
+    this.country = payload.country;
+    this.missingRequiredFields = payload.missing_required_fields;
     this.lastUpdated = deserialize.iso8601DateTime(payload.last_updated);
-    this.phoneNumber = (payload.phone_number);
-    this.portable = (payload.portable);
-    this.notPortabilityReason = (payload.not_portability_reason);
-    this.notPortabilityReasonCode = deserialize.integer(payload.not_portability_reason_code);
-    this.portInPhoneNumberStatus = (payload.port_in_phone_number_status);
+    this.phoneNumber = payload.phone_number;
+    this.portable = payload.portable;
+    this.notPortabilityReason = payload.not_portability_reason;
+    this.notPortabilityReasonCode = deserialize.integer(
+      payload.not_portability_reason_code,
+    );
+    this.portInPhoneNumberStatus = payload.port_in_phone_number_status;
     this.portOutPin = deserialize.integer(payload.port_out_pin);
-    this.rejectionReason = (payload.rejection_reason);
-    this.rejectionReasonCode = deserialize.integer(payload.rejection_reason_code);
+    this.rejectionReason = payload.rejection_reason;
+    this.rejectionReasonCode = deserialize.integer(
+      payload.rejection_reason_code,
+    );
     this.portDate = deserialize.iso8601DateTime(payload.port_date);
 
-    this._solution = { portInRequestSid: portInRequestSid, phoneNumberSid: phoneNumberSid,  };
+    this._solution = {
+      portInRequestSid: portInRequestSid,
+      phoneNumberSid: phoneNumberSid,
+    };
   }
 
   /**
@@ -298,7 +364,13 @@ export class PortingPortInPhoneNumberInstance {
   portDate: Date;
 
   private get _proxy(): PortingPortInPhoneNumberContext {
-    this._context = this._context || new PortingPortInPhoneNumberContextImpl(this._version, this._solution.portInRequestSid, this._solution.phoneNumberSid);
+    this._context =
+      this._context ||
+      new PortingPortInPhoneNumberContextImpl(
+        this._version,
+        this._solution.portInRequestSid,
+        this._solution.phoneNumberSid,
+      );
     return this._context;
   }
 
@@ -309,9 +381,9 @@ export class PortingPortInPhoneNumberInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -322,9 +394,9 @@ export class PortingPortInPhoneNumberInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -335,9 +407,12 @@ export class PortingPortInPhoneNumberInstance {
    *
    * @returns Resolves to processed PortingPortInPhoneNumberInstance
    */
-  fetch(callback?: (error: Error | null, item?: PortingPortInPhoneNumberInstance) => any): Promise<PortingPortInPhoneNumberInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: PortingPortInPhoneNumberInstance,
+    ) => any,
+  ): Promise<PortingPortInPhoneNumberInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -348,9 +423,12 @@ export class PortingPortInPhoneNumberInstance {
    *
    * @returns Resolves to processed PortingPortInPhoneNumberInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PortingPortInPhoneNumberInstance>) => any): Promise<ApiResponse<PortingPortInPhoneNumberInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PortingPortInPhoneNumberInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PortingPortInPhoneNumberInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -387,22 +465,21 @@ export class PortingPortInPhoneNumberInstance {
   }
 }
 
-
-export interface PortingPortInPhoneNumberSolution {
-}
+export interface PortingPortInPhoneNumberSolution {}
 
 export interface PortingPortInPhoneNumberListInstance {
   _version: V1;
   _solution: PortingPortInPhoneNumberSolution;
   _uri: string;
 
-  (portInRequestSid: string, phoneNumberSid: string, ): PortingPortInPhoneNumberContext;
-  get(portInRequestSid: string, phoneNumberSid: string, ): PortingPortInPhoneNumberContext;
-
-
-
-
-
+  (
+    portInRequestSid: string,
+    phoneNumberSid: string,
+  ): PortingPortInPhoneNumberContext;
+  get(
+    portInRequestSid: string,
+    phoneNumberSid: string,
+  ): PortingPortInPhoneNumberContext;
 
   /**
    * Provide a user-friendly representation
@@ -411,26 +488,40 @@ export interface PortingPortInPhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingPortInPhoneNumberListInstance(version: V1): PortingPortInPhoneNumberListInstance {
-  const instance = ((portInRequestSid, phoneNumberSid, ) => instance.get(portInRequestSid, phoneNumberSid, )) as PortingPortInPhoneNumberListInstance;
+export function PortingPortInPhoneNumberListInstance(
+  version: V1,
+): PortingPortInPhoneNumberListInstance {
+  const instance = ((portInRequestSid, phoneNumberSid) =>
+    instance.get(
+      portInRequestSid,
+      phoneNumberSid,
+    )) as PortingPortInPhoneNumberListInstance;
 
-  instance.get = function get(portInRequestSid, phoneNumberSid, ): PortingPortInPhoneNumberContext {
-    return new PortingPortInPhoneNumberContextImpl(version, portInRequestSid, phoneNumberSid);
-  }
+  instance.get = function get(
+    portInRequestSid,
+    phoneNumberSid,
+  ): PortingPortInPhoneNumberContext {
+    return new PortingPortInPhoneNumberContextImpl(
+      version,
+      portInRequestSid,
+      phoneNumberSid,
+    );
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

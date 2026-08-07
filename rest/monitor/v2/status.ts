@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Enable or disable alarm
@@ -35,16 +33,13 @@ export class MonitorV2AlarmStatus {
   }
 }
 
-
-
 /**
  * Options to pass to update a StatusInstance
  */
 export interface StatusListInstanceUpdateOptions {
   /**  */
-  "monitorV2AlarmStatus": MonitorV2AlarmStatus;
+  monitorV2AlarmStatus: MonitorV2AlarmStatus;
 }
-
 
 export interface StatusSolution {
   sid: string;
@@ -55,8 +50,6 @@ export interface StatusListInstance {
   _solution: StatusSolution;
   _uri: string;
 
-
-
   /**
    * Update a StatusInstance
    *
@@ -66,7 +59,11 @@ export interface StatusListInstance {
    *
    * @returns Resolves to processed StatusInstance
    */
-  update(params: MonitorV2AlarmStatus, headers?: any, callback?: (error: Error | null, item?: StatusInstance) => any): Promise<StatusInstance>;
+  update(
+    params: MonitorV2AlarmStatus,
+    headers?: any,
+    callback?: (error: Error | null, item?: StatusInstance) => any,
+  ): Promise<StatusInstance>;
 
   /**
    * Update a StatusInstance and return HTTP info
@@ -77,9 +74,11 @@ export interface StatusListInstance {
    *
    * @returns Resolves to processed StatusInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: MonitorV2AlarmStatus, headers?: any, callback?: (error: Error | null, item?: ApiResponse<StatusInstance>) => any): Promise<ApiResponse<StatusInstance>>;
-
-
+  updateWithHttpInfo(
+    params: MonitorV2AlarmStatus,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<StatusInstance>) => any,
+  ): Promise<ApiResponse<StatusInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -88,97 +87,127 @@ export interface StatusListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function StatusListInstance(version: V2, sid: string): StatusListInstance {
+export function StatusListInstance(
+  version: V2,
+  sid: string,
+): StatusListInstance {
   if (!isValidPathParam(sid)) {
-    throw new Error('Parameter \'sid\' is not valid.');
+    throw new Error("Parameter 'sid' is not valid.");
   }
 
   const instance = {} as StatusListInstance;
 
   instance._version = version;
-  instance._solution = { sid,  };
+  instance._solution = { sid };
   instance._uri = `/Alarms/${sid}/status`;
 
-  instance.update = function update(params: MonitorV2AlarmStatus, headers?: any, callback?: (error: Error | null, items: StatusInstance) => any): Promise<StatusInstance> {
+  instance.update = function update(
+    params: MonitorV2AlarmStatus,
+    headers?: any,
+    callback?: (error: Error | null, items: StatusInstance) => any,
+  ): Promise<StatusInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new StatusInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new StatusInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.updateWithHttpInfo = function updateWithHttpInfo(params: MonitorV2AlarmStatus, headers?: any, callback?: (error: Error | null, items: ApiResponse<StatusInstance>) => any): Promise<ApiResponse<StatusInstance>> {
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: MonitorV2AlarmStatus,
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<StatusInstance>) => any,
+  ): Promise<ApiResponse<StatusInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<StatusResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<StatusInstance> => ({
-      ...response,
-      body: new StatusInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<StatusResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<StatusInstance> => ({
+        ...response,
+        body: new StatusInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface StatusPayload extends StatusResource {}
+interface StatusPayload extends StatusResource {}
 
 interface StatusResource {
   message: string;
   code: number;
   user_error: boolean;
   http_status_code: number;
-  params: { [key: string]: string; };
+  params: { [key: string]: string };
   more_info: string;
   status: number;
 }
@@ -187,17 +216,18 @@ interface StatusResource {
  * Twilio error response
  */
 export class StatusInstance {
-
-  constructor(protected _version: V2, payload: StatusResource, sid?: string) {
-    
-    this.message = (payload.message);
+  constructor(
+    protected _version: V2,
+    payload: StatusResource,
+    sid?: string,
+  ) {
+    this.message = payload.message;
     this.code = deserialize.integer(payload.code);
-    this.userError = (payload.user_error);
+    this.userError = payload.user_error;
     this.httpStatusCode = deserialize.integer(payload.http_status_code);
-    this.params = (payload.params);
-    this.moreInfo = (payload.more_info);
+    this.params = payload.params;
+    this.moreInfo = payload.more_info;
     this.status = deserialize.integer(payload.status);
-
   }
 
   /**
@@ -216,7 +246,7 @@ export class StatusInstance {
    * Http error code returned
    */
   httpStatusCode: number;
-  params: { [key: string]: string; };
+  params: { [key: string]: string };
   /**
    * More information link
    */
@@ -247,5 +277,3 @@ export class StatusInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

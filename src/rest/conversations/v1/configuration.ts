@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,21 +21,25 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { WebhookListInstance } from "./configuration/webhook";
 
+
+
+
 /**
  * Options to pass to update a ConfigurationInstance
  */
 export interface ConfigurationContextUpdateOptions {
   /** The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. */
-  defaultChatServiceSid?: string;
+  "defaultChatServiceSid"?: string;
   /** The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to use when creating a conversation. */
-  defaultMessagingServiceSid?: string;
+  "defaultMessagingServiceSid"?: string;
   /** Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
-  defaultInactiveTimer?: string;
+  "defaultInactiveTimer"?: string;
   /** Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
-  defaultClosedTimer?: string;
+  "defaultClosedTimer"?: string;
 }
 
 export interface ConfigurationContext {
+
   /**
    * Fetch a ConfigurationInstance
    *
@@ -42,9 +47,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
 
   /**
    * Fetch a ConfigurationInstance and return HTTP info
@@ -53,12 +56,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
 
   /**
    * Update a ConfigurationInstance
@@ -67,9 +65,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -78,10 +74,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    params: ConfigurationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Update a ConfigurationInstance and return HTTP info
@@ -90,12 +83,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
    *
@@ -104,13 +92,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ConfigurationContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -119,178 +101,133 @@ export interface ConfigurationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationContextSolution {}
+export interface ConfigurationContextSolution {
+}
 
 export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1) {
-    this._solution = {};
+    this._solution = {  };
     this._uri = `/Configuration`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    if (params instanceof Function) {
+  update(params?: ConfigurationContextUpdateOptions | ((error: Error | null, item?: ConfigurationInstance) => any),callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["defaultChatServiceSid"] !== undefined)
-      data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
+    
+        if (params["defaultChatServiceSid"] !== undefined)
+    data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
     if (params["defaultMessagingServiceSid"] !== undefined)
-      data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
+    data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
     if (params["defaultInactiveTimer"] !== undefined)
-      data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
+    data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
     if (params["defaultClosedTimer"] !== undefined)
-      data["DefaultClosedTimer"] = params["defaultClosedTimer"];
+    data["DefaultClosedTimer"] = params["defaultClosedTimer"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | ConfigurationContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: ConfigurationContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["defaultChatServiceSid"] !== undefined)
-      data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
+    
+        if (params["defaultChatServiceSid"] !== undefined)
+    data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
     if (params["defaultMessagingServiceSid"] !== undefined)
-      data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
+    data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
     if (params["defaultInactiveTimer"] !== undefined)
-      data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
+    data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
     if (params["defaultClosedTimer"] !== undefined)
-      data["DefaultClosedTimer"] = params["defaultClosedTimer"];
+    data["DefaultClosedTimer"] = params["defaultClosedTimer"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -307,7 +244,8 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 }
 
-interface ConfigurationPayload extends ConfigurationResource {}
+
+  interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
   account_sid: string;
@@ -324,15 +262,16 @@ export class ConfigurationInstance {
   protected _context?: ConfigurationContext;
 
   constructor(protected _version: V1, payload: ConfigurationResource) {
-    this.accountSid = payload.account_sid;
-    this.defaultChatServiceSid = payload.default_chat_service_sid;
-    this.defaultMessagingServiceSid = payload.default_messaging_service_sid;
-    this.defaultInactiveTimer = payload.default_inactive_timer;
-    this.defaultClosedTimer = payload.default_closed_timer;
-    this.url = payload.url;
-    this.links = payload.links;
+    
+    this.accountSid = (payload.account_sid);
+    this.defaultChatServiceSid = (payload.default_chat_service_sid);
+    this.defaultMessagingServiceSid = (payload.default_messaging_service_sid);
+    this.defaultInactiveTimer = (payload.default_inactive_timer);
+    this.defaultClosedTimer = (payload.default_closed_timer);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = {};
+    this._solution = {  };
   }
 
   /**
@@ -365,8 +304,7 @@ export class ConfigurationInstance {
   links: Record<string, string>;
 
   private get _proxy(): ConfigurationContext {
-    this._context =
-      this._context || new ConfigurationContextImpl(this._version);
+    this._context = this._context || new ConfigurationContextImpl(this._version);
     return this._context;
   }
 
@@ -377,9 +315,9 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -390,12 +328,9 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -406,9 +341,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -417,15 +350,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    params: ConfigurationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -436,12 +364,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
    *
@@ -450,21 +373,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ConfigurationContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -490,7 +402,9 @@ export class ConfigurationInstance {
   }
 }
 
-export interface ConfigurationSolution {}
+
+export interface ConfigurationSolution {
+}
 
 export interface ConfigurationListInstance {
   _version: V1;
@@ -503,6 +417,10 @@ export interface ConfigurationListInstance {
   _webhooks?: WebhookListInstance;
   webhooks: WebhookListInstance;
 
+
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -510,17 +428,15 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConfigurationListInstance(
-  version: V1
-): ConfigurationListInstance {
+export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
   const instance = (() => instance.get()) as ConfigurationListInstance;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   Object.defineProperty(instance, "webhooks", {
@@ -529,19 +445,18 @@ export function ConfigurationListInstance(
         instance._webhooks = WebhookListInstance(instance._version);
       }
       return instance._webhooks;
-    },
+    }
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

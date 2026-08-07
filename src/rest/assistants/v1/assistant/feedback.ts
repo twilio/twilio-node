@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -21,6 +22,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 export class AssistantsV1ServiceCreateFeedbackRequest {
   /**
@@ -48,12 +50,14 @@ export class AssistantsV1ServiceCreateFeedbackRequest {
   }
 }
 
+
+
 /**
  * Options to pass to create a FeedbackInstance
  */
 export interface FeedbackListInstanceCreateOptions {
   /**  */
-  assistantsV1ServiceCreateFeedbackRequest: AssistantsV1ServiceCreateFeedbackRequest;
+  "assistantsV1ServiceCreateFeedbackRequest": AssistantsV1ServiceCreateFeedbackRequest;
 }
 
 /**
@@ -61,7 +65,7 @@ export interface FeedbackListInstanceCreateOptions {
  */
 export interface FeedbackListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -75,22 +79,25 @@ export interface FeedbackListInstanceEachOptions {
  */
 export interface FeedbackListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface FeedbackListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface FeedbackSolution {
   id: string;
@@ -101,6 +108,8 @@ export interface FeedbackListInstance {
   _solution: FeedbackSolution;
   _uri: string;
 
+
+
   /**
    * Create a FeedbackInstance
    *
@@ -110,11 +119,7 @@ export interface FeedbackListInstance {
    *
    * @returns Resolves to processed FeedbackInstance
    */
-  create(
-    params: AssistantsV1ServiceCreateFeedbackRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
-  ): Promise<FeedbackInstance>;
+  create(params: AssistantsV1ServiceCreateFeedbackRequest, headers?: any, callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
 
   /**
    * Create a FeedbackInstance and return HTTP info
@@ -125,14 +130,10 @@ export interface FeedbackListInstance {
    *
    * @returns Resolves to processed FeedbackInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: AssistantsV1ServiceCreateFeedbackRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<FeedbackInstance>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance>>;
+  createWithHttpInfo(params: AssistantsV1ServiceCreateFeedbackRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<FeedbackInstance>) => any): Promise<ApiResponse<FeedbackInstance>>;
+
+
+
 
   /**
    * Streams FeedbackInstance records from the API.
@@ -149,13 +150,8 @@ export interface FeedbackListInstance {
    * @param { FeedbackListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: FeedbackListInstanceEachOptions,
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void): void;
+  each(params: FeedbackListInstanceEachOptions, callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams FeedbackInstance records from the API with HTTP metadata captured per page.
    *
@@ -171,13 +167,8 @@ export interface FeedbackListInstance {
    * @param { FeedbackListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: FeedbackListInstanceEachOptions,
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: FeedbackListInstanceEachOptions, callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of FeedbackInstance records from the API.
    *
@@ -186,10 +177,7 @@ export interface FeedbackListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: FeedbackPage) => any
-  ): Promise<FeedbackPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: FeedbackPage) => any): Promise<FeedbackPage>;
   /**
    * Retrieve a single target page of FeedbackInstance records from the API with HTTP metadata.
    *
@@ -198,10 +186,7 @@ export interface FeedbackListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
-  ): Promise<ApiResponse<FeedbackPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any): Promise<ApiResponse<FeedbackPage>>;
   /**
    * Lists FeedbackInstance records from the API as a list.
    *
@@ -211,13 +196,8 @@ export interface FeedbackListInstance {
    * @param { FeedbackListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: FeedbackInstance[]) => any
-  ): Promise<FeedbackInstance[]>;
-  list(
-    params: FeedbackListInstanceOptions,
-    callback?: (error: Error | null, items: FeedbackInstance[]) => any
-  ): Promise<FeedbackInstance[]>;
+  list(callback?: (error: Error | null, items: FeedbackInstance[]) => any): Promise<FeedbackInstance[]>;
+  list(params: FeedbackListInstanceOptions, callback?: (error: Error | null, items: FeedbackInstance[]) => any): Promise<FeedbackInstance[]>;
   /**
    * Lists FeedbackInstance records from the API as a list with HTTP metadata.
    *
@@ -229,19 +209,8 @@ export interface FeedbackListInstance {
    * @param { FeedbackListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<FeedbackInstance[]>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance[]>>;
-  listWithHttpInfo(
-    params: FeedbackListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<FeedbackInstance[]>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FeedbackInstance[]>) => any): Promise<ApiResponse<FeedbackInstance[]>>;
+  listWithHttpInfo(params: FeedbackListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<FeedbackInstance[]>) => any): Promise<ApiResponse<FeedbackInstance[]>>;
   /**
    * Retrieve a single page of FeedbackInstance records from the API.
    *
@@ -253,13 +222,8 @@ export interface FeedbackListInstance {
    * @param { FeedbackListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: FeedbackPage) => any
-  ): Promise<FeedbackPage>;
-  page(
-    params: FeedbackListInstancePageOptions,
-    callback?: (error: Error | null, items: FeedbackPage) => any
-  ): Promise<FeedbackPage>;
+  page(callback?: (error: Error | null, items: FeedbackPage) => any): Promise<FeedbackPage>;
+  page(params: FeedbackListInstancePageOptions, callback?: (error: Error | null, items: FeedbackPage) => any): Promise<FeedbackPage>;
   /**
    * Retrieve a single page of FeedbackInstance records from the API with HTTP metadata.
    *
@@ -271,13 +235,9 @@ export interface FeedbackListInstance {
    * @param { FeedbackListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
-  ): Promise<ApiResponse<FeedbackPage>>;
-  pageWithHttpInfo(
-    params: FeedbackListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
-  ): Promise<ApiResponse<FeedbackPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any): Promise<ApiResponse<FeedbackPage>>;
+  pageWithHttpInfo(params: FeedbackListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any): Promise<ApiResponse<FeedbackPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -286,116 +246,79 @@ export interface FeedbackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function FeedbackListInstance(
-  version: V1,
-  id: string
-): FeedbackListInstance {
+export function FeedbackListInstance(version: V1, id: string): FeedbackListInstance {
   if (!isValidPathParam(id)) {
-    throw new Error("Parameter 'id' is not valid.");
+    throw new Error('Parameter \'id\' is not valid.');
   }
 
   const instance = {} as FeedbackListInstance;
 
   instance._version = version;
-  instance._solution = { id };
+  instance._solution = { id,  };
   instance._uri = `/Assistants/${id}/Feedbacks`;
 
-  instance.create = function create(
-    params: AssistantsV1ServiceCreateFeedbackRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: FeedbackInstance) => any
-  ): Promise<FeedbackInstance> {
+  instance.create = function create(params: AssistantsV1ServiceCreateFeedbackRequest, headers?: any, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FeedbackInstance(operationVersion, payload, instance._solution.id)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: AssistantsV1ServiceCreateFeedbackRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<FeedbackInstance>
-    ) => any
-  ): Promise<ApiResponse<FeedbackInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: AssistantsV1ServiceCreateFeedbackRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<FeedbackInstance>) => any): Promise<ApiResponse<FeedbackInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<FeedbackResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<FeedbackInstance> => ({
-          ...response,
-          body: new FeedbackInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<FeedbackResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<FeedbackInstance> => ({
+      ...response,
+      body: new FeedbackInstance(operationVersion, response.body, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | FeedbackListInstancePageOptions
-      | ((error: Error | null, items: FeedbackPage) => any),
-    callback?: (error: Error | null, items: FeedbackPage) => any
-  ): Promise<FeedbackPage> {
+
+    }
+
+  instance.page = function page(params?: FeedbackListInstancePageOptions | ((error: Error | null, items: FeedbackPage) => any), callback?: (error: Error | null, items: FeedbackPage) => any): Promise<FeedbackPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -405,59 +328,44 @@ export function FeedbackListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new FeedbackPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FeedbackPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: FeedbackPage) => any
-  ): Promise<FeedbackPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new FeedbackPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: FeedbackPage) => any): Promise<FeedbackPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new FeedbackPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | FeedbackListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<FeedbackPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
-  ): Promise<ApiResponse<FeedbackPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: FeedbackListInstancePageOptions | ((error: Error | null, items: ApiResponse<FeedbackPage>) => any), callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any): Promise<ApiResponse<FeedbackPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -467,81 +375,67 @@ export function FeedbackListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FeedbackPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FeedbackPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<FeedbackPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new FeedbackPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<FeedbackPage>) => any
-  ): Promise<ApiResponse<FeedbackPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<FeedbackPage>) => any): Promise<ApiResponse<FeedbackPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<FeedbackPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new FeedbackPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<FeedbackPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new FeedbackPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface FeedbackPayload extends TwilioResponsePayload {
-  feedbacks: FeedbackResource[];
+  interface FeedbackPayload extends TwilioResponsePayload {
+    feedbacks: FeedbackResource[];
 }
 
 interface FeedbackResource {
@@ -558,17 +452,20 @@ interface FeedbackResource {
 }
 
 export class FeedbackInstance {
+
   constructor(protected _version: V1, payload: FeedbackResource, id: string) {
-    this.assistantId = payload.assistant_id;
-    this.id = payload.id;
-    this.accountSid = payload.account_sid;
-    this.userSid = payload.user_sid;
-    this.messageId = payload.message_id;
-    this.score = payload.score;
-    this.sessionId = payload.session_id;
-    this.text = payload.text;
+    
+    this.assistantId = (payload.assistant_id);
+    this.id = (payload.id);
+    this.accountSid = (payload.account_sid);
+    this.userSid = (payload.user_sid);
+    this.messageId = (payload.message_id);
+    this.score = (payload.score);
+    this.sessionId = (payload.session_id);
+    this.text = (payload.text);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+
   }
 
   /**
@@ -637,37 +534,34 @@ export class FeedbackInstance {
   }
 }
 
-export class FeedbackPage extends Page<
-  V1,
-  FeedbackPayload,
-  FeedbackResource,
-  FeedbackInstance
-> {
-  /**
-   * Initialize the FeedbackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: FeedbackSolution
-  ) {
+export class FeedbackPage extends Page<V1, FeedbackPayload, FeedbackResource, FeedbackInstance> {
+/**
+* Initialize the FeedbackPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: FeedbackSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FeedbackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FeedbackResource): FeedbackInstance {
-    return new FeedbackInstance(this._version, payload, this._solution.id);
-  }
+    /**
+    * Build an instance of FeedbackInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FeedbackResource): FeedbackInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new FeedbackInstance(
+    this._version,
+    payload,
+        this._solution.id,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

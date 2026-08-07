@@ -18,7 +18,7 @@ import { ChunkListInstance } from "./v2/chunk";
 import { KnowledgeListInstance, KnowledgeContext } from "./v2/knowledge";
 import { KnowledgeBasisListInstance } from "./v2/knowledgeBasis";
 import { OperationListInstance } from "./v2/operation";
-import { SearchListInstance, SearchContext } from "./v2/search";
+import { SearchListInstance } from "./v2/search";
 
 export default class V2 extends Version {
   /**
@@ -45,10 +45,7 @@ export default class V2 extends Version {
   /** Accessor for knowledge resource - instance operations */
   knowledge(kbId: string, knowledgeId: string): KnowledgeContext;
   /** Implementation */
-  knowledge(
-    kbId: string,
-    knowledgeId?: string
-  ): KnowledgeListInstance | KnowledgeContext {
+  knowledge(kbId: string, knowledgeId?: string): KnowledgeListInstance | KnowledgeContext {
     const listInstance = KnowledgeListInstance(this, kbId);
     if (knowledgeId !== undefined) {
       return listInstance.get(knowledgeId);
@@ -58,8 +55,7 @@ export default class V2 extends Version {
 
   /** Getter for knowledgeBases resource */
   get knowledgeBases(): KnowledgeBasisListInstance {
-    this._knowledgeBases =
-      this._knowledgeBases || KnowledgeBasisListInstance(this);
+    this._knowledgeBases = this._knowledgeBases || KnowledgeBasisListInstance(this);
     return this._knowledgeBases;
   }
 
@@ -70,7 +66,8 @@ export default class V2 extends Version {
   }
 
   /** Accessor for search resource */
-  search(kbId: string): SearchContext {
-    return SearchListInstance(this)(kbId);
+  search(kbId: string): SearchListInstance {
+    return SearchListInstance(this, kbId);
   }
+
 }

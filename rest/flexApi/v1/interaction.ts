@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -21,15 +20,12 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { InteractionChannelListInstance } from "./interaction/interactionChannel";
 
-
-
-
 /**
  * Options to pass to update a InteractionInstance
  */
 export interface InteractionContextUpdateOptions {
   /** The unique identifier for Interaction level webhook */
-  "webhookTtid"?: string;
+  webhookTtid?: string;
 }
 
 /**
@@ -37,13 +33,13 @@ export interface InteractionContextUpdateOptions {
  */
 export interface InteractionListInstanceCreateOptions {
   /** The Interaction\\\'s channel. */
-  "channel": any;
+  channel: any;
   /** The Interaction\\\'s routing logic. */
-  "routing"?: any;
+  routing?: any;
   /** The Interaction context sid is used for adding a context lookup sid */
-  "interactionContextSid"?: string;
+  interactionContextSid?: string;
   /** The unique identifier for Interaction level webhook */
-  "webhookTtid"?: string;
+  webhookTtid?: string;
 }
 
 export interface InteractionContext {
@@ -56,7 +52,9 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
 
   /**
    * Fetch a InteractionInstance and return HTTP info
@@ -65,7 +63,12 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
 
   /**
    * Update a InteractionInstance
@@ -74,7 +77,9 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  update(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+  update(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
   /**
    * Update a InteractionInstance
    *
@@ -83,7 +88,10 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  update(params: InteractionContextUpdateOptions, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+  update(
+    params: InteractionContextUpdateOptions,
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
 
   /**
    * Update a InteractionInstance and return HTTP info
@@ -92,7 +100,12 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
   /**
    * Update a InteractionInstance and return HTTP info
    *
@@ -101,7 +114,13 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: InteractionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>;
+  updateWithHttpInfo(
+    params: InteractionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -111,7 +130,7 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -120,122 +139,185 @@ export class InteractionContextImpl implements InteractionContext {
 
   protected _channels?: InteractionChannelListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Interactions/${sid}`;
   }
 
   get channels(): InteractionChannelListInstance {
-    this._channels = this._channels || InteractionChannelListInstance(this._version, this._solution.sid);
+    this._channels =
+      this._channels ||
+      InteractionChannelListInstance(this._version, this._solution.sid);
     return this._channels;
   }
 
-  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InteractionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<InteractionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<InteractionInstance> => ({
-      ...response,
-      body: new InteractionInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InteractionResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: InteractionContextUpdateOptions | ((error: Error | null, item?: InteractionInstance) => any),callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | InteractionContextUpdateOptions
+      | ((error: Error | null, item?: InteractionInstance) => any),
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["webhookTtid"] !== undefined)
-    data["WebhookTtid"] = params["webhookTtid"];
+    if (params["webhookTtid"] !== undefined)
+      data["WebhookTtid"] = params["webhookTtid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InteractionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: InteractionContextUpdateOptions | ((error: Error | null, item?: ApiResponse<InteractionInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | InteractionContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<InteractionInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["webhookTtid"] !== undefined)
-    data["WebhookTtid"] = params["webhookTtid"];
+    if (params["webhookTtid"] !== undefined)
+      data["WebhookTtid"] = params["webhookTtid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<InteractionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InteractionInstance> => ({
-      ...response,
-      body: new InteractionInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<InteractionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -252,8 +334,7 @@ export class InteractionContextImpl implements InteractionContext {
   }
 }
 
-
-  interface InteractionPayload extends InteractionResource {}
+interface InteractionPayload extends InteractionResource {}
 
 interface InteractionResource {
   sid: string;
@@ -269,17 +350,20 @@ export class InteractionInstance {
   protected _solution: InteractionContextSolution;
   protected _context?: InteractionContext;
 
-  constructor(protected _version: V1, payload: InteractionResource, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.channel = (payload.channel);
-    this.routing = (payload.routing);
-    this.url = (payload.url);
-    this.links = (payload.links);
-    this.interactionContextSid = (payload.interaction_context_sid);
-    this.webhookTtid = (payload.webhook_ttid);
+  constructor(
+    protected _version: V1,
+    payload: InteractionResource,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.channel = payload.channel;
+    this.routing = payload.routing;
+    this.url = payload.url;
+    this.links = payload.links;
+    this.interactionContextSid = payload.interaction_context_sid;
+    this.webhookTtid = payload.webhook_ttid;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -300,7 +384,9 @@ export class InteractionInstance {
   webhookTtid: string;
 
   private get _proxy(): InteractionContext {
-    this._context = this._context || new InteractionContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new InteractionContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -311,9 +397,9 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -324,9 +410,12 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -337,7 +426,9 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  update(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+  update(
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
   /**
    * Update a InteractionInstance
    *
@@ -346,10 +437,15 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  update(params: InteractionContextUpdateOptions, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+  update(
+    params: InteractionContextUpdateOptions,
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -360,7 +456,12 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
   /**
    * Update a InteractionInstance and return HTTP info
    *
@@ -369,10 +470,21 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: InteractionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>;
+  updateWithHttpInfo(
+    params: InteractionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -405,22 +517,15 @@ export class InteractionInstance {
   }
 }
 
-
-export interface InteractionSolution {
-}
+export interface InteractionSolution {}
 
 export interface InteractionListInstance {
   _version: V1;
   _solution: InteractionSolution;
   _uri: string;
 
-  (sid: string, ): InteractionContext;
-  get(sid: string, ): InteractionContext;
-
-
-
-
-
+  (sid: string): InteractionContext;
+  get(sid: string): InteractionContext;
 
   /**
    * Create a InteractionInstance
@@ -430,7 +535,10 @@ export interface InteractionListInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  create(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+  create(
+    params: InteractionListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: InteractionInstance) => any,
+  ): Promise<InteractionInstance>;
 
   /**
    * Create a InteractionInstance and return HTTP info
@@ -440,9 +548,13 @@ export interface InteractionListInstance {
    *
    * @returns Resolves to processed InteractionInstance with HTTP metadata
    */
-  createWithHttpInfo(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>>;
-
-
+  createWithHttpInfo(
+    params: InteractionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -452,106 +564,121 @@ export interface InteractionListInstance {
 }
 
 export function InteractionListInstance(version: V1): InteractionListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as InteractionListInstance;
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
 
-  instance.get = function get(sid, ): InteractionContext {
+  instance.get = function get(sid): InteractionContext {
     return new InteractionContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Interactions`;
 
-  instance.create = function create(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, items: InteractionInstance) => any): Promise<InteractionInstance> {
+  instance.create = function create(
+    params: InteractionListInstanceCreateOptions,
+    callback?: (error: Error | null, items: InteractionInstance) => any,
+  ): Promise<InteractionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error('Required parameter "params[\'channel\']" missing.');
+      throw new Error("Required parameter \"params['channel']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Channel"] = serialize.object(params["channel"]);
     if (params["routing"] !== undefined)
-    data["Routing"] = serialize.object(params["routing"]);
+      data["Routing"] = serialize.object(params["routing"]);
     if (params["interactionContextSid"] !== undefined)
-    data["InteractionContextSid"] = params["interactionContextSid"];
+      data["InteractionContextSid"] = params["interactionContextSid"];
     if (params["webhookTtid"] !== undefined)
-    data["WebhookTtid"] = params["webhookTtid"];
+      data["WebhookTtid"] = params["webhookTtid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new InteractionInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<InteractionInstance>) => any): Promise<ApiResponse<InteractionInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: InteractionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InteractionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<InteractionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error('Required parameter "params[\'channel\']" missing.');
+      throw new Error("Required parameter \"params['channel']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Channel"] = serialize.object(params["channel"]);
     if (params["routing"] !== undefined)
-    data["Routing"] = serialize.object(params["routing"]);
+      data["Routing"] = serialize.object(params["routing"]);
     if (params["interactionContextSid"] !== undefined)
-    data["InteractionContextSid"] = params["interactionContextSid"];
+      data["InteractionContextSid"] = params["interactionContextSid"];
     if (params["webhookTtid"] !== undefined)
-    data["WebhookTtid"] = params["webhookTtid"];
+      data["WebhookTtid"] = params["webhookTtid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<InteractionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InteractionInstance> => ({
-      ...response,
-      body: new InteractionInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<InteractionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

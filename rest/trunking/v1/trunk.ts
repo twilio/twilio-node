@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -28,40 +27,36 @@ import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
-
 /**
  * Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.
  */
-export type TrunkTransferCallerId = 'from-transferee'|'from-transferor';
+export type TrunkTransferCallerId = "from-transferee" | "from-transferor";
 
 /**
  * The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
  */
-export type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
-
-
-
+export type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
 
 /**
  * Options to pass to update a TrunkInstance
  */
 export interface TrunkContextUpdateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. */
-  "domainName"?: string;
+  domainName?: string;
   /** The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. */
-  "disasterRecoveryUrl"?: string;
+  disasterRecoveryUrl?: string;
   /** The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`. */
-  "disasterRecoveryMethod"?: string;
+  disasterRecoveryMethod?: string;
   /**  */
-  "transferMode"?: TrunkTransferSetting;
+  transferMode?: TrunkTransferSetting;
   /** Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. */
-  "secure"?: boolean;
+  secure?: boolean;
   /** Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. */
-  "cnamLookupEnabled"?: boolean;
+  cnamLookupEnabled?: boolean;
   /**  */
-  "transferCallerId"?: TrunkTransferCallerId;
+  transferCallerId?: TrunkTransferCallerId;
 }
 
 /**
@@ -69,21 +64,21 @@ export interface TrunkContextUpdateOptions {
  */
 export interface TrunkListInstanceCreateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. */
-  "domainName"?: string;
+  domainName?: string;
   /** The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. */
-  "disasterRecoveryUrl"?: string;
+  disasterRecoveryUrl?: string;
   /** The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`. */
-  "disasterRecoveryMethod"?: string;
+  disasterRecoveryMethod?: string;
   /**  */
-  "transferMode"?: TrunkTransferSetting;
+  transferMode?: TrunkTransferSetting;
   /** Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. */
-  "secure"?: boolean;
+  secure?: boolean;
   /** Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. */
-  "cnamLookupEnabled"?: boolean;
+  cnamLookupEnabled?: boolean;
   /**  */
-  "transferCallerId"?: TrunkTransferCallerId;
+  transferCallerId?: TrunkTransferCallerId;
 }
 
 /**
@@ -91,7 +86,7 @@ export interface TrunkListInstanceCreateOptions {
  */
 export interface TrunkListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TrunkInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -105,24 +100,22 @@ export interface TrunkListInstanceEachOptions {
  */
 export interface TrunkListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface TrunkListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface TrunkContext {
   credentialsLists: CredentialListListInstance;
@@ -138,7 +131,9 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a TrunkInstance and return HTTP info
@@ -147,7 +142,9 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a TrunkInstance
@@ -156,7 +153,9 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  fetch(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
 
   /**
    * Fetch a TrunkInstance and return HTTP info
@@ -165,7 +164,9 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
 
   /**
    * Update a TrunkInstance
@@ -174,7 +175,9 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  update(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  update(
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
    *
@@ -183,7 +186,10 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  update(params: TrunkContextUpdateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  update(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
 
   /**
    * Update a TrunkInstance and return HTTP info
@@ -192,7 +198,9 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
   /**
    * Update a TrunkInstance and return HTTP info
    *
@@ -201,7 +209,10 @@ export interface TrunkContext {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: TrunkContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>;
+  updateWithHttpInfo(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -211,7 +222,7 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
@@ -224,201 +235,269 @@ export class TrunkContextImpl implements TrunkContext {
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _recordings?: RecordingListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Trunks/${sid}`;
   }
 
   get credentialsLists(): CredentialListListInstance {
-    this._credentialsLists = this._credentialsLists || CredentialListListInstance(this._version, this._solution.sid);
+    this._credentialsLists =
+      this._credentialsLists ||
+      CredentialListListInstance(this._version, this._solution.sid);
     return this._credentialsLists;
   }
 
   get ipAccessControlLists(): IpAccessControlListListInstance {
-    this._ipAccessControlLists = this._ipAccessControlLists || IpAccessControlListListInstance(this._version, this._solution.sid);
+    this._ipAccessControlLists =
+      this._ipAccessControlLists ||
+      IpAccessControlListListInstance(this._version, this._solution.sid);
     return this._ipAccessControlLists;
   }
 
   get originationUrls(): OriginationUrlListInstance {
-    this._originationUrls = this._originationUrls || OriginationUrlListInstance(this._version, this._solution.sid);
+    this._originationUrls =
+      this._originationUrls ||
+      OriginationUrlListInstance(this._version, this._solution.sid);
     return this._originationUrls;
   }
 
   get phoneNumbers(): PhoneNumberListInstance {
-    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
+    this._phoneNumbers =
+      this._phoneNumbers ||
+      PhoneNumberListInstance(this._version, this._solution.sid);
     return this._phoneNumbers;
   }
 
   get recordings(): RecordingListInstance {
-    this._recordings = this._recordings || RecordingListInstance(this._version, this._solution.sid);
+    this._recordings =
+      this._recordings ||
+      RecordingListInstance(this._version, this._solution.sid);
     return this._recordings;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrunkInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<TrunkResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TrunkInstance> => ({
-      ...response,
-      body: new TrunkInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<TrunkResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<TrunkInstance> => ({
+        ...response,
+        body: new TrunkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: TrunkContextUpdateOptions | ((error: Error | null, item?: TrunkInstance) => any),callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: TrunkInstance) => any),
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["domainName"] !== undefined)
-    data["DomainName"] = params["domainName"];
+      data["DomainName"] = params["domainName"];
     if (params["disasterRecoveryUrl"] !== undefined)
-    data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
+      data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
     if (params["disasterRecoveryMethod"] !== undefined)
-    data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
+      data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
     if (params["transferMode"] !== undefined)
-    data["TransferMode"] = params["transferMode"];
+      data["TransferMode"] = params["transferMode"];
     if (params["secure"] !== undefined)
-    data["Secure"] = serialize.bool(params["secure"]);
+      data["Secure"] = serialize.bool(params["secure"]);
     if (params["cnamLookupEnabled"] !== undefined)
-    data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+      data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
     if (params["transferCallerId"] !== undefined)
-    data["TransferCallerId"] = params["transferCallerId"];
+      data["TransferCallerId"] = params["transferCallerId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrunkInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: TrunkContextUpdateOptions | ((error: Error | null, item?: ApiResponse<TrunkInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<TrunkInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["domainName"] !== undefined)
-    data["DomainName"] = params["domainName"];
+      data["DomainName"] = params["domainName"];
     if (params["disasterRecoveryUrl"] !== undefined)
-    data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
+      data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
     if (params["disasterRecoveryMethod"] !== undefined)
-    data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
+      data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
     if (params["transferMode"] !== undefined)
-    data["TransferMode"] = params["transferMode"];
+      data["TransferMode"] = params["transferMode"];
     if (params["secure"] !== undefined)
-    data["Secure"] = serialize.bool(params["secure"]);
+      data["Secure"] = serialize.bool(params["secure"]);
     if (params["cnamLookupEnabled"] !== undefined)
-    data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+      data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
     if (params["transferCallerId"] !== undefined)
-    data["TransferCallerId"] = params["transferCallerId"];
+      data["TransferCallerId"] = params["transferCallerId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<TrunkResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TrunkInstance> => ({
-      ...response,
-      body: new TrunkInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<TrunkResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<TrunkInstance> => ({
+        ...response,
+        body: new TrunkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -435,9 +514,8 @@ export class TrunkContextImpl implements TrunkContext {
   }
 }
 
-
-  interface TrunkPayload extends TwilioResponsePayload {
-    trunks: TrunkResource[];
+interface TrunkPayload extends TwilioResponsePayload {
+  trunks: TrunkResource[];
 }
 
 interface TrunkResource {
@@ -465,28 +543,31 @@ export class TrunkInstance {
   protected _solution: TrunkContextSolution;
   protected _context?: TrunkContext;
 
-  constructor(protected _version: V1, payload: TrunkResource, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.domainName = (payload.domain_name);
-    this.disasterRecoveryMethod = (payload.disaster_recovery_method);
-    this.disasterRecoveryUrl = (payload.disaster_recovery_url);
-    this.friendlyName = (payload.friendly_name);
-    this.secure = (payload.secure);
-    this.recording = (payload.recording);
+  constructor(
+    protected _version: V1,
+    payload: TrunkResource,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.domainName = payload.domain_name;
+    this.disasterRecoveryMethod = payload.disaster_recovery_method;
+    this.disasterRecoveryUrl = payload.disaster_recovery_url;
+    this.friendlyName = payload.friendly_name;
+    this.secure = payload.secure;
+    this.recording = payload.recording;
     this.transferMode = payload.transfer_mode;
     this.transferCallerId = payload.transfer_caller_id;
-    this.cnamLookupEnabled = (payload.cnam_lookup_enabled);
-    this.authType = (payload.auth_type);
-    this.symmetricRtpEnabled = (payload.symmetric_rtp_enabled);
-    this.authTypeSet = (payload.auth_type_set);
+    this.cnamLookupEnabled = payload.cnam_lookup_enabled;
+    this.authType = payload.auth_type;
+    this.symmetricRtpEnabled = payload.symmetric_rtp_enabled;
+    this.authTypeSet = payload.auth_type_set;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.sid = (payload.sid);
-    this.url = (payload.url);
-    this.links = (payload.links);
+    this.sid = payload.sid;
+    this.url = payload.url;
+    this.links = payload.links;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -557,7 +638,8 @@ export class TrunkInstance {
   links: Record<string, string>;
 
   private get _proxy(): TrunkContext {
-    this._context = this._context || new TrunkContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new TrunkContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -568,9 +650,9 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -581,9 +663,9 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -594,9 +676,9 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  fetch(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -607,9 +689,9 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -620,7 +702,9 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  update(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  update(
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
    *
@@ -629,10 +713,15 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  update(params: TrunkContextUpdateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  update(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -643,7 +732,9 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>;
+  updateWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
   /**
    * Update a TrunkInstance and return HTTP info
    *
@@ -652,10 +743,15 @@ export class TrunkInstance {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: TrunkContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>;
+  updateWithHttpInfo(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -727,24 +823,15 @@ export class TrunkInstance {
   }
 }
 
-
-export interface TrunkSolution {
-}
+export interface TrunkSolution {}
 
 export interface TrunkListInstance {
   _version: V1;
   _solution: TrunkSolution;
   _uri: string;
 
-  (sid: string, ): TrunkContext;
-  get(sid: string, ): TrunkContext;
-
-
-
-
-
-
-
+  (sid: string): TrunkContext;
+  get(sid: string): TrunkContext;
 
   /**
    * Create a TrunkInstance
@@ -753,7 +840,9 @@ export interface TrunkListInstance {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  create(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  create(
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
   /**
    * Create a TrunkInstance
    *
@@ -762,7 +851,10 @@ export interface TrunkListInstance {
    *
    * @returns Resolves to processed TrunkInstance
    */
-  create(params: TrunkListInstanceCreateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  create(
+    params: TrunkListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TrunkInstance) => any,
+  ): Promise<TrunkInstance>;
 
   /**
    * Create a TrunkInstance and return HTTP info
@@ -771,7 +863,9 @@ export interface TrunkListInstance {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>;
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
   /**
    * Create a TrunkInstance and return HTTP info
    *
@@ -780,10 +874,10 @@ export interface TrunkListInstance {
    *
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
-  createWithHttpInfo(params: TrunkListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: TrunkListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>>;
 
   /**
    * Streams TrunkInstance records from the API.
@@ -800,8 +894,13 @@ export interface TrunkListInstance {
    * @param { TrunkListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
-  each(params: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: TrunkInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: TrunkListInstanceEachOptions,
+    callback?: (item: TrunkInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams TrunkInstance records from the API with HTTP metadata captured per page.
    *
@@ -817,8 +916,13 @@ export interface TrunkListInstance {
    * @param { TrunkListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: TrunkInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: TrunkListInstanceEachOptions,
+    callback?: (item: TrunkInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of TrunkInstance records from the API.
    *
@@ -827,7 +931,10 @@ export interface TrunkListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: TrunkPage) => any,
+  ): Promise<TrunkPage>;
   /**
    * Retrieve a single target page of TrunkInstance records from the API with HTTP metadata.
    *
@@ -836,7 +943,10 @@ export interface TrunkListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any): Promise<ApiResponse<TrunkPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any,
+  ): Promise<ApiResponse<TrunkPage>>;
   /**
    * Lists TrunkInstance records from the API as a list.
    *
@@ -846,8 +956,13 @@ export interface TrunkListInstance {
    * @param { TrunkListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
-  list(params: TrunkListInstanceOptions, callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
+  list(
+    callback?: (error: Error | null, items: TrunkInstance[]) => any,
+  ): Promise<TrunkInstance[]>;
+  list(
+    params: TrunkListInstanceOptions,
+    callback?: (error: Error | null, items: TrunkInstance[]) => any,
+  ): Promise<TrunkInstance[]>;
   /**
    * Lists TrunkInstance records from the API as a list with HTTP metadata.
    *
@@ -859,8 +974,19 @@ export interface TrunkListInstance {
    * @param { TrunkListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TrunkInstance[]>) => any): Promise<ApiResponse<TrunkInstance[]>>;
-  listWithHttpInfo(params: TrunkListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<TrunkInstance[]>) => any): Promise<ApiResponse<TrunkInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TrunkInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<TrunkInstance[]>>;
+  listWithHttpInfo(
+    params: TrunkListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TrunkInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<TrunkInstance[]>>;
   /**
    * Retrieve a single page of TrunkInstance records from the API.
    *
@@ -872,8 +998,13 @@ export interface TrunkListInstance {
    * @param { TrunkListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
-  page(params: TrunkListInstancePageOptions, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  page(
+    callback?: (error: Error | null, items: TrunkPage) => any,
+  ): Promise<TrunkPage>;
+  page(
+    params: TrunkListInstancePageOptions,
+    callback?: (error: Error | null, items: TrunkPage) => any,
+  ): Promise<TrunkPage>;
   /**
    * Retrieve a single page of TrunkInstance records from the API with HTTP metadata.
    *
@@ -885,9 +1016,13 @@ export interface TrunkListInstance {
    * @param { TrunkListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any): Promise<ApiResponse<TrunkPage>>;
-  pageWithHttpInfo(params: TrunkListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any): Promise<ApiResponse<TrunkPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any,
+  ): Promise<ApiResponse<TrunkPage>>;
+  pageWithHttpInfo(
+    params: TrunkListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any,
+  ): Promise<ApiResponse<TrunkPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -897,112 +1032,134 @@ export interface TrunkListInstance {
 }
 
 export function TrunkListInstance(version: V1): TrunkListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as TrunkListInstance;
+  const instance = ((sid) => instance.get(sid)) as TrunkListInstance;
 
-  instance.get = function get(sid, ): TrunkContext {
+  instance.get = function get(sid): TrunkContext {
     return new TrunkContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Trunks`;
 
-  instance.create = function create(params?: TrunkListInstanceCreateOptions | ((error: Error | null, items: TrunkInstance) => any), callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance> {
+  instance.create = function create(
+    params?:
+      | TrunkListInstanceCreateOptions
+      | ((error: Error | null, items: TrunkInstance) => any),
+    callback?: (error: Error | null, items: TrunkInstance) => any,
+  ): Promise<TrunkInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["domainName"] !== undefined)
-    data["DomainName"] = params["domainName"];
+      data["DomainName"] = params["domainName"];
     if (params["disasterRecoveryUrl"] !== undefined)
-    data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
+      data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
     if (params["disasterRecoveryMethod"] !== undefined)
-    data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
+      data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
     if (params["transferMode"] !== undefined)
-    data["TransferMode"] = params["transferMode"];
+      data["TransferMode"] = params["transferMode"];
     if (params["secure"] !== undefined)
-    data["Secure"] = serialize.bool(params["secure"]);
+      data["Secure"] = serialize.bool(params["secure"]);
     if (params["cnamLookupEnabled"] !== undefined)
-    data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+      data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
     if (params["transferCallerId"] !== undefined)
-    data["TransferCallerId"] = params["transferCallerId"];
+      data["TransferCallerId"] = params["transferCallerId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TrunkInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: TrunkListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<TrunkInstance>) => any), callback?: (error: Error | null, items: ApiResponse<TrunkInstance>) => any): Promise<ApiResponse<TrunkInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | TrunkListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<TrunkInstance>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TrunkInstance>) => any,
+  ): Promise<ApiResponse<TrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["domainName"] !== undefined)
-    data["DomainName"] = params["domainName"];
+      data["DomainName"] = params["domainName"];
     if (params["disasterRecoveryUrl"] !== undefined)
-    data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
+      data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
     if (params["disasterRecoveryMethod"] !== undefined)
-    data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
+      data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
     if (params["transferMode"] !== undefined)
-    data["TransferMode"] = params["transferMode"];
+      data["TransferMode"] = params["transferMode"];
     if (params["secure"] !== undefined)
-    data["Secure"] = serialize.bool(params["secure"]);
+      data["Secure"] = serialize.bool(params["secure"]);
     if (params["cnamLookupEnabled"] !== undefined)
-    data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+      data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
     if (params["transferCallerId"] !== undefined)
-    data["TransferCallerId"] = params["transferCallerId"];
+      data["TransferCallerId"] = params["transferCallerId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<TrunkResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TrunkInstance> => ({
-      ...response,
-      body: new TrunkInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<TrunkResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<TrunkInstance> => ({
+        ...response,
+        body: new TrunkInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: TrunkListInstancePageOptions | ((error: Error | null, items: TrunkPage) => any), callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage> {
+  instance.page = function page(
+    params?:
+      | TrunkListInstancePageOptions
+      | ((error: Error | null, items: TrunkPage) => any),
+    callback?: (error: Error | null, items: TrunkPage) => any,
+  ): Promise<TrunkPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1012,44 +1169,58 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new TrunkPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TrunkPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new TrunkPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: TrunkPage) => any,
+  ): Promise<TrunkPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TrunkPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: TrunkListInstancePageOptions | ((error: Error | null, items: ApiResponse<TrunkPage>) => any), callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any): Promise<ApiResponse<TrunkPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | TrunkListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<TrunkPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<TrunkPage>) => any,
+  ): Promise<ApiResponse<TrunkPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1059,92 +1230,104 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<TrunkPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new TrunkPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<TrunkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TrunkPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<TrunkPage>) => any): Promise<ApiResponse<TrunkPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<TrunkPage>) => any,
+  ): Promise<ApiResponse<TrunkPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<TrunkPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new TrunkPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<TrunkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TrunkPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
-/**
-* Initialize the TrunkPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: TrunkSolution) {
+export class TrunkPage extends Page<
+  V1,
+  TrunkPayload,
+  TrunkResource,
+  TrunkInstance
+> {
+  /**
+   * Initialize the TrunkPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: TrunkSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TrunkInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TrunkResource): TrunkInstance {
+  /**
+   * Build an instance of TrunkInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TrunkResource): TrunkInstance {
+    return new TrunkInstance(this._version, payload);
+  }
 
-    return new TrunkInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

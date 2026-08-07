@@ -43,5 +43,4 @@ export default class V1 extends Version {
     this._events = this._events || EventListInstance(this);
     return this._events;
   }
-
 }

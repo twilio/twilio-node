@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
-
 
 export class AssistantsV1ServiceAssistantSendMessageRequest {
   /**
@@ -52,16 +50,13 @@ export class AssistantsV1ServiceAssistantSendMessageRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a MessageInstance
  */
 export interface MessageListInstanceCreateOptions {
   /**  */
-  "assistantsV1ServiceAssistantSendMessageRequest": AssistantsV1ServiceAssistantSendMessageRequest;
+  assistantsV1ServiceAssistantSendMessageRequest: AssistantsV1ServiceAssistantSendMessageRequest;
 }
-
 
 export interface MessageSolution {
   id: string;
@@ -72,8 +67,6 @@ export interface MessageListInstance {
   _solution: MessageSolution;
   _uri: string;
 
-
-
   /**
    * Create a MessageInstance
    *
@@ -83,7 +76,11 @@ export interface MessageListInstance {
    *
    * @returns Resolves to processed MessageInstance
    */
-  create(params: AssistantsV1ServiceAssistantSendMessageRequest, headers?: any, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
+  create(
+    params: AssistantsV1ServiceAssistantSendMessageRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: MessageInstance) => any,
+  ): Promise<MessageInstance>;
 
   /**
    * Create a MessageInstance and return HTTP info
@@ -94,9 +91,14 @@ export interface MessageListInstance {
    *
    * @returns Resolves to processed MessageInstance with HTTP metadata
    */
-  createWithHttpInfo(params: AssistantsV1ServiceAssistantSendMessageRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any): Promise<ApiResponse<MessageInstance>>;
-
-
+  createWithHttpInfo(
+    params: AssistantsV1ServiceAssistantSendMessageRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInstance>,
+    ) => any,
+  ): Promise<ApiResponse<MessageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -105,90 +107,123 @@ export interface MessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MessageListInstance(version: V1, id: string): MessageListInstance {
+export function MessageListInstance(
+  version: V1,
+  id: string,
+): MessageListInstance {
   if (!isValidPathParam(id)) {
-    throw new Error('Parameter \'id\' is not valid.');
+    throw new Error("Parameter 'id' is not valid.");
   }
 
   const instance = {} as MessageListInstance;
 
   instance._version = version;
-  instance._solution = { id,  };
+  instance._solution = { id };
   instance._uri = `/Assistants/${id}/Messages`;
 
-  instance.create = function create(params: AssistantsV1ServiceAssistantSendMessageRequest, headers?: any, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance> {
+  instance.create = function create(
+    params: AssistantsV1ServiceAssistantSendMessageRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: MessageInstance) => any,
+  ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessageInstance(operationVersion, payload, instance._solution.id),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: AssistantsV1ServiceAssistantSendMessageRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<MessageInstance>) => any): Promise<ApiResponse<MessageInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AssistantsV1ServiceAssistantSendMessageRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInstance>,
+    ) => any,
+  ): Promise<ApiResponse<MessageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<MessageResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<MessageInstance> => ({
-      ...response,
-      body: new MessageInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<MessageResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<MessageInstance> => ({
+        ...response,
+        body: new MessageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface MessagePayload extends MessageResource {}
+interface MessagePayload extends MessageResource {}
 
 interface MessageResource {
   status: string;
@@ -201,17 +236,18 @@ interface MessageResource {
 }
 
 export class MessageInstance {
-
-  constructor(protected _version: V1, payload: MessageResource, id: string) {
-    
-    this.status = (payload.status);
-    this.flagged = (payload.flagged);
-    this.aborted = (payload.aborted);
-    this.sessionId = (payload.session_id);
-    this.accountSid = (payload.account_sid);
-    this.body = (payload.body);
-    this.error = (payload.error);
-
+  constructor(
+    protected _version: V1,
+    payload: MessageResource,
+    id: string,
+  ) {
+    this.status = payload.status;
+    this.flagged = payload.flagged;
+    this.aborted = payload.aborted;
+    this.sessionId = payload.session_id;
+    this.accountSid = payload.account_sid;
+    this.body = payload.body;
+    this.error = payload.error;
   }
 
   /**
@@ -264,5 +300,3 @@ export class MessageInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

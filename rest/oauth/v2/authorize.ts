@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -20,39 +19,33 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a AuthorizeInstance
  */
 export interface AuthorizeListInstanceFetchOptions {
   /**  */
-  "responseType"?: string;
+  responseType?: string;
   /**  */
-  "clientId"?: string;
+  clientId?: string;
   /**  */
-  "redirectUri"?: string;
+  redirectUri?: string;
   /**  */
-  "scope"?: string;
+  scope?: string;
   /**  */
-  "state"?: string;
+  state?: string;
   /**  */
-  "codeChallenge"?: string;
+  codeChallenge?: string;
   /**  */
-  "codeChallengeMethod"?: 'S256';
+  codeChallengeMethod?: "S256";
 }
 
-
-export interface AuthorizeSolution {
-}
+export interface AuthorizeSolution {}
 
 export interface AuthorizeListInstance {
   _version: V2;
   _solution: AuthorizeSolution;
   _uri: string;
 
-
-
   /**
    * Fetch a AuthorizeInstance
    *
@@ -60,7 +53,9 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance
    */
-  fetch(callback?: (error: Error | null, item?: AuthorizeInstance) => any): Promise<AuthorizeInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: AuthorizeInstance) => any,
+  ): Promise<AuthorizeInstance>;
   /**
    * Fetch a AuthorizeInstance
    *
@@ -69,7 +64,10 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance
    */
-  fetch(params: AuthorizeListInstanceFetchOptions, callback?: (error: Error | null, item?: AuthorizeInstance) => any): Promise<AuthorizeInstance>;
+  fetch(
+    params: AuthorizeListInstanceFetchOptions,
+    callback?: (error: Error | null, item?: AuthorizeInstance) => any,
+  ): Promise<AuthorizeInstance>;
 
   /**
    * Fetch a AuthorizeInstance and return HTTP info
@@ -78,7 +76,12 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AuthorizeInstance>) => any): Promise<ApiResponse<AuthorizeInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthorizeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthorizeInstance>>;
   /**
    * Fetch a AuthorizeInstance and return HTTP info
    *
@@ -87,9 +90,13 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: AuthorizeListInstanceFetchOptions, callback?: (error: Error | null, item?: ApiResponse<AuthorizeInstance>) => any): Promise<ApiResponse<AuthorizeInstance>>;
-
-
+  fetchWithHttpInfo(
+    params: AuthorizeListInstanceFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthorizeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthorizeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -102,121 +109,140 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
   const instance = {} as AuthorizeListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/authorize`;
 
-  instance.fetch = function fetch(params?: AuthorizeListInstanceFetchOptions | ((error: Error | null, items: AuthorizeInstance) => any), callback?: (error: Error | null, items: AuthorizeInstance) => any): Promise<AuthorizeInstance> {
+  instance.fetch = function fetch(
+    params?:
+      | AuthorizeListInstanceFetchOptions
+      | ((error: Error | null, items: AuthorizeInstance) => any),
+    callback?: (error: Error | null, items: AuthorizeInstance) => any,
+  ): Promise<AuthorizeInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["responseType"] !== undefined)
-    data["response_type"] = params["responseType"];
+    if (params["responseType"] !== undefined)
+      data["response_type"] = params["responseType"];
     if (params["clientId"] !== undefined)
-    data["client_id"] = params["clientId"];
+      data["client_id"] = params["clientId"];
     if (params["redirectUri"] !== undefined)
-    data["redirect_uri"] = params["redirectUri"];
-    if (params["scope"] !== undefined)
-    data["scope"] = params["scope"];
-    if (params["state"] !== undefined)
-    data["state"] = params["state"];
+      data["redirect_uri"] = params["redirectUri"];
+    if (params["scope"] !== undefined) data["scope"] = params["scope"];
+    if (params["state"] !== undefined) data["state"] = params["state"];
     if (params["codeChallenge"] !== undefined)
-    data["code_challenge"] = params["codeChallenge"];
+      data["code_challenge"] = params["codeChallenge"];
     if (params["codeChallengeMethod"] !== undefined)
-    data["code_challenge_method"] = params["codeChallengeMethod"];
+      data["code_challenge_method"] = params["codeChallengeMethod"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AuthorizeInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AuthorizeInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(params?: AuthorizeListInstanceFetchOptions | ((error: Error | null, items: ApiResponse<AuthorizeInstance>) => any), callback?: (error: Error | null, items: ApiResponse<AuthorizeInstance>) => any): Promise<ApiResponse<AuthorizeInstance>> {
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    params?:
+      | AuthorizeListInstanceFetchOptions
+      | ((error: Error | null, items: ApiResponse<AuthorizeInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AuthorizeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AuthorizeInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["responseType"] !== undefined)
-    data["response_type"] = params["responseType"];
+    if (params["responseType"] !== undefined)
+      data["response_type"] = params["responseType"];
     if (params["clientId"] !== undefined)
-    data["client_id"] = params["clientId"];
+      data["client_id"] = params["clientId"];
     if (params["redirectUri"] !== undefined)
-    data["redirect_uri"] = params["redirectUri"];
-    if (params["scope"] !== undefined)
-    data["scope"] = params["scope"];
-    if (params["state"] !== undefined)
-    data["state"] = params["state"];
+      data["redirect_uri"] = params["redirectUri"];
+    if (params["scope"] !== undefined) data["scope"] = params["scope"];
+    if (params["state"] !== undefined) data["state"] = params["state"];
     if (params["codeChallenge"] !== undefined)
-    data["code_challenge"] = params["codeChallenge"];
+      data["code_challenge"] = params["codeChallenge"];
     if (params["codeChallengeMethod"] !== undefined)
-    data["code_challenge_method"] = params["codeChallengeMethod"];
+      data["code_challenge_method"] = params["codeChallengeMethod"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<AuthorizeResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<AuthorizeInstance> => ({
-      ...response,
-      body: new AuthorizeInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AuthorizeResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<AuthorizeInstance> => ({
+        ...response,
+        body: new AuthorizeInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface AuthorizePayload extends AuthorizeResource {}
+interface AuthorizePayload extends AuthorizeResource {}
 
 interface AuthorizeResource {
   redirect_to: string;
 }
 
 export class AuthorizeInstance {
-
-  constructor(protected _version: V2, payload: AuthorizeResource) {
-    
-    this.redirectTo = (payload.redirect_to);
-
+  constructor(
+    protected _version: V2,
+    payload: AuthorizeResource,
+  ) {
+    this.redirectTo = payload.redirect_to;
   }
 
   /**
@@ -239,5 +265,3 @@ export class AuthorizeInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

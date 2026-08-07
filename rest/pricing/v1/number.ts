@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.
@@ -36,7 +34,6 @@ export class PricingV1VoiceVoiceNumberInboundCallPrice {
   }
 }
 
-
 /**
  * The OutboundCallPrice record, which includes a list of `origination_prefixes` and the `base_price` and `current_price` for those prefixes.
  */
@@ -50,11 +47,7 @@ export class PricingV1VoiceVoiceNumberOutboundCallPrice {
   }
 }
 
-
-
-
 export interface NumberContext {
-
   /**
    * Fetch a NumberInstance
    *
@@ -62,7 +55,9 @@ export interface NumberContext {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>
+  fetch(
+    callback?: (error: Error | null, item?: NumberInstance) => any,
+  ): Promise<NumberInstance>;
 
   /**
    * Fetch a NumberInstance and return HTTP info
@@ -71,7 +66,9 @@ export interface NumberContext {
    *
    * @returns Resolves to processed NumberInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any): Promise<ApiResponse<NumberInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+  ): Promise<ApiResponse<NumberInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -81,56 +78,84 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  "number": string;
+  number: string;
 }
 
 export class NumberContextImpl implements NumberContext {
   protected _solution: NumberContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, number: string) {
+  constructor(
+    protected _version: V1,
+    number: string,
+  ) {
     if (!isValidPathParam(number)) {
-      throw new Error('Parameter \'number\' is not valid.');
+      throw new Error("Parameter 'number' is not valid.");
     }
 
-    this._solution = { number,  };
+    this._solution = { number };
     this._uri = `/Voice/Numbers/${number}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: NumberInstance) => any,
+  ): Promise<NumberInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new NumberInstance(operationVersion, payload, instance._solution.number));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NumberInstance(
+          operationVersion,
+          payload,
+          instance._solution.number,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any): Promise<ApiResponse<NumberInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+  ): Promise<ApiResponse<NumberInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<NumberResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<NumberInstance> => ({
-      ...response,
-      body: new NumberInstance(operationVersion, response.body, instance._solution.number)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<NumberResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<NumberInstance> => ({
+        ...response,
+        body: new NumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.number,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -147,8 +172,7 @@ export class NumberContextImpl implements NumberContext {
   }
 }
 
-
-  interface NumberPayload extends NumberResource {}
+interface NumberPayload extends NumberResource {}
 
 interface NumberResource {
   number: string;
@@ -164,17 +188,32 @@ export class NumberInstance {
   protected _solution: NumberContextSolution;
   protected _context?: NumberContext;
 
-  constructor(protected _version: V1, payload: NumberResource, number?: string) {
-    
-    this.number = (payload.number);
-    this.country = (payload.country);
-    this.isoCountry = (payload.iso_country);
-    this.outboundCallPrice = payload.outbound_call_price !== null && payload.outbound_call_price !== undefined ? new PricingV1VoiceVoiceNumberOutboundCallPrice(payload.outbound_call_price) : null;
-    this.inboundCallPrice = payload.inbound_call_price !== null && payload.inbound_call_price !== undefined ? new PricingV1VoiceVoiceNumberInboundCallPrice(payload.inbound_call_price) : null;
-    this.priceUnit = (payload.price_unit);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V1,
+    payload: NumberResource,
+    number?: string,
+  ) {
+    this.number = payload.number;
+    this.country = payload.country;
+    this.isoCountry = payload.iso_country;
+    this.outboundCallPrice =
+      payload.outbound_call_price !== null &&
+      payload.outbound_call_price !== undefined
+        ? new PricingV1VoiceVoiceNumberOutboundCallPrice(
+            payload.outbound_call_price,
+          )
+        : null;
+    this.inboundCallPrice =
+      payload.inbound_call_price !== null &&
+      payload.inbound_call_price !== undefined
+        ? new PricingV1VoiceVoiceNumberInboundCallPrice(
+            payload.inbound_call_price,
+          )
+        : null;
+    this.priceUnit = payload.price_unit;
+    this.url = payload.url;
 
-    this._solution = { number: number,  };
+    this._solution = { number: number };
   }
 
   /**
@@ -201,7 +240,9 @@ export class NumberInstance {
   url: string;
 
   private get _proxy(): NumberContext {
-    this._context = this._context || new NumberContextImpl(this._version, this._solution.number);
+    this._context =
+      this._context ||
+      new NumberContextImpl(this._version, this._solution.number);
     return this._context;
   }
 
@@ -212,9 +253,9 @@ export class NumberInstance {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: NumberInstance) => any,
+  ): Promise<NumberInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -225,9 +266,9 @@ export class NumberInstance {
    *
    * @returns Resolves to processed NumberInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any): Promise<ApiResponse<NumberInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+  ): Promise<ApiResponse<NumberInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -253,20 +294,15 @@ export class NumberInstance {
   }
 }
 
-
-export interface NumberSolution {
-}
+export interface NumberSolution {}
 
 export interface NumberListInstance {
   _version: V1;
   _solution: NumberSolution;
   _uri: string;
 
-  (number: string, ): NumberContext;
-  get(number: string, ): NumberContext;
-
-
-
+  (number: string): NumberContext;
+  get(number: string): NumberContext;
 
   /**
    * Provide a user-friendly representation
@@ -276,25 +312,26 @@ export interface NumberListInstance {
 }
 
 export function NumberListInstance(version: V1): NumberListInstance {
-  const instance = ((number, ) => instance.get(number, )) as NumberListInstance;
+  const instance = ((number) => instance.get(number)) as NumberListInstance;
 
-  instance.get = function get(number, ): NumberContext {
+  instance.get = function get(number): NumberContext {
     return new NumberContextImpl(version, number);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

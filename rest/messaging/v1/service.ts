@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -30,51 +29,47 @@ import { ShortCodeListInstance } from "./service/shortCode";
 import { UsAppToPersonListInstance } from "./service/usAppToPerson";
 import { UsAppToPersonUsecaseListInstance } from "./service/usAppToPersonUsecase";
 
-
 /**
  * Reserved.
  */
-export type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
-
-
-
+export type ServiceScanMessageContent = "inherit" | "enable" | "disable";
 
 /**
  * Options to pass to update a ServiceInstance
  */
 export interface ServiceContextUpdateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service. */
-  "inboundRequestUrl"?: string;
+  inboundRequestUrl?: string;
   /** The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`. */
-  "inboundMethod"?: string;
+  inboundMethod?: string;
   /** The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service. */
-  "fallbackUrl"?: string;
+  fallbackUrl?: string;
   /** The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`. */
-  "fallbackMethod"?: string;
+  fallbackMethod?: string;
   /** The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. */
-  "statusCallback"?: string;
+  statusCallback?: string;
   /** Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance. */
-  "stickySender"?: boolean;
+  stickySender?: boolean;
   /** Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance. */
-  "mmsConverter"?: boolean;
+  mmsConverter?: boolean;
   /** Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance. */
-  "smartEncoding"?: boolean;
+  smartEncoding?: boolean;
   /**  */
-  "scanMessageContent"?: ServiceScanMessageContent;
+  scanMessageContent?: ServiceScanMessageContent;
   /** [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures. */
-  "fallbackToLongCode"?: boolean;
+  fallbackToLongCode?: boolean;
   /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
-  "areaCodeGeomatch"?: boolean;
+  areaCodeGeomatch?: boolean;
   /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`. */
-  "validityPeriod"?: number;
+  validityPeriod?: number;
   /** Reserved. */
-  "synchronousValidation"?: boolean;
+  synchronousValidation?: boolean;
   /** A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`. */
-  "usecase"?: string;
+  usecase?: string;
   /** A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service. */
-  "useInboundWebhookOnNumber"?: boolean;
+  useInboundWebhookOnNumber?: boolean;
 }
 
 /**
@@ -82,37 +77,37 @@ export interface ServiceContextUpdateOptions {
  */
 export interface ServiceListInstanceCreateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName": string;
+  friendlyName: string;
   /** The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service. */
-  "inboundRequestUrl"?: string;
+  inboundRequestUrl?: string;
   /** The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`. */
-  "inboundMethod"?: string;
+  inboundMethod?: string;
   /** The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service. */
-  "fallbackUrl"?: string;
+  fallbackUrl?: string;
   /** The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`. */
-  "fallbackMethod"?: string;
+  fallbackMethod?: string;
   /** The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. */
-  "statusCallback"?: string;
+  statusCallback?: string;
   /** Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance. */
-  "stickySender"?: boolean;
+  stickySender?: boolean;
   /** Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance. */
-  "mmsConverter"?: boolean;
+  mmsConverter?: boolean;
   /** Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance. */
-  "smartEncoding"?: boolean;
+  smartEncoding?: boolean;
   /**  */
-  "scanMessageContent"?: ServiceScanMessageContent;
+  scanMessageContent?: ServiceScanMessageContent;
   /** [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures. */
-  "fallbackToLongCode"?: boolean;
+  fallbackToLongCode?: boolean;
   /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
-  "areaCodeGeomatch"?: boolean;
+  areaCodeGeomatch?: boolean;
   /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`. */
-  "validityPeriod"?: number;
+  validityPeriod?: number;
   /** Reserved. */
-  "synchronousValidation"?: boolean;
+  synchronousValidation?: boolean;
   /** A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`. */
-  "usecase"?: string;
+  usecase?: string;
   /** A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service. */
-  "useInboundWebhookOnNumber"?: boolean;
+  useInboundWebhookOnNumber?: boolean;
 }
 
 /**
@@ -120,7 +115,7 @@ export interface ServiceListInstanceCreateOptions {
  */
 export interface ServiceListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -134,24 +129,22 @@ export interface ServiceListInstanceEachOptions {
  */
 export interface ServiceListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ServiceListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface ServiceContext {
   alphaSenders: AlphaSenderListInstance;
@@ -169,7 +162,9 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a ServiceInstance and return HTTP info
@@ -178,7 +173,9 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a ServiceInstance
@@ -187,7 +184,9 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance>;
 
   /**
    * Fetch a ServiceInstance and return HTTP info
@@ -196,7 +195,12 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>>;
 
   /**
    * Update a ServiceInstance
@@ -205,7 +209,9 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -214,7 +220,10 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    params: ServiceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance>;
 
   /**
    * Update a ServiceInstance and return HTTP info
@@ -223,7 +232,12 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
    *
@@ -232,7 +246,13 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(
+    params: ServiceContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -242,7 +262,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -257,243 +277,327 @@ export class ServiceContextImpl implements ServiceContext {
   protected _usAppToPerson?: UsAppToPersonListInstance;
   protected _usAppToPersonUsecases?: UsAppToPersonUsecaseListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }
 
   get alphaSenders(): AlphaSenderListInstance {
-    this._alphaSenders = this._alphaSenders || AlphaSenderListInstance(this._version, this._solution.sid);
+    this._alphaSenders =
+      this._alphaSenders ||
+      AlphaSenderListInstance(this._version, this._solution.sid);
     return this._alphaSenders;
   }
 
   get channelSenders(): ChannelSenderListInstance {
-    this._channelSenders = this._channelSenders || ChannelSenderListInstance(this._version, this._solution.sid);
+    this._channelSenders =
+      this._channelSenders ||
+      ChannelSenderListInstance(this._version, this._solution.sid);
     return this._channelSenders;
   }
 
   get destinationAlphaSenders(): DestinationAlphaSenderListInstance {
-    this._destinationAlphaSenders = this._destinationAlphaSenders || DestinationAlphaSenderListInstance(this._version, this._solution.sid);
+    this._destinationAlphaSenders =
+      this._destinationAlphaSenders ||
+      DestinationAlphaSenderListInstance(this._version, this._solution.sid);
     return this._destinationAlphaSenders;
   }
 
   get phoneNumbers(): PhoneNumberListInstance {
-    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
+    this._phoneNumbers =
+      this._phoneNumbers ||
+      PhoneNumberListInstance(this._version, this._solution.sid);
     return this._phoneNumbers;
   }
 
   get shortCodes(): ShortCodeListInstance {
-    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
+    this._shortCodes =
+      this._shortCodes ||
+      ShortCodeListInstance(this._version, this._solution.sid);
     return this._shortCodes;
   }
 
   get usAppToPerson(): UsAppToPersonListInstance {
-    this._usAppToPerson = this._usAppToPerson || UsAppToPersonListInstance(this._version, this._solution.sid);
+    this._usAppToPerson =
+      this._usAppToPerson ||
+      UsAppToPersonListInstance(this._version, this._solution.sid);
     return this._usAppToPerson;
   }
 
   get usAppToPersonUsecases(): UsAppToPersonUsecaseListInstance {
-    this._usAppToPersonUsecases = this._usAppToPersonUsecases || UsAppToPersonUsecaseListInstance(this._version, this._solution.sid);
+    this._usAppToPersonUsecases =
+      this._usAppToPersonUsecases ||
+      UsAppToPersonUsecaseListInstance(this._version, this._solution.sid);
     return this._usAppToPersonUsecases;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServiceInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ServiceInstance> => ({
-      ...response,
-      body: new ServiceInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ServiceResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<ServiceInstance> => ({
+        ...response,
+        body: new ServiceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: ServiceContextUpdateOptions | ((error: Error | null, item?: ServiceInstance) => any),callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | ServiceContextUpdateOptions
+      | ((error: Error | null, item?: ServiceInstance) => any),
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["inboundRequestUrl"] !== undefined)
-    data["InboundRequestUrl"] = params["inboundRequestUrl"];
+      data["InboundRequestUrl"] = params["inboundRequestUrl"];
     if (params["inboundMethod"] !== undefined)
-    data["InboundMethod"] = params["inboundMethod"];
+      data["InboundMethod"] = params["inboundMethod"];
     if (params["fallbackUrl"] !== undefined)
-    data["FallbackUrl"] = params["fallbackUrl"];
+      data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-    data["FallbackMethod"] = params["fallbackMethod"];
+      data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["stickySender"] !== undefined)
-    data["StickySender"] = serialize.bool(params["stickySender"]);
+      data["StickySender"] = serialize.bool(params["stickySender"]);
     if (params["mmsConverter"] !== undefined)
-    data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
+      data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
     if (params["smartEncoding"] !== undefined)
-    data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
+      data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
     if (params["scanMessageContent"] !== undefined)
-    data["ScanMessageContent"] = params["scanMessageContent"];
+      data["ScanMessageContent"] = params["scanMessageContent"];
     if (params["fallbackToLongCode"] !== undefined)
-    data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
+      data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
     if (params["areaCodeGeomatch"] !== undefined)
-    data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
+      data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
     if (params["validityPeriod"] !== undefined)
-    data["ValidityPeriod"] = params["validityPeriod"];
+      data["ValidityPeriod"] = params["validityPeriod"];
     if (params["synchronousValidation"] !== undefined)
-    data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
-    if (params["usecase"] !== undefined)
-    data["Usecase"] = params["usecase"];
+      data["SynchronousValidation"] = serialize.bool(
+        params["synchronousValidation"],
+      );
+    if (params["usecase"] !== undefined) data["Usecase"] = params["usecase"];
     if (params["useInboundWebhookOnNumber"] !== undefined)
-    data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+      data["UseInboundWebhookOnNumber"] = serialize.bool(
+        params["useInboundWebhookOnNumber"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServiceInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: ServiceContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | ServiceContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["inboundRequestUrl"] !== undefined)
-    data["InboundRequestUrl"] = params["inboundRequestUrl"];
+      data["InboundRequestUrl"] = params["inboundRequestUrl"];
     if (params["inboundMethod"] !== undefined)
-    data["InboundMethod"] = params["inboundMethod"];
+      data["InboundMethod"] = params["inboundMethod"];
     if (params["fallbackUrl"] !== undefined)
-    data["FallbackUrl"] = params["fallbackUrl"];
+      data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-    data["FallbackMethod"] = params["fallbackMethod"];
+      data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["stickySender"] !== undefined)
-    data["StickySender"] = serialize.bool(params["stickySender"]);
+      data["StickySender"] = serialize.bool(params["stickySender"]);
     if (params["mmsConverter"] !== undefined)
-    data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
+      data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
     if (params["smartEncoding"] !== undefined)
-    data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
+      data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
     if (params["scanMessageContent"] !== undefined)
-    data["ScanMessageContent"] = params["scanMessageContent"];
+      data["ScanMessageContent"] = params["scanMessageContent"];
     if (params["fallbackToLongCode"] !== undefined)
-    data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
+      data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
     if (params["areaCodeGeomatch"] !== undefined)
-    data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
+      data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
     if (params["validityPeriod"] !== undefined)
-    data["ValidityPeriod"] = params["validityPeriod"];
+      data["ValidityPeriod"] = params["validityPeriod"];
     if (params["synchronousValidation"] !== undefined)
-    data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
-    if (params["usecase"] !== undefined)
-    data["Usecase"] = params["usecase"];
+      data["SynchronousValidation"] = serialize.bool(
+        params["synchronousValidation"],
+      );
+    if (params["usecase"] !== undefined) data["Usecase"] = params["usecase"];
     if (params["useInboundWebhookOnNumber"] !== undefined)
-    data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+      data["UseInboundWebhookOnNumber"] = serialize.bool(
+        params["useInboundWebhookOnNumber"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ServiceInstance> => ({
-      ...response,
-      body: new ServiceInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ServiceResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ServiceInstance> => ({
+        ...response,
+        body: new ServiceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -510,9 +614,8 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-
-  interface ServicePayload extends TwilioResponsePayload {
-    services: ServiceResource[];
+interface ServicePayload extends TwilioResponsePayload {
+  services: ServiceResource[];
 }
 
 interface ServiceResource {
@@ -545,33 +648,36 @@ export class ServiceInstance {
   protected _solution: ServiceContextSolution;
   protected _context?: ServiceContext;
 
-  constructor(protected _version: V1, payload: ServiceResource, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.friendlyName = (payload.friendly_name);
+  constructor(
+    protected _version: V1,
+    payload: ServiceResource,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.inboundRequestUrl = (payload.inbound_request_url);
-    this.inboundMethod = (payload.inbound_method);
-    this.fallbackUrl = (payload.fallback_url);
-    this.fallbackMethod = (payload.fallback_method);
-    this.statusCallback = (payload.status_callback);
-    this.stickySender = (payload.sticky_sender);
-    this.mmsConverter = (payload.mms_converter);
-    this.smartEncoding = (payload.smart_encoding);
+    this.inboundRequestUrl = payload.inbound_request_url;
+    this.inboundMethod = payload.inbound_method;
+    this.fallbackUrl = payload.fallback_url;
+    this.fallbackMethod = payload.fallback_method;
+    this.statusCallback = payload.status_callback;
+    this.stickySender = payload.sticky_sender;
+    this.mmsConverter = payload.mms_converter;
+    this.smartEncoding = payload.smart_encoding;
     this.scanMessageContent = payload.scan_message_content;
-    this.fallbackToLongCode = (payload.fallback_to_long_code);
-    this.areaCodeGeomatch = (payload.area_code_geomatch);
-    this.synchronousValidation = (payload.synchronous_validation);
+    this.fallbackToLongCode = payload.fallback_to_long_code;
+    this.areaCodeGeomatch = payload.area_code_geomatch;
+    this.synchronousValidation = payload.synchronous_validation;
     this.validityPeriod = deserialize.integer(payload.validity_period);
-    this.url = (payload.url);
-    this.links = (payload.links);
-    this.usecase = (payload.usecase);
-    this.usAppToPersonRegistered = (payload.us_app_to_person_registered);
-    this.useInboundWebhookOnNumber = (payload.use_inbound_webhook_on_number);
+    this.url = payload.url;
+    this.links = payload.links;
+    this.usecase = payload.usecase;
+    this.usAppToPersonRegistered = payload.us_app_to_person_registered;
+    this.useInboundWebhookOnNumber = payload.use_inbound_webhook_on_number;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -665,7 +771,9 @@ export class ServiceInstance {
   useInboundWebhookOnNumber: boolean;
 
   private get _proxy(): ServiceContext {
-    this._context = this._context || new ServiceContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new ServiceContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -676,9 +784,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -689,9 +797,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -702,9 +810,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -715,9 +823,12 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -728,7 +839,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -737,10 +850,15 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    params: ServiceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -751,7 +869,12 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
    *
@@ -760,10 +883,21 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(
+    params: ServiceContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -854,24 +988,15 @@ export class ServiceInstance {
   }
 }
 
-
-export interface ServiceSolution {
-}
+export interface ServiceSolution {}
 
 export interface ServiceListInstance {
   _version: V1;
   _solution: ServiceSolution;
   _uri: string;
 
-  (sid: string, ): ServiceContext;
-  get(sid: string, ): ServiceContext;
-
-
-
-
-
-
-
+  (sid: string): ServiceContext;
+  get(sid: string): ServiceContext;
 
   /**
    * Create a ServiceInstance
@@ -881,7 +1006,10 @@ export interface ServiceListInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  create(
+    params: ServiceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
+  ): Promise<ServiceInstance>;
 
   /**
    * Create a ServiceInstance and return HTTP info
@@ -891,10 +1019,13 @@ export interface ServiceListInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: ServiceListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>>;
 
   /**
    * Streams ServiceInstance records from the API.
@@ -911,8 +1042,13 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
-  each(params: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: ServiceListInstanceEachOptions,
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams ServiceInstance records from the API with HTTP metadata captured per page.
    *
@@ -928,8 +1064,13 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ServiceListInstanceEachOptions,
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
@@ -938,7 +1079,10 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ServicePage) => any,
+  ): Promise<ServicePage>;
   /**
    * Retrieve a single target page of ServiceInstance records from the API with HTTP metadata.
    *
@@ -947,7 +1091,10 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
+  ): Promise<ApiResponse<ServicePage>>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -957,8 +1104,13 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
-  list(params: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ServiceInstance[]) => any,
+  ): Promise<ServiceInstance[]>;
+  list(
+    params: ServiceListInstanceOptions,
+    callback?: (error: Error | null, items: ServiceInstance[]) => any,
+  ): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list with HTTP metadata.
    *
@@ -970,8 +1122,19 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ServiceInstance[]>) => any): Promise<ApiResponse<ServiceInstance[]>>;
-  listWithHttpInfo(params: ServiceListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ServiceInstance[]>) => any): Promise<ApiResponse<ServiceInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ServiceInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance[]>>;
+  listWithHttpInfo(
+    params: ServiceListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ServiceInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance[]>>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -983,8 +1146,13 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(
+    callback?: (error: Error | null, items: ServicePage) => any,
+  ): Promise<ServicePage>;
+  page(
+    params: ServiceListInstancePageOptions,
+    callback?: (error: Error | null, items: ServicePage) => any,
+  ): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API with HTTP metadata.
    *
@@ -996,9 +1164,13 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
-  pageWithHttpInfo(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
+  ): Promise<ApiResponse<ServicePage>>;
+  pageWithHttpInfo(
+    params: ServiceListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
+  ): Promise<ApiResponse<ServicePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -1008,146 +1180,177 @@ export interface ServiceListInstance {
 }
 
 export function ServiceListInstance(version: V1): ServiceListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as ServiceListInstance;
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
 
-  instance.get = function get(sid, ): ServiceContext {
+  instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Services`;
 
-  instance.create = function create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance> {
+  instance.create = function create(
+    params: ServiceListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ServiceInstance) => any,
+  ): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["inboundRequestUrl"] !== undefined)
-    data["InboundRequestUrl"] = params["inboundRequestUrl"];
+      data["InboundRequestUrl"] = params["inboundRequestUrl"];
     if (params["inboundMethod"] !== undefined)
-    data["InboundMethod"] = params["inboundMethod"];
+      data["InboundMethod"] = params["inboundMethod"];
     if (params["fallbackUrl"] !== undefined)
-    data["FallbackUrl"] = params["fallbackUrl"];
+      data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-    data["FallbackMethod"] = params["fallbackMethod"];
+      data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["stickySender"] !== undefined)
-    data["StickySender"] = serialize.bool(params["stickySender"]);
+      data["StickySender"] = serialize.bool(params["stickySender"]);
     if (params["mmsConverter"] !== undefined)
-    data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
+      data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
     if (params["smartEncoding"] !== undefined)
-    data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
+      data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
     if (params["scanMessageContent"] !== undefined)
-    data["ScanMessageContent"] = params["scanMessageContent"];
+      data["ScanMessageContent"] = params["scanMessageContent"];
     if (params["fallbackToLongCode"] !== undefined)
-    data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
+      data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
     if (params["areaCodeGeomatch"] !== undefined)
-    data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
+      data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
     if (params["validityPeriod"] !== undefined)
-    data["ValidityPeriod"] = params["validityPeriod"];
+      data["ValidityPeriod"] = params["validityPeriod"];
     if (params["synchronousValidation"] !== undefined)
-    data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
-    if (params["usecase"] !== undefined)
-    data["Usecase"] = params["usecase"];
+      data["SynchronousValidation"] = serialize.bool(
+        params["synchronousValidation"],
+      );
+    if (params["usecase"] !== undefined) data["Usecase"] = params["usecase"];
     if (params["useInboundWebhookOnNumber"] !== undefined)
-    data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+      data["UseInboundWebhookOnNumber"] = serialize.bool(
+        params["useInboundWebhookOnNumber"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServiceInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ServiceListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ServiceInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ServiceInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["inboundRequestUrl"] !== undefined)
-    data["InboundRequestUrl"] = params["inboundRequestUrl"];
+      data["InboundRequestUrl"] = params["inboundRequestUrl"];
     if (params["inboundMethod"] !== undefined)
-    data["InboundMethod"] = params["inboundMethod"];
+      data["InboundMethod"] = params["inboundMethod"];
     if (params["fallbackUrl"] !== undefined)
-    data["FallbackUrl"] = params["fallbackUrl"];
+      data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-    data["FallbackMethod"] = params["fallbackMethod"];
+      data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["stickySender"] !== undefined)
-    data["StickySender"] = serialize.bool(params["stickySender"]);
+      data["StickySender"] = serialize.bool(params["stickySender"]);
     if (params["mmsConverter"] !== undefined)
-    data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
+      data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
     if (params["smartEncoding"] !== undefined)
-    data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
+      data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
     if (params["scanMessageContent"] !== undefined)
-    data["ScanMessageContent"] = params["scanMessageContent"];
+      data["ScanMessageContent"] = params["scanMessageContent"];
     if (params["fallbackToLongCode"] !== undefined)
-    data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
+      data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
     if (params["areaCodeGeomatch"] !== undefined)
-    data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
+      data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
     if (params["validityPeriod"] !== undefined)
-    data["ValidityPeriod"] = params["validityPeriod"];
+      data["ValidityPeriod"] = params["validityPeriod"];
     if (params["synchronousValidation"] !== undefined)
-    data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
-    if (params["usecase"] !== undefined)
-    data["Usecase"] = params["usecase"];
+      data["SynchronousValidation"] = serialize.bool(
+        params["synchronousValidation"],
+      );
+    if (params["usecase"] !== undefined) data["Usecase"] = params["usecase"];
     if (params["useInboundWebhookOnNumber"] !== undefined)
-    data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+      data["UseInboundWebhookOnNumber"] = serialize.bool(
+        params["useInboundWebhookOnNumber"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ServiceInstance> => ({
-      ...response,
-      body: new ServiceInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ServiceResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ServiceInstance> => ({
+        ...response,
+        body: new ServiceInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ServiceListInstancePageOptions | ((error: Error | null, items: ServicePage) => any), callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage> {
+  instance.page = function page(
+    params?:
+      | ServiceListInstancePageOptions
+      | ((error: Error | null, items: ServicePage) => any),
+    callback?: (error: Error | null, items: ServicePage) => any,
+  ): Promise<ServicePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1157,44 +1360,59 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ServicePage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ServicePage) => any,
+  ): Promise<ServicePage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ServiceListInstancePageOptions | ((error: Error | null, items: ApiResponse<ServicePage>) => any), callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ServiceListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ServicePage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
+  ): Promise<ApiResponse<ServicePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1204,92 +1422,104 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ServicePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ServicePage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ServicePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ServicePage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any,
+  ): Promise<ApiResponse<ServicePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ServicePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ServicePage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ServicePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ServicePage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-/**
-* Initialize the ServicePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ServiceSolution) {
+export class ServicePage extends Page<
+  V1,
+  ServicePayload,
+  ServiceResource,
+  ServiceInstance
+> {
+  /**
+   * Initialize the ServicePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ServiceSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ServiceInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ServiceResource): ServiceInstance {
+  /**
+   * Build an instance of ServiceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ServiceResource): ServiceInstance {
+    return new ServiceInstance(this._version, payload);
+  }
 
-    return new ServiceInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

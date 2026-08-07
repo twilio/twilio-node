@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -22,26 +23,30 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
 /**
  * The Status of this Factor. One of `unverified` or `verified`.
  */
-export type FactorFactorStatuses = "unverified" | "verified";
+export type FactorFactorStatuses = 'unverified'|'verified';
 
 /**
  * The Type of this Factor. Currently `push` and `totp` are supported.
  */
-export type FactorFactorTypes = "push" | "totp" | "passkeys";
+export type FactorFactorTypes = 'push'|'totp'|'passkeys';
 
-export type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
+export type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
+
+
+
 
 /**
  * Options to pass to update a FactorInstance
  */
 export interface FactorContextUpdateOptions {
   /** The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code. */
-  authPayload?: string;
+  "authPayload"?: string;
   /** The new friendly name of this Factor. It can be up to 64 characters. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long. */
   "config.notificationToken"?: string;
   /** The Verify Push SDK version used to configure the factor */
@@ -63,7 +68,7 @@ export interface FactorContextUpdateOptions {
  */
 export interface FactorListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -77,24 +82,27 @@ export interface FactorListInstanceEachOptions {
  */
 export interface FactorListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface FactorListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface FactorContext {
+
   /**
    * Remove a FactorInstance
    *
@@ -102,9 +110,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a FactorInstance and return HTTP info
@@ -113,9 +119,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a FactorInstance
@@ -124,9 +128,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed FactorInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
+  fetch(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>
 
   /**
    * Fetch a FactorInstance and return HTTP info
@@ -135,9 +137,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed FactorInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>
 
   /**
    * Update a FactorInstance
@@ -146,9 +146,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed FactorInstance
    */
-  update(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
+  update(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
   /**
    * Update a FactorInstance
    *
@@ -157,10 +155,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed FactorInstance
    */
-  update(
-    params: FactorContextUpdateOptions,
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
+  update(params: FactorContextUpdateOptions, callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
 
   /**
    * Update a FactorInstance and return HTTP info
@@ -169,9 +164,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed FactorInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>;
   /**
    * Update a FactorInstance and return HTTP info
    *
@@ -180,10 +173,7 @@ export interface FactorContext {
    *
    * @returns Resolves to processed FactorInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: FactorContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>>;
+  updateWithHttpInfo(params: FactorContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -193,281 +183,198 @@ export interface FactorContext {
 }
 
 export interface FactorContextSolution {
-  serviceSid: string;
-  identity: string;
-  sid: string;
+  "serviceSid": string;
+  "identity": string;
+  "sid": string;
 }
 
 export class FactorContextImpl implements FactorContext {
   protected _solution: FactorContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    serviceSid: string,
-    identity: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V2, serviceSid: string, identity: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(identity)) {
-      throw new Error("Parameter 'identity' is not valid.");
+      throw new Error('Parameter \'identity\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, identity, sid };
+    this._solution = { serviceSid, identity, sid,  };
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new FactorInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.identity, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FactorInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<FactorResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<FactorInstance> => ({
-          ...response,
-          body: new FactorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.identity,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<FactorResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<FactorInstance> => ({
+      ...response,
+      body: new FactorInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.identity, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | FactorContextUpdateOptions
-      | ((error: Error | null, item?: FactorInstance) => any),
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance> {
-    if (params instanceof Function) {
+  update(params?: FactorContextUpdateOptions | ((error: Error | null, item?: FactorInstance) => any),callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["authPayload"] !== undefined)
-      data["AuthPayload"] = params["authPayload"];
+    
+        if (params["authPayload"] !== undefined)
+    data["AuthPayload"] = params["authPayload"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["config.notificationToken"] !== undefined)
-      data["Config.NotificationToken"] = params["config.notificationToken"];
+    data["Config.NotificationToken"] = params["config.notificationToken"];
     if (params["config.sdkVersion"] !== undefined)
-      data["Config.SdkVersion"] = params["config.sdkVersion"];
+    data["Config.SdkVersion"] = params["config.sdkVersion"];
     if (params["config.timeStep"] !== undefined)
-      data["Config.TimeStep"] = params["config.timeStep"];
+    data["Config.TimeStep"] = params["config.timeStep"];
     if (params["config.skew"] !== undefined)
-      data["Config.Skew"] = params["config.skew"];
+    data["Config.Skew"] = params["config.skew"];
     if (params["config.codeLength"] !== undefined)
-      data["Config.CodeLength"] = params["config.codeLength"];
+    data["Config.CodeLength"] = params["config.codeLength"];
     if (params["config.alg"] !== undefined)
-      data["Config.Alg"] = params["config.alg"];
+    data["Config.Alg"] = params["config.alg"];
     if (params["config.notificationPlatform"] !== undefined)
-      data["Config.NotificationPlatform"] =
-        params["config.notificationPlatform"];
+    data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new FactorInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.identity, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FactorInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | FactorContextUpdateOptions
-      | ((error: Error | null, item?: ApiResponse<FactorInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: FactorContextUpdateOptions | ((error: Error | null, item?: ApiResponse<FactorInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["authPayload"] !== undefined)
-      data["AuthPayload"] = params["authPayload"];
+    
+        if (params["authPayload"] !== undefined)
+    data["AuthPayload"] = params["authPayload"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["config.notificationToken"] !== undefined)
-      data["Config.NotificationToken"] = params["config.notificationToken"];
+    data["Config.NotificationToken"] = params["config.notificationToken"];
     if (params["config.sdkVersion"] !== undefined)
-      data["Config.SdkVersion"] = params["config.sdkVersion"];
+    data["Config.SdkVersion"] = params["config.sdkVersion"];
     if (params["config.timeStep"] !== undefined)
-      data["Config.TimeStep"] = params["config.timeStep"];
+    data["Config.TimeStep"] = params["config.timeStep"];
     if (params["config.skew"] !== undefined)
-      data["Config.Skew"] = params["config.skew"];
+    data["Config.Skew"] = params["config.skew"];
     if (params["config.codeLength"] !== undefined)
-      data["Config.CodeLength"] = params["config.codeLength"];
+    data["Config.CodeLength"] = params["config.codeLength"];
     if (params["config.alg"] !== undefined)
-      data["Config.Alg"] = params["config.alg"];
+    data["Config.Alg"] = params["config.alg"];
     if (params["config.notificationPlatform"] !== undefined)
-      data["Config.NotificationPlatform"] =
-        params["config.notificationPlatform"];
+    data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<FactorResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<FactorInstance> => ({
-          ...response,
-          body: new FactorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.identity,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<FactorResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<FactorInstance> => ({
+      ...response,
+      body: new FactorInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.identity, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -484,8 +391,9 @@ export class FactorContextImpl implements FactorContext {
   }
 }
 
-interface FactorPayload extends TwilioResponsePayload {
-  factors: FactorResource[];
+
+  interface FactorPayload extends TwilioResponsePayload {
+    factors: FactorResource[];
 }
 
 interface FactorResource {
@@ -508,28 +416,23 @@ export class FactorInstance {
   protected _solution: FactorContextSolution;
   protected _context?: FactorContext;
 
-  constructor(
-    protected _version: V2,
-    payload: FactorResource,
-    serviceSid: string,
-    identity: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.entitySid = payload.entity_sid;
-    this.identity = payload.identity;
+  constructor(protected _version: V2, payload: FactorResource, serviceSid: string, identity: string, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.entitySid = (payload.entity_sid);
+    this.identity = (payload.identity);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
+    this.friendlyName = (payload.friendly_name);
     this.status = payload.status;
     this.factorType = payload.factor_type;
-    this.config = payload.config;
-    this.metadata = payload.metadata;
-    this.url = payload.url;
+    this.config = (payload.config);
+    this.metadata = (payload.metadata);
+    this.url = (payload.url);
 
-    this._solution = { serviceSid, identity, sid: sid || this.sid };
+    this._solution = { serviceSid, identity, sid: sid,  };
   }
 
   /**
@@ -580,14 +483,7 @@ export class FactorInstance {
   url: string;
 
   private get _proxy(): FactorContext {
-    this._context =
-      this._context ||
-      new FactorContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.identity,
-        this._solution.sid
-      );
+    this._context = this._context || new FactorContextImpl(this._version, this._solution.serviceSid, this._solution.identity, this._solution.sid);
     return this._context;
   }
 
@@ -598,9 +494,9 @@ export class FactorInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -611,9 +507,9 @@ export class FactorInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -624,9 +520,9 @@ export class FactorInstance {
    *
    * @returns Resolves to processed FactorInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance> {
+  fetch(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -637,9 +533,9 @@ export class FactorInstance {
    *
    * @returns Resolves to processed FactorInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -650,9 +546,7 @@ export class FactorInstance {
    *
    * @returns Resolves to processed FactorInstance
    */
-  update(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
+  update(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
   /**
    * Update a FactorInstance
    *
@@ -661,15 +555,10 @@ export class FactorInstance {
    *
    * @returns Resolves to processed FactorInstance
    */
-  update(
-    params: FactorContextUpdateOptions,
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
+  update(params: FactorContextUpdateOptions, callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -680,9 +569,7 @@ export class FactorInstance {
    *
    * @returns Resolves to processed FactorInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>;
   /**
    * Update a FactorInstance and return HTTP info
    *
@@ -691,15 +578,10 @@ export class FactorInstance {
    *
    * @returns Resolves to processed FactorInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: FactorContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>>;
+  updateWithHttpInfo(params: FactorContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any
-  ): Promise<ApiResponse<FactorInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<FactorInstance>) => any): Promise<ApiResponse<FactorInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -731,6 +613,7 @@ export class FactorInstance {
   }
 }
 
+
 export interface FactorSolution {
   serviceSid: string;
   identity: string;
@@ -741,8 +624,16 @@ export interface FactorListInstance {
   _solution: FactorSolution;
   _uri: string;
 
-  (sid: string): FactorContext;
-  get(sid: string): FactorContext;
+  (sid: string, ): FactorContext;
+  get(sid: string, ): FactorContext;
+
+
+
+
+
+
+
+
 
   /**
    * Streams FactorInstance records from the API.
@@ -759,13 +650,8 @@ export interface FactorListInstance {
    * @param { FactorListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: FactorListInstanceEachOptions,
-    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
+  each(params: FactorListInstanceEachOptions, callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams FactorInstance records from the API with HTTP metadata captured per page.
    *
@@ -781,13 +667,8 @@ export interface FactorListInstance {
    * @param { FactorListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: FactorListInstanceEachOptions,
-    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: FactorListInstanceEachOptions, callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of FactorInstance records from the API.
    *
@@ -796,10 +677,7 @@ export interface FactorListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
   /**
    * Retrieve a single target page of FactorInstance records from the API with HTTP metadata.
    *
@@ -808,10 +686,7 @@ export interface FactorListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any
-  ): Promise<ApiResponse<FactorPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any): Promise<ApiResponse<FactorPage>>;
   /**
    * Lists FactorInstance records from the API as a list.
    *
@@ -821,13 +696,8 @@ export interface FactorListInstance {
    * @param { FactorListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: FactorInstance[]) => any
-  ): Promise<FactorInstance[]>;
-  list(
-    params: FactorListInstanceOptions,
-    callback?: (error: Error | null, items: FactorInstance[]) => any
-  ): Promise<FactorInstance[]>;
+  list(callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
+  list(params: FactorListInstanceOptions, callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
   /**
    * Lists FactorInstance records from the API as a list with HTTP metadata.
    *
@@ -839,19 +709,8 @@ export interface FactorListInstance {
    * @param { FactorListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<FactorInstance[]>
-    ) => any
-  ): Promise<ApiResponse<FactorInstance[]>>;
-  listWithHttpInfo(
-    params: FactorListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<FactorInstance[]>
-    ) => any
-  ): Promise<ApiResponse<FactorInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FactorInstance[]>) => any): Promise<ApiResponse<FactorInstance[]>>;
+  listWithHttpInfo(params: FactorListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<FactorInstance[]>) => any): Promise<ApiResponse<FactorInstance[]>>;
   /**
    * Retrieve a single page of FactorInstance records from the API.
    *
@@ -863,13 +722,8 @@ export interface FactorListInstance {
    * @param { FactorListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
-  page(
-    params: FactorListInstancePageOptions,
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
+  page(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  page(params: FactorListInstancePageOptions, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
   /**
    * Retrieve a single page of FactorInstance records from the API with HTTP metadata.
    *
@@ -881,13 +735,9 @@ export interface FactorListInstance {
    * @param { FactorListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any
-  ): Promise<ApiResponse<FactorPage>>;
-  pageWithHttpInfo(
-    params: FactorListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any
-  ): Promise<ApiResponse<FactorPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any): Promise<ApiResponse<FactorPage>>;
+  pageWithHttpInfo(params: FactorListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any): Promise<ApiResponse<FactorPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -896,35 +746,26 @@ export interface FactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function FactorListInstance(
-  version: V2,
-  serviceSid: string,
-  identity: string
-): FactorListInstance {
+export function FactorListInstance(version: V2, serviceSid: string, identity: string): FactorListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(identity)) {
-    throw new Error("Parameter 'identity' is not valid.");
+    throw new Error('Parameter \'identity\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as FactorListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as FactorListInstance;
 
-  instance.get = function get(sid): FactorContext {
+  instance.get = function get(sid, ): FactorContext {
     return new FactorContextImpl(version, serviceSid, identity, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, identity };
+  instance._solution = { serviceSid, identity,  };
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-  instance.page = function page(
-    params?:
-      | FactorListInstancePageOptions
-      | ((error: Error | null, items: FactorPage) => any),
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage> {
+  instance.page = function page(params?: FactorListInstancePageOptions | ((error: Error | null, items: FactorPage) => any), callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -934,58 +775,44 @@ export function FactorListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new FactorPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new FactorPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new FactorPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new FactorPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | FactorListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<FactorPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any
-  ): Promise<ApiResponse<FactorPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: FactorListInstancePageOptions | ((error: Error | null, items: ApiResponse<FactorPage>) => any), callback?: (error: Error | null, items: ApiResponse<FactorPage>) => any): Promise<ApiResponse<FactorPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -995,111 +822,94 @@ export function FactorListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FactorPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FactorPage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<FactorPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new FactorPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<FactorPage>) => any
-  ): Promise<ApiResponse<FactorPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<FactorPage>) => any): Promise<ApiResponse<FactorPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<FactorPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new FactorPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<FactorPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new FactorPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class FactorPage extends Page<
-  V2,
-  FactorPayload,
-  FactorResource,
-  FactorInstance
-> {
-  /**
-   * Initialize the FactorPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: FactorSolution
-  ) {
+export class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorInstance> {
+/**
+* Initialize the FactorPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: FactorSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FactorInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FactorResource): FactorInstance {
+    /**
+    * Build an instance of FactorInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FactorResource): FactorInstance {
+
     return new FactorInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.identity
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.identity,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

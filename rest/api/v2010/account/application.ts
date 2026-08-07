@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -23,46 +22,42 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
-
-
 /**
  * Options to pass to update a ApplicationInstance
  */
 export interface ApplicationContextUpdateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account\\\'s default API version. */
-  "apiVersion"?: string;
+  apiVersion?: string;
   /** The URL we should call when the phone number assigned to this application receives a call. */
-  "voiceUrl"?: string;
+  voiceUrl?: string;
   /** The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`. */
-  "voiceMethod"?: string;
+  voiceMethod?: string;
   /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
-  "voiceFallbackUrl"?: string;
+  voiceFallbackUrl?: string;
   /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
-  "voiceFallbackMethod"?: string;
+  voiceFallbackMethod?: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
-  "statusCallback"?: string;
+  statusCallback?: string;
   /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`. */
-  "statusCallbackMethod"?: string;
+  statusCallbackMethod?: string;
   /** Whether we should look up the caller\\\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`. */
-  "voiceCallerIdLookup"?: boolean;
+  voiceCallerIdLookup?: boolean;
   /** The URL we should call when the phone number receives an incoming SMS message. */
-  "smsUrl"?: string;
+  smsUrl?: string;
   /** The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. */
-  "smsMethod"?: string;
+  smsMethod?: string;
   /** The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`. */
-  "smsFallbackUrl"?: string;
+  smsFallbackUrl?: string;
   /** The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. */
-  "smsFallbackMethod"?: string;
+  smsFallbackMethod?: string;
   /** Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility. */
-  "smsStatusCallback"?: string;
+  smsStatusCallback?: string;
   /** The URL we should call using a POST method to send message status information to your application. */
-  "messageStatusCallback"?: string;
+  messageStatusCallback?: string;
   /** Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`. */
-  "publicApplicationConnectEnabled"?: boolean;
+  publicApplicationConnectEnabled?: boolean;
 }
 
 /**
@@ -70,37 +65,37 @@ export interface ApplicationContextUpdateOptions {
  */
 export interface ApplicationListInstanceCreateOptions {
   /** The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account\\\'s default API version. */
-  "apiVersion"?: string;
+  apiVersion?: string;
   /** The URL we should call when the phone number assigned to this application receives a call. */
-  "voiceUrl"?: string;
+  voiceUrl?: string;
   /** The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`. */
-  "voiceMethod"?: string;
+  voiceMethod?: string;
   /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
-  "voiceFallbackUrl"?: string;
+  voiceFallbackUrl?: string;
   /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
-  "voiceFallbackMethod"?: string;
+  voiceFallbackMethod?: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
-  "statusCallback"?: string;
+  statusCallback?: string;
   /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`. */
-  "statusCallbackMethod"?: string;
+  statusCallbackMethod?: string;
   /** Whether we should look up the caller\\\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`. */
-  "voiceCallerIdLookup"?: boolean;
+  voiceCallerIdLookup?: boolean;
   /** The URL we should call when the phone number receives an incoming SMS message. */
-  "smsUrl"?: string;
+  smsUrl?: string;
   /** The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. */
-  "smsMethod"?: string;
+  smsMethod?: string;
   /** The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`. */
-  "smsFallbackUrl"?: string;
+  smsFallbackUrl?: string;
   /** The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. */
-  "smsFallbackMethod"?: string;
+  smsFallbackMethod?: string;
   /** The URL we should call using a POST method to send status information about SMS messages sent by the application. */
-  "smsStatusCallback"?: string;
+  smsStatusCallback?: string;
   /** The URL we should call using a POST method to send message status information to your application. */
-  "messageStatusCallback"?: string;
+  messageStatusCallback?: string;
   /** A descriptive string that you create to describe the new application. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`. */
-  "publicApplicationConnectEnabled"?: boolean;
+  publicApplicationConnectEnabled?: boolean;
 }
 
 /**
@@ -108,9 +103,9 @@ export interface ApplicationListInstanceCreateOptions {
  */
 export interface ApplicationListInstanceEachOptions {
   /** The string that identifies the Application resources to read. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -124,31 +119,28 @@ export interface ApplicationListInstanceEachOptions {
  */
 export interface ApplicationListInstanceOptions {
   /** The string that identifies the Application resources to read. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ApplicationListInstancePageOptions {
   /** The string that identifies the Application resources to read. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface ApplicationContext {
-
   /**
    * Remove a ApplicationInstance
    *
@@ -156,7 +148,9 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a ApplicationInstance and return HTTP info
@@ -165,7 +159,9 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a ApplicationInstance
@@ -174,7 +170,9 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
 
   /**
    * Fetch a ApplicationInstance and return HTTP info
@@ -183,7 +181,12 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
    * Update a ApplicationInstance
@@ -192,7 +195,9 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  update(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  update(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
   /**
    * Update a ApplicationInstance
    *
@@ -201,7 +206,10 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  update(params: ApplicationContextUpdateOptions, callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  update(
+    params: ApplicationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
 
   /**
    * Update a ApplicationInstance and return HTTP info
@@ -210,7 +218,12 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
   /**
    * Update a ApplicationInstance and return HTTP info
    *
@@ -219,7 +232,13 @@ export interface ApplicationContext {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ApplicationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
+  updateWithHttpInfo(
+    params: ApplicationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -229,221 +248,301 @@ export interface ApplicationContext {
 }
 
 export interface ApplicationContextSolution {
-  "accountSid": string;
-  "sid": string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ApplicationContextImpl implements ApplicationContext {
   protected _solution: ApplicationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error('Parameter \'accountSid\' is not valid.');
+      throw new Error("Parameter 'accountSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { accountSid, sid,  };
+    this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Applications/${sid}.json`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ApplicationInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApplicationInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ApplicationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ApplicationInstance> => ({
-      ...response,
-      body: new ApplicationInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ApplicationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<ApplicationInstance> => ({
+        ...response,
+        body: new ApplicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: ApplicationContextUpdateOptions | ((error: Error | null, item?: ApplicationInstance) => any),callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | ApplicationContextUpdateOptions
+      | ((error: Error | null, item?: ApplicationInstance) => any),
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["ApiVersion"] = params["apiVersion"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
+      data["VoiceMethod"] = params["voiceMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"],
+      );
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
+      data["SmsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsStatusCallback"] !== undefined)
-    data["SmsStatusCallback"] = params["smsStatusCallback"];
+      data["SmsStatusCallback"] = params["smsStatusCallback"];
     if (params["messageStatusCallback"] !== undefined)
-    data["MessageStatusCallback"] = params["messageStatusCallback"];
+      data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
-    data["PublicApplicationConnectEnabled"] = serialize.bool(params["publicApplicationConnectEnabled"]);
+      data["PublicApplicationConnectEnabled"] = serialize.bool(
+        params["publicApplicationConnectEnabled"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ApplicationInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApplicationInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: ApplicationContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ApplicationInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | ApplicationContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<ApplicationInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["ApiVersion"] = params["apiVersion"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
+      data["VoiceMethod"] = params["voiceMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"],
+      );
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
+      data["SmsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsStatusCallback"] !== undefined)
-    data["SmsStatusCallback"] = params["smsStatusCallback"];
+      data["SmsStatusCallback"] = params["smsStatusCallback"];
     if (params["messageStatusCallback"] !== undefined)
-    data["MessageStatusCallback"] = params["messageStatusCallback"];
+      data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
-    data["PublicApplicationConnectEnabled"] = serialize.bool(params["publicApplicationConnectEnabled"]);
+      data["PublicApplicationConnectEnabled"] = serialize.bool(
+        params["publicApplicationConnectEnabled"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<ApplicationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ApplicationInstance> => ({
-      ...response,
-      body: new ApplicationInstance(operationVersion, response.body, instance._solution.accountSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ApplicationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ApplicationInstance> => ({
+        ...response,
+        body: new ApplicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -460,9 +559,8 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 }
 
-
-  interface ApplicationPayload extends TwilioResponsePayload {
-    applications: ApplicationResource[];
+interface ApplicationPayload extends TwilioResponsePayload {
+  applications: ApplicationResource[];
 }
 
 interface ApplicationResource {
@@ -493,31 +591,36 @@ export class ApplicationInstance {
   protected _solution: ApplicationContextSolution;
   protected _context?: ApplicationContext;
 
-  constructor(protected _version: V2010, payload: ApplicationResource, accountSid: string, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.apiVersion = (payload.api_version);
+  constructor(
+    protected _version: V2010,
+    payload: ApplicationResource,
+    accountSid: string,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.apiVersion = payload.api_version;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.friendlyName = (payload.friendly_name);
-    this.messageStatusCallback = (payload.message_status_callback);
-    this.sid = (payload.sid);
-    this.smsFallbackMethod = (payload.sms_fallback_method);
-    this.smsFallbackUrl = (payload.sms_fallback_url);
-    this.smsMethod = (payload.sms_method);
-    this.smsStatusCallback = (payload.sms_status_callback);
-    this.smsUrl = (payload.sms_url);
-    this.statusCallback = (payload.status_callback);
-    this.statusCallbackMethod = (payload.status_callback_method);
-    this.uri = (payload.uri);
-    this.voiceCallerIdLookup = (payload.voice_caller_id_lookup);
-    this.voiceFallbackMethod = (payload.voice_fallback_method);
-    this.voiceFallbackUrl = (payload.voice_fallback_url);
-    this.voiceMethod = (payload.voice_method);
-    this.voiceUrl = (payload.voice_url);
-    this.publicApplicationConnectEnabled = (payload.public_application_connect_enabled);
+    this.friendlyName = payload.friendly_name;
+    this.messageStatusCallback = payload.message_status_callback;
+    this.sid = payload.sid;
+    this.smsFallbackMethod = payload.sms_fallback_method;
+    this.smsFallbackUrl = payload.sms_fallback_url;
+    this.smsMethod = payload.sms_method;
+    this.smsStatusCallback = payload.sms_status_callback;
+    this.smsUrl = payload.sms_url;
+    this.statusCallback = payload.status_callback;
+    this.statusCallbackMethod = payload.status_callback_method;
+    this.uri = payload.uri;
+    this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
+    this.voiceFallbackMethod = payload.voice_fallback_method;
+    this.voiceFallbackUrl = payload.voice_fallback_url;
+    this.voiceMethod = payload.voice_method;
+    this.voiceUrl = payload.voice_url;
+    this.publicApplicationConnectEnabled =
+      payload.public_application_connect_enabled;
 
-    this._solution = { accountSid, sid: sid,  };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -606,7 +709,13 @@ export class ApplicationInstance {
   publicApplicationConnectEnabled: boolean;
 
   private get _proxy(): ApplicationContext {
-    this._context = this._context || new ApplicationContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ApplicationContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -617,9 +726,9 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -630,9 +739,9 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -643,9 +752,9 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -656,9 +765,12 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -669,7 +781,9 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  update(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  update(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
   /**
    * Update a ApplicationInstance
    *
@@ -678,10 +792,15 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  update(params: ApplicationContextUpdateOptions, callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  update(
+    params: ApplicationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -692,7 +811,12 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
   /**
    * Update a ApplicationInstance and return HTTP info
    *
@@ -701,10 +825,21 @@ export class ApplicationInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: ApplicationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
+  updateWithHttpInfo(
+    params: ApplicationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -744,7 +879,6 @@ export class ApplicationInstance {
   }
 }
 
-
 export interface ApplicationSolution {
   accountSid: string;
 }
@@ -754,15 +888,8 @@ export interface ApplicationListInstance {
   _solution: ApplicationSolution;
   _uri: string;
 
-  (sid: string, ): ApplicationContext;
-  get(sid: string, ): ApplicationContext;
-
-
-
-
-
-
-
+  (sid: string): ApplicationContext;
+  get(sid: string): ApplicationContext;
 
   /**
    * Create a ApplicationInstance
@@ -771,7 +898,9 @@ export interface ApplicationListInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  create(callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  create(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
   /**
    * Create a ApplicationInstance
    *
@@ -780,7 +909,10 @@ export interface ApplicationListInstance {
    *
    * @returns Resolves to processed ApplicationInstance
    */
-  create(params: ApplicationListInstanceCreateOptions, callback?: (error: Error | null, item?: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  create(
+    params: ApplicationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance>;
 
   /**
    * Create a ApplicationInstance and return HTTP info
@@ -789,7 +921,12 @@ export interface ApplicationListInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
   /**
    * Create a ApplicationInstance and return HTTP info
    *
@@ -798,10 +935,13 @@ export interface ApplicationListInstance {
    *
    * @returns Resolves to processed ApplicationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ApplicationListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: ApplicationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
    * Streams ApplicationInstance records from the API.
@@ -818,8 +958,13 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
-  each(params: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: ApplicationListInstanceEachOptions,
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams ApplicationInstance records from the API with HTTP metadata captured per page.
    *
@@ -835,8 +980,13 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: ApplicationListInstanceEachOptions,
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
    *
@@ -845,7 +995,10 @@ export interface ApplicationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApplicationPage) => any,
+  ): Promise<ApplicationPage>;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API with HTTP metadata.
    *
@@ -854,7 +1007,13 @@ export interface ApplicationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationPage>>;
   /**
    * Lists ApplicationInstance records from the API as a list.
    *
@@ -864,8 +1023,13 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
-  list(params: ApplicationListInstanceOptions, callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any,
+  ): Promise<ApplicationInstance[]>;
+  list(
+    params: ApplicationListInstanceOptions,
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any,
+  ): Promise<ApplicationInstance[]>;
   /**
    * Lists ApplicationInstance records from the API as a list with HTTP metadata.
    *
@@ -877,8 +1041,19 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ApplicationInstance[]>) => any): Promise<ApiResponse<ApplicationInstance[]>>;
-  listWithHttpInfo(params: ApplicationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ApplicationInstance[]>) => any): Promise<ApiResponse<ApplicationInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance[]>>;
+  listWithHttpInfo(
+    params: ApplicationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance[]>>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
    *
@@ -890,8 +1065,13 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
-  page(params: ApplicationListInstancePageOptions, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
+  page(
+    callback?: (error: Error | null, items: ApplicationPage) => any,
+  ): Promise<ApplicationPage>;
+  page(
+    params: ApplicationListInstancePageOptions,
+    callback?: (error: Error | null, items: ApplicationPage) => any,
+  ): Promise<ApplicationPage>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API with HTTP metadata.
    *
@@ -903,9 +1083,19 @@ export interface ApplicationListInstance {
    * @param { ApplicationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>>;
-  pageWithHttpInfo(params: ApplicationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationPage>>;
+  pageWithHttpInfo(
+    params: ApplicationListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -914,149 +1104,190 @@ export interface ApplicationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ApplicationListInstance(version: V2010, accountSid: string): ApplicationListInstance {
+export function ApplicationListInstance(
+  version: V2010,
+  accountSid: string,
+): ApplicationListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as ApplicationListInstance;
+  const instance = ((sid) => instance.get(sid)) as ApplicationListInstance;
 
-  instance.get = function get(sid, ): ApplicationContext {
+  instance.get = function get(sid): ApplicationContext {
     return new ApplicationContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { accountSid,  };
+  instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Applications.json`;
 
-  instance.create = function create(params?: ApplicationListInstanceCreateOptions | ((error: Error | null, items: ApplicationInstance) => any), callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance> {
+  instance.create = function create(
+    params?:
+      | ApplicationListInstanceCreateOptions
+      | ((error: Error | null, items: ApplicationInstance) => any),
+    callback?: (error: Error | null, items: ApplicationInstance) => any,
+  ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["apiVersion"] !== undefined)
+      data["ApiVersion"] = params["apiVersion"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
+      data["VoiceMethod"] = params["voiceMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"],
+      );
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
+      data["SmsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsStatusCallback"] !== undefined)
-    data["SmsStatusCallback"] = params["smsStatusCallback"];
+      data["SmsStatusCallback"] = params["smsStatusCallback"];
     if (params["messageStatusCallback"] !== undefined)
-    data["MessageStatusCallback"] = params["messageStatusCallback"];
+      data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
-    data["PublicApplicationConnectEnabled"] = serialize.bool(params["publicApplicationConnectEnabled"]);
+      data["PublicApplicationConnectEnabled"] = serialize.bool(
+        params["publicApplicationConnectEnabled"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ApplicationInstance(operationVersion, payload, instance._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApplicationInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: ApplicationListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<ApplicationInstance>) => any), callback?: (error: Error | null, items: ApiResponse<ApplicationInstance>) => any): Promise<ApiResponse<ApplicationInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | ApplicationListInstanceCreateOptions
+      | ((error: Error | null, items: ApiResponse<ApplicationInstance>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["apiVersion"] !== undefined)
+      data["ApiVersion"] = params["apiVersion"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
+      data["VoiceMethod"] = params["voiceMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"],
+      );
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
+      data["SmsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsStatusCallback"] !== undefined)
-    data["SmsStatusCallback"] = params["smsStatusCallback"];
+      data["SmsStatusCallback"] = params["smsStatusCallback"];
     if (params["messageStatusCallback"] !== undefined)
-    data["MessageStatusCallback"] = params["messageStatusCallback"];
+      data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
-    data["PublicApplicationConnectEnabled"] = serialize.bool(params["publicApplicationConnectEnabled"]);
+      data["PublicApplicationConnectEnabled"] = serialize.bool(
+        params["publicApplicationConnectEnabled"],
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ApplicationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ApplicationInstance> => ({
-      ...response,
-      body: new ApplicationInstance(operationVersion, response.body, instance._solution.accountSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ApplicationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<ApplicationInstance> => ({
+        ...response,
+        body: new ApplicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ApplicationListInstancePageOptions | ((error: Error | null, items: ApplicationPage) => any), callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage> {
+  instance.page = function page(
+    params?:
+      | ApplicationListInstancePageOptions
+      | ((error: Error | null, items: ApplicationPage) => any),
+    callback?: (error: Error | null, items: ApplicationPage) => any,
+  ): Promise<ApplicationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1066,46 +1297,64 @@ export function ApplicationListInstance(version: V2010, accountSid: string): App
 
     let data: any = {};
 
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ApplicationPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApplicationPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ApplicationPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApplicationPage) => any,
+  ): Promise<ApplicationPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ApplicationPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ApplicationListInstancePageOptions | ((error: Error | null, items: ApiResponse<ApplicationPage>) => any), callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ApplicationListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ApplicationPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1115,95 +1364,121 @@ export function ApplicationListInstance(version: V2010, accountSid: string): App
 
     let data: any = {};
 
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ApplicationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ApplicationPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<ApplicationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ApplicationPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ApplicationPage>) => any): Promise<ApiResponse<ApplicationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<ApplicationPage>,
+    ) => any,
+  ): Promise<ApiResponse<ApplicationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ApplicationPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ApplicationPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ApplicationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ApplicationPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ApplicationPage extends Page<V2010, ApplicationPayload, ApplicationResource, ApplicationInstance> {
-/**
-* Initialize the ApplicationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: ApplicationSolution) {
+export class ApplicationPage extends Page<
+  V2010,
+  ApplicationPayload,
+  ApplicationResource,
+  ApplicationInstance
+> {
+  /**
+   * Initialize the ApplicationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: ApplicationSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ApplicationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ApplicationResource): ApplicationInstance {
-
+  /**
+   * Build an instance of ApplicationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ApplicationResource): ApplicationInstance {
     return new ApplicationInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

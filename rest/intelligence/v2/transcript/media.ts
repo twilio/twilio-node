@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -20,18 +19,15 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a MediaInstance
  */
 export interface MediaContextFetchOptions {
   /** Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media. */
-  "redacted"?: boolean;
+  redacted?: boolean;
 }
 
 export interface MediaContext {
-
   /**
    * Fetch a MediaInstance
    *
@@ -39,7 +35,9 @@ export interface MediaContext {
    *
    * @returns Resolves to processed MediaInstance
    */
-  fetch(callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: MediaInstance) => any,
+  ): Promise<MediaInstance>;
   /**
    * Fetch a MediaInstance
    *
@@ -48,7 +46,10 @@ export interface MediaContext {
    *
    * @returns Resolves to processed MediaInstance
    */
-  fetch(params: MediaContextFetchOptions, callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>;
+  fetch(
+    params: MediaContextFetchOptions,
+    callback?: (error: Error | null, item?: MediaInstance) => any,
+  ): Promise<MediaInstance>;
 
   /**
    * Fetch a MediaInstance and return HTTP info
@@ -57,7 +58,9 @@ export interface MediaContext {
    *
    * @returns Resolves to processed MediaInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any): Promise<ApiResponse<MediaInstance>>;
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+  ): Promise<ApiResponse<MediaInstance>>;
   /**
    * Fetch a MediaInstance and return HTTP info
    *
@@ -66,7 +69,10 @@ export interface MediaContext {
    *
    * @returns Resolves to processed MediaInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: MediaContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any): Promise<ApiResponse<MediaInstance>>;
+  fetchWithHttpInfo(
+    params: MediaContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+  ): Promise<ApiResponse<MediaInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,88 +82,112 @@ export interface MediaContext {
 }
 
 export interface MediaContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class MediaContextImpl implements MediaContext {
   protected _solution: MediaContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Transcripts/${sid}/Media`;
   }
 
-  fetch(params?: MediaContextFetchOptions | ((error: Error | null, item?: MediaInstance) => any),callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | MediaContextFetchOptions
+      | ((error: Error | null, item?: MediaInstance) => any),
+    callback?: (error: Error | null, item?: MediaInstance) => any,
+  ): Promise<MediaInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["redacted"] !== undefined)
-    data["Redacted"] = serialize.bool(params["redacted"]);
+    if (params["redacted"] !== undefined)
+      data["Redacted"] = serialize.bool(params["redacted"]);
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new MediaInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MediaInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: MediaContextFetchOptions | ((error: Error | null, item?: ApiResponse<MediaInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any): Promise<ApiResponse<MediaInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | MediaContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<MediaInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+  ): Promise<ApiResponse<MediaInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["redacted"] !== undefined)
-    data["Redacted"] = serialize.bool(params["redacted"]);
+    if (params["redacted"] !== undefined)
+      data["Redacted"] = serialize.bool(params["redacted"]);
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<MediaResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<MediaInstance> => ({
-      ...response,
-      body: new MediaInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<MediaResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<MediaInstance> => ({
+        ...response,
+        body: new MediaInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -174,8 +204,7 @@ export class MediaContextImpl implements MediaContext {
   }
 }
 
-
-  interface MediaPayload extends MediaResource {}
+interface MediaPayload extends MediaResource {}
 
 interface MediaResource {
   account_sid: string;
@@ -189,15 +218,18 @@ export class MediaInstance {
   protected _solution: MediaContextSolution;
   protected _context?: MediaContext;
 
-  constructor(protected _version: V2, payload: MediaResource, sid: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.mediaUrl = (payload.media_url);
-    this.serviceSid = (payload.service_sid);
-    this.sid = (payload.sid);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V2,
+    payload: MediaResource,
+    sid: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.mediaUrl = payload.media_url;
+    this.serviceSid = payload.service_sid;
+    this.sid = payload.sid;
+    this.url = payload.url;
 
-    this._solution = { sid,  };
+    this._solution = { sid };
   }
 
   /**
@@ -222,7 +254,8 @@ export class MediaInstance {
   url: string;
 
   private get _proxy(): MediaContext {
-    this._context = this._context || new MediaContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new MediaContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -233,7 +266,9 @@ export class MediaInstance {
    *
    * @returns Resolves to processed MediaInstance
    */
-  fetch(callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: MediaInstance) => any,
+  ): Promise<MediaInstance>;
   /**
    * Fetch a MediaInstance
    *
@@ -242,10 +277,15 @@ export class MediaInstance {
    *
    * @returns Resolves to processed MediaInstance
    */
-  fetch(params: MediaContextFetchOptions, callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>;
+  fetch(
+    params: MediaContextFetchOptions,
+    callback?: (error: Error | null, item?: MediaInstance) => any,
+  ): Promise<MediaInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: MediaInstance) => any,
+  ): Promise<MediaInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -256,7 +296,9 @@ export class MediaInstance {
    *
    * @returns Resolves to processed MediaInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any): Promise<ApiResponse<MediaInstance>>;
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+  ): Promise<ApiResponse<MediaInstance>>;
   /**
    * Fetch a MediaInstance and return HTTP info
    *
@@ -265,10 +307,15 @@ export class MediaInstance {
    *
    * @returns Resolves to processed MediaInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: MediaContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any): Promise<ApiResponse<MediaInstance>>;
+  fetchWithHttpInfo(
+    params: MediaContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+  ): Promise<ApiResponse<MediaInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any): Promise<ApiResponse<MediaInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+  ): Promise<ApiResponse<MediaInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -292,7 +339,6 @@ export class MediaInstance {
   }
 }
 
-
 export interface MediaSolution {
   sid: string;
 }
@@ -305,9 +351,6 @@ export interface MediaListInstance {
   (): MediaContext;
   get(): MediaContext;
 
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -317,28 +360,29 @@ export interface MediaListInstance {
 
 export function MediaListInstance(version: V2, sid: string): MediaListInstance {
   if (!isValidPathParam(sid)) {
-    throw new Error('Parameter \'sid\' is not valid.');
+    throw new Error("Parameter 'sid' is not valid.");
   }
 
   const instance = (() => instance.get()) as MediaListInstance;
 
   instance.get = function get(): MediaContext {
     return new MediaContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { sid,  };
+  instance._solution = { sid };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

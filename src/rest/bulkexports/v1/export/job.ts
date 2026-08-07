@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -19,7 +20,12 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
+
+
 export interface JobContext {
+
   /**
    * Remove a JobInstance
    *
@@ -27,9 +33,7 @@ export interface JobContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a JobInstance and return HTTP info
@@ -38,9 +42,7 @@ export interface JobContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a JobInstance
@@ -49,9 +51,7 @@ export interface JobContext {
    *
    * @returns Resolves to processed JobInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: JobInstance) => any
-  ): Promise<JobInstance>;
+  fetch(callback?: (error: Error | null, item?: JobInstance) => any): Promise<JobInstance>
 
   /**
    * Fetch a JobInstance and return HTTP info
@@ -60,9 +60,7 @@ export interface JobContext {
    *
    * @returns Resolves to processed JobInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any
-  ): Promise<ApiResponse<JobInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any): Promise<ApiResponse<JobInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -72,123 +70,87 @@ export interface JobContext {
 }
 
 export interface JobContextSolution {
-  jobSid: string;
+  "jobSid": string;
 }
 
 export class JobContextImpl implements JobContext {
   protected _solution: JobContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, jobSid: string) {
     if (!isValidPathParam(jobSid)) {
-      throw new Error("Parameter 'jobSid' is not valid.");
+      throw new Error('Parameter \'jobSid\' is not valid.');
     }
 
-    this._solution = { jobSid };
+    this._solution = { jobSid,  };
     this._uri = `/Exports/Jobs/${jobSid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: JobInstance) => any
-  ): Promise<JobInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: JobInstance) => any): Promise<JobInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new JobInstance(operationVersion, payload, instance._solution.jobSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new JobInstance(operationVersion, payload, instance._solution.jobSid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any
-  ): Promise<ApiResponse<JobInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any): Promise<ApiResponse<JobInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<JobResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<JobInstance> => ({
-          ...response,
-          body: new JobInstance(
-            operationVersion,
-            response.body,
-            instance._solution.jobSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<JobResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<JobInstance> => ({
+      ...response,
+      body: new JobInstance(operationVersion, response.body, instance._solution.jobSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -205,7 +167,8 @@ export class JobContextImpl implements JobContext {
   }
 }
 
-interface JobPayload extends JobResource {}
+
+  interface JobPayload extends JobResource {}
 
 interface JobResource {
   resource_type: string;
@@ -227,20 +190,21 @@ export class JobInstance {
   protected _context?: JobContext;
 
   constructor(protected _version: V1, payload: JobResource, jobSid?: string) {
-    this.resourceType = payload.resource_type;
-    this.friendlyName = payload.friendly_name;
-    this.details = payload.details;
-    this.startDay = payload.start_day;
-    this.endDay = payload.end_day;
-    this.jobSid = payload.job_sid;
-    this.webhookUrl = payload.webhook_url;
-    this.webhookMethod = payload.webhook_method;
-    this.email = payload.email;
-    this.url = payload.url;
-    this.jobQueuePosition = payload.job_queue_position;
-    this.estimatedCompletionTime = payload.estimated_completion_time;
+    
+    this.resourceType = (payload.resource_type);
+    this.friendlyName = (payload.friendly_name);
+    this.details = (payload.details);
+    this.startDay = (payload.start_day);
+    this.endDay = (payload.end_day);
+    this.jobSid = (payload.job_sid);
+    this.webhookUrl = (payload.webhook_url);
+    this.webhookMethod = (payload.webhook_method);
+    this.email = (payload.email);
+    this.url = (payload.url);
+    this.jobQueuePosition = (payload.job_queue_position);
+    this.estimatedCompletionTime = (payload.estimated_completion_time);
 
-    this._solution = { jobSid: jobSid || this.jobSid };
+    this._solution = { jobSid: jobSid,  };
   }
 
   /**
@@ -290,8 +254,7 @@ export class JobInstance {
   estimatedCompletionTime: string;
 
   private get _proxy(): JobContext {
-    this._context =
-      this._context || new JobContextImpl(this._version, this._solution.jobSid);
+    this._context = this._context || new JobContextImpl(this._version, this._solution.jobSid);
     return this._context;
   }
 
@@ -302,9 +265,9 @@ export class JobInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -315,9 +278,9 @@ export class JobInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -328,9 +291,9 @@ export class JobInstance {
    *
    * @returns Resolves to processed JobInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: JobInstance) => any
-  ): Promise<JobInstance> {
+  fetch(callback?: (error: Error | null, item?: JobInstance) => any): Promise<JobInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -341,9 +304,9 @@ export class JobInstance {
    *
    * @returns Resolves to processed JobInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any
-  ): Promise<ApiResponse<JobInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<JobInstance>) => any): Promise<ApiResponse<JobInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -374,15 +337,22 @@ export class JobInstance {
   }
 }
 
-export interface JobSolution {}
+
+export interface JobSolution {
+}
 
 export interface JobListInstance {
   _version: V1;
   _solution: JobSolution;
   _uri: string;
 
-  (jobSid: string): JobContext;
-  get(jobSid: string): JobContext;
+  (jobSid: string, ): JobContext;
+  get(jobSid: string, ): JobContext;
+
+
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -392,26 +362,25 @@ export interface JobListInstance {
 }
 
 export function JobListInstance(version: V1): JobListInstance {
-  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstance;
+  const instance = ((jobSid, ) => instance.get(jobSid, )) as JobListInstance;
 
-  instance.get = function get(jobSid): JobContext {
+  instance.get = function get(jobSid, ): JobContext {
     return new JobContextImpl(version, jobSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

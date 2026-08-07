@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
@@ -30,7 +28,6 @@ export class CallForwardingInfo {
     this.errorCode = payload["error_code"];
   }
 }
-
 
 export class CallerNameInfo {
   "callerName"?: string;
@@ -43,7 +40,6 @@ export class CallerNameInfo {
     this.errorCode = payload["error_code"];
   }
 }
-
 
 export class IdentityMatchInfo {
   "firstNameMatch"?: string;
@@ -75,7 +71,6 @@ export class IdentityMatchInfo {
   }
 }
 
-
 export class IdentityMatchParameters {
   "firstName"?: string;
   "lastName"?: string;
@@ -102,7 +97,6 @@ export class IdentityMatchParameters {
   }
 }
 
-
 export class LastSimSwapInfo {
   "lastSimSwapDate"?: Date;
   "swappedPeriod"?: string;
@@ -115,7 +109,6 @@ export class LastSimSwapInfo {
   }
 }
 
-
 export class LineStatusInfo {
   "status"?: string;
   "errorCode"?: number;
@@ -125,7 +118,6 @@ export class LineStatusInfo {
     this.errorCode = payload["error_code"];
   }
 }
-
 
 export class LineTypeIntelligenceInfo {
   "mobileCountryCode"?: string;
@@ -142,7 +134,6 @@ export class LineTypeIntelligenceInfo {
     this.errorCode = payload["error_code"];
   }
 }
-
 
 export class LookupBatchRequest {
   /**
@@ -166,7 +157,6 @@ export class LookupBatchRequest {
     this.smsPumpingRisk = payload["sms_pumping_risk"];
   }
 }
-
 
 export class LookupBatchResponse {
   /**
@@ -216,7 +206,6 @@ export class LookupBatchResponse {
   }
 }
 
-
 export class LookupRequest {
   "phoneNumbers"?: Array<LookupBatchRequest>;
 
@@ -224,7 +213,6 @@ export class LookupRequest {
     this.phoneNumbers = payload["phone_numbers"];
   }
 }
-
 
 export class ReassignedNumberInfo {
   "lastVerifiedDate"?: string;
@@ -238,7 +226,6 @@ export class ReassignedNumberInfo {
   }
 }
 
-
 export class ReassignedNumberParameters {
   "lastVerifiedDate"?: string;
 
@@ -247,7 +234,6 @@ export class ReassignedNumberParameters {
   }
 }
 
-
 export class RiskParameters {
   "partnerSubId"?: string;
 
@@ -255,7 +241,6 @@ export class RiskParameters {
     this.partnerSubId = payload["partner_sub_id"];
   }
 }
-
 
 export class SimSwapInfo {
   "lastSimSwap"?: LastSimSwapInfo;
@@ -272,7 +257,6 @@ export class SimSwapInfo {
     this.errorCode = payload["error_code"];
   }
 }
-
 
 export class SmsPumpingRiskInfo {
   "carrierRiskCategory"?: string;
@@ -292,27 +276,21 @@ export class SmsPumpingRiskInfo {
   }
 }
 
-
-
 /**
  * Options to pass to create a QueryInstance
  */
 export interface QueryListInstanceCreateOptions {
   /**  */
-  "lookupRequest"?: LookupRequest;
+  lookupRequest?: LookupRequest;
 }
 
-
-export interface QuerySolution {
-}
+export interface QuerySolution {}
 
 export interface QueryListInstance {
   _version: V2;
   _solution: QuerySolution;
   _uri: string;
 
-
-
   /**
    * Create a QueryInstance
    *
@@ -320,7 +298,9 @@ export interface QueryListInstance {
    *
    * @returns Resolves to processed QueryInstance
    */
-  create(callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
+  create(
+    callback?: (error: Error | null, item?: QueryInstance) => any,
+  ): Promise<QueryInstance>;
   /**
    * Create a QueryInstance
    *
@@ -330,7 +310,11 @@ export interface QueryListInstance {
    *
    * @returns Resolves to processed QueryInstance
    */
-  create(params: LookupRequest, headers?: any, callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
+  create(
+    params: LookupRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: QueryInstance) => any,
+  ): Promise<QueryInstance>;
 
   /**
    * Create a QueryInstance and return HTTP info
@@ -339,7 +323,9 @@ export interface QueryListInstance {
    *
    * @returns Resolves to processed QueryInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any): Promise<ApiResponse<QueryInstance>>;
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
+  ): Promise<ApiResponse<QueryInstance>>;
   /**
    * Create a QueryInstance and return HTTP info
    *
@@ -349,9 +335,11 @@ export interface QueryListInstance {
    *
    * @returns Resolves to processed QueryInstance with HTTP metadata
    */
-  createWithHttpInfo(params: LookupRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any): Promise<ApiResponse<QueryInstance>>;
-
-
+  createWithHttpInfo(
+    params: LookupRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
+  ): Promise<ApiResponse<QueryInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -364,101 +352,129 @@ export function QueryListInstance(version: V2): QueryListInstance {
   const instance = {} as QueryListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/batch/query`;
 
-  instance.create = function create(params?: LookupRequest | ((error: Error | null, items: QueryInstance) => any), headers?: any, callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance> {
+  instance.create = function create(
+    params?:
+      LookupRequest | ((error: Error | null, items: QueryInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: QueryInstance) => any,
+  ): Promise<QueryInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<LookupRequest> as LookupRequest;
     } else {
-      params = params || {} as Partial<LookupRequest> as LookupRequest;
+      params = params || ({} as Partial<LookupRequest> as LookupRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new QueryInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: LookupRequest | ((error: Error | null, items: ApiResponse<QueryInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any): Promise<ApiResponse<QueryInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | LookupRequest
+      | ((error: Error | null, items: ApiResponse<QueryInstance>) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any,
+  ): Promise<ApiResponse<QueryInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<LookupRequest> as LookupRequest;
     } else {
-      params = params || {} as Partial<LookupRequest> as LookupRequest;
+      params = params || ({} as Partial<LookupRequest> as LookupRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<QueryResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<QueryInstance> => ({
-      ...response,
-      body: new QueryInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<QueryResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<QueryInstance> => ({
+        ...response,
+        body: new QueryInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface QueryPayload extends QueryResource {}
+interface QueryPayload extends QueryResource {}
 
 interface QueryResource {
   phone_numbers: Array<LookupBatchResponse>;
 }
 
 export class QueryInstance {
-
-  constructor(protected _version: V2, payload: QueryResource) {
-    
-    this.phoneNumbers =  payload.phone_numbers !== null && payload.phone_numbers !== undefined ? payload.phone_numbers.map(
-      (payload: any) => new LookupBatchResponse(payload)
-    ) : null;
-
+  constructor(
+    protected _version: V2,
+    payload: QueryResource,
+  ) {
+    this.phoneNumbers =
+      payload.phone_numbers !== null && payload.phone_numbers !== undefined
+        ? payload.phone_numbers.map(
+            (payload: any) => new LookupBatchResponse(payload),
+          )
+        : null;
   }
 
   phoneNumbers: Array<LookupBatchResponse>;
@@ -478,5 +494,3 @@ export class QueryInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

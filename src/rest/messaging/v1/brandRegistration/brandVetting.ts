@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,19 +23,22 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
 /**
  * The third-party provider that has conducted the vetting. One of “CampaignVerify” (Campaign Verify tokens) or “AEGIS” (Secondary Vetting).
  */
-export type BrandVettingVettingProvider = "campaign-verify" | "aegis";
+export type BrandVettingVettingProvider = 'campaign-verify'|'aegis';
+
+
 
 /**
  * Options to pass to create a BrandVettingInstance
  */
 export interface BrandVettingListInstanceCreateOptions {
   /**  */
-  vettingProvider: BrandVettingVettingProvider;
+  "vettingProvider": BrandVettingVettingProvider;
   /** The unique ID of the vetting */
-  vettingId?: string;
+  "vettingId"?: string;
 }
 
 /**
@@ -42,7 +46,7 @@ export interface BrandVettingListInstanceCreateOptions {
  */
 export interface BrandVettingListInstanceEachOptions {
   /** The third-party provider of the vettings to read */
-  vettingProvider?: BrandVettingVettingProvider;
+  "vettingProvider"?: BrandVettingVettingProvider;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,24 +60,27 @@ export interface BrandVettingListInstanceEachOptions {
  */
 export interface BrandVettingListInstanceOptions {
   /** The third-party provider of the vettings to read */
-  vettingProvider?: BrandVettingVettingProvider;
+  "vettingProvider"?: BrandVettingVettingProvider;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface BrandVettingListInstancePageOptions {
   /** The third-party provider of the vettings to read */
-  vettingProvider?: BrandVettingVettingProvider;
+  "vettingProvider"?: BrandVettingVettingProvider;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface BrandVettingContext {
+
   /**
    * Fetch a BrandVettingInstance
    *
@@ -81,9 +88,7 @@ export interface BrandVettingContext {
    *
    * @returns Resolves to processed BrandVettingInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BrandVettingInstance) => any
-  ): Promise<BrandVettingInstance>;
+  fetch(callback?: (error: Error | null, item?: BrandVettingInstance) => any): Promise<BrandVettingInstance>
 
   /**
    * Fetch a BrandVettingInstance and return HTTP info
@@ -92,12 +97,7 @@ export interface BrandVettingContext {
    *
    * @returns Resolves to processed BrandVettingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<BrandVettingInstance>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BrandVettingInstance>) => any): Promise<ApiResponse<BrandVettingInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -107,97 +107,61 @@ export interface BrandVettingContext {
 }
 
 export interface BrandVettingContextSolution {
-  brandSid: string;
-  brandVettingSid: string;
+  "brandSid": string;
+  "brandVettingSid": string;
 }
 
 export class BrandVettingContextImpl implements BrandVettingContext {
   protected _solution: BrandVettingContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    brandSid: string,
-    brandVettingSid: string
-  ) {
+
+  constructor(protected _version: V1, brandSid: string, brandVettingSid: string) {
     if (!isValidPathParam(brandSid)) {
-      throw new Error("Parameter 'brandSid' is not valid.");
+      throw new Error('Parameter \'brandSid\' is not valid.');
     }
 
     if (!isValidPathParam(brandVettingSid)) {
-      throw new Error("Parameter 'brandVettingSid' is not valid.");
+      throw new Error('Parameter \'brandVettingSid\' is not valid.');
     }
 
-    this._solution = { brandSid, brandVettingSid };
+    this._solution = { brandSid, brandVettingSid,  };
     this._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings/${brandVettingSid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: BrandVettingInstance) => any
-  ): Promise<BrandVettingInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: BrandVettingInstance) => any): Promise<BrandVettingInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new BrandVettingInstance(operationVersion, payload, instance._solution.brandSid, instance._solution.brandVettingSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BrandVettingInstance(
-          operationVersion,
-          payload,
-          instance._solution.brandSid,
-          instance._solution.brandVettingSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<BrandVettingInstance>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BrandVettingInstance>) => any): Promise<ApiResponse<BrandVettingInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<BrandVettingResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<BrandVettingInstance> => ({
-          ...response,
-          body: new BrandVettingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.brandSid,
-            instance._solution.brandVettingSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<BrandVettingResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<BrandVettingInstance> => ({
+      ...response,
+      body: new BrandVettingInstance(operationVersion, response.body, instance._solution.brandSid, instance._solution.brandVettingSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -214,8 +178,9 @@ export class BrandVettingContextImpl implements BrandVettingContext {
   }
 }
 
-interface BrandVettingPayload extends TwilioResponsePayload {
-  data: BrandVettingResource[];
+
+  interface BrandVettingPayload extends TwilioResponsePayload {
+    data: BrandVettingResource[];
 }
 
 interface BrandVettingResource {
@@ -235,27 +200,20 @@ export class BrandVettingInstance {
   protected _solution: BrandVettingContextSolution;
   protected _context?: BrandVettingContext;
 
-  constructor(
-    protected _version: V1,
-    payload: BrandVettingResource,
-    brandSid: string,
-    brandVettingSid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.brandSid = payload.brand_sid;
-    this.brandVettingSid = payload.brand_vetting_sid;
+  constructor(protected _version: V1, payload: BrandVettingResource, brandSid: string, brandVettingSid?: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.brandSid = (payload.brand_sid);
+    this.brandVettingSid = (payload.brand_vetting_sid);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.vettingId = payload.vetting_id;
-    this.vettingClass = payload.vetting_class;
-    this.vettingStatus = payload.vetting_status;
+    this.vettingId = (payload.vetting_id);
+    this.vettingClass = (payload.vetting_class);
+    this.vettingStatus = (payload.vetting_status);
     this.vettingProvider = payload.vetting_provider;
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = {
-      brandSid,
-      brandVettingSid: brandVettingSid || this.brandVettingSid,
-    };
+    this._solution = { brandSid, brandVettingSid: brandVettingSid,  };
   }
 
   /**
@@ -297,13 +255,7 @@ export class BrandVettingInstance {
   url: string;
 
   private get _proxy(): BrandVettingContext {
-    this._context =
-      this._context ||
-      new BrandVettingContextImpl(
-        this._version,
-        this._solution.brandSid,
-        this._solution.brandVettingSid
-      );
+    this._context = this._context || new BrandVettingContextImpl(this._version, this._solution.brandSid, this._solution.brandVettingSid);
     return this._context;
   }
 
@@ -314,9 +266,9 @@ export class BrandVettingInstance {
    *
    * @returns Resolves to processed BrandVettingInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BrandVettingInstance) => any
-  ): Promise<BrandVettingInstance> {
+  fetch(callback?: (error: Error | null, item?: BrandVettingInstance) => any): Promise<BrandVettingInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -327,12 +279,9 @@ export class BrandVettingInstance {
    *
    * @returns Resolves to processed BrandVettingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<BrandVettingInstance>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BrandVettingInstance>) => any): Promise<ApiResponse<BrandVettingInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -361,6 +310,7 @@ export class BrandVettingInstance {
   }
 }
 
+
 export interface BrandVettingSolution {
   brandSid: string;
 }
@@ -370,8 +320,11 @@ export interface BrandVettingListInstance {
   _solution: BrandVettingSolution;
   _uri: string;
 
-  (brandVettingSid: string): BrandVettingContext;
-  get(brandVettingSid: string): BrandVettingContext;
+  (brandVettingSid: string, ): BrandVettingContext;
+  get(brandVettingSid: string, ): BrandVettingContext;
+
+
+
 
   /**
    * Create a BrandVettingInstance
@@ -381,10 +334,7 @@ export interface BrandVettingListInstance {
    *
    * @returns Resolves to processed BrandVettingInstance
    */
-  create(
-    params: BrandVettingListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BrandVettingInstance) => any
-  ): Promise<BrandVettingInstance>;
+  create(params: BrandVettingListInstanceCreateOptions, callback?: (error: Error | null, item?: BrandVettingInstance) => any): Promise<BrandVettingInstance>;
 
   /**
    * Create a BrandVettingInstance and return HTTP info
@@ -394,13 +344,10 @@ export interface BrandVettingListInstance {
    *
    * @returns Resolves to processed BrandVettingInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: BrandVettingListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<BrandVettingInstance>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance>>;
+  createWithHttpInfo(params: BrandVettingListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<BrandVettingInstance>) => any): Promise<ApiResponse<BrandVettingInstance>>;
+
+
+
 
   /**
    * Streams BrandVettingInstance records from the API.
@@ -417,13 +364,8 @@ export interface BrandVettingListInstance {
    * @param { BrandVettingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: BrandVettingListInstanceEachOptions,
-    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void): void;
+  each(params: BrandVettingListInstanceEachOptions, callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams BrandVettingInstance records from the API with HTTP metadata captured per page.
    *
@@ -439,13 +381,8 @@ export interface BrandVettingListInstance {
    * @param { BrandVettingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: BrandVettingListInstanceEachOptions,
-    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: BrandVettingListInstanceEachOptions, callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of BrandVettingInstance records from the API.
    *
@@ -454,10 +391,7 @@ export interface BrandVettingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: BrandVettingPage) => any): Promise<BrandVettingPage>;
   /**
    * Retrieve a single target page of BrandVettingInstance records from the API with HTTP metadata.
    *
@@ -466,13 +400,7 @@ export interface BrandVettingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingPage>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<BrandVettingPage>) => any): Promise<ApiResponse<BrandVettingPage>>;
   /**
    * Lists BrandVettingInstance records from the API as a list.
    *
@@ -482,13 +410,8 @@ export interface BrandVettingListInstance {
    * @param { BrandVettingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: BrandVettingInstance[]) => any
-  ): Promise<BrandVettingInstance[]>;
-  list(
-    params: BrandVettingListInstanceOptions,
-    callback?: (error: Error | null, items: BrandVettingInstance[]) => any
-  ): Promise<BrandVettingInstance[]>;
+  list(callback?: (error: Error | null, items: BrandVettingInstance[]) => any): Promise<BrandVettingInstance[]>;
+  list(params: BrandVettingListInstanceOptions, callback?: (error: Error | null, items: BrandVettingInstance[]) => any): Promise<BrandVettingInstance[]>;
   /**
    * Lists BrandVettingInstance records from the API as a list with HTTP metadata.
    *
@@ -500,19 +423,8 @@ export interface BrandVettingListInstance {
    * @param { BrandVettingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingInstance[]>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance[]>>;
-  listWithHttpInfo(
-    params: BrandVettingListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingInstance[]>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<BrandVettingInstance[]>) => any): Promise<ApiResponse<BrandVettingInstance[]>>;
+  listWithHttpInfo(params: BrandVettingListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<BrandVettingInstance[]>) => any): Promise<ApiResponse<BrandVettingInstance[]>>;
   /**
    * Retrieve a single page of BrandVettingInstance records from the API.
    *
@@ -524,13 +436,8 @@ export interface BrandVettingListInstance {
    * @param { BrandVettingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage>;
-  page(
-    params: BrandVettingListInstancePageOptions,
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage>;
+  page(callback?: (error: Error | null, items: BrandVettingPage) => any): Promise<BrandVettingPage>;
+  page(params: BrandVettingListInstancePageOptions, callback?: (error: Error | null, items: BrandVettingPage) => any): Promise<BrandVettingPage>;
   /**
    * Retrieve a single page of BrandVettingInstance records from the API with HTTP metadata.
    *
@@ -542,19 +449,9 @@ export interface BrandVettingListInstance {
    * @param { BrandVettingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingPage>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingPage>>;
-  pageWithHttpInfo(
-    params: BrandVettingListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingPage>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<BrandVettingPage>) => any): Promise<ApiResponse<BrandVettingPage>>;
+  pageWithHttpInfo(params: BrandVettingListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<BrandVettingPage>) => any): Promise<ApiResponse<BrandVettingPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -563,139 +460,95 @@ export interface BrandVettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BrandVettingListInstance(
-  version: V1,
-  brandSid: string
-): BrandVettingListInstance {
+export function BrandVettingListInstance(version: V1, brandSid: string): BrandVettingListInstance {
   if (!isValidPathParam(brandSid)) {
-    throw new Error("Parameter 'brandSid' is not valid.");
+    throw new Error('Parameter \'brandSid\' is not valid.');
   }
 
-  const instance = ((brandVettingSid) =>
-    instance.get(brandVettingSid)) as BrandVettingListInstance;
+  const instance = ((brandVettingSid, ) => instance.get(brandVettingSid, )) as BrandVettingListInstance;
 
-  instance.get = function get(brandVettingSid): BrandVettingContext {
+  instance.get = function get(brandVettingSid, ): BrandVettingContext {
     return new BrandVettingContextImpl(version, brandSid, brandVettingSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { brandSid };
+  instance._solution = { brandSid,  };
   instance._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings`;
 
-  instance.create = function create(
-    params: BrandVettingListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BrandVettingInstance) => any
-  ): Promise<BrandVettingInstance> {
+  instance.create = function create(params: BrandVettingListInstanceCreateOptions, callback?: (error: Error | null, items: BrandVettingInstance) => any): Promise<BrandVettingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["vettingProvider"] === null ||
-      params["vettingProvider"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['vettingProvider']\" missing."
-      );
+    if (params["vettingProvider"] === null || params["vettingProvider"] === undefined) {
+      throw new Error('Required parameter "params[\'vettingProvider\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["VettingProvider"] = params["vettingProvider"];
     if (params["vettingId"] !== undefined)
-      data["VettingId"] = params["vettingId"];
+    data["VettingId"] = params["vettingId"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new BrandVettingInstance(operationVersion, payload, instance._solution.brandSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BrandVettingInstance(
-          operationVersion,
-          payload,
-          instance._solution.brandSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: BrandVettingListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingInstance>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: BrandVettingListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<BrandVettingInstance>) => any): Promise<ApiResponse<BrandVettingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["vettingProvider"] === null ||
-      params["vettingProvider"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['vettingProvider']\" missing."
-      );
+    if (params["vettingProvider"] === null || params["vettingProvider"] === undefined) {
+      throw new Error('Required parameter "params[\'vettingProvider\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["VettingProvider"] = params["vettingProvider"];
     if (params["vettingId"] !== undefined)
-      data["VettingId"] = params["vettingId"];
+    data["VettingId"] = params["vettingId"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<BrandVettingResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<BrandVettingInstance> => ({
-          ...response,
-          body: new BrandVettingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.brandSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<BrandVettingResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<BrandVettingInstance> => ({
+      ...response,
+      body: new BrandVettingInstance(operationVersion, response.body, instance._solution.brandSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | BrandVettingListInstancePageOptions
-      | ((error: Error | null, items: BrandVettingPage) => any),
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage> {
+
+    }
+
+  instance.page = function page(params?: BrandVettingListInstancePageOptions | ((error: Error | null, items: BrandVettingPage) => any), callback?: (error: Error | null, items: BrandVettingPage) => any): Promise<BrandVettingPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -705,63 +558,44 @@ export function BrandVettingListInstance(
 
     let data: any = {};
 
-    if (params["vettingProvider"] !== undefined)
-      data["VettingProvider"] = params["vettingProvider"];
+        if (params["vettingProvider"] !== undefined)
+    data["VettingProvider"] = params["vettingProvider"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new BrandVettingPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BrandVettingPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new BrandVettingPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: BrandVettingPage) => any): Promise<BrandVettingPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new BrandVettingPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | BrandVettingListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<BrandVettingPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BrandVettingPage>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: BrandVettingListInstancePageOptions | ((error: Error | null, items: ApiResponse<BrandVettingPage>) => any), callback?: (error: Error | null, items: ApiResponse<BrandVettingPage>) => any): Promise<ApiResponse<BrandVettingPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -771,122 +605,93 @@ export function BrandVettingListInstance(
 
     let data: any = {};
 
-    if (params["vettingProvider"] !== undefined)
-      data["VettingProvider"] = params["vettingProvider"];
+        if (params["vettingProvider"] !== undefined)
+    data["VettingProvider"] = params["vettingProvider"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BrandVettingPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BrandVettingPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<BrandVettingPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new BrandVettingPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<BrandVettingPage>
-    ) => any
-  ): Promise<ApiResponse<BrandVettingPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<BrandVettingPage>) => any): Promise<ApiResponse<BrandVettingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<BrandVettingPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new BrandVettingPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<BrandVettingPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new BrandVettingPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class BrandVettingPage extends Page<
-  V1,
-  BrandVettingPayload,
-  BrandVettingResource,
-  BrandVettingInstance
-> {
-  /**
-   * Initialize the BrandVettingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: BrandVettingSolution
-  ) {
+export class BrandVettingPage extends Page<V1, BrandVettingPayload, BrandVettingResource, BrandVettingInstance> {
+/**
+* Initialize the BrandVettingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BrandVettingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of BrandVettingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BrandVettingResource): BrandVettingInstance {
+    /**
+    * Build an instance of BrandVettingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BrandVettingResource): BrandVettingInstance {
+
     return new BrandVettingInstance(
-      this._version,
-      payload,
-      this._solution.brandSid
+    this._version,
+    payload,
+        this._solution.brandSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

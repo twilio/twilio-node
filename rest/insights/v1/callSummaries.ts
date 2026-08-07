@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,18 +22,34 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+export type CallSummariesAnsweredBy =
+  | "unknown"
+  | "machine_start"
+  | "machine_end_beep"
+  | "machine_end_silence"
+  | "machine_end_other"
+  | "human"
+  | "fax";
 
-export type CallSummariesAnsweredBy = 'unknown'|'machine_start'|'machine_end_beep'|'machine_end_silence'|'machine_end_other'|'human'|'fax';
+export type CallSummariesCallState =
+  | "ringing"
+  | "completed"
+  | "busy"
+  | "fail"
+  | "noanswer"
+  | "canceled"
+  | "answered"
+  | "undialed";
 
-export type CallSummariesCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
+export type CallSummariesCallType =
+  "carrier" | "sip" | "trunking" | "client" | "whatsapp";
 
-export type CallSummariesCallType = 'carrier'|'sip'|'trunking'|'client'|'whatsapp';
+export type CallSummariesProcessingState = "complete" | "partial";
 
-export type CallSummariesProcessingState = 'complete'|'partial';
+export type CallSummariesProcessingStateRequest =
+  "completed" | "started" | "partial" | "all";
 
-export type CallSummariesProcessingStateRequest = 'completed'|'started'|'partial'|'all';
-
-export type CallSummariesSortBy = 'start_time'|'end_time';
+export type CallSummariesSortBy = "start_time" | "end_time";
 
 export class CallSummaryAgentSessionSummary {
   "sessionId"?: string;
@@ -64,7 +79,6 @@ export class CallSummaryAgentSessionSummary {
   }
 }
 
-
 export class CallSummaryCrelayInterruptions {
   "customerToAgent"?: number;
   "agentToCustomer"?: number;
@@ -74,7 +88,6 @@ export class CallSummaryCrelayInterruptions {
     this.agentToCustomer = payload["agent_to_customer"];
   }
 }
-
 
 export class CallSummaryCrelayRateStats {
   "min"?: number;
@@ -88,8 +101,8 @@ export class CallSummaryCrelayRateStats {
   }
 }
 
-
-export type CallSummaryCrelaySessionState = 'unknown'|'failure'|'ended'|'hung_up';
+export type CallSummaryCrelaySessionState =
+  "unknown" | "failure" | "ended" | "hung_up";
 
 export class CallSummaryCrelayTokenStats {
   "total"?: number;
@@ -101,7 +114,6 @@ export class CallSummaryCrelayTokenStats {
   }
 }
 
-
 export class CallSummaryCrelayWordStats {
   "total"?: number;
   "wordsPerMinute"?: CallSummaryCrelayRateStats;
@@ -112,86 +124,84 @@ export class CallSummaryCrelayWordStats {
   }
 }
 
-
-
 /**
  * Options to pass to each
  */
 export interface CallSummariesListInstanceEachOptions {
   /** A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
-  "from"?: string;
+  from?: string;
   /** A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
-  "to"?: string;
+  to?: string;
   /** An origination carrier. */
-  "fromCarrier"?: string;
+  fromCarrier?: string;
   /** A destination carrier. */
-  "toCarrier"?: string;
+  toCarrier?: string;
   /** A source country code based on phone number in From. */
-  "fromCountryCode"?: string;
+  fromCountryCode?: string;
   /** A destination country code. Based on phone number in To. */
-  "toCountryCode"?: string;
+  toCountryCode?: string;
   /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of \'true\' or \'false\'. */
-  "verifiedCaller"?: boolean;
+  verifiedCaller?: boolean;
   /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
-  "hasTag"?: boolean;
+  hasTag?: boolean;
   /** A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h. */
-  "startTime"?: string;
+  startTime?: string;
   /** An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m. */
-  "endTime"?: string;
+  endTime?: string;
   /** A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`. */
-  "callType"?: string;
+  callType?: string;
   /** A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`. */
-  "callState"?: string;
+  callState?: string;
   /** A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`. */
-  "direction"?: string;
+  direction?: string;
   /** A Processing State of the Call Summaries. One of `completed`, `partial` or `all`. */
-  "processingState"?: CallSummariesProcessingStateRequest;
+  processingState?: CallSummariesProcessingStateRequest;
   /** A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`. */
-  "sortBy"?: CallSummariesSortBy;
+  sortBy?: CallSummariesSortBy;
   /** A unique SID identifier of a Subaccount. */
-  "subaccount"?: string;
+  subaccount?: string;
   /** A boolean flag indicating an abnormal session where the last SIP response was not 200 OK. */
-  "abnormalSession"?: boolean;
+  abnormalSession?: boolean;
   /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
-  "answeredBy"?: CallSummariesAnsweredBy;
+  answeredBy?: CallSummariesAnsweredBy;
   /** Either machine or human. */
-  "answeredByAnnotation"?: string;
+  answeredByAnnotation?: string;
   /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
-  "connectivityIssueAnnotation"?: string;
+  connectivityIssueAnnotation?: string;
   /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
-  "qualityIssueAnnotation"?: string;
+  qualityIssueAnnotation?: string;
   /** A boolean flag indicating spam calls. */
-  "spamAnnotation"?: boolean;
+  spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  "callScoreAnnotation"?: string;
+  callScoreAnnotation?: string;
   /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of \'true\' or \'false\' */
-  "brandedEnabled"?: boolean;
+  brandedEnabled?: boolean;
   /** A boolean flag indicating whether or not the phone number had voice integrity enabled.One of \'true\' or \'false\' */
-  "voiceIntegrityEnabled"?: boolean;
+  voiceIntegrityEnabled?: boolean;
   /** A unique SID identifier of the Branded Call. */
-  "brandedBundleSid"?: string;
+  brandedBundleSid?: string;
   /** Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present). */
-  "brandedLogo"?: boolean;
+  brandedLogo?: boolean;
   /** Indicates whether the Branded Call is in_band vs out_of_band. */
-  "brandedType"?: string;
+  brandedType?: string;
   /** Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling. */
-  "brandedUseCase"?: string;
+  brandedUseCase?: string;
   /** Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call. */
-  "brandedCallReason"?: string;
+  brandedCallReason?: string;
   /** A unique SID identifier of the Voice Integrity Profile. */
-  "voiceIntegrityBundleSid"?: string;
+  voiceIntegrityBundleSid?: string;
   /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
-  "voiceIntegrityUseCase"?: string;
+  voiceIntegrityUseCase?: string;
   /** A Business Identity of the calls. Is of type enum. One of \'direct_customer\', \'isv_reseller_or_partner\'.  */
-  "businessProfileIdentity"?: string;
+  businessProfileIdentity?: string;
   /** A Business Industry of the calls. Is of type enum. One of \'automotive\', \'agriculture\', \'banking\', \'consumer\', \'construction\', \'education\', \'engineering\', \'energy\', \'oil_and_gas\', \'fast_moving_consumer_goods\', \'financial\', \'fintech\', \'food_and_beverage\', \'government\', \'healthcare\', \'hospitality\', \'insurance\', \'legal\', \'manufacturing\', \'media\', \'online\', \'professional_services\', \'raw_materials\', \'real_estate\', \'religion\', \'retail\', \'jewelry\', \'technology\', \'telecommunications\', \'transportation\', \'travel\', \'electronics\', \'not_for_profit\'  */
-  "businessProfileIndustry"?: string;
+  businessProfileIndustry?: string;
   /** A unique SID identifier of the Business Profile. */
-  "businessProfileBundleSid"?: string;
+  businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
-  "businessProfileType"?: string;
+  businessProfileType?: string;
   /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -205,180 +215,173 @@ export interface CallSummariesListInstanceEachOptions {
  */
 export interface CallSummariesListInstanceOptions {
   /** A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
-  "from"?: string;
+  from?: string;
   /** A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
-  "to"?: string;
+  to?: string;
   /** An origination carrier. */
-  "fromCarrier"?: string;
+  fromCarrier?: string;
   /** A destination carrier. */
-  "toCarrier"?: string;
+  toCarrier?: string;
   /** A source country code based on phone number in From. */
-  "fromCountryCode"?: string;
+  fromCountryCode?: string;
   /** A destination country code. Based on phone number in To. */
-  "toCountryCode"?: string;
+  toCountryCode?: string;
   /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of \'true\' or \'false\'. */
-  "verifiedCaller"?: boolean;
+  verifiedCaller?: boolean;
   /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
-  "hasTag"?: boolean;
+  hasTag?: boolean;
   /** A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h. */
-  "startTime"?: string;
+  startTime?: string;
   /** An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m. */
-  "endTime"?: string;
+  endTime?: string;
   /** A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`. */
-  "callType"?: string;
+  callType?: string;
   /** A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`. */
-  "callState"?: string;
+  callState?: string;
   /** A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`. */
-  "direction"?: string;
+  direction?: string;
   /** A Processing State of the Call Summaries. One of `completed`, `partial` or `all`. */
-  "processingState"?: CallSummariesProcessingStateRequest;
+  processingState?: CallSummariesProcessingStateRequest;
   /** A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`. */
-  "sortBy"?: CallSummariesSortBy;
+  sortBy?: CallSummariesSortBy;
   /** A unique SID identifier of a Subaccount. */
-  "subaccount"?: string;
+  subaccount?: string;
   /** A boolean flag indicating an abnormal session where the last SIP response was not 200 OK. */
-  "abnormalSession"?: boolean;
+  abnormalSession?: boolean;
   /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
-  "answeredBy"?: CallSummariesAnsweredBy;
+  answeredBy?: CallSummariesAnsweredBy;
   /** Either machine or human. */
-  "answeredByAnnotation"?: string;
+  answeredByAnnotation?: string;
   /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
-  "connectivityIssueAnnotation"?: string;
+  connectivityIssueAnnotation?: string;
   /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
-  "qualityIssueAnnotation"?: string;
+  qualityIssueAnnotation?: string;
   /** A boolean flag indicating spam calls. */
-  "spamAnnotation"?: boolean;
+  spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  "callScoreAnnotation"?: string;
+  callScoreAnnotation?: string;
   /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of \'true\' or \'false\' */
-  "brandedEnabled"?: boolean;
+  brandedEnabled?: boolean;
   /** A boolean flag indicating whether or not the phone number had voice integrity enabled.One of \'true\' or \'false\' */
-  "voiceIntegrityEnabled"?: boolean;
+  voiceIntegrityEnabled?: boolean;
   /** A unique SID identifier of the Branded Call. */
-  "brandedBundleSid"?: string;
+  brandedBundleSid?: string;
   /** Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present). */
-  "brandedLogo"?: boolean;
+  brandedLogo?: boolean;
   /** Indicates whether the Branded Call is in_band vs out_of_band. */
-  "brandedType"?: string;
+  brandedType?: string;
   /** Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling. */
-  "brandedUseCase"?: string;
+  brandedUseCase?: string;
   /** Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call. */
-  "brandedCallReason"?: string;
+  brandedCallReason?: string;
   /** A unique SID identifier of the Voice Integrity Profile. */
-  "voiceIntegrityBundleSid"?: string;
+  voiceIntegrityBundleSid?: string;
   /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
-  "voiceIntegrityUseCase"?: string;
+  voiceIntegrityUseCase?: string;
   /** A Business Identity of the calls. Is of type enum. One of \'direct_customer\', \'isv_reseller_or_partner\'.  */
-  "businessProfileIdentity"?: string;
+  businessProfileIdentity?: string;
   /** A Business Industry of the calls. Is of type enum. One of \'automotive\', \'agriculture\', \'banking\', \'consumer\', \'construction\', \'education\', \'engineering\', \'energy\', \'oil_and_gas\', \'fast_moving_consumer_goods\', \'financial\', \'fintech\', \'food_and_beverage\', \'government\', \'healthcare\', \'hospitality\', \'insurance\', \'legal\', \'manufacturing\', \'media\', \'online\', \'professional_services\', \'raw_materials\', \'real_estate\', \'religion\', \'retail\', \'jewelry\', \'technology\', \'telecommunications\', \'transportation\', \'travel\', \'electronics\', \'not_for_profit\'  */
-  "businessProfileIndustry"?: string;
+  businessProfileIndustry?: string;
   /** A unique SID identifier of the Business Profile. */
-  "businessProfileBundleSid"?: string;
+  businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
-  "businessProfileType"?: string;
+  businessProfileType?: string;
   /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface CallSummariesListInstancePageOptions {
   /** A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
-  "from"?: string;
+  from?: string;
   /** A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
-  "to"?: string;
+  to?: string;
   /** An origination carrier. */
-  "fromCarrier"?: string;
+  fromCarrier?: string;
   /** A destination carrier. */
-  "toCarrier"?: string;
+  toCarrier?: string;
   /** A source country code based on phone number in From. */
-  "fromCountryCode"?: string;
+  fromCountryCode?: string;
   /** A destination country code. Based on phone number in To. */
-  "toCountryCode"?: string;
+  toCountryCode?: string;
   /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of \'true\' or \'false\'. */
-  "verifiedCaller"?: boolean;
+  verifiedCaller?: boolean;
   /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
-  "hasTag"?: boolean;
+  hasTag?: boolean;
   /** A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h. */
-  "startTime"?: string;
+  startTime?: string;
   /** An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m. */
-  "endTime"?: string;
+  endTime?: string;
   /** A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`. */
-  "callType"?: string;
+  callType?: string;
   /** A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`. */
-  "callState"?: string;
+  callState?: string;
   /** A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`. */
-  "direction"?: string;
+  direction?: string;
   /** A Processing State of the Call Summaries. One of `completed`, `partial` or `all`. */
-  "processingState"?: CallSummariesProcessingStateRequest;
+  processingState?: CallSummariesProcessingStateRequest;
   /** A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`. */
-  "sortBy"?: CallSummariesSortBy;
+  sortBy?: CallSummariesSortBy;
   /** A unique SID identifier of a Subaccount. */
-  "subaccount"?: string;
+  subaccount?: string;
   /** A boolean flag indicating an abnormal session where the last SIP response was not 200 OK. */
-  "abnormalSession"?: boolean;
+  abnormalSession?: boolean;
   /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
-  "answeredBy"?: CallSummariesAnsweredBy;
+  answeredBy?: CallSummariesAnsweredBy;
   /** Either machine or human. */
-  "answeredByAnnotation"?: string;
+  answeredByAnnotation?: string;
   /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
-  "connectivityIssueAnnotation"?: string;
+  connectivityIssueAnnotation?: string;
   /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
-  "qualityIssueAnnotation"?: string;
+  qualityIssueAnnotation?: string;
   /** A boolean flag indicating spam calls. */
-  "spamAnnotation"?: boolean;
+  spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  "callScoreAnnotation"?: string;
+  callScoreAnnotation?: string;
   /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of \'true\' or \'false\' */
-  "brandedEnabled"?: boolean;
+  brandedEnabled?: boolean;
   /** A boolean flag indicating whether or not the phone number had voice integrity enabled.One of \'true\' or \'false\' */
-  "voiceIntegrityEnabled"?: boolean;
+  voiceIntegrityEnabled?: boolean;
   /** A unique SID identifier of the Branded Call. */
-  "brandedBundleSid"?: string;
+  brandedBundleSid?: string;
   /** Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present). */
-  "brandedLogo"?: boolean;
+  brandedLogo?: boolean;
   /** Indicates whether the Branded Call is in_band vs out_of_band. */
-  "brandedType"?: string;
+  brandedType?: string;
   /** Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling. */
-  "brandedUseCase"?: string;
+  brandedUseCase?: string;
   /** Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call. */
-  "brandedCallReason"?: string;
+  brandedCallReason?: string;
   /** A unique SID identifier of the Voice Integrity Profile. */
-  "voiceIntegrityBundleSid"?: string;
+  voiceIntegrityBundleSid?: string;
   /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
-  "voiceIntegrityUseCase"?: string;
+  voiceIntegrityUseCase?: string;
   /** A Business Identity of the calls. Is of type enum. One of \'direct_customer\', \'isv_reseller_or_partner\'.  */
-  "businessProfileIdentity"?: string;
+  businessProfileIdentity?: string;
   /** A Business Industry of the calls. Is of type enum. One of \'automotive\', \'agriculture\', \'banking\', \'consumer\', \'construction\', \'education\', \'engineering\', \'energy\', \'oil_and_gas\', \'fast_moving_consumer_goods\', \'financial\', \'fintech\', \'food_and_beverage\', \'government\', \'healthcare\', \'hospitality\', \'insurance\', \'legal\', \'manufacturing\', \'media\', \'online\', \'professional_services\', \'raw_materials\', \'real_estate\', \'religion\', \'retail\', \'jewelry\', \'technology\', \'telecommunications\', \'transportation\', \'travel\', \'electronics\', \'not_for_profit\'  */
-  "businessProfileIndustry"?: string;
+  businessProfileIndustry?: string;
   /** A unique SID identifier of the Business Profile. */
-  "businessProfileBundleSid"?: string;
+  businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
-  "businessProfileType"?: string;
+  businessProfileType?: string;
   /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
-
-export interface CallSummariesSolution {
-}
+export interface CallSummariesSolution {}
 
 export interface CallSummariesListInstance {
   _version: V1;
   _solution: CallSummariesSolution;
   _uri: string;
-
-
-
 
   /**
    * Streams CallSummariesInstance records from the API.
@@ -395,8 +398,19 @@ export interface CallSummariesListInstance {
    * @param { CallSummariesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void): void;
-  each(params: CallSummariesListInstanceEachOptions, callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: CallSummariesListInstanceEachOptions,
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams CallSummariesInstance records from the API with HTTP metadata captured per page.
    *
@@ -412,8 +426,19 @@ export interface CallSummariesListInstance {
    * @param { CallSummariesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: CallSummariesListInstanceEachOptions, callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: CallSummariesListInstanceEachOptions,
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of CallSummariesInstance records from the API.
    *
@@ -422,7 +447,10 @@ export interface CallSummariesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: CallSummariesPage) => any): Promise<CallSummariesPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
+  ): Promise<CallSummariesPage>;
   /**
    * Retrieve a single target page of CallSummariesInstance records from the API with HTTP metadata.
    *
@@ -431,7 +459,13 @@ export interface CallSummariesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<CallSummariesPage>) => any): Promise<ApiResponse<CallSummariesPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesPage>>;
   /**
    * Lists CallSummariesInstance records from the API as a list.
    *
@@ -441,8 +475,13 @@ export interface CallSummariesListInstance {
    * @param { CallSummariesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CallSummariesInstance[]) => any): Promise<CallSummariesInstance[]>;
-  list(params: CallSummariesListInstanceOptions, callback?: (error: Error | null, items: CallSummariesInstance[]) => any): Promise<CallSummariesInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any,
+  ): Promise<CallSummariesInstance[]>;
+  list(
+    params: CallSummariesListInstanceOptions,
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any,
+  ): Promise<CallSummariesInstance[]>;
   /**
    * Lists CallSummariesInstance records from the API as a list with HTTP metadata.
    *
@@ -454,8 +493,19 @@ export interface CallSummariesListInstance {
    * @param { CallSummariesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CallSummariesInstance[]>) => any): Promise<ApiResponse<CallSummariesInstance[]>>;
-  listWithHttpInfo(params: CallSummariesListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<CallSummariesInstance[]>) => any): Promise<ApiResponse<CallSummariesInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesInstance[]>>;
+  listWithHttpInfo(
+    params: CallSummariesListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesInstance[]>>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API.
    *
@@ -467,8 +517,13 @@ export interface CallSummariesListInstance {
    * @param { CallSummariesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CallSummariesPage) => any): Promise<CallSummariesPage>;
-  page(params: CallSummariesListInstancePageOptions, callback?: (error: Error | null, items: CallSummariesPage) => any): Promise<CallSummariesPage>;
+  page(
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
+  ): Promise<CallSummariesPage>;
+  page(
+    params: CallSummariesListInstancePageOptions,
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
+  ): Promise<CallSummariesPage>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API with HTTP metadata.
    *
@@ -480,9 +535,19 @@ export interface CallSummariesListInstance {
    * @param { CallSummariesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CallSummariesPage>) => any): Promise<ApiResponse<CallSummariesPage>>;
-  pageWithHttpInfo(params: CallSummariesListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<CallSummariesPage>) => any): Promise<ApiResponse<CallSummariesPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesPage>>;
+  pageWithHttpInfo(
+    params: CallSummariesListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -491,14 +556,21 @@ export interface CallSummariesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CallSummariesListInstance(version: V1): CallSummariesListInstance {
+export function CallSummariesListInstance(
+  version: V1,
+): CallSummariesListInstance {
   const instance = {} as CallSummariesListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Voice/Summaries`;
 
-  instance.page = function page(params?: CallSummariesListInstancePageOptions | ((error: Error | null, items: CallSummariesPage) => any), callback?: (error: Error | null, items: CallSummariesPage) => any): Promise<CallSummariesPage> {
+  instance.page = function page(
+    params?:
+      | CallSummariesListInstancePageOptions
+      | ((error: Error | null, items: CallSummariesPage) => any),
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
+  ): Promise<CallSummariesPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -508,116 +580,132 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
 
     let data: any = {};
 
-        if (params["from"] !== undefined)
-    data["From"] = params["from"];
-    if (params["to"] !== undefined)
-    data["To"] = params["to"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
     if (params["fromCarrier"] !== undefined)
-    data["FromCarrier"] = params["fromCarrier"];
+      data["FromCarrier"] = params["fromCarrier"];
     if (params["toCarrier"] !== undefined)
-    data["ToCarrier"] = params["toCarrier"];
+      data["ToCarrier"] = params["toCarrier"];
     if (params["fromCountryCode"] !== undefined)
-    data["FromCountryCode"] = params["fromCountryCode"];
+      data["FromCountryCode"] = params["fromCountryCode"];
     if (params["toCountryCode"] !== undefined)
-    data["ToCountryCode"] = params["toCountryCode"];
+      data["ToCountryCode"] = params["toCountryCode"];
     if (params["verifiedCaller"] !== undefined)
-    data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
+      data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
     if (params["hasTag"] !== undefined)
-    data["HasTag"] = serialize.bool(params["hasTag"]);
+      data["HasTag"] = serialize.bool(params["hasTag"]);
     if (params["startTime"] !== undefined)
-    data["StartTime"] = params["startTime"];
-    if (params["endTime"] !== undefined)
-    data["EndTime"] = params["endTime"];
-    if (params["callType"] !== undefined)
-    data["CallType"] = params["callType"];
+      data["StartTime"] = params["startTime"];
+    if (params["endTime"] !== undefined) data["EndTime"] = params["endTime"];
+    if (params["callType"] !== undefined) data["CallType"] = params["callType"];
     if (params["callState"] !== undefined)
-    data["CallState"] = params["callState"];
+      data["CallState"] = params["callState"];
     if (params["direction"] !== undefined)
-    data["Direction"] = params["direction"];
+      data["Direction"] = params["direction"];
     if (params["processingState"] !== undefined)
-    data["ProcessingState"] = params["processingState"];
-    if (params["sortBy"] !== undefined)
-    data["SortBy"] = params["sortBy"];
+      data["ProcessingState"] = params["processingState"];
+    if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];
     if (params["subaccount"] !== undefined)
-    data["Subaccount"] = params["subaccount"];
+      data["Subaccount"] = params["subaccount"];
     if (params["abnormalSession"] !== undefined)
-    data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
+      data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
     if (params["answeredBy"] !== undefined)
-    data["AnsweredBy"] = params["answeredBy"];
+      data["AnsweredBy"] = params["answeredBy"];
     if (params["answeredByAnnotation"] !== undefined)
-    data["AnsweredByAnnotation"] = params["answeredByAnnotation"];
+      data["AnsweredByAnnotation"] = params["answeredByAnnotation"];
     if (params["connectivityIssueAnnotation"] !== undefined)
-    data["ConnectivityIssueAnnotation"] = params["connectivityIssueAnnotation"];
+      data["ConnectivityIssueAnnotation"] =
+        params["connectivityIssueAnnotation"];
     if (params["qualityIssueAnnotation"] !== undefined)
-    data["QualityIssueAnnotation"] = params["qualityIssueAnnotation"];
+      data["QualityIssueAnnotation"] = params["qualityIssueAnnotation"];
     if (params["spamAnnotation"] !== undefined)
-    data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
+      data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
     if (params["callScoreAnnotation"] !== undefined)
-    data["CallScoreAnnotation"] = params["callScoreAnnotation"];
+      data["CallScoreAnnotation"] = params["callScoreAnnotation"];
     if (params["brandedEnabled"] !== undefined)
-    data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
+      data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
     if (params["voiceIntegrityEnabled"] !== undefined)
-    data["VoiceIntegrityEnabled"] = serialize.bool(params["voiceIntegrityEnabled"]);
+      data["VoiceIntegrityEnabled"] = serialize.bool(
+        params["voiceIntegrityEnabled"],
+      );
     if (params["brandedBundleSid"] !== undefined)
-    data["BrandedBundleSid"] = params["brandedBundleSid"];
+      data["BrandedBundleSid"] = params["brandedBundleSid"];
     if (params["brandedLogo"] !== undefined)
-    data["BrandedLogo"] = serialize.bool(params["brandedLogo"]);
+      data["BrandedLogo"] = serialize.bool(params["brandedLogo"]);
     if (params["brandedType"] !== undefined)
-    data["BrandedType"] = params["brandedType"];
+      data["BrandedType"] = params["brandedType"];
     if (params["brandedUseCase"] !== undefined)
-    data["BrandedUseCase"] = params["brandedUseCase"];
+      data["BrandedUseCase"] = params["brandedUseCase"];
     if (params["brandedCallReason"] !== undefined)
-    data["BrandedCallReason"] = params["brandedCallReason"];
+      data["BrandedCallReason"] = params["brandedCallReason"];
     if (params["voiceIntegrityBundleSid"] !== undefined)
-    data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
+      data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
     if (params["voiceIntegrityUseCase"] !== undefined)
-    data["VoiceIntegrityUseCase"] = params["voiceIntegrityUseCase"];
+      data["VoiceIntegrityUseCase"] = params["voiceIntegrityUseCase"];
     if (params["businessProfileIdentity"] !== undefined)
-    data["BusinessProfileIdentity"] = params["businessProfileIdentity"];
+      data["BusinessProfileIdentity"] = params["businessProfileIdentity"];
     if (params["businessProfileIndustry"] !== undefined)
-    data["BusinessProfileIndustry"] = params["businessProfileIndustry"];
+      data["BusinessProfileIndustry"] = params["businessProfileIndustry"];
     if (params["businessProfileBundleSid"] !== undefined)
-    data["BusinessProfileBundleSid"] = params["businessProfileBundleSid"];
+      data["BusinessProfileBundleSid"] = params["businessProfileBundleSid"];
     if (params["businessProfileType"] !== undefined)
-    data["BusinessProfileType"] = params["businessProfileType"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["BusinessProfileType"] = params["businessProfileType"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new CallSummariesPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CallSummariesPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: CallSummariesPage) => any): Promise<CallSummariesPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new CallSummariesPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
+  ): Promise<CallSummariesPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CallSummariesPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: CallSummariesListInstancePageOptions | ((error: Error | null, items: ApiResponse<CallSummariesPage>) => any), callback?: (error: Error | null, items: ApiResponse<CallSummariesPage>) => any): Promise<ApiResponse<CallSummariesPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CallSummariesListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<CallSummariesPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -627,139 +715,156 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
 
     let data: any = {};
 
-        if (params["from"] !== undefined)
-    data["From"] = params["from"];
-    if (params["to"] !== undefined)
-    data["To"] = params["to"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
     if (params["fromCarrier"] !== undefined)
-    data["FromCarrier"] = params["fromCarrier"];
+      data["FromCarrier"] = params["fromCarrier"];
     if (params["toCarrier"] !== undefined)
-    data["ToCarrier"] = params["toCarrier"];
+      data["ToCarrier"] = params["toCarrier"];
     if (params["fromCountryCode"] !== undefined)
-    data["FromCountryCode"] = params["fromCountryCode"];
+      data["FromCountryCode"] = params["fromCountryCode"];
     if (params["toCountryCode"] !== undefined)
-    data["ToCountryCode"] = params["toCountryCode"];
+      data["ToCountryCode"] = params["toCountryCode"];
     if (params["verifiedCaller"] !== undefined)
-    data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
+      data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
     if (params["hasTag"] !== undefined)
-    data["HasTag"] = serialize.bool(params["hasTag"]);
+      data["HasTag"] = serialize.bool(params["hasTag"]);
     if (params["startTime"] !== undefined)
-    data["StartTime"] = params["startTime"];
-    if (params["endTime"] !== undefined)
-    data["EndTime"] = params["endTime"];
-    if (params["callType"] !== undefined)
-    data["CallType"] = params["callType"];
+      data["StartTime"] = params["startTime"];
+    if (params["endTime"] !== undefined) data["EndTime"] = params["endTime"];
+    if (params["callType"] !== undefined) data["CallType"] = params["callType"];
     if (params["callState"] !== undefined)
-    data["CallState"] = params["callState"];
+      data["CallState"] = params["callState"];
     if (params["direction"] !== undefined)
-    data["Direction"] = params["direction"];
+      data["Direction"] = params["direction"];
     if (params["processingState"] !== undefined)
-    data["ProcessingState"] = params["processingState"];
-    if (params["sortBy"] !== undefined)
-    data["SortBy"] = params["sortBy"];
+      data["ProcessingState"] = params["processingState"];
+    if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];
     if (params["subaccount"] !== undefined)
-    data["Subaccount"] = params["subaccount"];
+      data["Subaccount"] = params["subaccount"];
     if (params["abnormalSession"] !== undefined)
-    data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
+      data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
     if (params["answeredBy"] !== undefined)
-    data["AnsweredBy"] = params["answeredBy"];
+      data["AnsweredBy"] = params["answeredBy"];
     if (params["answeredByAnnotation"] !== undefined)
-    data["AnsweredByAnnotation"] = params["answeredByAnnotation"];
+      data["AnsweredByAnnotation"] = params["answeredByAnnotation"];
     if (params["connectivityIssueAnnotation"] !== undefined)
-    data["ConnectivityIssueAnnotation"] = params["connectivityIssueAnnotation"];
+      data["ConnectivityIssueAnnotation"] =
+        params["connectivityIssueAnnotation"];
     if (params["qualityIssueAnnotation"] !== undefined)
-    data["QualityIssueAnnotation"] = params["qualityIssueAnnotation"];
+      data["QualityIssueAnnotation"] = params["qualityIssueAnnotation"];
     if (params["spamAnnotation"] !== undefined)
-    data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
+      data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
     if (params["callScoreAnnotation"] !== undefined)
-    data["CallScoreAnnotation"] = params["callScoreAnnotation"];
+      data["CallScoreAnnotation"] = params["callScoreAnnotation"];
     if (params["brandedEnabled"] !== undefined)
-    data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
+      data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
     if (params["voiceIntegrityEnabled"] !== undefined)
-    data["VoiceIntegrityEnabled"] = serialize.bool(params["voiceIntegrityEnabled"]);
+      data["VoiceIntegrityEnabled"] = serialize.bool(
+        params["voiceIntegrityEnabled"],
+      );
     if (params["brandedBundleSid"] !== undefined)
-    data["BrandedBundleSid"] = params["brandedBundleSid"];
+      data["BrandedBundleSid"] = params["brandedBundleSid"];
     if (params["brandedLogo"] !== undefined)
-    data["BrandedLogo"] = serialize.bool(params["brandedLogo"]);
+      data["BrandedLogo"] = serialize.bool(params["brandedLogo"]);
     if (params["brandedType"] !== undefined)
-    data["BrandedType"] = params["brandedType"];
+      data["BrandedType"] = params["brandedType"];
     if (params["brandedUseCase"] !== undefined)
-    data["BrandedUseCase"] = params["brandedUseCase"];
+      data["BrandedUseCase"] = params["brandedUseCase"];
     if (params["brandedCallReason"] !== undefined)
-    data["BrandedCallReason"] = params["brandedCallReason"];
+      data["BrandedCallReason"] = params["brandedCallReason"];
     if (params["voiceIntegrityBundleSid"] !== undefined)
-    data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
+      data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
     if (params["voiceIntegrityUseCase"] !== undefined)
-    data["VoiceIntegrityUseCase"] = params["voiceIntegrityUseCase"];
+      data["VoiceIntegrityUseCase"] = params["voiceIntegrityUseCase"];
     if (params["businessProfileIdentity"] !== undefined)
-    data["BusinessProfileIdentity"] = params["businessProfileIdentity"];
+      data["BusinessProfileIdentity"] = params["businessProfileIdentity"];
     if (params["businessProfileIndustry"] !== undefined)
-    data["BusinessProfileIndustry"] = params["businessProfileIndustry"];
+      data["BusinessProfileIndustry"] = params["businessProfileIndustry"];
     if (params["businessProfileBundleSid"] !== undefined)
-    data["BusinessProfileBundleSid"] = params["businessProfileBundleSid"];
+      data["BusinessProfileBundleSid"] = params["businessProfileBundleSid"];
     if (params["businessProfileType"] !== undefined)
-    data["BusinessProfileType"] = params["businessProfileType"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["BusinessProfileType"] = params["businessProfileType"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<CallSummariesPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new CallSummariesPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<CallSummariesPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CallSummariesPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<CallSummariesPage>) => any): Promise<ApiResponse<CallSummariesPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CallSummariesPage>,
+    ) => any,
+  ): Promise<ApiResponse<CallSummariesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<CallSummariesPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new CallSummariesPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CallSummariesPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CallSummariesPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface CallSummariesPayload extends TwilioResponsePayload {
-    call_summaries: CallSummariesResource[];
+interface CallSummariesPayload extends TwilioResponsePayload {
+  call_summaries: CallSummariesResource[];
 }
 
 interface CallSummariesResource {
@@ -790,11 +895,12 @@ interface CallSummariesResource {
 }
 
 export class CallSummariesInstance {
-
-  constructor(protected _version: V1, payload: CallSummariesResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.callSid = (payload.call_sid);
+  constructor(
+    protected _version: V1,
+    payload: CallSummariesResource,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.callSid = payload.call_sid;
     this.answeredBy = payload.answered_by;
     this.callType = payload.call_type;
     this.callState = payload.call_state;
@@ -804,22 +910,25 @@ export class CallSummariesInstance {
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.duration = deserialize.integer(payload.duration);
     this.connectDuration = deserialize.integer(payload.connect_duration);
-    this.from = (payload.from);
-    this.to = (payload.to);
-    this.carrierEdge = (payload.carrier_edge);
-    this.clientEdge = (payload.client_edge);
-    this.sdkEdge = (payload.sdk_edge);
-    this.sipEdge = (payload.sip_edge);
-    this.tags = (payload.tags);
-    this.url = (payload.url);
-    this.attributes = (payload.attributes);
-    this.properties = (payload.properties);
-    this.trust = (payload.trust);
-    this.annotation = (payload.annotation);
-    this.agentSessionSummaries =  payload.agent_session_summaries !== null && payload.agent_session_summaries !== undefined ? payload.agent_session_summaries.map(
-      (payload: any) => new CallSummaryAgentSessionSummary(payload)
-    ) : null;
-
+    this.from = payload.from;
+    this.to = payload.to;
+    this.carrierEdge = payload.carrier_edge;
+    this.clientEdge = payload.client_edge;
+    this.sdkEdge = payload.sdk_edge;
+    this.sipEdge = payload.sip_edge;
+    this.tags = payload.tags;
+    this.url = payload.url;
+    this.attributes = payload.attributes;
+    this.properties = payload.properties;
+    this.trust = payload.trust;
+    this.annotation = payload.annotation;
+    this.agentSessionSummaries =
+      payload.agent_session_summaries !== null &&
+      payload.agent_session_summaries !== undefined
+        ? payload.agent_session_summaries.map(
+            (payload: any) => new CallSummaryAgentSessionSummary(payload),
+          )
+        : null;
   }
 
   /**
@@ -946,33 +1055,37 @@ export class CallSummariesInstance {
   }
 }
 
-export class CallSummariesPage extends Page<V1, CallSummariesPayload, CallSummariesResource, CallSummariesInstance> {
-/**
-* Initialize the CallSummariesPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: CallSummariesSolution) {
+export class CallSummariesPage extends Page<
+  V1,
+  CallSummariesPayload,
+  CallSummariesResource,
+  CallSummariesInstance
+> {
+  /**
+   * Initialize the CallSummariesPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: CallSummariesSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CallSummariesInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CallSummariesResource): CallSummariesInstance {
+  /**
+   * Build an instance of CallSummariesInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CallSummariesResource): CallSummariesInstance {
+    return new CallSummariesInstance(this._version, payload);
+  }
 
-    return new CallSummariesInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -22,24 +23,27 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
+
 /**
  * Options to pass to create a CommandInstance
  */
 export interface CommandListInstanceCreateOptions {
   /**  */
-  command: string;
+  "command": string;
   /**  */
-  device?: string;
+  "device"?: string;
   /**  */
-  sim?: string;
+  "sim"?: string;
   /**  */
-  callbackMethod?: string;
+  "callbackMethod"?: string;
   /**  */
-  callbackUrl?: string;
+  "callbackUrl"?: string;
   /**  */
-  commandMode?: string;
+  "commandMode"?: string;
   /**  */
-  includeSid?: string;
+  "includeSid"?: string;
 }
 
 /**
@@ -47,15 +51,15 @@ export interface CommandListInstanceCreateOptions {
  */
 export interface CommandListInstanceEachOptions {
   /**  */
-  device?: string;
+  "device"?: string;
   /**  */
-  sim?: string;
+  "sim"?: string;
   /**  */
-  status?: string;
+  "status"?: string;
   /**  */
-  direction?: string;
+  "direction"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -69,40 +73,43 @@ export interface CommandListInstanceEachOptions {
  */
 export interface CommandListInstanceOptions {
   /**  */
-  device?: string;
+  "device"?: string;
   /**  */
-  sim?: string;
+  "sim"?: string;
   /**  */
-  status?: string;
+  "status"?: string;
   /**  */
-  direction?: string;
+  "direction"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface CommandListInstancePageOptions {
   /**  */
-  device?: string;
+  "device"?: string;
   /**  */
-  sim?: string;
+  "sim"?: string;
   /**  */
-  status?: string;
+  "status"?: string;
   /**  */
-  direction?: string;
+  "direction"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface CommandContext {
+
   /**
    * Fetch a CommandInstance
    *
@@ -110,9 +117,7 @@ export interface CommandContext {
    *
    * @returns Resolves to processed CommandInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CommandInstance) => any
-  ): Promise<CommandInstance>;
+  fetch(callback?: (error: Error | null, item?: CommandInstance) => any): Promise<CommandInstance>
 
   /**
    * Fetch a CommandInstance and return HTTP info
@@ -121,9 +126,7 @@ export interface CommandContext {
    *
    * @returns Resolves to processed CommandInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any
-  ): Promise<ApiResponse<CommandInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any): Promise<ApiResponse<CommandInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -133,79 +136,56 @@ export interface CommandContext {
 }
 
 export interface CommandContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class CommandContextImpl implements CommandContext {
   protected _solution: CommandContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: Wireless, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Commands/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: CommandInstance) => any
-  ): Promise<CommandInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: CommandInstance) => any): Promise<CommandInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new CommandInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CommandInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any
-  ): Promise<ApiResponse<CommandInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any): Promise<ApiResponse<CommandInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<CommandResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CommandInstance> => ({
-          ...response,
-          body: new CommandInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<CommandResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<CommandInstance> => ({
+      ...response,
+      body: new CommandInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -222,8 +202,9 @@ export class CommandContextImpl implements CommandContext {
   }
 }
 
-interface CommandPayload extends TwilioResponsePayload {
-  commands: CommandResource[];
+
+  interface CommandPayload extends TwilioResponsePayload {
+    commands: CommandResource[];
 }
 
 interface CommandResource {
@@ -244,24 +225,21 @@ export class CommandInstance {
   protected _solution: CommandContextSolution;
   protected _context?: CommandContext;
 
-  constructor(
-    protected _version: Wireless,
-    payload: CommandResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.deviceSid = payload.device_sid;
-    this.simSid = payload.sim_sid;
-    this.command = payload.command;
-    this.commandMode = payload.command_mode;
-    this.status = payload.status;
-    this.direction = payload.direction;
+  constructor(protected _version: Wireless, payload: CommandResource, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.deviceSid = (payload.device_sid);
+    this.simSid = (payload.sim_sid);
+    this.command = (payload.command);
+    this.commandMode = (payload.command_mode);
+    this.status = (payload.status);
+    this.direction = (payload.direction);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   sid: string;
@@ -277,9 +255,7 @@ export class CommandInstance {
   url: string;
 
   private get _proxy(): CommandContext {
-    this._context =
-      this._context ||
-      new CommandContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new CommandContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -290,9 +266,9 @@ export class CommandInstance {
    *
    * @returns Resolves to processed CommandInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CommandInstance) => any
-  ): Promise<CommandInstance> {
+  fetch(callback?: (error: Error | null, item?: CommandInstance) => any): Promise<CommandInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -303,9 +279,9 @@ export class CommandInstance {
    *
    * @returns Resolves to processed CommandInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any
-  ): Promise<ApiResponse<CommandInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any): Promise<ApiResponse<CommandInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -335,15 +311,20 @@ export class CommandInstance {
   }
 }
 
-export interface CommandSolution {}
+
+export interface CommandSolution {
+}
 
 export interface CommandListInstance {
   _version: Wireless;
   _solution: CommandSolution;
   _uri: string;
 
-  (sid: string): CommandContext;
-  get(sid: string): CommandContext;
+  (sid: string, ): CommandContext;
+  get(sid: string, ): CommandContext;
+
+
+
 
   /**
    * Create a CommandInstance
@@ -353,10 +334,7 @@ export interface CommandListInstance {
    *
    * @returns Resolves to processed CommandInstance
    */
-  create(
-    params: CommandListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CommandInstance) => any
-  ): Promise<CommandInstance>;
+  create(params: CommandListInstanceCreateOptions, callback?: (error: Error | null, item?: CommandInstance) => any): Promise<CommandInstance>;
 
   /**
    * Create a CommandInstance and return HTTP info
@@ -366,10 +344,10 @@ export interface CommandListInstance {
    *
    * @returns Resolves to processed CommandInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CommandListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any
-  ): Promise<ApiResponse<CommandInstance>>;
+  createWithHttpInfo(params: CommandListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<CommandInstance>) => any): Promise<ApiResponse<CommandInstance>>;
+
+
+
 
   /**
    * Streams CommandInstance records from the API.
@@ -386,13 +364,8 @@ export interface CommandListInstance {
    * @param { CommandListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: CommandListInstanceEachOptions,
-    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: CommandInstance, done: (err?: Error) => void) => void): void;
+  each(params: CommandListInstanceEachOptions, callback?: (item: CommandInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams CommandInstance records from the API with HTTP metadata captured per page.
    *
@@ -408,13 +381,8 @@ export interface CommandListInstance {
    * @param { CommandListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: CommandListInstanceEachOptions,
-    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: CommandInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: CommandListInstanceEachOptions, callback?: (item: CommandInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of CommandInstance records from the API.
    *
@@ -423,10 +391,7 @@ export interface CommandListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
   /**
    * Retrieve a single target page of CommandInstance records from the API with HTTP metadata.
    *
@@ -435,10 +400,7 @@ export interface CommandListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any
-  ): Promise<ApiResponse<CommandPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any): Promise<ApiResponse<CommandPage>>;
   /**
    * Lists CommandInstance records from the API as a list.
    *
@@ -448,13 +410,8 @@ export interface CommandListInstance {
    * @param { CommandListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: CommandInstance[]) => any
-  ): Promise<CommandInstance[]>;
-  list(
-    params: CommandListInstanceOptions,
-    callback?: (error: Error | null, items: CommandInstance[]) => any
-  ): Promise<CommandInstance[]>;
+  list(callback?: (error: Error | null, items: CommandInstance[]) => any): Promise<CommandInstance[]>;
+  list(params: CommandListInstanceOptions, callback?: (error: Error | null, items: CommandInstance[]) => any): Promise<CommandInstance[]>;
   /**
    * Lists CommandInstance records from the API as a list with HTTP metadata.
    *
@@ -466,19 +423,8 @@ export interface CommandListInstance {
    * @param { CommandListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CommandInstance[]>
-    ) => any
-  ): Promise<ApiResponse<CommandInstance[]>>;
-  listWithHttpInfo(
-    params: CommandListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<CommandInstance[]>
-    ) => any
-  ): Promise<ApiResponse<CommandInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CommandInstance[]>) => any): Promise<ApiResponse<CommandInstance[]>>;
+  listWithHttpInfo(params: CommandListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<CommandInstance[]>) => any): Promise<ApiResponse<CommandInstance[]>>;
   /**
    * Retrieve a single page of CommandInstance records from the API.
    *
@@ -490,13 +436,8 @@ export interface CommandListInstance {
    * @param { CommandListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage>;
-  page(
-    params: CommandListInstancePageOptions,
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage>;
+  page(callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
+  page(params: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
   /**
    * Retrieve a single page of CommandInstance records from the API with HTTP metadata.
    *
@@ -508,13 +449,9 @@ export interface CommandListInstance {
    * @param { CommandListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any
-  ): Promise<ApiResponse<CommandPage>>;
-  pageWithHttpInfo(
-    params: CommandListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any
-  ): Promise<ApiResponse<CommandPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any): Promise<ApiResponse<CommandPage>>;
+  pageWithHttpInfo(params: CommandListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any): Promise<ApiResponse<CommandPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -524,124 +461,110 @@ export interface CommandListInstance {
 }
 
 export function CommandListInstance(version: Wireless): CommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as CommandListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as CommandListInstance;
 
-  instance.get = function get(sid): CommandContext {
+  instance.get = function get(sid, ): CommandContext {
     return new CommandContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Commands`;
 
-  instance.create = function create(
-    params: CommandListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CommandInstance) => any
-  ): Promise<CommandInstance> {
+  instance.create = function create(params: CommandListInstanceCreateOptions, callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["command"] === null || params["command"] === undefined) {
-      throw new Error("Required parameter \"params['command']\" missing.");
+      throw new Error('Required parameter "params[\'command\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Command"] = params["command"];
-    if (params["device"] !== undefined) data["Device"] = params["device"];
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["device"] !== undefined)
+    data["Device"] = params["device"];
+    if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
     if (params["callbackMethod"] !== undefined)
-      data["CallbackMethod"] = params["callbackMethod"];
+    data["CallbackMethod"] = params["callbackMethod"];
     if (params["callbackUrl"] !== undefined)
-      data["CallbackUrl"] = params["callbackUrl"];
+    data["CallbackUrl"] = params["callbackUrl"];
     if (params["commandMode"] !== undefined)
-      data["CommandMode"] = params["commandMode"];
+    data["CommandMode"] = params["commandMode"];
     if (params["includeSid"] !== undefined)
-      data["IncludeSid"] = params["includeSid"];
+    data["IncludeSid"] = params["includeSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new CommandInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new CommandInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CommandListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<CommandInstance>) => any
-  ): Promise<ApiResponse<CommandInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CommandListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<CommandInstance>) => any): Promise<ApiResponse<CommandInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["command"] === null || params["command"] === undefined) {
-      throw new Error("Required parameter \"params['command']\" missing.");
+      throw new Error('Required parameter "params[\'command\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Command"] = params["command"];
-    if (params["device"] !== undefined) data["Device"] = params["device"];
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["device"] !== undefined)
+    data["Device"] = params["device"];
+    if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
     if (params["callbackMethod"] !== undefined)
-      data["CallbackMethod"] = params["callbackMethod"];
+    data["CallbackMethod"] = params["callbackMethod"];
     if (params["callbackUrl"] !== undefined)
-      data["CallbackUrl"] = params["callbackUrl"];
+    data["CallbackUrl"] = params["callbackUrl"];
     if (params["commandMode"] !== undefined)
-      data["CommandMode"] = params["commandMode"];
+    data["CommandMode"] = params["commandMode"];
     if (params["includeSid"] !== undefined)
-      data["IncludeSid"] = params["includeSid"];
+    data["IncludeSid"] = params["includeSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<CommandResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CommandInstance> => ({
-          ...response,
-          body: new CommandInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<CommandResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CommandInstance> => ({
+      ...response,
+      body: new CommandInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | CommandListInstancePageOptions
-      | ((error: Error | null, items: CommandPage) => any),
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage> {
+
+    }
+
+  instance.page = function page(params?: CommandListInstancePageOptions | ((error: Error | null, items: CommandPage) => any), callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -651,64 +574,52 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
     let data: any = {};
 
-    if (params["device"] !== undefined) data["Device"] = params["device"];
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["device"] !== undefined)
+    data["Device"] = params["device"];
+    if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["direction"] !== undefined)
-      data["Direction"] = params["direction"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new CommandPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CommandPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new CommandPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new CommandPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | CommandListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<CommandPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any
-  ): Promise<ApiResponse<CommandPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: CommandListInstancePageOptions | ((error: Error | null, items: ApiResponse<CommandPage>) => any), callback?: (error: Error | null, items: ApiResponse<CommandPage>) => any): Promise<ApiResponse<CommandPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -718,111 +629,100 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
     let data: any = {};
 
-    if (params["device"] !== undefined) data["Device"] = params["device"];
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["device"] !== undefined)
+    data["Device"] = params["device"];
+    if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["direction"] !== undefined)
-      data["Direction"] = params["direction"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CommandPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CommandPage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<CommandPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new CommandPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<CommandPage>) => any
-  ): Promise<ApiResponse<CommandPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<CommandPage>) => any): Promise<ApiResponse<CommandPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<CommandPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CommandPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<CommandPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new CommandPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class CommandPage extends Page<
-  Wireless,
-  CommandPayload,
-  CommandResource,
-  CommandInstance
-> {
-  /**
-   * Initialize the CommandPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: Wireless,
-    response: Response<string>,
-    solution: CommandSolution
-  ) {
+export class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
+/**
+* Initialize the CommandPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Wireless, response: Response<string>, solution: CommandSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CommandInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CommandResource): CommandInstance {
-    return new CommandInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of CommandInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CommandResource): CommandInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new CommandInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

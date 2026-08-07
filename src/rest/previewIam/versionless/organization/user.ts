@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -21,6 +22,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 /**
  * Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
@@ -45,6 +47,7 @@ export class ScimEmailAddress {
     this.type = payload["type"];
   }
 }
+
 
 /**
  * Meta
@@ -75,6 +78,7 @@ export class ScimMeta {
   }
 }
 
+
 /**
  * User\'s name
  */
@@ -94,6 +98,7 @@ export class ScimName {
   }
 }
 
+
 export class ScimPatchOperation {
   /**
    * The operation to perform
@@ -109,6 +114,7 @@ export class ScimPatchOperation {
   }
 }
 
+
 export class ScimPatchRequest {
   "schemas"?: Array<string>;
   "operations"?: Array<ScimPatchOperation>;
@@ -118,6 +124,7 @@ export class ScimPatchRequest {
     this.operations = payload["Operations"];
   }
 }
+
 
 export class ScimUser {
   /**
@@ -199,14 +206,18 @@ export class ScimUser {
   }
 }
 
+
+
+
+
 /**
  * Options to pass to patch a UserInstance
  */
 export interface UserContextPatchOptions {
   /**  */
-  scimPatchRequest: ScimPatchRequest;
+  "scimPatchRequest": ScimPatchRequest;
   /**  */
-  ifMatch?: string;
+  "ifMatch"?: string;
 }
 
 /**
@@ -214,9 +225,9 @@ export interface UserContextPatchOptions {
  */
 export interface UserContextUpdateOptions {
   /**  */
-  scimUser: ScimUser;
+  "scimUser": ScimUser;
   /**  */
-  ifMatch?: string;
+  "ifMatch"?: string;
 }
 
 /**
@@ -224,7 +235,7 @@ export interface UserContextUpdateOptions {
  */
 export interface UserListInstanceCreateOptions {
   /**  */
-  scimUser: ScimUser;
+  "scimUser": ScimUser;
 }
 
 /**
@@ -232,7 +243,7 @@ export interface UserListInstanceCreateOptions {
  */
 export interface UserListInstanceEachOptions {
   /**  */
-  filter?: string;
+  "filter"?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -246,24 +257,27 @@ export interface UserListInstanceEachOptions {
  */
 export interface UserListInstanceOptions {
   /**  */
-  filter?: string;
+  "filter"?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface UserListInstancePageOptions {
   /**  */
-  filter?: string;
+  "filter"?: string;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface UserContext {
+
   /**
    * Remove a UserInstance
    *
@@ -271,9 +285,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a UserInstance and return HTTP info
@@ -282,9 +294,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a UserInstance
@@ -293,9 +303,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
+  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
 
   /**
    * Fetch a UserInstance and return HTTP info
@@ -304,9 +312,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
 
   /**
    * Patch a UserInstance
@@ -317,11 +323,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance
    */
-  patch(
-    params: ScimPatchRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
+  patch(params: ScimPatchRequest, headers?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
 
   /**
    * Patch a UserInstance and return HTTP info
@@ -332,11 +334,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    params: ScimPatchRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>>;
+  patchWithHttpInfo(params: ScimPatchRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Update a UserInstance
@@ -347,11 +345,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance
    */
-  update(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
+  update(params: ScimUser, headers?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
 
   /**
    * Update a UserInstance and return HTTP info
@@ -362,11 +356,7 @@ export interface UserContext {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>>;
+  updateWithHttpInfo(params: ScimUser, headers?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -376,328 +366,218 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  organizationSid: string;
-  id: string;
+  "organizationSid": string;
+  "id": string;
 }
 
 export class UserContextImpl implements UserContext {
   protected _solution: UserContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: Versionless,
-    organizationSid: string,
-    id: string
-  ) {
+
+  constructor(protected _version: Versionless, organizationSid: string, id: string) {
     if (!isValidPathParam(organizationSid)) {
-      throw new Error("Parameter 'organizationSid' is not valid.");
+      throw new Error('Parameter \'organizationSid\' is not valid.');
     }
 
     if (!isValidPathParam(id)) {
-      throw new Error("Parameter 'id' is not valid.");
+      throw new Error('Parameter \'id\' is not valid.');
     }
 
-    this._solution = { organizationSid, id };
+    this._solution = { organizationSid, id,  };
     this._uri = `/${organizationSid}/scim/Users/${id}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/scim+json";
+  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/scim+json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, instance._solution.organizationSid, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserInstance(
-          operationVersion,
-          payload,
-          instance._solution.organizationSid,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/scim+json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/scim+json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<UserResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<UserInstance> => ({
-          ...response,
-          body: new UserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.organizationSid,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<UserResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<UserInstance> => ({
+      ...response,
+      body: new UserInstance(operationVersion, response.body, instance._solution.organizationSid, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  patch(
-    params: ScimPatchRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance> {
-    if (params === null || params === undefined) {
+  patch(params: ScimPatchRequest, headers?: any,callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/scim+json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/scim+json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.patch({
-        uri: instance._uri,
-        method: "patch",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, instance._solution.organizationSid, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserInstance(
-          operationVersion,
-          payload,
-          instance._solution.organizationSid,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  patchWithHttpInfo(
-    params: ScimPatchRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
-    if (params === null || params === undefined) {
+  patchWithHttpInfo(params: ScimPatchRequest, headers?: any,callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/scim+json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/scim+json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .patchWithResponseInfo<UserResource>({
-        uri: instance._uri,
-        method: "patch",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<UserInstance> => ({
-          ...response,
-          body: new UserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.organizationSid,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.patchWithResponseInfo<UserResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<UserInstance> => ({
+      ...response,
+      body: new UserInstance(operationVersion, response.body, instance._solution.organizationSid, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance> {
-    if (params === null || params === undefined) {
+  update(params: ScimUser, headers?: any,callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/scim+json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/scim+json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, instance._solution.organizationSid, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserInstance(
-          operationVersion,
-          payload,
-          instance._solution.organizationSid,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
-    if (params === null || params === undefined) {
+  updateWithHttpInfo(params: ScimUser, headers?: any,callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/scim+json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/scim+json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<UserResource>({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<UserInstance> => ({
-          ...response,
-          body: new UserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.organizationSid,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<UserResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<UserInstance> => ({
+      ...response,
+      body: new UserInstance(operationVersion, response.body, instance._solution.organizationSid, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -714,8 +594,9 @@ export class UserContextImpl implements UserContext {
   }
 }
 
-interface UserPayload extends TwilioResponsePayload {
-  Resources: UserResource[];
+
+  interface UserPayload extends TwilioResponsePayload {
+    Resources: UserResource[];
 }
 
 interface UserResource {
@@ -741,39 +622,28 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(
-    protected _version: Versionless,
-    payload: UserResource,
-    organizationSid: string,
-    id?: string
-  ) {
-    this.id = payload.id;
-    this.externalId = payload.externalId;
-    this.userName = payload.userName;
-    this.displayName = payload.displayName;
-    this.name =
-      payload.name !== null && payload.name !== undefined
-        ? new ScimName(payload.name)
-        : null;
-    this.emails =
-      payload.emails !== null && payload.emails !== undefined
-        ? payload.emails.map((payload: any) => new ScimEmailAddress(payload))
-        : null;
-    this.active = payload.active;
-    this.locale = payload.locale;
-    this.timezone = payload.timezone;
-    this.schemas = payload.schemas;
-    this.meta =
-      payload.meta !== null && payload.meta !== undefined
-        ? new ScimMeta(payload.meta)
-        : null;
-    this.detail = payload.detail;
-    this.scimType = payload.scimType;
-    this.status = payload.status;
-    this.code = payload.code;
-    this.moreInfo = payload.moreInfo;
+  constructor(protected _version: Versionless, payload: UserResource, organizationSid: string, id?: string) {
+    
+    this.id = (payload.id);
+    this.externalId = (payload.externalId);
+    this.userName = (payload.userName);
+    this.displayName = (payload.displayName);
+    this.name = payload.name !== null && payload.name !== undefined ? new ScimName(payload.name) : null;
+    this.emails =  payload.emails !== null && payload.emails !== undefined ? payload.emails.map(
+      (payload: any) => new ScimEmailAddress(payload)
+    ) : null;
+    this.active = (payload.active);
+    this.locale = (payload.locale);
+    this.timezone = (payload.timezone);
+    this.schemas = (payload.schemas);
+    this.meta = payload.meta !== null && payload.meta !== undefined ? new ScimMeta(payload.meta) : null;
+    this.detail = (payload.detail);
+    this.scimType = (payload.scimType);
+    this.status = (payload.status);
+    this.code = (payload.code);
+    this.moreInfo = (payload.moreInfo);
 
-    this._solution = { organizationSid, id: id || this.id };
+    this._solution = { organizationSid, id: id,  };
   }
 
   /**
@@ -836,13 +706,7 @@ export class UserInstance {
   moreInfo: string;
 
   private get _proxy(): UserContext {
-    this._context =
-      this._context ||
-      new UserContextImpl(
-        this._version,
-        this._solution.organizationSid,
-        this._solution.id
-      );
+    this._context = this._context || new UserContextImpl(this._version, this._solution.organizationSid, this._solution.id);
     return this._context;
   }
 
@@ -853,9 +717,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -866,9 +730,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -879,9 +743,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance> {
+  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -892,9 +756,9 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -907,16 +771,10 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  patch(
-    params: ScimPatchRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
+  patch(params: ScimPatchRequest, headers?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
 
-  patch(
-    params?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance> {
+    patch(params?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
+    {
     return this._proxy.patch(params, callback);
   }
 
@@ -929,16 +787,10 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    params: ScimPatchRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>>;
+  patchWithHttpInfo(params: ScimPatchRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
 
-  patchWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
+    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
+    {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -951,16 +803,10 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  update(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
+  update(params: ScimUser, headers?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -973,16 +819,10 @@ export class UserInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>>;
+  updateWithHttpInfo(params: ScimUser, headers?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -1017,6 +857,7 @@ export class UserInstance {
   }
 }
 
+
 export interface UserSolution {
   organizationSid: string;
 }
@@ -1026,8 +867,17 @@ export interface UserListInstance {
   _solution: UserSolution;
   _uri: string;
 
-  (id: string): UserContext;
-  get(id: string): UserContext;
+  (id: string, ): UserContext;
+  get(id: string, ): UserContext;
+
+
+
+
+
+
+
+
+
 
   /**
    * Create a UserInstance
@@ -1038,11 +888,7 @@ export interface UserListInstance {
    *
    * @returns Resolves to processed UserInstance
    */
-  create(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
+  create(params: ScimUser, headers?: any, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
 
   /**
    * Create a UserInstance and return HTTP info
@@ -1053,11 +899,10 @@ export interface UserListInstance {
    *
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>>;
+  createWithHttpInfo(params: ScimUser, headers?: any, callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>>;
+
+
+
 
   /**
    * Streams UserInstance records from the API.
@@ -1074,13 +919,8 @@ export interface UserListInstance {
    * @param { UserListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: UserListInstanceEachOptions,
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: UserInstance, done: (err?: Error) => void) => void): void;
+  each(params: UserListInstanceEachOptions, callback?: (item: UserInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams UserInstance records from the API with HTTP metadata captured per page.
    *
@@ -1096,13 +936,8 @@ export interface UserListInstance {
    * @param { UserListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: UserListInstanceEachOptions,
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: UserInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: UserListInstanceEachOptions, callback?: (item: UserInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UserInstance records from the API.
    *
@@ -1111,10 +946,7 @@ export interface UserListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
   /**
    * Retrieve a single target page of UserInstance records from the API with HTTP metadata.
    *
@@ -1123,10 +955,7 @@ export interface UserListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
-  ): Promise<ApiResponse<UserPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<UserPage>) => any): Promise<ApiResponse<UserPage>>;
   /**
    * Lists UserInstance records from the API as a list.
    *
@@ -1136,13 +965,8 @@ export interface UserListInstance {
    * @param { UserListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: UserInstance[]) => any
-  ): Promise<UserInstance[]>;
-  list(
-    params: UserListInstanceOptions,
-    callback?: (error: Error | null, items: UserInstance[]) => any
-  ): Promise<UserInstance[]>;
+  list(callback?: (error: Error | null, items: UserInstance[]) => any): Promise<UserInstance[]>;
+  list(params: UserListInstanceOptions, callback?: (error: Error | null, items: UserInstance[]) => any): Promise<UserInstance[]>;
   /**
    * Lists UserInstance records from the API as a list with HTTP metadata.
    *
@@ -1154,13 +978,8 @@ export interface UserListInstance {
    * @param { UserListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
-  ): Promise<ApiResponse<UserInstance[]>>;
-  listWithHttpInfo(
-    params: UserListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
-  ): Promise<ApiResponse<UserInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any): Promise<ApiResponse<UserInstance[]>>;
+  listWithHttpInfo(params: UserListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any): Promise<ApiResponse<UserInstance[]>>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    *
@@ -1172,13 +991,8 @@ export interface UserListInstance {
    * @param { UserListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
-  page(
-    params: UserListInstancePageOptions,
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
+  page(callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
+  page(params: UserListInstancePageOptions, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
   /**
    * Retrieve a single page of UserInstance records from the API with HTTP metadata.
    *
@@ -1190,13 +1004,9 @@ export interface UserListInstance {
    * @param { UserListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
-  ): Promise<ApiResponse<UserPage>>;
-  pageWithHttpInfo(
-    params: UserListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
-  ): Promise<ApiResponse<UserPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<UserPage>) => any): Promise<ApiResponse<UserPage>>;
+  pageWithHttpInfo(params: UserListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<UserPage>) => any): Promise<ApiResponse<UserPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1205,121 +1015,83 @@ export interface UserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UserListInstance(
-  version: Versionless,
-  organizationSid: string
-): UserListInstance {
+export function UserListInstance(version: Versionless, organizationSid: string): UserListInstance {
   if (!isValidPathParam(organizationSid)) {
-    throw new Error("Parameter 'organizationSid' is not valid.");
+    throw new Error('Parameter \'organizationSid\' is not valid.');
   }
 
-  const instance = ((id) => instance.get(id)) as UserListInstance;
+  const instance = ((id, ) => instance.get(id, )) as UserListInstance;
 
-  instance.get = function get(id): UserContext {
+  instance.get = function get(id, ): UserContext {
     return new UserContextImpl(version, organizationSid, id);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { organizationSid };
+  instance._solution = { organizationSid,  };
   instance._uri = `/${organizationSid}/scim/Users`;
 
-  instance.create = function create(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, items: UserInstance) => any
-  ): Promise<UserInstance> {
+  instance.create = function create(params: ScimUser, headers?: any, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/scim+json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/scim+json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, instance._solution.organizationSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserInstance(
-          operationVersion,
-          payload,
-          instance._solution.organizationSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ScimUser,
-    headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<UserInstance>) => any
-  ): Promise<ApiResponse<UserInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ScimUser, headers?: any, callback?: (error: Error | null, items: ApiResponse<UserInstance>) => any): Promise<ApiResponse<UserInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/scim+json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/scim+json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<UserResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<UserInstance> => ({
-          ...response,
-          body: new UserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.organizationSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<UserResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<UserInstance> => ({
+      ...response,
+      body: new UserInstance(operationVersion, response.body, instance._solution.organizationSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | UserListInstancePageOptions
-      | ((error: Error | null, items: UserPage) => any),
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage> {
+
+    }
+
+  instance.page = function page(params?: UserListInstancePageOptions | ((error: Error | null, items: UserPage) => any), callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1329,57 +1101,44 @@ export function UserListInstance(
 
     let data: any = {};
 
-    if (params["filter"] !== undefined) data["filter"] = params["filter"];
+        if (params["filter"] !== undefined)
+    data["filter"] = params["filter"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/scim+json";
+    headers["Accept"] = "application/scim+json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new UserPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new UserPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) => new UserPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new UserPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | UserListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<UserPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
-  ): Promise<ApiResponse<UserPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: UserListInstancePageOptions | ((error: Error | null, items: ApiResponse<UserPage>) => any), callback?: (error: Error | null, items: ApiResponse<UserPage>) => any): Promise<ApiResponse<UserPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1389,110 +1148,93 @@ export function UserListInstance(
 
     let data: any = {};
 
-    if (params["filter"] !== undefined) data["filter"] = params["filter"];
+        if (params["filter"] !== undefined)
+    data["filter"] = params["filter"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/scim+json";
+    headers["Accept"] = "application/scim+json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<UserPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new UserPage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<UserPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new UserPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<UserPage>) => any
-  ): Promise<ApiResponse<UserPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<UserPage>) => any): Promise<ApiResponse<UserPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<UserPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new UserPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<UserPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new UserPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class UserPage extends Page<
-  Versionless,
-  UserPayload,
-  UserResource,
-  UserInstance
-> {
-  /**
-   * Initialize the UserPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: Versionless,
-    response: Response<string>,
-    solution: UserSolution
-  ) {
+export class UserPage extends Page<Versionless, UserPayload, UserResource, UserInstance> {
+/**
+* Initialize the UserPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Versionless, response: Response<string>, solution: UserSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of UserInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UserResource): UserInstance {
+    /**
+    * Build an instance of UserInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UserResource): UserInstance {
+
     return new UserInstance(
-      this._version,
-      payload,
-      this._solution.organizationSid
+    this._version,
+    payload,
+        this._solution.organizationSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -253,7 +253,7 @@ namespace Twilio {
         pkgVersion,
         osName,
         osArch,
-        nodeVersion
+        nodeVersion,
       );
       this.userAgentExtensions?.forEach((extension) => {
         headers["User-Agent"] += ` ${extension}`;
@@ -304,7 +304,7 @@ namespace Twilio {
     getHostname(
       hostname: string,
       targetEdge: string | undefined,
-      targetRegion: string | undefined
+      targetRegion: string | undefined,
     ) {
       const defaultRegion = "us1";
 

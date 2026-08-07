@@ -46,5 +46,4 @@ export default class V2 extends Version {
     this._reports = this._reports || ReportListInstance(this);
     return this._reports;
   }
-
 }

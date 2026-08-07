@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,12 +23,14 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to each
  */
 export interface MessageListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -41,22 +44,25 @@ export interface MessageListInstanceEachOptions {
  */
 export interface MessageListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface MessageListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface MessageSolution {
   sessionId: string;
@@ -66,6 +72,9 @@ export interface MessageListInstance {
   _version: V1;
   _solution: MessageSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams MessageInstance records from the API.
@@ -82,13 +91,8 @@ export interface MessageListInstance {
    * @param { MessageListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: MessageListInstanceEachOptions,
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  each(params: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams MessageInstance records from the API with HTTP metadata captured per page.
    *
@@ -104,13 +108,8 @@ export interface MessageListInstance {
    * @param { MessageListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: MessageListInstanceEachOptions,
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
    *
@@ -119,10 +118,7 @@ export interface MessageListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
   /**
    * Retrieve a single target page of MessageInstance records from the API with HTTP metadata.
    *
@@ -131,10 +127,7 @@ export interface MessageListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
-  ): Promise<ApiResponse<MessagePage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any): Promise<ApiResponse<MessagePage>>;
   /**
    * Lists MessageInstance records from the API as a list.
    *
@@ -144,13 +137,8 @@ export interface MessageListInstance {
    * @param { MessageListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: MessageInstance[]) => any
-  ): Promise<MessageInstance[]>;
-  list(
-    params: MessageListInstanceOptions,
-    callback?: (error: Error | null, items: MessageInstance[]) => any
-  ): Promise<MessageInstance[]>;
+  list(callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  list(params: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
   /**
    * Lists MessageInstance records from the API as a list with HTTP metadata.
    *
@@ -162,19 +150,8 @@ export interface MessageListInstance {
    * @param { MessageListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<MessageInstance[]>
-    ) => any
-  ): Promise<ApiResponse<MessageInstance[]>>;
-  listWithHttpInfo(
-    params: MessageListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<MessageInstance[]>
-    ) => any
-  ): Promise<ApiResponse<MessageInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<MessageInstance[]>) => any): Promise<ApiResponse<MessageInstance[]>>;
+  listWithHttpInfo(params: MessageListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<MessageInstance[]>) => any): Promise<ApiResponse<MessageInstance[]>>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    *
@@ -186,13 +163,8 @@ export interface MessageListInstance {
    * @param { MessageListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
-  page(
-    params: MessageListInstancePageOptions,
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
+  page(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  page(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
   /**
    * Retrieve a single page of MessageInstance records from the API with HTTP metadata.
    *
@@ -204,13 +176,9 @@ export interface MessageListInstance {
    * @param { MessageListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
-  ): Promise<ApiResponse<MessagePage>>;
-  pageWithHttpInfo(
-    params: MessageListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
-  ): Promise<ApiResponse<MessagePage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any): Promise<ApiResponse<MessagePage>>;
+  pageWithHttpInfo(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any): Promise<ApiResponse<MessagePage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -219,26 +187,18 @@ export interface MessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MessageListInstance(
-  version: V1,
-  sessionId: string
-): MessageListInstance {
+export function MessageListInstance(version: V1, sessionId: string): MessageListInstance {
   if (!isValidPathParam(sessionId)) {
-    throw new Error("Parameter 'sessionId' is not valid.");
+    throw new Error('Parameter \'sessionId\' is not valid.');
   }
 
   const instance = {} as MessageListInstance;
 
   instance._version = version;
-  instance._solution = { sessionId };
+  instance._solution = { sessionId,  };
   instance._uri = `/Sessions/${sessionId}/Messages`;
 
-  instance.page = function page(
-    params?:
-      | MessageListInstancePageOptions
-      | ((error: Error | null, items: MessagePage) => any),
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage> {
+  instance.page = function page(params?: MessageListInstancePageOptions | ((error: Error | null, items: MessagePage) => any), callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -248,59 +208,44 @@ export function MessageListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessagePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new MessagePage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new MessagePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | MessageListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<MessagePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
-  ): Promise<ApiResponse<MessagePage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: MessageListInstancePageOptions | ((error: Error | null, items: ApiResponse<MessagePage>) => any), callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any): Promise<ApiResponse<MessagePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -310,77 +255,67 @@ export function MessageListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MessagePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MessagePage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<MessagePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new MessagePage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MessagePage>) => any
-  ): Promise<ApiResponse<MessagePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<MessagePage>) => any): Promise<ApiResponse<MessagePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<MessagePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MessagePage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<MessagePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new MessagePage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface MessagePayload extends TwilioResponsePayload {
-  messages: MessageResource[];
+  interface MessagePayload extends TwilioResponsePayload {
+    messages: MessageResource[];
 }
 
 interface MessageResource {
@@ -397,21 +332,20 @@ interface MessageResource {
 }
 
 export class MessageInstance {
-  constructor(
-    protected _version: V1,
-    payload: MessageResource,
-    sessionId: string
-  ) {
-    this.id = payload.id;
-    this.accountSid = payload.account_sid;
-    this.assistantId = payload.assistant_id;
-    this.sessionId = payload.session_id;
-    this.identity = payload.identity;
-    this.role = payload.role;
-    this.content = payload.content;
-    this.meta = payload.meta;
+
+  constructor(protected _version: V1, payload: MessageResource, sessionId: string) {
+    
+    this.id = (payload.id);
+    this.accountSid = (payload.account_sid);
+    this.assistantId = (payload.assistant_id);
+    this.sessionId = (payload.session_id);
+    this.identity = (payload.identity);
+    this.role = (payload.role);
+    this.content = (payload.content);
+    this.meta = (payload.meta);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+
   }
 
   /**
@@ -480,41 +414,34 @@ export class MessageInstance {
   }
 }
 
-export class MessagePage extends Page<
-  V1,
-  MessagePayload,
-  MessageResource,
-  MessageInstance
-> {
-  /**
-   * Initialize the MessagePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: MessageSolution
-  ) {
+export class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
+/**
+* Initialize the MessagePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: MessageSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MessageInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessageResource): MessageInstance {
+    /**
+    * Build an instance of MessageInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MessageResource): MessageInstance {
+
     return new MessageInstance(
-      this._version,
-      payload,
-      this._solution.sessionId
+    this._version,
+    payload,
+        this._solution.sessionId,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

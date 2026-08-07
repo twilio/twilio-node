@@ -13,7 +13,7 @@ class Messaging extends MessagingBase {
    */
   get brandRegistrations(): BrandRegistrationListInstance {
     console.warn(
-      "brandRegistrations is deprecated. Use v1.brandRegistrations instead."
+      "brandRegistrations is deprecated. Use v1.brandRegistrations instead.",
     );
     return this.v1.brandRegistrations;
   }
@@ -47,7 +47,7 @@ class Messaging extends MessagingBase {
    */
   get externalCampaign(): ExternalCampaignListInstance {
     console.warn(
-      "externalCampaign is deprecated. Use v1.externalCampaign instead."
+      "externalCampaign is deprecated. Use v1.externalCampaign instead.",
     );
     return this.v1.externalCampaign;
   }

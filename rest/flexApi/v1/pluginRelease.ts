@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,14 +22,12 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a PluginReleaseInstance
  */
 export interface PluginReleaseContextFetchOptions {
   /** The Flex-Metadata HTTP request header */
-  "flexMetadata"?: string;
+  flexMetadata?: string;
 }
 
 /**
@@ -38,9 +35,9 @@ export interface PluginReleaseContextFetchOptions {
  */
 export interface PluginReleaseListInstanceCreateOptions {
   /** The SID or the Version of the Flex Plugin Configuration to release. */
-  "configurationId": string;
+  configurationId: string;
   /** The Flex-Metadata HTTP request header */
-  "flexMetadata"?: string;
+  flexMetadata?: string;
 }
 
 /**
@@ -48,9 +45,9 @@ export interface PluginReleaseListInstanceCreateOptions {
  */
 export interface PluginReleaseListInstanceEachOptions {
   /** The Flex-Metadata HTTP request header */
-  "flexMetadata"?: string;
+  flexMetadata?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PluginReleaseInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -64,31 +61,28 @@ export interface PluginReleaseListInstanceEachOptions {
  */
 export interface PluginReleaseListInstanceOptions {
   /** The Flex-Metadata HTTP request header */
-  "flexMetadata"?: string;
+  flexMetadata?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface PluginReleaseListInstancePageOptions {
   /** The Flex-Metadata HTTP request header */
-  "flexMetadata"?: string;
+  flexMetadata?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface PluginReleaseContext {
-
   /**
    * Fetch a PluginReleaseInstance
    *
@@ -96,7 +90,9 @@ export interface PluginReleaseContext {
    *
    * @returns Resolves to processed PluginReleaseInstance
    */
-  fetch(callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance>;
   /**
    * Fetch a PluginReleaseInstance
    *
@@ -105,7 +101,10 @@ export interface PluginReleaseContext {
    *
    * @returns Resolves to processed PluginReleaseInstance
    */
-  fetch(params: PluginReleaseContextFetchOptions, callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance>;
+  fetch(
+    params: PluginReleaseContextFetchOptions,
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance>;
 
   /**
    * Fetch a PluginReleaseInstance and return HTTP info
@@ -114,7 +113,12 @@ export interface PluginReleaseContext {
    *
    * @returns Resolves to processed PluginReleaseInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>>;
   /**
    * Fetch a PluginReleaseInstance and return HTTP info
    *
@@ -123,7 +127,13 @@ export interface PluginReleaseContext {
    *
    * @returns Resolves to processed PluginReleaseInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: PluginReleaseContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>>;
+  fetchWithHttpInfo(
+    params: PluginReleaseContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -133,86 +143,120 @@ export interface PluginReleaseContext {
 }
 
 export interface PluginReleaseContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class PluginReleaseContextImpl implements PluginReleaseContext {
   protected _solution: PluginReleaseContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/PluginService/Releases/${sid}`;
   }
 
-  fetch(params?: PluginReleaseContextFetchOptions | ((error: Error | null, item?: PluginReleaseInstance) => any),callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | PluginReleaseContextFetchOptions
+      | ((error: Error | null, item?: PluginReleaseInstance) => any),
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new PluginReleaseInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PluginReleaseInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: PluginReleaseContextFetchOptions | ((error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | PluginReleaseContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<PluginReleaseInstance>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<PluginReleaseResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PluginReleaseInstance> => ({
-      ...response,
-      body: new PluginReleaseInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PluginReleaseResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<PluginReleaseInstance> => ({
+        ...response,
+        body: new PluginReleaseInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -229,9 +273,8 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
   }
 }
 
-
-  interface PluginReleasePayload extends TwilioResponsePayload {
-    releases: PluginReleaseResource[];
+interface PluginReleasePayload extends TwilioResponsePayload {
+  releases: PluginReleaseResource[];
 }
 
 interface PluginReleaseResource {
@@ -246,15 +289,18 @@ export class PluginReleaseInstance {
   protected _solution: PluginReleaseContextSolution;
   protected _context?: PluginReleaseContext;
 
-  constructor(protected _version: V1, payload: PluginReleaseResource, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.configurationSid = (payload.configuration_sid);
+  constructor(
+    protected _version: V1,
+    payload: PluginReleaseResource,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.configurationSid = payload.configuration_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -279,7 +325,9 @@ export class PluginReleaseInstance {
   url: string;
 
   private get _proxy(): PluginReleaseContext {
-    this._context = this._context || new PluginReleaseContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new PluginReleaseContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -290,7 +338,9 @@ export class PluginReleaseInstance {
    *
    * @returns Resolves to processed PluginReleaseInstance
    */
-  fetch(callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance>;
   /**
    * Fetch a PluginReleaseInstance
    *
@@ -299,10 +349,15 @@ export class PluginReleaseInstance {
    *
    * @returns Resolves to processed PluginReleaseInstance
    */
-  fetch(params: PluginReleaseContextFetchOptions, callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance>;
+  fetch(
+    params: PluginReleaseContextFetchOptions,
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -313,7 +368,12 @@ export class PluginReleaseInstance {
    *
    * @returns Resolves to processed PluginReleaseInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>>;
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>>;
   /**
    * Fetch a PluginReleaseInstance and return HTTP info
    *
@@ -322,10 +382,21 @@ export class PluginReleaseInstance {
    *
    * @returns Resolves to processed PluginReleaseInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: PluginReleaseContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>>;
+  fetchWithHttpInfo(
+    params: PluginReleaseContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -349,20 +420,15 @@ export class PluginReleaseInstance {
   }
 }
 
-
-export interface PluginReleaseSolution {
-}
+export interface PluginReleaseSolution {}
 
 export interface PluginReleaseListInstance {
   _version: V1;
   _solution: PluginReleaseSolution;
   _uri: string;
 
-  (sid: string, ): PluginReleaseContext;
-  get(sid: string, ): PluginReleaseContext;
-
-
-
+  (sid: string): PluginReleaseContext;
+  get(sid: string): PluginReleaseContext;
 
   /**
    * Create a PluginReleaseInstance
@@ -372,7 +438,10 @@ export interface PluginReleaseListInstance {
    *
    * @returns Resolves to processed PluginReleaseInstance
    */
-  create(params: PluginReleaseListInstanceCreateOptions, callback?: (error: Error | null, item?: PluginReleaseInstance) => any): Promise<PluginReleaseInstance>;
+  create(
+    params: PluginReleaseListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance>;
 
   /**
    * Create a PluginReleaseInstance and return HTTP info
@@ -382,10 +451,13 @@ export interface PluginReleaseListInstance {
    *
    * @returns Resolves to processed PluginReleaseInstance with HTTP metadata
    */
-  createWithHttpInfo(params: PluginReleaseListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: PluginReleaseListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>>;
 
   /**
    * Streams PluginReleaseInstance records from the API.
@@ -402,8 +474,19 @@ export interface PluginReleaseListInstance {
    * @param { PluginReleaseListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: PluginReleaseInstance, done: (err?: Error) => void) => void): void;
-  each(params: PluginReleaseListInstanceEachOptions, callback?: (item: PluginReleaseInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: PluginReleaseInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: PluginReleaseListInstanceEachOptions,
+    callback?: (
+      item: PluginReleaseInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams PluginReleaseInstance records from the API with HTTP metadata captured per page.
    *
@@ -419,8 +502,19 @@ export interface PluginReleaseListInstance {
    * @param { PluginReleaseListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: PluginReleaseInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: PluginReleaseListInstanceEachOptions, callback?: (item: PluginReleaseInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: PluginReleaseInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: PluginReleaseListInstanceEachOptions,
+    callback?: (
+      item: PluginReleaseInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of PluginReleaseInstance records from the API.
    *
@@ -429,7 +523,10 @@ export interface PluginReleaseListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: PluginReleasePage) => any): Promise<PluginReleasePage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PluginReleasePage) => any,
+  ): Promise<PluginReleasePage>;
   /**
    * Retrieve a single target page of PluginReleaseInstance records from the API with HTTP metadata.
    *
@@ -438,7 +535,13 @@ export interface PluginReleaseListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<PluginReleasePage>) => any): Promise<ApiResponse<PluginReleasePage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleasePage>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleasePage>>;
   /**
    * Lists PluginReleaseInstance records from the API as a list.
    *
@@ -448,8 +551,13 @@ export interface PluginReleaseListInstance {
    * @param { PluginReleaseListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: PluginReleaseInstance[]) => any): Promise<PluginReleaseInstance[]>;
-  list(params: PluginReleaseListInstanceOptions, callback?: (error: Error | null, items: PluginReleaseInstance[]) => any): Promise<PluginReleaseInstance[]>;
+  list(
+    callback?: (error: Error | null, items: PluginReleaseInstance[]) => any,
+  ): Promise<PluginReleaseInstance[]>;
+  list(
+    params: PluginReleaseListInstanceOptions,
+    callback?: (error: Error | null, items: PluginReleaseInstance[]) => any,
+  ): Promise<PluginReleaseInstance[]>;
   /**
    * Lists PluginReleaseInstance records from the API as a list with HTTP metadata.
    *
@@ -461,8 +569,19 @@ export interface PluginReleaseListInstance {
    * @param { PluginReleaseListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PluginReleaseInstance[]>) => any): Promise<ApiResponse<PluginReleaseInstance[]>>;
-  listWithHttpInfo(params: PluginReleaseListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<PluginReleaseInstance[]>) => any): Promise<ApiResponse<PluginReleaseInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleaseInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance[]>>;
+  listWithHttpInfo(
+    params: PluginReleaseListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleaseInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance[]>>;
   /**
    * Retrieve a single page of PluginReleaseInstance records from the API.
    *
@@ -474,8 +593,13 @@ export interface PluginReleaseListInstance {
    * @param { PluginReleaseListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: PluginReleasePage) => any): Promise<PluginReleasePage>;
-  page(params: PluginReleaseListInstancePageOptions, callback?: (error: Error | null, items: PluginReleasePage) => any): Promise<PluginReleasePage>;
+  page(
+    callback?: (error: Error | null, items: PluginReleasePage) => any,
+  ): Promise<PluginReleasePage>;
+  page(
+    params: PluginReleaseListInstancePageOptions,
+    callback?: (error: Error | null, items: PluginReleasePage) => any,
+  ): Promise<PluginReleasePage>;
   /**
    * Retrieve a single page of PluginReleaseInstance records from the API with HTTP metadata.
    *
@@ -487,9 +611,19 @@ export interface PluginReleaseListInstance {
    * @param { PluginReleaseListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PluginReleasePage>) => any): Promise<ApiResponse<PluginReleasePage>>;
-  pageWithHttpInfo(params: PluginReleaseListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<PluginReleasePage>) => any): Promise<ApiResponse<PluginReleasePage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleasePage>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleasePage>>;
+  pageWithHttpInfo(
+    params: PluginReleaseListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleasePage>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleasePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -498,89 +632,122 @@ export interface PluginReleaseListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PluginReleaseListInstance(version: V1): PluginReleaseListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as PluginReleaseListInstance;
+export function PluginReleaseListInstance(
+  version: V1,
+): PluginReleaseListInstance {
+  const instance = ((sid) => instance.get(sid)) as PluginReleaseListInstance;
 
-  instance.get = function get(sid, ): PluginReleaseContext {
+  instance.get = function get(sid): PluginReleaseContext {
     return new PluginReleaseContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/PluginService/Releases`;
 
-  instance.create = function create(params: PluginReleaseListInstanceCreateOptions, callback?: (error: Error | null, items: PluginReleaseInstance) => any): Promise<PluginReleaseInstance> {
+  instance.create = function create(
+    params: PluginReleaseListInstanceCreateOptions,
+    callback?: (error: Error | null, items: PluginReleaseInstance) => any,
+  ): Promise<PluginReleaseInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["configurationId"] === null || params["configurationId"] === undefined) {
-      throw new Error('Required parameter "params[\'configurationId\']" missing.');
+    if (
+      params["configurationId"] === null ||
+      params["configurationId"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['configurationId']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["ConfigurationId"] = params["configurationId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new PluginReleaseInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new PluginReleaseInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: PluginReleaseListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<PluginReleaseInstance>) => any): Promise<ApiResponse<PluginReleaseInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: PluginReleaseListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleaseInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleaseInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["configurationId"] === null || params["configurationId"] === undefined) {
-      throw new Error('Required parameter "params[\'configurationId\']" missing.');
+    if (
+      params["configurationId"] === null ||
+      params["configurationId"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['configurationId']\" missing.",
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["ConfigurationId"] = params["configurationId"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
-    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<PluginReleaseResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<PluginReleaseInstance> => ({
-      ...response,
-      body: new PluginReleaseInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<PluginReleaseResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<PluginReleaseInstance> => ({
+        ...response,
+        body: new PluginReleaseInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: PluginReleaseListInstancePageOptions | ((error: Error | null, items: PluginReleasePage) => any), callback?: (error: Error | null, items: PluginReleasePage) => any): Promise<PluginReleasePage> {
+  instance.page = function page(
+    params?:
+      | PluginReleaseListInstancePageOptions
+      | ((error: Error | null, items: PluginReleasePage) => any),
+    callback?: (error: Error | null, items: PluginReleasePage) => any,
+  ): Promise<PluginReleasePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -590,45 +757,64 @@ export function PluginReleaseListInstance(version: V1): PluginReleaseListInstanc
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new PluginReleasePage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PluginReleasePage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PluginReleasePage) => any): Promise<PluginReleasePage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new PluginReleasePage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PluginReleasePage) => any,
+  ): Promise<PluginReleasePage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PluginReleasePage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: PluginReleaseListInstancePageOptions | ((error: Error | null, items: ApiResponse<PluginReleasePage>) => any), callback?: (error: Error | null, items: ApiResponse<PluginReleasePage>) => any): Promise<ApiResponse<PluginReleasePage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | PluginReleaseListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<PluginReleasePage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PluginReleasePage>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleasePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -638,93 +824,117 @@ export function PluginReleaseListInstance(version: V1): PluginReleaseListInstanc
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
-    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
+    headers["Accept"] = "application/json";
+    if (params["flexMetadata"] !== undefined)
+      headers["Flex-Metadata"] = params["flexMetadata"];
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PluginReleasePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PluginReleasePage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<PluginReleasePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PluginReleasePage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<PluginReleasePage>) => any): Promise<ApiResponse<PluginReleasePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<PluginReleasePage>,
+    ) => any,
+  ): Promise<ApiResponse<PluginReleasePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<PluginReleasePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PluginReleasePage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<PluginReleasePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PluginReleasePage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class PluginReleasePage extends Page<V1, PluginReleasePayload, PluginReleaseResource, PluginReleaseInstance> {
-/**
-* Initialize the PluginReleasePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: PluginReleaseSolution) {
+export class PluginReleasePage extends Page<
+  V1,
+  PluginReleasePayload,
+  PluginReleaseResource,
+  PluginReleaseInstance
+> {
+  /**
+   * Initialize the PluginReleasePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: PluginReleaseSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of PluginReleaseInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: PluginReleaseResource): PluginReleaseInstance {
+  /**
+   * Build an instance of PluginReleaseInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PluginReleaseResource): PluginReleaseInstance {
+    return new PluginReleaseInstance(this._version, payload);
+  }
 
-    return new PluginReleaseInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

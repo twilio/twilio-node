@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class IdentifierConfig {
   /**
@@ -62,7 +60,6 @@ export class IdentifierConfig {
   }
 }
 
-
 /**
  * Identity Resolution settings help determine if a new profile should be created, or if the incoming conversation should be added to an existing profile. These settings resolve how profiles are looked up and which profiles should merge together.
  */
@@ -82,19 +79,15 @@ export class IdentityResolutionSettingsCore {
   }
 }
 
-
-
-
 /**
  * Options to pass to update a IdentityResolutionSettingInstance
  */
 export interface IdentityResolutionSettingListInstanceUpdateOptions {
   /**  */
-  "identityResolutionSettingsCore": IdentityResolutionSettingsCore;
+  identityResolutionSettingsCore: IdentityResolutionSettingsCore;
   /** Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource\'s current Entity Tag (ETag) matches the one provided, preventing accidental overwrites. */
-  "ifMatch"?: string;
+  ifMatch?: string;
 }
-
 
 export interface IdentityResolutionSettingSolution {
   storeId: string;
@@ -105,8 +98,6 @@ export interface IdentityResolutionSettingListInstance {
   _solution: IdentityResolutionSettingSolution;
   _uri: string;
 
-
-
   /**
    * Fetch a IdentityResolutionSettingInstance
    *
@@ -114,7 +105,12 @@ export interface IdentityResolutionSettingListInstance {
    *
    * @returns Resolves to processed IdentityResolutionSettingInstance
    */
-  fetch(callback?: (error: Error | null, item?: IdentityResolutionSettingInstance) => any): Promise<IdentityResolutionSettingInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: IdentityResolutionSettingInstance,
+    ) => any,
+  ): Promise<IdentityResolutionSettingInstance>;
 
   /**
    * Fetch a IdentityResolutionSettingInstance and return HTTP info
@@ -123,9 +119,12 @@ export interface IdentityResolutionSettingListInstance {
    *
    * @returns Resolves to processed IdentityResolutionSettingInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IdentityResolutionSettingInstance>) => any): Promise<ApiResponse<IdentityResolutionSettingInstance>>
-
-
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentityResolutionSettingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentityResolutionSettingInstance>>;
 
   /**
    * Update a IdentityResolutionSettingInstance
@@ -136,7 +135,14 @@ export interface IdentityResolutionSettingListInstance {
    *
    * @returns Resolves to processed IdentityResolutionSettingInstance
    */
-  update(params: IdentityResolutionSettingsCore, headers?: any, callback?: (error: Error | null, item?: IdentityResolutionSettingInstance) => any): Promise<IdentityResolutionSettingInstance>;
+  update(
+    params: IdentityResolutionSettingsCore,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: IdentityResolutionSettingInstance,
+    ) => any,
+  ): Promise<IdentityResolutionSettingInstance>;
 
   /**
    * Update a IdentityResolutionSettingInstance and return HTTP info
@@ -147,9 +153,14 @@ export interface IdentityResolutionSettingListInstance {
    *
    * @returns Resolves to processed IdentityResolutionSettingInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: IdentityResolutionSettingsCore, headers?: any, callback?: (error: Error | null, item?: ApiResponse<IdentityResolutionSettingInstance>) => any): Promise<ApiResponse<IdentityResolutionSettingInstance>>;
-
-
+  updateWithHttpInfo(
+    params: IdentityResolutionSettingsCore,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IdentityResolutionSettingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentityResolutionSettingInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -158,123 +169,193 @@ export interface IdentityResolutionSettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function IdentityResolutionSettingListInstance(version: V1, storeId: string): IdentityResolutionSettingListInstance {
+export function IdentityResolutionSettingListInstance(
+  version: V1,
+  storeId: string,
+): IdentityResolutionSettingListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
   const instance = {} as IdentityResolutionSettingListInstance;
 
   instance._version = version;
-  instance._solution = { storeId,  };
+  instance._solution = { storeId };
   instance._uri = `/ControlPlane/Stores/${storeId}/IdentityResolutionSettings`;
 
-  instance.fetch = function fetch( callback?: (error: Error | null, items: IdentityResolutionSettingInstance) => any): Promise<IdentityResolutionSettingInstance> {
+  instance.fetch = function fetch(
+    callback?: (
+      error: Error | null,
+      items: IdentityResolutionSettingInstance,
+    ) => any,
+  ): Promise<IdentityResolutionSettingInstance> {
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new IdentityResolutionSettingInstance(operationVersion, payload, instance._solution.storeId));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IdentityResolutionSettingInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<IdentityResolutionSettingInstance>) => any): Promise<ApiResponse<IdentityResolutionSettingInstance>> {
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IdentityResolutionSettingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentityResolutionSettingInstance>> {
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<IdentityResolutionSettingResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<IdentityResolutionSettingInstance> => ({
-      ...response,
-      body: new IdentityResolutionSettingInstance(operationVersion, response.body, instance._solution.storeId)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<IdentityResolutionSettingResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<IdentityResolutionSettingInstance> => ({
+        ...response,
+        body: new IdentityResolutionSettingInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.update = function update(params: IdentityResolutionSettingsCore, headers?: any, callback?: (error: Error | null, items: IdentityResolutionSettingInstance) => any): Promise<IdentityResolutionSettingInstance> {
+  instance.update = function update(
+    params: IdentityResolutionSettingsCore,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: IdentityResolutionSettingInstance,
+    ) => any,
+  ): Promise<IdentityResolutionSettingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new IdentityResolutionSettingInstance(operationVersion, payload, instance._solution.storeId));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IdentityResolutionSettingInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.updateWithHttpInfo = function updateWithHttpInfo(params: IdentityResolutionSettingsCore, headers?: any, callback?: (error: Error | null, items: ApiResponse<IdentityResolutionSettingInstance>) => any): Promise<ApiResponse<IdentityResolutionSettingInstance>> {
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: IdentityResolutionSettingsCore,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<IdentityResolutionSettingInstance>,
+    ) => any,
+  ): Promise<ApiResponse<IdentityResolutionSettingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<IdentityResolutionSettingResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<IdentityResolutionSettingInstance> => ({
-      ...response,
-      body: new IdentityResolutionSettingInstance(operationVersion, response.body, instance._solution.storeId)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<IdentityResolutionSettingResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<IdentityResolutionSettingInstance> => ({
+        ...response,
+        body: new IdentityResolutionSettingInstance(
+          operationVersion,
+          response.body,
+          instance._solution.storeId,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
 
 /**
  * Response model for IdentityResolutionSettings operations
@@ -296,20 +377,28 @@ interface UpdateIdentityResolutionSettings202Response_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type IdentityResolutionSettingResource = IdentityResolutionSettings_ResponseResource | UpdateIdentityResolutionSettings202Response_ResponseResource;
+type IdentityResolutionSettingResource =
+  | IdentityResolutionSettings_ResponseResource
+  | UpdateIdentityResolutionSettings202Response_ResponseResource;
 
 export class IdentityResolutionSettingInstance {
-
-  constructor(protected _version: V1, _payload: IdentityResolutionSettingResource, storeId: string) {
+  constructor(
+    protected _version: V1,
+    _payload: IdentityResolutionSettingResource,
+    storeId: string,
+  ) {
     const payload: any = _payload;
-    this.identifierConfigs =  payload.identifierConfigs !== null && payload.identifierConfigs !== undefined ? payload.identifierConfigs.map(
-      (payload: any) => new IdentifierConfig(payload)
-    ) : null;
-    this.matchingRules = (payload.matchingRules);
+    this.identifierConfigs =
+      payload.identifierConfigs !== null &&
+      payload.identifierConfigs !== undefined
+        ? payload.identifierConfigs.map(
+            (payload: any) => new IdentifierConfig(payload),
+          )
+        : null;
+    this.matchingRules = payload.matchingRules;
     this.version = deserialize.integer(payload.version);
-    this.message = (payload.message);
-    this.statusUrl = (payload.statusUrl);
-
+    this.message = payload.message;
+    this.statusUrl = payload.statusUrl;
   }
 
   /**
@@ -349,5 +438,3 @@ export class IdentityResolutionSettingInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -33,28 +34,32 @@ import { VerificationListInstance } from "./service/verification";
 import { VerificationCheckListInstance } from "./service/verificationCheck";
 import { WebhookListInstance } from "./service/webhook";
 
+
+
+
+
 /**
  * Options to pass to update a ServiceInstance
  */
 export interface ServiceContextUpdateOptions {
   /** A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. */
-  codeLength?: number;
+  "codeLength"?: number;
   /** Whether to perform a lookup with each verification started and return info about the phone number. */
-  lookupEnabled?: boolean;
+  "lookupEnabled"?: boolean;
   /** Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`. */
-  skipSmsToLandlines?: boolean;
+  "skipSmsToLandlines"?: boolean;
   /** Whether to ask the user to press a number before delivering the verify code in a phone call. */
-  dtmfInputRequired?: boolean;
+  "dtmfInputRequired"?: boolean;
   /** The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. */
-  ttsName?: string;
+  "ttsName"?: string;
   /** Whether to pass PSD2 transaction parameters when starting a verification. */
-  psd2Enabled?: boolean;
+  "psd2Enabled"?: boolean;
   /** Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.** */
-  doNotShareWarningEnabled?: boolean;
+  "doNotShareWarningEnabled"?: boolean;
   /** Whether to allow sending verifications with a custom code instead of a randomly generated one. */
-  customCodeEnabled?: boolean;
+  "customCodeEnabled"?: boolean;
   /** Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. */
   "push.includeDate"?: boolean;
   /** Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource) */
@@ -70,7 +75,7 @@ export interface ServiceContextUpdateOptions {
   /** Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1 */
   "totp.skew"?: number;
   /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
-  defaultTemplateSid?: string;
+  "defaultTemplateSid"?: string;
   /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service. */
   "whatsapp.msgServiceSid"?: string;
   /** The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service. */
@@ -88,7 +93,7 @@ export interface ServiceContextUpdateOptions {
   /** The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
   "passkeys.userVerification"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
-  verifyEventSubscriptionEnabled?: boolean;
+  "verifyEventSubscriptionEnabled"?: boolean;
 }
 
 /**
@@ -96,23 +101,23 @@ export interface ServiceContextUpdateOptions {
  */
 export interface ServiceListInstanceCreateOptions {
   /** A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** */
-  friendlyName: string;
+  "friendlyName": string;
   /** The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. */
-  codeLength?: number;
+  "codeLength"?: number;
   /** Whether to perform a lookup with each verification started and return info about the phone number. */
-  lookupEnabled?: boolean;
+  "lookupEnabled"?: boolean;
   /** Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`. */
-  skipSmsToLandlines?: boolean;
+  "skipSmsToLandlines"?: boolean;
   /** Whether to ask the user to press a number before delivering the verify code in a phone call. */
-  dtmfInputRequired?: boolean;
+  "dtmfInputRequired"?: boolean;
   /** The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. */
-  ttsName?: string;
+  "ttsName"?: string;
   /** Whether to pass PSD2 transaction parameters when starting a verification. */
-  psd2Enabled?: boolean;
+  "psd2Enabled"?: boolean;
   /** Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code` */
-  doNotShareWarningEnabled?: boolean;
+  "doNotShareWarningEnabled"?: boolean;
   /** Whether to allow sending verifications with a custom code instead of a randomly generated one. */
-  customCodeEnabled?: boolean;
+  "customCodeEnabled"?: boolean;
   /** Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead. */
   "push.includeDate"?: boolean;
   /** Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource) */
@@ -128,7 +133,7 @@ export interface ServiceListInstanceCreateOptions {
   /** Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1 */
   "totp.skew"?: number;
   /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
-  defaultTemplateSid?: string;
+  "defaultTemplateSid"?: string;
   /** The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users. */
   "whatsapp.msgServiceSid"?: string;
   /** The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID. */
@@ -146,7 +151,7 @@ export interface ServiceListInstanceCreateOptions {
   /** The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`. */
   "passkeys.userVerification"?: string;
   /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
-  verifyEventSubscriptionEnabled?: boolean;
+  "verifyEventSubscriptionEnabled"?: boolean;
 }
 
 /**
@@ -154,7 +159,7 @@ export interface ServiceListInstanceCreateOptions {
  */
 export interface ServiceListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -168,22 +173,24 @@ export interface ServiceListInstanceEachOptions {
  */
 export interface ServiceListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ServiceListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ServiceContext {
   accessTokens: AccessTokenListInstance;
@@ -205,9 +212,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a ServiceInstance and return HTTP info
@@ -216,9 +221,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a ServiceInstance
@@ -227,9 +230,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
 
   /**
    * Fetch a ServiceInstance and return HTTP info
@@ -238,9 +239,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
 
   /**
    * Update a ServiceInstance
@@ -249,9 +248,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -260,10 +257,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
 
   /**
    * Update a ServiceInstance and return HTTP info
@@ -272,9 +266,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
    *
@@ -283,10 +275,7 @@ export interface ServiceContext {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -296,7 +285,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -317,394 +306,301 @@ export class ServiceContextImpl implements ServiceContext {
 
   constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Services/${sid}`;
   }
 
   get accessTokens(): AccessTokenListInstance {
-    this._accessTokens =
-      this._accessTokens ||
-      AccessTokenListInstance(this._version, this._solution.sid);
+    this._accessTokens = this._accessTokens || AccessTokenListInstance(this._version, this._solution.sid);
     return this._accessTokens;
   }
 
   get approveChallenge(): ApproveChallengeListInstance {
-    this._approveChallenge =
-      this._approveChallenge ||
-      ApproveChallengeListInstance(this._version, this._solution.sid);
+    this._approveChallenge = this._approveChallenge || ApproveChallengeListInstance(this._version, this._solution.sid);
     return this._approveChallenge;
   }
 
   get entities(): EntityListInstance {
-    this._entities =
-      this._entities || EntityListInstance(this._version, this._solution.sid);
+    this._entities = this._entities || EntityListInstance(this._version, this._solution.sid);
     return this._entities;
   }
 
   get messagingConfigurations(): MessagingConfigurationListInstance {
-    this._messagingConfigurations =
-      this._messagingConfigurations ||
-      MessagingConfigurationListInstance(this._version, this._solution.sid);
+    this._messagingConfigurations = this._messagingConfigurations || MessagingConfigurationListInstance(this._version, this._solution.sid);
     return this._messagingConfigurations;
   }
 
   get newChallenge(): NewChallengeListInstance {
-    this._newChallenge =
-      this._newChallenge ||
-      NewChallengeListInstance(this._version, this._solution.sid);
+    this._newChallenge = this._newChallenge || NewChallengeListInstance(this._version, this._solution.sid);
     return this._newChallenge;
   }
 
   get newFactors(): NewFactorListInstance {
-    this._newFactors =
-      this._newFactors ||
-      NewFactorListInstance(this._version, this._solution.sid);
+    this._newFactors = this._newFactors || NewFactorListInstance(this._version, this._solution.sid);
     return this._newFactors;
   }
 
   get newVerifyFactors(): NewVerifyFactorListInstance {
-    this._newVerifyFactors =
-      this._newVerifyFactors ||
-      NewVerifyFactorListInstance(this._version, this._solution.sid);
+    this._newVerifyFactors = this._newVerifyFactors || NewVerifyFactorListInstance(this._version, this._solution.sid);
     return this._newVerifyFactors;
   }
 
   get rateLimits(): RateLimitListInstance {
-    this._rateLimits =
-      this._rateLimits ||
-      RateLimitListInstance(this._version, this._solution.sid);
+    this._rateLimits = this._rateLimits || RateLimitListInstance(this._version, this._solution.sid);
     return this._rateLimits;
   }
 
   get verifications(): VerificationListInstance {
-    this._verifications =
-      this._verifications ||
-      VerificationListInstance(this._version, this._solution.sid);
+    this._verifications = this._verifications || VerificationListInstance(this._version, this._solution.sid);
     return this._verifications;
   }
 
   get verificationChecks(): VerificationCheckListInstance {
-    this._verificationChecks =
-      this._verificationChecks ||
-      VerificationCheckListInstance(this._version, this._solution.sid);
+    this._verificationChecks = this._verificationChecks || VerificationCheckListInstance(this._version, this._solution.sid);
     return this._verificationChecks;
   }
 
   get webhooks(): WebhookListInstance {
-    this._webhooks =
-      this._webhooks || WebhookListInstance(this._version, this._solution.sid);
+    this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.sid);
     return this._webhooks;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ServiceResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ServiceInstance> => ({
+      ...response,
+      body: new ServiceInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ServiceContextUpdateOptions
-      | ((error: Error | null, item?: ServiceInstance) => any),
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
-    if (params instanceof Function) {
+  update(params?: ServiceContextUpdateOptions | ((error: Error | null, item?: ServiceInstance) => any),callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["codeLength"] !== undefined)
-      data["CodeLength"] = params["codeLength"];
+    data["CodeLength"] = params["codeLength"];
     if (params["lookupEnabled"] !== undefined)
-      data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
     if (params["skipSmsToLandlines"] !== undefined)
-      data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
     if (params["dtmfInputRequired"] !== undefined)
-      data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
-    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
+    data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined)
+    data["TtsName"] = params["ttsName"];
     if (params["psd2Enabled"] !== undefined)
-      data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
     if (params["doNotShareWarningEnabled"] !== undefined)
-      data["DoNotShareWarningEnabled"] = serialize.bool(
-        params["doNotShareWarningEnabled"]
-      );
+    data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
     if (params["customCodeEnabled"] !== undefined)
-      data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
     if (params["push.includeDate"] !== undefined)
-      data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
     if (params["push.apnCredentialSid"] !== undefined)
-      data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
     if (params["push.fcmCredentialSid"] !== undefined)
-      data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
     if (params["totp.issuer"] !== undefined)
-      data["Totp.Issuer"] = params["totp.issuer"];
+    data["Totp.Issuer"] = params["totp.issuer"];
     if (params["totp.timeStep"] !== undefined)
-      data["Totp.TimeStep"] = params["totp.timeStep"];
+    data["Totp.TimeStep"] = params["totp.timeStep"];
     if (params["totp.codeLength"] !== undefined)
-      data["Totp.CodeLength"] = params["totp.codeLength"];
+    data["Totp.CodeLength"] = params["totp.codeLength"];
     if (params["totp.skew"] !== undefined)
-      data["Totp.Skew"] = params["totp.skew"];
+    data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
-      data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    data["DefaultTemplateSid"] = params["defaultTemplateSid"];
     if (params["whatsapp.msgServiceSid"] !== undefined)
-      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
     if (params["whatsapp.from"] !== undefined)
-      data["Whatsapp.From"] = params["whatsapp.from"];
+    data["Whatsapp.From"] = params["whatsapp.from"];
     if (params["passkeys.relyingParty.id"] !== undefined)
-      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
     if (params["passkeys.relyingParty.name"] !== undefined)
-      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
     if (params["passkeys.relyingParty.origins"] !== undefined)
-      data["Passkeys.RelyingParty.Origins"] =
-        params["passkeys.relyingParty.origins"];
+    data["Passkeys.RelyingParty.Origins"] = params["passkeys.relyingParty.origins"];
     if (params["passkeys.authenticatorAttachment"] !== undefined)
-      data["Passkeys.AuthenticatorAttachment"] =
-        params["passkeys.authenticatorAttachment"];
+    data["Passkeys.AuthenticatorAttachment"] = params["passkeys.authenticatorAttachment"];
     if (params["passkeys.discoverableCredentials"] !== undefined)
-      data["Passkeys.DiscoverableCredentials"] =
-        params["passkeys.discoverableCredentials"];
+    data["Passkeys.DiscoverableCredentials"] = params["passkeys.discoverableCredentials"];
     if (params["passkeys.userVerification"] !== undefined)
-      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
+    data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
-      data["VerifyEventSubscriptionEnabled"] = serialize.bool(
-        params["verifyEventSubscriptionEnabled"]
-      );
+    data["VerifyEventSubscriptionEnabled"] = serialize.bool(params["verifyEventSubscriptionEnabled"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | ServiceContextUpdateOptions
-      | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: ServiceContextUpdateOptions | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["codeLength"] !== undefined)
-      data["CodeLength"] = params["codeLength"];
+    data["CodeLength"] = params["codeLength"];
     if (params["lookupEnabled"] !== undefined)
-      data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
     if (params["skipSmsToLandlines"] !== undefined)
-      data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
     if (params["dtmfInputRequired"] !== undefined)
-      data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
-    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
+    data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined)
+    data["TtsName"] = params["ttsName"];
     if (params["psd2Enabled"] !== undefined)
-      data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
     if (params["doNotShareWarningEnabled"] !== undefined)
-      data["DoNotShareWarningEnabled"] = serialize.bool(
-        params["doNotShareWarningEnabled"]
-      );
+    data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
     if (params["customCodeEnabled"] !== undefined)
-      data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
     if (params["push.includeDate"] !== undefined)
-      data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
     if (params["push.apnCredentialSid"] !== undefined)
-      data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
     if (params["push.fcmCredentialSid"] !== undefined)
-      data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
     if (params["totp.issuer"] !== undefined)
-      data["Totp.Issuer"] = params["totp.issuer"];
+    data["Totp.Issuer"] = params["totp.issuer"];
     if (params["totp.timeStep"] !== undefined)
-      data["Totp.TimeStep"] = params["totp.timeStep"];
+    data["Totp.TimeStep"] = params["totp.timeStep"];
     if (params["totp.codeLength"] !== undefined)
-      data["Totp.CodeLength"] = params["totp.codeLength"];
+    data["Totp.CodeLength"] = params["totp.codeLength"];
     if (params["totp.skew"] !== undefined)
-      data["Totp.Skew"] = params["totp.skew"];
+    data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
-      data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    data["DefaultTemplateSid"] = params["defaultTemplateSid"];
     if (params["whatsapp.msgServiceSid"] !== undefined)
-      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
     if (params["whatsapp.from"] !== undefined)
-      data["Whatsapp.From"] = params["whatsapp.from"];
+    data["Whatsapp.From"] = params["whatsapp.from"];
     if (params["passkeys.relyingParty.id"] !== undefined)
-      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
     if (params["passkeys.relyingParty.name"] !== undefined)
-      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
     if (params["passkeys.relyingParty.origins"] !== undefined)
-      data["Passkeys.RelyingParty.Origins"] =
-        params["passkeys.relyingParty.origins"];
+    data["Passkeys.RelyingParty.Origins"] = params["passkeys.relyingParty.origins"];
     if (params["passkeys.authenticatorAttachment"] !== undefined)
-      data["Passkeys.AuthenticatorAttachment"] =
-        params["passkeys.authenticatorAttachment"];
+    data["Passkeys.AuthenticatorAttachment"] = params["passkeys.authenticatorAttachment"];
     if (params["passkeys.discoverableCredentials"] !== undefined)
-      data["Passkeys.DiscoverableCredentials"] =
-        params["passkeys.discoverableCredentials"];
+    data["Passkeys.DiscoverableCredentials"] = params["passkeys.discoverableCredentials"];
     if (params["passkeys.userVerification"] !== undefined)
-      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
+    data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
-      data["VerifyEventSubscriptionEnabled"] = serialize.bool(
-        params["verifyEventSubscriptionEnabled"]
-      );
+    data["VerifyEventSubscriptionEnabled"] = serialize.bool(params["verifyEventSubscriptionEnabled"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ServiceResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ServiceInstance> => ({
+      ...response,
+      body: new ServiceInstance(operationVersion, response.body, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -721,8 +617,9 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-interface ServicePayload extends TwilioResponsePayload {
-  services: ServiceResource[];
+
+  interface ServicePayload extends TwilioResponsePayload {
+    services: ServiceResource[];
 }
 
 interface ServiceResource {
@@ -754,30 +651,30 @@ export class ServiceInstance {
   protected _context?: ServiceContext;
 
   constructor(protected _version: V2, payload: ServiceResource, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
     this.codeLength = deserialize.integer(payload.code_length);
-    this.lookupEnabled = payload.lookup_enabled;
-    this.psd2Enabled = payload.psd2_enabled;
-    this.skipSmsToLandlines = payload.skip_sms_to_landlines;
-    this.dtmfInputRequired = payload.dtmf_input_required;
-    this.ttsName = payload.tts_name;
-    this.doNotShareWarningEnabled = payload.do_not_share_warning_enabled;
-    this.customCodeEnabled = payload.custom_code_enabled;
-    this.push = payload.push;
-    this.totp = payload.totp;
-    this.defaultTemplateSid = payload.default_template_sid;
-    this.whatsapp = payload.whatsapp;
-    this.passkeys = payload.passkeys;
-    this.verifyEventSubscriptionEnabled =
-      payload.verify_event_subscription_enabled;
+    this.lookupEnabled = (payload.lookup_enabled);
+    this.psd2Enabled = (payload.psd2_enabled);
+    this.skipSmsToLandlines = (payload.skip_sms_to_landlines);
+    this.dtmfInputRequired = (payload.dtmf_input_required);
+    this.ttsName = (payload.tts_name);
+    this.doNotShareWarningEnabled = (payload.do_not_share_warning_enabled);
+    this.customCodeEnabled = (payload.custom_code_enabled);
+    this.push = (payload.push);
+    this.totp = (payload.totp);
+    this.defaultTemplateSid = (payload.default_template_sid);
+    this.whatsapp = (payload.whatsapp);
+    this.passkeys = (payload.passkeys);
+    this.verifyEventSubscriptionEnabled = (payload.verify_event_subscription_enabled);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid,  };
   }
 
   /**
@@ -857,9 +754,7 @@ export class ServiceInstance {
   links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
-    this._context =
-      this._context ||
-      new ServiceContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new ServiceContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -870,9 +765,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -883,9 +778,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -896,9 +791,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
+  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -909,9 +804,9 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -922,9 +817,7 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -933,15 +826,10 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  update(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -952,9 +840,7 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
    *
@@ -963,15 +849,10 @@ export class ServiceInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  updateWithHttpInfo(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -1088,15 +969,24 @@ export class ServiceInstance {
   }
 }
 
-export interface ServiceSolution {}
+
+export interface ServiceSolution {
+}
 
 export interface ServiceListInstance {
   _version: V2;
   _solution: ServiceSolution;
   _uri: string;
 
-  (sid: string): ServiceContext;
-  get(sid: string): ServiceContext;
+  (sid: string, ): ServiceContext;
+  get(sid: string, ): ServiceContext;
+
+
+
+
+
+
+
 
   /**
    * Create a ServiceInstance
@@ -1106,10 +996,7 @@ export interface ServiceListInstance {
    *
    * @returns Resolves to processed ServiceInstance
    */
-  create(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
+  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
 
   /**
    * Create a ServiceInstance and return HTTP info
@@ -1119,10 +1006,10 @@ export interface ServiceListInstance {
    *
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>>;
+  createWithHttpInfo(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>>;
+
+
+
 
   /**
    * Streams ServiceInstance records from the API.
@@ -1139,13 +1026,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ServiceListInstanceEachOptions,
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(params: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ServiceInstance records from the API with HTTP metadata captured per page.
    *
@@ -1161,13 +1043,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ServiceListInstanceEachOptions,
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
@@ -1176,10 +1053,7 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
    * Retrieve a single target page of ServiceInstance records from the API with HTTP metadata.
    *
@@ -1188,10 +1062,7 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -1201,13 +1072,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
-  ): Promise<ServiceInstance[]>;
-  list(
-    params: ServiceListInstanceOptions,
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
-  ): Promise<ServiceInstance[]>;
+  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(params: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list with HTTP metadata.
    *
@@ -1219,19 +1085,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ServiceInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ServiceInstance[]>>;
-  listWithHttpInfo(
-    params: ServiceListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ServiceInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ServiceInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ServiceInstance[]>) => any): Promise<ApiResponse<ServiceInstance[]>>;
+  listWithHttpInfo(params: ServiceListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ServiceInstance[]>) => any): Promise<ApiResponse<ServiceInstance[]>>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -1243,13 +1098,8 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
-  page(
-    params: ServiceListInstancePageOptions,
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
+  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API with HTTP metadata.
    *
@@ -1261,13 +1111,9 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>>;
-  pageWithHttpInfo(
-    params: ServiceListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
+  pageWithHttpInfo(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1277,222 +1123,186 @@ export interface ServiceListInstance {
 }
 
 export function ServiceListInstance(version: V2): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ServiceListInstance;
 
-  instance.get = function get(sid): ServiceContext {
+  instance.get = function get(sid, ): ServiceContext {
     return new ServiceContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Services`;
 
-  instance.create = function create(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ServiceInstance) => any
-  ): Promise<ServiceInstance> {
+  instance.create = function create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
     if (params["codeLength"] !== undefined)
-      data["CodeLength"] = params["codeLength"];
+    data["CodeLength"] = params["codeLength"];
     if (params["lookupEnabled"] !== undefined)
-      data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
     if (params["skipSmsToLandlines"] !== undefined)
-      data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
     if (params["dtmfInputRequired"] !== undefined)
-      data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
-    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
+    data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined)
+    data["TtsName"] = params["ttsName"];
     if (params["psd2Enabled"] !== undefined)
-      data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
     if (params["doNotShareWarningEnabled"] !== undefined)
-      data["DoNotShareWarningEnabled"] = serialize.bool(
-        params["doNotShareWarningEnabled"]
-      );
+    data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
     if (params["customCodeEnabled"] !== undefined)
-      data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
     if (params["push.includeDate"] !== undefined)
-      data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
     if (params["push.apnCredentialSid"] !== undefined)
-      data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
     if (params["push.fcmCredentialSid"] !== undefined)
-      data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
     if (params["totp.issuer"] !== undefined)
-      data["Totp.Issuer"] = params["totp.issuer"];
+    data["Totp.Issuer"] = params["totp.issuer"];
     if (params["totp.timeStep"] !== undefined)
-      data["Totp.TimeStep"] = params["totp.timeStep"];
+    data["Totp.TimeStep"] = params["totp.timeStep"];
     if (params["totp.codeLength"] !== undefined)
-      data["Totp.CodeLength"] = params["totp.codeLength"];
+    data["Totp.CodeLength"] = params["totp.codeLength"];
     if (params["totp.skew"] !== undefined)
-      data["Totp.Skew"] = params["totp.skew"];
+    data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
-      data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    data["DefaultTemplateSid"] = params["defaultTemplateSid"];
     if (params["whatsapp.msgServiceSid"] !== undefined)
-      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
     if (params["whatsapp.from"] !== undefined)
-      data["Whatsapp.From"] = params["whatsapp.from"];
+    data["Whatsapp.From"] = params["whatsapp.from"];
     if (params["passkeys.relyingParty.id"] !== undefined)
-      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
     if (params["passkeys.relyingParty.name"] !== undefined)
-      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
     if (params["passkeys.relyingParty.origins"] !== undefined)
-      data["Passkeys.RelyingParty.Origins"] =
-        params["passkeys.relyingParty.origins"];
+    data["Passkeys.RelyingParty.Origins"] = params["passkeys.relyingParty.origins"];
     if (params["passkeys.authenticatorAttachment"] !== undefined)
-      data["Passkeys.AuthenticatorAttachment"] =
-        params["passkeys.authenticatorAttachment"];
+    data["Passkeys.AuthenticatorAttachment"] = params["passkeys.authenticatorAttachment"];
     if (params["passkeys.discoverableCredentials"] !== undefined)
-      data["Passkeys.DiscoverableCredentials"] =
-        params["passkeys.discoverableCredentials"];
+    data["Passkeys.DiscoverableCredentials"] = params["passkeys.discoverableCredentials"];
     if (params["passkeys.userVerification"] !== undefined)
-      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
+    data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
-      data["VerifyEventSubscriptionEnabled"] = serialize.bool(
-        params["verifyEventSubscriptionEnabled"]
-      );
+    data["VerifyEventSubscriptionEnabled"] = serialize.bool(params["verifyEventSubscriptionEnabled"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServiceInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<ServiceInstance>) => any
-  ): Promise<ApiResponse<ServiceInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ServiceInstance>) => any): Promise<ApiResponse<ServiceInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
     if (params["codeLength"] !== undefined)
-      data["CodeLength"] = params["codeLength"];
+    data["CodeLength"] = params["codeLength"];
     if (params["lookupEnabled"] !== undefined)
-      data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
     if (params["skipSmsToLandlines"] !== undefined)
-      data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
     if (params["dtmfInputRequired"] !== undefined)
-      data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
-    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
+    data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined)
+    data["TtsName"] = params["ttsName"];
     if (params["psd2Enabled"] !== undefined)
-      data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
     if (params["doNotShareWarningEnabled"] !== undefined)
-      data["DoNotShareWarningEnabled"] = serialize.bool(
-        params["doNotShareWarningEnabled"]
-      );
+    data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
     if (params["customCodeEnabled"] !== undefined)
-      data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
     if (params["push.includeDate"] !== undefined)
-      data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
     if (params["push.apnCredentialSid"] !== undefined)
-      data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
     if (params["push.fcmCredentialSid"] !== undefined)
-      data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
     if (params["totp.issuer"] !== undefined)
-      data["Totp.Issuer"] = params["totp.issuer"];
+    data["Totp.Issuer"] = params["totp.issuer"];
     if (params["totp.timeStep"] !== undefined)
-      data["Totp.TimeStep"] = params["totp.timeStep"];
+    data["Totp.TimeStep"] = params["totp.timeStep"];
     if (params["totp.codeLength"] !== undefined)
-      data["Totp.CodeLength"] = params["totp.codeLength"];
+    data["Totp.CodeLength"] = params["totp.codeLength"];
     if (params["totp.skew"] !== undefined)
-      data["Totp.Skew"] = params["totp.skew"];
+    data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
-      data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    data["DefaultTemplateSid"] = params["defaultTemplateSid"];
     if (params["whatsapp.msgServiceSid"] !== undefined)
-      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
     if (params["whatsapp.from"] !== undefined)
-      data["Whatsapp.From"] = params["whatsapp.from"];
+    data["Whatsapp.From"] = params["whatsapp.from"];
     if (params["passkeys.relyingParty.id"] !== undefined)
-      data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
+    data["Passkeys.RelyingParty.Id"] = params["passkeys.relyingParty.id"];
     if (params["passkeys.relyingParty.name"] !== undefined)
-      data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
+    data["Passkeys.RelyingParty.Name"] = params["passkeys.relyingParty.name"];
     if (params["passkeys.relyingParty.origins"] !== undefined)
-      data["Passkeys.RelyingParty.Origins"] =
-        params["passkeys.relyingParty.origins"];
+    data["Passkeys.RelyingParty.Origins"] = params["passkeys.relyingParty.origins"];
     if (params["passkeys.authenticatorAttachment"] !== undefined)
-      data["Passkeys.AuthenticatorAttachment"] =
-        params["passkeys.authenticatorAttachment"];
+    data["Passkeys.AuthenticatorAttachment"] = params["passkeys.authenticatorAttachment"];
     if (params["passkeys.discoverableCredentials"] !== undefined)
-      data["Passkeys.DiscoverableCredentials"] =
-        params["passkeys.discoverableCredentials"];
+    data["Passkeys.DiscoverableCredentials"] = params["passkeys.discoverableCredentials"];
     if (params["passkeys.userVerification"] !== undefined)
-      data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
+    data["Passkeys.UserVerification"] = params["passkeys.userVerification"];
     if (params["verifyEventSubscriptionEnabled"] !== undefined)
-      data["VerifyEventSubscriptionEnabled"] = serialize.bool(
-        params["verifyEventSubscriptionEnabled"]
-      );
+    data["VerifyEventSubscriptionEnabled"] = serialize.bool(params["verifyEventSubscriptionEnabled"]);
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ServiceResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ServiceResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ServiceInstance> => ({
+      ...response,
+      body: new ServiceInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ServiceListInstancePageOptions
-      | ((error: Error | null, items: ServicePage) => any),
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage> {
+
+    }
+
+  instance.page = function page(params?: ServiceListInstancePageOptions | ((error: Error | null, items: ServicePage) => any), callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1502,59 +1312,44 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServicePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ServicePage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ServicePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ServiceListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ServicePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ServiceListInstancePageOptions | ((error: Error | null, items: ApiResponse<ServicePage>) => any), callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1564,106 +1359,92 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ServicePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ServicePage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ServicePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ServicePage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any
-  ): Promise<ApiResponse<ServicePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any): Promise<ApiResponse<ServicePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ServicePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ServicePage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ServicePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ServicePage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ServicePage extends Page<
-  V2,
-  ServicePayload,
-  ServiceResource,
-  ServiceInstance
-> {
-  /**
-   * Initialize the ServicePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: ServiceSolution
-  ) {
+export class ServicePage extends Page<V2, ServicePayload, ServiceResource, ServiceInstance> {
+/**
+* Initialize the ServicePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ServiceSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ServiceInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ServiceResource): ServiceInstance {
-    return new ServiceInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ServiceInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ServiceResource): ServiceInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new ServiceInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

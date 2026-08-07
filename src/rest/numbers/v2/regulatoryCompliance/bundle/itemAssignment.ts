@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -22,12 +23,16 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
+
+
+
 /**
  * Options to pass to create a ItemAssignmentInstance
  */
 export interface ItemAssignmentListInstanceCreateOptions {
   /** The SID of an object bag that holds information of the different items. */
-  objectSid: string;
+  "objectSid": string;
 }
 
 /**
@@ -35,12 +40,9 @@ export interface ItemAssignmentListInstanceCreateOptions {
  */
 export interface ItemAssignmentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: ItemAssignmentInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: ItemAssignmentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -52,24 +54,27 @@ export interface ItemAssignmentListInstanceEachOptions {
  */
 export interface ItemAssignmentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ItemAssignmentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ItemAssignmentContext {
+
   /**
    * Remove a ItemAssignmentInstance
    *
@@ -77,9 +82,7 @@ export interface ItemAssignmentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a ItemAssignmentInstance and return HTTP info
@@ -88,9 +91,7 @@ export interface ItemAssignmentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a ItemAssignmentInstance
@@ -99,9 +100,7 @@ export interface ItemAssignmentContext {
    *
    * @returns Resolves to processed ItemAssignmentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
-  ): Promise<ItemAssignmentInstance>;
+  fetch(callback?: (error: Error | null, item?: ItemAssignmentInstance) => any): Promise<ItemAssignmentInstance>
 
   /**
    * Fetch a ItemAssignmentInstance and return HTTP info
@@ -110,12 +109,7 @@ export interface ItemAssignmentContext {
    *
    * @returns Resolves to processed ItemAssignmentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ItemAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ItemAssignmentInstance>) => any): Promise<ApiResponse<ItemAssignmentInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -125,137 +119,92 @@ export interface ItemAssignmentContext {
 }
 
 export interface ItemAssignmentContextSolution {
-  bundleSid: string;
-  sid: string;
+  "bundleSid": string;
+  "sid": string;
 }
 
 export class ItemAssignmentContextImpl implements ItemAssignmentContext {
   protected _solution: ItemAssignmentContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, bundleSid: string, sid: string) {
     if (!isValidPathParam(bundleSid)) {
-      throw new Error("Parameter 'bundleSid' is not valid.");
+      throw new Error('Parameter \'bundleSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { bundleSid, sid };
+    this._solution = { bundleSid, sid,  };
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
-  ): Promise<ItemAssignmentInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ItemAssignmentInstance) => any): Promise<ItemAssignmentInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ItemAssignmentInstance(operationVersion, payload, instance._solution.bundleSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ItemAssignmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.bundleSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ItemAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ItemAssignmentInstance>) => any): Promise<ApiResponse<ItemAssignmentInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ItemAssignmentResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ItemAssignmentInstance> => ({
-          ...response,
-          body: new ItemAssignmentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.bundleSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ItemAssignmentResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ItemAssignmentInstance> => ({
+      ...response,
+      body: new ItemAssignmentInstance(operationVersion, response.body, instance._solution.bundleSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -272,8 +221,9 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
   }
 }
 
-interface ItemAssignmentPayload extends TwilioResponsePayload {
-  results: ItemAssignmentResource[];
+
+  interface ItemAssignmentPayload extends TwilioResponsePayload {
+    results: ItemAssignmentResource[];
 }
 
 interface ItemAssignmentResource {
@@ -289,20 +239,16 @@ export class ItemAssignmentInstance {
   protected _solution: ItemAssignmentContextSolution;
   protected _context?: ItemAssignmentContext;
 
-  constructor(
-    protected _version: V2,
-    payload: ItemAssignmentResource,
-    bundleSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.bundleSid = payload.bundle_sid;
-    this.accountSid = payload.account_sid;
-    this.objectSid = payload.object_sid;
+  constructor(protected _version: V2, payload: ItemAssignmentResource, bundleSid: string, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.bundleSid = (payload.bundle_sid);
+    this.accountSid = (payload.account_sid);
+    this.objectSid = (payload.object_sid);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { bundleSid, sid: sid || this.sid };
+    this._solution = { bundleSid, sid: sid,  };
   }
 
   /**
@@ -331,13 +277,7 @@ export class ItemAssignmentInstance {
   url: string;
 
   private get _proxy(): ItemAssignmentContext {
-    this._context =
-      this._context ||
-      new ItemAssignmentContextImpl(
-        this._version,
-        this._solution.bundleSid,
-        this._solution.sid
-      );
+    this._context = this._context || new ItemAssignmentContextImpl(this._version, this._solution.bundleSid, this._solution.sid);
     return this._context;
   }
 
@@ -348,9 +288,9 @@ export class ItemAssignmentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -361,9 +301,9 @@ export class ItemAssignmentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -374,9 +314,9 @@ export class ItemAssignmentInstance {
    *
    * @returns Resolves to processed ItemAssignmentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
-  ): Promise<ItemAssignmentInstance> {
+  fetch(callback?: (error: Error | null, item?: ItemAssignmentInstance) => any): Promise<ItemAssignmentInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -387,12 +327,9 @@ export class ItemAssignmentInstance {
    *
    * @returns Resolves to processed ItemAssignmentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ItemAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ItemAssignmentInstance>) => any): Promise<ApiResponse<ItemAssignmentInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -417,6 +354,7 @@ export class ItemAssignmentInstance {
   }
 }
 
+
 export interface ItemAssignmentSolution {
   bundleSid: string;
 }
@@ -426,8 +364,13 @@ export interface ItemAssignmentListInstance {
   _solution: ItemAssignmentSolution;
   _uri: string;
 
-  (sid: string): ItemAssignmentContext;
-  get(sid: string): ItemAssignmentContext;
+  (sid: string, ): ItemAssignmentContext;
+  get(sid: string, ): ItemAssignmentContext;
+
+
+
+
+
 
   /**
    * Create a ItemAssignmentInstance
@@ -437,10 +380,7 @@ export interface ItemAssignmentListInstance {
    *
    * @returns Resolves to processed ItemAssignmentInstance
    */
-  create(
-    params: ItemAssignmentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
-  ): Promise<ItemAssignmentInstance>;
+  create(params: ItemAssignmentListInstanceCreateOptions, callback?: (error: Error | null, item?: ItemAssignmentInstance) => any): Promise<ItemAssignmentInstance>;
 
   /**
    * Create a ItemAssignmentInstance and return HTTP info
@@ -450,13 +390,10 @@ export interface ItemAssignmentListInstance {
    *
    * @returns Resolves to processed ItemAssignmentInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ItemAssignmentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ItemAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance>>;
+  createWithHttpInfo(params: ItemAssignmentListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ItemAssignmentInstance>) => any): Promise<ApiResponse<ItemAssignmentInstance>>;
+
+
+
 
   /**
    * Streams ItemAssignmentInstance records from the API.
@@ -473,19 +410,8 @@ export interface ItemAssignmentListInstance {
    * @param { ItemAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: ItemAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: ItemAssignmentListInstanceEachOptions,
-    callback?: (
-      item: ItemAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: ItemAssignmentInstance, done: (err?: Error) => void) => void): void;
+  each(params: ItemAssignmentListInstanceEachOptions, callback?: (item: ItemAssignmentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ItemAssignmentInstance records from the API with HTTP metadata captured per page.
    *
@@ -501,19 +427,8 @@ export interface ItemAssignmentListInstance {
    * @param { ItemAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: ItemAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ItemAssignmentListInstanceEachOptions,
-    callback?: (
-      item: ItemAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ItemAssignmentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ItemAssignmentListInstanceEachOptions, callback?: (item: ItemAssignmentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ItemAssignmentInstance records from the API.
    *
@@ -522,10 +437,7 @@ export interface ItemAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ItemAssignmentPage) => any): Promise<ItemAssignmentPage>;
   /**
    * Retrieve a single target page of ItemAssignmentInstance records from the API with HTTP metadata.
    *
@@ -534,13 +446,7 @@ export interface ItemAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ItemAssignmentPage>) => any): Promise<ApiResponse<ItemAssignmentPage>>;
   /**
    * Lists ItemAssignmentInstance records from the API as a list.
    *
@@ -550,13 +456,8 @@ export interface ItemAssignmentListInstance {
    * @param { ItemAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
-  ): Promise<ItemAssignmentInstance[]>;
-  list(
-    params: ItemAssignmentListInstanceOptions,
-    callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
-  ): Promise<ItemAssignmentInstance[]>;
+  list(callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any): Promise<ItemAssignmentInstance[]>;
+  list(params: ItemAssignmentListInstanceOptions, callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any): Promise<ItemAssignmentInstance[]>;
   /**
    * Lists ItemAssignmentInstance records from the API as a list with HTTP metadata.
    *
@@ -568,19 +469,8 @@ export interface ItemAssignmentListInstance {
    * @param { ItemAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance[]>>;
-  listWithHttpInfo(
-    params: ItemAssignmentListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ItemAssignmentInstance[]>) => any): Promise<ApiResponse<ItemAssignmentInstance[]>>;
+  listWithHttpInfo(params: ItemAssignmentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ItemAssignmentInstance[]>) => any): Promise<ApiResponse<ItemAssignmentInstance[]>>;
   /**
    * Retrieve a single page of ItemAssignmentInstance records from the API.
    *
@@ -592,13 +482,8 @@ export interface ItemAssignmentListInstance {
    * @param { ItemAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
-  page(
-    params: ItemAssignmentListInstancePageOptions,
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
+  page(callback?: (error: Error | null, items: ItemAssignmentPage) => any): Promise<ItemAssignmentPage>;
+  page(params: ItemAssignmentListInstancePageOptions, callback?: (error: Error | null, items: ItemAssignmentPage) => any): Promise<ItemAssignmentPage>;
   /**
    * Retrieve a single page of ItemAssignmentInstance records from the API with HTTP metadata.
    *
@@ -610,19 +495,9 @@ export interface ItemAssignmentListInstance {
    * @param { ItemAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentPage>>;
-  pageWithHttpInfo(
-    params: ItemAssignmentListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ItemAssignmentPage>) => any): Promise<ApiResponse<ItemAssignmentPage>>;
+  pageWithHttpInfo(params: ItemAssignmentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ItemAssignmentPage>) => any): Promise<ApiResponse<ItemAssignmentPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -631,124 +506,91 @@ export interface ItemAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ItemAssignmentListInstance(
-  version: V2,
-  bundleSid: string
-): ItemAssignmentListInstance {
+export function ItemAssignmentListInstance(version: V2, bundleSid: string): ItemAssignmentListInstance {
   if (!isValidPathParam(bundleSid)) {
-    throw new Error("Parameter 'bundleSid' is not valid.");
+    throw new Error('Parameter \'bundleSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as ItemAssignmentListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ItemAssignmentListInstance;
 
-  instance.get = function get(sid): ItemAssignmentContext {
+  instance.get = function get(sid, ): ItemAssignmentContext {
     return new ItemAssignmentContextImpl(version, bundleSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { bundleSid };
+  instance._solution = { bundleSid,  };
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments`;
 
-  instance.create = function create(
-    params: ItemAssignmentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ItemAssignmentInstance) => any
-  ): Promise<ItemAssignmentInstance> {
+  instance.create = function create(params: ItemAssignmentListInstanceCreateOptions, callback?: (error: Error | null, items: ItemAssignmentInstance) => any): Promise<ItemAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["objectSid"] === null || params["objectSid"] === undefined) {
-      throw new Error("Required parameter \"params['objectSid']\" missing.");
+      throw new Error('Required parameter "params[\'objectSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["ObjectSid"] = params["objectSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ItemAssignmentInstance(operationVersion, payload, instance._solution.bundleSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ItemAssignmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.bundleSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ItemAssignmentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ItemAssignmentListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ItemAssignmentInstance>) => any): Promise<ApiResponse<ItemAssignmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["objectSid"] === null || params["objectSid"] === undefined) {
-      throw new Error("Required parameter \"params['objectSid']\" missing.");
+      throw new Error('Required parameter "params[\'objectSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["ObjectSid"] = params["objectSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ItemAssignmentResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ItemAssignmentInstance> => ({
-          ...response,
-          body: new ItemAssignmentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.bundleSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ItemAssignmentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ItemAssignmentInstance> => ({
+      ...response,
+      body: new ItemAssignmentInstance(operationVersion, response.body, instance._solution.bundleSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ItemAssignmentListInstancePageOptions
-      | ((error: Error | null, items: ItemAssignmentPage) => any),
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage> {
+
+    }
+
+  instance.page = function page(params?: ItemAssignmentListInstancePageOptions | ((error: Error | null, items: ItemAssignmentPage) => any), callback?: (error: Error | null, items: ItemAssignmentPage) => any): Promise<ItemAssignmentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -758,62 +600,44 @@ export function ItemAssignmentListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ItemAssignmentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ItemAssignmentPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ItemAssignmentPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ItemAssignmentPage) => any): Promise<ItemAssignmentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ItemAssignmentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ItemAssignmentListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ItemAssignmentPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ItemAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ItemAssignmentListInstancePageOptions | ((error: Error | null, items: ApiResponse<ItemAssignmentPage>) => any), callback?: (error: Error | null, items: ApiResponse<ItemAssignmentPage>) => any): Promise<ApiResponse<ItemAssignmentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -823,121 +647,93 @@ export function ItemAssignmentListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ItemAssignmentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ItemAssignmentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ItemAssignmentPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ItemAssignmentPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ItemAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<ItemAssignmentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ItemAssignmentPage>) => any): Promise<ApiResponse<ItemAssignmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ItemAssignmentPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ItemAssignmentPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ItemAssignmentPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ItemAssignmentPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ItemAssignmentPage extends Page<
-  V2,
-  ItemAssignmentPayload,
-  ItemAssignmentResource,
-  ItemAssignmentInstance
-> {
-  /**
-   * Initialize the ItemAssignmentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: ItemAssignmentSolution
-  ) {
+export class ItemAssignmentPage extends Page<V2, ItemAssignmentPayload, ItemAssignmentResource, ItemAssignmentInstance> {
+/**
+* Initialize the ItemAssignmentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ItemAssignmentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ItemAssignmentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ItemAssignmentResource): ItemAssignmentInstance {
+    /**
+    * Build an instance of ItemAssignmentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ItemAssignmentResource): ItemAssignmentInstance {
+
     return new ItemAssignmentInstance(
-      this._version,
-      payload,
-      this._solution.bundleSid
+    this._version,
+    payload,
+        this._solution.bundleSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class NumbersV1CreateEmbeddedSessionRequest {
   /**
@@ -32,16 +30,13 @@ export class NumbersV1CreateEmbeddedSessionRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a EmbeddedSessionInstance
  */
 export interface EmbeddedSessionListInstanceCreateOptions {
   /**  */
-  "numbersV1CreateEmbeddedSessionRequest": NumbersV1CreateEmbeddedSessionRequest;
+  numbersV1CreateEmbeddedSessionRequest: NumbersV1CreateEmbeddedSessionRequest;
 }
-
 
 export interface EmbeddedSessionSolution {
   bundleSid: string;
@@ -52,8 +47,6 @@ export interface EmbeddedSessionListInstance {
   _solution: EmbeddedSessionSolution;
   _uri: string;
 
-
-
   /**
    * Create a EmbeddedSessionInstance
    *
@@ -63,7 +56,11 @@ export interface EmbeddedSessionListInstance {
    *
    * @returns Resolves to processed EmbeddedSessionInstance
    */
-  create(params: NumbersV1CreateEmbeddedSessionRequest, headers?: any, callback?: (error: Error | null, item?: EmbeddedSessionInstance) => any): Promise<EmbeddedSessionInstance>;
+  create(
+    params: NumbersV1CreateEmbeddedSessionRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: EmbeddedSessionInstance) => any,
+  ): Promise<EmbeddedSessionInstance>;
 
   /**
    * Create a EmbeddedSessionInstance and return HTTP info
@@ -74,9 +71,14 @@ export interface EmbeddedSessionListInstance {
    *
    * @returns Resolves to processed EmbeddedSessionInstance with HTTP metadata
    */
-  createWithHttpInfo(params: NumbersV1CreateEmbeddedSessionRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<EmbeddedSessionInstance>) => any): Promise<ApiResponse<EmbeddedSessionInstance>>;
-
-
+  createWithHttpInfo(
+    params: NumbersV1CreateEmbeddedSessionRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<EmbeddedSessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<EmbeddedSessionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -85,90 +87,127 @@ export interface EmbeddedSessionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function EmbeddedSessionListInstance(version: V1, bundleSid: string): EmbeddedSessionListInstance {
+export function EmbeddedSessionListInstance(
+  version: V1,
+  bundleSid: string,
+): EmbeddedSessionListInstance {
   if (!isValidPathParam(bundleSid)) {
-    throw new Error('Parameter \'bundleSid\' is not valid.');
+    throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
   const instance = {} as EmbeddedSessionListInstance;
 
   instance._version = version;
-  instance._solution = { bundleSid,  };
+  instance._solution = { bundleSid };
   instance._uri = `/SenderIdRegistrations/${bundleSid}/EmbeddedSessions`;
 
-  instance.create = function create(params: NumbersV1CreateEmbeddedSessionRequest, headers?: any, callback?: (error: Error | null, items: EmbeddedSessionInstance) => any): Promise<EmbeddedSessionInstance> {
+  instance.create = function create(
+    params: NumbersV1CreateEmbeddedSessionRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: EmbeddedSessionInstance) => any,
+  ): Promise<EmbeddedSessionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new EmbeddedSessionInstance(operationVersion, payload, instance._solution.bundleSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EmbeddedSessionInstance(
+          operationVersion,
+          payload,
+          instance._solution.bundleSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: NumbersV1CreateEmbeddedSessionRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<EmbeddedSessionInstance>) => any): Promise<ApiResponse<EmbeddedSessionInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1CreateEmbeddedSessionRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EmbeddedSessionInstance>,
+    ) => any,
+  ): Promise<ApiResponse<EmbeddedSessionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<EmbeddedSessionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<EmbeddedSessionInstance> => ({
-      ...response,
-      body: new EmbeddedSessionInstance(operationVersion, response.body, instance._solution.bundleSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<EmbeddedSessionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<EmbeddedSessionInstance> => ({
+        ...response,
+        body: new EmbeddedSessionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.bundleSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface EmbeddedSessionPayload extends EmbeddedSessionResource {}
+interface EmbeddedSessionPayload extends EmbeddedSessionResource {}
 
 interface EmbeddedSessionResource {
   id: string;
@@ -177,13 +216,14 @@ interface EmbeddedSessionResource {
 }
 
 export class EmbeddedSessionInstance {
-
-  constructor(protected _version: V1, payload: EmbeddedSessionResource, bundleSid?: string) {
-    
-    this.id = (payload.id);
-    this.sessionId = (payload.sessionId);
-    this.sessionToken = (payload.sessionToken);
-
+  constructor(
+    protected _version: V1,
+    payload: EmbeddedSessionResource,
+    bundleSid?: string,
+  ) {
+    this.id = payload.id;
+    this.sessionId = payload.sessionId;
+    this.sessionToken = payload.sessionToken;
   }
 
   /**
@@ -216,5 +256,3 @@ export class EmbeddedSessionInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

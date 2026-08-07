@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -19,20 +20,26 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a BulkCountryUpdateInstance
  */
 export interface BulkCountryUpdateListInstanceCreateOptions {
   /** URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]` */
-  updateRequest: string;
+  "updateRequest": string;
 }
 
-export interface BulkCountryUpdateSolution {}
+
+export interface BulkCountryUpdateSolution {
+}
 
 export interface BulkCountryUpdateListInstance {
   _version: V1;
   _solution: BulkCountryUpdateSolution;
   _uri: string;
+
+
 
   /**
    * Create a BulkCountryUpdateInstance
@@ -42,10 +49,7 @@ export interface BulkCountryUpdateListInstance {
    *
    * @returns Resolves to processed BulkCountryUpdateInstance
    */
-  create(
-    params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
-  ): Promise<BulkCountryUpdateInstance>;
+  create(params: BulkCountryUpdateListInstanceCreateOptions, callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any): Promise<BulkCountryUpdateInstance>;
 
   /**
    * Create a BulkCountryUpdateInstance and return HTTP info
@@ -55,13 +59,9 @@ export interface BulkCountryUpdateListInstance {
    *
    * @returns Resolves to processed BulkCountryUpdateInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<BulkCountryUpdateInstance>
-    ) => any
-  ): Promise<ApiResponse<BulkCountryUpdateInstance>>;
+  createWithHttpInfo(params: BulkCountryUpdateListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<BulkCountryUpdateInstance>) => any): Promise<ApiResponse<BulkCountryUpdateInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -70,125 +70,94 @@ export interface BulkCountryUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BulkCountryUpdateListInstance(
-  version: V1
-): BulkCountryUpdateListInstance {
+export function BulkCountryUpdateListInstance(version: V1): BulkCountryUpdateListInstance {
   const instance = {} as BulkCountryUpdateListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/DialingPermissions/BulkCountryUpdates`;
 
-  instance.create = function create(
-    params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BulkCountryUpdateInstance) => any
-  ): Promise<BulkCountryUpdateInstance> {
+  instance.create = function create(params: BulkCountryUpdateListInstanceCreateOptions, callback?: (error: Error | null, items: BulkCountryUpdateInstance) => any): Promise<BulkCountryUpdateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["updateRequest"] === null ||
-      params["updateRequest"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['updateRequest']\" missing."
-      );
+    if (params["updateRequest"] === null || params["updateRequest"] === undefined) {
+      throw new Error('Required parameter "params[\'updateRequest\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["UpdateRequest"] = params["updateRequest"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new BulkCountryUpdateInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new BulkCountryUpdateInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BulkCountryUpdateInstance>
-    ) => any
-  ): Promise<ApiResponse<BulkCountryUpdateInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: BulkCountryUpdateListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<BulkCountryUpdateInstance>) => any): Promise<ApiResponse<BulkCountryUpdateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["updateRequest"] === null ||
-      params["updateRequest"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['updateRequest']\" missing."
-      );
+    if (params["updateRequest"] === null || params["updateRequest"] === undefined) {
+      throw new Error('Required parameter "params[\'updateRequest\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["UpdateRequest"] = params["updateRequest"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<BulkCountryUpdateResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<BulkCountryUpdateInstance> => ({
-          ...response,
-          body: new BulkCountryUpdateInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<BulkCountryUpdateResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<BulkCountryUpdateInstance> => ({
+      ...response,
+      body: new BulkCountryUpdateInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface BulkCountryUpdatePayload extends BulkCountryUpdateResource {}
+  interface BulkCountryUpdatePayload extends BulkCountryUpdateResource {}
 
 interface BulkCountryUpdateResource {
   update_count: number;
@@ -196,9 +165,12 @@ interface BulkCountryUpdateResource {
 }
 
 export class BulkCountryUpdateInstance {
+
   constructor(protected _version: V1, payload: BulkCountryUpdateResource) {
+    
     this.updateCount = deserialize.integer(payload.update_count);
-    this.updateRequest = payload.update_request;
+    this.updateRequest = (payload.update_request);
+
   }
 
   /**
@@ -226,3 +198,5 @@ export class BulkCountryUpdateInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

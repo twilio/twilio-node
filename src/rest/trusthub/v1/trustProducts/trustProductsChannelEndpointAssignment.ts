@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,14 +23,18 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
+
+
 /**
  * Options to pass to create a TrustProductsChannelEndpointAssignmentInstance
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceCreateOptions {
   /** The type of channel endpoint. eg: phone-number */
-  channelEndpointType: string;
+  "channelEndpointType": string;
   /** The SID of an channel endpoint */
-  channelEndpointSid: string;
+  "channelEndpointSid": string;
 }
 
 /**
@@ -37,16 +42,13 @@ export interface TrustProductsChannelEndpointAssignmentListInstanceCreateOptions
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceEachOptions {
   /** The SID of an channel endpoint */
-  channelEndpointSid?: string;
+  "channelEndpointSid"?: string;
   /** comma separated list of channel endpoint sids */
-  channelEndpointSids?: string;
+  "channelEndpointSids"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: TrustProductsChannelEndpointAssignmentInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: TrustProductsChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -58,32 +60,35 @@ export interface TrustProductsChannelEndpointAssignmentListInstanceEachOptions {
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceOptions {
   /** The SID of an channel endpoint */
-  channelEndpointSid?: string;
+  "channelEndpointSid"?: string;
   /** comma separated list of channel endpoint sids */
-  channelEndpointSids?: string;
+  "channelEndpointSids"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface TrustProductsChannelEndpointAssignmentListInstancePageOptions {
   /** The SID of an channel endpoint */
-  channelEndpointSid?: string;
+  "channelEndpointSid"?: string;
   /** comma separated list of channel endpoint sids */
-  channelEndpointSids?: string;
+  "channelEndpointSids"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface TrustProductsChannelEndpointAssignmentContext {
+
   /**
    * Remove a TrustProductsChannelEndpointAssignmentInstance
    *
@@ -91,9 +96,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a TrustProductsChannelEndpointAssignmentInstance and return HTTP info
@@ -102,9 +105,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a TrustProductsChannelEndpointAssignmentInstance
@@ -113,12 +114,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance>;
+  fetch(callback?: (error: Error | null, item?: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<TrustProductsChannelEndpointAssignmentInstance>
 
   /**
    * Fetch a TrustProductsChannelEndpointAssignmentInstance and return HTTP info
@@ -127,12 +123,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    *
    * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -142,144 +133,92 @@ export interface TrustProductsChannelEndpointAssignmentContext {
 }
 
 export interface TrustProductsChannelEndpointAssignmentContextSolution {
-  trustProductSid: string;
-  sid: string;
+  "trustProductSid": string;
+  "sid": string;
 }
 
-export class TrustProductsChannelEndpointAssignmentContextImpl
-  implements TrustProductsChannelEndpointAssignmentContext
-{
+export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustProductsChannelEndpointAssignmentContext {
   protected _solution: TrustProductsChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, trustProductSid: string, sid: string) {
     if (!isValidPathParam(trustProductSid)) {
-      throw new Error("Parameter 'trustProductSid' is not valid.");
+      throw new Error('Parameter \'trustProductSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { trustProductSid, sid };
+    this._solution = { trustProductSid, sid,  };
     this._uri = `/TrustProducts/${trustProductSid}/ChannelEndpointAssignments/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<TrustProductsChannelEndpointAssignmentInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentInstance(operationVersion, payload, instance._solution.trustProductSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsChannelEndpointAssignmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.trustProductSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<TrustProductsChannelEndpointAssignmentResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (
-          response
-        ): ApiResponse<TrustProductsChannelEndpointAssignmentInstance> => ({
-          ...response,
-          body: new TrustProductsChannelEndpointAssignmentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trustProductSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<TrustProductsChannelEndpointAssignmentResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TrustProductsChannelEndpointAssignmentInstance> => ({
+      ...response,
+      body: new TrustProductsChannelEndpointAssignmentInstance(operationVersion, response.body, instance._solution.trustProductSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -296,9 +235,9 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   }
 }
 
-interface TrustProductsChannelEndpointAssignmentPayload
-  extends TwilioResponsePayload {
-  results: TrustProductsChannelEndpointAssignmentResource[];
+
+  interface TrustProductsChannelEndpointAssignmentPayload extends TwilioResponsePayload {
+    results: TrustProductsChannelEndpointAssignmentResource[];
 }
 
 interface TrustProductsChannelEndpointAssignmentResource {
@@ -315,21 +254,17 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   protected _solution: TrustProductsChannelEndpointAssignmentContextSolution;
   protected _context?: TrustProductsChannelEndpointAssignmentContext;
 
-  constructor(
-    protected _version: V1,
-    payload: TrustProductsChannelEndpointAssignmentResource,
-    trustProductSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.trustProductSid = payload.trust_product_sid;
-    this.accountSid = payload.account_sid;
-    this.channelEndpointType = payload.channel_endpoint_type;
-    this.channelEndpointSid = payload.channel_endpoint_sid;
+  constructor(protected _version: V1, payload: TrustProductsChannelEndpointAssignmentResource, trustProductSid: string, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.trustProductSid = (payload.trust_product_sid);
+    this.accountSid = (payload.account_sid);
+    this.channelEndpointType = (payload.channel_endpoint_type);
+    this.channelEndpointSid = (payload.channel_endpoint_sid);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { trustProductSid, sid: sid || this.sid };
+    this._solution = { trustProductSid, sid: sid,  };
   }
 
   /**
@@ -362,13 +297,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   url: string;
 
   private get _proxy(): TrustProductsChannelEndpointAssignmentContext {
-    this._context =
-      this._context ||
-      new TrustProductsChannelEndpointAssignmentContextImpl(
-        this._version,
-        this._solution.trustProductSid,
-        this._solution.sid
-      );
+    this._context = this._context || new TrustProductsChannelEndpointAssignmentContextImpl(this._version, this._solution.trustProductSid, this._solution.sid);
     return this._context;
   }
 
@@ -379,9 +308,9 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -392,9 +321,9 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -405,12 +334,9 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
+  fetch(callback?: (error: Error | null, item?: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<TrustProductsChannelEndpointAssignmentInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -421,12 +347,9 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    *
    * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -452,6 +375,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   }
 }
 
+
 export interface TrustProductsChannelEndpointAssignmentSolution {
   trustProductSid: string;
 }
@@ -461,8 +385,13 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   _solution: TrustProductsChannelEndpointAssignmentSolution;
   _uri: string;
 
-  (sid: string): TrustProductsChannelEndpointAssignmentContext;
-  get(sid: string): TrustProductsChannelEndpointAssignmentContext;
+  (sid: string, ): TrustProductsChannelEndpointAssignmentContext;
+  get(sid: string, ): TrustProductsChannelEndpointAssignmentContext;
+
+
+
+
+
 
   /**
    * Create a TrustProductsChannelEndpointAssignmentInstance
@@ -472,13 +401,7 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    *
    * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance
    */
-  create(
-    params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance>;
+  create(params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, item?: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<TrustProductsChannelEndpointAssignmentInstance>;
 
   /**
    * Create a TrustProductsChannelEndpointAssignmentInstance and return HTTP info
@@ -488,13 +411,10 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    *
    * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>;
+  createWithHttpInfo(params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>;
+
+
+
 
   /**
    * Streams TrustProductsChannelEndpointAssignmentInstance records from the API.
@@ -511,19 +431,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { TrustProductsChannelEndpointAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions,
-    callback?: (
-      item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: TrustProductsChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
+  each(params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions, callback?: (item: TrustProductsChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams TrustProductsChannelEndpointAssignmentInstance records from the API with HTTP metadata captured per page.
    *
@@ -539,19 +448,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { TrustProductsChannelEndpointAssignmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions,
-    callback?: (
-      item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: TrustProductsChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions, callback?: (item: TrustProductsChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TrustProductsChannelEndpointAssignmentInstance records from the API.
    *
@@ -560,13 +458,7 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentPage) => any): Promise<TrustProductsChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single target page of TrustProductsChannelEndpointAssignmentInstance records from the API with HTTP metadata.
    *
@@ -575,13 +467,7 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
   /**
    * Lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list.
    *
@@ -591,19 +477,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { TrustProductsChannelEndpointAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentInstance[]
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
-  list(
-    params: TrustProductsChannelEndpointAssignmentListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentInstance[]
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
+  list(callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentInstance[]) => any): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
+  list(params: TrustProductsChannelEndpointAssignmentListInstanceOptions, callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentInstance[]) => any): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
   /**
    * Lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list with HTTP metadata.
    *
@@ -615,19 +490,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { TrustProductsChannelEndpointAssignmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>>;
-  listWithHttpInfo(
-    params: TrustProductsChannelEndpointAssignmentListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>>;
+  listWithHttpInfo(params: TrustProductsChannelEndpointAssignmentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>>;
   /**
    * Retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
    *
@@ -639,19 +503,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { TrustProductsChannelEndpointAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentPage>;
-  page(
-    params: TrustProductsChannelEndpointAssignmentListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentPage>;
+  page(callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentPage) => any): Promise<TrustProductsChannelEndpointAssignmentPage>;
+  page(params: TrustProductsChannelEndpointAssignmentListInstancePageOptions, callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentPage) => any): Promise<TrustProductsChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API with HTTP metadata.
    *
@@ -663,19 +516,9 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { TrustProductsChannelEndpointAssignmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
-  pageWithHttpInfo(
-    params: TrustProductsChannelEndpointAssignmentListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
+  pageWithHttpInfo(params: TrustProductsChannelEndpointAssignmentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -684,174 +527,103 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TrustProductsChannelEndpointAssignmentListInstance(
-  version: V1,
-  trustProductSid: string
-): TrustProductsChannelEndpointAssignmentListInstance {
+export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, trustProductSid: string): TrustProductsChannelEndpointAssignmentListInstance {
   if (!isValidPathParam(trustProductSid)) {
-    throw new Error("Parameter 'trustProductSid' is not valid.");
+    throw new Error('Parameter \'trustProductSid\' is not valid.');
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as TrustProductsChannelEndpointAssignmentListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as TrustProductsChannelEndpointAssignmentListInstance;
 
-  instance.get = function get(
-    sid
-  ): TrustProductsChannelEndpointAssignmentContext {
-    return new TrustProductsChannelEndpointAssignmentContextImpl(
-      version,
-      trustProductSid,
-      sid
-    );
-  };
+  instance.get = function get(sid, ): TrustProductsChannelEndpointAssignmentContext {
+    return new TrustProductsChannelEndpointAssignmentContextImpl(version, trustProductSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { trustProductSid };
+  instance._solution = { trustProductSid,  };
   instance._uri = `/TrustProducts/${trustProductSid}/ChannelEndpointAssignments`;
 
-  instance.create = function create(
-    params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
+  instance.create = function create(params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<TrustProductsChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["channelEndpointType"] === null ||
-      params["channelEndpointType"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['channelEndpointType']\" missing."
-      );
+    if (params["channelEndpointType"] === null || params["channelEndpointType"] === undefined) {
+      throw new Error('Required parameter "params[\'channelEndpointType\']" missing.');
     }
 
-    if (
-      params["channelEndpointSid"] === null ||
-      params["channelEndpointSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['channelEndpointSid']\" missing."
-      );
+    if (params["channelEndpointSid"] === null || params["channelEndpointSid"] === undefined) {
+      throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["ChannelEndpointType"] = params["channelEndpointType"];
-
+    
     data["ChannelEndpointSid"] = params["channelEndpointSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentInstance(operationVersion, payload, instance._solution.trustProductSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsChannelEndpointAssignmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.trustProductSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["channelEndpointType"] === null ||
-      params["channelEndpointType"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['channelEndpointType']\" missing."
-      );
+    if (params["channelEndpointType"] === null || params["channelEndpointType"] === undefined) {
+      throw new Error('Required parameter "params[\'channelEndpointType\']" missing.');
     }
 
-    if (
-      params["channelEndpointSid"] === null ||
-      params["channelEndpointSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['channelEndpointSid']\" missing."
-      );
+    if (params["channelEndpointSid"] === null || params["channelEndpointSid"] === undefined) {
+      throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["ChannelEndpointType"] = params["channelEndpointType"];
-
+    
     data["ChannelEndpointSid"] = params["channelEndpointSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TrustProductsChannelEndpointAssignmentResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (
-          response
-        ): ApiResponse<TrustProductsChannelEndpointAssignmentInstance> => ({
-          ...response,
-          body: new TrustProductsChannelEndpointAssignmentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trustProductSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TrustProductsChannelEndpointAssignmentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TrustProductsChannelEndpointAssignmentInstance> => ({
+      ...response,
+      body: new TrustProductsChannelEndpointAssignmentInstance(operationVersion, response.body, instance._solution.trustProductSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | TrustProductsChannelEndpointAssignmentListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: TrustProductsChannelEndpointAssignmentPage
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentPage> {
+
+    }
+
+  instance.page = function page(params?: TrustProductsChannelEndpointAssignmentListInstancePageOptions | ((error: Error | null, items: TrustProductsChannelEndpointAssignmentPage) => any), callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentPage) => any): Promise<TrustProductsChannelEndpointAssignmentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -861,80 +633,48 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
 
     let data: any = {};
 
-    if (params["channelEndpointSid"] !== undefined)
-      data["ChannelEndpointSid"] = params["channelEndpointSid"];
+        if (params["channelEndpointSid"] !== undefined)
+    data["ChannelEndpointSid"] = params["channelEndpointSid"];
     if (params["channelEndpointSids"] !== undefined)
-      data["ChannelEndpointSids"] = params["channelEndpointSids"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["ChannelEndpointSids"] = params["channelEndpointSids"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsChannelEndpointAssignmentPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
-  ): Promise<TrustProductsChannelEndpointAssignmentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsChannelEndpointAssignmentPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TrustProductsChannelEndpointAssignmentPage) => any): Promise<TrustProductsChannelEndpointAssignmentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | TrustProductsChannelEndpointAssignmentListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: TrustProductsChannelEndpointAssignmentListInstancePageOptions | ((error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>) => any), callback?: (error: Error | null, items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -944,129 +684,97 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
 
     let data: any = {};
 
-    if (params["channelEndpointSid"] !== undefined)
-      data["ChannelEndpointSid"] = params["channelEndpointSid"];
+        if (params["channelEndpointSid"] !== undefined)
+    data["ChannelEndpointSid"] = params["channelEndpointSid"];
     if (params["channelEndpointSids"] !== undefined)
-      data["ChannelEndpointSids"] = params["channelEndpointSids"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["ChannelEndpointSids"] = params["channelEndpointSids"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (
-          response
-        ): ApiResponse<TrustProductsChannelEndpointAssignmentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TrustProductsChannelEndpointAssignmentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<TrustProductsChannelEndpointAssignmentPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new TrustProductsChannelEndpointAssignmentPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<TrustProductsChannelEndpointAssignmentPage>) => any): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<TrustProductsChannelEndpointAssignmentPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new TrustProductsChannelEndpointAssignmentPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<TrustProductsChannelEndpointAssignmentPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new TrustProductsChannelEndpointAssignmentPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class TrustProductsChannelEndpointAssignmentPage extends Page<
-  V1,
-  TrustProductsChannelEndpointAssignmentPayload,
-  TrustProductsChannelEndpointAssignmentResource,
-  TrustProductsChannelEndpointAssignmentInstance
-> {
-  /**
-   * Initialize the TrustProductsChannelEndpointAssignmentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: TrustProductsChannelEndpointAssignmentSolution
-  ) {
+export class TrustProductsChannelEndpointAssignmentPage extends Page<V1, TrustProductsChannelEndpointAssignmentPayload, TrustProductsChannelEndpointAssignmentResource, TrustProductsChannelEndpointAssignmentInstance> {
+/**
+* Initialize the TrustProductsChannelEndpointAssignmentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TrustProductsChannelEndpointAssignmentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TrustProductsChannelEndpointAssignmentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: TrustProductsChannelEndpointAssignmentResource
-  ): TrustProductsChannelEndpointAssignmentInstance {
+    /**
+    * Build an instance of TrustProductsChannelEndpointAssignmentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TrustProductsChannelEndpointAssignmentResource): TrustProductsChannelEndpointAssignmentInstance {
+
     return new TrustProductsChannelEndpointAssignmentInstance(
-      this._version,
-      payload,
-      this._solution.trustProductSid
+    this._version,
+    payload,
+        this._solution.trustProductSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

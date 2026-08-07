@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,23 +20,30 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a ModuleDataInstance
  */
 export interface ModuleDataListInstanceCreateOptions {
   /** A JSON object containing essential attributes that define a Listing. */
-  moduleInfo?: string;
+  "moduleInfo"?: string;
   /** A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more. */
-  configuration?: string;
+  "configuration"?: string;
 }
 
-export interface ModuleDataSolution {}
+
+
+export interface ModuleDataSolution {
+}
 
 export interface ModuleDataListInstance {
   _version: V1;
   _solution: ModuleDataSolution;
   _uri: string;
 
+
+
   /**
    * Create a ModuleDataInstance
    *
@@ -43,9 +51,7 @@ export interface ModuleDataListInstance {
    *
    * @returns Resolves to processed ModuleDataInstance
    */
-  create(
-    callback?: (error: Error | null, item?: ModuleDataInstance) => any
-  ): Promise<ModuleDataInstance>;
+  create(callback?: (error: Error | null, item?: ModuleDataInstance) => any): Promise<ModuleDataInstance>;
   /**
    * Create a ModuleDataInstance
    *
@@ -54,10 +60,7 @@ export interface ModuleDataListInstance {
    *
    * @returns Resolves to processed ModuleDataInstance
    */
-  create(
-    params: ModuleDataListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ModuleDataInstance) => any
-  ): Promise<ModuleDataInstance>;
+  create(params: ModuleDataListInstanceCreateOptions, callback?: (error: Error | null, item?: ModuleDataInstance) => any): Promise<ModuleDataInstance>;
 
   /**
    * Create a ModuleDataInstance and return HTTP info
@@ -66,12 +69,7 @@ export interface ModuleDataListInstance {
    *
    * @returns Resolves to processed ModuleDataInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataInstance>) => any): Promise<ApiResponse<ModuleDataInstance>>;
   /**
    * Create a ModuleDataInstance and return HTTP info
    *
@@ -80,13 +78,9 @@ export interface ModuleDataListInstance {
    *
    * @returns Resolves to processed ModuleDataInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ModuleDataListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataInstance>>;
+  createWithHttpInfo(params: ModuleDataListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ModuleDataInstance>) => any): Promise<ApiResponse<ModuleDataInstance>>;
+
+
 
   /**
    * Fetch a ModuleDataInstance
@@ -95,9 +89,7 @@ export interface ModuleDataListInstance {
    *
    * @returns Resolves to processed ModuleDataInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ModuleDataInstance) => any
-  ): Promise<ModuleDataInstance>;
+  fetch(callback?: (error: Error | null, item?: ModuleDataInstance) => any): Promise<ModuleDataInstance>
 
   /**
    * Fetch a ModuleDataInstance and return HTTP info
@@ -106,12 +98,9 @@ export interface ModuleDataListInstance {
    *
    * @returns Resolves to processed ModuleDataInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ModuleDataInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ModuleDataInstance>) => any): Promise<ApiResponse<ModuleDataInstance>>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -124,172 +113,125 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
   const instance = {} as ModuleDataListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Listings`;
 
-  instance.create = function create(
-    params?:
-      | ModuleDataListInstanceCreateOptions
-      | ((error: Error | null, items: ModuleDataInstance) => any),
-    callback?: (error: Error | null, items: ModuleDataInstance) => any
-  ): Promise<ModuleDataInstance> {
+  instance.create = function create(params?: ModuleDataListInstanceCreateOptions | ((error: Error | null, items: ModuleDataInstance) => any), callback?: (error: Error | null, items: ModuleDataInstance) => any): Promise<ModuleDataInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["moduleInfo"] !== undefined)
-      data["ModuleInfo"] = params["moduleInfo"];
+    
+        if (params["moduleInfo"] !== undefined)
+    data["ModuleInfo"] = params["moduleInfo"];
     if (params["configuration"] !== undefined)
-      data["Configuration"] = params["configuration"];
+    data["Configuration"] = params["configuration"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ModuleDataInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ModuleDataInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | ModuleDataListInstanceCreateOptions
-      | ((error: Error | null, items: ApiResponse<ModuleDataInstance>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ModuleDataInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: ModuleDataListInstanceCreateOptions | ((error: Error | null, items: ApiResponse<ModuleDataInstance>) => any), callback?: (error: Error | null, items: ApiResponse<ModuleDataInstance>) => any): Promise<ApiResponse<ModuleDataInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["moduleInfo"] !== undefined)
-      data["ModuleInfo"] = params["moduleInfo"];
+    
+        if (params["moduleInfo"] !== undefined)
+    data["ModuleInfo"] = params["moduleInfo"];
     if (params["configuration"] !== undefined)
-      data["Configuration"] = params["configuration"];
+    data["Configuration"] = params["configuration"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ModuleDataResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ModuleDataInstance> => ({
-          ...response,
-          body: new ModuleDataInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ModuleDataResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ModuleDataInstance> => ({
+      ...response,
+      body: new ModuleDataInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.fetch = function fetch(
-    callback?: (error: Error | null, items: ModuleDataInstance) => any
-  ): Promise<ModuleDataInstance> {
+
+    }
+
+  instance.fetch = function fetch( callback?: (error: Error | null, items: ModuleDataInstance) => any): Promise<ModuleDataInstance> {
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ModuleDataInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ModuleDataInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ModuleDataInstance>
-    ) => any
-  ): Promise<ApiResponse<ModuleDataInstance>> {
+
+    }
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<ModuleDataInstance>) => any): Promise<ApiResponse<ModuleDataInstance>> {
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ModuleDataResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ModuleDataInstance> => ({
-          ...response,
-          body: new ModuleDataInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ModuleDataResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ModuleDataInstance> => ({
+      ...response,
+      body: new ModuleDataInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface ModuleDataPayload extends ModuleDataResource {}
+  interface ModuleDataPayload extends ModuleDataResource {}
 
 interface ModuleDataResource {
   url: string;
@@ -305,17 +247,20 @@ interface ModuleDataResource {
 }
 
 export class ModuleDataInstance {
+
   constructor(protected _version: V1, payload: ModuleDataResource) {
-    this.url = payload.url;
-    this.sid = payload.sid;
-    this.description = payload.description;
-    this.support = payload.support;
-    this.policies = payload.policies;
-    this.moduleInfo = payload.module_info;
-    this.documentation = payload.documentation;
-    this.configuration = payload.configuration;
-    this.pricing = payload.pricing;
-    this.listings = payload.listings;
+    
+    this.url = (payload.url);
+    this.sid = (payload.sid);
+    this.description = (payload.description);
+    this.support = (payload.support);
+    this.policies = (payload.policies);
+    this.moduleInfo = (payload.module_info);
+    this.documentation = (payload.documentation);
+    this.configuration = (payload.configuration);
+    this.pricing = (payload.pricing);
+    this.listings = (payload.listings);
+
   }
 
   /**
@@ -355,7 +300,7 @@ export class ModuleDataInstance {
    */
   pricing: Record<string, object>;
   /**
-   *
+   * 
    */
   listings: Array<Record<string, object>>;
 
@@ -383,3 +328,5 @@ export class ModuleDataInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

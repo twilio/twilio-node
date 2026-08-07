@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,26 +22,27 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
 /**
  * Operator availability status. Possible values: internal, beta, public, retired.
  */
-export type PrebuiltOperatorAvailability = 'internal'|'beta'|'public'|'retired'|'general-availability';
-
-
+export type PrebuiltOperatorAvailability =
+  "internal" | "beta" | "public" | "retired" | "general-availability";
 
 /**
  * Options to pass to each
  */
 export interface PrebuiltOperatorListInstanceEachOptions {
   /** Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired. */
-  "availability"?: PrebuiltOperatorAvailability;
+  availability?: PrebuiltOperatorAvailability;
   /** Returns Pre-built Operators that support the provided language code. */
-  "languageCode"?: string;
+  languageCode?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: PrebuiltOperatorInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: PrebuiltOperatorInstance,
+    done: (err?: Error) => void,
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -54,35 +54,32 @@ export interface PrebuiltOperatorListInstanceEachOptions {
  */
 export interface PrebuiltOperatorListInstanceOptions {
   /** Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired. */
-  "availability"?: PrebuiltOperatorAvailability;
+  availability?: PrebuiltOperatorAvailability;
   /** Returns Pre-built Operators that support the provided language code. */
-  "languageCode"?: string;
+  languageCode?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface PrebuiltOperatorListInstancePageOptions {
   /** Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired. */
-  "availability"?: PrebuiltOperatorAvailability;
+  availability?: PrebuiltOperatorAvailability;
   /** Returns Pre-built Operators that support the provided language code. */
-  "languageCode"?: string;
+  languageCode?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface PrebuiltOperatorContext {
-
   /**
    * Fetch a PrebuiltOperatorInstance
    *
@@ -90,7 +87,9 @@ export interface PrebuiltOperatorContext {
    *
    * @returns Resolves to processed PrebuiltOperatorInstance
    */
-  fetch(callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any): Promise<PrebuiltOperatorInstance>
+  fetch(
+    callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any,
+  ): Promise<PrebuiltOperatorInstance>;
 
   /**
    * Fetch a PrebuiltOperatorInstance and return HTTP info
@@ -99,7 +98,12 @@ export interface PrebuiltOperatorContext {
    *
    * @returns Resolves to processed PrebuiltOperatorInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PrebuiltOperatorInstance>) => any): Promise<ApiResponse<PrebuiltOperatorInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PrebuiltOperatorInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -109,56 +113,87 @@ export interface PrebuiltOperatorContext {
 }
 
 export interface PrebuiltOperatorContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class PrebuiltOperatorContextImpl implements PrebuiltOperatorContext {
   protected _solution: PrebuiltOperatorContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Operators/PreBuilt/${sid}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any): Promise<PrebuiltOperatorInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any,
+  ): Promise<PrebuiltOperatorInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new PrebuiltOperatorInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PrebuiltOperatorInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PrebuiltOperatorInstance>) => any): Promise<ApiResponse<PrebuiltOperatorInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PrebuiltOperatorInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<PrebuiltOperatorResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<PrebuiltOperatorInstance> => ({
-      ...response,
-      body: new PrebuiltOperatorInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<PrebuiltOperatorResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<PrebuiltOperatorInstance> => ({
+        ...response,
+        body: new PrebuiltOperatorInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -175,9 +210,8 @@ export class PrebuiltOperatorContextImpl implements PrebuiltOperatorContext {
   }
 }
 
-
-  interface PrebuiltOperatorPayload extends TwilioResponsePayload {
-    operators: PrebuiltOperatorResource[];
+interface PrebuiltOperatorPayload extends TwilioResponsePayload {
+  operators: PrebuiltOperatorResource[];
 }
 
 interface PrebuiltOperatorResource {
@@ -199,22 +233,25 @@ export class PrebuiltOperatorInstance {
   protected _solution: PrebuiltOperatorContextSolution;
   protected _context?: PrebuiltOperatorContext;
 
-  constructor(protected _version: V2, payload: PrebuiltOperatorResource, sid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
-    this.description = (payload.description);
-    this.author = (payload.author);
-    this.operatorType = (payload.operator_type);
+  constructor(
+    protected _version: V2,
+    payload: PrebuiltOperatorResource,
+    sid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
+    this.description = payload.description;
+    this.author = payload.author;
+    this.operatorType = payload.operator_type;
     this.version = deserialize.integer(payload.version);
     this.availability = payload.availability;
-    this.config = (payload.config);
+    this.config = payload.config;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -264,7 +301,9 @@ export class PrebuiltOperatorInstance {
   url: string;
 
   private get _proxy(): PrebuiltOperatorContext {
-    this._context = this._context || new PrebuiltOperatorContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new PrebuiltOperatorContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -275,9 +314,9 @@ export class PrebuiltOperatorInstance {
    *
    * @returns Resolves to processed PrebuiltOperatorInstance
    */
-  fetch(callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any): Promise<PrebuiltOperatorInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: PrebuiltOperatorInstance) => any,
+  ): Promise<PrebuiltOperatorInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -288,9 +327,12 @@ export class PrebuiltOperatorInstance {
    *
    * @returns Resolves to processed PrebuiltOperatorInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<PrebuiltOperatorInstance>) => any): Promise<ApiResponse<PrebuiltOperatorInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PrebuiltOperatorInstance>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -321,21 +363,15 @@ export class PrebuiltOperatorInstance {
   }
 }
 
-
-export interface PrebuiltOperatorSolution {
-}
+export interface PrebuiltOperatorSolution {}
 
 export interface PrebuiltOperatorListInstance {
   _version: V2;
   _solution: PrebuiltOperatorSolution;
   _uri: string;
 
-  (sid: string, ): PrebuiltOperatorContext;
-  get(sid: string, ): PrebuiltOperatorContext;
-
-
-
-
+  (sid: string): PrebuiltOperatorContext;
+  get(sid: string): PrebuiltOperatorContext;
 
   /**
    * Streams PrebuiltOperatorInstance records from the API.
@@ -352,8 +388,19 @@ export interface PrebuiltOperatorListInstance {
    * @param { PrebuiltOperatorListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: PrebuiltOperatorInstance, done: (err?: Error) => void) => void): void;
-  each(params: PrebuiltOperatorListInstanceEachOptions, callback?: (item: PrebuiltOperatorInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: PrebuiltOperatorInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: PrebuiltOperatorListInstanceEachOptions,
+    callback?: (
+      item: PrebuiltOperatorInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams PrebuiltOperatorInstance records from the API with HTTP metadata captured per page.
    *
@@ -369,8 +416,19 @@ export interface PrebuiltOperatorListInstance {
    * @param { PrebuiltOperatorListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: PrebuiltOperatorInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: PrebuiltOperatorListInstanceEachOptions, callback?: (item: PrebuiltOperatorInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: PrebuiltOperatorInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: PrebuiltOperatorListInstanceEachOptions,
+    callback?: (
+      item: PrebuiltOperatorInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of PrebuiltOperatorInstance records from the API.
    *
@@ -379,7 +437,10 @@ export interface PrebuiltOperatorListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: PrebuiltOperatorPage) => any): Promise<PrebuiltOperatorPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PrebuiltOperatorPage) => any,
+  ): Promise<PrebuiltOperatorPage>;
   /**
    * Retrieve a single target page of PrebuiltOperatorInstance records from the API with HTTP metadata.
    *
@@ -388,7 +449,13 @@ export interface PrebuiltOperatorListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<PrebuiltOperatorPage>) => any): Promise<ApiResponse<PrebuiltOperatorPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PrebuiltOperatorPage>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorPage>>;
   /**
    * Lists PrebuiltOperatorInstance records from the API as a list.
    *
@@ -398,8 +465,13 @@ export interface PrebuiltOperatorListInstance {
    * @param { PrebuiltOperatorListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: PrebuiltOperatorInstance[]) => any): Promise<PrebuiltOperatorInstance[]>;
-  list(params: PrebuiltOperatorListInstanceOptions, callback?: (error: Error | null, items: PrebuiltOperatorInstance[]) => any): Promise<PrebuiltOperatorInstance[]>;
+  list(
+    callback?: (error: Error | null, items: PrebuiltOperatorInstance[]) => any,
+  ): Promise<PrebuiltOperatorInstance[]>;
+  list(
+    params: PrebuiltOperatorListInstanceOptions,
+    callback?: (error: Error | null, items: PrebuiltOperatorInstance[]) => any,
+  ): Promise<PrebuiltOperatorInstance[]>;
   /**
    * Lists PrebuiltOperatorInstance records from the API as a list with HTTP metadata.
    *
@@ -411,8 +483,19 @@ export interface PrebuiltOperatorListInstance {
    * @param { PrebuiltOperatorListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PrebuiltOperatorInstance[]>) => any): Promise<ApiResponse<PrebuiltOperatorInstance[]>>;
-  listWithHttpInfo(params: PrebuiltOperatorListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<PrebuiltOperatorInstance[]>) => any): Promise<ApiResponse<PrebuiltOperatorInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PrebuiltOperatorInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorInstance[]>>;
+  listWithHttpInfo(
+    params: PrebuiltOperatorListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PrebuiltOperatorInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorInstance[]>>;
   /**
    * Retrieve a single page of PrebuiltOperatorInstance records from the API.
    *
@@ -424,8 +507,13 @@ export interface PrebuiltOperatorListInstance {
    * @param { PrebuiltOperatorListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: PrebuiltOperatorPage) => any): Promise<PrebuiltOperatorPage>;
-  page(params: PrebuiltOperatorListInstancePageOptions, callback?: (error: Error | null, items: PrebuiltOperatorPage) => any): Promise<PrebuiltOperatorPage>;
+  page(
+    callback?: (error: Error | null, items: PrebuiltOperatorPage) => any,
+  ): Promise<PrebuiltOperatorPage>;
+  page(
+    params: PrebuiltOperatorListInstancePageOptions,
+    callback?: (error: Error | null, items: PrebuiltOperatorPage) => any,
+  ): Promise<PrebuiltOperatorPage>;
   /**
    * Retrieve a single page of PrebuiltOperatorInstance records from the API with HTTP metadata.
    *
@@ -437,9 +525,19 @@ export interface PrebuiltOperatorListInstance {
    * @param { PrebuiltOperatorListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<PrebuiltOperatorPage>) => any): Promise<ApiResponse<PrebuiltOperatorPage>>;
-  pageWithHttpInfo(params: PrebuiltOperatorListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<PrebuiltOperatorPage>) => any): Promise<ApiResponse<PrebuiltOperatorPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PrebuiltOperatorPage>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorPage>>;
+  pageWithHttpInfo(
+    params: PrebuiltOperatorListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PrebuiltOperatorPage>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -448,18 +546,25 @@ export interface PrebuiltOperatorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PrebuiltOperatorListInstance(version: V2): PrebuiltOperatorListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as PrebuiltOperatorListInstance;
+export function PrebuiltOperatorListInstance(
+  version: V2,
+): PrebuiltOperatorListInstance {
+  const instance = ((sid) => instance.get(sid)) as PrebuiltOperatorListInstance;
 
-  instance.get = function get(sid, ): PrebuiltOperatorContext {
+  instance.get = function get(sid): PrebuiltOperatorContext {
     return new PrebuiltOperatorContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Operators/PreBuilt`;
 
-  instance.page = function page(params?: PrebuiltOperatorListInstancePageOptions | ((error: Error | null, items: PrebuiltOperatorPage) => any), callback?: (error: Error | null, items: PrebuiltOperatorPage) => any): Promise<PrebuiltOperatorPage> {
+  instance.page = function page(
+    params?:
+      | PrebuiltOperatorListInstancePageOptions
+      | ((error: Error | null, items: PrebuiltOperatorPage) => any),
+    callback?: (error: Error | null, items: PrebuiltOperatorPage) => any,
+  ): Promise<PrebuiltOperatorPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -469,48 +574,73 @@ export function PrebuiltOperatorListInstance(version: V2): PrebuiltOperatorListI
 
     let data: any = {};
 
-        if (params["availability"] !== undefined)
-    data["Availability"] = params["availability"];
+    if (params["availability"] !== undefined)
+      data["Availability"] = params["availability"];
     if (params["languageCode"] !== undefined)
-    data["LanguageCode"] = params["languageCode"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["LanguageCode"] = params["languageCode"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new PrebuiltOperatorPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PrebuiltOperatorPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PrebuiltOperatorPage) => any): Promise<PrebuiltOperatorPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new PrebuiltOperatorPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: PrebuiltOperatorPage) => any,
+  ): Promise<PrebuiltOperatorPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PrebuiltOperatorPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: PrebuiltOperatorListInstancePageOptions | ((error: Error | null, items: ApiResponse<PrebuiltOperatorPage>) => any), callback?: (error: Error | null, items: ApiResponse<PrebuiltOperatorPage>) => any): Promise<ApiResponse<PrebuiltOperatorPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | PrebuiltOperatorListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<PrebuiltOperatorPage>,
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PrebuiltOperatorPage>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -520,96 +650,119 @@ export function PrebuiltOperatorListInstance(version: V2): PrebuiltOperatorListI
 
     let data: any = {};
 
-        if (params["availability"] !== undefined)
-    data["Availability"] = params["availability"];
+    if (params["availability"] !== undefined)
+      data["Availability"] = params["availability"];
     if (params["languageCode"] !== undefined)
-    data["LanguageCode"] = params["languageCode"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["LanguageCode"] = params["languageCode"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<PrebuiltOperatorPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PrebuiltOperatorPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<PrebuiltOperatorPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PrebuiltOperatorPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<PrebuiltOperatorPage>) => any): Promise<ApiResponse<PrebuiltOperatorPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<PrebuiltOperatorPage>,
+    ) => any,
+  ): Promise<ApiResponse<PrebuiltOperatorPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<PrebuiltOperatorPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new PrebuiltOperatorPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<PrebuiltOperatorPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PrebuiltOperatorPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class PrebuiltOperatorPage extends Page<V2, PrebuiltOperatorPayload, PrebuiltOperatorResource, PrebuiltOperatorInstance> {
-/**
-* Initialize the PrebuiltOperatorPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: PrebuiltOperatorSolution) {
+export class PrebuiltOperatorPage extends Page<
+  V2,
+  PrebuiltOperatorPayload,
+  PrebuiltOperatorResource,
+  PrebuiltOperatorInstance
+> {
+  /**
+   * Initialize the PrebuiltOperatorPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: PrebuiltOperatorSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of PrebuiltOperatorInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: PrebuiltOperatorResource): PrebuiltOperatorInstance {
+  /**
+   * Build an instance of PrebuiltOperatorInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PrebuiltOperatorResource): PrebuiltOperatorInstance {
+    return new PrebuiltOperatorInstance(this._version, payload);
+  }
 
-    return new PrebuiltOperatorInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

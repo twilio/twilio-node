@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -20,35 +19,37 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+export type AnnotationAnsweredBy = "unknown_answered_by" | "human" | "machine";
 
-export type AnnotationAnsweredBy = 'unknown_answered_by'|'human'|'machine';
-
-export type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity_issue'|'invalid_number'|'caller_id'|'dropped_call'|'number_reachability';
-
-
+export type AnnotationConnectivityIssue =
+  | "unknown_connectivity_issue"
+  | "no_connectivity_issue"
+  | "invalid_number"
+  | "caller_id"
+  | "dropped_call"
+  | "number_reachability";
 
 /**
  * Options to pass to update a AnnotationInstance
  */
 export interface AnnotationContextUpdateOptions {
   /**  */
-  "answeredBy"?: AnnotationAnsweredBy;
+  answeredBy?: AnnotationAnsweredBy;
   /**  */
-  "connectivityIssue"?: AnnotationConnectivityIssue;
+  connectivityIssue?: AnnotationConnectivityIssue;
   /** Specify if the call had any subjective quality issues. Possible values, one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. Use comma separated values to indicate multiple quality issues for the same call. */
-  "qualityIssues"?: string;
+  qualityIssues?: string;
   /** A boolean flag to indicate if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Use `true` if the call was a spam call. */
-  "spam"?: boolean;
+  spam?: boolean;
   /** Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  "callScore"?: number;
+  callScore?: number;
   /** Specify any comments pertaining to the call. `comment` has a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in the `comment`. */
-  "comment"?: string;
+  comment?: string;
   /** Associate this call with an incident or support ticket. The `incident` parameter is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`. */
-  "incident"?: string;
+  incident?: string;
 }
 
 export interface AnnotationContext {
-
   /**
    * Fetch a AnnotationInstance
    *
@@ -56,7 +57,9 @@ export interface AnnotationContext {
    *
    * @returns Resolves to processed AnnotationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance>;
 
   /**
    * Fetch a AnnotationInstance and return HTTP info
@@ -65,7 +68,12 @@ export interface AnnotationContext {
    *
    * @returns Resolves to processed AnnotationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>>;
 
   /**
    * Update a AnnotationInstance
@@ -74,7 +82,9 @@ export interface AnnotationContext {
    *
    * @returns Resolves to processed AnnotationInstance
    */
-  update(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
    *
@@ -83,7 +93,10 @@ export interface AnnotationContext {
    *
    * @returns Resolves to processed AnnotationInstance
    */
-  update(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(
+    params: AnnotationContextUpdateOptions,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance>;
 
   /**
    * Update a AnnotationInstance and return HTTP info
@@ -92,7 +105,12 @@ export interface AnnotationContext {
    *
    * @returns Resolves to processed AnnotationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>>;
   /**
    * Update a AnnotationInstance and return HTTP info
    *
@@ -101,7 +119,13 @@ export interface AnnotationContext {
    *
    * @returns Resolves to processed AnnotationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>;
+  updateWithHttpInfo(
+    params: AnnotationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -111,149 +135,205 @@ export interface AnnotationContext {
 }
 
 export interface AnnotationContextSolution {
-  "callSid": string;
+  callSid: string;
 }
 
 export class AnnotationContextImpl implements AnnotationContext {
   protected _solution: AnnotationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, callSid: string) {
+  constructor(
+    protected _version: V1,
+    callSid: string,
+  ) {
     if (!isValidPathParam(callSid)) {
-      throw new Error('Parameter \'callSid\' is not valid.');
+      throw new Error("Parameter 'callSid' is not valid.");
     }
 
-    this._solution = { callSid,  };
+    this._solution = { callSid };
     this._uri = `/Voice/${callSid}/Annotation`;
   }
 
-  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, instance._solution.callSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AnnotationInstance(
+          operationVersion,
+          payload,
+          instance._solution.callSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<AnnotationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<AnnotationInstance> => ({
-      ...response,
-      body: new AnnotationInstance(operationVersion, response.body, instance._solution.callSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<AnnotationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<AnnotationInstance> => ({
+        ...response,
+        body: new AnnotationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.callSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: AnnotationContextUpdateOptions | ((error: Error | null, item?: AnnotationInstance) => any),callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | AnnotationContextUpdateOptions
+      | ((error: Error | null, item?: AnnotationInstance) => any),
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["answeredBy"] !== undefined)
-    data["AnsweredBy"] = params["answeredBy"];
+    if (params["answeredBy"] !== undefined)
+      data["AnsweredBy"] = params["answeredBy"];
     if (params["connectivityIssue"] !== undefined)
-    data["ConnectivityIssue"] = params["connectivityIssue"];
+      data["ConnectivityIssue"] = params["connectivityIssue"];
     if (params["qualityIssues"] !== undefined)
-    data["QualityIssues"] = params["qualityIssues"];
+      data["QualityIssues"] = params["qualityIssues"];
     if (params["spam"] !== undefined)
-    data["Spam"] = serialize.bool(params["spam"]);
+      data["Spam"] = serialize.bool(params["spam"]);
     if (params["callScore"] !== undefined)
-    data["CallScore"] = params["callScore"];
-    if (params["comment"] !== undefined)
-    data["Comment"] = params["comment"];
-    if (params["incident"] !== undefined)
-    data["Incident"] = params["incident"];
+      data["CallScore"] = params["callScore"];
+    if (params["comment"] !== undefined) data["Comment"] = params["comment"];
+    if (params["incident"] !== undefined) data["Incident"] = params["incident"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, instance._solution.callSid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AnnotationInstance(
+          operationVersion,
+          payload,
+          instance._solution.callSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: AnnotationContextUpdateOptions | ((error: Error | null, item?: ApiResponse<AnnotationInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | AnnotationContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<AnnotationInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["answeredBy"] !== undefined)
-    data["AnsweredBy"] = params["answeredBy"];
+    if (params["answeredBy"] !== undefined)
+      data["AnsweredBy"] = params["answeredBy"];
     if (params["connectivityIssue"] !== undefined)
-    data["ConnectivityIssue"] = params["connectivityIssue"];
+      data["ConnectivityIssue"] = params["connectivityIssue"];
     if (params["qualityIssues"] !== undefined)
-    data["QualityIssues"] = params["qualityIssues"];
+      data["QualityIssues"] = params["qualityIssues"];
     if (params["spam"] !== undefined)
-    data["Spam"] = serialize.bool(params["spam"]);
+      data["Spam"] = serialize.bool(params["spam"]);
     if (params["callScore"] !== undefined)
-    data["CallScore"] = params["callScore"];
-    if (params["comment"] !== undefined)
-    data["Comment"] = params["comment"];
-    if (params["incident"] !== undefined)
-    data["Incident"] = params["incident"];
+      data["CallScore"] = params["callScore"];
+    if (params["comment"] !== undefined) data["Comment"] = params["comment"];
+    if (params["incident"] !== undefined) data["Incident"] = params["incident"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<AnnotationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<AnnotationInstance> => ({
-      ...response,
-      body: new AnnotationInstance(operationVersion, response.body, instance._solution.callSid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AnnotationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<AnnotationInstance> => ({
+        ...response,
+        body: new AnnotationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.callSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -270,8 +350,7 @@ export class AnnotationContextImpl implements AnnotationContext {
   }
 }
 
-
-  interface AnnotationPayload extends AnnotationResource {}
+interface AnnotationPayload extends AnnotationResource {}
 
 interface AnnotationResource {
   call_sid: string;
@@ -290,20 +369,23 @@ export class AnnotationInstance {
   protected _solution: AnnotationContextSolution;
   protected _context?: AnnotationContext;
 
-  constructor(protected _version: V1, payload: AnnotationResource, callSid: string) {
-    
-    this.callSid = (payload.call_sid);
-    this.accountSid = (payload.account_sid);
+  constructor(
+    protected _version: V1,
+    payload: AnnotationResource,
+    callSid: string,
+  ) {
+    this.callSid = payload.call_sid;
+    this.accountSid = payload.account_sid;
     this.answeredBy = payload.answered_by;
     this.connectivityIssue = payload.connectivity_issue;
-    this.qualityIssues = (payload.quality_issues);
-    this.spam = (payload.spam);
+    this.qualityIssues = payload.quality_issues;
+    this.spam = payload.spam;
     this.callScore = deserialize.integer(payload.call_score);
-    this.comment = (payload.comment);
-    this.incident = (payload.incident);
-    this.url = (payload.url);
+    this.comment = payload.comment;
+    this.incident = payload.incident;
+    this.url = payload.url;
 
-    this._solution = { callSid,  };
+    this._solution = { callSid };
   }
 
   /**
@@ -339,7 +421,9 @@ export class AnnotationInstance {
   url: string;
 
   private get _proxy(): AnnotationContext {
-    this._context = this._context || new AnnotationContextImpl(this._version, this._solution.callSid);
+    this._context =
+      this._context ||
+      new AnnotationContextImpl(this._version, this._solution.callSid);
     return this._context;
   }
 
@@ -350,9 +434,9 @@ export class AnnotationInstance {
    *
    * @returns Resolves to processed AnnotationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -363,9 +447,12 @@ export class AnnotationInstance {
    *
    * @returns Resolves to processed AnnotationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -376,7 +463,9 @@ export class AnnotationInstance {
    *
    * @returns Resolves to processed AnnotationInstance
    */
-  update(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
    *
@@ -385,10 +474,15 @@ export class AnnotationInstance {
    *
    * @returns Resolves to processed AnnotationInstance
    */
-  update(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(
+    params: AnnotationContextUpdateOptions,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
+  ): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -399,7 +493,12 @@ export class AnnotationInstance {
    *
    * @returns Resolves to processed AnnotationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>>;
   /**
    * Update a AnnotationInstance and return HTTP info
    *
@@ -408,10 +507,21 @@ export class AnnotationInstance {
    *
    * @returns Resolves to processed AnnotationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>;
+  updateWithHttpInfo(
+    params: AnnotationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<AnnotationInstance>) => any): Promise<ApiResponse<AnnotationInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
+  ): Promise<ApiResponse<AnnotationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -440,7 +550,6 @@ export class AnnotationInstance {
   }
 }
 
-
 export interface AnnotationSolution {
   callSid: string;
 }
@@ -453,11 +562,6 @@ export interface AnnotationListInstance {
   (): AnnotationContext;
   get(): AnnotationContext;
 
-
-
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -465,30 +569,34 @@ export interface AnnotationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AnnotationListInstance(version: V1, callSid: string): AnnotationListInstance {
+export function AnnotationListInstance(
+  version: V1,
+  callSid: string,
+): AnnotationListInstance {
   if (!isValidPathParam(callSid)) {
-    throw new Error('Parameter \'callSid\' is not valid.');
+    throw new Error("Parameter 'callSid' is not valid.");
   }
 
   const instance = (() => instance.get()) as AnnotationListInstance;
 
   instance.get = function get(): AnnotationContext {
     return new AnnotationContextImpl(version, callSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { callSid,  };
+  instance._solution = { callSid };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

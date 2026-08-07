@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Wireless from "../../Wireless";
 const deserialize = require("../../../../base/deserialize");
@@ -20,20 +19,17 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to fetch a UsageInstance
  */
 export interface UsageContextFetchOptions {
   /**  */
-  "end"?: string;
+  end?: string;
   /**  */
-  "start"?: string;
+  start?: string;
 }
 
 export interface UsageContext {
-
   /**
    * Fetch a UsageInstance
    *
@@ -41,7 +37,9 @@ export interface UsageContext {
    *
    * @returns Resolves to processed UsageInstance
    */
-  fetch(callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: UsageInstance) => any,
+  ): Promise<UsageInstance>;
   /**
    * Fetch a UsageInstance
    *
@@ -50,7 +48,10 @@ export interface UsageContext {
    *
    * @returns Resolves to processed UsageInstance
    */
-  fetch(params: UsageContextFetchOptions, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  fetch(
+    params: UsageContextFetchOptions,
+    callback?: (error: Error | null, item?: UsageInstance) => any,
+  ): Promise<UsageInstance>;
 
   /**
    * Fetch a UsageInstance and return HTTP info
@@ -59,7 +60,9 @@ export interface UsageContext {
    *
    * @returns Resolves to processed UsageInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any): Promise<ApiResponse<UsageInstance>>;
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
+  ): Promise<ApiResponse<UsageInstance>>;
   /**
    * Fetch a UsageInstance and return HTTP info
    *
@@ -68,7 +71,10 @@ export interface UsageContext {
    *
    * @returns Resolves to processed UsageInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: UsageContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any): Promise<ApiResponse<UsageInstance>>;
+  fetchWithHttpInfo(
+    params: UsageContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
+  ): Promise<ApiResponse<UsageInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -78,92 +84,112 @@ export interface UsageContext {
 }
 
 export interface UsageContextSolution {
-  "simSid": string;
+  simSid: string;
 }
 
 export class UsageContextImpl implements UsageContext {
   protected _solution: UsageContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: Wireless, simSid: string) {
+  constructor(
+    protected _version: Wireless,
+    simSid: string,
+  ) {
     if (!isValidPathParam(simSid)) {
-      throw new Error('Parameter \'simSid\' is not valid.');
+      throw new Error("Parameter 'simSid' is not valid.");
     }
 
-    this._solution = { simSid,  };
+    this._solution = { simSid };
     this._uri = `/Sims/${simSid}/Usage`;
   }
 
-  fetch(params?: UsageContextFetchOptions | ((error: Error | null, item?: UsageInstance) => any),callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance> {
-      if (params instanceof Function) {
+  fetch(
+    params?:
+      | UsageContextFetchOptions
+      | ((error: Error | null, item?: UsageInstance) => any),
+    callback?: (error: Error | null, item?: UsageInstance) => any,
+  ): Promise<UsageInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["end"] !== undefined)
-    data["End"] = params["end"];
-    if (params["start"] !== undefined)
-    data["Start"] = params["start"];
+    if (params["end"] !== undefined) data["End"] = params["end"];
+    if (params["start"] !== undefined) data["Start"] = params["start"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
-    
-    operationPromise = operationPromise.then(payload => new UsageInstance(operationVersion, payload, instance._solution.simSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UsageInstance(operationVersion, payload, instance._solution.simSid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(params?: UsageContextFetchOptions | ((error: Error | null, item?: ApiResponse<UsageInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any): Promise<ApiResponse<UsageInstance>> {
-      if (params instanceof Function) {
+  fetchWithHttpInfo(
+    params?:
+      | UsageContextFetchOptions
+      | ((error: Error | null, item?: ApiResponse<UsageInstance>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
+  ): Promise<ApiResponse<UsageInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-        if (params["end"] !== undefined)
-    data["End"] = params["end"];
-    if (params["start"] !== undefined)
-    data["Start"] = params["start"];
+    if (params["end"] !== undefined) data["End"] = params["end"];
+    if (params["start"] !== undefined) data["Start"] = params["start"];
 
-    
-    
-    
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<UsageResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<UsageInstance> => ({
-      ...response,
-      body: new UsageInstance(operationVersion, response.body, instance._solution.simSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<UsageResource>({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<UsageInstance> => ({
+        ...response,
+        body: new UsageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.simSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -180,8 +206,7 @@ export class UsageContextImpl implements UsageContext {
   }
 }
 
-
-  interface UsagePayload extends UsageResource {}
+interface UsagePayload extends UsageResource {}
 
 interface UsageResource {
   sim_sid: string;
@@ -199,19 +224,22 @@ export class UsageInstance {
   protected _solution: UsageContextSolution;
   protected _context?: UsageContext;
 
-  constructor(protected _version: Wireless, payload: UsageResource, simSid: string) {
-    
-    this.simSid = (payload.sim_sid);
-    this.simUniqueName = (payload.sim_unique_name);
-    this.accountSid = (payload.account_sid);
-    this.period = (payload.period);
-    this.commandsUsage = (payload.commands_usage);
-    this.commandsCosts = (payload.commands_costs);
-    this.dataUsage = (payload.data_usage);
-    this.dataCosts = (payload.data_costs);
-    this.url = (payload.url);
+  constructor(
+    protected _version: Wireless,
+    payload: UsageResource,
+    simSid: string,
+  ) {
+    this.simSid = payload.sim_sid;
+    this.simUniqueName = payload.sim_unique_name;
+    this.accountSid = payload.account_sid;
+    this.period = payload.period;
+    this.commandsUsage = payload.commands_usage;
+    this.commandsCosts = payload.commands_costs;
+    this.dataUsage = payload.data_usage;
+    this.dataCosts = payload.data_costs;
+    this.url = payload.url;
 
-    this._solution = { simSid,  };
+    this._solution = { simSid };
   }
 
   simSid: string;
@@ -225,7 +253,9 @@ export class UsageInstance {
   url: string;
 
   private get _proxy(): UsageContext {
-    this._context = this._context || new UsageContextImpl(this._version, this._solution.simSid);
+    this._context =
+      this._context ||
+      new UsageContextImpl(this._version, this._solution.simSid);
     return this._context;
   }
 
@@ -236,7 +266,9 @@ export class UsageInstance {
    *
    * @returns Resolves to processed UsageInstance
    */
-  fetch(callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: UsageInstance) => any,
+  ): Promise<UsageInstance>;
   /**
    * Fetch a UsageInstance
    *
@@ -245,10 +277,15 @@ export class UsageInstance {
    *
    * @returns Resolves to processed UsageInstance
    */
-  fetch(params: UsageContextFetchOptions, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  fetch(
+    params: UsageContextFetchOptions,
+    callback?: (error: Error | null, item?: UsageInstance) => any,
+  ): Promise<UsageInstance>;
 
-    fetch(params?: any, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>
-    {
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: UsageInstance) => any,
+  ): Promise<UsageInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -259,7 +296,9 @@ export class UsageInstance {
    *
    * @returns Resolves to processed UsageInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any): Promise<ApiResponse<UsageInstance>>;
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
+  ): Promise<ApiResponse<UsageInstance>>;
   /**
    * Fetch a UsageInstance and return HTTP info
    *
@@ -268,10 +307,15 @@ export class UsageInstance {
    *
    * @returns Resolves to processed UsageInstance with HTTP metadata
    */
-  fetchWithHttpInfo(params: UsageContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any): Promise<ApiResponse<UsageInstance>>;
+  fetchWithHttpInfo(
+    params: UsageContextFetchOptions,
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
+  ): Promise<ApiResponse<UsageInstance>>;
 
-    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any): Promise<ApiResponse<UsageInstance>>
-    {
+  fetchWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
+  ): Promise<ApiResponse<UsageInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -299,7 +343,6 @@ export class UsageInstance {
   }
 }
 
-
 export interface UsageSolution {
   simSid: string;
 }
@@ -312,9 +355,6 @@ export interface UsageListInstance {
   (): UsageContext;
   get(): UsageContext;
 
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -322,30 +362,34 @@ export interface UsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UsageListInstance(version: Wireless, simSid: string): UsageListInstance {
+export function UsageListInstance(
+  version: Wireless,
+  simSid: string,
+): UsageListInstance {
   if (!isValidPathParam(simSid)) {
-    throw new Error('Parameter \'simSid\' is not valid.');
+    throw new Error("Parameter 'simSid' is not valid.");
   }
 
   const instance = (() => instance.get()) as UsageListInstance;
 
   instance.get = function get(): UsageContext {
     return new UsageContextImpl(version, simSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { simSid,  };
+  instance._solution = { simSid };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,14 +22,12 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to each
  */
 export interface LegacyContentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: LegacyContentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -44,36 +41,29 @@ export interface LegacyContentListInstanceEachOptions {
  */
 export interface LegacyContentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface LegacyContentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
-
-export interface LegacyContentSolution {
-}
+export interface LegacyContentSolution {}
 
 export interface LegacyContentListInstance {
   _version: V1;
   _solution: LegacyContentSolution;
   _uri: string;
-
-
-
 
   /**
    * Streams LegacyContentInstance records from the API.
@@ -90,8 +80,19 @@ export interface LegacyContentListInstance {
    * @param { LegacyContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: LegacyContentInstance, done: (err?: Error) => void) => void): void;
-  each(params: LegacyContentListInstanceEachOptions, callback?: (item: LegacyContentInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: LegacyContentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  each(
+    params: LegacyContentListInstanceEachOptions,
+    callback?: (
+      item: LegacyContentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Streams LegacyContentInstance records from the API with HTTP metadata captured per page.
    *
@@ -107,8 +108,19 @@ export interface LegacyContentListInstance {
    * @param { LegacyContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: LegacyContentInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: LegacyContentListInstanceEachOptions, callback?: (item: LegacyContentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (
+      item: LegacyContentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: LegacyContentListInstanceEachOptions,
+    callback?: (
+      item: LegacyContentInstance,
+      done: (err?: Error) => void,
+    ) => void,
+  ): void;
   /**
    * Retrieve a single target page of LegacyContentInstance records from the API.
    *
@@ -117,7 +129,10 @@ export interface LegacyContentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: LegacyContentPage) => any): Promise<LegacyContentPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
+  ): Promise<LegacyContentPage>;
   /**
    * Retrieve a single target page of LegacyContentInstance records from the API with HTTP metadata.
    *
@@ -126,7 +141,13 @@ export interface LegacyContentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<LegacyContentPage>) => any): Promise<ApiResponse<LegacyContentPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentPage>>;
   /**
    * Lists LegacyContentInstance records from the API as a list.
    *
@@ -136,8 +157,13 @@ export interface LegacyContentListInstance {
    * @param { LegacyContentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: LegacyContentInstance[]) => any): Promise<LegacyContentInstance[]>;
-  list(params: LegacyContentListInstanceOptions, callback?: (error: Error | null, items: LegacyContentInstance[]) => any): Promise<LegacyContentInstance[]>;
+  list(
+    callback?: (error: Error | null, items: LegacyContentInstance[]) => any,
+  ): Promise<LegacyContentInstance[]>;
+  list(
+    params: LegacyContentListInstanceOptions,
+    callback?: (error: Error | null, items: LegacyContentInstance[]) => any,
+  ): Promise<LegacyContentInstance[]>;
   /**
    * Lists LegacyContentInstance records from the API as a list with HTTP metadata.
    *
@@ -149,8 +175,19 @@ export interface LegacyContentListInstance {
    * @param { LegacyContentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<LegacyContentInstance[]>) => any): Promise<ApiResponse<LegacyContentInstance[]>>;
-  listWithHttpInfo(params: LegacyContentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<LegacyContentInstance[]>) => any): Promise<ApiResponse<LegacyContentInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LegacyContentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentInstance[]>>;
+  listWithHttpInfo(
+    params: LegacyContentListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LegacyContentInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentInstance[]>>;
   /**
    * Retrieve a single page of LegacyContentInstance records from the API.
    *
@@ -162,8 +199,13 @@ export interface LegacyContentListInstance {
    * @param { LegacyContentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: LegacyContentPage) => any): Promise<LegacyContentPage>;
-  page(params: LegacyContentListInstancePageOptions, callback?: (error: Error | null, items: LegacyContentPage) => any): Promise<LegacyContentPage>;
+  page(
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
+  ): Promise<LegacyContentPage>;
+  page(
+    params: LegacyContentListInstancePageOptions,
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
+  ): Promise<LegacyContentPage>;
   /**
    * Retrieve a single page of LegacyContentInstance records from the API with HTTP metadata.
    *
@@ -175,9 +217,19 @@ export interface LegacyContentListInstance {
    * @param { LegacyContentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<LegacyContentPage>) => any): Promise<ApiResponse<LegacyContentPage>>;
-  pageWithHttpInfo(params: LegacyContentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<LegacyContentPage>) => any): Promise<ApiResponse<LegacyContentPage>>;
-
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentPage>>;
+  pageWithHttpInfo(
+    params: LegacyContentListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -186,14 +238,21 @@ export interface LegacyContentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function LegacyContentListInstance(version: V1): LegacyContentListInstance {
+export function LegacyContentListInstance(
+  version: V1,
+): LegacyContentListInstance {
   const instance = {} as LegacyContentListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/LegacyContent`;
 
-  instance.page = function page(params?: LegacyContentListInstancePageOptions | ((error: Error | null, items: LegacyContentPage) => any), callback?: (error: Error | null, items: LegacyContentPage) => any): Promise<LegacyContentPage> {
+  instance.page = function page(
+    params?:
+      | LegacyContentListInstancePageOptions
+      | ((error: Error | null, items: LegacyContentPage) => any),
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
+  ): Promise<LegacyContentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -203,44 +262,62 @@ export function LegacyContentListInstance(version: V1): LegacyContentListInstanc
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new LegacyContentPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new LegacyContentPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: LegacyContentPage) => any): Promise<LegacyContentPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new LegacyContentPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
+  ): Promise<LegacyContentPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new LegacyContentPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: LegacyContentListInstancePageOptions | ((error: Error | null, items: ApiResponse<LegacyContentPage>) => any), callback?: (error: Error | null, items: ApiResponse<LegacyContentPage>) => any): Promise<ApiResponse<LegacyContentPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | LegacyContentListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<LegacyContentPage>) => any),
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -250,67 +327,86 @@ export function LegacyContentListInstance(version: V1): LegacyContentListInstanc
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<LegacyContentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new LegacyContentPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<LegacyContentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new LegacyContentPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<LegacyContentPage>) => any): Promise<ApiResponse<LegacyContentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<LegacyContentPage>,
+    ) => any,
+  ): Promise<ApiResponse<LegacyContentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<LegacyContentPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new LegacyContentPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<LegacyContentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new LegacyContentPage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface LegacyContentPayload extends TwilioResponsePayload {
-    contents: LegacyContentResource[];
+interface LegacyContentPayload extends TwilioResponsePayload {
+  contents: LegacyContentResource[];
 }
 
 interface LegacyContentResource {
@@ -328,21 +424,21 @@ interface LegacyContentResource {
 }
 
 export class LegacyContentInstance {
-
-  constructor(protected _version: V1, payload: LegacyContentResource) {
-    
+  constructor(
+    protected _version: V1,
+    payload: LegacyContentResource,
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.friendlyName = (payload.friendly_name);
-    this.language = (payload.language);
-    this.variables = (payload.variables);
-    this.types = (payload.types);
-    this.legacyTemplateName = (payload.legacy_template_name);
-    this.legacyBody = (payload.legacy_body);
-    this.url = (payload.url);
-
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
+    this.language = payload.language;
+    this.variables = payload.variables;
+    this.types = payload.types;
+    this.legacyTemplateName = payload.legacy_template_name;
+    this.legacyBody = payload.legacy_body;
+    this.url = payload.url;
   }
 
   /**
@@ -416,33 +512,37 @@ export class LegacyContentInstance {
   }
 }
 
-export class LegacyContentPage extends Page<V1, LegacyContentPayload, LegacyContentResource, LegacyContentInstance> {
-/**
-* Initialize the LegacyContentPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: LegacyContentSolution) {
+export class LegacyContentPage extends Page<
+  V1,
+  LegacyContentPayload,
+  LegacyContentResource,
+  LegacyContentInstance
+> {
+  /**
+   * Initialize the LegacyContentPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: LegacyContentSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of LegacyContentInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: LegacyContentResource): LegacyContentInstance {
+  /**
+   * Build an instance of LegacyContentInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: LegacyContentResource): LegacyContentInstance {
+    return new LegacyContentInstance(this._version, payload);
+  }
 
-    return new LegacyContentInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

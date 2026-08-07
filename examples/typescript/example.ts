@@ -61,7 +61,7 @@ client.trunking.v1.trunks.create(
     console.log("Created trunk with friendly name");
     console.log(result.sid);
     console.log(result.friendlyName);
-  }
+  },
 );
 
 const promiseTrunk = client.trunking.v1.trunks.create({
@@ -97,7 +97,7 @@ client.trunking.v1.trunks(trunkSid).update(
     console.log("Updated using callbacks");
     console.log(result.sid);
     console.log(result.friendlyName);
-  }
+  },
 );
 
 // Update trunk using promise
@@ -145,7 +145,7 @@ promiseWithInfo.then((response: any) => {
   console.log("Response Headers:", response.headers);
   console.log(
     "Rate Limit Remaining:",
-    response.headers["x-ratelimit-remaining"]
+    response.headers["x-ratelimit-remaining"],
   );
 });
 

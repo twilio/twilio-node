@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -23,18 +24,22 @@ import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 import { MessageInteractionListInstance } from "./participant/messageInteraction";
 
+
+
+
+
 /**
  * Options to pass to create a ParticipantInstance
  */
 export interface ParticipantListInstanceCreateOptions {
   /** The phone number of the Participant. */
-  identifier: string;
+  "identifier": string;
   /** The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.** */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool. */
-  proxyIdentifier?: string;
+  "proxyIdentifier"?: string;
   /** The SID of the Proxy Identifier to assign to the Participant. */
-  proxyIdentifierSid?: string;
+  "proxyIdentifierSid"?: string;
 }
 
 /**
@@ -42,7 +47,7 @@ export interface ParticipantListInstanceCreateOptions {
  */
 export interface ParticipantListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,22 +61,24 @@ export interface ParticipantListInstanceEachOptions {
  */
 export interface ParticipantListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ParticipantListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ParticipantContext {
   messageInteractions: MessageInteractionListInstance;
@@ -83,9 +90,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a ParticipantInstance and return HTTP info
@@ -94,9 +99,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a ParticipantInstance
@@ -105,9 +108,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
 
   /**
    * Fetch a ParticipantInstance and return HTTP info
@@ -116,12 +117,7 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -131,9 +127,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  serviceSid: string;
-  sessionSid: string;
-  sid: string;
+  "serviceSid": string;
+  "sessionSid": string;
+  "sid": string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -142,152 +138,92 @@ export class ParticipantContextImpl implements ParticipantContext {
 
   protected _messageInteractions?: MessageInteractionListInstance;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    sessionSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, serviceSid: string, sessionSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sessionSid)) {
-      throw new Error("Parameter 'sessionSid' is not valid.");
+      throw new Error('Parameter \'sessionSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, sessionSid, sid };
+    this._solution = { serviceSid, sessionSid, sid,  };
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${sid}`;
   }
 
   get messageInteractions(): MessageInteractionListInstance {
-    this._messageInteractions =
-      this._messageInteractions ||
-      MessageInteractionListInstance(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sessionSid,
-        this._solution.sid
-      );
+    this._messageInteractions = this._messageInteractions || MessageInteractionListInstance(this._version, this._solution.serviceSid, this._solution.sessionSid, this._solution.sid);
     return this._messageInteractions;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sessionSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ParticipantResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sessionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ParticipantResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ParticipantInstance> => ({
+      ...response,
+      body: new ParticipantInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.sessionSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -304,8 +240,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload extends TwilioResponsePayload {
-  participants: ParticipantResource[];
+
+  interface ParticipantPayload extends TwilioResponsePayload {
+    participants: ParticipantResource[];
 }
 
 interface ParticipantResource {
@@ -328,28 +265,23 @@ export class ParticipantInstance {
   protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ParticipantResource,
-    serviceSid: string,
-    sessionSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.sessionSid = payload.session_sid;
-    this.serviceSid = payload.service_sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
-    this.identifier = payload.identifier;
-    this.proxyIdentifier = payload.proxy_identifier;
-    this.proxyIdentifierSid = payload.proxy_identifier_sid;
+  constructor(protected _version: V1, payload: ParticipantResource, serviceSid: string, sessionSid: string, sid?: string) {
+    
+    this.sid = (payload.sid);
+    this.sessionSid = (payload.session_sid);
+    this.serviceSid = (payload.service_sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.identifier = (payload.identifier);
+    this.proxyIdentifier = (payload.proxy_identifier);
+    this.proxyIdentifierSid = (payload.proxy_identifier_sid);
     this.dateDeleted = deserialize.iso8601DateTime(payload.date_deleted);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { serviceSid, sessionSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sessionSid, sid: sid,  };
   }
 
   /**
@@ -406,14 +338,7 @@ export class ParticipantInstance {
   links: Record<string, string>;
 
   private get _proxy(): ParticipantContext {
-    this._context =
-      this._context ||
-      new ParticipantContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sessionSid,
-        this._solution.sid
-      );
+    this._context = this._context || new ParticipantContextImpl(this._version, this._solution.serviceSid, this._solution.sessionSid, this._solution.sid);
     return this._context;
   }
 
@@ -424,9 +349,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -437,9 +362,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -450,9 +375,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -463,12 +388,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -507,6 +429,7 @@ export class ParticipantInstance {
   }
 }
 
+
 export interface ParticipantSolution {
   serviceSid: string;
   sessionSid: string;
@@ -517,8 +440,13 @@ export interface ParticipantListInstance {
   _solution: ParticipantSolution;
   _uri: string;
 
-  (sid: string): ParticipantContext;
-  get(sid: string): ParticipantContext;
+  (sid: string, ): ParticipantContext;
+  get(sid: string, ): ParticipantContext;
+
+
+
+
+
 
   /**
    * Create a ParticipantInstance
@@ -528,10 +456,7 @@ export interface ParticipantListInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  create(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
 
   /**
    * Create a ParticipantInstance and return HTTP info
@@ -541,13 +466,10 @@ export interface ParticipantListInstance {
    *
    * @returns Resolves to processed ParticipantInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>>;
+  createWithHttpInfo(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>>;
+
+
+
 
   /**
    * Streams ParticipantInstance records from the API.
@@ -564,13 +486,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(params: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ParticipantInstance records from the API with HTTP metadata captured per page.
    *
@@ -586,13 +503,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
@@ -601,10 +513,7 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API with HTTP metadata.
    *
@@ -613,10 +522,7 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -626,13 +532,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
-  list(
-    params: ParticipantListInstanceOptions,
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
+  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(params: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list with HTTP metadata.
    *
@@ -644,19 +545,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance[]>>;
-  listWithHttpInfo(
-    params: ParticipantListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ParticipantInstance[]>) => any): Promise<ApiResponse<ParticipantInstance[]>>;
+  listWithHttpInfo(params: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantInstance[]>) => any): Promise<ApiResponse<ParticipantInstance[]>>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -668,13 +558,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
-  page(
-    params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API with HTTP metadata.
    *
@@ -686,13 +571,9 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>>;
-  pageWithHttpInfo(
-    params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>>;
+  pageWithHttpInfo(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -701,143 +582,107 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ParticipantListInstance(
-  version: V1,
-  serviceSid: string,
-  sessionSid: string
-): ParticipantListInstance {
+export function ParticipantListInstance(version: V1, serviceSid: string, sessionSid: string): ParticipantListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(sessionSid)) {
-    throw new Error("Parameter 'sessionSid' is not valid.");
+    throw new Error('Parameter \'sessionSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ParticipantListInstance;
 
-  instance.get = function get(sid): ParticipantContext {
+  instance.get = function get(sid, ): ParticipantContext {
     return new ParticipantContextImpl(version, serviceSid, sessionSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, sessionSid };
+  instance._solution = { serviceSid, sessionSid,  };
   instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants`;
 
-  instance.create = function create(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+  instance.create = function create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["identifier"] === null || params["identifier"] === undefined) {
-      throw new Error("Required parameter \"params['identifier']\" missing.");
+      throw new Error('Required parameter "params[\'identifier\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Identifier"] = params["identifier"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["proxyIdentifier"] !== undefined)
-      data["ProxyIdentifier"] = params["proxyIdentifier"];
+    data["ProxyIdentifier"] = params["proxyIdentifier"];
     if (params["proxyIdentifierSid"] !== undefined)
-      data["ProxyIdentifierSid"] = params["proxyIdentifierSid"];
+    data["ProxyIdentifierSid"] = params["proxyIdentifierSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sessionSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: ParticipantListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ParticipantInstance>
-    ) => any
-  ): Promise<ApiResponse<ParticipantInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<ParticipantInstance>) => any): Promise<ApiResponse<ParticipantInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["identifier"] === null || params["identifier"] === undefined) {
-      throw new Error("Required parameter \"params['identifier']\" missing.");
+      throw new Error('Required parameter "params[\'identifier\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Identifier"] = params["identifier"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["proxyIdentifier"] !== undefined)
-      data["ProxyIdentifier"] = params["proxyIdentifier"];
+    data["ProxyIdentifier"] = params["proxyIdentifier"];
     if (params["proxyIdentifierSid"] !== undefined)
-      data["ProxyIdentifierSid"] = params["proxyIdentifierSid"];
+    data["ProxyIdentifierSid"] = params["proxyIdentifierSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ParticipantResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sessionSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ParticipantResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ParticipantInstance> => ({
+      ...response,
+      body: new ParticipantInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.sessionSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ParticipantPage) => any),
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage> {
+
+    }
+
+  instance.page = function page(params?: ParticipantListInstancePageOptions | ((error: Error | null, items: ParticipantPage) => any), callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -847,59 +692,44 @@ export function ParticipantListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ParticipantPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ParticipantPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
-  ): Promise<ApiResponse<ParticipantPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ParticipantListInstancePageOptions | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any), callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -909,122 +739,94 @@ export function ParticipantListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ParticipantPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ParticipantPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ParticipantPage>
-    ) => any
-  ): Promise<ApiResponse<ParticipantPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ParticipantPage>) => any): Promise<ApiResponse<ParticipantPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ParticipantPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ParticipantPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ParticipantPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ParticipantPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ParticipantPage extends Page<
-  V1,
-  ParticipantPayload,
-  ParticipantResource,
-  ParticipantInstance
-> {
-  /**
-   * Initialize the ParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ParticipantSolution
-  ) {
+export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
+/**
+* Initialize the ParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ParticipantResource): ParticipantInstance {
+    /**
+    * Build an instance of ParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantResource): ParticipantInstance {
+
     return new ParticipantInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sessionSid
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.sessionSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

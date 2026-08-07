@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -24,7 +23,6 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { ChunkListInstance } from "./knowledge/chunk";
 import { KnowledgeStatusListInstance } from "./knowledge/knowledgeStatus";
-
 
 export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
@@ -64,7 +62,6 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
   }
 }
 
-
 export class AssistantsV1ServiceCreatePolicyRequest {
   /**
    * The description of the policy.
@@ -92,7 +89,6 @@ export class AssistantsV1ServiceCreatePolicyRequest {
     this.type = payload["type"];
   }
 }
-
 
 export class AssistantsV1ServiceUpdateKnowledgeRequest {
   /**
@@ -127,16 +123,12 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
   }
 }
 
-
-
-
-
 /**
  * Options to pass to update a KnowledgeInstance
  */
 export interface KnowledgeContextUpdateOptions {
   /**  */
-  "assistantsV1ServiceUpdateKnowledgeRequest"?: AssistantsV1ServiceUpdateKnowledgeRequest;
+  assistantsV1ServiceUpdateKnowledgeRequest?: AssistantsV1ServiceUpdateKnowledgeRequest;
 }
 
 /**
@@ -144,7 +136,7 @@ export interface KnowledgeContextUpdateOptions {
  */
 export interface KnowledgeListInstanceCreateOptions {
   /**  */
-  "assistantsV1ServiceCreateKnowledgeRequest": AssistantsV1ServiceCreateKnowledgeRequest;
+  assistantsV1ServiceCreateKnowledgeRequest: AssistantsV1ServiceCreateKnowledgeRequest;
 }
 
 /**
@@ -152,9 +144,9 @@ export interface KnowledgeListInstanceCreateOptions {
  */
 export interface KnowledgeListInstanceEachOptions {
   /**  */
-  "assistantId"?: string;
+  assistantId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -168,28 +160,26 @@ export interface KnowledgeListInstanceEachOptions {
  */
 export interface KnowledgeListInstanceOptions {
   /**  */
-  "assistantId"?: string;
+  assistantId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface KnowledgeListInstancePageOptions {
   /**  */
-  "assistantId"?: string;
+  assistantId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
 
 export interface KnowledgeContext {
   chunks: ChunkListInstance;
@@ -202,7 +192,9 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a KnowledgeInstance and return HTTP info
@@ -211,7 +203,9 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a KnowledgeInstance
@@ -220,7 +214,9 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  fetch(callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>
+  fetch(
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance>;
 
   /**
    * Fetch a KnowledgeInstance and return HTTP info
@@ -229,7 +225,12 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>>;
 
   /**
    * Update a KnowledgeInstance
@@ -238,7 +239,9 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  update(callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>;
+  update(
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance>;
   /**
    * Update a KnowledgeInstance
    *
@@ -248,7 +251,11 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  update(params: AssistantsV1ServiceUpdateKnowledgeRequest, headers?: any, callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>;
+  update(
+    params: AssistantsV1ServiceUpdateKnowledgeRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance>;
 
   /**
    * Update a KnowledgeInstance and return HTTP info
@@ -257,7 +264,12 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>>;
   /**
    * Update a KnowledgeInstance and return HTTP info
    *
@@ -267,7 +279,14 @@ export interface KnowledgeContext {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AssistantsV1ServiceUpdateKnowledgeRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>;
+  updateWithHttpInfo(
+    params: AssistantsV1ServiceUpdateKnowledgeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -277,7 +296,7 @@ export interface KnowledgeContext {
 }
 
 export interface KnowledgeContextSolution {
-  "id": string;
+  id: string;
 }
 
 export class KnowledgeContextImpl implements KnowledgeContext {
@@ -287,158 +306,237 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   protected _chunks?: ChunkListInstance;
   protected _knowledgeStatus?: KnowledgeStatusListInstance;
 
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
-      throw new Error('Parameter \'id\' is not valid.');
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { id,  };
+    this._solution = { id };
     this._uri = `/Knowledge/${id}`;
   }
 
   get chunks(): ChunkListInstance {
-    this._chunks = this._chunks || ChunkListInstance(this._version, this._solution.id);
+    this._chunks =
+      this._chunks || ChunkListInstance(this._version, this._solution.id);
     return this._chunks;
   }
 
   get knowledgeStatus(): KnowledgeStatusListInstance {
-    this._knowledgeStatus = this._knowledgeStatus || KnowledgeStatusListInstance(this._version, this._solution.id);
+    this._knowledgeStatus =
+      this._knowledgeStatus ||
+      KnowledgeStatusListInstance(this._version, this._solution.id);
     return this._knowledgeStatus;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new KnowledgeInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KnowledgeInstance(operationVersion, payload, instance._solution.id),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<KnowledgeResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<KnowledgeInstance> => ({
-      ...response,
-      body: new KnowledgeInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<KnowledgeResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<KnowledgeInstance> => ({
+        ...response,
+        body: new KnowledgeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: AssistantsV1ServiceUpdateKnowledgeRequest | ((error: Error | null, item?: KnowledgeInstance) => any), headers?: any,callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | AssistantsV1ServiceUpdateKnowledgeRequest
+      | ((error: Error | null, item?: KnowledgeInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest;
+      params =
+        {} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest;
     } else {
-      params = params || {} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest;
+      params =
+        params ||
+        ({} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new KnowledgeInstance(operationVersion, payload, instance._solution.id));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KnowledgeInstance(operationVersion, payload, instance._solution.id),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: AssistantsV1ServiceUpdateKnowledgeRequest | ((error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | AssistantsV1ServiceUpdateKnowledgeRequest
+      | ((error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest;
+      params =
+        {} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest;
     } else {
-      params = params || {} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest;
+      params =
+        params ||
+        ({} as Partial<AssistantsV1ServiceUpdateKnowledgeRequest> as AssistantsV1ServiceUpdateKnowledgeRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<KnowledgeResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<KnowledgeInstance> => ({
-      ...response,
-      body: new KnowledgeInstance(operationVersion, response.body, instance._solution.id)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<KnowledgeResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<KnowledgeInstance> => ({
+        ...response,
+        body: new KnowledgeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -455,9 +553,8 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   }
 }
 
-
-  interface KnowledgePayload extends TwilioResponsePayload {
-    knowledge: KnowledgeResource[];
+interface KnowledgePayload extends TwilioResponsePayload {
+  knowledge: KnowledgeResource[];
 }
 
 interface KnowledgeResource {
@@ -478,21 +575,24 @@ export class KnowledgeInstance {
   protected _solution: KnowledgeContextSolution;
   protected _context?: KnowledgeContext;
 
-  constructor(protected _version: V1, payload: KnowledgeResource, id?: string) {
-    
-    this.description = (payload.description);
-    this.id = (payload.id);
-    this.accountSid = (payload.account_sid);
-    this.knowledgeSourceDetails = (payload.knowledge_source_details);
-    this.name = (payload.name);
-    this.status = (payload.status);
-    this.type = (payload.type);
-    this.url = (payload.url);
-    this.embeddingModel = (payload.embedding_model);
+  constructor(
+    protected _version: V1,
+    payload: KnowledgeResource,
+    id?: string,
+  ) {
+    this.description = payload.description;
+    this.id = payload.id;
+    this.accountSid = payload.account_sid;
+    this.knowledgeSourceDetails = payload.knowledge_source_details;
+    this.name = payload.name;
+    this.status = payload.status;
+    this.type = payload.type;
+    this.url = payload.url;
+    this.embeddingModel = payload.embedding_model;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { id: id,  };
+    this._solution = { id: id };
   }
 
   /**
@@ -541,7 +641,9 @@ export class KnowledgeInstance {
   dateUpdated: Date;
 
   private get _proxy(): KnowledgeContext {
-    this._context = this._context || new KnowledgeContextImpl(this._version, this._solution.id);
+    this._context =
+      this._context ||
+      new KnowledgeContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -552,9 +654,9 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -565,9 +667,9 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -578,9 +680,9 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  fetch(callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -591,9 +693,12 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -604,7 +709,9 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  update(callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>;
+  update(
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance>;
   /**
    * Update a KnowledgeInstance
    *
@@ -614,10 +721,16 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  update(params: AssistantsV1ServiceUpdateKnowledgeRequest, headers?: any, callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>;
+  update(
+    params: AssistantsV1ServiceUpdateKnowledgeRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -628,7 +741,12 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>>;
   /**
    * Update a KnowledgeInstance and return HTTP info
    *
@@ -638,10 +756,22 @@ export class KnowledgeInstance {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AssistantsV1ServiceUpdateKnowledgeRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>;
+  updateWithHttpInfo(
+    params: AssistantsV1ServiceUpdateKnowledgeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -685,24 +815,15 @@ export class KnowledgeInstance {
   }
 }
 
-
-export interface KnowledgeSolution {
-}
+export interface KnowledgeSolution {}
 
 export interface KnowledgeListInstance {
   _version: V1;
   _solution: KnowledgeSolution;
   _uri: string;
 
-  (id: string, ): KnowledgeContext;
-  get(id: string, ): KnowledgeContext;
-
-
-
-
-
-
-
+  (id: string): KnowledgeContext;
+  get(id: string): KnowledgeContext;
 
   /**
    * Create a KnowledgeInstance
@@ -713,7 +834,11 @@ export interface KnowledgeListInstance {
    *
    * @returns Resolves to processed KnowledgeInstance
    */
-  create(params: AssistantsV1ServiceCreateKnowledgeRequest, headers?: any, callback?: (error: Error | null, item?: KnowledgeInstance) => any): Promise<KnowledgeInstance>;
+  create(
+    params: AssistantsV1ServiceCreateKnowledgeRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance>;
 
   /**
    * Create a KnowledgeInstance and return HTTP info
@@ -724,10 +849,14 @@ export interface KnowledgeListInstance {
    *
    * @returns Resolves to processed KnowledgeInstance with HTTP metadata
    */
-  createWithHttpInfo(params: AssistantsV1ServiceCreateKnowledgeRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: AssistantsV1ServiceCreateKnowledgeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>>;
 
   /**
    * Streams KnowledgeInstance records from the API.
@@ -744,8 +873,13 @@ export interface KnowledgeListInstance {
    * @param { KnowledgeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void): void;
-  each(params: KnowledgeListInstanceEachOptions, callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: KnowledgeListInstanceEachOptions,
+    callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams KnowledgeInstance records from the API with HTTP metadata captured per page.
    *
@@ -761,8 +895,13 @@ export interface KnowledgeListInstance {
    * @param { KnowledgeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: KnowledgeListInstanceEachOptions, callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: KnowledgeListInstanceEachOptions,
+    callback?: (item: KnowledgeInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of KnowledgeInstance records from the API.
    *
@@ -771,7 +910,10 @@ export interface KnowledgeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: KnowledgePage) => any): Promise<KnowledgePage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: KnowledgePage) => any,
+  ): Promise<KnowledgePage>;
   /**
    * Retrieve a single target page of KnowledgeInstance records from the API with HTTP metadata.
    *
@@ -780,7 +922,10 @@ export interface KnowledgeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any): Promise<ApiResponse<KnowledgePage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any,
+  ): Promise<ApiResponse<KnowledgePage>>;
   /**
    * Lists KnowledgeInstance records from the API as a list.
    *
@@ -790,8 +935,13 @@ export interface KnowledgeListInstance {
    * @param { KnowledgeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: KnowledgeInstance[]) => any): Promise<KnowledgeInstance[]>;
-  list(params: KnowledgeListInstanceOptions, callback?: (error: Error | null, items: KnowledgeInstance[]) => any): Promise<KnowledgeInstance[]>;
+  list(
+    callback?: (error: Error | null, items: KnowledgeInstance[]) => any,
+  ): Promise<KnowledgeInstance[]>;
+  list(
+    params: KnowledgeListInstanceOptions,
+    callback?: (error: Error | null, items: KnowledgeInstance[]) => any,
+  ): Promise<KnowledgeInstance[]>;
   /**
    * Lists KnowledgeInstance records from the API as a list with HTTP metadata.
    *
@@ -803,8 +953,19 @@ export interface KnowledgeListInstance {
    * @param { KnowledgeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<KnowledgeInstance[]>) => any): Promise<ApiResponse<KnowledgeInstance[]>>;
-  listWithHttpInfo(params: KnowledgeListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<KnowledgeInstance[]>) => any): Promise<ApiResponse<KnowledgeInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<KnowledgeInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance[]>>;
+  listWithHttpInfo(
+    params: KnowledgeListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<KnowledgeInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance[]>>;
   /**
    * Retrieve a single page of KnowledgeInstance records from the API.
    *
@@ -816,8 +977,13 @@ export interface KnowledgeListInstance {
    * @param { KnowledgeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: KnowledgePage) => any): Promise<KnowledgePage>;
-  page(params: KnowledgeListInstancePageOptions, callback?: (error: Error | null, items: KnowledgePage) => any): Promise<KnowledgePage>;
+  page(
+    callback?: (error: Error | null, items: KnowledgePage) => any,
+  ): Promise<KnowledgePage>;
+  page(
+    params: KnowledgeListInstancePageOptions,
+    callback?: (error: Error | null, items: KnowledgePage) => any,
+  ): Promise<KnowledgePage>;
   /**
    * Retrieve a single page of KnowledgeInstance records from the API with HTTP metadata.
    *
@@ -829,9 +995,13 @@ export interface KnowledgeListInstance {
    * @param { KnowledgeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any): Promise<ApiResponse<KnowledgePage>>;
-  pageWithHttpInfo(params: KnowledgeListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any): Promise<ApiResponse<KnowledgePage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any,
+  ): Promise<ApiResponse<KnowledgePage>>;
+  pageWithHttpInfo(
+    params: KnowledgeListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any,
+  ): Promise<ApiResponse<KnowledgePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -841,78 +1011,105 @@ export interface KnowledgeListInstance {
 }
 
 export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
-  const instance = ((id, ) => instance.get(id, )) as KnowledgeListInstance;
+  const instance = ((id) => instance.get(id)) as KnowledgeListInstance;
 
-  instance.get = function get(id, ): KnowledgeContext {
+  instance.get = function get(id): KnowledgeContext {
     return new KnowledgeContextImpl(version, id);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Knowledge`;
 
-  instance.create = function create(params: AssistantsV1ServiceCreateKnowledgeRequest, headers?: any, callback?: (error: Error | null, items: KnowledgeInstance) => any): Promise<KnowledgeInstance> {
+  instance.create = function create(
+    params: AssistantsV1ServiceCreateKnowledgeRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: KnowledgeInstance) => any,
+  ): Promise<KnowledgeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new KnowledgeInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new KnowledgeInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: AssistantsV1ServiceCreateKnowledgeRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<KnowledgeInstance>) => any): Promise<ApiResponse<KnowledgeInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: AssistantsV1ServiceCreateKnowledgeRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<KnowledgeInstance>,
+    ) => any,
+  ): Promise<ApiResponse<KnowledgeInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<KnowledgeResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<KnowledgeInstance> => ({
-      ...response,
-      body: new KnowledgeInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<KnowledgeResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<KnowledgeInstance> => ({
+        ...response,
+        body: new KnowledgeInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: KnowledgeListInstancePageOptions | ((error: Error | null, items: KnowledgePage) => any), callback?: (error: Error | null, items: KnowledgePage) => any): Promise<KnowledgePage> {
+  instance.page = function page(
+    params?:
+      | KnowledgeListInstancePageOptions
+      | ((error: Error | null, items: KnowledgePage) => any),
+    callback?: (error: Error | null, items: KnowledgePage) => any,
+  ): Promise<KnowledgePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -922,46 +1119,61 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
 
     let data: any = {};
 
-        if (params["assistantId"] !== undefined)
-    data["AssistantId"] = params["assistantId"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["assistantId"] !== undefined)
+      data["AssistantId"] = params["assistantId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new KnowledgePage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KnowledgePage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: KnowledgePage) => any): Promise<KnowledgePage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new KnowledgePage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: KnowledgePage) => any,
+  ): Promise<KnowledgePage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new KnowledgePage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: KnowledgeListInstancePageOptions | ((error: Error | null, items: ApiResponse<KnowledgePage>) => any), callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any): Promise<ApiResponse<KnowledgePage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | KnowledgeListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<KnowledgePage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<KnowledgePage>) => any,
+  ): Promise<ApiResponse<KnowledgePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -971,94 +1183,110 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
 
     let data: any = {};
 
-        if (params["assistantId"] !== undefined)
-    data["AssistantId"] = params["assistantId"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["assistantId"] !== undefined)
+      data["AssistantId"] = params["assistantId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<KnowledgePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new KnowledgePage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<KnowledgePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new KnowledgePage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<KnowledgePage>) => any): Promise<ApiResponse<KnowledgePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<KnowledgePage>) => any,
+  ): Promise<ApiResponse<KnowledgePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<KnowledgePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new KnowledgePage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<KnowledgePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new KnowledgePage(
+          instance._version,
+          response,
+          instance._solution,
+        ),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class KnowledgePage extends Page<V1, KnowledgePayload, KnowledgeResource, KnowledgeInstance> {
-/**
-* Initialize the KnowledgePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: KnowledgeSolution) {
+export class KnowledgePage extends Page<
+  V1,
+  KnowledgePayload,
+  KnowledgeResource,
+  KnowledgeInstance
+> {
+  /**
+   * Initialize the KnowledgePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: KnowledgeSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of KnowledgeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: KnowledgeResource): KnowledgeInstance {
+  /**
+   * Build an instance of KnowledgeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: KnowledgeResource): KnowledgeInstance {
+    return new KnowledgeInstance(this._version, payload);
+  }
 
-    return new KnowledgeInstance(
-    this._version,
-    payload,
-    );
-    }
-
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

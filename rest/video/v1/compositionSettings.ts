@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,29 +19,25 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to create a CompositionSettingsInstance
  */
 export interface CompositionSettingsContextCreateOptions {
   /** A descriptive string that you create to describe the resource and show to the user in the console */
-  "friendlyName": string;
+  friendlyName: string;
   /** The SID of the stored Credential resource. */
-  "awsCredentialsSid"?: string;
+  awsCredentialsSid?: string;
   /** The SID of the Public Key resource to use for encryption. */
-  "encryptionKeySid"?: string;
+  encryptionKeySid?: string;
   /** The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2). */
-  "awsS3Url"?: string;
+  awsS3Url?: string;
   /** Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud. */
-  "awsStorageEnabled"?: boolean;
+  awsStorageEnabled?: boolean;
   /** Whether all compositions should be stored in an encrypted form. The default is `false`. */
-  "encryptionEnabled"?: boolean;
+  encryptionEnabled?: boolean;
 }
 
-
 export interface CompositionSettingsContext {
-
   /**
    * Create a CompositionSettingsInstance
    *
@@ -51,7 +46,10 @@ export interface CompositionSettingsContext {
    *
    * @returns Resolves to processed CompositionSettingsInstance
    */
-  create(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  create(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance>;
 
   /**
    * Create a CompositionSettingsInstance and return HTTP info
@@ -61,7 +59,13 @@ export interface CompositionSettingsContext {
    *
    * @returns Resolves to processed CompositionSettingsInstance with HTTP metadata
    */
-  createWithHttpInfo(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>>;
+  createWithHttpInfo(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>>;
 
   /**
    * Fetch a CompositionSettingsInstance
@@ -70,7 +74,9 @@ export interface CompositionSettingsContext {
    *
    * @returns Resolves to processed CompositionSettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
+  fetch(
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance>;
 
   /**
    * Fetch a CompositionSettingsInstance and return HTTP info
@@ -79,7 +85,12 @@ export interface CompositionSettingsContext {
    *
    * @returns Resolves to processed CompositionSettingsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -88,143 +99,179 @@ export interface CompositionSettingsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSettingsContextSolution {
-}
+export interface CompositionSettingsContextSolution {}
 
 export class CompositionSettingsContextImpl implements CompositionSettingsContext {
   protected _solution: CompositionSettingsContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/CompositionSettings/Default`;
   }
 
-  create(params: CompositionSettingsContextCreateOptions,callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance> {
-      if (params === null || params === undefined) {
+  create(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["awsCredentialsSid"] !== undefined)
-    data["AwsCredentialsSid"] = params["awsCredentialsSid"];
+      data["AwsCredentialsSid"] = params["awsCredentialsSid"];
     if (params["encryptionKeySid"] !== undefined)
-    data["EncryptionKeySid"] = params["encryptionKeySid"];
-    if (params["awsS3Url"] !== undefined)
-    data["AwsS3Url"] = params["awsS3Url"];
+      data["EncryptionKeySid"] = params["encryptionKeySid"];
+    if (params["awsS3Url"] !== undefined) data["AwsS3Url"] = params["awsS3Url"];
     if (params["awsStorageEnabled"] !== undefined)
-    data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
+      data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
     if (params["encryptionEnabled"] !== undefined)
-    data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
+      data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CompositionSettingsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(params: CompositionSettingsContextCreateOptions,callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>> {
-      if (params === null || params === undefined) {
+  createWithHttpInfo(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["awsCredentialsSid"] !== undefined)
-    data["AwsCredentialsSid"] = params["awsCredentialsSid"];
+      data["AwsCredentialsSid"] = params["awsCredentialsSid"];
     if (params["encryptionKeySid"] !== undefined)
-    data["EncryptionKeySid"] = params["encryptionKeySid"];
-    if (params["awsS3Url"] !== undefined)
-    data["AwsS3Url"] = params["awsS3Url"];
+      data["EncryptionKeySid"] = params["encryptionKeySid"];
+    if (params["awsS3Url"] !== undefined) data["AwsS3Url"] = params["awsS3Url"];
     if (params["awsStorageEnabled"] !== undefined)
-    data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
+      data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
     if (params["encryptionEnabled"] !== undefined)
-    data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
+      data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<CompositionSettingsResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<CompositionSettingsInstance> => ({
-      ...response,
-      body: new CompositionSettingsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<CompositionSettingsResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<CompositionSettingsInstance> => ({
+        ...response,
+        body: new CompositionSettingsInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CompositionSettingsInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<CompositionSettingsResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<CompositionSettingsInstance> => ({
-      ...response,
-      body: new CompositionSettingsInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CompositionSettingsResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<CompositionSettingsInstance> => ({
+        ...response,
+        body: new CompositionSettingsInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -241,8 +288,7 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
   }
 }
 
-
-  interface CompositionSettingsPayload extends CompositionSettingsResource {}
+interface CompositionSettingsPayload extends CompositionSettingsResource {}
 
 interface CompositionSettingsResource {
   account_sid: string;
@@ -259,18 +305,20 @@ export class CompositionSettingsInstance {
   protected _solution: CompositionSettingsContextSolution;
   protected _context?: CompositionSettingsContext;
 
-  constructor(protected _version: V1, payload: CompositionSettingsResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.friendlyName = (payload.friendly_name);
-    this.awsCredentialsSid = (payload.aws_credentials_sid);
-    this.awsS3Url = (payload.aws_s3_url);
-    this.awsStorageEnabled = (payload.aws_storage_enabled);
-    this.encryptionKeySid = (payload.encryption_key_sid);
-    this.encryptionEnabled = (payload.encryption_enabled);
-    this.url = (payload.url);
+  constructor(
+    protected _version: V1,
+    payload: CompositionSettingsResource,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
+    this.awsCredentialsSid = payload.aws_credentials_sid;
+    this.awsS3Url = payload.aws_s3_url;
+    this.awsStorageEnabled = payload.aws_storage_enabled;
+    this.encryptionKeySid = payload.encryption_key_sid;
+    this.encryptionEnabled = payload.encryption_enabled;
+    this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -307,7 +355,8 @@ export class CompositionSettingsInstance {
   url: string;
 
   private get _proxy(): CompositionSettingsContext {
-    this._context = this._context || new CompositionSettingsContextImpl(this._version);
+    this._context =
+      this._context || new CompositionSettingsContextImpl(this._version);
     return this._context;
   }
 
@@ -319,10 +368,15 @@ export class CompositionSettingsInstance {
    *
    * @returns Resolves to processed CompositionSettingsInstance
    */
-  create(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  create(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance>;
 
-    create(params?: any, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
-    {
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -334,10 +388,21 @@ export class CompositionSettingsInstance {
    *
    * @returns Resolves to processed CompositionSettingsInstance with HTTP metadata
    */
-  createWithHttpInfo(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>>;
+  createWithHttpInfo(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>>;
 
-    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>>
-    {
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -348,9 +413,9 @@ export class CompositionSettingsInstance {
    *
    * @returns Resolves to processed CompositionSettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+  ): Promise<CompositionSettingsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -361,9 +426,12 @@ export class CompositionSettingsInstance {
    *
    * @returns Resolves to processed CompositionSettingsInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CompositionSettingsInstance>) => any): Promise<ApiResponse<CompositionSettingsInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CompositionSettingsInstance>,
+    ) => any,
+  ): Promise<ApiResponse<CompositionSettingsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -390,9 +458,7 @@ export class CompositionSettingsInstance {
   }
 }
 
-
-export interface CompositionSettingsSolution {
-}
+export interface CompositionSettingsSolution {}
 
 export interface CompositionSettingsListInstance {
   _version: V1;
@@ -402,11 +468,6 @@ export interface CompositionSettingsListInstance {
   (): CompositionSettingsContext;
   get(): CompositionSettingsContext;
 
-
-
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -414,26 +475,29 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CompositionSettingsListInstance(version: V1): CompositionSettingsListInstance {
+export function CompositionSettingsListInstance(
+  version: V1,
+): CompositionSettingsListInstance {
   const instance = (() => instance.get()) as CompositionSettingsListInstance;
 
   instance.get = function get(): CompositionSettingsContext {
     return new CompositionSettingsContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

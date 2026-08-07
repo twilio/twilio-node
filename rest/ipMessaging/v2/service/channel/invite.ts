@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -23,18 +22,14 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
-
-
-
-
 /**
  * Options to pass to create a InviteInstance
  */
 export interface InviteListInstanceCreateOptions {
   /**  */
-  "identity": string;
+  identity: string;
   /**  */
-  "roleSid"?: string;
+  roleSid?: string;
 }
 
 /**
@@ -42,9 +37,9 @@ export interface InviteListInstanceCreateOptions {
  */
 export interface InviteListInstanceEachOptions {
   /**  */
-  "identity"?: Array<string>;
+  identity?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: InviteInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -58,31 +53,28 @@ export interface InviteListInstanceEachOptions {
  */
 export interface InviteListInstanceOptions {
   /**  */
-  "identity"?: Array<string>;
+  identity?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface InviteListInstancePageOptions {
   /**  */
-  "identity"?: Array<string>;
+  identity?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 100. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-
 export interface InviteContext {
-
   /**
    * Remove a InviteInstance
    *
@@ -90,7 +82,9 @@ export interface InviteContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a InviteInstance and return HTTP info
@@ -99,7 +93,9 @@ export interface InviteContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a InviteInstance
@@ -108,7 +104,9 @@ export interface InviteContext {
    *
    * @returns Resolves to processed InviteInstance
    */
-  fetch(callback?: (error: Error | null, item?: InviteInstance) => any): Promise<InviteInstance>
+  fetch(
+    callback?: (error: Error | null, item?: InviteInstance) => any,
+  ): Promise<InviteInstance>;
 
   /**
    * Fetch a InviteInstance and return HTTP info
@@ -117,7 +115,9 @@ export interface InviteContext {
    *
    * @returns Resolves to processed InviteInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any): Promise<ApiResponse<InviteInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any,
+  ): Promise<ApiResponse<InviteInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -127,97 +127,142 @@ export interface InviteContext {
 }
 
 export interface InviteContextSolution {
-  "serviceSid": string;
-  "channelSid": string;
-  "sid": string;
+  serviceSid: string;
+  channelSid: string;
+  sid: string;
 }
 
 export class InviteContextImpl implements InviteContext {
   protected _solution: InviteContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, serviceSid: string, channelSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    channelSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error('Parameter \'serviceSid\' is not valid.');
+      throw new Error("Parameter 'serviceSid' is not valid.");
     }
 
     if (!isValidPathParam(channelSid)) {
-      throw new Error('Parameter \'channelSid\' is not valid.');
+      throw new Error("Parameter 'channelSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { serviceSid, channelSid, sid,  };
+    this._solution = { serviceSid, channelSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Invites/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: InviteInstance) => any): Promise<InviteInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: InviteInstance) => any,
+  ): Promise<InviteInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new InviteInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.channelSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InviteInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any): Promise<ApiResponse<InviteInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any,
+  ): Promise<ApiResponse<InviteInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<InviteResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<InviteInstance> => ({
-      ...response,
-      body: new InviteInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.channelSid, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<InviteResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<InviteInstance> => ({
+        ...response,
+        body: new InviteInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -234,9 +279,8 @@ export class InviteContextImpl implements InviteContext {
   }
 }
 
-
-  interface InvitePayload extends TwilioResponsePayload {
-    invites: InviteResource[];
+interface InvitePayload extends TwilioResponsePayload {
+  invites: InviteResource[];
 }
 
 interface InviteResource {
@@ -256,20 +300,25 @@ export class InviteInstance {
   protected _solution: InviteContextSolution;
   protected _context?: InviteContext;
 
-  constructor(protected _version: V2, payload: InviteResource, serviceSid: string, channelSid: string, sid?: string) {
-    
-    this.sid = (payload.sid);
-    this.accountSid = (payload.account_sid);
-    this.channelSid = (payload.channel_sid);
-    this.serviceSid = (payload.service_sid);
-    this.identity = (payload.identity);
+  constructor(
+    protected _version: V2,
+    payload: InviteResource,
+    serviceSid: string,
+    channelSid: string,
+    sid?: string,
+  ) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.channelSid = payload.channel_sid;
+    this.serviceSid = payload.service_sid;
+    this.identity = payload.identity;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.roleSid = (payload.role_sid);
-    this.createdBy = (payload.created_by);
-    this.url = (payload.url);
+    this.roleSid = payload.role_sid;
+    this.createdBy = payload.created_by;
+    this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid,  };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   sid: string;
@@ -284,7 +333,14 @@ export class InviteInstance {
   url: string;
 
   private get _proxy(): InviteContext {
-    this._context = this._context || new InviteContextImpl(this._version, this._solution.serviceSid, this._solution.channelSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new InviteContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.channelSid,
+        this._solution.sid,
+      );
     return this._context;
   }
 
@@ -295,9 +351,9 @@ export class InviteInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -308,9 +364,9 @@ export class InviteInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -321,9 +377,9 @@ export class InviteInstance {
    *
    * @returns Resolves to processed InviteInstance
    */
-  fetch(callback?: (error: Error | null, item?: InviteInstance) => any): Promise<InviteInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: InviteInstance) => any,
+  ): Promise<InviteInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -334,9 +390,9 @@ export class InviteInstance {
    *
    * @returns Resolves to processed InviteInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any): Promise<ApiResponse<InviteInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any,
+  ): Promise<ApiResponse<InviteInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -365,7 +421,6 @@ export class InviteInstance {
   }
 }
 
-
 export interface InviteSolution {
   serviceSid: string;
   channelSid: string;
@@ -376,13 +431,8 @@ export interface InviteListInstance {
   _solution: InviteSolution;
   _uri: string;
 
-  (sid: string, ): InviteContext;
-  get(sid: string, ): InviteContext;
-
-
-
-
-
+  (sid: string): InviteContext;
+  get(sid: string): InviteContext;
 
   /**
    * Create a InviteInstance
@@ -392,7 +442,10 @@ export interface InviteListInstance {
    *
    * @returns Resolves to processed InviteInstance
    */
-  create(params: InviteListInstanceCreateOptions, callback?: (error: Error | null, item?: InviteInstance) => any): Promise<InviteInstance>;
+  create(
+    params: InviteListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: InviteInstance) => any,
+  ): Promise<InviteInstance>;
 
   /**
    * Create a InviteInstance and return HTTP info
@@ -402,10 +455,10 @@ export interface InviteListInstance {
    *
    * @returns Resolves to processed InviteInstance with HTTP metadata
    */
-  createWithHttpInfo(params: InviteListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any): Promise<ApiResponse<InviteInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: InviteListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ApiResponse<InviteInstance>) => any,
+  ): Promise<ApiResponse<InviteInstance>>;
 
   /**
    * Streams InviteInstance records from the API.
@@ -422,8 +475,13 @@ export interface InviteListInstance {
    * @param { InviteListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: InviteInstance, done: (err?: Error) => void) => void): void;
-  each(params: InviteListInstanceEachOptions, callback?: (item: InviteInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: InviteInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: InviteListInstanceEachOptions,
+    callback?: (item: InviteInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams InviteInstance records from the API with HTTP metadata captured per page.
    *
@@ -439,8 +497,13 @@ export interface InviteListInstance {
    * @param { InviteListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: InviteInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: InviteListInstanceEachOptions, callback?: (item: InviteInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: InviteInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: InviteListInstanceEachOptions,
+    callback?: (item: InviteInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of InviteInstance records from the API.
    *
@@ -449,7 +512,10 @@ export interface InviteListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: InvitePage) => any,
+  ): Promise<InvitePage>;
   /**
    * Retrieve a single target page of InviteInstance records from the API with HTTP metadata.
    *
@@ -458,7 +524,10 @@ export interface InviteListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any): Promise<ApiResponse<InvitePage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any,
+  ): Promise<ApiResponse<InvitePage>>;
   /**
    * Lists InviteInstance records from the API as a list.
    *
@@ -468,8 +537,13 @@ export interface InviteListInstance {
    * @param { InviteListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: InviteInstance[]) => any): Promise<InviteInstance[]>;
-  list(params: InviteListInstanceOptions, callback?: (error: Error | null, items: InviteInstance[]) => any): Promise<InviteInstance[]>;
+  list(
+    callback?: (error: Error | null, items: InviteInstance[]) => any,
+  ): Promise<InviteInstance[]>;
+  list(
+    params: InviteListInstanceOptions,
+    callback?: (error: Error | null, items: InviteInstance[]) => any,
+  ): Promise<InviteInstance[]>;
   /**
    * Lists InviteInstance records from the API as a list with HTTP metadata.
    *
@@ -481,8 +555,19 @@ export interface InviteListInstance {
    * @param { InviteListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InviteInstance[]>) => any): Promise<ApiResponse<InviteInstance[]>>;
-  listWithHttpInfo(params: InviteListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<InviteInstance[]>) => any): Promise<ApiResponse<InviteInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InviteInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<InviteInstance[]>>;
+  listWithHttpInfo(
+    params: InviteListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<InviteInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<InviteInstance[]>>;
   /**
    * Retrieve a single page of InviteInstance records from the API.
    *
@@ -494,8 +579,13 @@ export interface InviteListInstance {
    * @param { InviteListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage>;
-  page(params: InviteListInstancePageOptions, callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage>;
+  page(
+    callback?: (error: Error | null, items: InvitePage) => any,
+  ): Promise<InvitePage>;
+  page(
+    params: InviteListInstancePageOptions,
+    callback?: (error: Error | null, items: InvitePage) => any,
+  ): Promise<InvitePage>;
   /**
    * Retrieve a single page of InviteInstance records from the API with HTTP metadata.
    *
@@ -507,9 +597,13 @@ export interface InviteListInstance {
    * @param { InviteListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any): Promise<ApiResponse<InvitePage>>;
-  pageWithHttpInfo(params: InviteListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any): Promise<ApiResponse<InvitePage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any,
+  ): Promise<ApiResponse<InvitePage>>;
+  pageWithHttpInfo(
+    params: InviteListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any,
+  ): Promise<ApiResponse<InvitePage>>;
 
   /**
    * Provide a user-friendly representation
@@ -518,99 +612,128 @@ export interface InviteListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InviteListInstance(version: V2, serviceSid: string, channelSid: string): InviteListInstance {
+export function InviteListInstance(
+  version: V2,
+  serviceSid: string,
+  channelSid: string,
+): InviteListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error('Parameter \'serviceSid\' is not valid.');
+    throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
   if (!isValidPathParam(channelSid)) {
-    throw new Error('Parameter \'channelSid\' is not valid.');
+    throw new Error("Parameter 'channelSid' is not valid.");
   }
 
-  const instance = ((sid, ) => instance.get(sid, )) as InviteListInstance;
+  const instance = ((sid) => instance.get(sid)) as InviteListInstance;
 
-  instance.get = function get(sid, ): InviteContext {
+  instance.get = function get(sid): InviteContext {
     return new InviteContextImpl(version, serviceSid, channelSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { serviceSid, channelSid,  };
+  instance._solution = { serviceSid, channelSid };
   instance._uri = `/Services/${serviceSid}/Channels/${channelSid}/Invites`;
 
-  instance.create = function create(params: InviteListInstanceCreateOptions, callback?: (error: Error | null, items: InviteInstance) => any): Promise<InviteInstance> {
+  instance.create = function create(
+    params: InviteListInstanceCreateOptions,
+    callback?: (error: Error | null, items: InviteInstance) => any,
+  ): Promise<InviteInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["identity"] === null || params["identity"] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+      throw new Error("Required parameter \"params['identity']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Identity"] = params["identity"];
-    if (params["roleSid"] !== undefined)
-    data["RoleSid"] = params["roleSid"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new InviteInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.channelSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InviteInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: InviteListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<InviteInstance>) => any): Promise<ApiResponse<InviteInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: InviteListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ApiResponse<InviteInstance>) => any,
+  ): Promise<ApiResponse<InviteInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["identity"] === null || params["identity"] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+      throw new Error("Required parameter \"params['identity']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Identity"] = params["identity"];
-    if (params["roleSid"] !== undefined)
-    data["RoleSid"] = params["roleSid"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<InviteResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InviteInstance> => ({
-      ...response,
-      body: new InviteInstance(operationVersion, response.body, instance._solution.serviceSid, instance._solution.channelSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<InviteResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<InviteInstance> => ({
+        ...response,
+        body: new InviteInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: InviteListInstancePageOptions | ((error: Error | null, items: InvitePage) => any), callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage> {
+  instance.page = function page(
+    params?:
+      | InviteListInstancePageOptions
+      | ((error: Error | null, items: InvitePage) => any),
+    callback?: (error: Error | null, items: InvitePage) => any,
+  ): Promise<InvitePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -620,46 +743,61 @@ export function InviteListInstance(version: V2, serviceSid: string, channelSid: 
 
     let data: any = {};
 
-        if (params["identity"] !== undefined)
-    data["Identity"] = serialize.map(params["identity"], (e: string) => (e));
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["identity"] !== undefined)
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new InvitePage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InvitePage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new InvitePage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: InvitePage) => any,
+  ): Promise<InvitePage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InvitePage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: InviteListInstancePageOptions | ((error: Error | null, items: ApiResponse<InvitePage>) => any), callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any): Promise<ApiResponse<InvitePage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | InviteListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<InvitePage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<InvitePage>) => any,
+  ): Promise<ApiResponse<InvitePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -669,96 +807,111 @@ export function InviteListInstance(version: V2, serviceSid: string, channelSid: 
 
     let data: any = {};
 
-        if (params["identity"] !== undefined)
-    data["Identity"] = serialize.map(params["identity"], (e: string) => (e));
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["identity"] !== undefined)
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InvitePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new InvitePage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<InvitePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InvitePage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<InvitePage>) => any): Promise<ApiResponse<InvitePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<InvitePage>) => any,
+  ): Promise<ApiResponse<InvitePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<InvitePage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new InvitePage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<InvitePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InvitePage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class InvitePage extends Page<V2, InvitePayload, InviteResource, InviteInstance> {
-/**
-* Initialize the InvitePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: InviteSolution) {
+export class InvitePage extends Page<
+  V2,
+  InvitePayload,
+  InviteResource,
+  InviteInstance
+> {
+  /**
+   * Initialize the InvitePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: InviteSolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of InviteInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: InviteResource): InviteInstance {
-
+  /**
+   * Build an instance of InviteInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: InviteResource): InviteInstance {
     return new InviteInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.channelSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.channelSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

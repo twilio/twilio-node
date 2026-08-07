@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 export class CreateReferralConversionRequest {
   "referralAccountSid"?: string;
@@ -27,20 +29,26 @@ export class CreateReferralConversionRequest {
   }
 }
 
+
+
 /**
  * Options to pass to create a ReferralConversionInstance
  */
 export interface ReferralConversionListInstanceCreateOptions {
   /**  */
-  createReferralConversionRequest: CreateReferralConversionRequest;
+  "createReferralConversionRequest": CreateReferralConversionRequest;
 }
 
-export interface ReferralConversionSolution {}
+
+export interface ReferralConversionSolution {
+}
 
 export interface ReferralConversionListInstance {
   _version: V1;
   _solution: ReferralConversionSolution;
   _uri: string;
+
+
 
   /**
    * Create a ReferralConversionInstance
@@ -51,11 +59,7 @@ export interface ReferralConversionListInstance {
    *
    * @returns Resolves to processed ReferralConversionInstance
    */
-  create(
-    params: CreateReferralConversionRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ReferralConversionInstance) => any
-  ): Promise<ReferralConversionInstance>;
+  create(params: CreateReferralConversionRequest, headers?: any, callback?: (error: Error | null, item?: ReferralConversionInstance) => any): Promise<ReferralConversionInstance>;
 
   /**
    * Create a ReferralConversionInstance and return HTTP info
@@ -66,14 +70,9 @@ export interface ReferralConversionListInstance {
    *
    * @returns Resolves to processed ReferralConversionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateReferralConversionRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ReferralConversionInstance>
-    ) => any
-  ): Promise<ApiResponse<ReferralConversionInstance>>;
+  createWithHttpInfo(params: CreateReferralConversionRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ReferralConversionInstance>) => any): Promise<ApiResponse<ReferralConversionInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -82,123 +81,97 @@ export interface ReferralConversionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ReferralConversionListInstance(
-  version: V1
-): ReferralConversionListInstance {
+export function ReferralConversionListInstance(version: V1): ReferralConversionListInstance {
   const instance = {} as ReferralConversionListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/ReferralConversion`;
 
-  instance.create = function create(
-    params: CreateReferralConversionRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: ReferralConversionInstance) => any
-  ): Promise<ReferralConversionInstance> {
+  instance.create = function create(params: CreateReferralConversionRequest, headers?: any, callback?: (error: Error | null, items: ReferralConversionInstance) => any): Promise<ReferralConversionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ReferralConversionInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ReferralConversionInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CreateReferralConversionRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ReferralConversionInstance>
-    ) => any
-  ): Promise<ApiResponse<ReferralConversionInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateReferralConversionRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<ReferralConversionInstance>) => any): Promise<ApiResponse<ReferralConversionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ReferralConversionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ReferralConversionInstance> => ({
-          ...response,
-          body: new ReferralConversionInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ReferralConversionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ReferralConversionInstance> => ({
+      ...response,
+      body: new ReferralConversionInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface ReferralConversionPayload extends ReferralConversionResource {}
+  interface ReferralConversionPayload extends ReferralConversionResource {}
 
 interface ReferralConversionResource {
   converted_account_sid: string;
 }
 
 export class ReferralConversionInstance {
+
   constructor(protected _version: V1, payload: ReferralConversionResource) {
-    this.convertedAccountSid = payload.converted_account_sid;
+    
+    this.convertedAccountSid = (payload.converted_account_sid);
+
   }
 
   convertedAccountSid: string;
@@ -218,3 +191,5 @@ export class ReferralConversionInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

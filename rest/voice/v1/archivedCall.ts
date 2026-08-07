@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,11 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
 export interface ArchivedCallContext {
-
   /**
    * Remove a ArchivedCallInstance
    *
@@ -32,7 +27,9 @@ export interface ArchivedCallContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a ArchivedCallInstance and return HTTP info
@@ -41,7 +38,9 @@ export interface ArchivedCallContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -51,57 +50,71 @@ export interface ArchivedCallContext {
 }
 
 export interface ArchivedCallContextSolution {
-  "date": Date;
-  "sid": string;
+  date: Date;
+  sid: string;
 }
 
 export class ArchivedCallContextImpl implements ArchivedCallContext {
   protected _solution: ArchivedCallContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, date: Date, sid: string) {
+  constructor(
+    protected _version: V1,
+    date: Date,
+    sid: string,
+  ) {
     if (!isValidPathParam(date)) {
-      throw new Error('Parameter \'date\' is not valid.');
+      throw new Error("Parameter 'date' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { date, sid,  };
+    this._solution = { date, sid };
     this._uri = `/Archives/${date}/Calls/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -118,21 +131,15 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   }
 }
 
-
-
-export interface ArchivedCallSolution {
-}
+export interface ArchivedCallSolution {}
 
 export interface ArchivedCallListInstance {
   _version: V1;
   _solution: ArchivedCallSolution;
   _uri: string;
 
-  (date: Date, sid: string, ): ArchivedCallContext;
-  get(date: Date, sid: string, ): ArchivedCallContext;
-
-
-
+  (date: Date, sid: string): ArchivedCallContext;
+  get(date: Date, sid: string): ArchivedCallContext;
 
   /**
    * Provide a user-friendly representation
@@ -141,26 +148,30 @@ export interface ArchivedCallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ArchivedCallListInstance(version: V1): ArchivedCallListInstance {
-  const instance = ((date, sid, ) => instance.get(date, sid, )) as ArchivedCallListInstance;
+export function ArchivedCallListInstance(
+  version: V1,
+): ArchivedCallListInstance {
+  const instance = ((date, sid) =>
+    instance.get(date, sid)) as ArchivedCallListInstance;
 
-  instance.get = function get(date, sid, ): ArchivedCallContext {
+  instance.get = function get(date, sid): ArchivedCallContext {
     return new ArchivedCallContextImpl(version, date, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

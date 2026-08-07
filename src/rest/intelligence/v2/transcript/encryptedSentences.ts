@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -19,15 +20,18 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to fetch a EncryptedSentencesInstance
  */
 export interface EncryptedSentencesContextFetchOptions {
   /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
-  redacted?: boolean;
+  "redacted"?: boolean;
 }
 
 export interface EncryptedSentencesContext {
+
   /**
    * Fetch a EncryptedSentencesInstance
    *
@@ -35,9 +39,7 @@ export interface EncryptedSentencesContext {
    *
    * @returns Resolves to processed EncryptedSentencesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
-  ): Promise<EncryptedSentencesInstance>;
+  fetch(callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any): Promise<EncryptedSentencesInstance>;
   /**
    * Fetch a EncryptedSentencesInstance
    *
@@ -46,10 +48,7 @@ export interface EncryptedSentencesContext {
    *
    * @returns Resolves to processed EncryptedSentencesInstance
    */
-  fetch(
-    params: EncryptedSentencesContextFetchOptions,
-    callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
-  ): Promise<EncryptedSentencesInstance>;
+  fetch(params: EncryptedSentencesContextFetchOptions, callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any): Promise<EncryptedSentencesInstance>;
 
   /**
    * Fetch a EncryptedSentencesInstance and return HTTP info
@@ -58,12 +57,7 @@ export interface EncryptedSentencesContext {
    *
    * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EncryptedSentencesInstance>
-    ) => any
-  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any): Promise<ApiResponse<EncryptedSentencesInstance>>;
   /**
    * Fetch a EncryptedSentencesInstance and return HTTP info
    *
@@ -72,13 +66,7 @@ export interface EncryptedSentencesContext {
    *
    * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: EncryptedSentencesContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EncryptedSentencesInstance>
-    ) => any
-  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+  fetchWithHttpInfo(params: EncryptedSentencesContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any): Promise<ApiResponse<EncryptedSentencesInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -88,123 +76,88 @@ export interface EncryptedSentencesContext {
 }
 
 export interface EncryptedSentencesContextSolution {
-  transcriptSid: string;
+  "transcriptSid": string;
 }
 
-export class EncryptedSentencesContextImpl
-  implements EncryptedSentencesContext
-{
+export class EncryptedSentencesContextImpl implements EncryptedSentencesContext {
   protected _solution: EncryptedSentencesContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, transcriptSid: string) {
     if (!isValidPathParam(transcriptSid)) {
-      throw new Error("Parameter 'transcriptSid' is not valid.");
+      throw new Error('Parameter \'transcriptSid\' is not valid.');
     }
 
-    this._solution = { transcriptSid };
+    this._solution = { transcriptSid,  };
     this._uri = `/Transcripts/${transcriptSid}/Sentences/Encrypted`;
   }
 
-  fetch(
-    params?:
-      | EncryptedSentencesContextFetchOptions
-      | ((error: Error | null, item?: EncryptedSentencesInstance) => any),
-    callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
-  ): Promise<EncryptedSentencesInstance> {
-    if (params instanceof Function) {
+  fetch(params?: EncryptedSentencesContextFetchOptions | ((error: Error | null, item?: EncryptedSentencesInstance) => any),callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any): Promise<EncryptedSentencesInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["redacted"] !== undefined)
-      data["Redacted"] = serialize.bool(params["redacted"]);
+        if (params["redacted"] !== undefined)
+    data["Redacted"] = serialize.bool(params["redacted"]);
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
+    
+    operationPromise = operationPromise.then(payload => new EncryptedSentencesInstance(operationVersion, payload, instance._solution.transcriptSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EncryptedSentencesInstance(
-          operationVersion,
-          payload,
-          instance._solution.transcriptSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    params?:
-      | EncryptedSentencesContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<EncryptedSentencesInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EncryptedSentencesInstance>
-    ) => any
-  ): Promise<ApiResponse<EncryptedSentencesInstance>> {
-    if (params instanceof Function) {
+  fetchWithHttpInfo(params?: EncryptedSentencesContextFetchOptions | ((error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any): Promise<ApiResponse<EncryptedSentencesInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["redacted"] !== undefined)
-      data["Redacted"] = serialize.bool(params["redacted"]);
+        if (params["redacted"] !== undefined)
+    data["Redacted"] = serialize.bool(params["redacted"]);
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<EncryptedSentencesResource>({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<EncryptedSentencesInstance> => ({
-          ...response,
-          body: new EncryptedSentencesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.transcriptSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<EncryptedSentencesResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<EncryptedSentencesInstance> => ({
+      ...response,
+      body: new EncryptedSentencesInstance(operationVersion, response.body, instance._solution.transcriptSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -221,7 +174,8 @@ export class EncryptedSentencesContextImpl
   }
 }
 
-interface EncryptedSentencesPayload extends EncryptedSentencesResource {}
+
+  interface EncryptedSentencesPayload extends EncryptedSentencesResource {}
 
 interface EncryptedSentencesResource {
   location: string;
@@ -233,16 +187,13 @@ export class EncryptedSentencesInstance {
   protected _solution: EncryptedSentencesContextSolution;
   protected _context?: EncryptedSentencesContext;
 
-  constructor(
-    protected _version: V2,
-    payload: EncryptedSentencesResource,
-    transcriptSid: string
-  ) {
-    this.location = payload.location;
-    this.transcriptSid = payload.transcript_sid;
-    this.url = payload.url;
+  constructor(protected _version: V2, payload: EncryptedSentencesResource, transcriptSid: string) {
+    
+    this.location = (payload.location);
+    this.transcriptSid = (payload.transcript_sid);
+    this.url = (payload.url);
 
-    this._solution = { transcriptSid };
+    this._solution = { transcriptSid,  };
   }
 
   /**
@@ -253,12 +204,7 @@ export class EncryptedSentencesInstance {
   url: string;
 
   private get _proxy(): EncryptedSentencesContext {
-    this._context =
-      this._context ||
-      new EncryptedSentencesContextImpl(
-        this._version,
-        this._solution.transcriptSid
-      );
+    this._context = this._context || new EncryptedSentencesContextImpl(this._version, this._solution.transcriptSid);
     return this._context;
   }
 
@@ -269,9 +215,7 @@ export class EncryptedSentencesInstance {
    *
    * @returns Resolves to processed EncryptedSentencesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
-  ): Promise<EncryptedSentencesInstance>;
+  fetch(callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any): Promise<EncryptedSentencesInstance>;
   /**
    * Fetch a EncryptedSentencesInstance
    *
@@ -280,15 +224,10 @@ export class EncryptedSentencesInstance {
    *
    * @returns Resolves to processed EncryptedSentencesInstance
    */
-  fetch(
-    params: EncryptedSentencesContextFetchOptions,
-    callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
-  ): Promise<EncryptedSentencesInstance>;
+  fetch(params: EncryptedSentencesContextFetchOptions, callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any): Promise<EncryptedSentencesInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any
-  ): Promise<EncryptedSentencesInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: EncryptedSentencesInstance) => any): Promise<EncryptedSentencesInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -299,12 +238,7 @@ export class EncryptedSentencesInstance {
    *
    * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EncryptedSentencesInstance>
-    ) => any
-  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any): Promise<ApiResponse<EncryptedSentencesInstance>>;
   /**
    * Fetch a EncryptedSentencesInstance and return HTTP info
    *
@@ -313,21 +247,10 @@ export class EncryptedSentencesInstance {
    *
    * @returns Resolves to processed EncryptedSentencesInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: EncryptedSentencesContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EncryptedSentencesInstance>
-    ) => any
-  ): Promise<ApiResponse<EncryptedSentencesInstance>>;
+  fetchWithHttpInfo(params: EncryptedSentencesContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any): Promise<ApiResponse<EncryptedSentencesInstance>>;
 
-  fetchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EncryptedSentencesInstance>
-    ) => any
-  ): Promise<ApiResponse<EncryptedSentencesInstance>> {
+    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<EncryptedSentencesInstance>) => any): Promise<ApiResponse<EncryptedSentencesInstance>>
+    {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -349,6 +272,7 @@ export class EncryptedSentencesInstance {
   }
 }
 
+
 export interface EncryptedSentencesSolution {
   transcriptSid: string;
 }
@@ -361,6 +285,9 @@ export interface EncryptedSentencesListInstance {
   (): EncryptedSentencesContext;
   get(): EncryptedSentencesContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -368,34 +295,30 @@ export interface EncryptedSentencesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function EncryptedSentencesListInstance(
-  version: V2,
-  transcriptSid: string
-): EncryptedSentencesListInstance {
+export function EncryptedSentencesListInstance(version: V2, transcriptSid: string): EncryptedSentencesListInstance {
   if (!isValidPathParam(transcriptSid)) {
-    throw new Error("Parameter 'transcriptSid' is not valid.");
+    throw new Error('Parameter \'transcriptSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as EncryptedSentencesListInstance;
 
   instance.get = function get(): EncryptedSentencesContext {
     return new EncryptedSentencesContextImpl(version, transcriptSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { transcriptSid };
+  instance._solution = { transcriptSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

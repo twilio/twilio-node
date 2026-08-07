@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -20,23 +19,19 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
 /**
  * Options to pass to update a FlexUserInstance
  */
 export interface FlexUserContextUpdateOptions {
   /** Email of the User. */
-  "email"?: string;
+  email?: string;
   /** The unique SID identifier of the Twilio Unified User. */
-  "userSid"?: string;
+  userSid?: string;
   /** The locale preference of the user. */
-  "locale"?: string;
+  locale?: string;
 }
 
 export interface FlexUserContext {
-
   /**
    * Fetch a FlexUserInstance
    *
@@ -44,7 +39,9 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>
+  fetch(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance>;
 
   /**
    * Fetch a FlexUserInstance and return HTTP info
@@ -53,7 +50,12 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>>;
 
   /**
    * Update a FlexUserInstance
@@ -62,7 +64,9 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+  update(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance>;
   /**
    * Update a FlexUserInstance
    *
@@ -71,7 +75,10 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+  update(
+    params: FlexUserContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance>;
 
   /**
    * Update a FlexUserInstance and return HTTP info
@@ -80,7 +87,12 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>>;
   /**
    * Update a FlexUserInstance and return HTTP info
    *
@@ -89,7 +101,13 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>;
+  updateWithHttpInfo(
+    params: FlexUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -99,138 +117,197 @@ export interface FlexUserContext {
 }
 
 export interface FlexUserContextSolution {
-  "instanceSid": string;
-  "flexUserSid": string;
+  instanceSid: string;
+  flexUserSid: string;
 }
 
 export class FlexUserContextImpl implements FlexUserContext {
   protected _solution: FlexUserContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, instanceSid: string, flexUserSid: string) {
+  constructor(
+    protected _version: V2,
+    instanceSid: string,
+    flexUserSid: string,
+  ) {
     if (!isValidPathParam(instanceSid)) {
-      throw new Error('Parameter \'instanceSid\' is not valid.');
+      throw new Error("Parameter 'instanceSid' is not valid.");
     }
 
     if (!isValidPathParam(flexUserSid)) {
-      throw new Error('Parameter \'flexUserSid\' is not valid.');
+      throw new Error("Parameter 'flexUserSid' is not valid.");
     }
 
-    this._solution = { instanceSid, flexUserSid,  };
+    this._solution = { instanceSid, flexUserSid };
     this._uri = `/Instances/${instanceSid}/Users/${flexUserSid}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new FlexUserInstance(operationVersion, payload, instance._solution.instanceSid, instance._solution.flexUserSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlexUserInstance(
+          operationVersion,
+          payload,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<FlexUserResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<FlexUserInstance> => ({
-      ...response,
-      body: new FlexUserInstance(operationVersion, response.body, instance._solution.instanceSid, instance._solution.flexUserSid)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<FlexUserResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then((response): ApiResponse<FlexUserInstance> => ({
+        ...response,
+        body: new FlexUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: FlexUserContextUpdateOptions | ((error: Error | null, item?: FlexUserInstance) => any),callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | FlexUserContextUpdateOptions
+      | ((error: Error | null, item?: FlexUserInstance) => any),
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["email"] !== undefined)
-    data["Email"] = params["email"];
-    if (params["userSid"] !== undefined)
-    data["UserSid"] = params["userSid"];
-    if (params["locale"] !== undefined)
-    data["Locale"] = params["locale"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["userSid"] !== undefined) data["UserSid"] = params["userSid"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new FlexUserInstance(operationVersion, payload, instance._solution.instanceSid, instance._solution.flexUserSid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlexUserInstance(
+          operationVersion,
+          payload,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid,
+        ),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: FlexUserContextUpdateOptions | ((error: Error | null, item?: ApiResponse<FlexUserInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | FlexUserContextUpdateOptions
+      | ((error: Error | null, item?: ApiResponse<FlexUserInstance>) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["email"] !== undefined)
-    data["Email"] = params["email"];
-    if (params["userSid"] !== undefined)
-    data["UserSid"] = params["userSid"];
-    if (params["locale"] !== undefined)
-    data["Locale"] = params["locale"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["userSid"] !== undefined) data["UserSid"] = params["userSid"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<FlexUserResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<FlexUserInstance> => ({
-      ...response,
-      body: new FlexUserInstance(operationVersion, response.body, instance._solution.instanceSid, instance._solution.flexUserSid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<FlexUserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<FlexUserInstance> => ({
+        ...response,
+        body: new FlexUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -247,8 +324,7 @@ export class FlexUserContextImpl implements FlexUserContext {
   }
 }
 
-
-  interface FlexUserPayload extends FlexUserResource {}
+interface FlexUserPayload extends FlexUserResource {}
 
 interface FlexUserResource {
   account_sid: string;
@@ -272,25 +348,29 @@ export class FlexUserInstance {
   protected _solution: FlexUserContextSolution;
   protected _context?: FlexUserContext;
 
-  constructor(protected _version: V2, payload: FlexUserResource, instanceSid?: string, flexUserSid?: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.instanceSid = (payload.instance_sid);
-    this.userSid = (payload.user_sid);
-    this.flexUserSid = (payload.flex_user_sid);
-    this.workerSid = (payload.worker_sid);
-    this.workspaceSid = (payload.workspace_sid);
-    this.flexTeamSid = (payload.flex_team_sid);
-    this.username = (payload.username);
-    this.email = (payload.email);
-    this.locale = (payload.locale);
-    this.roles = (payload.roles);
+  constructor(
+    protected _version: V2,
+    payload: FlexUserResource,
+    instanceSid?: string,
+    flexUserSid?: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.instanceSid = payload.instance_sid;
+    this.userSid = payload.user_sid;
+    this.flexUserSid = payload.flex_user_sid;
+    this.workerSid = payload.worker_sid;
+    this.workspaceSid = payload.workspace_sid;
+    this.flexTeamSid = payload.flex_team_sid;
+    this.username = payload.username;
+    this.email = payload.email;
+    this.locale = payload.locale;
+    this.roles = payload.roles;
     this.createdDate = deserialize.iso8601DateTime(payload.created_date);
     this.updatedDate = deserialize.iso8601DateTime(payload.updated_date);
     this.version = deserialize.integer(payload.version);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = { instanceSid: instanceSid, flexUserSid: flexUserSid,  };
+    this._solution = { instanceSid: instanceSid, flexUserSid: flexUserSid };
   }
 
   /**
@@ -352,7 +432,13 @@ export class FlexUserInstance {
   url: string;
 
   private get _proxy(): FlexUserContext {
-    this._context = this._context || new FlexUserContextImpl(this._version, this._solution.instanceSid, this._solution.flexUserSid);
+    this._context =
+      this._context ||
+      new FlexUserContextImpl(
+        this._version,
+        this._solution.instanceSid,
+        this._solution.flexUserSid,
+      );
     return this._context;
   }
 
@@ -363,9 +449,9 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -376,9 +462,12 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -389,7 +478,9 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+  update(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance>;
   /**
    * Update a FlexUserInstance
    *
@@ -398,10 +489,15 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+  update(
+    params: FlexUserContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+  ): Promise<FlexUserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -412,7 +508,12 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>>;
   /**
    * Update a FlexUserInstance and return HTTP info
    *
@@ -421,10 +522,21 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>;
+  updateWithHttpInfo(
+    params: FlexUserContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<FlexUserInstance>) => any): Promise<ApiResponse<FlexUserInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<FlexUserInstance>,
+    ) => any,
+  ): Promise<ApiResponse<FlexUserInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -458,22 +570,15 @@ export class FlexUserInstance {
   }
 }
 
-
-export interface FlexUserSolution {
-}
+export interface FlexUserSolution {}
 
 export interface FlexUserListInstance {
   _version: V2;
   _solution: FlexUserSolution;
   _uri: string;
 
-  (instanceSid: string, flexUserSid: string, ): FlexUserContext;
-  get(instanceSid: string, flexUserSid: string, ): FlexUserContext;
-
-
-
-
-
+  (instanceSid: string, flexUserSid: string): FlexUserContext;
+  get(instanceSid: string, flexUserSid: string): FlexUserContext;
 
   /**
    * Provide a user-friendly representation
@@ -483,25 +588,27 @@ export interface FlexUserListInstance {
 }
 
 export function FlexUserListInstance(version: V2): FlexUserListInstance {
-  const instance = ((instanceSid, flexUserSid, ) => instance.get(instanceSid, flexUserSid, )) as FlexUserListInstance;
+  const instance = ((instanceSid, flexUserSid) =>
+    instance.get(instanceSid, flexUserSid)) as FlexUserListInstance;
 
-  instance.get = function get(instanceSid, flexUserSid, ): FlexUserContext {
+  instance.get = function get(instanceSid, flexUserSid): FlexUserContext {
     return new FlexUserContextImpl(version, instanceSid, flexUserSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

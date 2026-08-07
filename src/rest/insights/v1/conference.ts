@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -23,72 +24,45 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { ConferenceParticipantListInstance } from "./conference/conferenceParticipant";
 
-export type ConferenceConferenceEndReason =
-  | "last_participant_left"
-  | "conference_ended_via_api"
-  | "participant_with_end_conference_on_exit_left"
-  | "last_participant_kicked"
-  | "participant_with_end_conference_on_exit_kicked";
 
-export type ConferenceConferenceStatus =
-  | "in_progress"
-  | "not_started"
-  | "completed"
-  | "summary_timeout";
+export type ConferenceConferenceEndReason = 'last_participant_left'|'conference_ended_via_api'|'participant_with_end_conference_on_exit_left'|'last_participant_kicked'|'participant_with_end_conference_on_exit_kicked';
 
-export type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
+export type ConferenceConferenceStatus = 'in_progress'|'not_started'|'completed'|'summary_timeout';
 
-export type ConferenceRegion =
-  | "us1"
-  | "us2"
-  | "au1"
-  | "br1"
-  | "ie1"
-  | "jp1"
-  | "sg1"
-  | "de1"
-  | "in1";
+export type ConferenceProcessingState = 'complete'|'in_progress'|'timeout';
 
-export type ConferenceTag =
-  | "invalid_requested_region"
-  | "duplicate_identity"
-  | "start_failure"
-  | "region_configuration_issues"
-  | "quality_warnings"
-  | "participant_behavior_issues"
-  | "high_packet_loss"
-  | "high_jitter"
-  | "high_latency"
-  | "low_mos"
-  | "detected_silence"
-  | "no_concurrent_participants";
+export type ConferenceRegion = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de1'|'in1';
+
+export type ConferenceTag = 'invalid_requested_region'|'duplicate_identity'|'start_failure'|'region_configuration_issues'|'quality_warnings'|'participant_behavior_issues'|'high_packet_loss'|'high_jitter'|'high_latency'|'low_mos'|'detected_silence'|'no_concurrent_participants';
+
+
 
 /**
  * Options to pass to each
  */
 export interface ConferenceListInstanceEachOptions {
   /** The SID of the conference. */
-  conferenceSid?: string;
+  "conferenceSid"?: string;
   /** Custom label for the conference resource, up to 64 characters. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Conference status. */
-  status?: string;
+  "status"?: string;
   /** Conferences created after the provided timestamp specified in ISO 8601 format */
-  createdAfter?: string;
+  "createdAfter"?: string;
   /** Conferences created before the provided timestamp specified in ISO 8601 format. */
-  createdBefore?: string;
+  "createdBefore"?: string;
   /** Twilio region where the conference media was mixed. */
-  mixerRegion?: string;
+  "mixerRegion"?: string;
   /** Tags applied by Twilio for common potential configuration, quality, or performance issues. */
-  tags?: string;
+  "tags"?: string;
   /** Account SID for the subaccount whose resources you wish to retrieve. */
-  subaccount?: string;
+  "subaccount"?: string;
   /** Potential configuration, behavior, or performance issues detected during the conference. */
-  detectedIssues?: string;
+  "detectedIssues"?: string;
   /** Conference end reason; e.g. last participant left, modified by API, etc. */
-  endReason?: string;
+  "endReason"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -102,62 +76,64 @@ export interface ConferenceListInstanceEachOptions {
  */
 export interface ConferenceListInstanceOptions {
   /** The SID of the conference. */
-  conferenceSid?: string;
+  "conferenceSid"?: string;
   /** Custom label for the conference resource, up to 64 characters. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Conference status. */
-  status?: string;
+  "status"?: string;
   /** Conferences created after the provided timestamp specified in ISO 8601 format */
-  createdAfter?: string;
+  "createdAfter"?: string;
   /** Conferences created before the provided timestamp specified in ISO 8601 format. */
-  createdBefore?: string;
+  "createdBefore"?: string;
   /** Twilio region where the conference media was mixed. */
-  mixerRegion?: string;
+  "mixerRegion"?: string;
   /** Tags applied by Twilio for common potential configuration, quality, or performance issues. */
-  tags?: string;
+  "tags"?: string;
   /** Account SID for the subaccount whose resources you wish to retrieve. */
-  subaccount?: string;
+  "subaccount"?: string;
   /** Potential configuration, behavior, or performance issues detected during the conference. */
-  detectedIssues?: string;
+  "detectedIssues"?: string;
   /** Conference end reason; e.g. last participant left, modified by API, etc. */
-  endReason?: string;
+  "endReason"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ConferenceListInstancePageOptions {
   /** The SID of the conference. */
-  conferenceSid?: string;
+  "conferenceSid"?: string;
   /** Custom label for the conference resource, up to 64 characters. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Conference status. */
-  status?: string;
+  "status"?: string;
   /** Conferences created after the provided timestamp specified in ISO 8601 format */
-  createdAfter?: string;
+  "createdAfter"?: string;
   /** Conferences created before the provided timestamp specified in ISO 8601 format. */
-  createdBefore?: string;
+  "createdBefore"?: string;
   /** Twilio region where the conference media was mixed. */
-  mixerRegion?: string;
+  "mixerRegion"?: string;
   /** Tags applied by Twilio for common potential configuration, quality, or performance issues. */
-  tags?: string;
+  "tags"?: string;
   /** Account SID for the subaccount whose resources you wish to retrieve. */
-  subaccount?: string;
+  "subaccount"?: string;
   /** Potential configuration, behavior, or performance issues detected during the conference. */
-  detectedIssues?: string;
+  "detectedIssues"?: string;
   /** Conference end reason; e.g. last participant left, modified by API, etc. */
-  endReason?: string;
+  "endReason"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ConferenceContext {
   conferenceParticipants: ConferenceParticipantListInstance;
@@ -169,9 +145,7 @@ export interface ConferenceContext {
    *
    * @returns Resolves to processed ConferenceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConferenceInstance) => any
-  ): Promise<ConferenceInstance>;
+  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>
 
   /**
    * Fetch a ConferenceInstance and return HTTP info
@@ -180,12 +154,7 @@ export interface ConferenceContext {
    *
    * @returns Resolves to processed ConferenceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConferenceInstance>
-    ) => any
-  ): Promise<ApiResponse<ConferenceInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConferenceInstance>) => any): Promise<ApiResponse<ConferenceInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -195,7 +164,7 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  conferenceSid: string;
+  "conferenceSid": string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -206,87 +175,51 @@ export class ConferenceContextImpl implements ConferenceContext {
 
   constructor(protected _version: V1, conferenceSid: string) {
     if (!isValidPathParam(conferenceSid)) {
-      throw new Error("Parameter 'conferenceSid' is not valid.");
+      throw new Error('Parameter \'conferenceSid\' is not valid.');
     }
 
-    this._solution = { conferenceSid };
+    this._solution = { conferenceSid,  };
     this._uri = `/Conferences/${conferenceSid}`;
   }
 
   get conferenceParticipants(): ConferenceParticipantListInstance {
-    this._conferenceParticipants =
-      this._conferenceParticipants ||
-      ConferenceParticipantListInstance(
-        this._version,
-        this._solution.conferenceSid
-      );
+    this._conferenceParticipants = this._conferenceParticipants || ConferenceParticipantListInstance(this._version, this._solution.conferenceSid);
     return this._conferenceParticipants;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ConferenceInstance) => any
-  ): Promise<ConferenceInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, instance._solution.conferenceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConferenceInstance(
-          operationVersion,
-          payload,
-          instance._solution.conferenceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConferenceInstance>
-    ) => any
-  ): Promise<ApiResponse<ConferenceInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConferenceInstance>) => any): Promise<ApiResponse<ConferenceInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ConferenceResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConferenceInstance> => ({
-          ...response,
-          body: new ConferenceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conferenceSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ConferenceResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ConferenceInstance> => ({
+      ...response,
+      body: new ConferenceInstance(operationVersion, response.body, instance._solution.conferenceSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -303,8 +236,9 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 }
 
-interface ConferencePayload extends TwilioResponsePayload {
-  conferences: ConferenceResource[];
+
+  interface ConferencePayload extends TwilioResponsePayload {
+    conferences: ConferenceResource[];
 }
 
 interface ConferenceResource {
@@ -337,40 +271,33 @@ export class ConferenceInstance {
   protected _solution: ConferenceContextSolution;
   protected _context?: ConferenceContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ConferenceResource,
-    conferenceSid?: string
-  ) {
-    this.conferenceSid = payload.conference_sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
+  constructor(protected _version: V1, payload: ConferenceResource, conferenceSid?: string) {
+    
+    this.conferenceSid = (payload.conference_sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
     this.createTime = deserialize.iso8601DateTime(payload.create_time);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.durationSeconds = deserialize.integer(payload.duration_seconds);
-    this.connectDurationSeconds = deserialize.integer(
-      payload.connect_duration_seconds
-    );
+    this.connectDurationSeconds = deserialize.integer(payload.connect_duration_seconds);
     this.status = payload.status;
     this.maxParticipants = deserialize.integer(payload.max_participants);
-    this.maxConcurrentParticipants = deserialize.integer(
-      payload.max_concurrent_participants
-    );
+    this.maxConcurrentParticipants = deserialize.integer(payload.max_concurrent_participants);
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
     this.endReason = payload.end_reason;
-    this.endedBy = payload.ended_by;
+    this.endedBy = (payload.ended_by);
     this.mixerRegion = payload.mixer_region;
     this.mixerRegionRequested = payload.mixer_region_requested;
-    this.recordingEnabled = payload.recording_enabled;
-    this.detectedIssues = payload.detected_issues;
-    this.tags = payload.tags;
-    this.tagInfo = payload.tag_info;
+    this.recordingEnabled = (payload.recording_enabled);
+    this.detectedIssues = (payload.detected_issues);
+    this.tags = (payload.tags);
+    this.tagInfo = (payload.tag_info);
     this.processingState = payload.processing_state;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { conferenceSid: conferenceSid || this.conferenceSid };
+    this._solution = { conferenceSid: conferenceSid,  };
   }
 
   /**
@@ -452,9 +379,7 @@ export class ConferenceInstance {
   links: Record<string, string>;
 
   private get _proxy(): ConferenceContext {
-    this._context =
-      this._context ||
-      new ConferenceContextImpl(this._version, this._solution.conferenceSid);
+    this._context = this._context || new ConferenceContextImpl(this._version, this._solution.conferenceSid);
     return this._context;
   }
 
@@ -465,9 +390,9 @@ export class ConferenceInstance {
    *
    * @returns Resolves to processed ConferenceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConferenceInstance) => any
-  ): Promise<ConferenceInstance> {
+  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -478,12 +403,9 @@ export class ConferenceInstance {
    *
    * @returns Resolves to processed ConferenceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConferenceInstance>
-    ) => any
-  ): Promise<ApiResponse<ConferenceInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConferenceInstance>) => any): Promise<ApiResponse<ConferenceInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -532,15 +454,21 @@ export class ConferenceInstance {
   }
 }
 
-export interface ConferenceSolution {}
+
+export interface ConferenceSolution {
+}
 
 export interface ConferenceListInstance {
   _version: V1;
   _solution: ConferenceSolution;
   _uri: string;
 
-  (conferenceSid: string): ConferenceContext;
-  get(conferenceSid: string): ConferenceContext;
+  (conferenceSid: string, ): ConferenceContext;
+  get(conferenceSid: string, ): ConferenceContext;
+
+
+
+
 
   /**
    * Streams ConferenceInstance records from the API.
@@ -557,13 +485,8 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ConferenceListInstanceEachOptions,
-    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  each(params: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ConferenceInstance records from the API with HTTP metadata captured per page.
    *
@@ -579,13 +502,8 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ConferenceListInstanceEachOptions,
-    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
    *
@@ -594,10 +512,7 @@ export interface ConferenceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConferencePage) => any
-  ): Promise<ConferencePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API with HTTP metadata.
    *
@@ -606,10 +521,7 @@ export interface ConferenceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any
-  ): Promise<ApiResponse<ConferencePage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any): Promise<ApiResponse<ConferencePage>>;
   /**
    * Lists ConferenceInstance records from the API as a list.
    *
@@ -619,13 +531,8 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ConferenceInstance[]) => any
-  ): Promise<ConferenceInstance[]>;
-  list(
-    params: ConferenceListInstanceOptions,
-    callback?: (error: Error | null, items: ConferenceInstance[]) => any
-  ): Promise<ConferenceInstance[]>;
+  list(callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  list(params: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
   /**
    * Lists ConferenceInstance records from the API as a list with HTTP metadata.
    *
@@ -637,19 +544,8 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConferenceInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ConferenceInstance[]>>;
-  listWithHttpInfo(
-    params: ConferenceListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConferenceInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ConferenceInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConferenceInstance[]>) => any): Promise<ApiResponse<ConferenceInstance[]>>;
+  listWithHttpInfo(params: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ConferenceInstance[]>) => any): Promise<ApiResponse<ConferenceInstance[]>>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
    *
@@ -661,13 +557,8 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ConferencePage) => any
-  ): Promise<ConferencePage>;
-  page(
-    params: ConferenceListInstancePageOptions,
-    callback?: (error: Error | null, items: ConferencePage) => any
-  ): Promise<ConferencePage>;
+  page(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  page(params: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API with HTTP metadata.
    *
@@ -679,13 +570,9 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any
-  ): Promise<ApiResponse<ConferencePage>>;
-  pageWithHttpInfo(
-    params: ConferenceListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any
-  ): Promise<ApiResponse<ConferencePage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any): Promise<ApiResponse<ConferencePage>>;
+  pageWithHttpInfo(params: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any): Promise<ApiResponse<ConferencePage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -695,23 +582,17 @@ export interface ConferenceListInstance {
 }
 
 export function ConferenceListInstance(version: V1): ConferenceListInstance {
-  const instance = ((conferenceSid) =>
-    instance.get(conferenceSid)) as ConferenceListInstance;
+  const instance = ((conferenceSid, ) => instance.get(conferenceSid, )) as ConferenceListInstance;
 
-  instance.get = function get(conferenceSid): ConferenceContext {
+  instance.get = function get(conferenceSid, ): ConferenceContext {
     return new ConferenceContextImpl(version, conferenceSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Conferences`;
 
-  instance.page = function page(
-    params?:
-      | ConferenceListInstancePageOptions
-      | ((error: Error | null, items: ConferencePage) => any),
-    callback?: (error: Error | null, items: ConferencePage) => any
-  ): Promise<ConferencePage> {
+  instance.page = function page(params?: ConferenceListInstancePageOptions | ((error: Error | null, items: ConferencePage) => any), callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -721,77 +602,64 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
 
     let data: any = {};
 
-    if (params["conferenceSid"] !== undefined)
-      data["ConferenceSid"] = params["conferenceSid"];
+        if (params["conferenceSid"] !== undefined)
+    data["ConferenceSid"] = params["conferenceSid"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["createdAfter"] !== undefined)
-      data["CreatedAfter"] = params["createdAfter"];
+    data["CreatedAfter"] = params["createdAfter"];
     if (params["createdBefore"] !== undefined)
-      data["CreatedBefore"] = params["createdBefore"];
+    data["CreatedBefore"] = params["createdBefore"];
     if (params["mixerRegion"] !== undefined)
-      data["MixerRegion"] = params["mixerRegion"];
-    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
+    data["MixerRegion"] = params["mixerRegion"];
+    if (params["tags"] !== undefined)
+    data["Tags"] = params["tags"];
     if (params["subaccount"] !== undefined)
-      data["Subaccount"] = params["subaccount"];
+    data["Subaccount"] = params["subaccount"];
     if (params["detectedIssues"] !== undefined)
-      data["DetectedIssues"] = params["detectedIssues"];
+    data["DetectedIssues"] = params["detectedIssues"];
     if (params["endReason"] !== undefined)
-      data["EndReason"] = params["endReason"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndReason"] = params["endReason"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConferencePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConferencePage) => any
-  ): Promise<ConferencePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ConferencePage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ConferencePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ConferenceListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ConferencePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any
-  ): Promise<ApiResponse<ConferencePage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ConferenceListInstancePageOptions | ((error: Error | null, items: ApiResponse<ConferencePage>) => any), callback?: (error: Error | null, items: ApiResponse<ConferencePage>) => any): Promise<ApiResponse<ConferencePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -801,132 +669,112 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
 
     let data: any = {};
 
-    if (params["conferenceSid"] !== undefined)
-      data["ConferenceSid"] = params["conferenceSid"];
+        if (params["conferenceSid"] !== undefined)
+    data["ConferenceSid"] = params["conferenceSid"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["createdAfter"] !== undefined)
-      data["CreatedAfter"] = params["createdAfter"];
+    data["CreatedAfter"] = params["createdAfter"];
     if (params["createdBefore"] !== undefined)
-      data["CreatedBefore"] = params["createdBefore"];
+    data["CreatedBefore"] = params["createdBefore"];
     if (params["mixerRegion"] !== undefined)
-      data["MixerRegion"] = params["mixerRegion"];
-    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
+    data["MixerRegion"] = params["mixerRegion"];
+    if (params["tags"] !== undefined)
+    data["Tags"] = params["tags"];
     if (params["subaccount"] !== undefined)
-      data["Subaccount"] = params["subaccount"];
+    data["Subaccount"] = params["subaccount"];
     if (params["detectedIssues"] !== undefined)
-      data["DetectedIssues"] = params["detectedIssues"];
+    data["DetectedIssues"] = params["detectedIssues"];
     if (params["endReason"] !== undefined)
-      data["EndReason"] = params["endReason"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndReason"] = params["endReason"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConferencePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConferencePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ConferencePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ConferencePage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ConferencePage>) => any
-  ): Promise<ApiResponse<ConferencePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ConferencePage>) => any): Promise<ApiResponse<ConferencePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ConferencePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConferencePage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ConferencePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ConferencePage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ConferencePage extends Page<
-  V1,
-  ConferencePayload,
-  ConferenceResource,
-  ConferenceInstance
-> {
-  /**
-   * Initialize the ConferencePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ConferenceSolution
-  ) {
+export class ConferencePage extends Page<V1, ConferencePayload, ConferenceResource, ConferenceInstance> {
+/**
+* Initialize the ConferencePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ConferenceSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConferenceInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConferenceResource): ConferenceInstance {
-    return new ConferenceInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ConferenceInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConferenceResource): ConferenceInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new ConferenceInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

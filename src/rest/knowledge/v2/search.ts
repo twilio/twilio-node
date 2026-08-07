@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 export class KnowledgeChunkResult {
   /**
@@ -28,6 +30,22 @@ export class KnowledgeChunkResult {
    * The date and time in GMT when the Chunk was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   "createdAt"?: Date;
+  /**
+   * 0-based position of this chunk within its source document for a single ingestion run.
+   */
+  "chunkIndex"?: number;
+  /**
+   * Human-readable title of the source document. Web: HTML <title> from the crawled page. File: filename from Unstructured metadata. Text: knowledge name from the knowledge source.
+   */
+  "documentTitle"?: string;
+  /**
+   * Specific page URL this chunk was crawled from. Web sources only; null for File and Text sources.
+   */
+  "documentUrl"?: string;
+  /**
+   * Physical page number (1-based). PDF sources only; omitted for all other source types.
+   */
+  "documentNumber"?: number;
   /**
    * The score associated with the chunk.
    */
@@ -40,10 +58,15 @@ export class KnowledgeChunkResult {
   constructor(payload) {
     this.content = payload["content"];
     this.createdAt = payload["createdAt"];
+    this.chunkIndex = payload["chunkIndex"];
+    this.documentTitle = payload["documentTitle"];
+    this.documentUrl = payload["documentUrl"];
+    this.documentNumber = payload["documentNumber"];
     this.score = payload["score"];
     this.knowledgeId = payload["knowledgeId"];
   }
 }
+
 
 /**
  * Request payload for performing semantic search across knowledge sources within the knowledge base..  Allows querying with natural language text and filtering by specific knowledge  sources to find the most relevant content chunks.
@@ -69,15 +92,28 @@ export class KnowledgeSearch {
   }
 }
 
+
+
 /**
  * Options to pass to create a SearchInstance
  */
-export interface SearchContextCreateOptions {
+export interface SearchListInstanceCreateOptions {
   /**  */
-  knowledgeSearch?: KnowledgeSearch;
+  "knowledgeSearch"?: KnowledgeSearch;
 }
 
-export interface SearchContext {
+
+export interface SearchSolution {
+  kbId: string;
+}
+
+export interface SearchListInstance {
+  _version: V2;
+  _solution: SearchSolution;
+  _uri: string;
+
+
+
   /**
    * Create a SearchInstance
    *
@@ -85,9 +121,7 @@ export interface SearchContext {
    *
    * @returns Resolves to processed SearchInstance
    */
-  create(
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance>;
+  create(callback?: (error: Error | null, item?: SearchInstance) => any): Promise<SearchInstance>;
   /**
    * Create a SearchInstance
    *
@@ -97,11 +131,7 @@ export interface SearchContext {
    *
    * @returns Resolves to processed SearchInstance
    */
-  create(
-    params: KnowledgeSearch,
-    headers?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance>;
+  create(params: KnowledgeSearch, headers?: any, callback?: (error: Error | null, item?: SearchInstance) => any): Promise<SearchInstance>;
 
   /**
    * Create a SearchInstance and return HTTP info
@@ -110,9 +140,7 @@ export interface SearchContext {
    *
    * @returns Resolves to processed SearchInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any): Promise<ApiResponse<SearchInstance>>;
   /**
    * Create a SearchInstance and return HTTP info
    *
@@ -122,11 +150,9 @@ export interface SearchContext {
    *
    * @returns Resolves to processed SearchInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: KnowledgeSearch,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>>;
+  createWithHttpInfo(params: KnowledgeSearch, headers?: any, callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any): Promise<ApiResponse<SearchInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -135,228 +161,112 @@ export interface SearchContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SearchContextSolution {
-  kbId: string;
-}
-
-export class SearchContextImpl implements SearchContext {
-  protected _solution: SearchContextSolution;
-  protected _uri: string;
-
-  constructor(protected _version: V2, kbId: string) {
-    if (!isValidPathParam(kbId)) {
-      throw new Error("Parameter 'kbId' is not valid.");
-    }
-
-    this._solution = { kbId };
-    this._uri = `/KnowledgeBases/${kbId}/Search`;
+export function SearchListInstance(version: V2, kbId: string): SearchListInstance {
+  if (!isValidPathParam(kbId)) {
+    throw new Error('Parameter \'kbId\' is not valid.');
   }
 
-  create(
-    params?:
-      | KnowledgeSearch
-      | ((error: Error | null, item?: SearchInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance> {
+  const instance = {} as SearchListInstance;
+
+  instance._version = version;
+  instance._solution = { kbId,  };
+  instance._uri = `/KnowledgeBases/${kbId}/Search`;
+
+  instance.create = function create(params?: KnowledgeSearch | ((error: Error | null, items: SearchInstance) => any), headers?: any, callback?: (error: Error | null, items: SearchInstance) => any): Promise<SearchInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<KnowledgeSearch> as KnowledgeSearch;
     } else {
-      params = params || ({} as Partial<KnowledgeSearch> as KnowledgeSearch);
+      params = params || {} as Partial<KnowledgeSearch> as KnowledgeSearch;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new SearchInstance(operationVersion, payload, instance._solution.kbId));
+    
 
-    const instance = this;
-    let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SearchInstance(operationVersion, payload, instance._solution.kbId)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  }
 
-  createWithHttpInfo(
-    params?:
-      | KnowledgeSearch
-      | ((error: Error | null, item?: ApiResponse<SearchInstance>) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: KnowledgeSearch | ((error: Error | null, items: ApiResponse<SearchInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<SearchInstance>) => any): Promise<ApiResponse<SearchInstance>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as Partial<KnowledgeSearch> as KnowledgeSearch;
     } else {
-      params = params || ({} as Partial<KnowledgeSearch> as KnowledgeSearch);
+      params = params || {} as Partial<KnowledgeSearch> as KnowledgeSearch;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
-
-    const instance = this;
-    let operationVersion = instance._version;
+    let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<SearchResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<SearchInstance> => ({
-          ...response,
-          body: new SearchInstance(
-            operationVersion,
-            response.body,
-            instance._solution.kbId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<SearchResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SearchInstance> => ({
+      ...response,
+      body: new SearchInstance(operationVersion, response.body, instance._solution.kbId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
+    }
+
+  instance.toJSON = function toJSON() {
+    return instance._solution;
   }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(instance.toJSON(), options);
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
+  return instance;
 }
+
+
 
 interface SearchResource {
   chunks: Array<KnowledgeChunkResult>;
 }
 
 export class SearchInstance {
-  protected _solution: SearchContextSolution;
-  protected _context?: SearchContext;
 
-  constructor(protected _version: V2, _payload: SearchResource, kbId?: string) {
+  constructor(protected _version: V2, _payload: SearchResource, kbId: string) {
     const payload = _payload;
-    this.chunks =
-      payload.chunks !== null && payload.chunks !== undefined
-        ? payload.chunks.map(
-            (payload: any) => new KnowledgeChunkResult(payload)
-          )
-        : null;
+    this.chunks =  payload.chunks !== null && payload.chunks !== undefined ? payload.chunks.map(
+      (payload: any) => new KnowledgeChunkResult(payload)
+    ) : null;
 
-    this._solution = { kbId: kbId };
   }
 
   chunks: Array<KnowledgeChunkResult>;
-
-  private get _proxy(): SearchContext {
-    this._context =
-      this._context ||
-      new SearchContextImpl(this._version, this._solution.kbId);
-    return this._context;
-  }
-
-  /**
-   * Create a SearchInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance>;
-  /**
-   * Create a SearchInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance
-   */
-  create(
-    params: KnowledgeSearch,
-    headers?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance>;
-
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance> {
-    return this._proxy.create(params, callback);
-  }
-
-  /**
-   * Create a SearchInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>>;
-  /**
-   * Create a SearchInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    params: KnowledgeSearch,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>>;
-
-  createWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>> {
-    return this._proxy.createWithHttpInfo(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -374,44 +284,4 @@ export class SearchInstance {
   }
 }
 
-export interface SearchSolution {}
 
-export interface SearchListInstance {
-  _version: V2;
-  _solution: SearchSolution;
-  _uri: string;
-
-  (kbId: string): SearchContext;
-  get(kbId: string): SearchContext;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export function SearchListInstance(version: V2): SearchListInstance {
-  const instance = ((kbId) => instance.get(kbId)) as SearchListInstance;
-
-  instance.get = function get(kbId): SearchContext {
-    return new SearchContextImpl(version, kbId);
-  };
-
-  instance._version = version;
-  instance._solution = {};
-  instance._uri = ``;
-
-  instance.toJSON = function toJSON() {
-    return instance._solution;
-  };
-
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
-    return inspect(instance.toJSON(), options);
-  };
-
-  return instance;
-}

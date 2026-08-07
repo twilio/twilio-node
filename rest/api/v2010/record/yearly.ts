@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -23,22 +22,20 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to each
  */
 export interface YearlyListInstanceEachOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  "category"?: string;
+  category?: string;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
-  "startDate"?: Date;
+  startDate?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
-  "endDate"?: Date;
+  endDate?: Date;
   /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
-  "includeSubaccounts"?: boolean;
+  includeSubaccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: YearlyInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -52,41 +49,38 @@ export interface YearlyListInstanceEachOptions {
  */
 export interface YearlyListInstanceOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  "category"?: string;
+  category?: string;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
-  "startDate"?: Date;
+  startDate?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
-  "endDate"?: Date;
+  endDate?: Date;
   /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
-  "includeSubaccounts"?: boolean;
+  includeSubaccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface YearlyListInstancePageOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  "category"?: string;
+  category?: string;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
-  "startDate"?: Date;
+  startDate?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
-  "endDate"?: Date;
+  endDate?: Date;
   /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
-  "includeSubaccounts"?: boolean;
+  includeSubaccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
-
 
 export interface YearlySolution {
   accountSid: string;
@@ -96,9 +90,6 @@ export interface YearlyListInstance {
   _version: V2010;
   _solution: YearlySolution;
   _uri: string;
-
-
-
 
   /**
    * Streams YearlyInstance records from the API.
@@ -115,8 +106,13 @@ export interface YearlyListInstance {
    * @param { YearlyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: YearlyInstance, done: (err?: Error) => void) => void): void;
-  each(params: YearlyListInstanceEachOptions, callback?: (item: YearlyInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
+  ): void;
+  each(
+    params: YearlyListInstanceEachOptions,
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Streams YearlyInstance records from the API with HTTP metadata captured per page.
    *
@@ -132,8 +128,13 @@ export interface YearlyListInstance {
    * @param { YearlyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: YearlyInstance, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: YearlyListInstanceEachOptions, callback?: (item: YearlyInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
+  ): void;
+  eachWithHttpInfo(
+    params: YearlyListInstanceEachOptions,
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
+  ): void;
   /**
    * Retrieve a single target page of YearlyInstance records from the API.
    *
@@ -142,7 +143,10 @@ export interface YearlyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: YearlyPage) => any,
+  ): Promise<YearlyPage>;
   /**
    * Retrieve a single target page of YearlyInstance records from the API with HTTP metadata.
    *
@@ -151,7 +155,10 @@ export interface YearlyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any): Promise<ApiResponse<YearlyPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
+  ): Promise<ApiResponse<YearlyPage>>;
   /**
    * Lists YearlyInstance records from the API as a list.
    *
@@ -161,8 +168,13 @@ export interface YearlyListInstance {
    * @param { YearlyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: YearlyInstance[]) => any): Promise<YearlyInstance[]>;
-  list(params: YearlyListInstanceOptions, callback?: (error: Error | null, items: YearlyInstance[]) => any): Promise<YearlyInstance[]>;
+  list(
+    callback?: (error: Error | null, items: YearlyInstance[]) => any,
+  ): Promise<YearlyInstance[]>;
+  list(
+    params: YearlyListInstanceOptions,
+    callback?: (error: Error | null, items: YearlyInstance[]) => any,
+  ): Promise<YearlyInstance[]>;
   /**
    * Lists YearlyInstance records from the API as a list with HTTP metadata.
    *
@@ -174,8 +186,19 @@ export interface YearlyListInstance {
    * @param { YearlyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<YearlyInstance[]>) => any): Promise<ApiResponse<YearlyInstance[]>>;
-  listWithHttpInfo(params: YearlyListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<YearlyInstance[]>) => any): Promise<ApiResponse<YearlyInstance[]>>;
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<YearlyInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<YearlyInstance[]>>;
+  listWithHttpInfo(
+    params: YearlyListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<YearlyInstance[]>,
+    ) => any,
+  ): Promise<ApiResponse<YearlyInstance[]>>;
   /**
    * Retrieve a single page of YearlyInstance records from the API.
    *
@@ -187,8 +210,13 @@ export interface YearlyListInstance {
    * @param { YearlyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage>;
-  page(params: YearlyListInstancePageOptions, callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage>;
+  page(
+    callback?: (error: Error | null, items: YearlyPage) => any,
+  ): Promise<YearlyPage>;
+  page(
+    params: YearlyListInstancePageOptions,
+    callback?: (error: Error | null, items: YearlyPage) => any,
+  ): Promise<YearlyPage>;
   /**
    * Retrieve a single page of YearlyInstance records from the API with HTTP metadata.
    *
@@ -200,9 +228,13 @@ export interface YearlyListInstance {
    * @param { YearlyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any): Promise<ApiResponse<YearlyPage>>;
-  pageWithHttpInfo(params: YearlyListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any): Promise<ApiResponse<YearlyPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
+  ): Promise<ApiResponse<YearlyPage>>;
+  pageWithHttpInfo(
+    params: YearlyListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
+  ): Promise<ApiResponse<YearlyPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -211,18 +243,26 @@ export interface YearlyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function YearlyListInstance(version: V2010, accountSid: string): YearlyListInstance {
+export function YearlyListInstance(
+  version: V2010,
+  accountSid: string,
+): YearlyListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   const instance = {} as YearlyListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid,  };
+  instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Usage/Records/Yearly.json`;
 
-  instance.page = function page(params?: YearlyListInstancePageOptions | ((error: Error | null, items: YearlyPage) => any), callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage> {
+  instance.page = function page(
+    params?:
+      | YearlyListInstancePageOptions
+      | ((error: Error | null, items: YearlyPage) => any),
+    callback?: (error: Error | null, items: YearlyPage) => any,
+  ): Promise<YearlyPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -232,52 +272,66 @@ export function YearlyListInstance(version: V2010, accountSid: string): YearlyLi
 
     let data: any = {};
 
-        if (params["category"] !== undefined)
-    data["Category"] = params["category"];
+    if (params["category"] !== undefined) data["Category"] = params["category"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+      data["StartDate"] = serialize.iso8601Date(params["startDate"]);
     if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+      data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["includeSubaccounts"] !== undefined)
-    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new YearlyPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new YearlyPage(operationVersion, payload, instance._solution),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
 
-  
   instance.list = instance._version.list;
-  
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new YearlyPage(instance._version, payload, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: YearlyPage) => any,
+  ): Promise<YearlyPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new YearlyPage(instance._version, payload, instance._solution),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: YearlyListInstancePageOptions | ((error: Error | null, items: ApiResponse<YearlyPage>) => any), callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any): Promise<ApiResponse<YearlyPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | YearlyListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<YearlyPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
+  ): Promise<ApiResponse<YearlyPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -287,75 +341,82 @@ export function YearlyListInstance(version: V2010, accountSid: string): YearlyLi
 
     let data: any = {};
 
-        if (params["category"] !== undefined)
-    data["Category"] = params["category"];
+    if (params["category"] !== undefined) data["Category"] = params["category"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+      data["StartDate"] = serialize.iso8601Date(params["startDate"]);
     if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+      data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["includeSubaccounts"] !== undefined)
-    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<YearlyPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new YearlyPage(operationVersion, response, instance._solution)
-    }));
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then((response): ApiResponse<YearlyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new YearlyPage(operationVersion, response, instance._solution),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-  
+
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<YearlyPage>) => any): Promise<ApiResponse<YearlyPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<YearlyPage>) => any,
+  ): Promise<ApiResponse<YearlyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<YearlyPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new YearlyPage(instance._version, response, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<YearlyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new YearlyPage(instance._version, response, instance._solution),
+      }),
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface YearlyPayload extends TwilioResponsePayload {
-    usage_records: YearlyResource[];
+interface YearlyPayload extends TwilioResponsePayload {
+  usage_records: YearlyResource[];
 }
 
 interface YearlyResource {
@@ -377,25 +438,26 @@ interface YearlyResource {
 }
 
 export class YearlyInstance {
-
-  constructor(protected _version: V2010, payload: YearlyResource, accountSid: string) {
-    
-    this.accountSid = (payload.account_sid);
-    this.apiVersion = (payload.api_version);
-    this.asOf = (payload.as_of);
-    this.category = (payload.category);
-    this.count = (payload.count);
-    this.countUnit = (payload.count_unit);
-    this.description = (payload.description);
+  constructor(
+    protected _version: V2010,
+    payload: YearlyResource,
+    accountSid: string,
+  ) {
+    this.accountSid = payload.account_sid;
+    this.apiVersion = payload.api_version;
+    this.asOf = payload.as_of;
+    this.category = payload.category;
+    this.count = payload.count;
+    this.countUnit = payload.count_unit;
+    this.description = payload.description;
     this.endDate = deserialize.iso8601Date(payload.end_date);
-    this.price = (payload.price);
-    this.priceUnit = (payload.price_unit);
+    this.price = payload.price;
+    this.priceUnit = payload.price_unit;
     this.startDate = deserialize.iso8601Date(payload.start_date);
-    this.subresourceUris = (payload.subresource_uris);
-    this.uri = (payload.uri);
-    this.usage = (payload.usage);
-    this.usageUnit = (payload.usage_unit);
-
+    this.subresourceUris = payload.subresource_uris;
+    this.uri = payload.uri;
+    this.usage = payload.usage;
+    this.usageUnit = payload.usage_unit;
   }
 
   /**
@@ -489,34 +551,41 @@ export class YearlyInstance {
   }
 }
 
-export class YearlyPage extends Page<V2010, YearlyPayload, YearlyResource, YearlyInstance> {
-/**
-* Initialize the YearlyPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: YearlySolution) {
+export class YearlyPage extends Page<
+  V2010,
+  YearlyPayload,
+  YearlyResource,
+  YearlyInstance
+> {
+  /**
+   * Initialize the YearlyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: YearlySolution,
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of YearlyInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: YearlyResource): YearlyInstance {
-
+  /**
+   * Build an instance of YearlyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: YearlyResource): YearlyInstance {
     return new YearlyInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class IamV1AccountVendorOauthAppCreateRequest {
   "type"?: string;
@@ -46,7 +44,6 @@ export class IamV1AccountVendorOauthAppCreateRequest {
   }
 }
 
-
 export class IamV1AccountVendorOauthAppUpdateRequest {
   "type"?: string | null;
   "friendlyName"?: string | null;
@@ -62,7 +59,6 @@ export class IamV1AccountVendorOauthAppUpdateRequest {
     this.accessTokenTtl = payload["access_token_ttl"];
   }
 }
-
 
 export class IamV1OrganizationVendorOauthAppUpdateRequestPolicy {
   /**
@@ -80,7 +76,6 @@ export class IamV1OrganizationVendorOauthAppUpdateRequestPolicy {
   }
 }
 
-
 export class IamV1OrganizationVendoroauthappPolicy {
   /**
    * Set of permissions explicitly allowed
@@ -97,15 +92,12 @@ export class IamV1OrganizationVendoroauthappPolicy {
   }
 }
 
-
-
-
 /**
  * Options to pass to update a OAuthAppInstance
  */
 export interface OAuthAppContextUpdateOptions {
   /**  */
-  "iamV1AccountVendorOauthAppUpdateRequest": IamV1AccountVendorOauthAppUpdateRequest;
+  iamV1AccountVendorOauthAppUpdateRequest: IamV1AccountVendorOauthAppUpdateRequest;
 }
 
 /**
@@ -113,11 +105,10 @@ export interface OAuthAppContextUpdateOptions {
  */
 export interface OAuthAppListInstanceCreateOptions {
   /**  */
-  "iamV1AccountVendorOauthAppCreateRequest": IamV1AccountVendorOauthAppCreateRequest;
+  iamV1AccountVendorOauthAppCreateRequest: IamV1AccountVendorOauthAppCreateRequest;
 }
 
 export interface OAuthAppContext {
-
   /**
    * Remove a OAuthAppInstance
    *
@@ -125,7 +116,9 @@ export interface OAuthAppContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean>;
 
   /**
    * Remove a OAuthAppInstance and return HTTP info
@@ -134,7 +127,9 @@ export interface OAuthAppContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Update a OAuthAppInstance
@@ -145,7 +140,11 @@ export interface OAuthAppContext {
    *
    * @returns Resolves to processed OAuthAppInstance
    */
-  update(params: IamV1AccountVendorOauthAppUpdateRequest, headers?: any, callback?: (error: Error | null, item?: OAuthAppInstance) => any): Promise<OAuthAppInstance>;
+  update(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
+  ): Promise<OAuthAppInstance>;
 
   /**
    * Update a OAuthAppInstance and return HTTP info
@@ -156,7 +155,14 @@ export interface OAuthAppContext {
    *
    * @returns Resolves to processed OAuthAppInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: IamV1AccountVendorOauthAppUpdateRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<OAuthAppInstance>) => any): Promise<ApiResponse<OAuthAppInstance>>;
+  updateWithHttpInfo(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OAuthAppInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -166,115 +172,155 @@ export interface OAuthAppContext {
 }
 
 export interface OAuthAppContextSolution {
-  "sid": string;
+  sid: string;
 }
 
 export class OAuthAppContextImpl implements OAuthAppContext {
   protected _solution: OAuthAppContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { sid,  };
+    this._solution = { sid };
     this._uri = `/Account/OAuthApps/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  update(params: IamV1AccountVendorOauthAppUpdateRequest, headers?: any,callback?: (error: Error | null, item?: OAuthAppInstance) => any): Promise<OAuthAppInstance> {
-      if (params === null || params === undefined) {
+  update(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
+  ): Promise<OAuthAppInstance> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new OAuthAppInstance(operationVersion, payload, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OAuthAppInstance(operationVersion, payload, instance._solution.sid),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params: IamV1AccountVendorOauthAppUpdateRequest, headers?: any,callback?: (error: Error | null, item?: ApiResponse<OAuthAppInstance>) => any): Promise<ApiResponse<OAuthAppInstance>> {
-      if (params === null || params === undefined) {
+  updateWithHttpInfo(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OAuthAppInstance>> {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<OAuthAppResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<OAuthAppInstance> => ({
-      ...response,
-      body: new OAuthAppInstance(operationVersion, response.body, instance._solution.sid)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<OAuthAppResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<OAuthAppInstance> => ({
+        ...response,
+        body: new OAuthAppInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -291,8 +337,7 @@ export class OAuthAppContextImpl implements OAuthAppContext {
   }
 }
 
-
-  interface OAuthAppPayload extends OAuthAppResource {}
+interface OAuthAppPayload extends OAuthAppResource {}
 
 interface OAuthAppResource {
   type: string;
@@ -315,24 +360,30 @@ export class OAuthAppInstance {
   protected _solution: OAuthAppContextSolution;
   protected _context?: OAuthAppContext;
 
-  constructor(protected _version: V1, payload: OAuthAppResource, sid?: string) {
-    
-    this.type = (payload.type);
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
-    this.description = (payload.description);
+  constructor(
+    protected _version: V1,
+    payload: OAuthAppResource,
+    sid?: string,
+  ) {
+    this.type = payload.type;
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
+    this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.createdBy = (payload.created_by);
-    this.creatorSid = (payload.creator_sid);
-    this.secret = (payload.secret);
-    this.status = (payload.status);
-    this.policy = payload.policy !== null && payload.policy !== undefined ? new IamV1OrganizationVendoroauthappPolicy(payload.policy) : null;
+    this.createdBy = payload.created_by;
+    this.creatorSid = payload.creator_sid;
+    this.secret = payload.secret;
+    this.status = payload.status;
+    this.policy =
+      payload.policy !== null && payload.policy !== undefined
+        ? new IamV1OrganizationVendoroauthappPolicy(payload.policy)
+        : null;
     this.accessTokenTtl = deserialize.integer(payload.access_token_ttl);
-    this.code = (payload.code);
-    this.message = (payload.message);
-    this.moreInfo = (payload.more_info);
+    this.code = payload.code;
+    this.message = payload.message;
+    this.moreInfo = payload.more_info;
 
-    this._solution = { sid: sid,  };
+    this._solution = { sid: sid };
   }
 
   type: string;
@@ -363,7 +414,9 @@ export class OAuthAppInstance {
   moreInfo: string;
 
   private get _proxy(): OAuthAppContext {
-    this._context = this._context || new OAuthAppContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new OAuthAppContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -374,9 +427,9 @@ export class OAuthAppInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any,
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -387,9 +440,9 @@ export class OAuthAppInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -402,10 +455,16 @@ export class OAuthAppInstance {
    *
    * @returns Resolves to processed OAuthAppInstance
    */
-  update(params: IamV1AccountVendorOauthAppUpdateRequest, headers?: any, callback?: (error: Error | null, item?: OAuthAppInstance) => any): Promise<OAuthAppInstance>;
+  update(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
+  ): Promise<OAuthAppInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: OAuthAppInstance) => any): Promise<OAuthAppInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
+  ): Promise<OAuthAppInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -418,10 +477,22 @@ export class OAuthAppInstance {
    *
    * @returns Resolves to processed OAuthAppInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: IamV1AccountVendorOauthAppUpdateRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<OAuthAppInstance>) => any): Promise<ApiResponse<OAuthAppInstance>>;
+  updateWithHttpInfo(
+    params: IamV1AccountVendorOauthAppUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OAuthAppInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<OAuthAppInstance>) => any): Promise<ApiResponse<OAuthAppInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OAuthAppInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -454,22 +525,15 @@ export class OAuthAppInstance {
   }
 }
 
-
-export interface OAuthAppSolution {
-}
+export interface OAuthAppSolution {}
 
 export interface OAuthAppListInstance {
   _version: V1;
   _solution: OAuthAppSolution;
   _uri: string;
 
-  (sid: string, ): OAuthAppContext;
-  get(sid: string, ): OAuthAppContext;
-
-
-
-
-
+  (sid: string): OAuthAppContext;
+  get(sid: string): OAuthAppContext;
 
   /**
    * Create a OAuthAppInstance
@@ -480,7 +544,11 @@ export interface OAuthAppListInstance {
    *
    * @returns Resolves to processed OAuthAppInstance
    */
-  create(params: IamV1AccountVendorOauthAppCreateRequest, headers?: any, callback?: (error: Error | null, item?: OAuthAppInstance) => any): Promise<OAuthAppInstance>;
+  create(
+    params: IamV1AccountVendorOauthAppCreateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
+  ): Promise<OAuthAppInstance>;
 
   /**
    * Create a OAuthAppInstance and return HTTP info
@@ -491,9 +559,14 @@ export interface OAuthAppListInstance {
    *
    * @returns Resolves to processed OAuthAppInstance with HTTP metadata
    */
-  createWithHttpInfo(params: IamV1AccountVendorOauthAppCreateRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<OAuthAppInstance>) => any): Promise<ApiResponse<OAuthAppInstance>>;
-
-
+  createWithHttpInfo(
+    params: IamV1AccountVendorOauthAppCreateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OAuthAppInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -503,86 +576,109 @@ export interface OAuthAppListInstance {
 }
 
 export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
-  const instance = ((sid, ) => instance.get(sid, )) as OAuthAppListInstance;
+  const instance = ((sid) => instance.get(sid)) as OAuthAppListInstance;
 
-  instance.get = function get(sid, ): OAuthAppContext {
+  instance.get = function get(sid): OAuthAppContext {
     return new OAuthAppContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Account/OAuthApps`;
 
-  instance.create = function create(params: IamV1AccountVendorOauthAppCreateRequest, headers?: any, callback?: (error: Error | null, items: OAuthAppInstance) => any): Promise<OAuthAppInstance> {
+  instance.create = function create(
+    params: IamV1AccountVendorOauthAppCreateRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: OAuthAppInstance) => any,
+  ): Promise<OAuthAppInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new OAuthAppInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new OAuthAppInstance(operationVersion, payload),
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: IamV1AccountVendorOauthAppCreateRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<OAuthAppInstance>) => any): Promise<ApiResponse<OAuthAppInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: IamV1AccountVendorOauthAppCreateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<OAuthAppInstance>,
+    ) => any,
+  ): Promise<ApiResponse<OAuthAppInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<OAuthAppResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<OAuthAppInstance> => ({
-      ...response,
-      body: new OAuthAppInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<OAuthAppResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then((response): ApiResponse<OAuthAppInstance> => ({
+        ...response,
+        body: new OAuthAppInstance(operationVersion, response.body),
+      }));
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback,
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions,
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
