@@ -18,6 +18,7 @@ import { ConfigurationListInstance } from "./v3/configuration";
 import { ConversationListInstance } from "./v3/conversation";
 import { OperatorListInstance } from "./v3/operator";
 import { OperatorResultListInstance } from "./v3/operatorResult";
+import { RuleExecutionListInstance } from "./v3/ruleExecution";
 import { VersionListInstance, VersionContext } from "./v3/version";
 
 export default class V3 extends Version {
@@ -38,6 +39,8 @@ export default class V3 extends Version {
   protected _operators?: OperatorListInstance;
   /** operatorResults - { Twilio.Intelligence.V3.OperatorResultListInstance } resource */
   protected _operatorResults?: OperatorResultListInstance;
+  /** ruleExecutions - { Twilio.Intelligence.V3.RuleExecutionListInstance } resource */
+  protected _ruleExecutions?: RuleExecutionListInstance;
 
   /** Getter for configurations resource */
   get configurations(): ConfigurationListInstance {
@@ -63,6 +66,13 @@ export default class V3 extends Version {
     this._operatorResults =
       this._operatorResults || OperatorResultListInstance(this);
     return this._operatorResults;
+  }
+
+  /** Getter for ruleExecutions resource */
+  get ruleExecutions(): RuleExecutionListInstance {
+    this._ruleExecutions =
+      this._ruleExecutions || RuleExecutionListInstance(this);
+    return this._ruleExecutions;
   }
 
   /** Accessor for versions resource - list operations */

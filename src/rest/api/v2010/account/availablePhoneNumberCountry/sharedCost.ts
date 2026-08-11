@@ -193,11 +193,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: SharedCostListInstanceEachOptions,
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams SharedCostInstance records from the API with HTTP metadata captured per page.
@@ -215,11 +215,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: SharedCostListInstanceEachOptions,
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of SharedCostInstance records from the API.
@@ -231,7 +231,7 @@ export interface SharedCostListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SharedCostPage) => any
+    callback?: (error: Error | null, items: SharedCostPage) => any,
   ): Promise<SharedCostPage>;
   /**
    * Retrieve a single target page of SharedCostInstance records from the API with HTTP metadata.
@@ -243,7 +243,7 @@ export interface SharedCostListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any,
   ): Promise<ApiResponse<SharedCostPage>>;
   /**
    * Lists SharedCostInstance records from the API as a list.
@@ -255,11 +255,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SharedCostInstance[]) => any
+    callback?: (error: Error | null, items: SharedCostInstance[]) => any,
   ): Promise<SharedCostInstance[]>;
   list(
     params: SharedCostListInstanceOptions,
-    callback?: (error: Error | null, items: SharedCostInstance[]) => any
+    callback?: (error: Error | null, items: SharedCostInstance[]) => any,
   ): Promise<SharedCostInstance[]>;
   /**
    * Lists SharedCostInstance records from the API as a list with HTTP metadata.
@@ -275,15 +275,15 @@ export interface SharedCostListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SharedCostInstance[]>
-    ) => any
+      items: ApiResponse<SharedCostInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SharedCostInstance[]>>;
   listWithHttpInfo(
     params: SharedCostListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SharedCostInstance[]>
-    ) => any
+      items: ApiResponse<SharedCostInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SharedCostInstance[]>>;
   /**
    * Retrieve a single page of SharedCostInstance records from the API.
@@ -297,11 +297,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SharedCostPage) => any
+    callback?: (error: Error | null, items: SharedCostPage) => any,
   ): Promise<SharedCostPage>;
   page(
     params: SharedCostListInstancePageOptions,
-    callback?: (error: Error | null, items: SharedCostPage) => any
+    callback?: (error: Error | null, items: SharedCostPage) => any,
   ): Promise<SharedCostPage>;
   /**
    * Retrieve a single page of SharedCostInstance records from the API with HTTP metadata.
@@ -315,11 +315,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any,
   ): Promise<ApiResponse<SharedCostPage>>;
   pageWithHttpInfo(
     params: SharedCostListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any,
   ): Promise<ApiResponse<SharedCostPage>>;
 
   /**
@@ -332,7 +332,7 @@ export interface SharedCostListInstance {
 export function SharedCostListInstance(
   version: V2010,
   accountSid: string,
-  countryCode: string
+  countryCode: string,
 ): SharedCostListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -352,7 +352,7 @@ export function SharedCostListInstance(
     params?:
       | SharedCostListInstancePageOptions
       | ((error: Error | null, items: SharedCostPage) => any),
-    callback?: (error: Error | null, items: SharedCostPage) => any
+    callback?: (error: Error | null, items: SharedCostPage) => any,
   ): Promise<SharedCostPage> {
     if (params instanceof Function) {
       callback = params;
@@ -373,15 +373,15 @@ export function SharedCostListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -418,12 +418,12 @@ export function SharedCostListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SharedCostPage(operationVersion, payload, instance._solution)
+        new SharedCostPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -433,7 +433,7 @@ export function SharedCostListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SharedCostPage) => any
+    callback?: (error: Error | null, items: SharedCostPage) => any,
   ): Promise<SharedCostPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -441,7 +441,7 @@ export function SharedCostListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SharedCostPage(instance._version, payload, instance._solution)
+        new SharedCostPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -451,7 +451,7 @@ export function SharedCostListInstance(
     params?:
       | SharedCostListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<SharedCostPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SharedCostPage>) => any,
   ): Promise<ApiResponse<SharedCostPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -472,15 +472,15 @@ export function SharedCostListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -513,21 +513,19 @@ export function SharedCostListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SharedCostPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SharedCostPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SharedCostPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SharedCostPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -539,7 +537,10 @@ export function SharedCostListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<SharedCostPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<SharedCostPage>,
+    ) => any,
   ): Promise<ApiResponse<SharedCostPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -554,9 +555,9 @@ export function SharedCostListInstance(
         body: new SharedCostPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -568,7 +569,7 @@ export function SharedCostListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -601,7 +602,7 @@ export class SharedCostInstance {
     protected _version: V2010,
     payload: SharedCostResource,
     accountSid: string,
-    countryCode: string
+    countryCode: string,
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;
@@ -712,7 +713,7 @@ export class SharedCostPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: SharedCostSolution
+    solution: SharedCostSolution,
   ) {
     super(version, response, solution);
   }
@@ -727,7 +728,7 @@ export class SharedCostPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.countryCode
+      this._solution.countryCode,
     );
   }
 

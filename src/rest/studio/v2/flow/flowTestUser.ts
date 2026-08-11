@@ -36,7 +36,7 @@ export interface FlowTestUserContext {
    * @returns Resolves to processed FlowTestUserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance>;
 
   /**
@@ -49,8 +49,8 @@ export interface FlowTestUserContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>>;
 
   /**
@@ -63,7 +63,7 @@ export interface FlowTestUserContext {
    */
   update(
     params: FlowTestUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance>;
 
   /**
@@ -78,8 +78,8 @@ export interface FlowTestUserContext {
     params: FlowTestUserContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>>;
 
   /**
@@ -97,7 +97,10 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   protected _solution: FlowTestUserContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -107,7 +110,7 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -125,13 +128,13 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
         new FlowTestUserInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -139,8 +142,8 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -154,27 +157,25 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FlowTestUserInstance> => ({
-          ...response,
-          body: new FlowTestUserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlowTestUserInstance> => ({
+        ...response,
+        body: new FlowTestUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: FlowTestUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -206,13 +207,13 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
         new FlowTestUserInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -221,8 +222,8 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     params: FlowTestUserContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -250,20 +251,18 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FlowTestUserInstance> => ({
-          ...response,
-          body: new FlowTestUserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlowTestUserInstance> => ({
+        ...response,
+        body: new FlowTestUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -297,7 +296,7 @@ export class FlowTestUserInstance {
   constructor(
     protected _version: V2,
     payload: FlowTestUserResource,
-    sid: string
+    sid: string,
   ) {
     this.sid = payload.sid;
     this.testUsers = payload.test_users;
@@ -334,7 +333,7 @@ export class FlowTestUserInstance {
    * @returns Resolves to processed FlowTestUserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance> {
     return this._proxy.fetch(callback);
   }
@@ -349,8 +348,8 @@ export class FlowTestUserInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -365,12 +364,12 @@ export class FlowTestUserInstance {
    */
   update(
     params: FlowTestUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any,
   ): Promise<FlowTestUserInstance> {
     return this._proxy.update(params, callback);
   }
@@ -387,16 +386,16 @@ export class FlowTestUserInstance {
     params: FlowTestUserContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowTestUserInstance>
-    ) => any
+      item?: ApiResponse<FlowTestUserInstance>,
+    ) => any,
   ): Promise<ApiResponse<FlowTestUserInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -440,7 +439,7 @@ export interface FlowTestUserListInstance {
 
 export function FlowTestUserListInstance(
   version: V2,
-  sid: string
+  sid: string,
 ): FlowTestUserListInstance {
   if (!isValidPathParam(sid)) {
     throw new Error("Parameter 'sid' is not valid.");
@@ -462,7 +461,7 @@ export function FlowTestUserListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

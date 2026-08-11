@@ -20,6 +20,17 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
+ * Lifecycle status of an Action.
+ */
+export type ConversationsV2ActionStatus = "PENDING" | "COMPLETED" | "FAILED";
+
+/**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
+
+/**
  * Content for a SEND_MESSAGE action.
  */
 export class ConversationsV2SendMessageContent {
@@ -60,10 +71,7 @@ export class ConversationsV2SendMessageParticipant {
    * Explicit address formatted according to channel type.
    */
   "address"?: string;
-  /**
-   * Channel type for address resolution.
-   */
-  "channel"?: string;
+  "channel"?: ConversationsV2Channel;
 
   constructor(payload) {
     this.participantId = payload["participantId"];
@@ -122,7 +130,7 @@ export interface ActionContext {
    * @returns Resolves to processed ActionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ActionInstance) => any
+    callback?: (error: Error | null, item?: ActionInstance) => any,
   ): Promise<ActionInstance>;
 
   /**
@@ -133,7 +141,7 @@ export interface ActionContext {
    * @returns Resolves to processed ActionInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any,
   ): Promise<ApiResponse<ActionInstance>>;
 
   /**
@@ -155,7 +163,7 @@ export class ActionContextImpl implements ActionContext {
   constructor(
     protected _version: V2,
     conversationId: string,
-    actionId: string
+    actionId: string,
   ) {
     if (!isValidPathParam(conversationId)) {
       throw new Error("Parameter 'conversationId' is not valid.");
@@ -170,7 +178,7 @@ export class ActionContextImpl implements ActionContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ActionInstance) => any
+    callback?: (error: Error | null, item?: ActionInstance) => any,
   ): Promise<ActionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -189,19 +197,19 @@ export class ActionContextImpl implements ActionContext {
           operationVersion,
           payload,
           instance._solution.conversationId,
-          instance._solution.actionId
-        )
+          instance._solution.actionId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any,
   ): Promise<ApiResponse<ActionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -215,21 +223,19 @@ export class ActionContextImpl implements ActionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ActionInstance> => ({
-          ...response,
-          body: new ActionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationId,
-            instance._solution.actionId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ActionInstance> => ({
+        ...response,
+        body: new ActionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+          instance._solution.actionId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -251,7 +257,7 @@ export class ActionContextImpl implements ActionContext {
 interface ActionResource {
   id: string;
   type: string;
-  status: string;
+  status: ConversationsV2ActionStatus;
   conversationId: string;
   related: { [key: string]: string };
   createdAt: Date;
@@ -267,7 +273,7 @@ export class ActionInstance {
     protected _version: V2,
     _payload: ActionResource,
     conversationId: string,
-    actionId?: string
+    actionId?: string,
   ) {
     const payload = _payload;
     this.id = payload.id;
@@ -290,10 +296,7 @@ export class ActionInstance {
    * The type of action. Accepted values: SEND_MESSAGE.
    */
   type: string;
-  /**
-   * Current status of the Action. - PENDING: Action accepted, awaiting downstream confirmation - COMPLETED: Downstream backend confirmed the action - FAILED: Downstream backend reported a failure
-   */
-  status: string;
+  status: ConversationsV2ActionStatus;
   /**
    * The conversation this action belongs to.
    */
@@ -321,7 +324,7 @@ export class ActionInstance {
       new ActionContextImpl(
         this._version,
         this._solution.conversationId,
-        this._solution.actionId
+        this._solution.actionId,
       );
     return this._context;
   }
@@ -334,7 +337,7 @@ export class ActionInstance {
    * @returns Resolves to processed ActionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ActionInstance) => any
+    callback?: (error: Error | null, item?: ActionInstance) => any,
   ): Promise<ActionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -347,7 +350,7 @@ export class ActionInstance {
    * @returns Resolves to processed ActionInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any,
   ): Promise<ApiResponse<ActionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -399,7 +402,7 @@ export interface ActionListInstance {
   create(
     params: CreateConversationActionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ActionInstance) => any
+    callback?: (error: Error | null, item?: ActionInstance) => any,
   ): Promise<ActionInstance>;
 
   /**
@@ -414,7 +417,7 @@ export interface ActionListInstance {
   createWithHttpInfo(
     params: CreateConversationActionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ActionInstance>) => any,
   ): Promise<ApiResponse<ActionInstance>>;
 
   /**
@@ -426,7 +429,7 @@ export interface ActionListInstance {
 
 export function ActionListInstance(
   version: V2,
-  conversationId: string
+  conversationId: string,
 ): ActionListInstance {
   if (!isValidPathParam(conversationId)) {
     throw new Error("Parameter 'conversationId' is not valid.");
@@ -445,7 +448,7 @@ export function ActionListInstance(
   instance.create = function create(
     params: CreateConversationActionRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ActionInstance) => any
+    callback?: (error: Error | null, items: ActionInstance) => any,
   ): Promise<ActionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -475,13 +478,13 @@ export function ActionListInstance(
         new ActionInstance(
           operationVersion,
           payload,
-          instance._solution.conversationId
-        )
+          instance._solution.conversationId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -489,7 +492,7 @@ export function ActionListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: CreateConversationActionRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<ActionInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<ActionInstance>) => any,
   ): Promise<ApiResponse<ActionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -515,20 +518,18 @@ export function ActionListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ActionInstance> => ({
-          ...response,
-          body: new ActionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ActionInstance> => ({
+        ...response,
+        body: new ActionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -539,7 +540,7 @@ export function ActionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

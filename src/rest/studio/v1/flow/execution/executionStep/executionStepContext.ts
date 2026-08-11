@@ -28,7 +28,10 @@ export interface ExecutionStepContextContext {
    * @returns Resolves to processed ExecutionStepContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: ExecutionStepContextInstance,
+    ) => any,
   ): Promise<ExecutionStepContextInstance>;
 
   /**
@@ -41,8 +44,8 @@ export interface ExecutionStepContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionStepContextInstance>
-    ) => any
+      item?: ApiResponse<ExecutionStepContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepContextInstance>>;
 
   /**
@@ -58,9 +61,7 @@ export interface ExecutionStepContextContextSolution {
   stepSid: string;
 }
 
-export class ExecutionStepContextContextImpl
-  implements ExecutionStepContextContext
-{
+export class ExecutionStepContextContextImpl implements ExecutionStepContextContext {
   protected _solution: ExecutionStepContextContextSolution;
   protected _uri: string;
 
@@ -68,7 +69,7 @@ export class ExecutionStepContextContextImpl
     protected _version: V1,
     flowSid: string,
     executionSid: string,
-    stepSid: string
+    stepSid: string,
   ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
@@ -87,7 +88,10 @@ export class ExecutionStepContextContextImpl
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: ExecutionStepContextInstance,
+    ) => any,
   ): Promise<ExecutionStepContextInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -107,13 +111,13 @@ export class ExecutionStepContextContextImpl
           payload,
           instance._solution.flowSid,
           instance._solution.executionSid,
-          instance._solution.stepSid
-        )
+          instance._solution.stepSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -121,8 +125,8 @@ export class ExecutionStepContextContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionStepContextInstance>
-    ) => any
+      item?: ApiResponse<ExecutionStepContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepContextInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -136,22 +140,20 @@ export class ExecutionStepContextContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionStepContextInstance> => ({
-          ...response,
-          body: new ExecutionStepContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.executionSid,
-            instance._solution.stepSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionStepContextInstance> => ({
+        ...response,
+        body: new ExecutionStepContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.executionSid,
+          instance._solution.stepSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -190,7 +192,7 @@ export class ExecutionStepContextInstance {
     payload: ExecutionStepContextResource,
     flowSid: string,
     executionSid: string,
-    stepSid: string
+    stepSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -234,7 +236,7 @@ export class ExecutionStepContextInstance {
         this._version,
         this._solution.flowSid,
         this._solution.executionSid,
-        this._solution.stepSid
+        this._solution.stepSid,
       );
     return this._context;
   }
@@ -247,7 +249,10 @@ export class ExecutionStepContextInstance {
    * @returns Resolves to processed ExecutionStepContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: ExecutionStepContextInstance,
+    ) => any,
   ): Promise<ExecutionStepContextInstance> {
     return this._proxy.fetch(callback);
   }
@@ -262,8 +267,8 @@ export class ExecutionStepContextInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionStepContextInstance>
-    ) => any
+      item?: ApiResponse<ExecutionStepContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepContextInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -314,7 +319,7 @@ export function ExecutionStepContextListInstance(
   version: V1,
   flowSid: string,
   executionSid: string,
-  stepSid: string
+  stepSid: string,
 ): ExecutionStepContextListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -335,7 +340,7 @@ export function ExecutionStepContextListInstance(
       version,
       flowSid,
       executionSid,
-      stepSid
+      stepSid,
     );
   };
 
@@ -349,7 +354,7 @@ export function ExecutionStepContextListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -71,7 +71,7 @@ export function VoiceListInstance(version: V2): VoiceListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

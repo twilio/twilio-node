@@ -44,7 +44,7 @@ export interface NewKeyListInstance {
    * @returns Resolves to processed NewKeyInstance
    */
   create(
-    callback?: (error: Error | null, item?: NewKeyInstance) => any
+    callback?: (error: Error | null, item?: NewKeyInstance) => any,
   ): Promise<NewKeyInstance>;
   /**
    * Create a NewKeyInstance
@@ -56,7 +56,7 @@ export interface NewKeyListInstance {
    */
   create(
     params: NewKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewKeyInstance) => any
+    callback?: (error: Error | null, item?: NewKeyInstance) => any,
   ): Promise<NewKeyInstance>;
 
   /**
@@ -67,7 +67,7 @@ export interface NewKeyListInstance {
    * @returns Resolves to processed NewKeyInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<NewKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<NewKeyInstance>) => any,
   ): Promise<ApiResponse<NewKeyInstance>>;
   /**
    * Create a NewKeyInstance and return HTTP info
@@ -79,7 +79,7 @@ export interface NewKeyListInstance {
    */
   createWithHttpInfo(
     params: NewKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<NewKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<NewKeyInstance>) => any,
   ): Promise<ApiResponse<NewKeyInstance>>;
 
   /**
@@ -91,7 +91,7 @@ export interface NewKeyListInstance {
 
 export function NewKeyListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): NewKeyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -107,13 +107,13 @@ export function NewKeyListInstance(
     params?:
       | NewKeyListInstanceCreateOptions
       | ((error: Error | null, items: NewKeyInstance) => any),
-    callback?: (error: Error | null, items: NewKeyInstance) => any
+    callback?: (error: Error | null, items: NewKeyInstance) => any,
   ): Promise<NewKeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -138,13 +138,13 @@ export function NewKeyListInstance(
         new NewKeyInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -153,13 +153,13 @@ export function NewKeyListInstance(
     params?:
       | NewKeyListInstanceCreateOptions
       | ((error: Error | null, items: ApiResponse<NewKeyInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<NewKeyInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<NewKeyInstance>) => any,
   ): Promise<ApiResponse<NewKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -180,20 +180,18 @@ export function NewKeyListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NewKeyInstance> => ({
-          ...response,
-          body: new NewKeyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NewKeyInstance> => ({
+        ...response,
+        body: new NewKeyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -204,7 +202,7 @@ export function NewKeyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -226,7 +224,7 @@ export class NewKeyInstance {
   constructor(
     protected _version: V2010,
     payload: NewKeyResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;

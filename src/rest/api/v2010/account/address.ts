@@ -144,7 +144,7 @@ export interface AddressContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -155,7 +155,7 @@ export interface AddressContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -166,7 +166,7 @@ export interface AddressContext {
    * @returns Resolves to processed AddressInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance>;
 
   /**
@@ -177,7 +177,10 @@ export interface AddressContext {
    * @returns Resolves to processed AddressInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>>;
 
   /**
@@ -188,7 +191,7 @@ export interface AddressContext {
    * @returns Resolves to processed AddressInstance
    */
   update(
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
@@ -200,7 +203,7 @@ export interface AddressContext {
    */
   update(
     params: AddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance>;
 
   /**
@@ -211,7 +214,10 @@ export interface AddressContext {
    * @returns Resolves to processed AddressInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>>;
   /**
    * Update a AddressInstance and return HTTP info
@@ -223,7 +229,10 @@ export interface AddressContext {
    */
   updateWithHttpInfo(
     params: AddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>>;
 
   /**
@@ -244,7 +253,11 @@ export class AddressContextImpl implements AddressContext {
 
   protected _dependentPhoneNumbers?: DependentPhoneNumberListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -263,13 +276,13 @@ export class AddressContextImpl implements AddressContext {
       DependentPhoneNumberListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._dependentPhoneNumbers;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -283,13 +296,13 @@ export class AddressContextImpl implements AddressContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -298,22 +311,20 @@ export class AddressContextImpl implements AddressContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -332,19 +343,22 @@ export class AddressContextImpl implements AddressContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -358,21 +372,19 @@ export class AddressContextImpl implements AddressContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AddressInstance> => ({
-          ...response,
-          body: new AddressInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressInstance> => ({
+        ...response,
+        body: new AddressInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -381,13 +393,13 @@ export class AddressContextImpl implements AddressContext {
     params?:
       | AddressContextUpdateOptions
       | ((error: Error | null, item?: AddressInstance) => any),
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -427,13 +439,13 @@ export class AddressContextImpl implements AddressContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -442,13 +454,16 @@ export class AddressContextImpl implements AddressContext {
     params?:
       | AddressContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<AddressInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -483,21 +498,19 @@ export class AddressContextImpl implements AddressContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AddressInstance> => ({
-          ...response,
-          body: new AddressInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressInstance> => ({
+        ...response,
+        body: new AddressInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -547,7 +560,7 @@ export class AddressInstance {
     protected _version: V2010,
     payload: AddressResource,
     accountSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.city = payload.city;
@@ -566,7 +579,7 @@ export class AddressInstance {
     this.verified = payload.verified;
     this.streetSecondary = payload.street_secondary;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -640,7 +653,7 @@ export class AddressInstance {
       new AddressContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -653,7 +666,7 @@ export class AddressInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -666,7 +679,7 @@ export class AddressInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -679,7 +692,7 @@ export class AddressInstance {
    * @returns Resolves to processed AddressInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance> {
     return this._proxy.fetch(callback);
   }
@@ -692,7 +705,10 @@ export class AddressInstance {
    * @returns Resolves to processed AddressInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -705,7 +721,7 @@ export class AddressInstance {
    * @returns Resolves to processed AddressInstance
    */
   update(
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
@@ -717,12 +733,12 @@ export class AddressInstance {
    */
   update(
     params: AddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance> {
     return this._proxy.update(params, callback);
   }
@@ -735,7 +751,10 @@ export class AddressInstance {
    * @returns Resolves to processed AddressInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>>;
   /**
    * Update a AddressInstance and return HTTP info
@@ -747,12 +766,18 @@ export class AddressInstance {
    */
   updateWithHttpInfo(
     params: AddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -817,7 +842,7 @@ export interface AddressListInstance {
    */
   create(
     params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, item?: AddressInstance) => any,
   ): Promise<AddressInstance>;
 
   /**
@@ -830,7 +855,10 @@ export interface AddressListInstance {
    */
   createWithHttpInfo(
     params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>>;
 
   /**
@@ -849,11 +877,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: AddressInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: AddressListInstanceEachOptions,
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: AddressInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams AddressInstance records from the API with HTTP metadata captured per page.
@@ -871,11 +899,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: AddressInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: AddressListInstanceEachOptions,
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: AddressInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
@@ -887,7 +915,7 @@ export interface AddressListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AddressPage) => any
+    callback?: (error: Error | null, items: AddressPage) => any,
   ): Promise<AddressPage>;
   /**
    * Retrieve a single target page of AddressInstance records from the API with HTTP metadata.
@@ -899,7 +927,7 @@ export interface AddressListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any,
   ): Promise<ApiResponse<AddressPage>>;
   /**
    * Lists AddressInstance records from the API as a list.
@@ -911,11 +939,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AddressInstance[]) => any
+    callback?: (error: Error | null, items: AddressInstance[]) => any,
   ): Promise<AddressInstance[]>;
   list(
     params: AddressListInstanceOptions,
-    callback?: (error: Error | null, items: AddressInstance[]) => any
+    callback?: (error: Error | null, items: AddressInstance[]) => any,
   ): Promise<AddressInstance[]>;
   /**
    * Lists AddressInstance records from the API as a list with HTTP metadata.
@@ -931,15 +959,15 @@ export interface AddressListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressInstance[]>
-    ) => any
+      items: ApiResponse<AddressInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance[]>>;
   listWithHttpInfo(
     params: AddressListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressInstance[]>
-    ) => any
+      items: ApiResponse<AddressInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance[]>>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
@@ -953,11 +981,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AddressPage) => any
+    callback?: (error: Error | null, items: AddressPage) => any,
   ): Promise<AddressPage>;
   page(
     params: AddressListInstancePageOptions,
-    callback?: (error: Error | null, items: AddressPage) => any
+    callback?: (error: Error | null, items: AddressPage) => any,
   ): Promise<AddressPage>;
   /**
    * Retrieve a single page of AddressInstance records from the API with HTTP metadata.
@@ -971,11 +999,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any,
   ): Promise<ApiResponse<AddressPage>>;
   pageWithHttpInfo(
     params: AddressListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any,
   ): Promise<ApiResponse<AddressPage>>;
 
   /**
@@ -987,7 +1015,7 @@ export interface AddressListInstance {
 
 export function AddressListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): AddressListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -1005,7 +1033,7 @@ export function AddressListInstance(
 
   instance.create = function create(
     params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AddressInstance) => any
+    callback?: (error: Error | null, items: AddressInstance) => any,
   ): Promise<AddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1077,20 +1105,23 @@ export function AddressListInstance(
         new AddressInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<AddressInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<AddressInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1158,20 +1189,18 @@ export function AddressListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AddressInstance> => ({
-          ...response,
-          body: new AddressInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressInstance> => ({
+        ...response,
+        body: new AddressInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1180,7 +1209,7 @@ export function AddressListInstance(
     params?:
       | AddressListInstancePageOptions
       | ((error: Error | null, items: AddressPage) => any),
-    callback?: (error: Error | null, items: AddressPage) => any
+    callback?: (error: Error | null, items: AddressPage) => any,
   ): Promise<AddressPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1217,12 +1246,12 @@ export function AddressListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AddressPage(operationVersion, payload, instance._solution)
+        new AddressPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1232,7 +1261,7 @@ export function AddressListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AddressPage) => any
+    callback?: (error: Error | null, items: AddressPage) => any,
   ): Promise<AddressPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1240,7 +1269,7 @@ export function AddressListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AddressPage(instance._version, payload, instance._solution)
+        new AddressPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1250,7 +1279,7 @@ export function AddressListInstance(
     params?:
       | AddressListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AddressPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AddressPage>) => any,
   ): Promise<ApiResponse<AddressPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1283,17 +1312,15 @@ export function AddressListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AddressPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AddressPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<AddressPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AddressPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1305,7 +1332,7 @@ export function AddressListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<AddressPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<AddressPage>) => any,
   ): Promise<ApiResponse<AddressPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1318,7 +1345,7 @@ export function AddressListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new AddressPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1330,7 +1357,7 @@ export function AddressListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1354,7 +1381,7 @@ export class AddressPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: AddressSolution
+    solution: AddressSolution,
   ) {
     super(version, response, solution);
   }
@@ -1368,7 +1395,7 @@ export class AddressPage extends Page<
     return new AddressInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

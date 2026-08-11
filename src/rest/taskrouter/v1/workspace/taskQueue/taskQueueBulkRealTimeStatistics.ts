@@ -46,8 +46,8 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: TaskQueueBulkRealTimeStatisticsInstance
-    ) => any
+      item?: TaskQueueBulkRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<TaskQueueBulkRealTimeStatisticsInstance>;
   /**
    * Create a TaskQueueBulkRealTimeStatisticsInstance
@@ -63,8 +63,8 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: TaskQueueBulkRealTimeStatisticsInstance
-    ) => any
+      item?: TaskQueueBulkRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<TaskQueueBulkRealTimeStatisticsInstance>;
 
   /**
@@ -77,8 +77,8 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>>;
   /**
    * Create a TaskQueueBulkRealTimeStatisticsInstance and return HTTP info
@@ -94,8 +94,8 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>>;
 
   /**
@@ -107,7 +107,7 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
 
 export function TaskQueueBulkRealTimeStatisticsListInstance(
   version: V1,
-  workspaceSid: string
+  workspaceSid: string,
 ): TaskQueueBulkRealTimeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -124,19 +124,19 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
       | object
       | ((
           error: Error | null,
-          items: TaskQueueBulkRealTimeStatisticsInstance
+          items: TaskQueueBulkRealTimeStatisticsInstance,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      items: TaskQueueBulkRealTimeStatisticsInstance
-    ) => any
+      items: TaskQueueBulkRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<TaskQueueBulkRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -163,13 +163,13 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
         new TaskQueueBulkRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          instance._solution.workspaceSid
-        )
+          instance._solution.workspaceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -179,19 +179,19 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
       | object
       | ((
           error: Error | null,
-          items: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>
+          items: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>
-    ) => any
+      items: ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -220,14 +220,14 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
           body: new TaskQueueBulkRealTimeStatisticsInstance(
             operationVersion,
             response.body,
-            instance._solution.workspaceSid
+            instance._solution.workspaceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -238,7 +238,7 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -246,8 +246,7 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
   return instance;
 }
 
-interface TaskQueueBulkRealTimeStatisticsPayload
-  extends TaskQueueBulkRealTimeStatisticsResource {}
+interface TaskQueueBulkRealTimeStatisticsPayload extends TaskQueueBulkRealTimeStatisticsResource {}
 
 interface TaskQueueBulkRealTimeStatisticsResource {
   account_sid: string;
@@ -261,13 +260,13 @@ export class TaskQueueBulkRealTimeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: TaskQueueBulkRealTimeStatisticsResource,
-    workspaceSid: string
+    workspaceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.workspaceSid = payload.workspace_sid;
     this.taskQueueData = payload.task_queue_data;
     this.taskQueueResponseCount = deserialize.integer(
-      payload.task_queue_response_count
+      payload.task_queue_response_count,
     );
     this.url = payload.url;
   }

@@ -47,7 +47,7 @@ class Supersim extends SupersimBase {
    */
   get settingsUpdates(): SettingsUpdateListInstance {
     console.warn(
-      "settingsUpdates is deprecated. Use v1.settingsUpdates instead."
+      "settingsUpdates is deprecated. Use v1.settingsUpdates instead.",
     );
     return this.v1.settingsUpdates;
   }
@@ -57,7 +57,7 @@ class Supersim extends SupersimBase {
    */
   get networkAccessProfiles(): NetworkAccessProfileListInstance {
     console.warn(
-      "networkAccessProfiles is deprecated. Use v1.networkAccessProfiles instead."
+      "networkAccessProfiles is deprecated. Use v1.networkAccessProfiles instead.",
     );
     return this.v1.networkAccessProfiles;
   }

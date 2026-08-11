@@ -78,7 +78,7 @@ export interface CustomerProfilesListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -133,7 +133,7 @@ export interface CustomerProfilesContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -144,7 +144,7 @@ export interface CustomerProfilesContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -155,7 +155,7 @@ export interface CustomerProfilesContext {
    * @returns Resolves to processed CustomerProfilesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance>;
 
   /**
@@ -168,8 +168,8 @@ export interface CustomerProfilesContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>>;
 
   /**
@@ -180,7 +180,7 @@ export interface CustomerProfilesContext {
    * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
@@ -192,7 +192,7 @@ export interface CustomerProfilesContext {
    */
   update(
     params: CustomerProfilesContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance>;
 
   /**
@@ -205,8 +205,8 @@ export interface CustomerProfilesContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>>;
   /**
    * Update a CustomerProfilesInstance and return HTTP info
@@ -220,8 +220,8 @@ export interface CustomerProfilesContext {
     params: CustomerProfilesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>>;
 
   /**
@@ -243,7 +243,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   protected _customerProfilesEntityAssignments?: CustomerProfilesEntityAssignmentsListInstance;
   protected _customerProfilesEvaluations?: CustomerProfilesEvaluationsListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -257,7 +260,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
       this._customerProfilesChannelEndpointAssignment ||
       CustomerProfilesChannelEndpointAssignmentListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._customerProfilesChannelEndpointAssignment;
   }
@@ -267,7 +270,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
       this._customerProfilesEntityAssignments ||
       CustomerProfilesEntityAssignmentsListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._customerProfilesEntityAssignments;
   }
@@ -277,13 +280,13 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
       this._customerProfilesEvaluations ||
       CustomerProfilesEvaluationsListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._customerProfilesEvaluations;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -297,13 +300,13 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -312,22 +315,20 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -345,13 +346,13 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         new CustomerProfilesInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -359,8 +360,8 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -374,20 +375,18 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesInstance> => ({
-          ...response,
-          body: new CustomerProfilesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesInstance> => ({
+        ...response,
+        body: new CustomerProfilesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -396,13 +395,13 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     params?:
       | CustomerProfilesContextUpdateOptions
       | ((error: Error | null, item?: CustomerProfilesInstance) => any),
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -432,13 +431,13 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         new CustomerProfilesInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -448,18 +447,18 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
       | CustomerProfilesContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<CustomerProfilesInstance>
+          item?: ApiResponse<CustomerProfilesInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -485,20 +484,18 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesInstance> => ({
-          ...response,
-          body: new CustomerProfilesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesInstance> => ({
+        ...response,
+        body: new CustomerProfilesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -544,7 +541,7 @@ export class CustomerProfilesInstance {
   constructor(
     protected _version: V1,
     payload: CustomerProfilesResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -560,7 +557,7 @@ export class CustomerProfilesInstance {
     this.links = payload.links;
     this.errors = payload.errors;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -628,7 +625,7 @@ export class CustomerProfilesInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -641,7 +638,7 @@ export class CustomerProfilesInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -654,7 +651,7 @@ export class CustomerProfilesInstance {
    * @returns Resolves to processed CustomerProfilesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance> {
     return this._proxy.fetch(callback);
   }
@@ -669,8 +666,8 @@ export class CustomerProfilesInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -683,7 +680,7 @@ export class CustomerProfilesInstance {
    * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
@@ -695,12 +692,12 @@ export class CustomerProfilesInstance {
    */
   update(
     params: CustomerProfilesContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance> {
     return this._proxy.update(params, callback);
   }
@@ -715,8 +712,8 @@ export class CustomerProfilesInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>>;
   /**
    * Update a CustomerProfilesInstance and return HTTP info
@@ -730,16 +727,16 @@ export class CustomerProfilesInstance {
     params: CustomerProfilesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -813,7 +810,7 @@ export interface CustomerProfilesListInstance {
    */
   create(
     params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance>;
 
   /**
@@ -828,8 +825,8 @@ export interface CustomerProfilesListInstance {
     params: CustomerProfilesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>>;
 
   /**
@@ -850,15 +847,15 @@ export interface CustomerProfilesListInstance {
   each(
     callback?: (
       item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CustomerProfilesListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CustomerProfilesInstance records from the API with HTTP metadata captured per page.
@@ -878,15 +875,15 @@ export interface CustomerProfilesListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CustomerProfilesListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API.
@@ -898,7 +895,7 @@ export interface CustomerProfilesListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any,
   ): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API with HTTP metadata.
@@ -912,8 +909,8 @@ export interface CustomerProfilesListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesPage>>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list.
@@ -925,11 +922,11 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
+    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any,
   ): Promise<CustomerProfilesInstance[]>;
   list(
     params: CustomerProfilesListInstanceOptions,
-    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
+    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any,
   ): Promise<CustomerProfilesInstance[]>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list with HTTP metadata.
@@ -945,15 +942,15 @@ export interface CustomerProfilesListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance[]>>;
   listWithHttpInfo(
     params: CustomerProfilesListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance[]>>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API.
@@ -967,11 +964,11 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any,
   ): Promise<CustomerProfilesPage>;
   page(
     params: CustomerProfilesListInstancePageOptions,
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any,
   ): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API with HTTP metadata.
@@ -987,15 +984,15 @@ export interface CustomerProfilesListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesPage>>;
   pageWithHttpInfo(
     params: CustomerProfilesListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesPage>>;
 
   /**
@@ -1006,7 +1003,7 @@ export interface CustomerProfilesListInstance {
 }
 
 export function CustomerProfilesListInstance(
-  version: V1
+  version: V1,
 ): CustomerProfilesListInstance {
   const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstance;
 
@@ -1020,7 +1017,7 @@ export function CustomerProfilesListInstance(
 
   instance.create = function create(
     params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, items: CustomerProfilesInstance) => any,
   ): Promise<CustomerProfilesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1064,12 +1061,12 @@ export function CustomerProfilesListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CustomerProfilesInstance(operationVersion, payload)
+      (payload) => new CustomerProfilesInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1078,8 +1075,8 @@ export function CustomerProfilesListInstance(
     params: CustomerProfilesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesInstance>
-    ) => any
+      items: ApiResponse<CustomerProfilesInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1123,16 +1120,14 @@ export function CustomerProfilesListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesInstance> => ({
-          ...response,
-          body: new CustomerProfilesInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesInstance> => ({
+        ...response,
+        body: new CustomerProfilesInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1141,7 +1136,7 @@ export function CustomerProfilesListInstance(
     params?:
       | CustomerProfilesListInstancePageOptions
       | ((error: Error | null, items: CustomerProfilesPage) => any),
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any,
   ): Promise<CustomerProfilesPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1175,12 +1170,12 @@ export function CustomerProfilesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CustomerProfilesPage(operationVersion, payload, instance._solution)
+        new CustomerProfilesPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1190,7 +1185,7 @@ export function CustomerProfilesListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any,
   ): Promise<CustomerProfilesPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1198,7 +1193,11 @@ export function CustomerProfilesListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new CustomerProfilesPage(instance._version, payload, instance._solution)
+        new CustomerProfilesPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1209,12 +1208,12 @@ export function CustomerProfilesListInstance(
       | CustomerProfilesListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<CustomerProfilesPage>
+          items: ApiResponse<CustomerProfilesPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1244,21 +1243,19 @@ export function CustomerProfilesListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CustomerProfilesPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CustomerProfilesPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomerProfilesPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1272,8 +1269,8 @@ export function CustomerProfilesListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CustomerProfilesPage>
-    ) => any
+      items?: ApiResponse<CustomerProfilesPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1288,9 +1285,9 @@ export function CustomerProfilesListInstance(
         body: new CustomerProfilesPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1302,7 +1299,7 @@ export function CustomerProfilesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1326,7 +1323,7 @@ export class CustomerProfilesPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CustomerProfilesSolution
+    solution: CustomerProfilesSolution,
   ) {
     super(version, response, solution);
   }

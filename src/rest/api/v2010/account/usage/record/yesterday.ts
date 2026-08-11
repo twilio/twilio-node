@@ -107,11 +107,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: YesterdayListInstanceEachOptions,
-    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams YesterdayInstance records from the API with HTTP metadata captured per page.
@@ -129,11 +129,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: YesterdayListInstanceEachOptions,
-    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of YesterdayInstance records from the API.
@@ -145,7 +145,7 @@ export interface YesterdayListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: YesterdayPage) => any
+    callback?: (error: Error | null, items: YesterdayPage) => any,
   ): Promise<YesterdayPage>;
   /**
    * Retrieve a single target page of YesterdayInstance records from the API with HTTP metadata.
@@ -157,7 +157,7 @@ export interface YesterdayListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any,
   ): Promise<ApiResponse<YesterdayPage>>;
   /**
    * Lists YesterdayInstance records from the API as a list.
@@ -169,11 +169,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: YesterdayInstance[]) => any
+    callback?: (error: Error | null, items: YesterdayInstance[]) => any,
   ): Promise<YesterdayInstance[]>;
   list(
     params: YesterdayListInstanceOptions,
-    callback?: (error: Error | null, items: YesterdayInstance[]) => any
+    callback?: (error: Error | null, items: YesterdayInstance[]) => any,
   ): Promise<YesterdayInstance[]>;
   /**
    * Lists YesterdayInstance records from the API as a list with HTTP metadata.
@@ -189,15 +189,15 @@ export interface YesterdayListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<YesterdayInstance[]>
-    ) => any
+      items: ApiResponse<YesterdayInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<YesterdayInstance[]>>;
   listWithHttpInfo(
     params: YesterdayListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<YesterdayInstance[]>
-    ) => any
+      items: ApiResponse<YesterdayInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<YesterdayInstance[]>>;
   /**
    * Retrieve a single page of YesterdayInstance records from the API.
@@ -211,11 +211,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: YesterdayPage) => any
+    callback?: (error: Error | null, items: YesterdayPage) => any,
   ): Promise<YesterdayPage>;
   page(
     params: YesterdayListInstancePageOptions,
-    callback?: (error: Error | null, items: YesterdayPage) => any
+    callback?: (error: Error | null, items: YesterdayPage) => any,
   ): Promise<YesterdayPage>;
   /**
    * Retrieve a single page of YesterdayInstance records from the API with HTTP metadata.
@@ -229,11 +229,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any,
   ): Promise<ApiResponse<YesterdayPage>>;
   pageWithHttpInfo(
     params: YesterdayListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any,
   ): Promise<ApiResponse<YesterdayPage>>;
 
   /**
@@ -245,7 +245,7 @@ export interface YesterdayListInstance {
 
 export function YesterdayListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): YesterdayListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -261,7 +261,7 @@ export function YesterdayListInstance(
     params?:
       | YesterdayListInstancePageOptions
       | ((error: Error | null, items: YesterdayPage) => any),
-    callback?: (error: Error | null, items: YesterdayPage) => any
+    callback?: (error: Error | null, items: YesterdayPage) => any,
   ): Promise<YesterdayPage> {
     if (params instanceof Function) {
       callback = params;
@@ -297,12 +297,12 @@ export function YesterdayListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new YesterdayPage(operationVersion, payload, instance._solution)
+        new YesterdayPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -312,7 +312,7 @@ export function YesterdayListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: YesterdayPage) => any
+    callback?: (error: Error | null, items: YesterdayPage) => any,
   ): Promise<YesterdayPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -320,7 +320,7 @@ export function YesterdayListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new YesterdayPage(instance._version, payload, instance._solution)
+        new YesterdayPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -330,7 +330,7 @@ export function YesterdayListInstance(
     params?:
       | YesterdayListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<YesterdayPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YesterdayPage>) => any,
   ): Promise<ApiResponse<YesterdayPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -362,21 +362,15 @@ export function YesterdayListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<YesterdayPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new YesterdayPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<YesterdayPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new YesterdayPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -388,7 +382,7 @@ export function YesterdayListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<YesterdayPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<YesterdayPage>) => any,
   ): Promise<ApiResponse<YesterdayPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -403,9 +397,9 @@ export function YesterdayListInstance(
         body: new YesterdayPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -417,7 +411,7 @@ export function YesterdayListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -451,7 +445,7 @@ export class YesterdayInstance {
   constructor(
     protected _version: V2010,
     payload: YesterdayResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -577,7 +571,7 @@ export class YesterdayPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: YesterdaySolution
+    solution: YesterdaySolution,
   ) {
     super(version, response, solution);
   }
@@ -591,7 +585,7 @@ export class YesterdayPage extends Page<
     return new YesterdayInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

@@ -37,7 +37,7 @@ export interface FunctionVersionListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: FunctionVersionInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -78,7 +78,7 @@ export interface FunctionVersionContext {
    * @returns Resolves to processed FunctionVersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FunctionVersionInstance) => any
+    callback?: (error: Error | null, item?: FunctionVersionInstance) => any,
   ): Promise<FunctionVersionInstance>;
 
   /**
@@ -91,8 +91,8 @@ export interface FunctionVersionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionVersionInstance>
-    ) => any
+      item?: ApiResponse<FunctionVersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionInstance>>;
 
   /**
@@ -118,7 +118,7 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
     protected _version: V1,
     serviceSid: string,
     functionSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -143,13 +143,13 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
         this._version,
         this._solution.serviceSid,
         this._solution.functionSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._functionVersionContent;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: FunctionVersionInstance) => any
+    callback?: (error: Error | null, item?: FunctionVersionInstance) => any,
   ): Promise<FunctionVersionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -169,13 +169,13 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.functionSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -183,8 +183,8 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionVersionInstance>
-    ) => any
+      item?: ApiResponse<FunctionVersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -198,22 +198,20 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FunctionVersionInstance> => ({
-          ...response,
-          body: new FunctionVersionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.functionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FunctionVersionInstance> => ({
+        ...response,
+        body: new FunctionVersionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.functionSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -257,7 +255,7 @@ export class FunctionVersionInstance {
     payload: FunctionVersionResource,
     serviceSid: string,
     functionSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -269,7 +267,7 @@ export class FunctionVersionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
+    this._solution = { serviceSid, functionSid, sid: sid };
   }
 
   /**
@@ -310,7 +308,7 @@ export class FunctionVersionInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.functionSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -323,7 +321,7 @@ export class FunctionVersionInstance {
    * @returns Resolves to processed FunctionVersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FunctionVersionInstance) => any
+    callback?: (error: Error | null, item?: FunctionVersionInstance) => any,
   ): Promise<FunctionVersionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -338,8 +336,8 @@ export class FunctionVersionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionVersionInstance>
-    ) => any
+      item?: ApiResponse<FunctionVersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -406,15 +404,15 @@ export interface FunctionVersionListInstance {
   each(
     callback?: (
       item: FunctionVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: FunctionVersionListInstanceEachOptions,
     callback?: (
       item: FunctionVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams FunctionVersionInstance records from the API with HTTP metadata captured per page.
@@ -434,15 +432,15 @@ export interface FunctionVersionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: FunctionVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: FunctionVersionListInstanceEachOptions,
     callback?: (
       item: FunctionVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of FunctionVersionInstance records from the API.
@@ -454,7 +452,7 @@ export interface FunctionVersionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FunctionVersionPage) => any
+    callback?: (error: Error | null, items: FunctionVersionPage) => any,
   ): Promise<FunctionVersionPage>;
   /**
    * Retrieve a single target page of FunctionVersionInstance records from the API with HTTP metadata.
@@ -468,8 +466,8 @@ export interface FunctionVersionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionVersionPage>
-    ) => any
+      items: ApiResponse<FunctionVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionPage>>;
   /**
    * Lists FunctionVersionInstance records from the API as a list.
@@ -481,11 +479,11 @@ export interface FunctionVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: FunctionVersionInstance[]) => any
+    callback?: (error: Error | null, items: FunctionVersionInstance[]) => any,
   ): Promise<FunctionVersionInstance[]>;
   list(
     params: FunctionVersionListInstanceOptions,
-    callback?: (error: Error | null, items: FunctionVersionInstance[]) => any
+    callback?: (error: Error | null, items: FunctionVersionInstance[]) => any,
   ): Promise<FunctionVersionInstance[]>;
   /**
    * Lists FunctionVersionInstance records from the API as a list with HTTP metadata.
@@ -501,15 +499,15 @@ export interface FunctionVersionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionVersionInstance[]>
-    ) => any
+      items: ApiResponse<FunctionVersionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionInstance[]>>;
   listWithHttpInfo(
     params: FunctionVersionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionVersionInstance[]>
-    ) => any
+      items: ApiResponse<FunctionVersionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionInstance[]>>;
   /**
    * Retrieve a single page of FunctionVersionInstance records from the API.
@@ -523,11 +521,11 @@ export interface FunctionVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: FunctionVersionPage) => any
+    callback?: (error: Error | null, items: FunctionVersionPage) => any,
   ): Promise<FunctionVersionPage>;
   page(
     params: FunctionVersionListInstancePageOptions,
-    callback?: (error: Error | null, items: FunctionVersionPage) => any
+    callback?: (error: Error | null, items: FunctionVersionPage) => any,
   ): Promise<FunctionVersionPage>;
   /**
    * Retrieve a single page of FunctionVersionInstance records from the API with HTTP metadata.
@@ -543,15 +541,15 @@ export interface FunctionVersionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionVersionPage>
-    ) => any
+      items: ApiResponse<FunctionVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionPage>>;
   pageWithHttpInfo(
     params: FunctionVersionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionVersionPage>
-    ) => any
+      items: ApiResponse<FunctionVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionPage>>;
 
   /**
@@ -564,7 +562,7 @@ export interface FunctionVersionListInstance {
 export function FunctionVersionListInstance(
   version: V1,
   serviceSid: string,
-  functionSid: string
+  functionSid: string,
 ): FunctionVersionListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -581,7 +579,7 @@ export function FunctionVersionListInstance(
       version,
       serviceSid,
       functionSid,
-      sid
+      sid,
     );
   };
 
@@ -593,7 +591,7 @@ export function FunctionVersionListInstance(
     params?:
       | FunctionVersionListInstancePageOptions
       | ((error: Error | null, items: FunctionVersionPage) => any),
-    callback?: (error: Error | null, items: FunctionVersionPage) => any
+    callback?: (error: Error | null, items: FunctionVersionPage) => any,
   ): Promise<FunctionVersionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -622,12 +620,12 @@ export function FunctionVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FunctionVersionPage(operationVersion, payload, instance._solution)
+        new FunctionVersionPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -637,7 +635,7 @@ export function FunctionVersionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FunctionVersionPage) => any
+    callback?: (error: Error | null, items: FunctionVersionPage) => any,
   ): Promise<FunctionVersionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -645,7 +643,7 @@ export function FunctionVersionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new FunctionVersionPage(instance._version, payload, instance._solution)
+        new FunctionVersionPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -657,8 +655,8 @@ export function FunctionVersionListInstance(
       | ((error: Error | null, items: ApiResponse<FunctionVersionPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionVersionPage>
-    ) => any
+      items: ApiResponse<FunctionVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -683,21 +681,19 @@ export function FunctionVersionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FunctionVersionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FunctionVersionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<FunctionVersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FunctionVersionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -711,8 +707,8 @@ export function FunctionVersionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<FunctionVersionPage>
-    ) => any
+      items?: ApiResponse<FunctionVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -727,9 +723,9 @@ export function FunctionVersionListInstance(
         body: new FunctionVersionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -741,7 +737,7 @@ export function FunctionVersionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -765,7 +761,7 @@ export class FunctionVersionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: FunctionVersionSolution
+    solution: FunctionVersionSolution,
   ) {
     super(version, response, solution);
   }
@@ -780,7 +776,7 @@ export class FunctionVersionPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.functionSid
+      this._solution.functionSid,
     );
   }
 

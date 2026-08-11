@@ -64,22 +64,20 @@ export interface DayContext {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DayInstance
+   * @returns Resolves to processed void
    */
-  fetch(
-    callback?: (error: Error | null, item?: DayInstance) => any
-  ): Promise<DayInstance>;
+  fetch(callback?: (error: Error | null, item?: void) => any): Promise<void>;
 
   /**
    * Fetch a DayInstance and return HTTP info
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DayInstance with HTTP metadata
+   * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DayInstance>) => any
-  ): Promise<ApiResponse<DayInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>>;
 
   /**
    * Provide a user-friendly representation
@@ -97,7 +95,11 @@ export class DayContextImpl implements DayContext {
   protected _solution: DayContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, resourceType: string, day: string) {
+  constructor(
+    protected _version: V1,
+    resourceType: string,
+    day: string,
+  ) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -110,9 +112,7 @@ export class DayContextImpl implements DayContext {
     this._uri = `/Exports/${resourceType}/Days/${day}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DayInstance) => any
-  ): Promise<DayInstance> {
+  fetch(callback?: (error: Error | null, item?: void) => any): Promise<void> {
     const headers: any = {};
     headers["Accept"] = "application/json";
 
@@ -124,53 +124,32 @@ export class DayContextImpl implements DayContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DayInstance(
-          operationVersion,
-          payload,
-          instance._solution.resourceType,
-          instance._solution.day
-        )
-    );
-
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DayInstance>) => any
-  ): Promise<ApiResponse<DayInstance>> {
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
-    // CREATE, FETCH, UPDATE operations
+    // No response body — fire-and-forget operation
     let operationPromise = operationVersion
-      .fetchWithResponseInfo<DayResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<DayInstance> => ({
-          ...response,
-          body: new DayInstance(
-            operationVersion,
-            response.body,
-            instance._solution.resourceType,
-            instance._solution.day
-          ),
-        })
-      );
+      .fetchWithResponseInfo({ uri: instance._uri, method: "get", headers })
+      .then((response): ApiResponse<void> => ({
+        ...response,
+        body: undefined,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -210,7 +189,7 @@ export class DayInstance {
     protected _version: V1,
     payload: DayResource,
     resourceType: string,
-    day?: string
+    day?: string,
   ) {
     this.redirectTo = payload.redirect_to;
     this.day = payload.day;
@@ -219,7 +198,7 @@ export class DayInstance {
     this.friendlyName = payload.friendly_name;
     this.resourceType = payload.resource_type;
 
-    this._solution = { resourceType, day: day || this.day };
+    this._solution = { resourceType, day: day };
   }
 
   redirectTo: string;
@@ -250,7 +229,7 @@ export class DayInstance {
       new DayContextImpl(
         this._version,
         this._solution.resourceType,
-        this._solution.day
+        this._solution.day,
       );
     return this._context;
   }
@@ -260,11 +239,9 @@ export class DayInstance {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DayInstance
+   * @returns Resolves to processed void
    */
-  fetch(
-    callback?: (error: Error | null, item?: DayInstance) => any
-  ): Promise<DayInstance> {
+  fetch(callback?: (error: Error | null, item?: void) => any): Promise<void> {
     return this._proxy.fetch(callback);
   }
 
@@ -273,11 +250,11 @@ export class DayInstance {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DayInstance with HTTP metadata
+   * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DayInstance>) => any
-  ): Promise<ApiResponse<DayInstance>> {
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -330,11 +307,11 @@ export interface DayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: DayInstance, done: (err?: Error) => void) => void
+    callback?: (item: DayInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: DayListInstanceEachOptions,
-    callback?: (item: DayInstance, done: (err?: Error) => void) => void
+    callback?: (item: DayInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams DayInstance records from the API with HTTP metadata captured per page.
@@ -352,11 +329,11 @@ export interface DayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: DayInstance, done: (err?: Error) => void) => void
+    callback?: (item: DayInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: DayListInstanceEachOptions,
-    callback?: (item: DayInstance, done: (err?: Error) => void) => void
+    callback?: (item: DayInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of DayInstance records from the API.
@@ -368,7 +345,7 @@ export interface DayListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DayPage) => any
+    callback?: (error: Error | null, items: DayPage) => any,
   ): Promise<DayPage>;
   /**
    * Retrieve a single target page of DayInstance records from the API with HTTP metadata.
@@ -380,7 +357,7 @@ export interface DayListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any,
   ): Promise<ApiResponse<DayPage>>;
   /**
    * Lists DayInstance records from the API as a list.
@@ -392,11 +369,11 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: DayInstance[]) => any
+    callback?: (error: Error | null, items: DayInstance[]) => any,
   ): Promise<DayInstance[]>;
   list(
     params: DayListInstanceOptions,
-    callback?: (error: Error | null, items: DayInstance[]) => any
+    callback?: (error: Error | null, items: DayInstance[]) => any,
   ): Promise<DayInstance[]>;
   /**
    * Lists DayInstance records from the API as a list with HTTP metadata.
@@ -410,11 +387,11 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DayInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<DayInstance[]>) => any,
   ): Promise<ApiResponse<DayInstance[]>>;
   listWithHttpInfo(
     params: DayListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<DayInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<DayInstance[]>) => any,
   ): Promise<ApiResponse<DayInstance[]>>;
   /**
    * Retrieve a single page of DayInstance records from the API.
@@ -428,11 +405,11 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DayPage) => any
+    callback?: (error: Error | null, items: DayPage) => any,
   ): Promise<DayPage>;
   page(
     params: DayListInstancePageOptions,
-    callback?: (error: Error | null, items: DayPage) => any
+    callback?: (error: Error | null, items: DayPage) => any,
   ): Promise<DayPage>;
   /**
    * Retrieve a single page of DayInstance records from the API with HTTP metadata.
@@ -446,11 +423,11 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any,
   ): Promise<ApiResponse<DayPage>>;
   pageWithHttpInfo(
     params: DayListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any,
   ): Promise<ApiResponse<DayPage>>;
 
   /**
@@ -462,7 +439,7 @@ export interface DayListInstance {
 
 export function DayListInstance(
   version: V1,
-  resourceType: string
+  resourceType: string,
 ): DayListInstance {
   if (!isValidPathParam(resourceType)) {
     throw new Error("Parameter 'resourceType' is not valid.");
@@ -482,7 +459,7 @@ export function DayListInstance(
     params?:
       | DayListInstancePageOptions
       | ((error: Error | null, items: DayPage) => any),
-    callback?: (error: Error | null, items: DayPage) => any
+    callback?: (error: Error | null, items: DayPage) => any,
   ): Promise<DayPage> {
     if (params instanceof Function) {
       callback = params;
@@ -510,12 +487,12 @@ export function DayListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DayPage(operationVersion, payload, instance._solution)
+      (payload) => new DayPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -525,14 +502,14 @@ export function DayListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DayPage) => any
+    callback?: (error: Error | null, items: DayPage) => any,
   ): Promise<DayPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new DayPage(instance._version, payload, instance._solution)
+      (payload) => new DayPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -542,7 +519,7 @@ export function DayListInstance(
     params?:
       | DayListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<DayPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DayPage>) => any,
   ): Promise<ApiResponse<DayPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -567,17 +544,15 @@ export function DayListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DayPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DayPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<DayPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DayPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -589,7 +564,7 @@ export function DayListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<DayPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<DayPage>) => any,
   ): Promise<ApiResponse<DayPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -602,7 +577,7 @@ export function DayListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new DayPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -614,7 +589,7 @@ export function DayListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -77,7 +77,7 @@ export interface DeploymentContext {
    * @returns Resolves to processed DeploymentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
+    callback?: (error: Error | null, item?: DeploymentInstance) => any,
   ): Promise<DeploymentInstance>;
 
   /**
@@ -90,8 +90,8 @@ export interface DeploymentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeploymentInstance>
-    ) => any
+      item?: ApiResponse<DeploymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance>>;
 
   /**
@@ -115,7 +115,7 @@ export class DeploymentContextImpl implements DeploymentContext {
     protected _version: V1,
     serviceSid: string,
     environmentSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -134,7 +134,7 @@ export class DeploymentContextImpl implements DeploymentContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
+    callback?: (error: Error | null, item?: DeploymentInstance) => any,
   ): Promise<DeploymentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -154,13 +154,13 @@ export class DeploymentContextImpl implements DeploymentContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.environmentSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -168,8 +168,8 @@ export class DeploymentContextImpl implements DeploymentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeploymentInstance>
-    ) => any
+      item?: ApiResponse<DeploymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -183,22 +183,20 @@ export class DeploymentContextImpl implements DeploymentContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DeploymentInstance> => ({
-          ...response,
-          body: new DeploymentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.environmentSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DeploymentInstance> => ({
+        ...response,
+        body: new DeploymentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -241,7 +239,7 @@ export class DeploymentInstance {
     payload: DeploymentResource,
     serviceSid: string,
     environmentSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -252,7 +250,7 @@ export class DeploymentInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, environmentSid, sid: sid || this.sid };
+    this._solution = { serviceSid, environmentSid, sid: sid };
   }
 
   /**
@@ -295,7 +293,7 @@ export class DeploymentInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.environmentSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -308,7 +306,7 @@ export class DeploymentInstance {
    * @returns Resolves to processed DeploymentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
+    callback?: (error: Error | null, item?: DeploymentInstance) => any,
   ): Promise<DeploymentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -323,8 +321,8 @@ export class DeploymentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeploymentInstance>
-    ) => any
+      item?: ApiResponse<DeploymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -373,7 +371,7 @@ export interface DeploymentListInstance {
    * @returns Resolves to processed DeploymentInstance
    */
   create(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
+    callback?: (error: Error | null, item?: DeploymentInstance) => any,
   ): Promise<DeploymentInstance>;
   /**
    * Create a DeploymentInstance
@@ -385,7 +383,7 @@ export interface DeploymentListInstance {
    */
   create(
     params: DeploymentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
+    callback?: (error: Error | null, item?: DeploymentInstance) => any,
   ): Promise<DeploymentInstance>;
 
   /**
@@ -398,8 +396,8 @@ export interface DeploymentListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeploymentInstance>
-    ) => any
+      item?: ApiResponse<DeploymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance>>;
   /**
    * Create a DeploymentInstance and return HTTP info
@@ -413,8 +411,8 @@ export interface DeploymentListInstance {
     params: DeploymentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeploymentInstance>
-    ) => any
+      item?: ApiResponse<DeploymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance>>;
 
   /**
@@ -433,11 +431,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
+    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: DeploymentListInstanceEachOptions,
-    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
+    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams DeploymentInstance records from the API with HTTP metadata captured per page.
@@ -455,11 +453,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
+    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: DeploymentListInstanceEachOptions,
-    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
+    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of DeploymentInstance records from the API.
@@ -471,7 +469,7 @@ export interface DeploymentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DeploymentPage) => any
+    callback?: (error: Error | null, items: DeploymentPage) => any,
   ): Promise<DeploymentPage>;
   /**
    * Retrieve a single target page of DeploymentInstance records from the API with HTTP metadata.
@@ -483,7 +481,7 @@ export interface DeploymentListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any,
   ): Promise<ApiResponse<DeploymentPage>>;
   /**
    * Lists DeploymentInstance records from the API as a list.
@@ -495,11 +493,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: DeploymentInstance[]) => any
+    callback?: (error: Error | null, items: DeploymentInstance[]) => any,
   ): Promise<DeploymentInstance[]>;
   list(
     params: DeploymentListInstanceOptions,
-    callback?: (error: Error | null, items: DeploymentInstance[]) => any
+    callback?: (error: Error | null, items: DeploymentInstance[]) => any,
   ): Promise<DeploymentInstance[]>;
   /**
    * Lists DeploymentInstance records from the API as a list with HTTP metadata.
@@ -515,15 +513,15 @@ export interface DeploymentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DeploymentInstance[]>
-    ) => any
+      items: ApiResponse<DeploymentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance[]>>;
   listWithHttpInfo(
     params: DeploymentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DeploymentInstance[]>
-    ) => any
+      items: ApiResponse<DeploymentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance[]>>;
   /**
    * Retrieve a single page of DeploymentInstance records from the API.
@@ -537,11 +535,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DeploymentPage) => any
+    callback?: (error: Error | null, items: DeploymentPage) => any,
   ): Promise<DeploymentPage>;
   page(
     params: DeploymentListInstancePageOptions,
-    callback?: (error: Error | null, items: DeploymentPage) => any
+    callback?: (error: Error | null, items: DeploymentPage) => any,
   ): Promise<DeploymentPage>;
   /**
    * Retrieve a single page of DeploymentInstance records from the API with HTTP metadata.
@@ -555,11 +553,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any,
   ): Promise<ApiResponse<DeploymentPage>>;
   pageWithHttpInfo(
     params: DeploymentListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any,
   ): Promise<ApiResponse<DeploymentPage>>;
 
   /**
@@ -572,7 +570,7 @@ export interface DeploymentListInstance {
 export function DeploymentListInstance(
   version: V1,
   serviceSid: string,
-  environmentSid: string
+  environmentSid: string,
 ): DeploymentListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -596,13 +594,13 @@ export function DeploymentListInstance(
     params?:
       | DeploymentListInstanceCreateOptions
       | ((error: Error | null, items: DeploymentInstance) => any),
-    callback?: (error: Error | null, items: DeploymentInstance) => any
+    callback?: (error: Error | null, items: DeploymentInstance) => any,
   ): Promise<DeploymentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -629,13 +627,13 @@ export function DeploymentListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.environmentSid
-        )
+          instance._solution.environmentSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -646,14 +644,14 @@ export function DeploymentListInstance(
       | ((error: Error | null, items: ApiResponse<DeploymentInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<DeploymentInstance>
-    ) => any
+      items: ApiResponse<DeploymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -675,21 +673,19 @@ export function DeploymentListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DeploymentInstance> => ({
-          ...response,
-          body: new DeploymentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.environmentSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DeploymentInstance> => ({
+        ...response,
+        body: new DeploymentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -698,7 +694,7 @@ export function DeploymentListInstance(
     params?:
       | DeploymentListInstancePageOptions
       | ((error: Error | null, items: DeploymentPage) => any),
-    callback?: (error: Error | null, items: DeploymentPage) => any
+    callback?: (error: Error | null, items: DeploymentPage) => any,
   ): Promise<DeploymentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -727,12 +723,12 @@ export function DeploymentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DeploymentPage(operationVersion, payload, instance._solution)
+        new DeploymentPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -742,7 +738,7 @@ export function DeploymentListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DeploymentPage) => any
+    callback?: (error: Error | null, items: DeploymentPage) => any,
   ): Promise<DeploymentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -750,7 +746,7 @@ export function DeploymentListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new DeploymentPage(instance._version, payload, instance._solution)
+        new DeploymentPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -760,7 +756,7 @@ export function DeploymentListInstance(
     params?:
       | DeploymentListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<DeploymentPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DeploymentPage>) => any,
   ): Promise<ApiResponse<DeploymentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -785,21 +781,19 @@ export function DeploymentListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DeploymentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DeploymentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<DeploymentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DeploymentPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -811,7 +805,10 @@ export function DeploymentListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<DeploymentPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<DeploymentPage>,
+    ) => any,
   ): Promise<ApiResponse<DeploymentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -826,9 +823,9 @@ export function DeploymentListInstance(
         body: new DeploymentPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -840,7 +837,7 @@ export function DeploymentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -864,7 +861,7 @@ export class DeploymentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: DeploymentSolution
+    solution: DeploymentSolution,
   ) {
     super(version, response, solution);
   }
@@ -879,7 +876,7 @@ export class DeploymentPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.environmentSid
+      this._solution.environmentSid,
     );
   }
 

@@ -42,7 +42,7 @@ export interface DomainConfigContext {
    * @returns Resolves to processed DomainConfigInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance>;
 
   /**
@@ -55,8 +55,8 @@ export interface DomainConfigContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>>;
 
   /**
@@ -67,7 +67,7 @@ export interface DomainConfigContext {
    * @returns Resolves to processed DomainConfigInstance
    */
   update(
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance>;
   /**
    * Update a DomainConfigInstance
@@ -79,7 +79,7 @@ export interface DomainConfigContext {
    */
   update(
     params: DomainConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance>;
 
   /**
@@ -92,8 +92,8 @@ export interface DomainConfigContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>>;
   /**
    * Update a DomainConfigInstance and return HTTP info
@@ -107,8 +107,8 @@ export interface DomainConfigContext {
     params: DomainConfigContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>>;
 
   /**
@@ -126,7 +126,10 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   protected _solution: DomainConfigContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, domainSid: string) {
+  constructor(
+    protected _version: V1,
+    domainSid: string,
+  ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -136,7 +139,7 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -154,13 +157,13 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         new DomainConfigInstance(
           operationVersion,
           payload,
-          instance._solution.domainSid
-        )
+          instance._solution.domainSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -168,8 +171,8 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -183,20 +186,18 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainConfigInstance> => ({
-          ...response,
-          body: new DomainConfigInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainConfigInstance> => ({
+        ...response,
+        body: new DomainConfigInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -205,13 +206,13 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     params?:
       | DomainConfigContextUpdateOptions
       | ((error: Error | null, item?: DomainConfigInstance) => any),
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -243,13 +244,13 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         new DomainConfigInstance(
           operationVersion,
           payload,
-          instance._solution.domainSid
-        )
+          instance._solution.domainSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -259,18 +260,18 @@ export class DomainConfigContextImpl implements DomainConfigContext {
       | DomainConfigContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<DomainConfigInstance>
+          item?: ApiResponse<DomainConfigInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -298,20 +299,18 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainConfigInstance> => ({
-          ...response,
-          body: new DomainConfigInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainConfigInstance> => ({
+        ...response,
+        body: new DomainConfigInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -351,7 +350,7 @@ export class DomainConfigInstance {
   constructor(
     protected _version: V1,
     payload: DomainConfigResource,
-    domainSid?: string
+    domainSid?: string,
   ) {
     this.domainSid = payload.domain_sid;
     this.configSid = payload.config_sid;
@@ -363,7 +362,7 @@ export class DomainConfigInstance {
     this.url = payload.url;
     this.disableHttps = payload.disable_https;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**
@@ -415,7 +414,7 @@ export class DomainConfigInstance {
    * @returns Resolves to processed DomainConfigInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance> {
     return this._proxy.fetch(callback);
   }
@@ -430,8 +429,8 @@ export class DomainConfigInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -444,7 +443,7 @@ export class DomainConfigInstance {
    * @returns Resolves to processed DomainConfigInstance
    */
   update(
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance>;
   /**
    * Update a DomainConfigInstance
@@ -456,12 +455,12 @@ export class DomainConfigInstance {
    */
   update(
     params: DomainConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any,
   ): Promise<DomainConfigInstance> {
     return this._proxy.update(params, callback);
   }
@@ -476,8 +475,8 @@ export class DomainConfigInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>>;
   /**
    * Update a DomainConfigInstance and return HTTP info
@@ -491,16 +490,16 @@ export class DomainConfigInstance {
     params: DomainConfigContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigInstance>
-    ) => any
+      item?: ApiResponse<DomainConfigInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainConfigInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -547,7 +546,7 @@ export interface DomainConfigListInstance {
 }
 
 export function DomainConfigListInstance(
-  version: V1
+  version: V1,
 ): DomainConfigListInstance {
   const instance = ((domainSid) =>
     instance.get(domainSid)) as DomainConfigListInstance;
@@ -566,7 +565,7 @@ export function DomainConfigListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

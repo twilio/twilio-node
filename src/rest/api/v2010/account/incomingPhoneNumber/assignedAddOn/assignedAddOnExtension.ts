@@ -31,7 +31,7 @@ export interface AssignedAddOnExtensionListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AssignedAddOnExtensionInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -72,8 +72,8 @@ export interface AssignedAddOnExtensionContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AssignedAddOnExtensionInstance
-    ) => any
+      item?: AssignedAddOnExtensionInstance,
+    ) => any,
   ): Promise<AssignedAddOnExtensionInstance>;
 
   /**
@@ -86,8 +86,8 @@ export interface AssignedAddOnExtensionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssignedAddOnExtensionInstance>
-    ) => any
+      item?: ApiResponse<AssignedAddOnExtensionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionInstance>>;
 
   /**
@@ -104,9 +104,7 @@ export interface AssignedAddOnExtensionContextSolution {
   sid: string;
 }
 
-export class AssignedAddOnExtensionContextImpl
-  implements AssignedAddOnExtensionContext
-{
+export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
   protected _solution: AssignedAddOnExtensionContextSolution;
   protected _uri: string;
 
@@ -115,7 +113,7 @@ export class AssignedAddOnExtensionContextImpl
     accountSid: string,
     resourceSid: string,
     assignedAddOnSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -140,8 +138,8 @@ export class AssignedAddOnExtensionContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: AssignedAddOnExtensionInstance
-    ) => any
+      item?: AssignedAddOnExtensionInstance,
+    ) => any,
   ): Promise<AssignedAddOnExtensionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -162,13 +160,13 @@ export class AssignedAddOnExtensionContextImpl
           instance._solution.accountSid,
           instance._solution.resourceSid,
           instance._solution.assignedAddOnSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -176,8 +174,8 @@ export class AssignedAddOnExtensionContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssignedAddOnExtensionInstance>
-    ) => any
+      item?: ApiResponse<AssignedAddOnExtensionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -191,23 +189,21 @@ export class AssignedAddOnExtensionContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AssignedAddOnExtensionInstance> => ({
-          ...response,
-          body: new AssignedAddOnExtensionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.resourceSid,
-            instance._solution.assignedAddOnSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AssignedAddOnExtensionInstance> => ({
+        ...response,
+        body: new AssignedAddOnExtensionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.resourceSid,
+          instance._solution.assignedAddOnSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -252,7 +248,7 @@ export class AssignedAddOnExtensionInstance {
     accountSid: string,
     resourceSid: string,
     assignedAddOnSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -264,12 +260,7 @@ export class AssignedAddOnExtensionInstance {
     this.uri = payload.uri;
     this.enabled = payload.enabled;
 
-    this._solution = {
-      accountSid,
-      resourceSid,
-      assignedAddOnSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid: sid };
   }
 
   /**
@@ -317,7 +308,7 @@ export class AssignedAddOnExtensionInstance {
         this._solution.accountSid,
         this._solution.resourceSid,
         this._solution.assignedAddOnSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -332,8 +323,8 @@ export class AssignedAddOnExtensionInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AssignedAddOnExtensionInstance
-    ) => any
+      item?: AssignedAddOnExtensionInstance,
+    ) => any,
   ): Promise<AssignedAddOnExtensionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -348,8 +339,8 @@ export class AssignedAddOnExtensionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssignedAddOnExtensionInstance>
-    ) => any
+      item?: ApiResponse<AssignedAddOnExtensionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -410,15 +401,15 @@ export interface AssignedAddOnExtensionListInstance {
   each(
     callback?: (
       item: AssignedAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: AssignedAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AssignedAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams AssignedAddOnExtensionInstance records from the API with HTTP metadata captured per page.
@@ -438,15 +429,15 @@ export interface AssignedAddOnExtensionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: AssignedAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: AssignedAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AssignedAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
@@ -458,7 +449,7 @@ export interface AssignedAddOnExtensionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any,
   ): Promise<AssignedAddOnExtensionPage>;
   /**
    * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API with HTTP metadata.
@@ -472,8 +463,8 @@ export interface AssignedAddOnExtensionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssignedAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AssignedAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionPage>>;
   /**
    * Lists AssignedAddOnExtensionInstance records from the API as a list.
@@ -487,15 +478,15 @@ export interface AssignedAddOnExtensionListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: AssignedAddOnExtensionInstance[]
-    ) => any
+      items: AssignedAddOnExtensionInstance[],
+    ) => any,
   ): Promise<AssignedAddOnExtensionInstance[]>;
   list(
     params: AssignedAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: AssignedAddOnExtensionInstance[]
-    ) => any
+      items: AssignedAddOnExtensionInstance[],
+    ) => any,
   ): Promise<AssignedAddOnExtensionInstance[]>;
   /**
    * Lists AssignedAddOnExtensionInstance records from the API as a list with HTTP metadata.
@@ -511,15 +502,15 @@ export interface AssignedAddOnExtensionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssignedAddOnExtensionInstance[]>
-    ) => any
+      items: ApiResponse<AssignedAddOnExtensionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionInstance[]>>;
   listWithHttpInfo(
     params: AssignedAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssignedAddOnExtensionInstance[]>
-    ) => any
+      items: ApiResponse<AssignedAddOnExtensionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionInstance[]>>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
@@ -533,11 +524,11 @@ export interface AssignedAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any,
   ): Promise<AssignedAddOnExtensionPage>;
   page(
     params: AssignedAddOnExtensionListInstancePageOptions,
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any,
   ): Promise<AssignedAddOnExtensionPage>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API with HTTP metadata.
@@ -553,15 +544,15 @@ export interface AssignedAddOnExtensionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssignedAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AssignedAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionPage>>;
   pageWithHttpInfo(
     params: AssignedAddOnExtensionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssignedAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AssignedAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionPage>>;
 
   /**
@@ -575,7 +566,7 @@ export function AssignedAddOnExtensionListInstance(
   version: V2010,
   accountSid: string,
   resourceSid: string,
-  assignedAddOnSid: string
+  assignedAddOnSid: string,
 ): AssignedAddOnExtensionListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -598,7 +589,7 @@ export function AssignedAddOnExtensionListInstance(
       accountSid,
       resourceSid,
       assignedAddOnSid,
-      sid
+      sid,
     );
   };
 
@@ -610,7 +601,7 @@ export function AssignedAddOnExtensionListInstance(
     params?:
       | AssignedAddOnExtensionListInstancePageOptions
       | ((error: Error | null, items: AssignedAddOnExtensionPage) => any),
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any,
   ): Promise<AssignedAddOnExtensionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -642,13 +633,13 @@ export function AssignedAddOnExtensionListInstance(
         new AssignedAddOnExtensionPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -658,7 +649,7 @@ export function AssignedAddOnExtensionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any,
   ): Promise<AssignedAddOnExtensionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -669,8 +660,8 @@ export function AssignedAddOnExtensionListInstance(
         new AssignedAddOnExtensionPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -681,12 +672,12 @@ export function AssignedAddOnExtensionListInstance(
       | AssignedAddOnExtensionListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<AssignedAddOnExtensionPage>
+          items: ApiResponse<AssignedAddOnExtensionPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssignedAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AssignedAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -711,21 +702,19 @@ export function AssignedAddOnExtensionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AssignedAddOnExtensionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AssignedAddOnExtensionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AssignedAddOnExtensionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssignedAddOnExtensionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -739,8 +728,8 @@ export function AssignedAddOnExtensionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AssignedAddOnExtensionPage>
-    ) => any
+      items?: ApiResponse<AssignedAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AssignedAddOnExtensionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -755,9 +744,9 @@ export function AssignedAddOnExtensionListInstance(
         body: new AssignedAddOnExtensionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -769,7 +758,7 @@ export function AssignedAddOnExtensionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -793,7 +782,7 @@ export class AssignedAddOnExtensionPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: AssignedAddOnExtensionSolution
+    solution: AssignedAddOnExtensionSolution,
   ) {
     super(version, response, solution);
   }
@@ -804,14 +793,14 @@ export class AssignedAddOnExtensionPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AssignedAddOnExtensionResource
+    payload: AssignedAddOnExtensionResource,
   ): AssignedAddOnExtensionInstance {
     return new AssignedAddOnExtensionInstance(
       this._version,
       payload,
       this._solution.accountSid,
       this._solution.resourceSid,
-      this._solution.assignedAddOnSid
+      this._solution.assignedAddOnSid,
     );
   }
 

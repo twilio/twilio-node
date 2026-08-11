@@ -107,11 +107,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
+    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: AllTimeListInstanceEachOptions,
-    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
+    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams AllTimeInstance records from the API with HTTP metadata captured per page.
@@ -129,11 +129,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
+    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: AllTimeListInstanceEachOptions,
-    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
+    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of AllTimeInstance records from the API.
@@ -145,7 +145,7 @@ export interface AllTimeListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AllTimePage) => any
+    callback?: (error: Error | null, items: AllTimePage) => any,
   ): Promise<AllTimePage>;
   /**
    * Retrieve a single target page of AllTimeInstance records from the API with HTTP metadata.
@@ -157,7 +157,7 @@ export interface AllTimeListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any,
   ): Promise<ApiResponse<AllTimePage>>;
   /**
    * Lists AllTimeInstance records from the API as a list.
@@ -169,11 +169,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AllTimeInstance[]) => any
+    callback?: (error: Error | null, items: AllTimeInstance[]) => any,
   ): Promise<AllTimeInstance[]>;
   list(
     params: AllTimeListInstanceOptions,
-    callback?: (error: Error | null, items: AllTimeInstance[]) => any
+    callback?: (error: Error | null, items: AllTimeInstance[]) => any,
   ): Promise<AllTimeInstance[]>;
   /**
    * Lists AllTimeInstance records from the API as a list with HTTP metadata.
@@ -189,15 +189,15 @@ export interface AllTimeListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AllTimeInstance[]>
-    ) => any
+      items: ApiResponse<AllTimeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AllTimeInstance[]>>;
   listWithHttpInfo(
     params: AllTimeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AllTimeInstance[]>
-    ) => any
+      items: ApiResponse<AllTimeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AllTimeInstance[]>>;
   /**
    * Retrieve a single page of AllTimeInstance records from the API.
@@ -211,11 +211,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AllTimePage) => any
+    callback?: (error: Error | null, items: AllTimePage) => any,
   ): Promise<AllTimePage>;
   page(
     params: AllTimeListInstancePageOptions,
-    callback?: (error: Error | null, items: AllTimePage) => any
+    callback?: (error: Error | null, items: AllTimePage) => any,
   ): Promise<AllTimePage>;
   /**
    * Retrieve a single page of AllTimeInstance records from the API with HTTP metadata.
@@ -229,11 +229,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any,
   ): Promise<ApiResponse<AllTimePage>>;
   pageWithHttpInfo(
     params: AllTimeListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any,
   ): Promise<ApiResponse<AllTimePage>>;
 
   /**
@@ -245,7 +245,7 @@ export interface AllTimeListInstance {
 
 export function AllTimeListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): AllTimeListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -261,7 +261,7 @@ export function AllTimeListInstance(
     params?:
       | AllTimeListInstancePageOptions
       | ((error: Error | null, items: AllTimePage) => any),
-    callback?: (error: Error | null, items: AllTimePage) => any
+    callback?: (error: Error | null, items: AllTimePage) => any,
   ): Promise<AllTimePage> {
     if (params instanceof Function) {
       callback = params;
@@ -297,12 +297,12 @@ export function AllTimeListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AllTimePage(operationVersion, payload, instance._solution)
+        new AllTimePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -312,7 +312,7 @@ export function AllTimeListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AllTimePage) => any
+    callback?: (error: Error | null, items: AllTimePage) => any,
   ): Promise<AllTimePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -320,7 +320,7 @@ export function AllTimeListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AllTimePage(instance._version, payload, instance._solution)
+        new AllTimePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -330,7 +330,7 @@ export function AllTimeListInstance(
     params?:
       | AllTimeListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AllTimePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AllTimePage>) => any,
   ): Promise<ApiResponse<AllTimePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -362,17 +362,15 @@ export function AllTimeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AllTimePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AllTimePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<AllTimePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AllTimePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -384,7 +382,7 @@ export function AllTimeListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<AllTimePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<AllTimePage>) => any,
   ): Promise<ApiResponse<AllTimePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -397,7 +395,7 @@ export function AllTimeListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new AllTimePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -409,7 +407,7 @@ export function AllTimeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -443,7 +441,7 @@ export class AllTimeInstance {
   constructor(
     protected _version: V2010,
     payload: AllTimeResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -569,7 +567,7 @@ export class AllTimePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: AllTimeSolution
+    solution: AllTimeSolution,
   ) {
     super(version, response, solution);
   }
@@ -583,7 +581,7 @@ export class AllTimePage extends Page<
     return new AllTimeInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

@@ -28,7 +28,7 @@ export interface KnowledgeStatusContext {
    * @returns Resolves to processed KnowledgeStatusInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any,
   ): Promise<KnowledgeStatusInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface KnowledgeStatusContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeStatusInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeStatusInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeStatusInstance>>;
 
   /**
@@ -60,7 +60,10 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
   protected _solution: KnowledgeStatusContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -70,7 +73,7 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any,
   ): Promise<KnowledgeStatusInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -88,13 +91,13 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
         new KnowledgeStatusInstance(
           operationVersion,
           payload,
-          instance._solution.id
-        )
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -102,8 +105,8 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeStatusInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeStatusInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeStatusInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -117,20 +120,18 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<KnowledgeStatusInstance> => ({
-          ...response,
-          body: new KnowledgeStatusInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+      .then((response): ApiResponse<KnowledgeStatusInstance> => ({
+        ...response,
+        body: new KnowledgeStatusInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -165,7 +166,7 @@ export class KnowledgeStatusInstance {
   constructor(
     protected _version: V1,
     payload: KnowledgeStatusResource,
-    id: string
+    id: string,
   ) {
     this.accountSid = payload.account_sid;
     this.status = payload.status;
@@ -207,7 +208,7 @@ export class KnowledgeStatusInstance {
    * @returns Resolves to processed KnowledgeStatusInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any,
   ): Promise<KnowledgeStatusInstance> {
     return this._proxy.fetch(callback);
   }
@@ -222,8 +223,8 @@ export class KnowledgeStatusInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeStatusInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeStatusInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeStatusInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -268,7 +269,7 @@ export interface KnowledgeStatusListInstance {
 
 export function KnowledgeStatusListInstance(
   version: V1,
-  id: string
+  id: string,
 ): KnowledgeStatusListInstance {
   if (!isValidPathParam(id)) {
     throw new Error("Parameter 'id' is not valid.");
@@ -290,7 +291,7 @@ export function KnowledgeStatusListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

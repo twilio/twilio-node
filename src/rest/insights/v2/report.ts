@@ -722,7 +722,7 @@ export interface ReportContext {
    * @returns Resolves to processed ReportInstance
    */
   create(
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance>;
   /**
    * Create a ReportInstance
@@ -736,7 +736,7 @@ export interface ReportContext {
   create(
     params: InsightsV2CreateAccountReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance>;
 
   /**
@@ -747,7 +747,7 @@ export interface ReportContext {
    * @returns Resolves to processed ReportInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>>;
   /**
    * Create a ReportInstance and return HTTP info
@@ -761,7 +761,7 @@ export interface ReportContext {
   createWithHttpInfo(
     params: InsightsV2CreateAccountReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>>;
 
   /**
@@ -772,7 +772,7 @@ export interface ReportContext {
    * @returns Resolves to processed ReportInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance>;
 
   /**
@@ -783,7 +783,7 @@ export interface ReportContext {
    * @returns Resolves to processed ReportInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>>;
 
   /**
@@ -801,7 +801,10 @@ export class ReportContextImpl implements ReportContext {
   protected _solution: ReportContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, reportId: string) {
+  constructor(
+    protected _version: V2,
+    reportId: string,
+  ) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -815,13 +818,16 @@ export class ReportContextImpl implements ReportContext {
       | InsightsV2CreateAccountReportRequest
       | ((error: Error | null, item?: ReportInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
     }
 
     let data: any = {};
@@ -849,13 +855,13 @@ export class ReportContextImpl implements ReportContext {
         new ReportInstance(
           operationVersion,
           payload,
-          instance._solution.reportId
-        )
+          instance._solution.reportId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -865,13 +871,16 @@ export class ReportContextImpl implements ReportContext {
       | InsightsV2CreateAccountReportRequest
       | ((error: Error | null, item?: ApiResponse<ReportInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
     }
 
     let data: any = {};
@@ -895,26 +904,24 @@ export class ReportContextImpl implements ReportContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ReportInstance> => ({
-          ...response,
-          body: new ReportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ReportInstance> => ({
+        ...response,
+        body: new ReportInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -932,19 +939,19 @@ export class ReportContextImpl implements ReportContext {
         new ReportInstance(
           operationVersion,
           payload,
-          instance._solution.reportId
-        )
+          instance._solution.reportId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -958,20 +965,18 @@ export class ReportContextImpl implements ReportContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ReportInstance> => ({
-          ...response,
-          body: new ReportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ReportInstance> => ({
+        ...response,
+        body: new ReportInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -1020,7 +1025,7 @@ export class ReportInstance {
   constructor(
     protected _version: V2,
     payload: ReportResource,
-    reportId?: string
+    reportId?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.reportId = payload.report_id;
@@ -1037,7 +1042,7 @@ export class ReportInstance {
       payload.call_state_percentage !== null &&
       payload.call_state_percentage !== undefined
         ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(
-            payload.call_state_percentage
+            payload.call_state_percentage,
           )
         : null;
     this.silentCallsPercentage = payload.silent_calls_percentage;
@@ -1047,7 +1052,7 @@ export class ReportInstance {
       payload.blocked_calls_by_carrier !== null &&
       payload.blocked_calls_by_carrier !== undefined
         ? payload.blocked_calls_by_carrier.map(
-            (payload: any) => new CountyCarrierValue(payload)
+            (payload: any) => new CountyCarrierValue(payload),
           )
         : null;
     this.shortDurationCallsPercentage = payload.short_duration_calls_percentage;
@@ -1057,7 +1062,7 @@ export class ReportInstance {
       payload.answering_machine_detection !== null &&
       payload.answering_machine_detection !== undefined
         ? new InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection(
-            payload.answering_machine_detection
+            payload.answering_machine_detection,
           )
         : null;
     this.report =
@@ -1065,7 +1070,7 @@ export class ReportInstance {
         ? new AccountReport(payload.report)
         : null;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**
@@ -1141,7 +1146,7 @@ export class ReportInstance {
    * @returns Resolves to processed ReportInstance
    */
   create(
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance>;
   /**
    * Create a ReportInstance
@@ -1155,12 +1160,12 @@ export class ReportInstance {
   create(
     params: InsightsV2CreateAccountReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance> {
     return this._proxy.create(params, callback);
   }
@@ -1173,7 +1178,7 @@ export class ReportInstance {
    * @returns Resolves to processed ReportInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>>;
   /**
    * Create a ReportInstance and return HTTP info
@@ -1187,12 +1192,12 @@ export class ReportInstance {
   createWithHttpInfo(
     params: InsightsV2CreateAccountReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>>;
 
   createWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -1205,7 +1210,7 @@ export class ReportInstance {
    * @returns Resolves to processed ReportInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ReportInstance) => any
+    callback?: (error: Error | null, item?: ReportInstance) => any,
   ): Promise<ReportInstance> {
     return this._proxy.fetch(callback);
   }
@@ -1218,7 +1223,7 @@ export class ReportInstance {
    * @returns Resolves to processed ReportInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any,
   ): Promise<ApiResponse<ReportInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -1290,7 +1295,7 @@ export function ReportListInstance(version: V2): ReportListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

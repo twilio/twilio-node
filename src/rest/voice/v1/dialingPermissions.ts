@@ -44,7 +44,7 @@ export interface DialingPermissionsListInstance {
 }
 
 export function DialingPermissionsListInstance(
-  version: V1
+  version: V1,
 ): DialingPermissionsListInstance {
   const instance = {} as DialingPermissionsListInstance;
 
@@ -56,7 +56,7 @@ export function DialingPermissionsListInstance(
     get: function bulkCountryUpdates() {
       if (!instance._bulkCountryUpdates) {
         instance._bulkCountryUpdates = BulkCountryUpdateListInstance(
-          instance._version
+          instance._version,
         );
       }
       return instance._bulkCountryUpdates;
@@ -87,7 +87,7 @@ export function DialingPermissionsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

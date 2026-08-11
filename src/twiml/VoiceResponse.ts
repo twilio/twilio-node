@@ -57,18 +57,18 @@ class VoiceResponse extends TwiML {
   dial(number?: string): VoiceResponse.Dial;
   dial(
     attributes?: VoiceResponse.DialAttributes,
-    number?: string
+    number?: string,
   ): VoiceResponse.Dial;
   dial(
     attributes?: VoiceResponse.DialAttributes | string,
-    number?: string
+    number?: string,
   ): VoiceResponse.Dial {
     if (typeof attributes === "string") {
       number = attributes;
       attributes = {};
     }
     return new VoiceResponse.Dial(
-      this.response.ele("Dial", attributes, number)
+      this.response.ele("Dial", attributes, number),
     );
   }
   /**
@@ -88,18 +88,18 @@ class VoiceResponse extends TwiML {
   enqueue(name?: string): VoiceResponse.Enqueue;
   enqueue(
     attributes?: VoiceResponse.EnqueueAttributes,
-    name?: string
+    name?: string,
   ): VoiceResponse.Enqueue;
   enqueue(
     attributes?: VoiceResponse.EnqueueAttributes | string,
-    name?: string
+    name?: string,
   ): VoiceResponse.Enqueue {
     if (typeof attributes === "string") {
       name = attributes;
       attributes = {};
     }
     return new VoiceResponse.Enqueue(
-      this.response.ele("Enqueue", attributes, name)
+      this.response.ele("Enqueue", attributes, name),
     );
   }
   /**
@@ -151,11 +151,11 @@ class VoiceResponse extends TwiML {
   play(url?: string): VoiceResponse.Play;
   play(
     attributes?: VoiceResponse.PlayAttributes,
-    url?: string
+    url?: string,
   ): VoiceResponse.Play;
   play(
     attributes?: VoiceResponse.PlayAttributes | string,
-    url?: string
+    url?: string,
   ): VoiceResponse.Play {
     if (typeof attributes === "string") {
       url = attributes;
@@ -180,18 +180,18 @@ class VoiceResponse extends TwiML {
   queue(name: string): VoiceResponse.Queue;
   queue(
     attributes: VoiceResponse.QueueAttributes,
-    name: string
+    name: string,
   ): VoiceResponse.Queue;
   queue(
     attributes: VoiceResponse.QueueAttributes | string,
-    name?: string
+    name?: string,
   ): VoiceResponse.Queue {
     if (typeof attributes === "string") {
       name = attributes;
       attributes = {};
     }
     return new VoiceResponse.Queue(
-      this.response.ele("Queue", attributes, name)
+      this.response.ele("Queue", attributes, name),
     );
   }
   /**
@@ -211,18 +211,18 @@ class VoiceResponse extends TwiML {
   redirect(url: string): VoiceResponse.Redirect;
   redirect(
     attributes: VoiceResponse.RedirectAttributes,
-    url: string
+    url: string,
   ): VoiceResponse.Redirect;
   redirect(
     attributes: VoiceResponse.RedirectAttributes | string,
-    url?: string
+    url?: string,
   ): VoiceResponse.Redirect {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
     }
     return new VoiceResponse.Redirect(
-      this.response.ele("Redirect", attributes, url)
+      this.response.ele("Redirect", attributes, url),
     );
   }
   /**
@@ -250,11 +250,11 @@ class VoiceResponse extends TwiML {
   say(message: string): VoiceResponse.Say;
   say(
     attributes: VoiceResponse.SayAttributes,
-    message: string
+    message: string,
   ): VoiceResponse.Say;
   say(
     attributes: VoiceResponse.SayAttributes | string,
-    message?: string
+    message?: string,
   ): VoiceResponse.Say {
     if (typeof attributes === "string") {
       message = attributes;
@@ -271,11 +271,11 @@ class VoiceResponse extends TwiML {
   sms(message: string): VoiceResponse.Sms;
   sms(
     attributes: VoiceResponse.SmsAttributes,
-    message: string
+    message: string,
   ): VoiceResponse.Sms;
   sms(
     attributes: VoiceResponse.SmsAttributes | string,
-    message?: string
+    message?: string,
   ): VoiceResponse.Sms {
     if (typeof attributes === "string") {
       message = attributes;
@@ -326,22 +326,12 @@ namespace VoiceResponse {
   type ConferenceRecordingEvent = "in-progress" | "completed" | "absent";
 
   type ConferenceRegion =
-    | "us1"
-    | "us2"
-    | "ie1"
-    | "sg1"
-    | "br1"
-    | "au1"
-    | "jp1"
-    | "de1";
+    "us1" | "us2" | "ie1" | "sg1" | "br1" | "au1" | "jp1" | "de1";
 
   type ConferenceTrim = "trim-silence" | "do-not-trim";
 
   type ConversationEvent =
-    | "call-initiated"
-    | "call-ringing"
-    | "call-answered"
-    | "call-completed";
+    "call-initiated" | "call-ringing" | "call-answered" | "call-completed";
 
   type ConversationRecord =
     | "do-not-record"
@@ -1616,12 +1606,7 @@ namespace VoiceResponse {
   type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
   type SsmlBreakStrength =
-    | "none"
-    | "x-weak"
-    | "weak"
-    | "medium"
-    | "strong"
-    | "x-strong";
+    "none" | "x-weak" | "weak" | "medium" | "strong" | "x-strong";
 
   type SsmlEmphasisLevel = "strong" | "moderate" | "reduced";
 
@@ -1736,6 +1721,8 @@ namespace VoiceResponse {
     hangupOnStar?: boolean;
     /** method - Action URL method */
     method?: string;
+    /** passports - Base64-encoded comma-separated identity passports (e.g. shaken, div) */
+    passports?: string;
     /** record - Record the call */
     record?: DialRecord;
     /** recordingConfigurationId - Configuration for the recording */
@@ -3185,54 +3172,6 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to assistant
-   */
-  export interface AssistantAttributes {
-    /** debug - Multiple debug options to be used for troubleshooting */
-    debug?: string;
-    /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
-    dtmfDetection?: boolean;
-    /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
-    elevenlabsTextNormalization?: string;
-    /** hints - Phrases to help better accuracy in speech recognition of these pharases */
-    hints?: string;
-    /** id - The assistant ID of the AI Assistant */
-    id?: string;
-    /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
-    intelligenceService?: string;
-    /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
-    interruptSensitivity?: string;
-    /** interruptible - Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech */
-    interruptible?: string;
-    /** language - Language to be used for both text-to-speech and transcription */
-    language?: string;
-    /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
-    partialPrompts?: boolean;
-    /** preemptible - Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media */
-    preemptible?: boolean;
-    /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
-    profanityFilter?: boolean;
-    /** reportInputDuringAgentSpeech - Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled */
-    reportInputDuringAgentSpeech?: boolean;
-    /** speechModel - Speech model to be used for transcription */
-    speechModel?: string;
-    /** transcriptionLanguage - Language to be used for transcription */
-    transcriptionLanguage?: string;
-    /** transcriptionProvider - Provider to be used for transcription */
-    transcriptionProvider?: string;
-    /** ttsLanguage - Language to be used for text-to-speech */
-    ttsLanguage?: string;
-    /** ttsProvider - Provider to be used for text-to-speech */
-    ttsProvider?: string;
-    /** voice - Voice to be used for text-to-speech */
-    voice?: string;
-    /** welcomeGreeting - The sentence to be played automatically when the session is connected */
-    welcomeGreeting?: string;
-    /** welcomeGreetingInterruptible - "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting */
-    welcomeGreetingInterruptible?: string;
-  }
-
-  /**
    * Attributes to pass to aiSession
    */
   export interface AiSessionAttributes {
@@ -3250,32 +3189,6 @@ namespace VoiceResponse {
     connector?: string;
     /** sessionConfiguration - The unique name or id of the ConversationRelaySession  Configuration resource. */
     sessionConfiguration?: string;
-  }
-
-  /**
-   * Attributes to pass to language
-   */
-  export interface LanguageAttributes {
-    /** code - Language code of this language setting is for */
-    code?: string;
-    /** speechModel - Speech model to be used for transcription of this language */
-    speechModel?: string;
-    /** transcriptionProvider - Provider to be used for transcription of this language */
-    transcriptionProvider?: string;
-    /** ttsProvider - Provider to be used for text-to-speech of this language */
-    ttsProvider?: string;
-    /** voice - Voice to be used for text-to-speech of this language */
-    voice?: string;
-  }
-
-  /**
-   * Attributes to pass to parameter
-   */
-  export interface ParameterAttributes {
-    /** name - The name of the custom parameter */
-    name?: string;
-    /** value - The value of the custom parameter */
-    value?: string;
   }
 
   /**
@@ -3355,18 +3268,18 @@ namespace VoiceResponse {
     applicationSid(sid: string): VoiceResponse.ApplicationSid;
     applicationSid(
       attributes: object,
-      sid: string
+      sid: string,
     ): VoiceResponse.ApplicationSid;
     applicationSid(
       attributes: object | string,
-      sid?: string
+      sid?: string,
     ): VoiceResponse.ApplicationSid {
       if (typeof attributes === "string") {
         sid = attributes;
         attributes = {};
       }
       return new VoiceResponse.ApplicationSid(
-        this.application.ele("ApplicationSid", attributes, sid)
+        this.application.ele("ApplicationSid", attributes, sid),
       );
     }
     /**
@@ -3375,10 +3288,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.application.ele("Parameter", attributes)
+        this.application.ele("Parameter", attributes),
       );
     }
   }
@@ -3392,42 +3305,6 @@ namespace VoiceResponse {
       super();
       this.applicationSid = applicationSid;
       this._propertyName = "applicationSid";
-    }
-  }
-
-  export class Assistant extends TwiML {
-    assistant: XMLElement;
-    /**
-     * <Assistant> TwiML Noun
-     */
-    constructor(assistant: XMLElement) {
-      super();
-      this.assistant = assistant;
-      this._propertyName = "assistant";
-    }
-    /**
-     * <Language> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     */
-    language(
-      attributes?: VoiceResponse.LanguageAttributes
-    ): VoiceResponse.Language {
-      return new VoiceResponse.Language(
-        this.assistant.ele("Language", attributes)
-      );
-    }
-    /**
-     * <Parameter> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     */
-    parameter(
-      attributes?: VoiceResponse.ParameterAttributes
-    ): VoiceResponse.Parameter {
-      return new VoiceResponse.Parameter(
-        this.assistant.ele("Parameter", attributes)
-      );
     }
   }
 
@@ -3462,18 +3339,18 @@ namespace VoiceResponse {
     identity(clientIdentity: string): VoiceResponse.Identity;
     identity(
       attributes: object,
-      clientIdentity: string
+      clientIdentity: string,
     ): VoiceResponse.Identity;
     identity(
       attributes: object | string,
-      clientIdentity?: string
+      clientIdentity?: string,
     ): VoiceResponse.Identity {
       if (typeof attributes === "string") {
         clientIdentity = attributes;
         attributes = {};
       }
       return new VoiceResponse.Identity(
-        this.client.ele("Identity", attributes, clientIdentity)
+        this.client.ele("Identity", attributes, clientIdentity),
       );
     }
     /**
@@ -3482,10 +3359,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.client.ele("Parameter", attributes)
+        this.client.ele("Parameter", attributes),
       );
     }
   }
@@ -3530,22 +3407,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     aiSession(
-      attributes?: VoiceResponse.AiSessionAttributes
+      attributes?: VoiceResponse.AiSessionAttributes,
     ): VoiceResponse.AiSession {
       return new VoiceResponse.AiSession(
-        this.connect.ele("AiSession", attributes)
-      );
-    }
-    /**
-     * <Assistant> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     */
-    assistant(
-      attributes?: VoiceResponse.AssistantAttributes
-    ): VoiceResponse.Assistant {
-      return new VoiceResponse.Assistant(
-        this.connect.ele("Assistant", attributes)
+        this.connect.ele("AiSession", attributes),
       );
     }
     /**
@@ -3558,14 +3423,14 @@ namespace VoiceResponse {
     autopilot(attributes: object, name: string): VoiceResponse.Autopilot;
     autopilot(
       attributes: object | string,
-      name?: string
+      name?: string,
     ): VoiceResponse.Autopilot {
       if (typeof attributes === "string") {
         name = attributes;
         attributes = {};
       }
       return new VoiceResponse.Autopilot(
-        this.connect.ele("Autopilot", attributes, name)
+        this.connect.ele("Autopilot", attributes, name),
       );
     }
     /**
@@ -3574,10 +3439,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     conversation(
-      attributes?: VoiceResponse.ConversationAttributes
+      attributes?: VoiceResponse.ConversationAttributes,
     ): VoiceResponse.Conversation {
       return new VoiceResponse.Conversation(
-        this.connect.ele("Conversation", attributes)
+        this.connect.ele("Conversation", attributes),
       );
     }
     /**
@@ -3586,10 +3451,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     conversationRelay(
-      attributes?: VoiceResponse.ConversationRelayAttributes
+      attributes?: VoiceResponse.ConversationRelayAttributes,
     ): VoiceResponse.ConversationRelay {
       return new VoiceResponse.ConversationRelay(
-        this.connect.ele("ConversationRelay", attributes)
+        this.connect.ele("ConversationRelay", attributes),
       );
     }
     /**
@@ -3598,10 +3463,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     conversationRelaySession(
-      attributes?: VoiceResponse.ConversationRelaySessionAttributes
+      attributes?: VoiceResponse.ConversationRelaySessionAttributes,
     ): VoiceResponse.ConversationRelaySession {
       return new VoiceResponse.ConversationRelaySession(
-        this.connect.ele("ConversationRelaySession", attributes)
+        this.connect.ele("ConversationRelaySession", attributes),
       );
     }
     /**
@@ -3613,11 +3478,11 @@ namespace VoiceResponse {
     room(name: string): VoiceResponse.Room;
     room(
       attributes: VoiceResponse.RoomAttributes,
-      name: string
+      name: string,
     ): VoiceResponse.Room;
     room(
       attributes: VoiceResponse.RoomAttributes | string,
-      name?: string
+      name?: string,
     ): VoiceResponse.Room {
       if (typeof attributes === "string") {
         name = attributes;
@@ -3639,10 +3504,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     virtualAgent(
-      attributes?: VoiceResponse.VirtualAgentAttributes
+      attributes?: VoiceResponse.VirtualAgentAttributes,
     ): VoiceResponse.VirtualAgent {
       return new VoiceResponse.VirtualAgent(
-        this.connect.ele("VirtualAgent", attributes)
+        this.connect.ele("VirtualAgent", attributes),
       );
     }
   }
@@ -3675,10 +3540,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     language(
-      attributes?: VoiceResponse.LanguageAttributes
+      attributes?: VoiceResponse.LanguageAttributes,
     ): VoiceResponse.Language {
       return new VoiceResponse.Language(
-        this.conversationRelay.ele("Language", attributes)
+        this.conversationRelay.ele("Language", attributes),
       );
     }
     /**
@@ -3687,10 +3552,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.conversationRelay.ele("Parameter", attributes)
+        this.conversationRelay.ele("Parameter", attributes),
       );
     }
   }
@@ -3726,18 +3591,18 @@ namespace VoiceResponse {
     application(applicationSid?: string): VoiceResponse.Application;
     application(
       attributes?: VoiceResponse.ApplicationAttributes,
-      applicationSid?: string
+      applicationSid?: string,
     ): VoiceResponse.Application;
     application(
       attributes?: VoiceResponse.ApplicationAttributes | string,
-      applicationSid?: string
+      applicationSid?: string,
     ): VoiceResponse.Application {
       if (typeof attributes === "string") {
         applicationSid = attributes;
         attributes = {};
       }
       return new VoiceResponse.Application(
-        this.dial.ele("Application", attributes, applicationSid)
+        this.dial.ele("Application", attributes, applicationSid),
       );
     }
     /**
@@ -3749,18 +3614,18 @@ namespace VoiceResponse {
     client(identity?: string): VoiceResponse.Client;
     client(
       attributes?: VoiceResponse.ClientAttributes,
-      identity?: string
+      identity?: string,
     ): VoiceResponse.Client;
     client(
       attributes?: VoiceResponse.ClientAttributes | string,
-      identity?: string
+      identity?: string,
     ): VoiceResponse.Client {
       if (typeof attributes === "string") {
         identity = attributes;
         attributes = {};
       }
       return new VoiceResponse.Client(
-        this.dial.ele("Client", attributes, identity)
+        this.dial.ele("Client", attributes, identity),
       );
     }
     /**
@@ -3772,18 +3637,18 @@ namespace VoiceResponse {
     conference(name: string): VoiceResponse.Conference;
     conference(
       attributes: VoiceResponse.ConferenceAttributes,
-      name: string
+      name: string,
     ): VoiceResponse.Conference;
     conference(
       attributes: VoiceResponse.ConferenceAttributes | string,
-      name?: string
+      name?: string,
     ): VoiceResponse.Conference {
       if (typeof attributes === "string") {
         name = attributes;
         attributes = {};
       }
       return new VoiceResponse.Conference(
-        this.dial.ele("Conference", attributes, name)
+        this.dial.ele("Conference", attributes, name),
       );
     }
     /**
@@ -3795,18 +3660,18 @@ namespace VoiceResponse {
     number(phoneNumber: string): VoiceResponse.Number;
     number(
       attributes: VoiceResponse.NumberAttributes,
-      phoneNumber: string
+      phoneNumber: string,
     ): VoiceResponse.Number;
     number(
       attributes: VoiceResponse.NumberAttributes | string,
-      phoneNumber?: string
+      phoneNumber?: string,
     ): VoiceResponse.Number {
       if (typeof attributes === "string") {
         phoneNumber = attributes;
         attributes = {};
       }
       return new VoiceResponse.Number(
-        this.dial.ele("Number", attributes, phoneNumber)
+        this.dial.ele("Number", attributes, phoneNumber),
       );
     }
     /**
@@ -3818,11 +3683,11 @@ namespace VoiceResponse {
     queue(name: string): VoiceResponse.Queue;
     queue(
       attributes: VoiceResponse.QueueAttributes,
-      name: string
+      name: string,
     ): VoiceResponse.Queue;
     queue(
       attributes: VoiceResponse.QueueAttributes | string,
-      name?: string
+      name?: string,
     ): VoiceResponse.Queue {
       if (typeof attributes === "string") {
         name = attributes;
@@ -3854,11 +3719,11 @@ namespace VoiceResponse {
     sip(sipUrl?: string): VoiceResponse.Sip;
     sip(
       attributes?: VoiceResponse.SipAttributes,
-      sipUrl?: string
+      sipUrl?: string,
     ): VoiceResponse.Sip;
     sip(
       attributes?: VoiceResponse.SipAttributes | string,
-      sipUrl?: string
+      sipUrl?: string,
     ): VoiceResponse.Sip {
       if (typeof attributes === "string") {
         sipUrl = attributes;
@@ -3875,18 +3740,18 @@ namespace VoiceResponse {
     whatsApp(phoneNumber: string): VoiceResponse.WhatsApp;
     whatsApp(
       attributes: VoiceResponse.WhatsAppAttributes,
-      phoneNumber: string
+      phoneNumber: string,
     ): VoiceResponse.WhatsApp;
     whatsApp(
       attributes: VoiceResponse.WhatsAppAttributes | string,
-      phoneNumber?: string
+      phoneNumber?: string,
     ): VoiceResponse.WhatsApp {
       if (typeof attributes === "string") {
         phoneNumber = attributes;
         attributes = {};
       }
       return new VoiceResponse.WhatsApp(
-        this.dial.ele("WhatsApp", attributes, phoneNumber)
+        this.dial.ele("WhatsApp", attributes, phoneNumber),
       );
     }
   }
@@ -3922,11 +3787,11 @@ namespace VoiceResponse {
     task(body: string): VoiceResponse.Task;
     task(
       attributes: VoiceResponse.TaskAttributes,
-      body: string
+      body: string,
     ): VoiceResponse.Task;
     task(
       attributes: VoiceResponse.TaskAttributes | string,
-      body?: string
+      body?: string,
     ): VoiceResponse.Task {
       if (typeof attributes === "string") {
         body = attributes;
@@ -3963,11 +3828,11 @@ namespace VoiceResponse {
     play(url?: string): VoiceResponse.Play;
     play(
       attributes?: VoiceResponse.PlayAttributes,
-      url?: string
+      url?: string,
     ): VoiceResponse.Play;
     play(
       attributes?: VoiceResponse.PlayAttributes | string,
-      url?: string
+      url?: string,
     ): VoiceResponse.Play {
       if (typeof attributes === "string") {
         url = attributes;
@@ -3984,11 +3849,11 @@ namespace VoiceResponse {
     say(message: string): VoiceResponse.Say;
     say(
       attributes: VoiceResponse.SayAttributes,
-      message: string
+      message: string,
     ): VoiceResponse.Say;
     say(
       attributes: VoiceResponse.SayAttributes | string,
-      message?: string
+      message?: string,
     ): VoiceResponse.Say {
       if (typeof attributes === "string") {
         message = attributes;
@@ -4014,10 +3879,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.hangup.ele("Parameter", attributes)
+        this.hangup.ele("Parameter", attributes),
       );
     }
   }
@@ -4142,7 +4007,7 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(this.pay.ele("Parameter", attributes));
     }
@@ -4195,11 +4060,11 @@ namespace VoiceResponse {
     play(url?: string): VoiceResponse.Play;
     play(
       attributes?: VoiceResponse.PlayAttributes,
-      url?: string
+      url?: string,
     ): VoiceResponse.Play;
     play(
       attributes?: VoiceResponse.PlayAttributes | string,
-      url?: string
+      url?: string,
     ): VoiceResponse.Play {
       if (typeof attributes === "string") {
         url = attributes;
@@ -4216,11 +4081,11 @@ namespace VoiceResponse {
     say(message: string): VoiceResponse.Say;
     say(
       attributes: VoiceResponse.SayAttributes,
-      message: string
+      message: string,
     ): VoiceResponse.Say;
     say(
       attributes: VoiceResponse.SayAttributes | string,
-      message?: string
+      message?: string,
     ): VoiceResponse.Say {
       if (typeof attributes === "string") {
         message = attributes;
@@ -4302,7 +4167,7 @@ namespace VoiceResponse {
         attributes = {};
       }
       return new VoiceResponse.ReferSip(
-        this.refer.ele("Sip", attributes, sipUrl)
+        this.refer.ele("Sip", attributes, sipUrl),
       );
     }
   }
@@ -4335,10 +4200,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.reject.ele("Parameter", attributes)
+        this.reject.ele("Parameter", attributes),
       );
     }
   }
@@ -4371,7 +4236,7 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.say.ele("break", attributes));
     }
@@ -4384,18 +4249,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.say.ele("emphasis", attributes, words)
+        this.say.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -4407,18 +4272,18 @@ namespace VoiceResponse {
     lang(words: string): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlLang(
-        this.say.ele("lang", attributes, words)
+        this.say.ele("lang", attributes, words),
       );
     }
     /**
@@ -4445,18 +4310,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.say.ele("phoneme", attributes, words)
+        this.say.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -4468,18 +4333,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.say.ele("prosody", attributes, words)
+        this.say.ele("prosody", attributes, words),
       );
     }
     /**
@@ -4506,18 +4371,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.say.ele("say-as", attributes, words)
+        this.say.ele("say-as", attributes, words),
       );
     }
     /**
@@ -4529,11 +4394,11 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
@@ -4550,11 +4415,11 @@ namespace VoiceResponse {
     w(words: string): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
@@ -4605,11 +4470,11 @@ namespace VoiceResponse {
     uri(sipUrl?: string): VoiceResponse.SipUri;
     uri(
       attributes?: VoiceResponse.SipUriAttributes,
-      sipUrl?: string
+      sipUrl?: string,
     ): VoiceResponse.SipUri;
     uri(
       attributes?: VoiceResponse.SipUriAttributes | string,
-      sipUrl?: string
+      sipUrl?: string,
     ): VoiceResponse.SipUri {
       if (typeof attributes === "string") {
         sipUrl = attributes;
@@ -4649,10 +4514,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.siprec.ele("Parameter", attributes)
+        this.siprec.ele("Parameter", attributes),
       );
     }
   }
@@ -4697,10 +4562,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(
-        this.ssmlEmphasis.ele("break", attributes)
+        this.ssmlEmphasis.ele("break", attributes),
       );
     }
     /**
@@ -4712,18 +4577,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.ssmlEmphasis.ele("emphasis", attributes, words)
+        this.ssmlEmphasis.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -4735,18 +4600,18 @@ namespace VoiceResponse {
     lang(words: string): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlLang(
-        this.ssmlEmphasis.ele("lang", attributes, words)
+        this.ssmlEmphasis.ele("lang", attributes, words),
       );
     }
     /**
@@ -4758,18 +4623,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.ssmlEmphasis.ele("phoneme", attributes, words)
+        this.ssmlEmphasis.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -4781,18 +4646,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.ssmlEmphasis.ele("prosody", attributes, words)
+        this.ssmlEmphasis.ele("prosody", attributes, words),
       );
     }
     /**
@@ -4804,18 +4669,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.ssmlEmphasis.ele("say-as", attributes, words)
+        this.ssmlEmphasis.ele("say-as", attributes, words),
       );
     }
     /**
@@ -4827,18 +4692,18 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSub(
-        this.ssmlEmphasis.ele("sub", attributes, words)
+        this.ssmlEmphasis.ele("sub", attributes, words),
       );
     }
     /**
@@ -4850,18 +4715,18 @@ namespace VoiceResponse {
     w(words: string): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlW(
-        this.ssmlEmphasis.ele("w", attributes, words)
+        this.ssmlEmphasis.ele("w", attributes, words),
       );
     }
   }
@@ -4882,10 +4747,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(
-        this.ssmlLang.ele("break", attributes)
+        this.ssmlLang.ele("break", attributes),
       );
     }
     /**
@@ -4897,18 +4762,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.ssmlLang.ele("emphasis", attributes, words)
+        this.ssmlLang.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -4920,18 +4785,18 @@ namespace VoiceResponse {
     lang(words: string): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlLang(
-        this.ssmlLang.ele("lang", attributes, words)
+        this.ssmlLang.ele("lang", attributes, words),
       );
     }
     /**
@@ -4958,18 +4823,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.ssmlLang.ele("phoneme", attributes, words)
+        this.ssmlLang.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -4981,18 +4846,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.ssmlLang.ele("prosody", attributes, words)
+        this.ssmlLang.ele("prosody", attributes, words),
       );
     }
     /**
@@ -5019,18 +4884,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.ssmlLang.ele("say-as", attributes, words)
+        this.ssmlLang.ele("say-as", attributes, words),
       );
     }
     /**
@@ -5042,18 +4907,18 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSub(
-        this.ssmlLang.ele("sub", attributes, words)
+        this.ssmlLang.ele("sub", attributes, words),
       );
     }
     /**
@@ -5065,11 +4930,11 @@ namespace VoiceResponse {
     w(words: string): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
@@ -5095,7 +4960,7 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.ssmlP.ele("break", attributes));
     }
@@ -5108,18 +4973,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.ssmlP.ele("emphasis", attributes, words)
+        this.ssmlP.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -5131,18 +4996,18 @@ namespace VoiceResponse {
     lang(words: string): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlLang(
-        this.ssmlP.ele("lang", attributes, words)
+        this.ssmlP.ele("lang", attributes, words),
       );
     }
     /**
@@ -5154,18 +5019,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.ssmlP.ele("phoneme", attributes, words)
+        this.ssmlP.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -5177,18 +5042,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.ssmlP.ele("prosody", attributes, words)
+        this.ssmlP.ele("prosody", attributes, words),
       );
     }
     /**
@@ -5215,18 +5080,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.ssmlP.ele("say-as", attributes, words)
+        this.ssmlP.ele("say-as", attributes, words),
       );
     }
     /**
@@ -5238,18 +5103,18 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSub(
-        this.ssmlP.ele("sub", attributes, words)
+        this.ssmlP.ele("sub", attributes, words),
       );
     }
     /**
@@ -5261,11 +5126,11 @@ namespace VoiceResponse {
     w(words: string): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
@@ -5303,10 +5168,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(
-        this.ssmlProsody.ele("break", attributes)
+        this.ssmlProsody.ele("break", attributes),
       );
     }
     /**
@@ -5318,18 +5183,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.ssmlProsody.ele("emphasis", attributes, words)
+        this.ssmlProsody.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -5341,18 +5206,18 @@ namespace VoiceResponse {
     lang(words: string): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlLang(
-        this.ssmlProsody.ele("lang", attributes, words)
+        this.ssmlProsody.ele("lang", attributes, words),
       );
     }
     /**
@@ -5369,7 +5234,7 @@ namespace VoiceResponse {
         attributes = {};
       }
       return new VoiceResponse.SsmlP(
-        this.ssmlProsody.ele("p", attributes, words)
+        this.ssmlProsody.ele("p", attributes, words),
       );
     }
     /**
@@ -5381,18 +5246,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.ssmlProsody.ele("phoneme", attributes, words)
+        this.ssmlProsody.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -5404,18 +5269,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.ssmlProsody.ele("prosody", attributes, words)
+        this.ssmlProsody.ele("prosody", attributes, words),
       );
     }
     /**
@@ -5432,7 +5297,7 @@ namespace VoiceResponse {
         attributes = {};
       }
       return new VoiceResponse.SsmlS(
-        this.ssmlProsody.ele("s", attributes, words)
+        this.ssmlProsody.ele("s", attributes, words),
       );
     }
     /**
@@ -5444,18 +5309,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.ssmlProsody.ele("say-as", attributes, words)
+        this.ssmlProsody.ele("say-as", attributes, words),
       );
     }
     /**
@@ -5467,18 +5332,18 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSub(
-        this.ssmlProsody.ele("sub", attributes, words)
+        this.ssmlProsody.ele("sub", attributes, words),
       );
     }
     /**
@@ -5490,18 +5355,18 @@ namespace VoiceResponse {
     w(words: string): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlW(
-        this.ssmlProsody.ele("w", attributes, words)
+        this.ssmlProsody.ele("w", attributes, words),
       );
     }
   }
@@ -5522,7 +5387,7 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.ssmlS.ele("break", attributes));
     }
@@ -5535,18 +5400,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.ssmlS.ele("emphasis", attributes, words)
+        this.ssmlS.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -5558,18 +5423,18 @@ namespace VoiceResponse {
     lang(words: string): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlLang;
     lang(
       attributes: VoiceResponse.SsmlLangAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlLang {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlLang(
-        this.ssmlS.ele("lang", attributes, words)
+        this.ssmlS.ele("lang", attributes, words),
       );
     }
     /**
@@ -5581,18 +5446,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.ssmlS.ele("phoneme", attributes, words)
+        this.ssmlS.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -5604,18 +5469,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.ssmlS.ele("prosody", attributes, words)
+        this.ssmlS.ele("prosody", attributes, words),
       );
     }
     /**
@@ -5627,18 +5492,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.ssmlS.ele("say-as", attributes, words)
+        this.ssmlS.ele("say-as", attributes, words),
       );
     }
     /**
@@ -5650,18 +5515,18 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSub(
-        this.ssmlS.ele("sub", attributes, words)
+        this.ssmlS.ele("sub", attributes, words),
       );
     }
     /**
@@ -5673,11 +5538,11 @@ namespace VoiceResponse {
     w(words: string): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlW;
     w(
       attributes: VoiceResponse.SsmlWAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlW {
       if (typeof attributes === "string") {
         words = attributes;
@@ -5727,7 +5592,7 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     break(
-      attributes?: VoiceResponse.SsmlBreakAttributes
+      attributes?: VoiceResponse.SsmlBreakAttributes,
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.ssmlW.ele("break", attributes));
     }
@@ -5740,18 +5605,18 @@ namespace VoiceResponse {
     emphasis(words: string): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlEmphasis;
     emphasis(
       attributes: VoiceResponse.SsmlEmphasisAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlEmphasis {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlEmphasis(
-        this.ssmlW.ele("emphasis", attributes, words)
+        this.ssmlW.ele("emphasis", attributes, words),
       );
     }
     /**
@@ -5763,18 +5628,18 @@ namespace VoiceResponse {
     phoneme(words: string): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlPhoneme;
     phoneme(
       attributes: VoiceResponse.SsmlPhonemeAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlPhoneme {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlPhoneme(
-        this.ssmlW.ele("phoneme", attributes, words)
+        this.ssmlW.ele("phoneme", attributes, words),
       );
     }
     /**
@@ -5786,18 +5651,18 @@ namespace VoiceResponse {
     prosody(words: string): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlProsody;
     prosody(
       attributes: VoiceResponse.SsmlProsodyAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlProsody {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlProsody(
-        this.ssmlW.ele("prosody", attributes, words)
+        this.ssmlW.ele("prosody", attributes, words),
       );
     }
     /**
@@ -5809,18 +5674,18 @@ namespace VoiceResponse {
     sayAs(words: string): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSayAs;
     sayAs(
       attributes: VoiceResponse.SsmlSayAsAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSayAs {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSayAs(
-        this.ssmlW.ele("say-as", attributes, words)
+        this.ssmlW.ele("say-as", attributes, words),
       );
     }
     /**
@@ -5832,18 +5697,18 @@ namespace VoiceResponse {
     sub(words: string): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes,
-      words: string
+      words: string,
     ): VoiceResponse.SsmlSub;
     sub(
       attributes: VoiceResponse.SsmlSubAttributes | string,
-      words?: string
+      words?: string,
     ): VoiceResponse.SsmlSub {
       if (typeof attributes === "string") {
         words = attributes;
         attributes = {};
       }
       return new VoiceResponse.SsmlSub(
-        this.ssmlW.ele("sub", attributes, words)
+        this.ssmlW.ele("sub", attributes, words),
       );
     }
   }
@@ -5864,10 +5729,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     recording(
-      attributes?: VoiceResponse.RecordingAttributes
+      attributes?: VoiceResponse.RecordingAttributes,
     ): VoiceResponse.Recording {
       return new VoiceResponse.Recording(
-        this.start.ele("Recording", attributes)
+        this.start.ele("Recording", attributes),
       );
     }
     /**
@@ -5892,10 +5757,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     transcription(
-      attributes?: VoiceResponse.TranscriptionAttributes
+      attributes?: VoiceResponse.TranscriptionAttributes,
     ): VoiceResponse.Transcription {
       return new VoiceResponse.Transcription(
-        this.start.ele("Transcription", attributes)
+        this.start.ele("Transcription", attributes),
       );
     }
   }
@@ -5932,10 +5797,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     transcription(
-      attributes?: VoiceResponse.TranscriptionAttributes
+      attributes?: VoiceResponse.TranscriptionAttributes,
     ): VoiceResponse.Transcription {
       return new VoiceResponse.Transcription(
-        this.stop.ele("Transcription", attributes)
+        this.stop.ele("Transcription", attributes),
       );
     }
   }
@@ -5956,10 +5821,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.stream.ele("Parameter", attributes)
+        this.stream.ele("Parameter", attributes),
       );
     }
   }
@@ -5993,7 +5858,7 @@ namespace VoiceResponse {
      */
     config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
       return new VoiceResponse.Config(
-        this.transcription.ele("Config", attributes)
+        this.transcription.ele("Config", attributes),
       );
     }
     /**
@@ -6002,10 +5867,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.transcription.ele("Parameter", attributes)
+        this.transcription.ele("Parameter", attributes),
       );
     }
   }
@@ -6027,7 +5892,7 @@ namespace VoiceResponse {
      */
     config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
       return new VoiceResponse.Config(
-        this.virtualAgent.ele("Config", attributes)
+        this.virtualAgent.ele("Config", attributes),
       );
     }
     /**
@@ -6036,10 +5901,10 @@ namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     parameter(
-      attributes?: VoiceResponse.ParameterAttributes
+      attributes?: VoiceResponse.ParameterAttributes,
     ): VoiceResponse.Parameter {
       return new VoiceResponse.Parameter(
-        this.virtualAgent.ele("Parameter", attributes)
+        this.virtualAgent.ele("Parameter", attributes),
       );
     }
   }

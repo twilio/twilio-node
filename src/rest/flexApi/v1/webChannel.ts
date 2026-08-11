@@ -97,7 +97,7 @@ export interface WebChannelContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -108,7 +108,7 @@ export interface WebChannelContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -119,7 +119,7 @@ export interface WebChannelContext {
    * @returns Resolves to processed WebChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance>;
 
   /**
@@ -132,8 +132,8 @@ export interface WebChannelContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>>;
 
   /**
@@ -144,7 +144,7 @@ export interface WebChannelContext {
    * @returns Resolves to processed WebChannelInstance
    */
   update(
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance>;
   /**
    * Update a WebChannelInstance
@@ -156,7 +156,7 @@ export interface WebChannelContext {
    */
   update(
     params: WebChannelContextUpdateOptions,
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance>;
 
   /**
@@ -169,8 +169,8 @@ export interface WebChannelContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>>;
   /**
    * Update a WebChannelInstance and return HTTP info
@@ -184,8 +184,8 @@ export interface WebChannelContext {
     params: WebChannelContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>>;
 
   /**
@@ -203,7 +203,10 @@ export class WebChannelContextImpl implements WebChannelContext {
   protected _solution: WebChannelContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -213,7 +216,7 @@ export class WebChannelContextImpl implements WebChannelContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -227,13 +230,13 @@ export class WebChannelContextImpl implements WebChannelContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -242,22 +245,20 @@ export class WebChannelContextImpl implements WebChannelContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -275,13 +276,13 @@ export class WebChannelContextImpl implements WebChannelContext {
         new WebChannelInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -289,8 +290,8 @@ export class WebChannelContextImpl implements WebChannelContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -304,20 +305,18 @@ export class WebChannelContextImpl implements WebChannelContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<WebChannelInstance> => ({
-          ...response,
-          body: new WebChannelInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WebChannelInstance> => ({
+        ...response,
+        body: new WebChannelInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -326,13 +325,13 @@ export class WebChannelContextImpl implements WebChannelContext {
     params?:
       | WebChannelContextUpdateOptions
       | ((error: Error | null, item?: WebChannelInstance) => any),
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -360,13 +359,13 @@ export class WebChannelContextImpl implements WebChannelContext {
         new WebChannelInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -377,14 +376,14 @@ export class WebChannelContextImpl implements WebChannelContext {
       | ((error: Error | null, item?: ApiResponse<WebChannelInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -408,20 +407,18 @@ export class WebChannelContextImpl implements WebChannelContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WebChannelInstance> => ({
-          ...response,
-          body: new WebChannelInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WebChannelInstance> => ({
+        ...response,
+        body: new WebChannelInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -460,7 +457,7 @@ export class WebChannelInstance {
   constructor(
     protected _version: V1,
     payload: WebChannelResource,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.flexFlowSid = payload.flex_flow_sid;
@@ -469,7 +466,7 @@ export class WebChannelInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -512,7 +509,7 @@ export class WebChannelInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -525,7 +522,7 @@ export class WebChannelInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -538,7 +535,7 @@ export class WebChannelInstance {
    * @returns Resolves to processed WebChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance> {
     return this._proxy.fetch(callback);
   }
@@ -553,8 +550,8 @@ export class WebChannelInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -567,7 +564,7 @@ export class WebChannelInstance {
    * @returns Resolves to processed WebChannelInstance
    */
   update(
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance>;
   /**
    * Update a WebChannelInstance
@@ -579,12 +576,12 @@ export class WebChannelInstance {
    */
   update(
     params: WebChannelContextUpdateOptions,
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance> {
     return this._proxy.update(params, callback);
   }
@@ -599,8 +596,8 @@ export class WebChannelInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>>;
   /**
    * Update a WebChannelInstance and return HTTP info
@@ -614,16 +611,16 @@ export class WebChannelInstance {
     params: WebChannelContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -669,7 +666,7 @@ export interface WebChannelListInstance {
    */
   create(
     params: WebChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, item?: WebChannelInstance) => any,
   ): Promise<WebChannelInstance>;
 
   /**
@@ -684,8 +681,8 @@ export interface WebChannelListInstance {
     params: WebChannelListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelInstance>
-    ) => any
+      item?: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>>;
 
   /**
@@ -704,11 +701,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: WebChannelListInstanceEachOptions,
-    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams WebChannelInstance records from the API with HTTP metadata captured per page.
@@ -726,11 +723,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: WebChannelListInstanceEachOptions,
-    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of WebChannelInstance records from the API.
@@ -742,7 +739,7 @@ export interface WebChannelListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WebChannelPage) => any
+    callback?: (error: Error | null, items: WebChannelPage) => any,
   ): Promise<WebChannelPage>;
   /**
    * Retrieve a single target page of WebChannelInstance records from the API with HTTP metadata.
@@ -754,7 +751,7 @@ export interface WebChannelListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any,
   ): Promise<ApiResponse<WebChannelPage>>;
   /**
    * Lists WebChannelInstance records from the API as a list.
@@ -766,11 +763,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: WebChannelInstance[]) => any
+    callback?: (error: Error | null, items: WebChannelInstance[]) => any,
   ): Promise<WebChannelInstance[]>;
   list(
     params: WebChannelListInstanceOptions,
-    callback?: (error: Error | null, items: WebChannelInstance[]) => any
+    callback?: (error: Error | null, items: WebChannelInstance[]) => any,
   ): Promise<WebChannelInstance[]>;
   /**
    * Lists WebChannelInstance records from the API as a list with HTTP metadata.
@@ -786,15 +783,15 @@ export interface WebChannelListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<WebChannelInstance[]>
-    ) => any
+      items: ApiResponse<WebChannelInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance[]>>;
   listWithHttpInfo(
     params: WebChannelListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WebChannelInstance[]>
-    ) => any
+      items: ApiResponse<WebChannelInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance[]>>;
   /**
    * Retrieve a single page of WebChannelInstance records from the API.
@@ -808,11 +805,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: WebChannelPage) => any
+    callback?: (error: Error | null, items: WebChannelPage) => any,
   ): Promise<WebChannelPage>;
   page(
     params: WebChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: WebChannelPage) => any
+    callback?: (error: Error | null, items: WebChannelPage) => any,
   ): Promise<WebChannelPage>;
   /**
    * Retrieve a single page of WebChannelInstance records from the API with HTTP metadata.
@@ -826,11 +823,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any,
   ): Promise<ApiResponse<WebChannelPage>>;
   pageWithHttpInfo(
     params: WebChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any,
   ): Promise<ApiResponse<WebChannelPage>>;
 
   /**
@@ -853,7 +850,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
   instance.create = function create(
     params: WebChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, items: WebChannelInstance) => any
+    callback?: (error: Error | null, items: WebChannelInstance) => any,
   ): Promise<WebChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -872,7 +869,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       params["customerFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['customerFriendlyName']\" missing."
+        "Required parameter \"params['customerFriendlyName']\" missing.",
       );
     }
 
@@ -881,7 +878,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       params["chatFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['chatFriendlyName']\" missing."
+        "Required parameter \"params['chatFriendlyName']\" missing.",
       );
     }
 
@@ -912,12 +909,12 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebChannelInstance(operationVersion, payload)
+      (payload) => new WebChannelInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -926,8 +923,8 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
     params: WebChannelListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WebChannelInstance>
-    ) => any
+      items: ApiResponse<WebChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -946,7 +943,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       params["customerFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['customerFriendlyName']\" missing."
+        "Required parameter \"params['customerFriendlyName']\" missing.",
       );
     }
 
@@ -955,7 +952,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       params["chatFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['chatFriendlyName']\" missing."
+        "Required parameter \"params['chatFriendlyName']\" missing.",
       );
     }
 
@@ -986,16 +983,14 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WebChannelInstance> => ({
-          ...response,
-          body: new WebChannelInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<WebChannelInstance> => ({
+        ...response,
+        body: new WebChannelInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1004,7 +999,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
     params?:
       | WebChannelListInstancePageOptions
       | ((error: Error | null, items: WebChannelPage) => any),
-    callback?: (error: Error | null, items: WebChannelPage) => any
+    callback?: (error: Error | null, items: WebChannelPage) => any,
   ): Promise<WebChannelPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1033,12 +1028,12 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WebChannelPage(operationVersion, payload, instance._solution)
+        new WebChannelPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1048,7 +1043,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WebChannelPage) => any
+    callback?: (error: Error | null, items: WebChannelPage) => any,
   ): Promise<WebChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1056,7 +1051,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new WebChannelPage(instance._version, payload, instance._solution)
+        new WebChannelPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1066,7 +1061,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
     params?:
       | WebChannelListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<WebChannelPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WebChannelPage>) => any,
   ): Promise<ApiResponse<WebChannelPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1091,21 +1086,19 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<WebChannelPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new WebChannelPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<WebChannelPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new WebChannelPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1117,7 +1110,10 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<WebChannelPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<WebChannelPage>,
+    ) => any,
   ): Promise<ApiResponse<WebChannelPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1132,9 +1128,9 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
         body: new WebChannelPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1146,7 +1142,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1170,7 +1166,7 @@ export class WebChannelPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: WebChannelSolution
+    solution: WebChannelSolution,
   ) {
     super(version, response, solution);
   }

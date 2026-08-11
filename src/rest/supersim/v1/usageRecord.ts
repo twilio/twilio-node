@@ -139,11 +139,11 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: UsageRecordListInstanceEachOptions,
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams UsageRecordInstance records from the API with HTTP metadata captured per page.
@@ -161,11 +161,11 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: UsageRecordListInstanceEachOptions,
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
@@ -177,7 +177,7 @@ export interface UsageRecordListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UsageRecordPage) => any
+    callback?: (error: Error | null, items: UsageRecordPage) => any,
   ): Promise<UsageRecordPage>;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API with HTTP metadata.
@@ -189,7 +189,10 @@ export interface UsageRecordListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<UsageRecordPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsageRecordPage>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordPage>>;
   /**
    * Lists UsageRecordInstance records from the API as a list.
@@ -201,11 +204,11 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
+    callback?: (error: Error | null, items: UsageRecordInstance[]) => any,
   ): Promise<UsageRecordInstance[]>;
   list(
     params: UsageRecordListInstanceOptions,
-    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
+    callback?: (error: Error | null, items: UsageRecordInstance[]) => any,
   ): Promise<UsageRecordInstance[]>;
   /**
    * Lists UsageRecordInstance records from the API as a list with HTTP metadata.
@@ -221,15 +224,15 @@ export interface UsageRecordListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsageRecordInstance[]>
-    ) => any
+      items: ApiResponse<UsageRecordInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordInstance[]>>;
   listWithHttpInfo(
     params: UsageRecordListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsageRecordInstance[]>
-    ) => any
+      items: ApiResponse<UsageRecordInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordInstance[]>>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
@@ -243,11 +246,11 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: UsageRecordPage) => any
+    callback?: (error: Error | null, items: UsageRecordPage) => any,
   ): Promise<UsageRecordPage>;
   page(
     params: UsageRecordListInstancePageOptions,
-    callback?: (error: Error | null, items: UsageRecordPage) => any
+    callback?: (error: Error | null, items: UsageRecordPage) => any,
   ): Promise<UsageRecordPage>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API with HTTP metadata.
@@ -261,11 +264,17 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<UsageRecordPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsageRecordPage>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordPage>>;
   pageWithHttpInfo(
     params: UsageRecordListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<UsageRecordPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsageRecordPage>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordPage>>;
 
   /**
@@ -286,7 +295,7 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     params?:
       | UsageRecordListInstancePageOptions
       | ((error: Error | null, items: UsageRecordPage) => any),
-    callback?: (error: Error | null, items: UsageRecordPage) => any
+    callback?: (error: Error | null, items: UsageRecordPage) => any,
   ): Promise<UsageRecordPage> {
     if (params instanceof Function) {
       callback = params;
@@ -327,12 +336,12 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageRecordPage(operationVersion, payload, instance._solution)
+        new UsageRecordPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -342,7 +351,7 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UsageRecordPage) => any
+    callback?: (error: Error | null, items: UsageRecordPage) => any,
   ): Promise<UsageRecordPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -350,7 +359,7 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new UsageRecordPage(instance._version, payload, instance._solution)
+        new UsageRecordPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -360,7 +369,10 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     params?:
       | UsageRecordListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<UsageRecordPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<UsageRecordPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UsageRecordPage>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -397,21 +409,19 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<UsageRecordPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new UsageRecordPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<UsageRecordPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UsageRecordPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -425,8 +435,8 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<UsageRecordPage>
-    ) => any
+      items?: ApiResponse<UsageRecordPage>,
+    ) => any,
   ): Promise<ApiResponse<UsageRecordPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -441,9 +451,9 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
         body: new UsageRecordPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -455,7 +465,7 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -482,7 +492,10 @@ interface UsageRecordResource {
 }
 
 export class UsageRecordInstance {
-  constructor(protected _version: V1, payload: UsageRecordResource) {
+  constructor(
+    protected _version: V1,
+    payload: UsageRecordResource,
+  ) {
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
     this.networkSid = payload.network_sid;
@@ -583,7 +596,7 @@ export class UsageRecordPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: UsageRecordSolution
+    solution: UsageRecordSolution,
   ) {
     super(version, response, solution);
   }

@@ -70,7 +70,7 @@ export interface CustomOperatorListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomOperatorInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -117,7 +117,7 @@ export interface CustomOperatorContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -128,7 +128,7 @@ export interface CustomOperatorContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -139,7 +139,7 @@ export interface CustomOperatorContext {
    * @returns Resolves to processed CustomOperatorInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance>;
 
   /**
@@ -152,8 +152,8 @@ export interface CustomOperatorContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>>;
 
   /**
@@ -166,7 +166,7 @@ export interface CustomOperatorContext {
    */
   update(
     params: CustomOperatorContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance>;
 
   /**
@@ -181,8 +181,8 @@ export interface CustomOperatorContext {
     params: CustomOperatorContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>>;
 
   /**
@@ -200,7 +200,10 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
   protected _solution: CustomOperatorContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -210,7 +213,7 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -224,13 +227,13 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -239,22 +242,20 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -272,13 +273,13 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
         new CustomOperatorInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -286,8 +287,8 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -301,27 +302,25 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomOperatorInstance> => ({
-          ...response,
-          body: new CustomOperatorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorInstance> => ({
+        ...response,
+        body: new CustomOperatorInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: CustomOperatorContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -364,13 +363,13 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
         new CustomOperatorInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -379,8 +378,8 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
     params: CustomOperatorContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -419,20 +418,18 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomOperatorInstance> => ({
-          ...response,
-          body: new CustomOperatorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorInstance> => ({
+        ...response,
+        body: new CustomOperatorInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -477,7 +474,7 @@ export class CustomOperatorInstance {
   constructor(
     protected _version: V2,
     payload: CustomOperatorResource,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
@@ -492,7 +489,7 @@ export class CustomOperatorInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -556,7 +553,7 @@ export class CustomOperatorInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -569,7 +566,7 @@ export class CustomOperatorInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -582,7 +579,7 @@ export class CustomOperatorInstance {
    * @returns Resolves to processed CustomOperatorInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance> {
     return this._proxy.fetch(callback);
   }
@@ -597,8 +594,8 @@ export class CustomOperatorInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -613,12 +610,12 @@ export class CustomOperatorInstance {
    */
   update(
     params: CustomOperatorContextUpdateOptions,
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance> {
     return this._proxy.update(params, callback);
   }
@@ -635,16 +632,16 @@ export class CustomOperatorInstance {
     params: CustomOperatorContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -696,7 +693,7 @@ export interface CustomOperatorListInstance {
    */
   create(
     params: CustomOperatorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CustomOperatorInstance) => any
+    callback?: (error: Error | null, item?: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance>;
 
   /**
@@ -711,8 +708,8 @@ export interface CustomOperatorListInstance {
     params: CustomOperatorListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomOperatorInstance>
-    ) => any
+      item?: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>>;
 
   /**
@@ -733,15 +730,15 @@ export interface CustomOperatorListInstance {
   each(
     callback?: (
       item: CustomOperatorInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CustomOperatorListInstanceEachOptions,
     callback?: (
       item: CustomOperatorInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CustomOperatorInstance records from the API with HTTP metadata captured per page.
@@ -761,15 +758,15 @@ export interface CustomOperatorListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CustomOperatorInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CustomOperatorListInstanceEachOptions,
     callback?: (
       item: CustomOperatorInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CustomOperatorInstance records from the API.
@@ -781,7 +778,7 @@ export interface CustomOperatorListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CustomOperatorPage) => any
+    callback?: (error: Error | null, items: CustomOperatorPage) => any,
   ): Promise<CustomOperatorPage>;
   /**
    * Retrieve a single target page of CustomOperatorInstance records from the API with HTTP metadata.
@@ -795,8 +792,8 @@ export interface CustomOperatorListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorPage>
-    ) => any
+      items: ApiResponse<CustomOperatorPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorPage>>;
   /**
    * Lists CustomOperatorInstance records from the API as a list.
@@ -808,11 +805,11 @@ export interface CustomOperatorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CustomOperatorInstance[]) => any
+    callback?: (error: Error | null, items: CustomOperatorInstance[]) => any,
   ): Promise<CustomOperatorInstance[]>;
   list(
     params: CustomOperatorListInstanceOptions,
-    callback?: (error: Error | null, items: CustomOperatorInstance[]) => any
+    callback?: (error: Error | null, items: CustomOperatorInstance[]) => any,
   ): Promise<CustomOperatorInstance[]>;
   /**
    * Lists CustomOperatorInstance records from the API as a list with HTTP metadata.
@@ -828,15 +825,15 @@ export interface CustomOperatorListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorInstance[]>
-    ) => any
+      items: ApiResponse<CustomOperatorInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance[]>>;
   listWithHttpInfo(
     params: CustomOperatorListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorInstance[]>
-    ) => any
+      items: ApiResponse<CustomOperatorInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance[]>>;
   /**
    * Retrieve a single page of CustomOperatorInstance records from the API.
@@ -850,11 +847,11 @@ export interface CustomOperatorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CustomOperatorPage) => any
+    callback?: (error: Error | null, items: CustomOperatorPage) => any,
   ): Promise<CustomOperatorPage>;
   page(
     params: CustomOperatorListInstancePageOptions,
-    callback?: (error: Error | null, items: CustomOperatorPage) => any
+    callback?: (error: Error | null, items: CustomOperatorPage) => any,
   ): Promise<CustomOperatorPage>;
   /**
    * Retrieve a single page of CustomOperatorInstance records from the API with HTTP metadata.
@@ -870,15 +867,15 @@ export interface CustomOperatorListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorPage>
-    ) => any
+      items: ApiResponse<CustomOperatorPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorPage>>;
   pageWithHttpInfo(
     params: CustomOperatorListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorPage>
-    ) => any
+      items: ApiResponse<CustomOperatorPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorPage>>;
 
   /**
@@ -889,7 +886,7 @@ export interface CustomOperatorListInstance {
 }
 
 export function CustomOperatorListInstance(
-  version: V2
+  version: V2,
 ): CustomOperatorListInstance {
   const instance = ((sid) => instance.get(sid)) as CustomOperatorListInstance;
 
@@ -903,7 +900,7 @@ export function CustomOperatorListInstance(
 
   instance.create = function create(
     params: CustomOperatorListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CustomOperatorInstance) => any
+    callback?: (error: Error | null, items: CustomOperatorInstance) => any,
   ): Promise<CustomOperatorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -948,12 +945,12 @@ export function CustomOperatorListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CustomOperatorInstance(operationVersion, payload)
+      (payload) => new CustomOperatorInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -962,8 +959,8 @@ export function CustomOperatorListInstance(
     params: CustomOperatorListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorInstance>
-    ) => any
+      items: ApiResponse<CustomOperatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1008,16 +1005,14 @@ export function CustomOperatorListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomOperatorInstance> => ({
-          ...response,
-          body: new CustomOperatorInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorInstance> => ({
+        ...response,
+        body: new CustomOperatorInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1026,7 +1021,7 @@ export function CustomOperatorListInstance(
     params?:
       | CustomOperatorListInstancePageOptions
       | ((error: Error | null, items: CustomOperatorPage) => any),
-    callback?: (error: Error | null, items: CustomOperatorPage) => any
+    callback?: (error: Error | null, items: CustomOperatorPage) => any,
   ): Promise<CustomOperatorPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1059,12 +1054,12 @@ export function CustomOperatorListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CustomOperatorPage(operationVersion, payload, instance._solution)
+        new CustomOperatorPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1074,7 +1069,7 @@ export function CustomOperatorListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CustomOperatorPage) => any
+    callback?: (error: Error | null, items: CustomOperatorPage) => any,
   ): Promise<CustomOperatorPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1082,7 +1077,7 @@ export function CustomOperatorListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new CustomOperatorPage(instance._version, payload, instance._solution)
+        new CustomOperatorPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1094,8 +1089,8 @@ export function CustomOperatorListInstance(
       | ((error: Error | null, items: ApiResponse<CustomOperatorPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomOperatorPage>
-    ) => any
+      items: ApiResponse<CustomOperatorPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1124,21 +1119,19 @@ export function CustomOperatorListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CustomOperatorPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CustomOperatorPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomOperatorPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1152,8 +1145,8 @@ export function CustomOperatorListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CustomOperatorPage>
-    ) => any
+      items?: ApiResponse<CustomOperatorPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomOperatorPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1168,9 +1161,9 @@ export function CustomOperatorListInstance(
         body: new CustomOperatorPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1182,7 +1175,7 @@ export function CustomOperatorListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1206,7 +1199,7 @@ export class CustomOperatorPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: CustomOperatorSolution
+    solution: CustomOperatorSolution,
   ) {
     super(version, response, solution);
   }

@@ -151,7 +151,7 @@ export interface UsAppToPersonContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -162,7 +162,7 @@ export interface UsAppToPersonContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -173,7 +173,7 @@ export interface UsAppToPersonContext {
    * @returns Resolves to processed UsAppToPersonInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
   /**
    * Fetch a UsAppToPersonInstance
@@ -185,7 +185,7 @@ export interface UsAppToPersonContext {
    */
   fetch(
     params: UsAppToPersonContextFetchOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
 
   /**
@@ -198,8 +198,8 @@ export interface UsAppToPersonContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
   /**
    * Fetch a UsAppToPersonInstance and return HTTP info
@@ -213,8 +213,8 @@ export interface UsAppToPersonContext {
     params: UsAppToPersonContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   /**
@@ -227,7 +227,7 @@ export interface UsAppToPersonContext {
    */
   update(
     params: UsAppToPersonContextUpdateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
 
   /**
@@ -242,8 +242,8 @@ export interface UsAppToPersonContext {
     params: UsAppToPersonContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   /**
@@ -265,7 +265,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   constructor(
     protected _version: V1,
     messagingServiceSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(messagingServiceSid)) {
       throw new Error("Parameter 'messagingServiceSid' is not valid.");
@@ -280,7 +280,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -294,13 +294,13 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -309,16 +309,14 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -327,13 +325,13 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     params?:
       | UsAppToPersonContextFetchOptions
       | ((error: Error | null, item?: UsAppToPersonInstance) => any),
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -358,13 +356,13 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
           operationVersion,
           payload,
           instance._solution.messagingServiceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -374,18 +372,18 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       | UsAppToPersonContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<UsAppToPersonInstance>
+          item?: ApiResponse<UsAppToPersonInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,28 +403,26 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<UsAppToPersonInstance> => ({
-          ...response,
-          body: new UsAppToPersonInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UsAppToPersonInstance> => ({
+        ...response,
+        body: new UsAppToPersonInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: UsAppToPersonContextUpdateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -437,7 +433,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["hasEmbeddedLinks"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+        "Required parameter \"params['hasEmbeddedLinks']\" missing.",
       );
     }
 
@@ -446,7 +442,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["hasEmbeddedPhone"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+        "Required parameter \"params['hasEmbeddedPhone']\" missing.",
       );
     }
 
@@ -455,7 +451,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["messageSamples"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messageSamples']\" missing."
+        "Required parameter \"params['messageSamples']\" missing.",
       );
     }
 
@@ -476,7 +472,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["directLending"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['directLending']\" missing."
+        "Required parameter \"params['directLending']\" missing.",
       );
     }
 
@@ -488,7 +484,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
 
     data["MessageSamples"] = serialize.map(
       params["messageSamples"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["MessageFlow"] = params["messageFlow"];
@@ -524,13 +520,13 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
           operationVersion,
           payload,
           instance._solution.messagingServiceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -539,8 +535,8 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     params: UsAppToPersonContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -551,7 +547,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["hasEmbeddedLinks"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+        "Required parameter \"params['hasEmbeddedLinks']\" missing.",
       );
     }
 
@@ -560,7 +556,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["hasEmbeddedPhone"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+        "Required parameter \"params['hasEmbeddedPhone']\" missing.",
       );
     }
 
@@ -569,7 +565,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["messageSamples"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messageSamples']\" missing."
+        "Required parameter \"params['messageSamples']\" missing.",
       );
     }
 
@@ -590,7 +586,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
       params["directLending"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['directLending']\" missing."
+        "Required parameter \"params['directLending']\" missing.",
       );
     }
 
@@ -602,7 +598,7 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
 
     data["MessageSamples"] = serialize.map(
       params["messageSamples"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["MessageFlow"] = params["messageFlow"];
@@ -633,21 +629,19 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<UsAppToPersonInstance> => ({
-          ...response,
-          body: new UsAppToPersonInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UsAppToPersonInstance> => ({
+        ...response,
+        body: new UsAppToPersonInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -711,7 +705,7 @@ export class UsAppToPersonInstance {
     protected _version: V1,
     payload: UsAppToPersonResource,
     messagingServiceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -744,7 +738,7 @@ export class UsAppToPersonInstance {
     this.privacyPolicyUrl = payload.privacy_policy_url;
     this.termsAndConditionsUrl = payload.terms_and_conditions_url;
 
-    this._solution = { messagingServiceSid, sid: sid || this.sid };
+    this._solution = { messagingServiceSid, sid: sid };
   }
 
   /**
@@ -874,7 +868,7 @@ export class UsAppToPersonInstance {
       new UsAppToPersonContextImpl(
         this._version,
         this._solution.messagingServiceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -887,7 +881,7 @@ export class UsAppToPersonInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -900,7 +894,7 @@ export class UsAppToPersonInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -913,7 +907,7 @@ export class UsAppToPersonInstance {
    * @returns Resolves to processed UsAppToPersonInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
   /**
    * Fetch a UsAppToPersonInstance
@@ -925,12 +919,12 @@ export class UsAppToPersonInstance {
    */
   fetch(
     params: UsAppToPersonContextFetchOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -945,8 +939,8 @@ export class UsAppToPersonInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
   /**
    * Fetch a UsAppToPersonInstance and return HTTP info
@@ -960,16 +954,16 @@ export class UsAppToPersonInstance {
     params: UsAppToPersonContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -984,12 +978,12 @@ export class UsAppToPersonInstance {
    */
   update(
     params: UsAppToPersonContextUpdateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance> {
     return this._proxy.update(params, callback);
   }
@@ -1006,16 +1000,16 @@ export class UsAppToPersonInstance {
     params: UsAppToPersonContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -1087,7 +1081,7 @@ export interface UsAppToPersonListInstance {
    */
   create(
     params: UsAppToPersonListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance>;
 
   /**
@@ -1102,8 +1096,8 @@ export interface UsAppToPersonListInstance {
     params: UsAppToPersonListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      item?: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>>;
 
   /**
@@ -1124,15 +1118,15 @@ export interface UsAppToPersonListInstance {
   each(
     callback?: (
       item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: UsAppToPersonListInstanceEachOptions,
     callback?: (
       item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams UsAppToPersonInstance records from the API with HTTP metadata captured per page.
@@ -1152,15 +1146,15 @@ export interface UsAppToPersonListInstance {
   eachWithHttpInfo(
     callback?: (
       item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: UsAppToPersonListInstanceEachOptions,
     callback?: (
       item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of UsAppToPersonInstance records from the API.
@@ -1172,7 +1166,7 @@ export interface UsAppToPersonListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any,
   ): Promise<UsAppToPersonPage>;
   /**
    * Retrieve a single target page of UsAppToPersonInstance records from the API with HTTP metadata.
@@ -1186,8 +1180,8 @@ export interface UsAppToPersonListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonPage>
-    ) => any
+      items: ApiResponse<UsAppToPersonPage>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonPage>>;
   /**
    * Lists UsAppToPersonInstance records from the API as a list.
@@ -1199,11 +1193,11 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
+    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any,
   ): Promise<UsAppToPersonInstance[]>;
   list(
     params: UsAppToPersonListInstanceOptions,
-    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
+    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any,
   ): Promise<UsAppToPersonInstance[]>;
   /**
    * Lists UsAppToPersonInstance records from the API as a list with HTTP metadata.
@@ -1219,15 +1213,15 @@ export interface UsAppToPersonListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonInstance[]>
-    ) => any
+      items: ApiResponse<UsAppToPersonInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance[]>>;
   listWithHttpInfo(
     params: UsAppToPersonListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonInstance[]>
-    ) => any
+      items: ApiResponse<UsAppToPersonInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance[]>>;
   /**
    * Retrieve a single page of UsAppToPersonInstance records from the API.
@@ -1241,11 +1235,11 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any,
   ): Promise<UsAppToPersonPage>;
   page(
     params: UsAppToPersonListInstancePageOptions,
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any,
   ): Promise<UsAppToPersonPage>;
   /**
    * Retrieve a single page of UsAppToPersonInstance records from the API with HTTP metadata.
@@ -1261,15 +1255,15 @@ export interface UsAppToPersonListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonPage>
-    ) => any
+      items: ApiResponse<UsAppToPersonPage>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonPage>>;
   pageWithHttpInfo(
     params: UsAppToPersonListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonPage>
-    ) => any
+      items: ApiResponse<UsAppToPersonPage>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonPage>>;
 
   /**
@@ -1281,7 +1275,7 @@ export interface UsAppToPersonListInstance {
 
 export function UsAppToPersonListInstance(
   version: V1,
-  messagingServiceSid: string
+  messagingServiceSid: string,
 ): UsAppToPersonListInstance {
   if (!isValidPathParam(messagingServiceSid)) {
     throw new Error("Parameter 'messagingServiceSid' is not valid.");
@@ -1299,7 +1293,7 @@ export function UsAppToPersonListInstance(
 
   instance.create = function create(
     params: UsAppToPersonListInstanceCreateOptions,
-    callback?: (error: Error | null, items: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, items: UsAppToPersonInstance) => any,
   ): Promise<UsAppToPersonInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1310,7 +1304,7 @@ export function UsAppToPersonListInstance(
       params["brandRegistrationSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['brandRegistrationSid']\" missing."
+        "Required parameter \"params['brandRegistrationSid']\" missing.",
       );
     }
 
@@ -1327,7 +1321,7 @@ export function UsAppToPersonListInstance(
       params["messageSamples"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messageSamples']\" missing."
+        "Required parameter \"params['messageSamples']\" missing.",
       );
     }
 
@@ -1336,7 +1330,7 @@ export function UsAppToPersonListInstance(
       params["usAppToPersonUsecase"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['usAppToPersonUsecase']\" missing."
+        "Required parameter \"params['usAppToPersonUsecase']\" missing.",
       );
     }
 
@@ -1345,7 +1339,7 @@ export function UsAppToPersonListInstance(
       params["hasEmbeddedLinks"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+        "Required parameter \"params['hasEmbeddedLinks']\" missing.",
       );
     }
 
@@ -1354,7 +1348,7 @@ export function UsAppToPersonListInstance(
       params["hasEmbeddedPhone"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+        "Required parameter \"params['hasEmbeddedPhone']\" missing.",
       );
     }
 
@@ -1368,7 +1362,7 @@ export function UsAppToPersonListInstance(
 
     data["MessageSamples"] = serialize.map(
       params["messageSamples"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
@@ -1385,17 +1379,17 @@ export function UsAppToPersonListInstance(
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["optOutKeywords"] !== undefined)
       data["OptOutKeywords"] = serialize.map(
         params["optOutKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["helpKeywords"] !== undefined)
       data["HelpKeywords"] = serialize.map(
         params["helpKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["subscriberOptIn"] !== undefined)
       data["SubscriberOptIn"] = serialize.bool(params["subscriberOptIn"]);
@@ -1427,13 +1421,13 @@ export function UsAppToPersonListInstance(
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          instance._solution.messagingServiceSid
-        )
+          instance._solution.messagingServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1442,8 +1436,8 @@ export function UsAppToPersonListInstance(
     params: UsAppToPersonListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonInstance>
-    ) => any
+      items: ApiResponse<UsAppToPersonInstance>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1454,7 +1448,7 @@ export function UsAppToPersonListInstance(
       params["brandRegistrationSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['brandRegistrationSid']\" missing."
+        "Required parameter \"params['brandRegistrationSid']\" missing.",
       );
     }
 
@@ -1471,7 +1465,7 @@ export function UsAppToPersonListInstance(
       params["messageSamples"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messageSamples']\" missing."
+        "Required parameter \"params['messageSamples']\" missing.",
       );
     }
 
@@ -1480,7 +1474,7 @@ export function UsAppToPersonListInstance(
       params["usAppToPersonUsecase"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['usAppToPersonUsecase']\" missing."
+        "Required parameter \"params['usAppToPersonUsecase']\" missing.",
       );
     }
 
@@ -1489,7 +1483,7 @@ export function UsAppToPersonListInstance(
       params["hasEmbeddedLinks"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+        "Required parameter \"params['hasEmbeddedLinks']\" missing.",
       );
     }
 
@@ -1498,7 +1492,7 @@ export function UsAppToPersonListInstance(
       params["hasEmbeddedPhone"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+        "Required parameter \"params['hasEmbeddedPhone']\" missing.",
       );
     }
 
@@ -1512,7 +1506,7 @@ export function UsAppToPersonListInstance(
 
     data["MessageSamples"] = serialize.map(
       params["messageSamples"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
@@ -1529,17 +1523,17 @@ export function UsAppToPersonListInstance(
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["optOutKeywords"] !== undefined)
       data["OptOutKeywords"] = serialize.map(
         params["optOutKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["helpKeywords"] !== undefined)
       data["HelpKeywords"] = serialize.map(
         params["helpKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["subscriberOptIn"] !== undefined)
       data["SubscriberOptIn"] = serialize.bool(params["subscriberOptIn"]);
@@ -1567,20 +1561,18 @@ export function UsAppToPersonListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<UsAppToPersonInstance> => ({
-          ...response,
-          body: new UsAppToPersonInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UsAppToPersonInstance> => ({
+        ...response,
+        body: new UsAppToPersonInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1589,7 +1581,7 @@ export function UsAppToPersonListInstance(
     params?:
       | UsAppToPersonListInstancePageOptions
       | ((error: Error | null, items: UsAppToPersonPage) => any),
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any,
   ): Promise<UsAppToPersonPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1620,12 +1612,12 @@ export function UsAppToPersonListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsAppToPersonPage(operationVersion, payload, instance._solution)
+        new UsAppToPersonPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1635,7 +1627,7 @@ export function UsAppToPersonListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any,
   ): Promise<UsAppToPersonPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1643,7 +1635,7 @@ export function UsAppToPersonListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new UsAppToPersonPage(instance._version, payload, instance._solution)
+        new UsAppToPersonPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1655,8 +1647,8 @@ export function UsAppToPersonListInstance(
       | ((error: Error | null, items: ApiResponse<UsAppToPersonPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonPage>
-    ) => any
+      items: ApiResponse<UsAppToPersonPage>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1683,21 +1675,19 @@ export function UsAppToPersonListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<UsAppToPersonPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new UsAppToPersonPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<UsAppToPersonPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UsAppToPersonPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1711,8 +1701,8 @@ export function UsAppToPersonListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<UsAppToPersonPage>
-    ) => any
+      items?: ApiResponse<UsAppToPersonPage>,
+    ) => any,
   ): Promise<ApiResponse<UsAppToPersonPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1727,9 +1717,9 @@ export function UsAppToPersonListInstance(
         body: new UsAppToPersonPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1741,7 +1731,7 @@ export function UsAppToPersonListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1765,7 +1755,7 @@ export class UsAppToPersonPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: UsAppToPersonSolution
+    solution: UsAppToPersonSolution,
   ) {
     super(version, response, solution);
   }
@@ -1779,7 +1769,7 @@ export class UsAppToPersonPage extends Page<
     return new UsAppToPersonInstance(
       this._version,
       payload,
-      this._solution.messagingServiceSid
+      this._solution.messagingServiceSid,
     );
   }
 

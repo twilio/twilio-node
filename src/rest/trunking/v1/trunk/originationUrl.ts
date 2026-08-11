@@ -63,7 +63,7 @@ export interface OriginationUrlListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: OriginationUrlInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -102,7 +102,7 @@ export interface OriginationUrlContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -113,7 +113,7 @@ export interface OriginationUrlContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -124,7 +124,7 @@ export interface OriginationUrlContext {
    * @returns Resolves to processed OriginationUrlInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance>;
 
   /**
@@ -137,8 +137,8 @@ export interface OriginationUrlContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>>;
 
   /**
@@ -149,7 +149,7 @@ export interface OriginationUrlContext {
    * @returns Resolves to processed OriginationUrlInstance
    */
   update(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance>;
   /**
    * Update a OriginationUrlInstance
@@ -161,7 +161,7 @@ export interface OriginationUrlContext {
    */
   update(
     params: OriginationUrlContextUpdateOptions,
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance>;
 
   /**
@@ -174,8 +174,8 @@ export interface OriginationUrlContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>>;
   /**
    * Update a OriginationUrlInstance and return HTTP info
@@ -189,8 +189,8 @@ export interface OriginationUrlContext {
     params: OriginationUrlContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>>;
 
   /**
@@ -209,7 +209,11 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   protected _solution: OriginationUrlContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, trunkSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    trunkSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(trunkSid)) {
       throw new Error("Parameter 'trunkSid' is not valid.");
     }
@@ -223,7 +227,7 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -237,13 +241,13 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -252,22 +256,20 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -286,13 +288,13 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
           operationVersion,
           payload,
           instance._solution.trunkSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -300,8 +302,8 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -315,21 +317,19 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<OriginationUrlInstance> => ({
-          ...response,
-          body: new OriginationUrlInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trunkSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<OriginationUrlInstance> => ({
+        ...response,
+        body: new OriginationUrlInstance(
+          operationVersion,
+          response.body,
+          instance._solution.trunkSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -338,13 +338,13 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     params?:
       | OriginationUrlContextUpdateOptions
       | ((error: Error | null, item?: OriginationUrlInstance) => any),
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -376,13 +376,13 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
           operationVersion,
           payload,
           instance._solution.trunkSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -392,18 +392,18 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
       | OriginationUrlContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<OriginationUrlInstance>
+          item?: ApiResponse<OriginationUrlInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -430,21 +430,19 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<OriginationUrlInstance> => ({
-          ...response,
-          body: new OriginationUrlInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trunkSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<OriginationUrlInstance> => ({
+        ...response,
+        body: new OriginationUrlInstance(
+          operationVersion,
+          response.body,
+          instance._solution.trunkSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -489,7 +487,7 @@ export class OriginationUrlInstance {
     protected _version: V1,
     payload: OriginationUrlResource,
     trunkSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
@@ -503,7 +501,7 @@ export class OriginationUrlInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { trunkSid, sid: sid || this.sid };
+    this._solution = { trunkSid, sid: sid };
   }
 
   /**
@@ -557,7 +555,7 @@ export class OriginationUrlInstance {
       new OriginationUrlContextImpl(
         this._version,
         this._solution.trunkSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -570,7 +568,7 @@ export class OriginationUrlInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -583,7 +581,7 @@ export class OriginationUrlInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -596,7 +594,7 @@ export class OriginationUrlInstance {
    * @returns Resolves to processed OriginationUrlInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance> {
     return this._proxy.fetch(callback);
   }
@@ -611,8 +609,8 @@ export class OriginationUrlInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -625,7 +623,7 @@ export class OriginationUrlInstance {
    * @returns Resolves to processed OriginationUrlInstance
    */
   update(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance>;
   /**
    * Update a OriginationUrlInstance
@@ -637,12 +635,12 @@ export class OriginationUrlInstance {
    */
   update(
     params: OriginationUrlContextUpdateOptions,
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance> {
     return this._proxy.update(params, callback);
   }
@@ -657,8 +655,8 @@ export class OriginationUrlInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>>;
   /**
    * Update a OriginationUrlInstance and return HTTP info
@@ -672,16 +670,16 @@ export class OriginationUrlInstance {
     params: OriginationUrlContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -734,7 +732,7 @@ export interface OriginationUrlListInstance {
    */
   create(
     params: OriginationUrlListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance>;
 
   /**
@@ -749,8 +747,8 @@ export interface OriginationUrlListInstance {
     params: OriginationUrlListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OriginationUrlInstance>
-    ) => any
+      item?: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>>;
 
   /**
@@ -771,15 +769,15 @@ export interface OriginationUrlListInstance {
   each(
     callback?: (
       item: OriginationUrlInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: OriginationUrlListInstanceEachOptions,
     callback?: (
       item: OriginationUrlInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams OriginationUrlInstance records from the API with HTTP metadata captured per page.
@@ -799,15 +797,15 @@ export interface OriginationUrlListInstance {
   eachWithHttpInfo(
     callback?: (
       item: OriginationUrlInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: OriginationUrlListInstanceEachOptions,
     callback?: (
       item: OriginationUrlInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
@@ -819,7 +817,7 @@ export interface OriginationUrlListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
+    callback?: (error: Error | null, items: OriginationUrlPage) => any,
   ): Promise<OriginationUrlPage>;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API with HTTP metadata.
@@ -833,8 +831,8 @@ export interface OriginationUrlListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlPage>
-    ) => any
+      items: ApiResponse<OriginationUrlPage>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlPage>>;
   /**
    * Lists OriginationUrlInstance records from the API as a list.
@@ -846,11 +844,11 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
+    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any,
   ): Promise<OriginationUrlInstance[]>;
   list(
     params: OriginationUrlListInstanceOptions,
-    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
+    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any,
   ): Promise<OriginationUrlInstance[]>;
   /**
    * Lists OriginationUrlInstance records from the API as a list with HTTP metadata.
@@ -866,15 +864,15 @@ export interface OriginationUrlListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlInstance[]>
-    ) => any
+      items: ApiResponse<OriginationUrlInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance[]>>;
   listWithHttpInfo(
     params: OriginationUrlListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlInstance[]>
-    ) => any
+      items: ApiResponse<OriginationUrlInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance[]>>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
@@ -888,11 +886,11 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
+    callback?: (error: Error | null, items: OriginationUrlPage) => any,
   ): Promise<OriginationUrlPage>;
   page(
     params: OriginationUrlListInstancePageOptions,
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
+    callback?: (error: Error | null, items: OriginationUrlPage) => any,
   ): Promise<OriginationUrlPage>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API with HTTP metadata.
@@ -908,15 +906,15 @@ export interface OriginationUrlListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlPage>
-    ) => any
+      items: ApiResponse<OriginationUrlPage>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlPage>>;
   pageWithHttpInfo(
     params: OriginationUrlListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlPage>
-    ) => any
+      items: ApiResponse<OriginationUrlPage>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlPage>>;
 
   /**
@@ -928,7 +926,7 @@ export interface OriginationUrlListInstance {
 
 export function OriginationUrlListInstance(
   version: V1,
-  trunkSid: string
+  trunkSid: string,
 ): OriginationUrlListInstance {
   if (!isValidPathParam(trunkSid)) {
     throw new Error("Parameter 'trunkSid' is not valid.");
@@ -946,7 +944,7 @@ export function OriginationUrlListInstance(
 
   instance.create = function create(
     params: OriginationUrlListInstanceCreateOptions,
-    callback?: (error: Error | null, items: OriginationUrlInstance) => any
+    callback?: (error: Error | null, items: OriginationUrlInstance) => any,
   ): Promise<OriginationUrlInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1004,13 +1002,13 @@ export function OriginationUrlListInstance(
         new OriginationUrlInstance(
           operationVersion,
           payload,
-          instance._solution.trunkSid
-        )
+          instance._solution.trunkSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1019,8 +1017,8 @@ export function OriginationUrlListInstance(
     params: OriginationUrlListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlInstance>
-    ) => any
+      items: ApiResponse<OriginationUrlInstance>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1074,20 +1072,18 @@ export function OriginationUrlListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<OriginationUrlInstance> => ({
-          ...response,
-          body: new OriginationUrlInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trunkSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<OriginationUrlInstance> => ({
+        ...response,
+        body: new OriginationUrlInstance(
+          operationVersion,
+          response.body,
+          instance._solution.trunkSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1096,7 +1092,7 @@ export function OriginationUrlListInstance(
     params?:
       | OriginationUrlListInstancePageOptions
       | ((error: Error | null, items: OriginationUrlPage) => any),
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
+    callback?: (error: Error | null, items: OriginationUrlPage) => any,
   ): Promise<OriginationUrlPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1125,12 +1121,12 @@ export function OriginationUrlListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OriginationUrlPage(operationVersion, payload, instance._solution)
+        new OriginationUrlPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1140,7 +1136,7 @@ export function OriginationUrlListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
+    callback?: (error: Error | null, items: OriginationUrlPage) => any,
   ): Promise<OriginationUrlPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1148,7 +1144,7 @@ export function OriginationUrlListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new OriginationUrlPage(instance._version, payload, instance._solution)
+        new OriginationUrlPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1160,8 +1156,8 @@ export function OriginationUrlListInstance(
       | ((error: Error | null, items: ApiResponse<OriginationUrlPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<OriginationUrlPage>
-    ) => any
+      items: ApiResponse<OriginationUrlPage>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1186,21 +1182,19 @@ export function OriginationUrlListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<OriginationUrlPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new OriginationUrlPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<OriginationUrlPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new OriginationUrlPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1214,8 +1208,8 @@ export function OriginationUrlListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<OriginationUrlPage>
-    ) => any
+      items?: ApiResponse<OriginationUrlPage>,
+    ) => any,
   ): Promise<ApiResponse<OriginationUrlPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1230,9 +1224,9 @@ export function OriginationUrlListInstance(
         body: new OriginationUrlPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1244,7 +1238,7 @@ export function OriginationUrlListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1268,7 +1262,7 @@ export class OriginationUrlPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: OriginationUrlSolution
+    solution: OriginationUrlSolution,
   ) {
     super(version, response, solution);
   }
@@ -1282,7 +1276,7 @@ export class OriginationUrlPage extends Page<
     return new OriginationUrlInstance(
       this._version,
       payload,
-      this._solution.trunkSid
+      this._solution.trunkSid,
     );
   }
 

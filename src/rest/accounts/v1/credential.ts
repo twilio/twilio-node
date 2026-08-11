@@ -71,7 +71,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

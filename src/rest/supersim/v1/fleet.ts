@@ -122,7 +122,7 @@ export interface FleetContext {
    * @returns Resolves to processed FleetInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance>;
 
   /**
@@ -133,7 +133,7 @@ export interface FleetContext {
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>>;
 
   /**
@@ -144,7 +144,7 @@ export interface FleetContext {
    * @returns Resolves to processed FleetInstance
    */
   update(
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance>;
   /**
    * Update a FleetInstance
@@ -156,7 +156,7 @@ export interface FleetContext {
    */
   update(
     params: FleetContextUpdateOptions,
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance>;
 
   /**
@@ -167,7 +167,7 @@ export interface FleetContext {
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>>;
   /**
    * Update a FleetInstance and return HTTP info
@@ -179,7 +179,7 @@ export interface FleetContext {
    */
   updateWithHttpInfo(
     params: FleetContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>>;
 
   /**
@@ -197,7 +197,10 @@ export class FleetContextImpl implements FleetContext {
   protected _solution: FleetContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -207,7 +210,7 @@ export class FleetContextImpl implements FleetContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -222,18 +225,18 @@ export class FleetContextImpl implements FleetContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FleetInstance(operationVersion, payload, instance._solution.sid)
+        new FleetInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -247,20 +250,18 @@ export class FleetContextImpl implements FleetContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FleetInstance> => ({
-          ...response,
-          body: new FleetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -269,13 +270,13 @@ export class FleetContextImpl implements FleetContext {
     params?:
       | FleetContextUpdateOptions
       | ((error: Error | null, item?: FleetInstance) => any),
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -310,12 +311,12 @@ export class FleetContextImpl implements FleetContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FleetInstance(operationVersion, payload, instance._solution.sid)
+        new FleetInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -324,13 +325,13 @@ export class FleetContextImpl implements FleetContext {
     params?:
       | FleetContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<FleetInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -364,20 +365,18 @@ export class FleetContextImpl implements FleetContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FleetInstance> => ({
-          ...response,
-          body: new FleetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -422,7 +421,11 @@ export class FleetInstance {
   protected _solution: FleetContextSolution;
   protected _context?: FleetContext;
 
-  constructor(protected _version: V1, payload: FleetResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: FleetResource,
+    sid?: string,
+  ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
@@ -439,7 +442,7 @@ export class FleetInstance {
     this.ipCommandsUrl = payload.ip_commands_url;
     this.ipCommandsMethod = payload.ip_commands_method;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -514,7 +517,7 @@ export class FleetInstance {
    * @returns Resolves to processed FleetInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance> {
     return this._proxy.fetch(callback);
   }
@@ -527,7 +530,7 @@ export class FleetInstance {
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -540,7 +543,7 @@ export class FleetInstance {
    * @returns Resolves to processed FleetInstance
    */
   update(
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance>;
   /**
    * Update a FleetInstance
@@ -552,12 +555,12 @@ export class FleetInstance {
    */
   update(
     params: FleetContextUpdateOptions,
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);
   }
@@ -570,7 +573,7 @@ export class FleetInstance {
    * @returns Resolves to processed FleetInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>>;
   /**
    * Update a FleetInstance and return HTTP info
@@ -582,12 +585,12 @@ export class FleetInstance {
    */
   updateWithHttpInfo(
     params: FleetContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -642,7 +645,7 @@ export interface FleetListInstance {
    */
   create(
     params: FleetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, item?: FleetInstance) => any,
   ): Promise<FleetInstance>;
 
   /**
@@ -655,7 +658,7 @@ export interface FleetListInstance {
    */
   createWithHttpInfo(
     params: FleetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>>;
 
   /**
@@ -674,11 +677,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: FleetListInstanceEachOptions,
-    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams FleetInstance records from the API with HTTP metadata captured per page.
@@ -696,11 +699,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: FleetListInstanceEachOptions,
-    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of FleetInstance records from the API.
@@ -712,7 +715,7 @@ export interface FleetListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FleetPage) => any
+    callback?: (error: Error | null, items: FleetPage) => any,
   ): Promise<FleetPage>;
   /**
    * Retrieve a single target page of FleetInstance records from the API with HTTP metadata.
@@ -724,7 +727,7 @@ export interface FleetListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
   ): Promise<ApiResponse<FleetPage>>;
   /**
    * Lists FleetInstance records from the API as a list.
@@ -736,11 +739,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: FleetInstance[]) => any
+    callback?: (error: Error | null, items: FleetInstance[]) => any,
   ): Promise<FleetInstance[]>;
   list(
     params: FleetListInstanceOptions,
-    callback?: (error: Error | null, items: FleetInstance[]) => any
+    callback?: (error: Error | null, items: FleetInstance[]) => any,
   ): Promise<FleetInstance[]>;
   /**
    * Lists FleetInstance records from the API as a list with HTTP metadata.
@@ -754,11 +757,17 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<FleetInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FleetInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FleetInstance[]>>;
   listWithHttpInfo(
     params: FleetListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<FleetInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<FleetInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FleetInstance[]>>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
@@ -772,11 +781,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: FleetPage) => any
+    callback?: (error: Error | null, items: FleetPage) => any,
   ): Promise<FleetPage>;
   page(
     params: FleetListInstancePageOptions,
-    callback?: (error: Error | null, items: FleetPage) => any
+    callback?: (error: Error | null, items: FleetPage) => any,
   ): Promise<FleetPage>;
   /**
    * Retrieve a single page of FleetInstance records from the API with HTTP metadata.
@@ -790,11 +799,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
   ): Promise<ApiResponse<FleetPage>>;
   pageWithHttpInfo(
     params: FleetListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
   ): Promise<ApiResponse<FleetPage>>;
 
   /**
@@ -817,7 +826,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
   instance.create = function create(
     params: FleetListInstanceCreateOptions,
-    callback?: (error: Error | null, items: FleetInstance) => any
+    callback?: (error: Error | null, items: FleetInstance) => any,
   ): Promise<FleetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -828,7 +837,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
       params["networkAccessProfile"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['networkAccessProfile']\" missing."
+        "Required parameter \"params['networkAccessProfile']\" missing.",
       );
     }
 
@@ -865,19 +874,19 @@ export function FleetListInstance(version: V1): FleetListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FleetInstance(operationVersion, payload)
+      (payload) => new FleetInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: FleetListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<FleetInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<FleetInstance>) => any,
   ): Promise<ApiResponse<FleetInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -888,7 +897,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
       params["networkAccessProfile"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['networkAccessProfile']\" missing."
+        "Required parameter \"params['networkAccessProfile']\" missing.",
       );
     }
 
@@ -925,16 +934,14 @@ export function FleetListInstance(version: V1): FleetListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FleetInstance> => ({
-          ...response,
-          body: new FleetInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -943,7 +950,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
     params?:
       | FleetListInstancePageOptions
       | ((error: Error | null, items: FleetPage) => any),
-    callback?: (error: Error | null, items: FleetPage) => any
+    callback?: (error: Error | null, items: FleetPage) => any,
   ): Promise<FleetPage> {
     if (params instanceof Function) {
       callback = params;
@@ -973,12 +980,12 @@ export function FleetListInstance(version: V1): FleetListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FleetPage(operationVersion, payload, instance._solution)
+      (payload) => new FleetPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -988,14 +995,15 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FleetPage) => any
+    callback?: (error: Error | null, items: FleetPage) => any,
   ): Promise<FleetPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new FleetPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new FleetPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1005,7 +1013,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
     params?:
       | FleetListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<FleetPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FleetPage>) => any,
   ): Promise<ApiResponse<FleetPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1032,17 +1040,15 @@ export function FleetListInstance(version: V1): FleetListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FleetPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FleetPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<FleetPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FleetPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1054,7 +1060,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<FleetPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<FleetPage>) => any,
   ): Promise<ApiResponse<FleetPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1067,7 +1073,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new FleetPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1079,7 +1085,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1103,7 +1109,7 @@ export class FleetPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: FleetSolution
+    solution: FleetSolution,
   ) {
     super(version, response, solution);
   }

@@ -298,7 +298,7 @@ export interface OperatorResultListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: OperatorResultInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -349,7 +349,7 @@ export interface OperatorResultContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -360,7 +360,7 @@ export interface OperatorResultContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -371,7 +371,7 @@ export interface OperatorResultContext {
    * @returns Resolves to processed OperatorResultInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OperatorResultInstance) => any
+    callback?: (error: Error | null, item?: OperatorResultInstance) => any,
   ): Promise<OperatorResultInstance>;
 
   /**
@@ -384,8 +384,8 @@ export interface OperatorResultContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperatorResultInstance>
-    ) => any
+      item?: ApiResponse<OperatorResultInstance>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultInstance>>;
 
   /**
@@ -403,7 +403,10 @@ export class OperatorResultContextImpl implements OperatorResultContext {
   protected _solution: OperatorResultContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V3, operatorResultId: string) {
+  constructor(
+    protected _version: V3,
+    operatorResultId: string,
+  ) {
     if (!isValidPathParam(operatorResultId)) {
       throw new Error("Parameter 'operatorResultId' is not valid.");
     }
@@ -413,7 +416,7 @@ export class OperatorResultContextImpl implements OperatorResultContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -427,13 +430,13 @@ export class OperatorResultContextImpl implements OperatorResultContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -442,22 +445,20 @@ export class OperatorResultContextImpl implements OperatorResultContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: OperatorResultInstance) => any
+    callback?: (error: Error | null, item?: OperatorResultInstance) => any,
   ): Promise<OperatorResultInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -475,13 +476,13 @@ export class OperatorResultContextImpl implements OperatorResultContext {
         new OperatorResultInstance(
           operationVersion,
           payload,
-          instance._solution.operatorResultId
-        )
+          instance._solution.operatorResultId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -489,8 +490,8 @@ export class OperatorResultContextImpl implements OperatorResultContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperatorResultInstance>
-    ) => any
+      item?: ApiResponse<OperatorResultInstance>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -504,20 +505,18 @@ export class OperatorResultContextImpl implements OperatorResultContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<OperatorResultInstance> => ({
-          ...response,
-          body: new OperatorResultInstance(
-            operationVersion,
-            response.body,
-            instance._solution.operatorResultId
-          ),
-        })
-      );
+      .then((response): ApiResponse<OperatorResultInstance> => ({
+        ...response,
+        body: new OperatorResultInstance(
+          operationVersion,
+          response.body,
+          instance._solution.operatorResultId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -561,7 +560,7 @@ export class OperatorResultInstance {
   constructor(
     protected _version: V3,
     _payload: OperatorResultResource,
-    operatorResultId?: string
+    operatorResultId?: string,
   ) {
     const payload = _payload;
     this.outputFormat = payload.outputFormat;
@@ -571,7 +570,7 @@ export class OperatorResultInstance {
       payload.intelligenceConfiguration !== null &&
       payload.intelligenceConfiguration !== undefined
         ? new IntelligenceConfigurationReference(
-            payload.intelligenceConfiguration
+            payload.intelligenceConfiguration,
           )
         : null;
     this.conversationId = payload.conversationId;
@@ -633,7 +632,7 @@ export class OperatorResultInstance {
       this._context ||
       new OperatorResultContextImpl(
         this._version,
-        this._solution.operatorResultId
+        this._solution.operatorResultId,
       );
     return this._context;
   }
@@ -646,7 +645,7 @@ export class OperatorResultInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -659,7 +658,7 @@ export class OperatorResultInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -672,7 +671,7 @@ export class OperatorResultInstance {
    * @returns Resolves to processed OperatorResultInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OperatorResultInstance) => any
+    callback?: (error: Error | null, item?: OperatorResultInstance) => any,
   ): Promise<OperatorResultInstance> {
     return this._proxy.fetch(callback);
   }
@@ -687,8 +686,8 @@ export class OperatorResultInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperatorResultInstance>
-    ) => any
+      item?: ApiResponse<OperatorResultInstance>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -747,15 +746,15 @@ export interface OperatorResultListInstance {
   each(
     callback?: (
       item: OperatorResultInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: OperatorResultListInstanceEachOptions,
     callback?: (
       item: OperatorResultInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams OperatorResultInstance records from the API with HTTP metadata captured per page.
@@ -775,15 +774,15 @@ export interface OperatorResultListInstance {
   eachWithHttpInfo(
     callback?: (
       item: OperatorResultInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: OperatorResultListInstanceEachOptions,
     callback?: (
       item: OperatorResultInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of OperatorResultInstance records from the API.
@@ -795,7 +794,7 @@ export interface OperatorResultListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: OperatorResultPage) => any
+    callback?: (error: Error | null, items: OperatorResultPage) => any,
   ): Promise<OperatorResultPage>;
   /**
    * Retrieve a single target page of OperatorResultInstance records from the API with HTTP metadata.
@@ -809,8 +808,8 @@ export interface OperatorResultListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OperatorResultPage>
-    ) => any
+      items: ApiResponse<OperatorResultPage>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultPage>>;
   /**
    * Lists OperatorResultInstance records from the API as a list.
@@ -822,11 +821,11 @@ export interface OperatorResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: OperatorResultInstance[]) => any
+    callback?: (error: Error | null, items: OperatorResultInstance[]) => any,
   ): Promise<OperatorResultInstance[]>;
   list(
     params: OperatorResultListInstanceOptions,
-    callback?: (error: Error | null, items: OperatorResultInstance[]) => any
+    callback?: (error: Error | null, items: OperatorResultInstance[]) => any,
   ): Promise<OperatorResultInstance[]>;
   /**
    * Lists OperatorResultInstance records from the API as a list with HTTP metadata.
@@ -842,15 +841,15 @@ export interface OperatorResultListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OperatorResultInstance[]>
-    ) => any
+      items: ApiResponse<OperatorResultInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultInstance[]>>;
   listWithHttpInfo(
     params: OperatorResultListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OperatorResultInstance[]>
-    ) => any
+      items: ApiResponse<OperatorResultInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultInstance[]>>;
   /**
    * Retrieve a single page of OperatorResultInstance records from the API.
@@ -864,11 +863,11 @@ export interface OperatorResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: OperatorResultPage) => any
+    callback?: (error: Error | null, items: OperatorResultPage) => any,
   ): Promise<OperatorResultPage>;
   page(
     params: OperatorResultListInstancePageOptions,
-    callback?: (error: Error | null, items: OperatorResultPage) => any
+    callback?: (error: Error | null, items: OperatorResultPage) => any,
   ): Promise<OperatorResultPage>;
   /**
    * Retrieve a single page of OperatorResultInstance records from the API with HTTP metadata.
@@ -884,15 +883,15 @@ export interface OperatorResultListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OperatorResultPage>
-    ) => any
+      items: ApiResponse<OperatorResultPage>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultPage>>;
   pageWithHttpInfo(
     params: OperatorResultListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OperatorResultPage>
-    ) => any
+      items: ApiResponse<OperatorResultPage>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultPage>>;
 
   /**
@@ -903,7 +902,7 @@ export interface OperatorResultListInstance {
 }
 
 export function OperatorResultListInstance(
-  version: V3
+  version: V3,
 ): OperatorResultListInstance {
   const instance = ((operatorResultId) =>
     instance.get(operatorResultId)) as OperatorResultListInstance;
@@ -920,7 +919,7 @@ export function OperatorResultListInstance(
     params?:
       | OperatorResultListInstancePageOptions
       | ((error: Error | null, items: OperatorResultPage) => any),
-    callback?: (error: Error | null, items: OperatorResultPage) => any
+    callback?: (error: Error | null, items: OperatorResultPage) => any,
   ): Promise<OperatorResultPage> {
     if (params instanceof Function) {
       callback = params;
@@ -960,13 +959,13 @@ export function OperatorResultListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -976,7 +975,7 @@ export function OperatorResultListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: OperatorResultPage) => any
+    callback?: (error: Error | null, items: OperatorResultPage) => any,
   ): Promise<OperatorResultPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -989,8 +988,8 @@ export function OperatorResultListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1002,8 +1001,8 @@ export function OperatorResultListInstance(
       | ((error: Error | null, items: ApiResponse<OperatorResultPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<OperatorResultPage>
-    ) => any
+      items: ApiResponse<OperatorResultPage>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1034,23 +1033,21 @@ export function OperatorResultListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<OperatorResultPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new OperatorResultPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<OperatorResultPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new OperatorResultPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1064,8 +1061,8 @@ export function OperatorResultListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<OperatorResultPage>
-    ) => any
+      items?: ApiResponse<OperatorResultPage>,
+    ) => any,
   ): Promise<ApiResponse<OperatorResultPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1082,9 +1079,9 @@ export function OperatorResultListInstance(
           response,
           instance._uri,
           {},
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1096,7 +1093,7 @@ export function OperatorResultListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1124,7 +1121,7 @@ export class OperatorResultPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: OperatorResultSolution
+    solution: OperatorResultSolution,
   ) {
     super(version, response, uri, params, solution);
   }

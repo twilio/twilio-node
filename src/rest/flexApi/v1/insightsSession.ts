@@ -36,7 +36,7 @@ export interface InsightsSessionContext {
    * @returns Resolves to processed InsightsSessionInstance
    */
   create(
-    callback?: (error: Error | null, item?: InsightsSessionInstance) => any
+    callback?: (error: Error | null, item?: InsightsSessionInstance) => any,
   ): Promise<InsightsSessionInstance>;
   /**
    * Create a InsightsSessionInstance
@@ -48,7 +48,7 @@ export interface InsightsSessionContext {
    */
   create(
     params: InsightsSessionContextCreateOptions,
-    callback?: (error: Error | null, item?: InsightsSessionInstance) => any
+    callback?: (error: Error | null, item?: InsightsSessionInstance) => any,
   ): Promise<InsightsSessionInstance>;
 
   /**
@@ -61,8 +61,8 @@ export interface InsightsSessionContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSessionInstance>
-    ) => any
+      item?: ApiResponse<InsightsSessionInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSessionInstance>>;
   /**
    * Create a InsightsSessionInstance and return HTTP info
@@ -76,8 +76,8 @@ export interface InsightsSessionContext {
     params: InsightsSessionContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSessionInstance>
-    ) => any
+      item?: ApiResponse<InsightsSessionInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSessionInstance>>;
 
   /**
@@ -102,13 +102,13 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
     params?:
       | InsightsSessionContextCreateOptions
       | ((error: Error | null, item?: InsightsSessionInstance) => any),
-    callback?: (error: Error | null, item?: InsightsSessionInstance) => any
+    callback?: (error: Error | null, item?: InsightsSessionInstance) => any,
   ): Promise<InsightsSessionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -128,12 +128,12 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new InsightsSessionInstance(operationVersion, payload)
+      (payload) => new InsightsSessionInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -143,18 +143,18 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
       | InsightsSessionContextCreateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<InsightsSessionInstance>
+          item?: ApiResponse<InsightsSessionInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSessionInstance>
-    ) => any
+      item?: ApiResponse<InsightsSessionInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSessionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -174,16 +174,14 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsSessionInstance> => ({
-          ...response,
-          body: new InsightsSessionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<InsightsSessionInstance> => ({
+        ...response,
+        body: new InsightsSessionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -216,7 +214,10 @@ export class InsightsSessionInstance {
   protected _solution: InsightsSessionContextSolution;
   protected _context?: InsightsSessionContext;
 
-  constructor(protected _version: V1, payload: InsightsSessionResource) {
+  constructor(
+    protected _version: V1,
+    payload: InsightsSessionResource,
+  ) {
     this.workspaceId = payload.workspace_id;
     this.sessionExpiry = payload.session_expiry;
     this.sessionId = payload.session_id;
@@ -261,7 +262,7 @@ export class InsightsSessionInstance {
    * @returns Resolves to processed InsightsSessionInstance
    */
   create(
-    callback?: (error: Error | null, item?: InsightsSessionInstance) => any
+    callback?: (error: Error | null, item?: InsightsSessionInstance) => any,
   ): Promise<InsightsSessionInstance>;
   /**
    * Create a InsightsSessionInstance
@@ -273,12 +274,12 @@ export class InsightsSessionInstance {
    */
   create(
     params: InsightsSessionContextCreateOptions,
-    callback?: (error: Error | null, item?: InsightsSessionInstance) => any
+    callback?: (error: Error | null, item?: InsightsSessionInstance) => any,
   ): Promise<InsightsSessionInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: InsightsSessionInstance) => any
+    callback?: (error: Error | null, item?: InsightsSessionInstance) => any,
   ): Promise<InsightsSessionInstance> {
     return this._proxy.create(params, callback);
   }
@@ -293,8 +294,8 @@ export class InsightsSessionInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSessionInstance>
-    ) => any
+      item?: ApiResponse<InsightsSessionInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSessionInstance>>;
   /**
    * Create a InsightsSessionInstance and return HTTP info
@@ -308,16 +309,16 @@ export class InsightsSessionInstance {
     params: InsightsSessionContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSessionInstance>
-    ) => any
+      item?: ApiResponse<InsightsSessionInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSessionInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSessionInstance>
-    ) => any
+      item?: ApiResponse<InsightsSessionInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSessionInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -360,7 +361,7 @@ export interface InsightsSessionListInstance {
 }
 
 export function InsightsSessionListInstance(
-  version: V1
+  version: V1,
 ): InsightsSessionListInstance {
   const instance = (() => instance.get()) as InsightsSessionListInstance;
 
@@ -378,7 +379,7 @@ export function InsightsSessionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

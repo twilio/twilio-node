@@ -56,7 +56,7 @@ export interface ValidationRequestListInstance {
    */
   create(
     params: ValidationRequestListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ValidationRequestInstance) => any
+    callback?: (error: Error | null, item?: ValidationRequestInstance) => any,
   ): Promise<ValidationRequestInstance>;
 
   /**
@@ -71,8 +71,8 @@ export interface ValidationRequestListInstance {
     params: ValidationRequestListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ValidationRequestInstance>
-    ) => any
+      item?: ApiResponse<ValidationRequestInstance>,
+    ) => any,
   ): Promise<ApiResponse<ValidationRequestInstance>>;
 
   /**
@@ -84,7 +84,7 @@ export interface ValidationRequestListInstance {
 
 export function ValidationRequestListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): ValidationRequestListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -98,7 +98,7 @@ export function ValidationRequestListInstance(
 
   instance.create = function create(
     params: ValidationRequestListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ValidationRequestInstance) => any
+    callback?: (error: Error | null, items: ValidationRequestInstance) => any,
   ): Promise<ValidationRequestInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -139,13 +139,13 @@ export function ValidationRequestListInstance(
         new ValidationRequestInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -154,8 +154,8 @@ export function ValidationRequestListInstance(
     params: ValidationRequestListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ValidationRequestInstance>
-    ) => any
+      items: ApiResponse<ValidationRequestInstance>,
+    ) => any,
   ): Promise<ApiResponse<ValidationRequestInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -192,20 +192,18 @@ export function ValidationRequestListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ValidationRequestInstance> => ({
-          ...response,
-          body: new ValidationRequestInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ValidationRequestInstance> => ({
+        ...response,
+        body: new ValidationRequestInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -216,7 +214,7 @@ export function ValidationRequestListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -238,7 +236,7 @@ export class ValidationRequestInstance {
   constructor(
     protected _version: V2010,
     payload: ValidationRequestResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;

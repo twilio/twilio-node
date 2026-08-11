@@ -44,7 +44,7 @@ export interface UsageListInstance {
 
 export function UsageListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): UsageListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -61,7 +61,7 @@ export function UsageListInstance(
       if (!instance._records) {
         instance._records = RecordListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._records;
@@ -73,7 +73,7 @@ export function UsageListInstance(
       if (!instance._triggers) {
         instance._triggers = TriggerListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._triggers;
@@ -86,7 +86,7 @@ export function UsageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -44,7 +44,7 @@ export interface CustomerProfilesEvaluationsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesEvaluationsInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -85,8 +85,8 @@ export interface CustomerProfilesEvaluationsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEvaluationsInstance
-    ) => any
+      item?: CustomerProfilesEvaluationsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance>;
 
   /**
@@ -99,8 +99,8 @@ export interface CustomerProfilesEvaluationsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEvaluationsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEvaluationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance>>;
 
   /**
@@ -115,13 +115,15 @@ export interface CustomerProfilesEvaluationsContextSolution {
   sid: string;
 }
 
-export class CustomerProfilesEvaluationsContextImpl
-  implements CustomerProfilesEvaluationsContext
-{
+export class CustomerProfilesEvaluationsContextImpl implements CustomerProfilesEvaluationsContext {
   protected _solution: CustomerProfilesEvaluationsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    customerProfileSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
@@ -137,8 +139,8 @@ export class CustomerProfilesEvaluationsContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEvaluationsInstance
-    ) => any
+      item?: CustomerProfilesEvaluationsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -157,13 +159,13 @@ export class CustomerProfilesEvaluationsContextImpl
           operationVersion,
           payload,
           instance._solution.customerProfileSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -171,8 +173,8 @@ export class CustomerProfilesEvaluationsContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEvaluationsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEvaluationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -186,21 +188,19 @@ export class CustomerProfilesEvaluationsContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
-          ...response,
-          body: new CustomerProfilesEvaluationsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.customerProfileSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
+        ...response,
+        body: new CustomerProfilesEvaluationsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.customerProfileSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -242,7 +242,7 @@ export class CustomerProfilesEvaluationsInstance {
     protected _version: V1,
     payload: CustomerProfilesEvaluationsResource,
     customerProfileSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -253,7 +253,7 @@ export class CustomerProfilesEvaluationsInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { customerProfileSid, sid: sid || this.sid };
+    this._solution = { customerProfileSid, sid: sid };
   }
 
   /**
@@ -286,7 +286,7 @@ export class CustomerProfilesEvaluationsInstance {
       new CustomerProfilesEvaluationsContextImpl(
         this._version,
         this._solution.customerProfileSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -301,8 +301,8 @@ export class CustomerProfilesEvaluationsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEvaluationsInstance
-    ) => any
+      item?: CustomerProfilesEvaluationsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -317,8 +317,8 @@ export class CustomerProfilesEvaluationsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEvaluationsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEvaluationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -370,8 +370,8 @@ export interface CustomerProfilesEvaluationsListInstance {
     params: CustomerProfilesEvaluationsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEvaluationsInstance
-    ) => any
+      item?: CustomerProfilesEvaluationsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance>;
 
   /**
@@ -386,8 +386,8 @@ export interface CustomerProfilesEvaluationsListInstance {
     params: CustomerProfilesEvaluationsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEvaluationsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEvaluationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance>>;
 
   /**
@@ -408,15 +408,15 @@ export interface CustomerProfilesEvaluationsListInstance {
   each(
     callback?: (
       item: CustomerProfilesEvaluationsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CustomerProfilesEvaluationsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEvaluationsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CustomerProfilesEvaluationsInstance records from the API with HTTP metadata captured per page.
@@ -436,15 +436,15 @@ export interface CustomerProfilesEvaluationsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CustomerProfilesEvaluationsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CustomerProfilesEvaluationsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEvaluationsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CustomerProfilesEvaluationsInstance records from the API.
@@ -458,8 +458,8 @@ export interface CustomerProfilesEvaluationsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsPage
-    ) => any
+      items: CustomerProfilesEvaluationsPage,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsPage>;
   /**
    * Retrieve a single target page of CustomerProfilesEvaluationsInstance records from the API with HTTP metadata.
@@ -473,8 +473,8 @@ export interface CustomerProfilesEvaluationsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsPage>>;
   /**
    * Lists CustomerProfilesEvaluationsInstance records from the API as a list.
@@ -488,15 +488,15 @@ export interface CustomerProfilesEvaluationsListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsInstance[]
-    ) => any
+      items: CustomerProfilesEvaluationsInstance[],
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance[]>;
   list(
     params: CustomerProfilesEvaluationsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsInstance[]
-    ) => any
+      items: CustomerProfilesEvaluationsInstance[],
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance[]>;
   /**
    * Lists CustomerProfilesEvaluationsInstance records from the API as a list with HTTP metadata.
@@ -512,15 +512,15 @@ export interface CustomerProfilesEvaluationsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance[]>>;
   listWithHttpInfo(
     params: CustomerProfilesEvaluationsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance[]>>;
   /**
    * Retrieve a single page of CustomerProfilesEvaluationsInstance records from the API.
@@ -536,15 +536,15 @@ export interface CustomerProfilesEvaluationsListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsPage
-    ) => any
+      items: CustomerProfilesEvaluationsPage,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsPage>;
   page(
     params: CustomerProfilesEvaluationsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsPage
-    ) => any
+      items: CustomerProfilesEvaluationsPage,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsPage>;
   /**
    * Retrieve a single page of CustomerProfilesEvaluationsInstance records from the API with HTTP metadata.
@@ -560,15 +560,15 @@ export interface CustomerProfilesEvaluationsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsPage>>;
   pageWithHttpInfo(
     params: CustomerProfilesEvaluationsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsPage>>;
 
   /**
@@ -580,7 +580,7 @@ export interface CustomerProfilesEvaluationsListInstance {
 
 export function CustomerProfilesEvaluationsListInstance(
   version: V1,
-  customerProfileSid: string
+  customerProfileSid: string,
 ): CustomerProfilesEvaluationsListInstance {
   if (!isValidPathParam(customerProfileSid)) {
     throw new Error("Parameter 'customerProfileSid' is not valid.");
@@ -593,7 +593,7 @@ export function CustomerProfilesEvaluationsListInstance(
     return new CustomerProfilesEvaluationsContextImpl(
       version,
       customerProfileSid,
-      sid
+      sid,
     );
   };
 
@@ -605,8 +605,8 @@ export function CustomerProfilesEvaluationsListInstance(
     params: CustomerProfilesEvaluationsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsInstance
-    ) => any
+      items: CustomerProfilesEvaluationsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -637,13 +637,13 @@ export function CustomerProfilesEvaluationsListInstance(
         new CustomerProfilesEvaluationsInstance(
           operationVersion,
           payload,
-          instance._solution.customerProfileSid
-        )
+          instance._solution.customerProfileSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -652,8 +652,8 @@ export function CustomerProfilesEvaluationsListInstance(
     params: CustomerProfilesEvaluationsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsInstance>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -680,20 +680,18 @@ export function CustomerProfilesEvaluationsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
-          ...response,
-          body: new CustomerProfilesEvaluationsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.customerProfileSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
+        ...response,
+        body: new CustomerProfilesEvaluationsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.customerProfileSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -704,8 +702,8 @@ export function CustomerProfilesEvaluationsListInstance(
       | ((error: Error | null, items: CustomerProfilesEvaluationsPage) => any),
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsPage
-    ) => any
+      items: CustomerProfilesEvaluationsPage,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -737,13 +735,13 @@ export function CustomerProfilesEvaluationsListInstance(
         new CustomerProfilesEvaluationsPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -755,8 +753,8 @@ export function CustomerProfilesEvaluationsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEvaluationsPage
-    ) => any
+      items: CustomerProfilesEvaluationsPage,
+    ) => any,
   ): Promise<CustomerProfilesEvaluationsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -767,8 +765,8 @@ export function CustomerProfilesEvaluationsListInstance(
         new CustomerProfilesEvaluationsPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -779,12 +777,12 @@ export function CustomerProfilesEvaluationsListInstance(
       | CustomerProfilesEvaluationsListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<CustomerProfilesEvaluationsPage>
+          items: ApiResponse<CustomerProfilesEvaluationsPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEvaluationsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEvaluationsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -809,21 +807,19 @@ export function CustomerProfilesEvaluationsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CustomerProfilesEvaluationsPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CustomerProfilesEvaluationsPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesEvaluationsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomerProfilesEvaluationsPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -837,8 +833,8 @@ export function CustomerProfilesEvaluationsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CustomerProfilesEvaluationsPage>
-    ) => any
+      items?: ApiResponse<CustomerProfilesEvaluationsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEvaluationsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -853,9 +849,9 @@ export function CustomerProfilesEvaluationsListInstance(
         body: new CustomerProfilesEvaluationsPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -867,7 +863,7 @@ export function CustomerProfilesEvaluationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -891,7 +887,7 @@ export class CustomerProfilesEvaluationsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CustomerProfilesEvaluationsSolution
+    solution: CustomerProfilesEvaluationsSolution,
   ) {
     super(version, response, solution);
   }
@@ -902,12 +898,12 @@ export class CustomerProfilesEvaluationsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CustomerProfilesEvaluationsResource
+    payload: CustomerProfilesEvaluationsResource,
   ): CustomerProfilesEvaluationsInstance {
     return new CustomerProfilesEvaluationsInstance(
       this._version,
       payload,
-      this._solution.customerProfileSid
+      this._solution.customerProfileSid,
     );
   }
 

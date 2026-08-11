@@ -115,7 +115,7 @@ export interface ExecutionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -126,7 +126,7 @@ export interface ExecutionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -137,7 +137,7 @@ export interface ExecutionContext {
    * @returns Resolves to processed ExecutionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance>;
 
   /**
@@ -150,8 +150,8 @@ export interface ExecutionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>>;
 
   /**
@@ -164,7 +164,7 @@ export interface ExecutionContext {
    */
   update(
     params: ExecutionContextUpdateOptions,
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance>;
 
   /**
@@ -179,8 +179,8 @@ export interface ExecutionContext {
     params: ExecutionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>>;
 
   /**
@@ -202,7 +202,11 @@ export class ExecutionContextImpl implements ExecutionContext {
   protected _executionContext?: ExecutionContextListInstance;
   protected _steps?: ExecutionStepListInstance;
 
-  constructor(protected _version: V2, flowSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    flowSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
     }
@@ -221,7 +225,7 @@ export class ExecutionContextImpl implements ExecutionContext {
       ExecutionContextListInstance(
         this._version,
         this._solution.flowSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._executionContext;
   }
@@ -232,13 +236,13 @@ export class ExecutionContextImpl implements ExecutionContext {
       ExecutionStepListInstance(
         this._version,
         this._solution.flowSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._steps;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -252,13 +256,13 @@ export class ExecutionContextImpl implements ExecutionContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -267,22 +271,20 @@ export class ExecutionContextImpl implements ExecutionContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -301,13 +303,13 @@ export class ExecutionContextImpl implements ExecutionContext {
           operationVersion,
           payload,
           instance._solution.flowSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -315,8 +317,8 @@ export class ExecutionContextImpl implements ExecutionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -330,28 +332,26 @@ export class ExecutionContextImpl implements ExecutionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionInstance> => ({
-          ...response,
-          body: new ExecutionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionInstance> => ({
+        ...response,
+        body: new ExecutionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: ExecutionContextUpdateOptions,
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -384,13 +384,13 @@ export class ExecutionContextImpl implements ExecutionContext {
           operationVersion,
           payload,
           instance._solution.flowSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -399,8 +399,8 @@ export class ExecutionContextImpl implements ExecutionContext {
     params: ExecutionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -428,21 +428,19 @@ export class ExecutionContextImpl implements ExecutionContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionInstance> => ({
-          ...response,
-          body: new ExecutionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionInstance> => ({
+        ...response,
+        body: new ExecutionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -489,7 +487,7 @@ export class ExecutionInstance {
     protected _version: V2,
     payload: ExecutionResource,
     flowSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -505,7 +503,7 @@ export class ExecutionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { flowSid, sid: sid || this.sid };
+    this._solution = { flowSid, sid: sid };
   }
 
   /**
@@ -564,7 +562,7 @@ export class ExecutionInstance {
       new ExecutionContextImpl(
         this._version,
         this._solution.flowSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -577,7 +575,7 @@ export class ExecutionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -590,7 +588,7 @@ export class ExecutionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -603,7 +601,7 @@ export class ExecutionInstance {
    * @returns Resolves to processed ExecutionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -618,8 +616,8 @@ export class ExecutionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -634,12 +632,12 @@ export class ExecutionInstance {
    */
   update(
     params: ExecutionContextUpdateOptions,
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -656,16 +654,16 @@ export class ExecutionInstance {
     params: ExecutionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -734,7 +732,7 @@ export interface ExecutionListInstance {
    */
   create(
     params: ExecutionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, item?: ExecutionInstance) => any,
   ): Promise<ExecutionInstance>;
 
   /**
@@ -749,8 +747,8 @@ export interface ExecutionListInstance {
     params: ExecutionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionInstance>
-    ) => any
+      item?: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>>;
 
   /**
@@ -769,11 +767,11 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ExecutionListInstanceEachOptions,
-    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ExecutionInstance records from the API with HTTP metadata captured per page.
@@ -791,11 +789,11 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ExecutionListInstanceEachOptions,
-    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ExecutionInstance records from the API.
@@ -807,7 +805,7 @@ export interface ExecutionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ExecutionPage) => any
+    callback?: (error: Error | null, items: ExecutionPage) => any,
   ): Promise<ExecutionPage>;
   /**
    * Retrieve a single target page of ExecutionInstance records from the API with HTTP metadata.
@@ -819,7 +817,7 @@ export interface ExecutionListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any,
   ): Promise<ApiResponse<ExecutionPage>>;
   /**
    * Lists ExecutionInstance records from the API as a list.
@@ -831,11 +829,11 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ExecutionInstance[]) => any
+    callback?: (error: Error | null, items: ExecutionInstance[]) => any,
   ): Promise<ExecutionInstance[]>;
   list(
     params: ExecutionListInstanceOptions,
-    callback?: (error: Error | null, items: ExecutionInstance[]) => any
+    callback?: (error: Error | null, items: ExecutionInstance[]) => any,
   ): Promise<ExecutionInstance[]>;
   /**
    * Lists ExecutionInstance records from the API as a list with HTTP metadata.
@@ -851,15 +849,15 @@ export interface ExecutionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionInstance[]>
-    ) => any
+      items: ApiResponse<ExecutionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance[]>>;
   listWithHttpInfo(
     params: ExecutionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionInstance[]>
-    ) => any
+      items: ApiResponse<ExecutionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance[]>>;
   /**
    * Retrieve a single page of ExecutionInstance records from the API.
@@ -873,11 +871,11 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ExecutionPage) => any
+    callback?: (error: Error | null, items: ExecutionPage) => any,
   ): Promise<ExecutionPage>;
   page(
     params: ExecutionListInstancePageOptions,
-    callback?: (error: Error | null, items: ExecutionPage) => any
+    callback?: (error: Error | null, items: ExecutionPage) => any,
   ): Promise<ExecutionPage>;
   /**
    * Retrieve a single page of ExecutionInstance records from the API with HTTP metadata.
@@ -891,11 +889,11 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any,
   ): Promise<ApiResponse<ExecutionPage>>;
   pageWithHttpInfo(
     params: ExecutionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any,
   ): Promise<ApiResponse<ExecutionPage>>;
 
   /**
@@ -907,7 +905,7 @@ export interface ExecutionListInstance {
 
 export function ExecutionListInstance(
   version: V2,
-  flowSid: string
+  flowSid: string,
 ): ExecutionListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -925,7 +923,7 @@ export function ExecutionListInstance(
 
   instance.create = function create(
     params: ExecutionListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ExecutionInstance) => any
+    callback?: (error: Error | null, items: ExecutionInstance) => any,
   ): Promise<ExecutionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -964,13 +962,13 @@ export function ExecutionListInstance(
         new ExecutionInstance(
           operationVersion,
           payload,
-          instance._solution.flowSid
-        )
+          instance._solution.flowSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -979,8 +977,8 @@ export function ExecutionListInstance(
     params: ExecutionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionInstance>
-    ) => any
+      items: ApiResponse<ExecutionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1015,20 +1013,18 @@ export function ExecutionListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionInstance> => ({
-          ...response,
-          body: new ExecutionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionInstance> => ({
+        ...response,
+        body: new ExecutionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1037,7 +1033,7 @@ export function ExecutionListInstance(
     params?:
       | ExecutionListInstancePageOptions
       | ((error: Error | null, items: ExecutionPage) => any),
-    callback?: (error: Error | null, items: ExecutionPage) => any
+    callback?: (error: Error | null, items: ExecutionPage) => any,
   ): Promise<ExecutionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1051,11 +1047,11 @@ export function ExecutionListInstance(
     if (params["status"] !== undefined) data["status"] = params["status"];
     if (params["dateCreatedFrom"] !== undefined)
       data["DateCreatedFrom"] = serialize.iso8601DateTime(
-        params["dateCreatedFrom"]
+        params["dateCreatedFrom"],
       );
     if (params["dateCreatedTo"] !== undefined)
       data["DateCreatedTo"] = serialize.iso8601DateTime(
-        params["dateCreatedTo"]
+        params["dateCreatedTo"],
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -1075,12 +1071,12 @@ export function ExecutionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExecutionPage(operationVersion, payload, instance._solution)
+        new ExecutionPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1090,7 +1086,7 @@ export function ExecutionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ExecutionPage) => any
+    callback?: (error: Error | null, items: ExecutionPage) => any,
   ): Promise<ExecutionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1098,7 +1094,7 @@ export function ExecutionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ExecutionPage(instance._version, payload, instance._solution)
+        new ExecutionPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1108,7 +1104,7 @@ export function ExecutionListInstance(
     params?:
       | ExecutionListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ExecutionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ExecutionPage>) => any,
   ): Promise<ApiResponse<ExecutionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1122,11 +1118,11 @@ export function ExecutionListInstance(
     if (params["status"] !== undefined) data["status"] = params["status"];
     if (params["dateCreatedFrom"] !== undefined)
       data["DateCreatedFrom"] = serialize.iso8601DateTime(
-        params["dateCreatedFrom"]
+        params["dateCreatedFrom"],
       );
     if (params["dateCreatedTo"] !== undefined)
       data["DateCreatedTo"] = serialize.iso8601DateTime(
-        params["dateCreatedTo"]
+        params["dateCreatedTo"],
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -1142,21 +1138,15 @@ export function ExecutionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ExecutionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ExecutionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ExecutionPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1168,7 +1158,7 @@ export function ExecutionListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ExecutionPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ExecutionPage>) => any,
   ): Promise<ApiResponse<ExecutionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1183,9 +1173,9 @@ export function ExecutionListInstance(
         body: new ExecutionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1197,7 +1187,7 @@ export function ExecutionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1221,7 +1211,7 @@ export class ExecutionPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: ExecutionSolution
+    solution: ExecutionSolution,
   ) {
     super(version, response, solution);
   }
@@ -1235,7 +1225,7 @@ export class ExecutionPage extends Page<
     return new ExecutionInstance(
       this._version,
       payload,
-      this._solution.flowSid
+      this._solution.flowSid,
     );
   }
 

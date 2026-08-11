@@ -44,7 +44,7 @@ export interface BulkConsentsListInstance {
    */
   create(
     params: BulkConsentsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BulkConsentsInstance) => any
+    callback?: (error: Error | null, item?: BulkConsentsInstance) => any,
   ): Promise<BulkConsentsInstance>;
 
   /**
@@ -59,8 +59,8 @@ export interface BulkConsentsListInstance {
     params: BulkConsentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkConsentsInstance>
-    ) => any
+      item?: ApiResponse<BulkConsentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkConsentsInstance>>;
 
   /**
@@ -71,7 +71,7 @@ export interface BulkConsentsListInstance {
 }
 
 export function BulkConsentsListInstance(
-  version: V1
+  version: V1,
 ): BulkConsentsListInstance {
   const instance = {} as BulkConsentsListInstance;
 
@@ -81,7 +81,7 @@ export function BulkConsentsListInstance(
 
   instance.create = function create(
     params: BulkConsentsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BulkConsentsInstance) => any
+    callback?: (error: Error | null, items: BulkConsentsInstance) => any,
   ): Promise<BulkConsentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -94,7 +94,7 @@ export function BulkConsentsListInstance(
     let data: any = {};
 
     data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
+      serialize.object(e),
     );
 
     const headers: any = {};
@@ -110,12 +110,12 @@ export function BulkConsentsListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BulkConsentsInstance(operationVersion, payload)
+      (payload) => new BulkConsentsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -124,8 +124,8 @@ export function BulkConsentsListInstance(
     params: BulkConsentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BulkConsentsInstance>
-    ) => any
+      items: ApiResponse<BulkConsentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkConsentsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -138,7 +138,7 @@ export function BulkConsentsListInstance(
     let data: any = {};
 
     data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
+      serialize.object(e),
     );
 
     const headers: any = {};
@@ -154,16 +154,14 @@ export function BulkConsentsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkConsentsInstance> => ({
-          ...response,
-          body: new BulkConsentsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BulkConsentsInstance> => ({
+        ...response,
+        body: new BulkConsentsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -174,7 +172,7 @@ export function BulkConsentsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -189,7 +187,10 @@ interface BulkConsentsResource {
 }
 
 export class BulkConsentsInstance {
-  constructor(protected _version: V1, payload: BulkConsentsResource) {
+  constructor(
+    protected _version: V1,
+    payload: BulkConsentsResource,
+  ) {
     this.items = payload.items;
   }
 

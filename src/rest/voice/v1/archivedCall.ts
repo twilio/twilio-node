@@ -28,7 +28,7 @@ export interface ArchivedCallContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -39,7 +39,7 @@ export interface ArchivedCallContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -58,7 +58,11 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   protected _solution: ArchivedCallContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, date: Date, sid: string) {
+  constructor(
+    protected _version: V1,
+    date: Date,
+    sid: string,
+  ) {
     if (!isValidPathParam(date)) {
       throw new Error("Parameter 'date' is not valid.");
     }
@@ -72,7 +76,7 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -86,13 +90,13 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -101,16 +105,14 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -147,7 +149,7 @@ export interface ArchivedCallListInstance {
 }
 
 export function ArchivedCallListInstance(
-  version: V1
+  version: V1,
 ): ArchivedCallListInstance {
   const instance = ((date, sid) =>
     instance.get(date, sid)) as ArchivedCallListInstance;
@@ -166,7 +168,7 @@ export function ArchivedCallListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

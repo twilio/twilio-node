@@ -31,11 +31,7 @@ export type CompositionFormat = "mp4" | "webm";
  * The status of the composition. Can be: `enqueued`, `processing`, `completed`, `deleted` or `failed`. `enqueued` is the initial state and indicates that the composition request has been received and is scheduled for processing; `processing` indicates the composition is being processed; `completed` indicates the composition has been completed and is available for download; `deleted` means the composition media has been deleted from the system, but its metadata is still available for 30 days; `failed` indicates the composition failed to execute the media processing task.
  */
 export type CompositionStatus =
-  | "enqueued"
-  | "processing"
-  | "completed"
-  | "deleted"
-  | "failed";
+  "enqueued" | "processing" | "completed" | "deleted" | "failed";
 
 /**
  * Options to pass to create a CompositionInstance
@@ -130,7 +126,7 @@ export interface CompositionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -141,7 +137,7 @@ export interface CompositionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -152,7 +148,7 @@ export interface CompositionContext {
    * @returns Resolves to processed CompositionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CompositionInstance) => any
+    callback?: (error: Error | null, item?: CompositionInstance) => any,
   ): Promise<CompositionInstance>;
 
   /**
@@ -165,8 +161,8 @@ export interface CompositionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionInstance>
-    ) => any
+      item?: ApiResponse<CompositionInstance>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance>>;
 
   /**
@@ -184,7 +180,10 @@ export class CompositionContextImpl implements CompositionContext {
   protected _solution: CompositionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -194,7 +193,7 @@ export class CompositionContextImpl implements CompositionContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -208,13 +207,13 @@ export class CompositionContextImpl implements CompositionContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -223,22 +222,20 @@ export class CompositionContextImpl implements CompositionContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CompositionInstance) => any
+    callback?: (error: Error | null, item?: CompositionInstance) => any,
   ): Promise<CompositionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -256,13 +253,13 @@ export class CompositionContextImpl implements CompositionContext {
         new CompositionInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -270,8 +267,8 @@ export class CompositionContextImpl implements CompositionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionInstance>
-    ) => any
+      item?: ApiResponse<CompositionInstance>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -285,20 +282,18 @@ export class CompositionContextImpl implements CompositionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CompositionInstance> => ({
-          ...response,
-          body: new CompositionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CompositionInstance> => ({
+        ...response,
+        body: new CompositionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -352,7 +347,7 @@ export class CompositionInstance {
   constructor(
     protected _version: V1,
     payload: CompositionResource,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.status = payload.status;
@@ -376,7 +371,7 @@ export class CompositionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -473,7 +468,7 @@ export class CompositionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -486,7 +481,7 @@ export class CompositionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -499,7 +494,7 @@ export class CompositionInstance {
    * @returns Resolves to processed CompositionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CompositionInstance) => any
+    callback?: (error: Error | null, item?: CompositionInstance) => any,
   ): Promise<CompositionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -514,8 +509,8 @@ export class CompositionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionInstance>
-    ) => any
+      item?: ApiResponse<CompositionInstance>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -576,7 +571,7 @@ export interface CompositionListInstance {
    */
   create(
     params: CompositionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CompositionInstance) => any
+    callback?: (error: Error | null, item?: CompositionInstance) => any,
   ): Promise<CompositionInstance>;
 
   /**
@@ -591,8 +586,8 @@ export interface CompositionListInstance {
     params: CompositionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionInstance>
-    ) => any
+      item?: ApiResponse<CompositionInstance>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance>>;
 
   /**
@@ -611,11 +606,11 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: CompositionListInstanceEachOptions,
-    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams CompositionInstance records from the API with HTTP metadata captured per page.
@@ -633,11 +628,11 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: CompositionListInstanceEachOptions,
-    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of CompositionInstance records from the API.
@@ -649,7 +644,7 @@ export interface CompositionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CompositionPage) => any
+    callback?: (error: Error | null, items: CompositionPage) => any,
   ): Promise<CompositionPage>;
   /**
    * Retrieve a single target page of CompositionInstance records from the API with HTTP metadata.
@@ -661,7 +656,10 @@ export interface CompositionListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionPage>,
+    ) => any,
   ): Promise<ApiResponse<CompositionPage>>;
   /**
    * Lists CompositionInstance records from the API as a list.
@@ -673,11 +671,11 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CompositionInstance[]) => any
+    callback?: (error: Error | null, items: CompositionInstance[]) => any,
   ): Promise<CompositionInstance[]>;
   list(
     params: CompositionListInstanceOptions,
-    callback?: (error: Error | null, items: CompositionInstance[]) => any
+    callback?: (error: Error | null, items: CompositionInstance[]) => any,
   ): Promise<CompositionInstance[]>;
   /**
    * Lists CompositionInstance records from the API as a list with HTTP metadata.
@@ -693,15 +691,15 @@ export interface CompositionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CompositionInstance[]>
-    ) => any
+      items: ApiResponse<CompositionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance[]>>;
   listWithHttpInfo(
     params: CompositionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CompositionInstance[]>
-    ) => any
+      items: ApiResponse<CompositionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance[]>>;
   /**
    * Retrieve a single page of CompositionInstance records from the API.
@@ -715,11 +713,11 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CompositionPage) => any
+    callback?: (error: Error | null, items: CompositionPage) => any,
   ): Promise<CompositionPage>;
   page(
     params: CompositionListInstancePageOptions,
-    callback?: (error: Error | null, items: CompositionPage) => any
+    callback?: (error: Error | null, items: CompositionPage) => any,
   ): Promise<CompositionPage>;
   /**
    * Retrieve a single page of CompositionInstance records from the API with HTTP metadata.
@@ -733,11 +731,17 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionPage>,
+    ) => any,
   ): Promise<ApiResponse<CompositionPage>>;
   pageWithHttpInfo(
     params: CompositionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionPage>,
+    ) => any,
   ): Promise<ApiResponse<CompositionPage>>;
 
   /**
@@ -760,7 +764,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
   instance.create = function create(
     params: CompositionListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CompositionInstance) => any
+    callback?: (error: Error | null, items: CompositionInstance) => any,
   ): Promise<CompositionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -778,12 +782,12 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params["audioSources"] !== undefined)
       data["AudioSources"] = serialize.map(
         params["audioSources"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["audioSourcesExcluded"] !== undefined)
       data["AudioSourcesExcluded"] = serialize.map(
         params["audioSourcesExcluded"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["resolution"] !== undefined)
       data["Resolution"] = params["resolution"];
@@ -808,12 +812,12 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CompositionInstance(operationVersion, payload)
+      (payload) => new CompositionInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -822,8 +826,8 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     params: CompositionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CompositionInstance>
-    ) => any
+      items: ApiResponse<CompositionInstance>,
+    ) => any,
   ): Promise<ApiResponse<CompositionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -841,12 +845,12 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params["audioSources"] !== undefined)
       data["AudioSources"] = serialize.map(
         params["audioSources"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["audioSourcesExcluded"] !== undefined)
       data["AudioSourcesExcluded"] = serialize.map(
         params["audioSourcesExcluded"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["resolution"] !== undefined)
       data["Resolution"] = params["resolution"];
@@ -871,16 +875,14 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CompositionInstance> => ({
-          ...response,
-          body: new CompositionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<CompositionInstance> => ({
+        ...response,
+        body: new CompositionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -889,7 +891,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     params?:
       | CompositionListInstancePageOptions
       | ((error: Error | null, items: CompositionPage) => any),
-    callback?: (error: Error | null, items: CompositionPage) => any
+    callback?: (error: Error | null, items: CompositionPage) => any,
   ): Promise<CompositionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -903,11 +905,11 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
+        params["dateCreatedAfter"],
       );
     if (params["dateCreatedBefore"] !== undefined)
       data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
+        params["dateCreatedBefore"],
       );
     if (params["roomSid"] !== undefined) data["RoomSid"] = params["roomSid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
@@ -928,12 +930,12 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CompositionPage(operationVersion, payload, instance._solution)
+        new CompositionPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -943,7 +945,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CompositionPage) => any
+    callback?: (error: Error | null, items: CompositionPage) => any,
   ): Promise<CompositionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -951,7 +953,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new CompositionPage(instance._version, payload, instance._solution)
+        new CompositionPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -961,7 +963,10 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     params?:
       | CompositionListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<CompositionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<CompositionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CompositionPage>,
+    ) => any,
   ): Promise<ApiResponse<CompositionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -975,11 +980,11 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
+        params["dateCreatedAfter"],
       );
     if (params["dateCreatedBefore"] !== undefined)
       data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
+        params["dateCreatedBefore"],
       );
     if (params["roomSid"] !== undefined) data["RoomSid"] = params["roomSid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
@@ -996,21 +1001,19 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CompositionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CompositionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CompositionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CompositionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1024,8 +1027,8 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CompositionPage>
-    ) => any
+      items?: ApiResponse<CompositionPage>,
+    ) => any,
   ): Promise<ApiResponse<CompositionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1040,9 +1043,9 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
         body: new CompositionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1054,7 +1057,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1078,7 +1081,7 @@ export class CompositionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CompositionSolution
+    solution: CompositionSolution,
   ) {
     super(version, response, solution);
   }

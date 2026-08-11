@@ -26,9 +26,7 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * The status of the User on the Channel. Can be: `joined`, `invited`, or `not_participating`.
  */
 export type UserChannelChannelStatus =
-  | "joined"
-  | "invited"
-  | "not_participating";
+  "joined" | "invited" | "not_participating";
 
 /**
  * Options to pass to each
@@ -92,11 +90,11 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: UserChannelListInstanceEachOptions,
-    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams UserChannelInstance records from the API with HTTP metadata captured per page.
@@ -114,11 +112,11 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: UserChannelListInstanceEachOptions,
-    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
@@ -130,7 +128,7 @@ export interface UserChannelListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UserChannelPage) => any
+    callback?: (error: Error | null, items: UserChannelPage) => any,
   ): Promise<UserChannelPage>;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API with HTTP metadata.
@@ -142,7 +140,10 @@ export interface UserChannelListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<UserChannelPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserChannelPage>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelPage>>;
   /**
    * Lists UserChannelInstance records from the API as a list.
@@ -154,11 +155,11 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any,
   ): Promise<UserChannelInstance[]>;
   list(
     params: UserChannelListInstanceOptions,
-    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any,
   ): Promise<UserChannelInstance[]>;
   /**
    * Lists UserChannelInstance records from the API as a list with HTTP metadata.
@@ -174,15 +175,15 @@ export interface UserChannelListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<UserChannelInstance[]>
-    ) => any
+      items: ApiResponse<UserChannelInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelInstance[]>>;
   listWithHttpInfo(
     params: UserChannelListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UserChannelInstance[]>
-    ) => any
+      items: ApiResponse<UserChannelInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelInstance[]>>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
@@ -196,11 +197,11 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: UserChannelPage) => any
+    callback?: (error: Error | null, items: UserChannelPage) => any,
   ): Promise<UserChannelPage>;
   page(
     params: UserChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: UserChannelPage) => any
+    callback?: (error: Error | null, items: UserChannelPage) => any,
   ): Promise<UserChannelPage>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API with HTTP metadata.
@@ -214,11 +215,17 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<UserChannelPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserChannelPage>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelPage>>;
   pageWithHttpInfo(
     params: UserChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<UserChannelPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserChannelPage>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelPage>>;
 
   /**
@@ -231,7 +238,7 @@ export interface UserChannelListInstance {
 export function UserChannelListInstance(
   version: V1,
   serviceSid: string,
-  userSid: string
+  userSid: string,
 ): UserChannelListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -251,7 +258,7 @@ export function UserChannelListInstance(
     params?:
       | UserChannelListInstancePageOptions
       | ((error: Error | null, items: UserChannelPage) => any),
-    callback?: (error: Error | null, items: UserChannelPage) => any
+    callback?: (error: Error | null, items: UserChannelPage) => any,
   ): Promise<UserChannelPage> {
     if (params instanceof Function) {
       callback = params;
@@ -280,12 +287,12 @@ export function UserChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserChannelPage(operationVersion, payload, instance._solution)
+        new UserChannelPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -295,7 +302,7 @@ export function UserChannelListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UserChannelPage) => any
+    callback?: (error: Error | null, items: UserChannelPage) => any,
   ): Promise<UserChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -303,7 +310,7 @@ export function UserChannelListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new UserChannelPage(instance._version, payload, instance._solution)
+        new UserChannelPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -313,7 +320,10 @@ export function UserChannelListInstance(
     params?:
       | UserChannelListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<UserChannelPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<UserChannelPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<UserChannelPage>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -338,21 +348,19 @@ export function UserChannelListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<UserChannelPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new UserChannelPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserChannelPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UserChannelPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -366,8 +374,8 @@ export function UserChannelListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<UserChannelPage>
-    ) => any
+      items?: ApiResponse<UserChannelPage>,
+    ) => any,
   ): Promise<ApiResponse<UserChannelPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -382,9 +390,9 @@ export function UserChannelListInstance(
         body: new UserChannelPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -396,7 +404,7 @@ export function UserChannelListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -424,7 +432,7 @@ export class UserChannelInstance {
     protected _version: V1,
     payload: UserChannelResource,
     serviceSid: string,
-    userSid: string
+    userSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -432,10 +440,10 @@ export class UserChannelInstance {
     this.memberSid = payload.member_sid;
     this.status = payload.status;
     this.lastConsumedMessageIndex = deserialize.integer(
-      payload.last_consumed_message_index
+      payload.last_consumed_message_index,
     );
     this.unreadMessagesCount = deserialize.integer(
-      payload.unread_messages_count
+      payload.unread_messages_count,
     );
     this.links = payload.links;
   }
@@ -509,7 +517,7 @@ export class UserChannelPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: UserChannelSolution
+    solution: UserChannelSolution,
   ) {
     super(version, response, solution);
   }
@@ -524,7 +532,7 @@ export class UserChannelPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.userSid
+      this._solution.userSid,
     );
   }
 

@@ -107,11 +107,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
+    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ThisMonthListInstanceEachOptions,
-    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
+    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ThisMonthInstance records from the API with HTTP metadata captured per page.
@@ -129,11 +129,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
+    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ThisMonthListInstanceEachOptions,
-    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
+    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ThisMonthInstance records from the API.
@@ -145,7 +145,7 @@ export interface ThisMonthListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ThisMonthPage) => any
+    callback?: (error: Error | null, items: ThisMonthPage) => any,
   ): Promise<ThisMonthPage>;
   /**
    * Retrieve a single target page of ThisMonthInstance records from the API with HTTP metadata.
@@ -157,7 +157,7 @@ export interface ThisMonthListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any,
   ): Promise<ApiResponse<ThisMonthPage>>;
   /**
    * Lists ThisMonthInstance records from the API as a list.
@@ -169,11 +169,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ThisMonthInstance[]) => any
+    callback?: (error: Error | null, items: ThisMonthInstance[]) => any,
   ): Promise<ThisMonthInstance[]>;
   list(
     params: ThisMonthListInstanceOptions,
-    callback?: (error: Error | null, items: ThisMonthInstance[]) => any
+    callback?: (error: Error | null, items: ThisMonthInstance[]) => any,
   ): Promise<ThisMonthInstance[]>;
   /**
    * Lists ThisMonthInstance records from the API as a list with HTTP metadata.
@@ -189,15 +189,15 @@ export interface ThisMonthListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ThisMonthInstance[]>
-    ) => any
+      items: ApiResponse<ThisMonthInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ThisMonthInstance[]>>;
   listWithHttpInfo(
     params: ThisMonthListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ThisMonthInstance[]>
-    ) => any
+      items: ApiResponse<ThisMonthInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ThisMonthInstance[]>>;
   /**
    * Retrieve a single page of ThisMonthInstance records from the API.
@@ -211,11 +211,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ThisMonthPage) => any
+    callback?: (error: Error | null, items: ThisMonthPage) => any,
   ): Promise<ThisMonthPage>;
   page(
     params: ThisMonthListInstancePageOptions,
-    callback?: (error: Error | null, items: ThisMonthPage) => any
+    callback?: (error: Error | null, items: ThisMonthPage) => any,
   ): Promise<ThisMonthPage>;
   /**
    * Retrieve a single page of ThisMonthInstance records from the API with HTTP metadata.
@@ -229,11 +229,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any,
   ): Promise<ApiResponse<ThisMonthPage>>;
   pageWithHttpInfo(
     params: ThisMonthListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any,
   ): Promise<ApiResponse<ThisMonthPage>>;
 
   /**
@@ -245,7 +245,7 @@ export interface ThisMonthListInstance {
 
 export function ThisMonthListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): ThisMonthListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -261,7 +261,7 @@ export function ThisMonthListInstance(
     params?:
       | ThisMonthListInstancePageOptions
       | ((error: Error | null, items: ThisMonthPage) => any),
-    callback?: (error: Error | null, items: ThisMonthPage) => any
+    callback?: (error: Error | null, items: ThisMonthPage) => any,
   ): Promise<ThisMonthPage> {
     if (params instanceof Function) {
       callback = params;
@@ -297,12 +297,12 @@ export function ThisMonthListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ThisMonthPage(operationVersion, payload, instance._solution)
+        new ThisMonthPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -312,7 +312,7 @@ export function ThisMonthListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ThisMonthPage) => any
+    callback?: (error: Error | null, items: ThisMonthPage) => any,
   ): Promise<ThisMonthPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -320,7 +320,7 @@ export function ThisMonthListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ThisMonthPage(instance._version, payload, instance._solution)
+        new ThisMonthPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -330,7 +330,7 @@ export function ThisMonthListInstance(
     params?:
       | ThisMonthListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ThisMonthPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ThisMonthPage>) => any,
   ): Promise<ApiResponse<ThisMonthPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -362,21 +362,15 @@ export function ThisMonthListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ThisMonthPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ThisMonthPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ThisMonthPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ThisMonthPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -388,7 +382,7 @@ export function ThisMonthListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ThisMonthPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ThisMonthPage>) => any,
   ): Promise<ApiResponse<ThisMonthPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -403,9 +397,9 @@ export function ThisMonthListInstance(
         body: new ThisMonthPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -417,7 +411,7 @@ export function ThisMonthListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -451,7 +445,7 @@ export class ThisMonthInstance {
   constructor(
     protected _version: V2010,
     payload: ThisMonthResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -577,7 +571,7 @@ export class ThisMonthPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: ThisMonthSolution
+    solution: ThisMonthSolution,
   ) {
     super(version, response, solution);
   }
@@ -591,7 +585,7 @@ export class ThisMonthPage extends Page<
     return new ThisMonthInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

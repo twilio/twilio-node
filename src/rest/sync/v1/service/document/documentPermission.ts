@@ -43,7 +43,7 @@ export interface DocumentPermissionListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: DocumentPermissionInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -82,7 +82,7 @@ export interface DocumentPermissionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -93,7 +93,7 @@ export interface DocumentPermissionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -104,7 +104,7 @@ export interface DocumentPermissionContext {
    * @returns Resolves to processed DocumentPermissionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance>;
 
   /**
@@ -117,8 +117,8 @@ export interface DocumentPermissionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>>;
 
   /**
@@ -131,7 +131,7 @@ export interface DocumentPermissionContext {
    */
   update(
     params: DocumentPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance>;
 
   /**
@@ -146,8 +146,8 @@ export interface DocumentPermissionContext {
     params: DocumentPermissionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>>;
 
   /**
@@ -163,9 +163,7 @@ export interface DocumentPermissionContextSolution {
   identity: string;
 }
 
-export class DocumentPermissionContextImpl
-  implements DocumentPermissionContext
-{
+export class DocumentPermissionContextImpl implements DocumentPermissionContext {
   protected _solution: DocumentPermissionContextSolution;
   protected _uri: string;
 
@@ -173,7 +171,7 @@ export class DocumentPermissionContextImpl
     protected _version: V1,
     serviceSid: string,
     documentSid: string,
-    identity: string
+    identity: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -192,7 +190,7 @@ export class DocumentPermissionContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -206,13 +204,13 @@ export class DocumentPermissionContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -221,22 +219,20 @@ export class DocumentPermissionContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -256,13 +252,13 @@ export class DocumentPermissionContextImpl
           payload,
           instance._solution.serviceSid,
           instance._solution.documentSid,
-          instance._solution.identity
-        )
+          instance._solution.identity,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -270,8 +266,8 @@ export class DocumentPermissionContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -285,29 +281,27 @@ export class DocumentPermissionContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DocumentPermissionInstance> => ({
-          ...response,
-          body: new DocumentPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.documentSid,
-            instance._solution.identity
-          ),
-        })
-      );
+      .then((response): ApiResponse<DocumentPermissionInstance> => ({
+        ...response,
+        body: new DocumentPermissionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: DocumentPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -353,13 +347,13 @@ export class DocumentPermissionContextImpl
           payload,
           instance._solution.serviceSid,
           instance._solution.documentSid,
-          instance._solution.identity
-        )
+          instance._solution.identity,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -368,8 +362,8 @@ export class DocumentPermissionContextImpl
     params: DocumentPermissionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -409,22 +403,20 @@ export class DocumentPermissionContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DocumentPermissionInstance> => ({
-          ...response,
-          body: new DocumentPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.documentSid,
-            instance._solution.identity
-          ),
-        })
-      );
+      .then((response): ApiResponse<DocumentPermissionInstance> => ({
+        ...response,
+        body: new DocumentPermissionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -467,7 +459,7 @@ export class DocumentPermissionInstance {
     payload: DocumentPermissionResource,
     serviceSid: string,
     documentSid: string,
-    identity?: string
+    identity?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -478,11 +470,7 @@ export class DocumentPermissionInstance {
     this.manage = payload.manage;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      documentSid,
-      identity: identity || this.identity,
-    };
+    this._solution = { serviceSid, documentSid, identity: identity };
   }
 
   /**
@@ -525,7 +513,7 @@ export class DocumentPermissionInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.documentSid,
-        this._solution.identity
+        this._solution.identity,
       );
     return this._context;
   }
@@ -538,7 +526,7 @@ export class DocumentPermissionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -551,7 +539,7 @@ export class DocumentPermissionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -564,7 +552,7 @@ export class DocumentPermissionInstance {
    * @returns Resolves to processed DocumentPermissionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -579,8 +567,8 @@ export class DocumentPermissionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -595,12 +583,12 @@ export class DocumentPermissionInstance {
    */
   update(
     params: DocumentPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any,
   ): Promise<DocumentPermissionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -617,16 +605,16 @@ export class DocumentPermissionInstance {
     params: DocumentPermissionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DocumentPermissionInstance>
-    ) => any
+      item?: ApiResponse<DocumentPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -685,15 +673,15 @@ export interface DocumentPermissionListInstance {
   each(
     callback?: (
       item: DocumentPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: DocumentPermissionListInstanceEachOptions,
     callback?: (
       item: DocumentPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams DocumentPermissionInstance records from the API with HTTP metadata captured per page.
@@ -713,15 +701,15 @@ export interface DocumentPermissionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: DocumentPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: DocumentPermissionListInstanceEachOptions,
     callback?: (
       item: DocumentPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of DocumentPermissionInstance records from the API.
@@ -733,7 +721,7 @@ export interface DocumentPermissionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any,
   ): Promise<DocumentPermissionPage>;
   /**
    * Retrieve a single target page of DocumentPermissionInstance records from the API with HTTP metadata.
@@ -747,8 +735,8 @@ export interface DocumentPermissionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DocumentPermissionPage>
-    ) => any
+      items: ApiResponse<DocumentPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionPage>>;
   /**
    * Lists DocumentPermissionInstance records from the API as a list.
@@ -760,11 +748,17 @@ export interface DocumentPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any
+    callback?: (
+      error: Error | null,
+      items: DocumentPermissionInstance[],
+    ) => any,
   ): Promise<DocumentPermissionInstance[]>;
   list(
     params: DocumentPermissionListInstanceOptions,
-    callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any
+    callback?: (
+      error: Error | null,
+      items: DocumentPermissionInstance[],
+    ) => any,
   ): Promise<DocumentPermissionInstance[]>;
   /**
    * Lists DocumentPermissionInstance records from the API as a list with HTTP metadata.
@@ -780,15 +774,15 @@ export interface DocumentPermissionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DocumentPermissionInstance[]>
-    ) => any
+      items: ApiResponse<DocumentPermissionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance[]>>;
   listWithHttpInfo(
     params: DocumentPermissionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DocumentPermissionInstance[]>
-    ) => any
+      items: ApiResponse<DocumentPermissionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionInstance[]>>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API.
@@ -802,11 +796,11 @@ export interface DocumentPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any,
   ): Promise<DocumentPermissionPage>;
   page(
     params: DocumentPermissionListInstancePageOptions,
-    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any,
   ): Promise<DocumentPermissionPage>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API with HTTP metadata.
@@ -822,15 +816,15 @@ export interface DocumentPermissionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DocumentPermissionPage>
-    ) => any
+      items: ApiResponse<DocumentPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionPage>>;
   pageWithHttpInfo(
     params: DocumentPermissionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DocumentPermissionPage>
-    ) => any
+      items: ApiResponse<DocumentPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionPage>>;
 
   /**
@@ -843,7 +837,7 @@ export interface DocumentPermissionListInstance {
 export function DocumentPermissionListInstance(
   version: V1,
   serviceSid: string,
-  documentSid: string
+  documentSid: string,
 ): DocumentPermissionListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -861,7 +855,7 @@ export function DocumentPermissionListInstance(
       version,
       serviceSid,
       documentSid,
-      identity
+      identity,
     );
   };
 
@@ -873,7 +867,7 @@ export function DocumentPermissionListInstance(
     params?:
       | DocumentPermissionListInstancePageOptions
       | ((error: Error | null, items: DocumentPermissionPage) => any),
-    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any,
   ): Promise<DocumentPermissionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -905,13 +899,13 @@ export function DocumentPermissionListInstance(
         new DocumentPermissionPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -921,7 +915,7 @@ export function DocumentPermissionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any,
   ): Promise<DocumentPermissionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -932,8 +926,8 @@ export function DocumentPermissionListInstance(
         new DocumentPermissionPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -944,12 +938,12 @@ export function DocumentPermissionListInstance(
       | DocumentPermissionListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<DocumentPermissionPage>
+          items: ApiResponse<DocumentPermissionPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<DocumentPermissionPage>
-    ) => any
+      items: ApiResponse<DocumentPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -974,21 +968,19 @@ export function DocumentPermissionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DocumentPermissionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DocumentPermissionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<DocumentPermissionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DocumentPermissionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1002,8 +994,8 @@ export function DocumentPermissionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<DocumentPermissionPage>
-    ) => any
+      items?: ApiResponse<DocumentPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<DocumentPermissionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1018,9 +1010,9 @@ export function DocumentPermissionListInstance(
         body: new DocumentPermissionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1032,7 +1024,7 @@ export function DocumentPermissionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1056,7 +1048,7 @@ export class DocumentPermissionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: DocumentPermissionSolution
+    solution: DocumentPermissionSolution,
   ) {
     super(version, response, solution);
   }
@@ -1071,7 +1063,7 @@ export class DocumentPermissionPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.documentSid
+      this._solution.documentSid,
     );
   }
 

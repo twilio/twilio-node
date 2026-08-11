@@ -59,7 +59,7 @@ export function MessagingListInstance(version: V1): MessagingListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -59,7 +59,7 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

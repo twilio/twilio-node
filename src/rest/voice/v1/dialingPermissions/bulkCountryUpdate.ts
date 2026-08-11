@@ -44,7 +44,7 @@ export interface BulkCountryUpdateListInstance {
    */
   create(
     params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
+    callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any,
   ): Promise<BulkCountryUpdateInstance>;
 
   /**
@@ -59,8 +59,8 @@ export interface BulkCountryUpdateListInstance {
     params: BulkCountryUpdateListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkCountryUpdateInstance>
-    ) => any
+      item?: ApiResponse<BulkCountryUpdateInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkCountryUpdateInstance>>;
 
   /**
@@ -71,7 +71,7 @@ export interface BulkCountryUpdateListInstance {
 }
 
 export function BulkCountryUpdateListInstance(
-  version: V1
+  version: V1,
 ): BulkCountryUpdateListInstance {
   const instance = {} as BulkCountryUpdateListInstance;
 
@@ -81,7 +81,7 @@ export function BulkCountryUpdateListInstance(
 
   instance.create = function create(
     params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BulkCountryUpdateInstance) => any
+    callback?: (error: Error | null, items: BulkCountryUpdateInstance) => any,
   ): Promise<BulkCountryUpdateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -92,7 +92,7 @@ export function BulkCountryUpdateListInstance(
       params["updateRequest"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['updateRequest']\" missing."
+        "Required parameter \"params['updateRequest']\" missing.",
       );
     }
 
@@ -113,12 +113,12 @@ export function BulkCountryUpdateListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BulkCountryUpdateInstance(operationVersion, payload)
+      (payload) => new BulkCountryUpdateInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -127,8 +127,8 @@ export function BulkCountryUpdateListInstance(
     params: BulkCountryUpdateListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BulkCountryUpdateInstance>
-    ) => any
+      items: ApiResponse<BulkCountryUpdateInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkCountryUpdateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -139,7 +139,7 @@ export function BulkCountryUpdateListInstance(
       params["updateRequest"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['updateRequest']\" missing."
+        "Required parameter \"params['updateRequest']\" missing.",
       );
     }
 
@@ -160,16 +160,14 @@ export function BulkCountryUpdateListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkCountryUpdateInstance> => ({
-          ...response,
-          body: new BulkCountryUpdateInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BulkCountryUpdateInstance> => ({
+        ...response,
+        body: new BulkCountryUpdateInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -180,7 +178,7 @@ export function BulkCountryUpdateListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -196,7 +194,10 @@ interface BulkCountryUpdateResource {
 }
 
 export class BulkCountryUpdateInstance {
-  constructor(protected _version: V1, payload: BulkCountryUpdateResource) {
+  constructor(
+    protected _version: V1,
+    payload: BulkCountryUpdateResource,
+  ) {
     this.updateCount = deserialize.integer(payload.update_count);
     this.updateRequest = payload.update_request;
   }

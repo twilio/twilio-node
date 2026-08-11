@@ -36,7 +36,10 @@ export interface BrandRegistrationOtpListInstance {
    * @returns Resolves to processed BrandRegistrationOtpInstance
    */
   create(
-    callback?: (error: Error | null, item?: BrandRegistrationOtpInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: BrandRegistrationOtpInstance,
+    ) => any,
   ): Promise<BrandRegistrationOtpInstance>;
 
   /**
@@ -49,8 +52,8 @@ export interface BrandRegistrationOtpListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationOtpInstance>
-    ) => any
+      item?: ApiResponse<BrandRegistrationOtpInstance>,
+    ) => any,
   ): Promise<ApiResponse<BrandRegistrationOtpInstance>>;
 
   /**
@@ -62,7 +65,7 @@ export interface BrandRegistrationOtpListInstance {
 
 export function BrandRegistrationOtpListInstance(
   version: V1,
-  brandRegistrationSid: string
+  brandRegistrationSid: string,
 ): BrandRegistrationOtpListInstance {
   if (!isValidPathParam(brandRegistrationSid)) {
     throw new Error("Parameter 'brandRegistrationSid' is not valid.");
@@ -75,7 +78,10 @@ export function BrandRegistrationOtpListInstance(
   instance._uri = `/a2p/BrandRegistrations/${brandRegistrationSid}/SmsOtp`;
 
   instance.create = function create(
-    callback?: (error: Error | null, items: BrandRegistrationOtpInstance) => any
+    callback?: (
+      error: Error | null,
+      items: BrandRegistrationOtpInstance,
+    ) => any,
   ): Promise<BrandRegistrationOtpInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -92,13 +98,13 @@ export function BrandRegistrationOtpListInstance(
         new BrandRegistrationOtpInstance(
           operationVersion,
           payload,
-          instance._solution.brandRegistrationSid
-        )
+          instance._solution.brandRegistrationSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -106,8 +112,8 @@ export function BrandRegistrationOtpListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationOtpInstance>
-    ) => any
+      items: ApiResponse<BrandRegistrationOtpInstance>,
+    ) => any,
   ): Promise<ApiResponse<BrandRegistrationOtpInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -120,20 +126,18 @@ export function BrandRegistrationOtpListInstance(
         method: "post",
         headers,
       })
-      .then(
-        (response): ApiResponse<BrandRegistrationOtpInstance> => ({
-          ...response,
-          body: new BrandRegistrationOtpInstance(
-            operationVersion,
-            response.body,
-            instance._solution.brandRegistrationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BrandRegistrationOtpInstance> => ({
+        ...response,
+        body: new BrandRegistrationOtpInstance(
+          operationVersion,
+          response.body,
+          instance._solution.brandRegistrationSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -144,7 +148,7 @@ export function BrandRegistrationOtpListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -163,7 +167,7 @@ export class BrandRegistrationOtpInstance {
   constructor(
     protected _version: V1,
     payload: BrandRegistrationOtpResource,
-    brandRegistrationSid: string
+    brandRegistrationSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.brandRegistrationSid = payload.brand_registration_sid;

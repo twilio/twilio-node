@@ -58,7 +58,7 @@ export interface RegulatoryComplianceListInstance {
 }
 
 export function RegulatoryComplianceListInstance(
-  version: V2
+  version: V2,
 ): RegulatoryComplianceListInstance {
   const instance = {} as RegulatoryComplianceListInstance;
 
@@ -106,7 +106,7 @@ export function RegulatoryComplianceListInstance(
     get: function supportingDocuments() {
       if (!instance._supportingDocuments) {
         instance._supportingDocuments = SupportingDocumentListInstance(
-          instance._version
+          instance._version,
         );
       }
       return instance._supportingDocuments;
@@ -117,7 +117,7 @@ export function RegulatoryComplianceListInstance(
     get: function supportingDocumentTypes() {
       if (!instance._supportingDocumentTypes) {
         instance._supportingDocumentTypes = SupportingDocumentTypeListInstance(
-          instance._version
+          instance._version,
         );
       }
       return instance._supportingDocumentTypes;
@@ -130,7 +130,7 @@ export function RegulatoryComplianceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

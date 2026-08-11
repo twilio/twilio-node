@@ -28,11 +28,7 @@ export type InteractionChannelParticipantStatus = "closed" | "wrapup";
  * Participant type. Can be: `agent`, `customer`, `supervisor`, `external`, `unknown`
  */
 export type InteractionChannelParticipantType =
-  | "supervisor"
-  | "customer"
-  | "external"
-  | "agent"
-  | "unknown";
+  "supervisor" | "customer" | "external" | "agent" | "unknown";
 
 /**
  * Options to pass to update a InteractionChannelParticipantInstance
@@ -63,7 +59,7 @@ export interface InteractionChannelParticipantListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InteractionChannelParticipantInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -106,8 +102,8 @@ export interface InteractionChannelParticipantContext {
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
+      item?: InteractionChannelParticipantInstance,
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance>;
 
   /**
@@ -122,8 +118,8 @@ export interface InteractionChannelParticipantContext {
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InteractionChannelParticipantInstance>
-    ) => any
+      item?: ApiResponse<InteractionChannelParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance>>;
 
   /**
@@ -139,9 +135,7 @@ export interface InteractionChannelParticipantContextSolution {
   sid: string;
 }
 
-export class InteractionChannelParticipantContextImpl
-  implements InteractionChannelParticipantContext
-{
+export class InteractionChannelParticipantContextImpl implements InteractionChannelParticipantContext {
   protected _solution: InteractionChannelParticipantContextSolution;
   protected _uri: string;
 
@@ -149,7 +143,7 @@ export class InteractionChannelParticipantContextImpl
     protected _version: V1,
     interactionSid: string,
     channelSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(interactionSid)) {
       throw new Error("Parameter 'interactionSid' is not valid.");
@@ -171,8 +165,8 @@ export class InteractionChannelParticipantContextImpl
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
+      item?: InteractionChannelParticipantInstance,
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -206,13 +200,13 @@ export class InteractionChannelParticipantContextImpl
           payload,
           instance._solution.interactionSid,
           instance._solution.channelSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -221,8 +215,8 @@ export class InteractionChannelParticipantContextImpl
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InteractionChannelParticipantInstance>
-    ) => any
+      item?: ApiResponse<InteractionChannelParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -250,22 +244,20 @@ export class InteractionChannelParticipantContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionChannelParticipantInstance> => ({
-          ...response,
-          body: new InteractionChannelParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.interactionSid,
-            instance._solution.channelSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionChannelParticipantInstance> => ({
+        ...response,
+        body: new InteractionChannelParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.interactionSid,
+          instance._solution.channelSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -306,7 +298,7 @@ export class InteractionChannelParticipantInstance {
     payload: InteractionChannelParticipantResource,
     interactionSid: string,
     channelSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.type = payload.type;
@@ -315,7 +307,7 @@ export class InteractionChannelParticipantInstance {
     this.url = payload.url;
     this.routingProperties = payload.routing_properties;
 
-    this._solution = { interactionSid, channelSid, sid: sid || this.sid };
+    this._solution = { interactionSid, channelSid, sid: sid };
   }
 
   /**
@@ -344,7 +336,7 @@ export class InteractionChannelParticipantInstance {
         this._version,
         this._solution.interactionSid,
         this._solution.channelSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -361,16 +353,16 @@ export class InteractionChannelParticipantInstance {
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
+      item?: InteractionChannelParticipantInstance,
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
+      item?: InteractionChannelParticipantInstance,
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance> {
     return this._proxy.update(params, callback);
   }
@@ -387,16 +379,16 @@ export class InteractionChannelParticipantInstance {
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InteractionChannelParticipantInstance>
-    ) => any
+      item?: ApiResponse<InteractionChannelParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InteractionChannelParticipantInstance>
-    ) => any
+      item?: ApiResponse<InteractionChannelParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -447,8 +439,8 @@ export interface InteractionChannelParticipantListInstance {
     params: InteractionChannelParticipantListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
+      item?: InteractionChannelParticipantInstance,
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance>;
 
   /**
@@ -463,8 +455,8 @@ export interface InteractionChannelParticipantListInstance {
     params: InteractionChannelParticipantListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InteractionChannelParticipantInstance>
-    ) => any
+      item?: ApiResponse<InteractionChannelParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance>>;
 
   /**
@@ -485,15 +477,15 @@ export interface InteractionChannelParticipantListInstance {
   each(
     callback?: (
       item: InteractionChannelParticipantInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: InteractionChannelParticipantListInstanceEachOptions,
     callback?: (
       item: InteractionChannelParticipantInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams InteractionChannelParticipantInstance records from the API with HTTP metadata captured per page.
@@ -513,15 +505,15 @@ export interface InteractionChannelParticipantListInstance {
   eachWithHttpInfo(
     callback?: (
       item: InteractionChannelParticipantInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: InteractionChannelParticipantListInstanceEachOptions,
     callback?: (
       item: InteractionChannelParticipantInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of InteractionChannelParticipantInstance records from the API.
@@ -535,8 +527,8 @@ export interface InteractionChannelParticipantListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
+      items: InteractionChannelParticipantPage,
+    ) => any,
   ): Promise<InteractionChannelParticipantPage>;
   /**
    * Retrieve a single target page of InteractionChannelParticipantInstance records from the API with HTTP metadata.
@@ -550,8 +542,8 @@ export interface InteractionChannelParticipantListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantPage>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantPage>>;
   /**
    * Lists InteractionChannelParticipantInstance records from the API as a list.
@@ -565,15 +557,15 @@ export interface InteractionChannelParticipantListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantInstance[]
-    ) => any
+      items: InteractionChannelParticipantInstance[],
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance[]>;
   list(
     params: InteractionChannelParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantInstance[]
-    ) => any
+      items: InteractionChannelParticipantInstance[],
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance[]>;
   /**
    * Lists InteractionChannelParticipantInstance records from the API as a list with HTTP metadata.
@@ -589,15 +581,15 @@ export interface InteractionChannelParticipantListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantInstance[]>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance[]>>;
   listWithHttpInfo(
     params: InteractionChannelParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantInstance[]>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance[]>>;
   /**
    * Retrieve a single page of InteractionChannelParticipantInstance records from the API.
@@ -613,15 +605,15 @@ export interface InteractionChannelParticipantListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
+      items: InteractionChannelParticipantPage,
+    ) => any,
   ): Promise<InteractionChannelParticipantPage>;
   page(
     params: InteractionChannelParticipantListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
+      items: InteractionChannelParticipantPage,
+    ) => any,
   ): Promise<InteractionChannelParticipantPage>;
   /**
    * Retrieve a single page of InteractionChannelParticipantInstance records from the API with HTTP metadata.
@@ -637,15 +629,15 @@ export interface InteractionChannelParticipantListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantPage>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantPage>>;
   pageWithHttpInfo(
     params: InteractionChannelParticipantListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantPage>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantPage>>;
 
   /**
@@ -658,7 +650,7 @@ export interface InteractionChannelParticipantListInstance {
 export function InteractionChannelParticipantListInstance(
   version: V1,
   interactionSid: string,
-  channelSid: string
+  channelSid: string,
 ): InteractionChannelParticipantListInstance {
   if (!isValidPathParam(interactionSid)) {
     throw new Error("Parameter 'interactionSid' is not valid.");
@@ -676,7 +668,7 @@ export function InteractionChannelParticipantListInstance(
       version,
       interactionSid,
       channelSid,
-      sid
+      sid,
     );
   };
 
@@ -688,8 +680,8 @@ export function InteractionChannelParticipantListInstance(
     params: InteractionChannelParticipantListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantInstance
-    ) => any
+      items: InteractionChannelParticipantInstance,
+    ) => any,
   ): Promise<InteractionChannelParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -704,7 +696,7 @@ export function InteractionChannelParticipantListInstance(
       params["mediaProperties"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['mediaProperties']\" missing."
+        "Required parameter \"params['mediaProperties']\" missing.",
       );
     }
 
@@ -734,13 +726,13 @@ export function InteractionChannelParticipantListInstance(
           operationVersion,
           payload,
           instance._solution.interactionSid,
-          instance._solution.channelSid
-        )
+          instance._solution.channelSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -749,8 +741,8 @@ export function InteractionChannelParticipantListInstance(
     params: InteractionChannelParticipantListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantInstance>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -765,7 +757,7 @@ export function InteractionChannelParticipantListInstance(
       params["mediaProperties"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['mediaProperties']\" missing."
+        "Required parameter \"params['mediaProperties']\" missing.",
       );
     }
 
@@ -790,21 +782,19 @@ export function InteractionChannelParticipantListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionChannelParticipantInstance> => ({
-          ...response,
-          body: new InteractionChannelParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.interactionSid,
-            instance._solution.channelSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionChannelParticipantInstance> => ({
+        ...response,
+        body: new InteractionChannelParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.interactionSid,
+          instance._solution.channelSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -814,12 +804,12 @@ export function InteractionChannelParticipantListInstance(
       | InteractionChannelParticipantListInstancePageOptions
       | ((
           error: Error | null,
-          items: InteractionChannelParticipantPage
+          items: InteractionChannelParticipantPage,
         ) => any),
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
+      items: InteractionChannelParticipantPage,
+    ) => any,
   ): Promise<InteractionChannelParticipantPage> {
     if (params instanceof Function) {
       callback = params;
@@ -851,13 +841,13 @@ export function InteractionChannelParticipantListInstance(
         new InteractionChannelParticipantPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -869,8 +859,8 @@ export function InteractionChannelParticipantListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
+      items: InteractionChannelParticipantPage,
+    ) => any,
   ): Promise<InteractionChannelParticipantPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -881,8 +871,8 @@ export function InteractionChannelParticipantListInstance(
         new InteractionChannelParticipantPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -893,12 +883,12 @@ export function InteractionChannelParticipantListInstance(
       | InteractionChannelParticipantListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InteractionChannelParticipantPage>
+          items: ApiResponse<InteractionChannelParticipantPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelParticipantPage>
-    ) => any
+      items: ApiResponse<InteractionChannelParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -923,21 +913,19 @@ export function InteractionChannelParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InteractionChannelParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InteractionChannelParticipantPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionChannelParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InteractionChannelParticipantPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -951,8 +939,8 @@ export function InteractionChannelParticipantListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<InteractionChannelParticipantPage>
-    ) => any
+      items?: ApiResponse<InteractionChannelParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelParticipantPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -967,9 +955,9 @@ export function InteractionChannelParticipantListInstance(
         body: new InteractionChannelParticipantPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -981,7 +969,7 @@ export function InteractionChannelParticipantListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1005,7 +993,7 @@ export class InteractionChannelParticipantPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: InteractionChannelParticipantSolution
+    solution: InteractionChannelParticipantSolution,
   ) {
     super(version, response, solution);
   }
@@ -1016,13 +1004,13 @@ export class InteractionChannelParticipantPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InteractionChannelParticipantResource
+    payload: InteractionChannelParticipantResource,
   ): InteractionChannelParticipantInstance {
     return new InteractionChannelParticipantInstance(
       this._version,
       payload,
       this._solution.interactionSid,
-      this._solution.channelSid
+      this._solution.channelSid,
     );
   }
 

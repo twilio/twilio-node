@@ -26,11 +26,7 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * A string specifying the communication channel used for the verification attempt.
  */
 export type VerificationAttemptChannels =
-  | "sms"
-  | "call"
-  | "email"
-  | "whatsapp"
-  | "rbm";
+  "sms" | "call" | "email" | "whatsapp" | "rbm";
 
 /**
  * A string specifying the conversion status of the verification. A conversion happens when the user is able to provide the correct code. Possible values are `CONVERTED` and `UNCONVERTED`.
@@ -62,7 +58,7 @@ export interface VerificationAttemptListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: VerificationAttemptInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -133,7 +129,7 @@ export interface VerificationAttemptContext {
    * @returns Resolves to processed VerificationAttemptInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any,
   ): Promise<VerificationAttemptInstance>;
 
   /**
@@ -146,8 +142,8 @@ export interface VerificationAttemptContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationAttemptInstance>
-    ) => any
+      item?: ApiResponse<VerificationAttemptInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptInstance>>;
 
   /**
@@ -161,13 +157,14 @@ export interface VerificationAttemptContextSolution {
   sid: string;
 }
 
-export class VerificationAttemptContextImpl
-  implements VerificationAttemptContext
-{
+export class VerificationAttemptContextImpl implements VerificationAttemptContext {
   protected _solution: VerificationAttemptContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -177,7 +174,7 @@ export class VerificationAttemptContextImpl
   }
 
   fetch(
-    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any,
   ): Promise<VerificationAttemptInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -195,13 +192,13 @@ export class VerificationAttemptContextImpl
         new VerificationAttemptInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -209,8 +206,8 @@ export class VerificationAttemptContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationAttemptInstance>
-    ) => any
+      item?: ApiResponse<VerificationAttemptInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -224,20 +221,18 @@ export class VerificationAttemptContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<VerificationAttemptInstance> => ({
-          ...response,
-          body: new VerificationAttemptInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<VerificationAttemptInstance> => ({
+        ...response,
+        body: new VerificationAttemptInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -281,7 +276,7 @@ export class VerificationAttemptInstance {
   constructor(
     protected _version: V2,
     payload: VerificationAttemptResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -295,7 +290,7 @@ export class VerificationAttemptInstance {
     this.channelData = payload.channel_data;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -349,7 +344,7 @@ export class VerificationAttemptInstance {
    * @returns Resolves to processed VerificationAttemptInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any,
   ): Promise<VerificationAttemptInstance> {
     return this._proxy.fetch(callback);
   }
@@ -364,8 +359,8 @@ export class VerificationAttemptInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationAttemptInstance>
-    ) => any
+      item?: ApiResponse<VerificationAttemptInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -424,15 +419,15 @@ export interface VerificationAttemptListInstance {
   each(
     callback?: (
       item: VerificationAttemptInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: VerificationAttemptListInstanceEachOptions,
     callback?: (
       item: VerificationAttemptInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams VerificationAttemptInstance records from the API with HTTP metadata captured per page.
@@ -452,15 +447,15 @@ export interface VerificationAttemptListInstance {
   eachWithHttpInfo(
     callback?: (
       item: VerificationAttemptInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: VerificationAttemptListInstanceEachOptions,
     callback?: (
       item: VerificationAttemptInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of VerificationAttemptInstance records from the API.
@@ -472,7 +467,7 @@ export interface VerificationAttemptListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any,
   ): Promise<VerificationAttemptPage>;
   /**
    * Retrieve a single target page of VerificationAttemptInstance records from the API with HTTP metadata.
@@ -486,8 +481,8 @@ export interface VerificationAttemptListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationAttemptPage>
-    ) => any
+      items: ApiResponse<VerificationAttemptPage>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptPage>>;
   /**
    * Lists VerificationAttemptInstance records from the API as a list.
@@ -501,15 +496,15 @@ export interface VerificationAttemptListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: VerificationAttemptInstance[]
-    ) => any
+      items: VerificationAttemptInstance[],
+    ) => any,
   ): Promise<VerificationAttemptInstance[]>;
   list(
     params: VerificationAttemptListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: VerificationAttemptInstance[]
-    ) => any
+      items: VerificationAttemptInstance[],
+    ) => any,
   ): Promise<VerificationAttemptInstance[]>;
   /**
    * Lists VerificationAttemptInstance records from the API as a list with HTTP metadata.
@@ -525,15 +520,15 @@ export interface VerificationAttemptListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationAttemptInstance[]>
-    ) => any
+      items: ApiResponse<VerificationAttemptInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptInstance[]>>;
   listWithHttpInfo(
     params: VerificationAttemptListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationAttemptInstance[]>
-    ) => any
+      items: ApiResponse<VerificationAttemptInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptInstance[]>>;
   /**
    * Retrieve a single page of VerificationAttemptInstance records from the API.
@@ -547,11 +542,11 @@ export interface VerificationAttemptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any,
   ): Promise<VerificationAttemptPage>;
   page(
     params: VerificationAttemptListInstancePageOptions,
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any,
   ): Promise<VerificationAttemptPage>;
   /**
    * Retrieve a single page of VerificationAttemptInstance records from the API with HTTP metadata.
@@ -567,15 +562,15 @@ export interface VerificationAttemptListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationAttemptPage>
-    ) => any
+      items: ApiResponse<VerificationAttemptPage>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptPage>>;
   pageWithHttpInfo(
     params: VerificationAttemptListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationAttemptPage>
-    ) => any
+      items: ApiResponse<VerificationAttemptPage>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptPage>>;
 
   /**
@@ -586,7 +581,7 @@ export interface VerificationAttemptListInstance {
 }
 
 export function VerificationAttemptListInstance(
-  version: V2
+  version: V2,
 ): VerificationAttemptListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as VerificationAttemptListInstance;
@@ -603,7 +598,7 @@ export function VerificationAttemptListInstance(
     params?:
       | VerificationAttemptListInstancePageOptions
       | ((error: Error | null, items: VerificationAttemptPage) => any),
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any,
   ): Promise<VerificationAttemptPage> {
     if (params instanceof Function) {
       callback = params;
@@ -616,11 +611,11 @@ export function VerificationAttemptListInstance(
 
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
+        params["dateCreatedAfter"],
       );
     if (params["dateCreatedBefore"] !== undefined)
       data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
+        params["dateCreatedBefore"],
       );
     if (params["channelData.to"] !== undefined)
       data["ChannelData.To"] = params["channelData.to"];
@@ -652,13 +647,13 @@ export function VerificationAttemptListInstance(
         new VerificationAttemptPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -668,7 +663,7 @@ export function VerificationAttemptListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any,
   ): Promise<VerificationAttemptPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -679,8 +674,8 @@ export function VerificationAttemptListInstance(
         new VerificationAttemptPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -691,12 +686,12 @@ export function VerificationAttemptListInstance(
       | VerificationAttemptListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<VerificationAttemptPage>
+          items: ApiResponse<VerificationAttemptPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationAttemptPage>
-    ) => any
+      items: ApiResponse<VerificationAttemptPage>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -709,11 +704,11 @@ export function VerificationAttemptListInstance(
 
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
+        params["dateCreatedAfter"],
       );
     if (params["dateCreatedBefore"] !== undefined)
       data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
+        params["dateCreatedBefore"],
       );
     if (params["channelData.to"] !== undefined)
       data["ChannelData.To"] = params["channelData.to"];
@@ -738,21 +733,19 @@ export function VerificationAttemptListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<VerificationAttemptPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new VerificationAttemptPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<VerificationAttemptPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new VerificationAttemptPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -766,8 +759,8 @@ export function VerificationAttemptListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<VerificationAttemptPage>
-    ) => any
+      items?: ApiResponse<VerificationAttemptPage>,
+    ) => any,
   ): Promise<ApiResponse<VerificationAttemptPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -782,9 +775,9 @@ export function VerificationAttemptListInstance(
         body: new VerificationAttemptPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -796,7 +789,7 @@ export function VerificationAttemptListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -820,7 +813,7 @@ export class VerificationAttemptPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: VerificationAttemptSolution
+    solution: VerificationAttemptSolution,
   ) {
     super(version, response, solution);
   }
@@ -831,7 +824,7 @@ export class VerificationAttemptPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: VerificationAttemptResource
+    payload: VerificationAttemptResource,
   ): VerificationAttemptInstance {
     return new VerificationAttemptInstance(this._version, payload);
   }

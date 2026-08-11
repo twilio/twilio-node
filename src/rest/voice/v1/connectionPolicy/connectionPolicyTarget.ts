@@ -63,7 +63,7 @@ export interface ConnectionPolicyTargetListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ConnectionPolicyTargetInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -102,7 +102,7 @@ export interface ConnectionPolicyTargetContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -113,7 +113,7 @@ export interface ConnectionPolicyTargetContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -126,8 +126,8 @@ export interface ConnectionPolicyTargetContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance>;
 
   /**
@@ -140,8 +140,8 @@ export interface ConnectionPolicyTargetContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>>;
 
   /**
@@ -154,8 +154,8 @@ export interface ConnectionPolicyTargetContext {
   update(
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance>;
   /**
    * Update a ConnectionPolicyTargetInstance
@@ -169,8 +169,8 @@ export interface ConnectionPolicyTargetContext {
     params: ConnectionPolicyTargetContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance>;
 
   /**
@@ -183,8 +183,8 @@ export interface ConnectionPolicyTargetContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>>;
   /**
    * Update a ConnectionPolicyTargetInstance and return HTTP info
@@ -198,8 +198,8 @@ export interface ConnectionPolicyTargetContext {
     params: ConnectionPolicyTargetContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>>;
 
   /**
@@ -214,16 +214,14 @@ export interface ConnectionPolicyTargetContextSolution {
   sid: string;
 }
 
-export class ConnectionPolicyTargetContextImpl
-  implements ConnectionPolicyTargetContext
-{
+export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTargetContext {
   protected _solution: ConnectionPolicyTargetContextSolution;
   protected _uri: string;
 
   constructor(
     protected _version: V1,
     connectionPolicySid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(connectionPolicySid)) {
       throw new Error("Parameter 'connectionPolicySid' is not valid.");
@@ -238,7 +236,7 @@ export class ConnectionPolicyTargetContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -252,13 +250,13 @@ export class ConnectionPolicyTargetContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -267,16 +265,14 @@ export class ConnectionPolicyTargetContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -284,8 +280,8 @@ export class ConnectionPolicyTargetContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -304,13 +300,13 @@ export class ConnectionPolicyTargetContextImpl
           operationVersion,
           payload,
           instance._solution.connectionPolicySid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -318,8 +314,8 @@ export class ConnectionPolicyTargetContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -333,21 +329,19 @@ export class ConnectionPolicyTargetContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ConnectionPolicyTargetInstance> => ({
-          ...response,
-          body: new ConnectionPolicyTargetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.connectionPolicySid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyTargetInstance> => ({
+        ...response,
+        body: new ConnectionPolicyTargetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.connectionPolicySid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -358,14 +352,14 @@ export class ConnectionPolicyTargetContextImpl
       | ((error: Error | null, item?: ConnectionPolicyTargetInstance) => any),
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -397,13 +391,13 @@ export class ConnectionPolicyTargetContextImpl
           operationVersion,
           payload,
           instance._solution.connectionPolicySid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -413,18 +407,18 @@ export class ConnectionPolicyTargetContextImpl
       | ConnectionPolicyTargetContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConnectionPolicyTargetInstance>
+          item?: ApiResponse<ConnectionPolicyTargetInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -451,21 +445,19 @@ export class ConnectionPolicyTargetContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConnectionPolicyTargetInstance> => ({
-          ...response,
-          body: new ConnectionPolicyTargetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.connectionPolicySid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyTargetInstance> => ({
+        ...response,
+        body: new ConnectionPolicyTargetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.connectionPolicySid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -510,7 +502,7 @@ export class ConnectionPolicyTargetInstance {
     protected _version: V1,
     payload: ConnectionPolicyTargetResource,
     connectionPolicySid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.connectionPolicySid = payload.connection_policy_sid;
@@ -524,7 +516,7 @@ export class ConnectionPolicyTargetInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { connectionPolicySid, sid: sid || this.sid };
+    this._solution = { connectionPolicySid, sid: sid };
   }
 
   /**
@@ -578,7 +570,7 @@ export class ConnectionPolicyTargetInstance {
       new ConnectionPolicyTargetContextImpl(
         this._version,
         this._solution.connectionPolicySid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -591,7 +583,7 @@ export class ConnectionPolicyTargetInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -604,7 +596,7 @@ export class ConnectionPolicyTargetInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -619,8 +611,8 @@ export class ConnectionPolicyTargetInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance> {
     return this._proxy.fetch(callback);
   }
@@ -635,8 +627,8 @@ export class ConnectionPolicyTargetInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -651,8 +643,8 @@ export class ConnectionPolicyTargetInstance {
   update(
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance>;
   /**
    * Update a ConnectionPolicyTargetInstance
@@ -666,16 +658,16 @@ export class ConnectionPolicyTargetInstance {
     params: ConnectionPolicyTargetContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance> {
     return this._proxy.update(params, callback);
   }
@@ -690,8 +682,8 @@ export class ConnectionPolicyTargetInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>>;
   /**
    * Update a ConnectionPolicyTargetInstance and return HTTP info
@@ -705,16 +697,16 @@ export class ConnectionPolicyTargetInstance {
     params: ConnectionPolicyTargetContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -769,8 +761,8 @@ export interface ConnectionPolicyTargetListInstance {
     params: ConnectionPolicyTargetListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
+      item?: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance>;
 
   /**
@@ -785,8 +777,8 @@ export interface ConnectionPolicyTargetListInstance {
     params: ConnectionPolicyTargetListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      item?: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>>;
 
   /**
@@ -807,15 +799,15 @@ export interface ConnectionPolicyTargetListInstance {
   each(
     callback?: (
       item: ConnectionPolicyTargetInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: ConnectionPolicyTargetListInstanceEachOptions,
     callback?: (
       item: ConnectionPolicyTargetInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams ConnectionPolicyTargetInstance records from the API with HTTP metadata captured per page.
@@ -835,15 +827,15 @@ export interface ConnectionPolicyTargetListInstance {
   eachWithHttpInfo(
     callback?: (
       item: ConnectionPolicyTargetInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: ConnectionPolicyTargetListInstanceEachOptions,
     callback?: (
       item: ConnectionPolicyTargetInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of ConnectionPolicyTargetInstance records from the API.
@@ -855,7 +847,7 @@ export interface ConnectionPolicyTargetListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any,
   ): Promise<ConnectionPolicyTargetPage>;
   /**
    * Retrieve a single target page of ConnectionPolicyTargetInstance records from the API with HTTP metadata.
@@ -869,8 +861,8 @@ export interface ConnectionPolicyTargetListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetPage>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetPage>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetPage>>;
   /**
    * Lists ConnectionPolicyTargetInstance records from the API as a list.
@@ -884,15 +876,15 @@ export interface ConnectionPolicyTargetListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: ConnectionPolicyTargetInstance[]
-    ) => any
+      items: ConnectionPolicyTargetInstance[],
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance[]>;
   list(
     params: ConnectionPolicyTargetListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ConnectionPolicyTargetInstance[]
-    ) => any
+      items: ConnectionPolicyTargetInstance[],
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance[]>;
   /**
    * Lists ConnectionPolicyTargetInstance records from the API as a list with HTTP metadata.
@@ -908,15 +900,15 @@ export interface ConnectionPolicyTargetListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetInstance[]>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance[]>>;
   listWithHttpInfo(
     params: ConnectionPolicyTargetListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetInstance[]>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance[]>>;
   /**
    * Retrieve a single page of ConnectionPolicyTargetInstance records from the API.
@@ -930,11 +922,11 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any,
   ): Promise<ConnectionPolicyTargetPage>;
   page(
     params: ConnectionPolicyTargetListInstancePageOptions,
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any,
   ): Promise<ConnectionPolicyTargetPage>;
   /**
    * Retrieve a single page of ConnectionPolicyTargetInstance records from the API with HTTP metadata.
@@ -950,15 +942,15 @@ export interface ConnectionPolicyTargetListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetPage>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetPage>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetPage>>;
   pageWithHttpInfo(
     params: ConnectionPolicyTargetListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetPage>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetPage>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetPage>>;
 
   /**
@@ -970,7 +962,7 @@ export interface ConnectionPolicyTargetListInstance {
 
 export function ConnectionPolicyTargetListInstance(
   version: V1,
-  connectionPolicySid: string
+  connectionPolicySid: string,
 ): ConnectionPolicyTargetListInstance {
   if (!isValidPathParam(connectionPolicySid)) {
     throw new Error("Parameter 'connectionPolicySid' is not valid.");
@@ -983,7 +975,7 @@ export function ConnectionPolicyTargetListInstance(
     return new ConnectionPolicyTargetContextImpl(
       version,
       connectionPolicySid,
-      sid
+      sid,
     );
   };
 
@@ -995,8 +987,8 @@ export function ConnectionPolicyTargetListInstance(
     params: ConnectionPolicyTargetListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ConnectionPolicyTargetInstance
-    ) => any
+      items: ConnectionPolicyTargetInstance,
+    ) => any,
   ): Promise<ConnectionPolicyTargetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1033,13 +1025,13 @@ export function ConnectionPolicyTargetListInstance(
         new ConnectionPolicyTargetInstance(
           operationVersion,
           payload,
-          instance._solution.connectionPolicySid
-        )
+          instance._solution.connectionPolicySid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1048,8 +1040,8 @@ export function ConnectionPolicyTargetListInstance(
     params: ConnectionPolicyTargetListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetInstance>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1082,20 +1074,18 @@ export function ConnectionPolicyTargetListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConnectionPolicyTargetInstance> => ({
-          ...response,
-          body: new ConnectionPolicyTargetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.connectionPolicySid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyTargetInstance> => ({
+        ...response,
+        body: new ConnectionPolicyTargetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.connectionPolicySid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1104,7 +1094,7 @@ export function ConnectionPolicyTargetListInstance(
     params?:
       | ConnectionPolicyTargetListInstancePageOptions
       | ((error: Error | null, items: ConnectionPolicyTargetPage) => any),
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any,
   ): Promise<ConnectionPolicyTargetPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1136,13 +1126,13 @@ export function ConnectionPolicyTargetListInstance(
         new ConnectionPolicyTargetPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1152,7 +1142,7 @@ export function ConnectionPolicyTargetListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any,
   ): Promise<ConnectionPolicyTargetPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1163,8 +1153,8 @@ export function ConnectionPolicyTargetListInstance(
         new ConnectionPolicyTargetPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1175,12 +1165,12 @@ export function ConnectionPolicyTargetListInstance(
       | ConnectionPolicyTargetListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ConnectionPolicyTargetPage>
+          items: ApiResponse<ConnectionPolicyTargetPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectionPolicyTargetPage>
-    ) => any
+      items: ApiResponse<ConnectionPolicyTargetPage>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1205,21 +1195,19 @@ export function ConnectionPolicyTargetListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConnectionPolicyTargetPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConnectionPolicyTargetPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyTargetPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConnectionPolicyTargetPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1233,8 +1221,8 @@ export function ConnectionPolicyTargetListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ConnectionPolicyTargetPage>
-    ) => any
+      items?: ApiResponse<ConnectionPolicyTargetPage>,
+    ) => any,
   ): Promise<ApiResponse<ConnectionPolicyTargetPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1249,9 +1237,9 @@ export function ConnectionPolicyTargetListInstance(
         body: new ConnectionPolicyTargetPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1263,7 +1251,7 @@ export function ConnectionPolicyTargetListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1287,7 +1275,7 @@ export class ConnectionPolicyTargetPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ConnectionPolicyTargetSolution
+    solution: ConnectionPolicyTargetSolution,
   ) {
     super(version, response, solution);
   }
@@ -1298,12 +1286,12 @@ export class ConnectionPolicyTargetPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: ConnectionPolicyTargetResource
+    payload: ConnectionPolicyTargetResource,
   ): ConnectionPolicyTargetInstance {
     return new ConnectionPolicyTargetInstance(
       this._version,
       payload,
-      this._solution.connectionPolicySid
+      this._solution.connectionPolicySid,
     );
   }
 

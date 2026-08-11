@@ -54,7 +54,7 @@ export interface ReferralConversionListInstance {
   create(
     params: CreateReferralConversionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ReferralConversionInstance) => any
+    callback?: (error: Error | null, item?: ReferralConversionInstance) => any,
   ): Promise<ReferralConversionInstance>;
 
   /**
@@ -71,8 +71,8 @@ export interface ReferralConversionListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReferralConversionInstance>
-    ) => any
+      item?: ApiResponse<ReferralConversionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ReferralConversionInstance>>;
 
   /**
@@ -83,7 +83,7 @@ export interface ReferralConversionListInstance {
 }
 
 export function ReferralConversionListInstance(
-  version: V1
+  version: V1,
 ): ReferralConversionListInstance {
   const instance = {} as ReferralConversionListInstance;
 
@@ -94,7 +94,7 @@ export function ReferralConversionListInstance(
   instance.create = function create(
     params: CreateReferralConversionRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ReferralConversionInstance) => any
+    callback?: (error: Error | null, items: ReferralConversionInstance) => any,
   ): Promise<ReferralConversionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -120,12 +120,12 @@ export function ReferralConversionListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ReferralConversionInstance(operationVersion, payload)
+      (payload) => new ReferralConversionInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -135,8 +135,8 @@ export function ReferralConversionListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ReferralConversionInstance>
-    ) => any
+      items: ApiResponse<ReferralConversionInstance>,
+    ) => any,
   ): Promise<ApiResponse<ReferralConversionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -162,16 +162,14 @@ export function ReferralConversionListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ReferralConversionInstance> => ({
-          ...response,
-          body: new ReferralConversionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ReferralConversionInstance> => ({
+        ...response,
+        body: new ReferralConversionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -182,7 +180,7 @@ export function ReferralConversionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -197,7 +195,10 @@ interface ReferralConversionResource {
 }
 
 export class ReferralConversionInstance {
-  constructor(protected _version: V1, payload: ReferralConversionResource) {
+  constructor(
+    protected _version: V1,
+    payload: ReferralConversionResource,
+  ) {
     this.convertedAccountSid = payload.converted_account_sid;
   }
 

@@ -23,8 +23,7 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The of the webhook type of the configuration to be deleted
  */
 export type PortingWebhookConfigurationDeleteWebhookType =
-  | "PORT_IN"
-  | "PORT_OUT";
+  "PORT_IN" | "PORT_OUT";
 
 export interface PortingWebhookConfigurationDeleteContext {
   /**
@@ -35,7 +34,7 @@ export interface PortingWebhookConfigurationDeleteContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -46,7 +45,7 @@ export interface PortingWebhookConfigurationDeleteContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -60,15 +59,13 @@ export interface PortingWebhookConfigurationDeleteContextSolution {
   webhookType: PortingWebhookConfigurationDeleteWebhookType;
 }
 
-export class PortingWebhookConfigurationDeleteContextImpl
-  implements PortingWebhookConfigurationDeleteContext
-{
+export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebhookConfigurationDeleteContext {
   protected _solution: PortingWebhookConfigurationDeleteContextSolution;
   protected _uri: string;
 
   constructor(
     protected _version: V1,
-    webhookType: PortingWebhookConfigurationDeleteWebhookType
+    webhookType: PortingWebhookConfigurationDeleteWebhookType,
   ) {
     if (!isValidPathParam(webhookType)) {
       throw new Error("Parameter 'webhookType' is not valid.");
@@ -79,7 +76,7 @@ export class PortingWebhookConfigurationDeleteContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -93,13 +90,13 @@ export class PortingWebhookConfigurationDeleteContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -108,16 +105,14 @@ export class PortingWebhookConfigurationDeleteContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -144,10 +139,10 @@ export interface PortingWebhookConfigurationDeleteListInstance {
   _uri: string;
 
   (
-    webhookType: PortingWebhookConfigurationDeleteWebhookType
+    webhookType: PortingWebhookConfigurationDeleteWebhookType,
   ): PortingWebhookConfigurationDeleteContext;
   get(
-    webhookType: PortingWebhookConfigurationDeleteWebhookType
+    webhookType: PortingWebhookConfigurationDeleteWebhookType,
   ): PortingWebhookConfigurationDeleteContext;
 
   /**
@@ -158,17 +153,17 @@ export interface PortingWebhookConfigurationDeleteListInstance {
 }
 
 export function PortingWebhookConfigurationDeleteListInstance(
-  version: V1
+  version: V1,
 ): PortingWebhookConfigurationDeleteListInstance {
   const instance = ((webhookType) =>
     instance.get(webhookType)) as PortingWebhookConfigurationDeleteListInstance;
 
   instance.get = function get(
-    webhookType
+    webhookType,
   ): PortingWebhookConfigurationDeleteContext {
     return new PortingWebhookConfigurationDeleteContextImpl(
       version,
-      webhookType
+      webhookType,
     );
   };
 
@@ -182,7 +177,7 @@ export function PortingWebhookConfigurationDeleteListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

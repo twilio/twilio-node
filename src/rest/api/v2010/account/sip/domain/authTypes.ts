@@ -46,7 +46,7 @@ export interface AuthTypesListInstance {
 export function AuthTypesListInstance(
   version: V2010,
   accountSid: string,
-  domainSid: string
+  domainSid: string,
 ): AuthTypesListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -68,7 +68,7 @@ export function AuthTypesListInstance(
         instance._calls = AuthTypeCallsListInstance(
           instance._version,
           instance._solution.accountSid,
-          instance._solution.domainSid
+          instance._solution.domainSid,
         );
       }
       return instance._calls;
@@ -81,7 +81,7 @@ export function AuthTypesListInstance(
         instance._registrations = AuthTypeRegistrationsListInstance(
           instance._version,
           instance._solution.accountSid,
-          instance._solution.domainSid
+          instance._solution.domainSid,
         );
       }
       return instance._registrations;
@@ -94,7 +94,7 @@ export function AuthTypesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

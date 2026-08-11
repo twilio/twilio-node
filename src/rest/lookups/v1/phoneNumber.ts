@@ -42,7 +42,7 @@ export interface PhoneNumberContext {
    * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any,
   ): Promise<PhoneNumberInstance>;
   /**
    * Fetch a PhoneNumberInstance
@@ -54,7 +54,7 @@ export interface PhoneNumberContext {
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any,
   ): Promise<PhoneNumberInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface PhoneNumberContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PhoneNumberInstance>
-    ) => any
+      item?: ApiResponse<PhoneNumberInstance>,
+    ) => any,
   ): Promise<ApiResponse<PhoneNumberInstance>>;
   /**
    * Fetch a PhoneNumberInstance and return HTTP info
@@ -82,8 +82,8 @@ export interface PhoneNumberContext {
     params: PhoneNumberContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PhoneNumberInstance>
-    ) => any
+      item?: ApiResponse<PhoneNumberInstance>,
+    ) => any,
   ): Promise<ApiResponse<PhoneNumberInstance>>;
 
   /**
@@ -101,7 +101,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   protected _solution: PhoneNumberContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, phoneNumber: string) {
+  constructor(
+    protected _version: V1,
+    phoneNumber: string,
+  ) {
     if (!isValidPathParam(phoneNumber)) {
       throw new Error("Parameter 'phoneNumber' is not valid.");
     }
@@ -114,13 +117,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     params?:
       | PhoneNumberContextFetchOptions
       | ((error: Error | null, item?: PhoneNumberInstance) => any),
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any,
   ): Promise<PhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -154,13 +157,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          instance._solution.phoneNumber
-        )
+          instance._solution.phoneNumber,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -171,14 +174,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       | ((error: Error | null, item?: ApiResponse<PhoneNumberInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PhoneNumberInstance>
-    ) => any
+      item?: ApiResponse<PhoneNumberInstance>,
+    ) => any,
   ): Promise<ApiResponse<PhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -208,20 +211,18 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PhoneNumberInstance> => ({
-          ...response,
-          body: new PhoneNumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.phoneNumber
-          ),
-        })
-      );
+      .then((response): ApiResponse<PhoneNumberInstance> => ({
+        ...response,
+        body: new PhoneNumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.phoneNumber,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -259,7 +260,7 @@ export class PhoneNumberInstance {
   constructor(
     protected _version: V1,
     payload: PhoneNumberResource,
-    phoneNumber?: string
+    phoneNumber?: string,
   ) {
     this.callerName = payload.caller_name;
     this.countryCode = payload.country_code;
@@ -269,7 +270,7 @@ export class PhoneNumberInstance {
     this.addOns = payload.add_ons;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
+    this._solution = { phoneNumber: phoneNumber };
   }
 
   /**
@@ -316,7 +317,7 @@ export class PhoneNumberInstance {
    * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any,
   ): Promise<PhoneNumberInstance>;
   /**
    * Fetch a PhoneNumberInstance
@@ -328,12 +329,12 @@ export class PhoneNumberInstance {
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any,
   ): Promise<PhoneNumberInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any,
   ): Promise<PhoneNumberInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -348,8 +349,8 @@ export class PhoneNumberInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PhoneNumberInstance>
-    ) => any
+      item?: ApiResponse<PhoneNumberInstance>,
+    ) => any,
   ): Promise<ApiResponse<PhoneNumberInstance>>;
   /**
    * Fetch a PhoneNumberInstance and return HTTP info
@@ -363,16 +364,16 @@ export class PhoneNumberInstance {
     params: PhoneNumberContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PhoneNumberInstance>
-    ) => any
+      item?: ApiResponse<PhoneNumberInstance>,
+    ) => any,
   ): Promise<ApiResponse<PhoneNumberInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PhoneNumberInstance>
-    ) => any
+      item?: ApiResponse<PhoneNumberInstance>,
+    ) => any,
   ): Promise<ApiResponse<PhoneNumberInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -434,7 +435,7 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

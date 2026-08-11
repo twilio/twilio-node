@@ -23,10 +23,7 @@ import { ApiResponse } from "../../../../base/ApiResponse";
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
  */
 export type ConversationWithParticipantsState =
-  | "initializing"
-  | "inactive"
-  | "active"
-  | "closed";
+  "initializing" | "inactive" | "active" | "closed";
 
 export type ConversationWithParticipantsWebhookEnabledType = "true" | "false";
 
@@ -81,8 +78,8 @@ export interface ConversationWithParticipantsListInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: ConversationWithParticipantsInstance
-    ) => any
+      item?: ConversationWithParticipantsInstance,
+    ) => any,
   ): Promise<ConversationWithParticipantsInstance>;
   /**
    * Create a ConversationWithParticipantsInstance
@@ -96,8 +93,8 @@ export interface ConversationWithParticipantsListInstance {
     params: ConversationWithParticipantsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ConversationWithParticipantsInstance
-    ) => any
+      item?: ConversationWithParticipantsInstance,
+    ) => any,
   ): Promise<ConversationWithParticipantsInstance>;
 
   /**
@@ -110,8 +107,8 @@ export interface ConversationWithParticipantsListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationWithParticipantsInstance>
-    ) => any
+      item?: ApiResponse<ConversationWithParticipantsInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
   /**
    * Create a ConversationWithParticipantsInstance and return HTTP info
@@ -125,8 +122,8 @@ export interface ConversationWithParticipantsListInstance {
     params: ConversationWithParticipantsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationWithParticipantsInstance>
-    ) => any
+      item?: ApiResponse<ConversationWithParticipantsInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationWithParticipantsInstance>>;
 
   /**
@@ -138,7 +135,7 @@ export interface ConversationWithParticipantsListInstance {
 
 export function ConversationWithParticipantsListInstance(
   version: V1,
-  chatServiceSid: string
+  chatServiceSid: string,
 ): ConversationWithParticipantsListInstance {
   if (!isValidPathParam(chatServiceSid)) {
     throw new Error("Parameter 'chatServiceSid' is not valid.");
@@ -155,18 +152,18 @@ export function ConversationWithParticipantsListInstance(
       | ConversationWithParticipantsListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ConversationWithParticipantsInstance
+          items: ConversationWithParticipantsInstance,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ConversationWithParticipantsInstance
-    ) => any
+      items: ConversationWithParticipantsInstance,
+    ) => any,
   ): Promise<ConversationWithParticipantsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -195,7 +192,7 @@ export function ConversationWithParticipantsListInstance(
     if (params["participant"] !== undefined)
       data["Participant"] = serialize.map(
         params["participant"],
-        (e: string) => e
+        (e: string) => e,
       );
 
     const headers: any = {};
@@ -217,13 +214,13 @@ export function ConversationWithParticipantsListInstance(
         new ConversationWithParticipantsInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -233,18 +230,18 @@ export function ConversationWithParticipantsListInstance(
       | ConversationWithParticipantsListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ConversationWithParticipantsInstance>
+          items: ApiResponse<ConversationWithParticipantsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationWithParticipantsInstance>
-    ) => any
+      items: ApiResponse<ConversationWithParticipantsInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationWithParticipantsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -273,7 +270,7 @@ export function ConversationWithParticipantsListInstance(
     if (params["participant"] !== undefined)
       data["Participant"] = serialize.map(
         params["participant"],
-        (e: string) => e
+        (e: string) => e,
       );
 
     const headers: any = {};
@@ -291,20 +288,18 @@ export function ConversationWithParticipantsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationWithParticipantsInstance> => ({
-          ...response,
-          body: new ConversationWithParticipantsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationWithParticipantsInstance> => ({
+        ...response,
+        body: new ConversationWithParticipantsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -315,7 +310,7 @@ export function ConversationWithParticipantsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -323,8 +318,7 @@ export function ConversationWithParticipantsListInstance(
   return instance;
 }
 
-interface ConversationWithParticipantsPayload
-  extends ConversationWithParticipantsResource {}
+interface ConversationWithParticipantsPayload extends ConversationWithParticipantsResource {}
 
 interface ConversationWithParticipantsResource {
   account_sid: string;
@@ -347,7 +341,7 @@ export class ConversationWithParticipantsInstance {
   constructor(
     protected _version: V1,
     payload: ConversationWithParticipantsResource,
-    chatServiceSid: string
+    chatServiceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;

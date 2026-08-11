@@ -44,8 +44,8 @@ export interface WorkersCumulativeStatisticsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: WorkersCumulativeStatisticsInstance
-    ) => any
+      item?: WorkersCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersCumulativeStatisticsInstance>;
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
@@ -59,8 +59,8 @@ export interface WorkersCumulativeStatisticsContext {
     params: WorkersCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: WorkersCumulativeStatisticsInstance
-    ) => any
+      item?: WorkersCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersCumulativeStatisticsInstance>;
 
   /**
@@ -73,8 +73,8 @@ export interface WorkersCumulativeStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
   /**
    * Fetch a WorkersCumulativeStatisticsInstance and return HTTP info
@@ -88,8 +88,8 @@ export interface WorkersCumulativeStatisticsContext {
     params: WorkersCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
 
   /**
@@ -103,13 +103,14 @@ export interface WorkersCumulativeStatisticsContextSolution {
   workspaceSid: string;
 }
 
-export class WorkersCumulativeStatisticsContextImpl
-  implements WorkersCumulativeStatisticsContext
-{
+export class WorkersCumulativeStatisticsContextImpl implements WorkersCumulativeStatisticsContext {
   protected _solution: WorkersCumulativeStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -123,18 +124,18 @@ export class WorkersCumulativeStatisticsContextImpl
       | WorkersCumulativeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: WorkersCumulativeStatisticsInstance
+          item?: WorkersCumulativeStatisticsInstance,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: WorkersCumulativeStatisticsInstance
-    ) => any
+      item?: WorkersCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -164,13 +165,13 @@ export class WorkersCumulativeStatisticsContextImpl
         new WorkersCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          instance._solution.workspaceSid
-        )
+          instance._solution.workspaceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -180,18 +181,18 @@ export class WorkersCumulativeStatisticsContextImpl
       | WorkersCumulativeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<WorkersCumulativeStatisticsInstance>
+          item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -217,20 +218,18 @@ export class WorkersCumulativeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkersCumulativeStatisticsInstance> => ({
-          ...response,
-          body: new WorkersCumulativeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkersCumulativeStatisticsInstance> => ({
+        ...response,
+        body: new WorkersCumulativeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -249,8 +248,7 @@ export class WorkersCumulativeStatisticsContextImpl
   }
 }
 
-interface WorkersCumulativeStatisticsPayload
-  extends WorkersCumulativeStatisticsResource {}
+interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatisticsResource {}
 
 interface WorkersCumulativeStatisticsResource {
   account_sid: string;
@@ -274,29 +272,29 @@ export class WorkersCumulativeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkersCumulativeStatisticsResource,
-    workspaceSid: string
+    workspaceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.activityDurations = payload.activity_durations;
     this.reservationsCreated = deserialize.integer(
-      payload.reservations_created
+      payload.reservations_created,
     );
     this.reservationsAccepted = deserialize.integer(
-      payload.reservations_accepted
+      payload.reservations_accepted,
     );
     this.reservationsRejected = deserialize.integer(
-      payload.reservations_rejected
+      payload.reservations_rejected,
     );
     this.reservationsTimedOut = deserialize.integer(
-      payload.reservations_timed_out
+      payload.reservations_timed_out,
     );
     this.reservationsCanceled = deserialize.integer(
-      payload.reservations_canceled
+      payload.reservations_canceled,
     );
     this.reservationsRescinded = deserialize.integer(
-      payload.reservations_rescinded
+      payload.reservations_rescinded,
     );
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
@@ -358,7 +356,7 @@ export class WorkersCumulativeStatisticsInstance {
       this._context ||
       new WorkersCumulativeStatisticsContextImpl(
         this._version,
-        this._solution.workspaceSid
+        this._solution.workspaceSid,
       );
     return this._context;
   }
@@ -373,8 +371,8 @@ export class WorkersCumulativeStatisticsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: WorkersCumulativeStatisticsInstance
-    ) => any
+      item?: WorkersCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersCumulativeStatisticsInstance>;
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
@@ -388,16 +386,16 @@ export class WorkersCumulativeStatisticsInstance {
     params: WorkersCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: WorkersCumulativeStatisticsInstance
-    ) => any
+      item?: WorkersCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersCumulativeStatisticsInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: WorkersCumulativeStatisticsInstance
-    ) => any
+      item?: WorkersCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -412,8 +410,8 @@ export class WorkersCumulativeStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
   /**
    * Fetch a WorkersCumulativeStatisticsInstance and return HTTP info
@@ -427,16 +425,16 @@ export class WorkersCumulativeStatisticsInstance {
     params: WorkersCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -489,7 +487,7 @@ export interface WorkersCumulativeStatisticsListInstance {
 
 export function WorkersCumulativeStatisticsListInstance(
   version: V1,
-  workspaceSid: string
+  workspaceSid: string,
 ): WorkersCumulativeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -512,7 +510,7 @@ export function WorkersCumulativeStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

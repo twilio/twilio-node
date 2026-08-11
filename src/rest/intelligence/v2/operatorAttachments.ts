@@ -28,7 +28,7 @@ export interface OperatorAttachmentsContext {
    * @returns Resolves to processed OperatorAttachmentsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any
+    callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any,
   ): Promise<OperatorAttachmentsInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface OperatorAttachmentsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperatorAttachmentsInstance>
-    ) => any
+      item?: ApiResponse<OperatorAttachmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<OperatorAttachmentsInstance>>;
 
   /**
@@ -56,13 +56,14 @@ export interface OperatorAttachmentsContextSolution {
   serviceSid: string;
 }
 
-export class OperatorAttachmentsContextImpl
-  implements OperatorAttachmentsContext
-{
+export class OperatorAttachmentsContextImpl implements OperatorAttachmentsContext {
   protected _solution: OperatorAttachmentsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -72,7 +73,7 @@ export class OperatorAttachmentsContextImpl
   }
 
   fetch(
-    callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any
+    callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any,
   ): Promise<OperatorAttachmentsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -90,13 +91,13 @@ export class OperatorAttachmentsContextImpl
         new OperatorAttachmentsInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -104,8 +105,8 @@ export class OperatorAttachmentsContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperatorAttachmentsInstance>
-    ) => any
+      item?: ApiResponse<OperatorAttachmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<OperatorAttachmentsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -119,20 +120,18 @@ export class OperatorAttachmentsContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<OperatorAttachmentsInstance> => ({
-          ...response,
-          body: new OperatorAttachmentsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<OperatorAttachmentsInstance> => ({
+        ...response,
+        body: new OperatorAttachmentsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -166,13 +165,13 @@ export class OperatorAttachmentsInstance {
   constructor(
     protected _version: V2,
     payload: OperatorAttachmentsResource,
-    serviceSid?: string
+    serviceSid?: string,
   ) {
     this.serviceSid = payload.service_sid;
     this.operatorSids = payload.operator_sids;
     this.url = payload.url;
 
-    this._solution = { serviceSid: serviceSid || this.serviceSid };
+    this._solution = { serviceSid: serviceSid };
   }
 
   /**
@@ -193,7 +192,7 @@ export class OperatorAttachmentsInstance {
       this._context ||
       new OperatorAttachmentsContextImpl(
         this._version,
-        this._solution.serviceSid
+        this._solution.serviceSid,
       );
     return this._context;
   }
@@ -206,7 +205,7 @@ export class OperatorAttachmentsInstance {
    * @returns Resolves to processed OperatorAttachmentsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any
+    callback?: (error: Error | null, item?: OperatorAttachmentsInstance) => any,
   ): Promise<OperatorAttachmentsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -221,8 +220,8 @@ export class OperatorAttachmentsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperatorAttachmentsInstance>
-    ) => any
+      item?: ApiResponse<OperatorAttachmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<OperatorAttachmentsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -263,7 +262,7 @@ export interface OperatorAttachmentsListInstance {
 }
 
 export function OperatorAttachmentsListInstance(
-  version: V2
+  version: V2,
 ): OperatorAttachmentsListInstance {
   const instance = ((serviceSid) =>
     instance.get(serviceSid)) as OperatorAttachmentsListInstance;
@@ -282,7 +281,7 @@ export function OperatorAttachmentsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -107,7 +107,7 @@ export interface CredentialContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -118,7 +118,7 @@ export interface CredentialContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -129,7 +129,7 @@ export interface CredentialContext {
    * @returns Resolves to processed CredentialInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance>;
 
   /**
@@ -142,8 +142,8 @@ export interface CredentialContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>>;
 
   /**
@@ -154,7 +154,7 @@ export interface CredentialContext {
    * @returns Resolves to processed CredentialInstance
    */
   update(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance>;
   /**
    * Update a CredentialInstance
@@ -166,7 +166,7 @@ export interface CredentialContext {
    */
   update(
     params: CredentialContextUpdateOptions,
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance>;
 
   /**
@@ -179,8 +179,8 @@ export interface CredentialContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>>;
   /**
    * Update a CredentialInstance and return HTTP info
@@ -194,8 +194,8 @@ export interface CredentialContext {
     params: CredentialContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>>;
 
   /**
@@ -213,7 +213,10 @@ export class CredentialContextImpl implements CredentialContext {
   protected _solution: CredentialContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -223,7 +226,7 @@ export class CredentialContextImpl implements CredentialContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -237,13 +240,13 @@ export class CredentialContextImpl implements CredentialContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -252,22 +255,20 @@ export class CredentialContextImpl implements CredentialContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -285,13 +286,13 @@ export class CredentialContextImpl implements CredentialContext {
         new CredentialInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -299,8 +300,8 @@ export class CredentialContextImpl implements CredentialContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -314,20 +315,18 @@ export class CredentialContextImpl implements CredentialContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CredentialInstance> => ({
-          ...response,
-          body: new CredentialInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CredentialInstance> => ({
+        ...response,
+        body: new CredentialInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -336,13 +335,13 @@ export class CredentialContextImpl implements CredentialContext {
     params?:
       | CredentialContextUpdateOptions
       | ((error: Error | null, item?: CredentialInstance) => any),
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -376,13 +375,13 @@ export class CredentialContextImpl implements CredentialContext {
         new CredentialInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -393,14 +392,14 @@ export class CredentialContextImpl implements CredentialContext {
       | ((error: Error | null, item?: ApiResponse<CredentialInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -430,20 +429,18 @@ export class CredentialContextImpl implements CredentialContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CredentialInstance> => ({
-          ...response,
-          body: new CredentialInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CredentialInstance> => ({
+        ...response,
+        body: new CredentialInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -484,7 +481,7 @@ export class CredentialInstance {
   constructor(
     protected _version: V2,
     payload: CredentialResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -495,7 +492,7 @@ export class CredentialInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   sid: string;
@@ -522,7 +519,7 @@ export class CredentialInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -535,7 +532,7 @@ export class CredentialInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -548,7 +545,7 @@ export class CredentialInstance {
    * @returns Resolves to processed CredentialInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance> {
     return this._proxy.fetch(callback);
   }
@@ -563,8 +560,8 @@ export class CredentialInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -577,7 +574,7 @@ export class CredentialInstance {
    * @returns Resolves to processed CredentialInstance
    */
   update(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance>;
   /**
    * Update a CredentialInstance
@@ -589,12 +586,12 @@ export class CredentialInstance {
    */
   update(
     params: CredentialContextUpdateOptions,
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance> {
     return this._proxy.update(params, callback);
   }
@@ -609,8 +606,8 @@ export class CredentialInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>>;
   /**
    * Update a CredentialInstance and return HTTP info
@@ -624,16 +621,16 @@ export class CredentialInstance {
     params: CredentialContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -681,7 +678,7 @@ export interface CredentialListInstance {
    */
   create(
     params: CredentialListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, item?: CredentialInstance) => any,
   ): Promise<CredentialInstance>;
 
   /**
@@ -696,8 +693,8 @@ export interface CredentialListInstance {
     params: CredentialListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CredentialInstance>
-    ) => any
+      item?: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>>;
 
   /**
@@ -716,11 +713,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
+    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: CredentialListInstanceEachOptions,
-    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
+    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams CredentialInstance records from the API with HTTP metadata captured per page.
@@ -738,11 +735,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
+    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: CredentialListInstanceEachOptions,
-    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
+    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of CredentialInstance records from the API.
@@ -754,7 +751,7 @@ export interface CredentialListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CredentialPage) => any
+    callback?: (error: Error | null, items: CredentialPage) => any,
   ): Promise<CredentialPage>;
   /**
    * Retrieve a single target page of CredentialInstance records from the API with HTTP metadata.
@@ -766,7 +763,7 @@ export interface CredentialListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any,
   ): Promise<ApiResponse<CredentialPage>>;
   /**
    * Lists CredentialInstance records from the API as a list.
@@ -778,11 +775,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CredentialInstance[]) => any
+    callback?: (error: Error | null, items: CredentialInstance[]) => any,
   ): Promise<CredentialInstance[]>;
   list(
     params: CredentialListInstanceOptions,
-    callback?: (error: Error | null, items: CredentialInstance[]) => any
+    callback?: (error: Error | null, items: CredentialInstance[]) => any,
   ): Promise<CredentialInstance[]>;
   /**
    * Lists CredentialInstance records from the API as a list with HTTP metadata.
@@ -798,15 +795,15 @@ export interface CredentialListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CredentialInstance[]>
-    ) => any
+      items: ApiResponse<CredentialInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance[]>>;
   listWithHttpInfo(
     params: CredentialListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CredentialInstance[]>
-    ) => any
+      items: ApiResponse<CredentialInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance[]>>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
@@ -820,11 +817,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CredentialPage) => any
+    callback?: (error: Error | null, items: CredentialPage) => any,
   ): Promise<CredentialPage>;
   page(
     params: CredentialListInstancePageOptions,
-    callback?: (error: Error | null, items: CredentialPage) => any
+    callback?: (error: Error | null, items: CredentialPage) => any,
   ): Promise<CredentialPage>;
   /**
    * Retrieve a single page of CredentialInstance records from the API with HTTP metadata.
@@ -838,11 +835,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any,
   ): Promise<ApiResponse<CredentialPage>>;
   pageWithHttpInfo(
     params: CredentialListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any,
   ): Promise<ApiResponse<CredentialPage>>;
 
   /**
@@ -865,7 +862,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
 
   instance.create = function create(
     params: CredentialListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CredentialInstance) => any
+    callback?: (error: Error | null, items: CredentialInstance) => any,
   ): Promise<CredentialInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -902,12 +899,12 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CredentialInstance(operationVersion, payload)
+      (payload) => new CredentialInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -916,8 +913,8 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
     params: CredentialListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CredentialInstance>
-    ) => any
+      items: ApiResponse<CredentialInstance>,
+    ) => any,
   ): Promise<ApiResponse<CredentialInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -954,16 +951,14 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CredentialInstance> => ({
-          ...response,
-          body: new CredentialInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<CredentialInstance> => ({
+        ...response,
+        body: new CredentialInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -972,7 +967,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
     params?:
       | CredentialListInstancePageOptions
       | ((error: Error | null, items: CredentialPage) => any),
-    callback?: (error: Error | null, items: CredentialPage) => any
+    callback?: (error: Error | null, items: CredentialPage) => any,
   ): Promise<CredentialPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1001,12 +996,12 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CredentialPage(operationVersion, payload, instance._solution)
+        new CredentialPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1016,7 +1011,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CredentialPage) => any
+    callback?: (error: Error | null, items: CredentialPage) => any,
   ): Promise<CredentialPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1024,7 +1019,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new CredentialPage(instance._version, payload, instance._solution)
+        new CredentialPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1034,7 +1029,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
     params?:
       | CredentialListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<CredentialPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CredentialPage>) => any,
   ): Promise<ApiResponse<CredentialPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1059,21 +1054,19 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CredentialPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CredentialPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CredentialPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CredentialPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1085,7 +1078,10 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<CredentialPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CredentialPage>,
+    ) => any,
   ): Promise<ApiResponse<CredentialPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1100,9 +1096,9 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
         body: new CredentialPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1114,7 +1110,7 @@ export function CredentialListInstance(version: V2): CredentialListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1138,7 +1134,7 @@ export class CredentialPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: CredentialSolution
+    solution: CredentialSolution,
   ) {
     super(version, response, solution);
   }

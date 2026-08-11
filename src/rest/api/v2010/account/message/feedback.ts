@@ -50,7 +50,7 @@ export interface FeedbackListInstance {
    * @returns Resolves to processed FeedbackInstance
    */
   create(
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
+    callback?: (error: Error | null, item?: FeedbackInstance) => any,
   ): Promise<FeedbackInstance>;
   /**
    * Create a FeedbackInstance
@@ -62,7 +62,7 @@ export interface FeedbackListInstance {
    */
   create(
     params: FeedbackListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
+    callback?: (error: Error | null, item?: FeedbackInstance) => any,
   ): Promise<FeedbackInstance>;
 
   /**
@@ -75,8 +75,8 @@ export interface FeedbackListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FeedbackInstance>
-    ) => any
+      item?: ApiResponse<FeedbackInstance>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance>>;
   /**
    * Create a FeedbackInstance and return HTTP info
@@ -90,8 +90,8 @@ export interface FeedbackListInstance {
     params: FeedbackListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FeedbackInstance>
-    ) => any
+      item?: ApiResponse<FeedbackInstance>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance>>;
 
   /**
@@ -104,7 +104,7 @@ export interface FeedbackListInstance {
 export function FeedbackListInstance(
   version: V2010,
   accountSid: string,
-  messageSid: string
+  messageSid: string,
 ): FeedbackListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -124,13 +124,13 @@ export function FeedbackListInstance(
     params?:
       | FeedbackListInstanceCreateOptions
       | ((error: Error | null, items: FeedbackInstance) => any),
-    callback?: (error: Error | null, items: FeedbackInstance) => any
+    callback?: (error: Error | null, items: FeedbackInstance) => any,
   ): Promise<FeedbackInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -155,13 +155,13 @@ export function FeedbackListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.messageSid
-        )
+          instance._solution.messageSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -172,14 +172,14 @@ export function FeedbackListInstance(
       | ((error: Error | null, items: ApiResponse<FeedbackInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<FeedbackInstance>
-    ) => any
+      items: ApiResponse<FeedbackInstance>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -199,21 +199,19 @@ export function FeedbackListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FeedbackInstance> => ({
-          ...response,
-          body: new FeedbackInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.messageSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FeedbackInstance> => ({
+        ...response,
+        body: new FeedbackInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.messageSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -224,7 +222,7 @@ export function FeedbackListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -248,7 +246,7 @@ export class FeedbackInstance {
     protected _version: V2010,
     payload: FeedbackResource,
     accountSid: string,
-    messageSid: string
+    messageSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.messageSid = payload.message_sid;

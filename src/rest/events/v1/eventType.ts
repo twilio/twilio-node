@@ -73,7 +73,7 @@ export interface EventTypeContext {
    * @returns Resolves to processed EventTypeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EventTypeInstance) => any
+    callback?: (error: Error | null, item?: EventTypeInstance) => any,
   ): Promise<EventTypeInstance>;
 
   /**
@@ -86,8 +86,8 @@ export interface EventTypeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EventTypeInstance>
-    ) => any
+      item?: ApiResponse<EventTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<EventTypeInstance>>;
 
   /**
@@ -105,7 +105,10 @@ export class EventTypeContextImpl implements EventTypeContext {
   protected _solution: EventTypeContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, type: string) {
+  constructor(
+    protected _version: V1,
+    type: string,
+  ) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
     }
@@ -115,7 +118,7 @@ export class EventTypeContextImpl implements EventTypeContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EventTypeInstance) => any
+    callback?: (error: Error | null, item?: EventTypeInstance) => any,
   ): Promise<EventTypeInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -133,13 +136,13 @@ export class EventTypeContextImpl implements EventTypeContext {
         new EventTypeInstance(
           operationVersion,
           payload,
-          instance._solution.type
-        )
+          instance._solution.type,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -147,8 +150,8 @@ export class EventTypeContextImpl implements EventTypeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EventTypeInstance>
-    ) => any
+      item?: ApiResponse<EventTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<EventTypeInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -162,20 +165,18 @@ export class EventTypeContextImpl implements EventTypeContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<EventTypeInstance> => ({
-          ...response,
-          body: new EventTypeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.type
-          ),
-        })
-      );
+      .then((response): ApiResponse<EventTypeInstance> => ({
+        ...response,
+        body: new EventTypeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.type,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -217,7 +218,7 @@ export class EventTypeInstance {
   constructor(
     protected _version: V1,
     payload: EventTypeResource,
-    type?: string
+    type?: string,
   ) {
     this.type = payload.type;
     this.schemaId = payload.schema_id;
@@ -229,7 +230,7 @@ export class EventTypeInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { type: type || this.type };
+    this._solution = { type: type };
   }
 
   /**
@@ -281,7 +282,7 @@ export class EventTypeInstance {
    * @returns Resolves to processed EventTypeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EventTypeInstance) => any
+    callback?: (error: Error | null, item?: EventTypeInstance) => any,
   ): Promise<EventTypeInstance> {
     return this._proxy.fetch(callback);
   }
@@ -296,8 +297,8 @@ export class EventTypeInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EventTypeInstance>
-    ) => any
+      item?: ApiResponse<EventTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<EventTypeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -352,11 +353,11 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: EventTypeListInstanceEachOptions,
-    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams EventTypeInstance records from the API with HTTP metadata captured per page.
@@ -374,11 +375,11 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: EventTypeListInstanceEachOptions,
-    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of EventTypeInstance records from the API.
@@ -390,7 +391,7 @@ export interface EventTypeListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EventTypePage) => any
+    callback?: (error: Error | null, items: EventTypePage) => any,
   ): Promise<EventTypePage>;
   /**
    * Retrieve a single target page of EventTypeInstance records from the API with HTTP metadata.
@@ -402,7 +403,7 @@ export interface EventTypeListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any,
   ): Promise<ApiResponse<EventTypePage>>;
   /**
    * Lists EventTypeInstance records from the API as a list.
@@ -414,11 +415,11 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EventTypeInstance[]) => any
+    callback?: (error: Error | null, items: EventTypeInstance[]) => any,
   ): Promise<EventTypeInstance[]>;
   list(
     params: EventTypeListInstanceOptions,
-    callback?: (error: Error | null, items: EventTypeInstance[]) => any
+    callback?: (error: Error | null, items: EventTypeInstance[]) => any,
   ): Promise<EventTypeInstance[]>;
   /**
    * Lists EventTypeInstance records from the API as a list with HTTP metadata.
@@ -434,15 +435,15 @@ export interface EventTypeListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EventTypeInstance[]>
-    ) => any
+      items: ApiResponse<EventTypeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EventTypeInstance[]>>;
   listWithHttpInfo(
     params: EventTypeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EventTypeInstance[]>
-    ) => any
+      items: ApiResponse<EventTypeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EventTypeInstance[]>>;
   /**
    * Retrieve a single page of EventTypeInstance records from the API.
@@ -456,11 +457,11 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EventTypePage) => any
+    callback?: (error: Error | null, items: EventTypePage) => any,
   ): Promise<EventTypePage>;
   page(
     params: EventTypeListInstancePageOptions,
-    callback?: (error: Error | null, items: EventTypePage) => any
+    callback?: (error: Error | null, items: EventTypePage) => any,
   ): Promise<EventTypePage>;
   /**
    * Retrieve a single page of EventTypeInstance records from the API with HTTP metadata.
@@ -474,11 +475,11 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any,
   ): Promise<ApiResponse<EventTypePage>>;
   pageWithHttpInfo(
     params: EventTypeListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any,
   ): Promise<ApiResponse<EventTypePage>>;
 
   /**
@@ -503,7 +504,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     params?:
       | EventTypeListInstancePageOptions
       | ((error: Error | null, items: EventTypePage) => any),
-    callback?: (error: Error | null, items: EventTypePage) => any
+    callback?: (error: Error | null, items: EventTypePage) => any,
   ): Promise<EventTypePage> {
     if (params instanceof Function) {
       callback = params;
@@ -533,12 +534,12 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EventTypePage(operationVersion, payload, instance._solution)
+        new EventTypePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -548,7 +549,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EventTypePage) => any
+    callback?: (error: Error | null, items: EventTypePage) => any,
   ): Promise<EventTypePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -556,7 +557,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EventTypePage(instance._version, payload, instance._solution)
+        new EventTypePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -566,7 +567,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     params?:
       | EventTypeListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EventTypePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EventTypePage>) => any,
   ): Promise<ApiResponse<EventTypePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -592,21 +593,15 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<EventTypePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new EventTypePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<EventTypePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EventTypePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -618,7 +613,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<EventTypePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<EventTypePage>) => any,
   ): Promise<ApiResponse<EventTypePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -633,9 +628,9 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
         body: new EventTypePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -647,7 +642,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -671,7 +666,7 @@ export class EventTypePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: EventTypeSolution
+    solution: EventTypeSolution,
   ) {
     super(version, response, solution);
   }

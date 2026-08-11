@@ -38,12 +38,7 @@ export type RecordingSource =
  * The status of the recording. Can be: `processing`, `completed` and `absent`. For more detailed statuses on in-progress recordings, check out how to [Update a Recording Resource](https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource).
  */
 export type RecordingStatus =
-  | "in-progress"
-  | "paused"
-  | "stopped"
-  | "processing"
-  | "completed"
-  | "absent";
+  "in-progress" | "paused" | "stopped" | "processing" | "completed" | "absent";
 
 /**
  * Options to pass to update a RecordingInstance
@@ -118,7 +113,7 @@ export interface RecordingContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -129,7 +124,7 @@ export interface RecordingContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -140,7 +135,7 @@ export interface RecordingContext {
    * @returns Resolves to processed RecordingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance>;
 
   /**
@@ -153,8 +148,8 @@ export interface RecordingContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>>;
 
   /**
@@ -167,7 +162,7 @@ export interface RecordingContext {
    */
   update(
     params: RecordingContextUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance>;
 
   /**
@@ -182,8 +177,8 @@ export interface RecordingContext {
     params: RecordingContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>>;
 
   /**
@@ -207,7 +202,7 @@ export class RecordingContextImpl implements RecordingContext {
     protected _version: V2010,
     accountSid: string,
     conferenceSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -226,7 +221,7 @@ export class RecordingContextImpl implements RecordingContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -240,13 +235,13 @@ export class RecordingContextImpl implements RecordingContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -255,22 +250,20 @@ export class RecordingContextImpl implements RecordingContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -290,13 +283,13 @@ export class RecordingContextImpl implements RecordingContext {
           payload,
           instance._solution.accountSid,
           instance._solution.conferenceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -304,8 +297,8 @@ export class RecordingContextImpl implements RecordingContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -319,29 +312,27 @@ export class RecordingContextImpl implements RecordingContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<RecordingInstance> => ({
-          ...response,
-          body: new RecordingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RecordingInstance> => ({
+        ...response,
+        body: new RecordingInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.conferenceSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: RecordingContextUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -377,13 +368,13 @@ export class RecordingContextImpl implements RecordingContext {
           payload,
           instance._solution.accountSid,
           instance._solution.conferenceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -392,8 +383,8 @@ export class RecordingContextImpl implements RecordingContext {
     params: RecordingContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -423,22 +414,20 @@ export class RecordingContextImpl implements RecordingContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RecordingInstance> => ({
-          ...response,
-          body: new RecordingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RecordingInstance> => ({
+        ...response,
+        body: new RecordingInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.conferenceSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -490,7 +479,7 @@ export class RecordingInstance {
     payload: RecordingResource,
     accountSid: string,
     conferenceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -510,7 +499,7 @@ export class RecordingInstance {
     this.encryptionDetails = payload.encryption_details;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, conferenceSid, sid: sid || this.sid };
+    this._solution = { accountSid, conferenceSid, sid: sid };
   }
 
   /**
@@ -583,7 +572,7 @@ export class RecordingInstance {
         this._version,
         this._solution.accountSid,
         this._solution.conferenceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -596,7 +585,7 @@ export class RecordingInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -609,7 +598,7 @@ export class RecordingInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -622,7 +611,7 @@ export class RecordingInstance {
    * @returns Resolves to processed RecordingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance> {
     return this._proxy.fetch(callback);
   }
@@ -637,8 +626,8 @@ export class RecordingInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -653,12 +642,12 @@ export class RecordingInstance {
    */
   update(
     params: RecordingContextUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
+    callback?: (error: Error | null, item?: RecordingInstance) => any,
   ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);
   }
@@ -675,16 +664,16 @@ export class RecordingInstance {
     params: RecordingContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingInstance>
-    ) => any
+      item?: ApiResponse<RecordingInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -750,11 +739,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: RecordingListInstanceEachOptions,
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams RecordingInstance records from the API with HTTP metadata captured per page.
@@ -772,11 +761,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: RecordingListInstanceEachOptions,
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of RecordingInstance records from the API.
@@ -788,7 +777,7 @@ export interface RecordingListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RecordingPage) => any
+    callback?: (error: Error | null, items: RecordingPage) => any,
   ): Promise<RecordingPage>;
   /**
    * Retrieve a single target page of RecordingInstance records from the API with HTTP metadata.
@@ -800,7 +789,7 @@ export interface RecordingListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any,
   ): Promise<ApiResponse<RecordingPage>>;
   /**
    * Lists RecordingInstance records from the API as a list.
@@ -812,11 +801,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: RecordingInstance[]) => any
+    callback?: (error: Error | null, items: RecordingInstance[]) => any,
   ): Promise<RecordingInstance[]>;
   list(
     params: RecordingListInstanceOptions,
-    callback?: (error: Error | null, items: RecordingInstance[]) => any
+    callback?: (error: Error | null, items: RecordingInstance[]) => any,
   ): Promise<RecordingInstance[]>;
   /**
    * Lists RecordingInstance records from the API as a list with HTTP metadata.
@@ -832,15 +821,15 @@ export interface RecordingListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<RecordingInstance[]>
-    ) => any
+      items: ApiResponse<RecordingInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance[]>>;
   listWithHttpInfo(
     params: RecordingListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<RecordingInstance[]>
-    ) => any
+      items: ApiResponse<RecordingInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<RecordingInstance[]>>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
@@ -854,11 +843,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: RecordingPage) => any
+    callback?: (error: Error | null, items: RecordingPage) => any,
   ): Promise<RecordingPage>;
   page(
     params: RecordingListInstancePageOptions,
-    callback?: (error: Error | null, items: RecordingPage) => any
+    callback?: (error: Error | null, items: RecordingPage) => any,
   ): Promise<RecordingPage>;
   /**
    * Retrieve a single page of RecordingInstance records from the API with HTTP metadata.
@@ -872,11 +861,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any,
   ): Promise<ApiResponse<RecordingPage>>;
   pageWithHttpInfo(
     params: RecordingListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any,
   ): Promise<ApiResponse<RecordingPage>>;
 
   /**
@@ -889,7 +878,7 @@ export interface RecordingListInstance {
 export function RecordingListInstance(
   version: V2010,
   accountSid: string,
-  conferenceSid: string
+  conferenceSid: string,
 ): RecordingListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -913,7 +902,7 @@ export function RecordingListInstance(
     params?:
       | RecordingListInstancePageOptions
       | ((error: Error | null, items: RecordingPage) => any),
-    callback?: (error: Error | null, items: RecordingPage) => any
+    callback?: (error: Error | null, items: RecordingPage) => any,
   ): Promise<RecordingPage> {
     if (params instanceof Function) {
       callback = params;
@@ -948,12 +937,12 @@ export function RecordingListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RecordingPage(operationVersion, payload, instance._solution)
+        new RecordingPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -963,7 +952,7 @@ export function RecordingListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RecordingPage) => any
+    callback?: (error: Error | null, items: RecordingPage) => any,
   ): Promise<RecordingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -971,7 +960,7 @@ export function RecordingListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new RecordingPage(instance._version, payload, instance._solution)
+        new RecordingPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -981,7 +970,7 @@ export function RecordingListInstance(
     params?:
       | RecordingListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<RecordingPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordingPage>) => any,
   ): Promise<ApiResponse<RecordingPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1012,21 +1001,15 @@ export function RecordingListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RecordingPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RecordingPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<RecordingPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RecordingPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1038,7 +1021,7 @@ export function RecordingListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RecordingPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<RecordingPage>) => any,
   ): Promise<ApiResponse<RecordingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1053,9 +1036,9 @@ export function RecordingListInstance(
         body: new RecordingPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1067,7 +1050,7 @@ export function RecordingListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1091,7 +1074,7 @@ export class RecordingPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: RecordingSolution
+    solution: RecordingSolution,
   ) {
     super(version, response, solution);
   }
@@ -1106,7 +1089,7 @@ export class RecordingPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.conferenceSid
+      this._solution.conferenceSid,
     );
   }
 

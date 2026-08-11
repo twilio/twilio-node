@@ -34,7 +34,8 @@ export type BuildRuntime =
   | "node16"
   | "node18"
   | "node20"
-  | "node22";
+  | "node22"
+  | "node24";
 
 /**
  * The status of the Build. Can be: `building`, `completed`, or `failed`.
@@ -102,7 +103,7 @@ export interface BuildContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -113,7 +114,7 @@ export interface BuildContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -124,7 +125,7 @@ export interface BuildContext {
    * @returns Resolves to processed BuildInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BuildInstance) => any
+    callback?: (error: Error | null, item?: BuildInstance) => any,
   ): Promise<BuildInstance>;
 
   /**
@@ -135,7 +136,7 @@ export interface BuildContext {
    * @returns Resolves to processed BuildInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any,
   ): Promise<ApiResponse<BuildInstance>>;
 
   /**
@@ -156,7 +157,11 @@ export class BuildContextImpl implements BuildContext {
 
   protected _buildStatus?: BuildStatusListInstance;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -175,13 +180,13 @@ export class BuildContextImpl implements BuildContext {
       BuildStatusListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._buildStatus;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -195,13 +200,13 @@ export class BuildContextImpl implements BuildContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -210,22 +215,20 @@ export class BuildContextImpl implements BuildContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BuildInstance) => any
+    callback?: (error: Error | null, item?: BuildInstance) => any,
   ): Promise<BuildInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -244,19 +247,19 @@ export class BuildContextImpl implements BuildContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any,
   ): Promise<ApiResponse<BuildInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -270,21 +273,19 @@ export class BuildContextImpl implements BuildContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<BuildInstance> => ({
-          ...response,
-          body: new BuildInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BuildInstance> => ({
+        ...response,
+        body: new BuildInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -330,7 +331,7 @@ export class BuildInstance {
     protected _version: V1,
     payload: BuildResource,
     serviceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -345,7 +346,7 @@ export class BuildInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -394,7 +395,7 @@ export class BuildInstance {
       new BuildContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -407,7 +408,7 @@ export class BuildInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -420,7 +421,7 @@ export class BuildInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -433,7 +434,7 @@ export class BuildInstance {
    * @returns Resolves to processed BuildInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BuildInstance) => any
+    callback?: (error: Error | null, item?: BuildInstance) => any,
   ): Promise<BuildInstance> {
     return this._proxy.fetch(callback);
   }
@@ -446,7 +447,7 @@ export class BuildInstance {
    * @returns Resolves to processed BuildInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any,
   ): Promise<ApiResponse<BuildInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -505,7 +506,7 @@ export interface BuildListInstance {
    * @returns Resolves to processed BuildInstance
    */
   create(
-    callback?: (error: Error | null, item?: BuildInstance) => any
+    callback?: (error: Error | null, item?: BuildInstance) => any,
   ): Promise<BuildInstance>;
   /**
    * Create a BuildInstance
@@ -517,7 +518,7 @@ export interface BuildListInstance {
    */
   create(
     params: BuildListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BuildInstance) => any
+    callback?: (error: Error | null, item?: BuildInstance) => any,
   ): Promise<BuildInstance>;
 
   /**
@@ -528,7 +529,7 @@ export interface BuildListInstance {
    * @returns Resolves to processed BuildInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any,
   ): Promise<ApiResponse<BuildInstance>>;
   /**
    * Create a BuildInstance and return HTTP info
@@ -540,7 +541,7 @@ export interface BuildListInstance {
    */
   createWithHttpInfo(
     params: BuildListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BuildInstance>) => any,
   ): Promise<ApiResponse<BuildInstance>>;
 
   /**
@@ -559,11 +560,11 @@ export interface BuildListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
+    callback?: (item: BuildInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: BuildListInstanceEachOptions,
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
+    callback?: (item: BuildInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams BuildInstance records from the API with HTTP metadata captured per page.
@@ -581,11 +582,11 @@ export interface BuildListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
+    callback?: (item: BuildInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: BuildListInstanceEachOptions,
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
+    callback?: (item: BuildInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of BuildInstance records from the API.
@@ -597,7 +598,7 @@ export interface BuildListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BuildPage) => any
+    callback?: (error: Error | null, items: BuildPage) => any,
   ): Promise<BuildPage>;
   /**
    * Retrieve a single target page of BuildInstance records from the API with HTTP metadata.
@@ -609,7 +610,7 @@ export interface BuildListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any,
   ): Promise<ApiResponse<BuildPage>>;
   /**
    * Lists BuildInstance records from the API as a list.
@@ -621,11 +622,11 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: BuildInstance[]) => any
+    callback?: (error: Error | null, items: BuildInstance[]) => any,
   ): Promise<BuildInstance[]>;
   list(
     params: BuildListInstanceOptions,
-    callback?: (error: Error | null, items: BuildInstance[]) => any
+    callback?: (error: Error | null, items: BuildInstance[]) => any,
   ): Promise<BuildInstance[]>;
   /**
    * Lists BuildInstance records from the API as a list with HTTP metadata.
@@ -639,11 +640,17 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BuildInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BuildInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BuildInstance[]>>;
   listWithHttpInfo(
     params: BuildListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<BuildInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BuildInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BuildInstance[]>>;
   /**
    * Retrieve a single page of BuildInstance records from the API.
@@ -657,11 +664,11 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: BuildPage) => any
+    callback?: (error: Error | null, items: BuildPage) => any,
   ): Promise<BuildPage>;
   page(
     params: BuildListInstancePageOptions,
-    callback?: (error: Error | null, items: BuildPage) => any
+    callback?: (error: Error | null, items: BuildPage) => any,
   ): Promise<BuildPage>;
   /**
    * Retrieve a single page of BuildInstance records from the API with HTTP metadata.
@@ -675,11 +682,11 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any,
   ): Promise<ApiResponse<BuildPage>>;
   pageWithHttpInfo(
     params: BuildListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any,
   ): Promise<ApiResponse<BuildPage>>;
 
   /**
@@ -691,7 +698,7 @@ export interface BuildListInstance {
 
 export function BuildListInstance(
   version: V1,
-  serviceSid: string
+  serviceSid: string,
 ): BuildListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -711,13 +718,13 @@ export function BuildListInstance(
     params?:
       | BuildListInstanceCreateOptions
       | ((error: Error | null, items: BuildInstance) => any),
-    callback?: (error: Error | null, items: BuildInstance) => any
+    callback?: (error: Error | null, items: BuildInstance) => any,
   ): Promise<BuildInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -725,12 +732,12 @@ export function BuildListInstance(
     if (params["assetVersions"] !== undefined)
       data["AssetVersions"] = serialize.map(
         params["assetVersions"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["functionVersions"] !== undefined)
       data["FunctionVersions"] = serialize.map(
         params["functionVersions"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["dependencies"] !== undefined)
       data["Dependencies"] = params["dependencies"];
@@ -753,13 +760,13 @@ export function BuildListInstance(
         new BuildInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -768,13 +775,13 @@ export function BuildListInstance(
     params?:
       | BuildListInstanceCreateOptions
       | ((error: Error | null, items: ApiResponse<BuildInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<BuildInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<BuildInstance>) => any,
   ): Promise<ApiResponse<BuildInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -782,12 +789,12 @@ export function BuildListInstance(
     if (params["assetVersions"] !== undefined)
       data["AssetVersions"] = serialize.map(
         params["assetVersions"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["functionVersions"] !== undefined)
       data["FunctionVersions"] = serialize.map(
         params["functionVersions"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["dependencies"] !== undefined)
       data["Dependencies"] = params["dependencies"];
@@ -806,20 +813,18 @@ export function BuildListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BuildInstance> => ({
-          ...response,
-          body: new BuildInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BuildInstance> => ({
+        ...response,
+        body: new BuildInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -828,7 +833,7 @@ export function BuildListInstance(
     params?:
       | BuildListInstancePageOptions
       | ((error: Error | null, items: BuildPage) => any),
-    callback?: (error: Error | null, items: BuildPage) => any
+    callback?: (error: Error | null, items: BuildPage) => any,
   ): Promise<BuildPage> {
     if (params instanceof Function) {
       callback = params;
@@ -856,12 +861,12 @@ export function BuildListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BuildPage(operationVersion, payload, instance._solution)
+      (payload) => new BuildPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -871,14 +876,15 @@ export function BuildListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BuildPage) => any
+    callback?: (error: Error | null, items: BuildPage) => any,
   ): Promise<BuildPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new BuildPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new BuildPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -888,7 +894,7 @@ export function BuildListInstance(
     params?:
       | BuildListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<BuildPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BuildPage>) => any,
   ): Promise<ApiResponse<BuildPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -913,17 +919,15 @@ export function BuildListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BuildPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BuildPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<BuildPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new BuildPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -935,7 +939,7 @@ export function BuildListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<BuildPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<BuildPage>) => any,
   ): Promise<ApiResponse<BuildPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -948,7 +952,7 @@ export function BuildListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new BuildPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -960,7 +964,7 @@ export function BuildListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -984,7 +988,7 @@ export class BuildPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: BuildSolution
+    solution: BuildSolution,
   ) {
     super(version, response, solution);
   }

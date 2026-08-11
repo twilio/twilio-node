@@ -44,7 +44,7 @@ export interface ConfigurationContext {
    * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance>;
 
   /**
@@ -57,8 +57,8 @@ export interface ConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
@@ -69,7 +69,7 @@ export interface ConfigurationContext {
    * @returns Resolves to processed ConfigurationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
@@ -81,7 +81,7 @@ export interface ConfigurationContext {
    */
   update(
     params: ConfigurationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance>;
 
   /**
@@ -94,8 +94,8 @@ export interface ConfigurationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
@@ -109,8 +109,8 @@ export interface ConfigurationContext {
     params: ConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
@@ -128,7 +128,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, chatServiceSid: string) {
+  constructor(
+    protected _version: V1,
+    chatServiceSid: string,
+  ) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -138,7 +141,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -156,13 +159,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -170,8 +173,8 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -185,20 +188,18 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConfigurationInstance> => ({
+        ...response,
+        body: new ConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -207,13 +208,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     params?:
       | ConfigurationContextUpdateOptions
       | ((error: Error | null, item?: ConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -227,7 +228,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
     if (params["reachabilityEnabled"] !== undefined)
       data["ReachabilityEnabled"] = serialize.bool(
-        params["reachabilityEnabled"]
+        params["reachabilityEnabled"],
       );
 
     const headers: any = {};
@@ -248,13 +249,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -264,18 +265,18 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       | ConfigurationContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>
+          item?: ApiResponse<ConfigurationInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -289,7 +290,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
     if (params["reachabilityEnabled"] !== undefined)
       data["ReachabilityEnabled"] = serialize.bool(
-        params["reachabilityEnabled"]
+        params["reachabilityEnabled"],
       );
 
     const headers: any = {};
@@ -306,20 +307,18 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConfigurationInstance> => ({
+        ...response,
+        body: new ConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -357,7 +356,7 @@ export class ConfigurationInstance {
   constructor(
     protected _version: V1,
     payload: ConfigurationResource,
-    chatServiceSid: string
+    chatServiceSid: string,
   ) {
     this.chatServiceSid = payload.chat_service_sid;
     this.defaultConversationCreatorRoleSid =
@@ -405,7 +404,7 @@ export class ConfigurationInstance {
       this._context ||
       new ConfigurationContextImpl(
         this._version,
-        this._solution.chatServiceSid
+        this._solution.chatServiceSid,
       );
     return this._context;
   }
@@ -418,7 +417,7 @@ export class ConfigurationInstance {
    * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -433,8 +432,8 @@ export class ConfigurationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -447,7 +446,7 @@ export class ConfigurationInstance {
    * @returns Resolves to processed ConfigurationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
@@ -459,12 +458,12 @@ export class ConfigurationInstance {
    */
   update(
     params: ConfigurationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
   ): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -479,8 +478,8 @@ export class ConfigurationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
@@ -494,16 +493,16 @@ export class ConfigurationInstance {
     params: ConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -556,7 +555,7 @@ export interface ConfigurationListInstance {
 
 export function ConfigurationListInstance(
   version: V1,
-  chatServiceSid: string
+  chatServiceSid: string,
 ): ConfigurationListInstance {
   if (!isValidPathParam(chatServiceSid)) {
     throw new Error("Parameter 'chatServiceSid' is not valid.");
@@ -577,7 +576,7 @@ export function ConfigurationListInstance(
       if (!instance._notifications) {
         instance._notifications = NotificationListInstance(
           instance._version,
-          instance._solution.chatServiceSid
+          instance._solution.chatServiceSid,
         );
       }
       return instance._notifications;
@@ -589,7 +588,7 @@ export function ConfigurationListInstance(
       if (!instance._webhooks) {
         instance._webhooks = WebhookListInstance(
           instance._version,
-          instance._solution.chatServiceSid
+          instance._solution.chatServiceSid,
         );
       }
       return instance._webhooks;
@@ -602,7 +601,7 @@ export function ConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

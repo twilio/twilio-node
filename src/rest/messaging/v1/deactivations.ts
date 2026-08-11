@@ -33,11 +33,9 @@ export interface DeactivationsContext {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DeactivationsInstance
+   * @returns Resolves to processed void
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+  fetch(callback?: (error: Error | null, item?: void) => any): Promise<void>;
   /**
    * Fetch a DeactivationsInstance
    *
@@ -48,22 +46,19 @@ export interface DeactivationsContext {
    */
   fetch(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+    callback?: (error: Error | null, item?: void) => any,
+  ): Promise<void>;
 
   /**
    * Fetch a DeactivationsInstance and return HTTP info
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DeactivationsInstance with HTTP metadata
+   * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
-  ): Promise<ApiResponse<DeactivationsInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>>;
   /**
    * Fetch a DeactivationsInstance and return HTTP info
    *
@@ -74,11 +69,8 @@ export interface DeactivationsContext {
    */
   fetchWithHttpInfo(
     params: DeactivationsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
-  ): Promise<ApiResponse<DeactivationsInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>>;
 
   /**
    * Provide a user-friendly representation
@@ -101,14 +93,14 @@ export class DeactivationsContextImpl implements DeactivationsContext {
   fetch(
     params?:
       | DeactivationsContextFetchOptions
-      | ((error: Error | null, item?: DeactivationsInstance) => any),
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance> {
+      | ((error: Error | null, item?: void) => any),
+    callback?: (error: Error | null, item?: void) => any,
+  ): Promise<void> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -128,13 +120,9 @@ export class DeactivationsContextImpl implements DeactivationsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DeactivationsInstance(operationVersion, payload)
-    );
-
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -142,20 +130,14 @@ export class DeactivationsContextImpl implements DeactivationsContext {
   fetchWithHttpInfo(
     params?:
       | DeactivationsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<DeactivationsInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
-  ): Promise<ApiResponse<DeactivationsInstance>> {
+      | ((error: Error | null, item?: ApiResponse<void>) => any),
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -168,24 +150,22 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
     const instance = this;
     let operationVersion = instance._version;
-    // CREATE, FETCH, UPDATE operations
+    // No response body — fire-and-forget operation
     let operationPromise = operationVersion
-      .fetchWithResponseInfo<DeactivationsResource>({
+      .fetchWithResponseInfo({
         uri: instance._uri,
         method: "get",
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DeactivationsInstance> => ({
-          ...response,
-          body: new DeactivationsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<void> => ({
+        ...response,
+        body: undefined,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -214,7 +194,10 @@ export class DeactivationsInstance {
   protected _solution: DeactivationsContextSolution;
   protected _context?: DeactivationsContext;
 
-  constructor(protected _version: V1, payload: DeactivationsResource) {
+  constructor(
+    protected _version: V1,
+    payload: DeactivationsResource,
+  ) {
     this.redirectTo = payload.redirect_to;
 
     this._solution = {};
@@ -236,11 +219,9 @@ export class DeactivationsInstance {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DeactivationsInstance
+   * @returns Resolves to processed void
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+  fetch(callback?: (error: Error | null, item?: void) => any): Promise<void>;
   /**
    * Fetch a DeactivationsInstance
    *
@@ -251,13 +232,13 @@ export class DeactivationsInstance {
    */
   fetch(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+    callback?: (error: Error | null, item?: void) => any,
+  ): Promise<void>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance> {
+    callback?: (error: Error | null, item?: void) => any,
+  ): Promise<void> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -266,14 +247,11 @@ export class DeactivationsInstance {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DeactivationsInstance with HTTP metadata
+   * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
-  ): Promise<ApiResponse<DeactivationsInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>>;
   /**
    * Fetch a DeactivationsInstance and return HTTP info
    *
@@ -284,19 +262,13 @@ export class DeactivationsInstance {
    */
   fetchWithHttpInfo(
     params: DeactivationsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
-  ): Promise<ApiResponse<DeactivationsInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
-  ): Promise<ApiResponse<DeactivationsInstance>> {
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+  ): Promise<ApiResponse<void>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -334,7 +306,7 @@ export interface DeactivationsListInstance {
 }
 
 export function DeactivationsListInstance(
-  version: V1
+  version: V1,
 ): DeactivationsListInstance {
   const instance = (() => instance.get()) as DeactivationsListInstance;
 
@@ -352,7 +324,7 @@ export function DeactivationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

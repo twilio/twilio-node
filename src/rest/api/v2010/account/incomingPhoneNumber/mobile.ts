@@ -177,7 +177,7 @@ export interface MobileListInstance {
    */
   create(
     params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MobileInstance) => any
+    callback?: (error: Error | null, item?: MobileInstance) => any,
   ): Promise<MobileInstance>;
 
   /**
@@ -190,7 +190,7 @@ export interface MobileListInstance {
    */
   createWithHttpInfo(
     params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MobileInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MobileInstance>) => any,
   ): Promise<ApiResponse<MobileInstance>>;
 
   /**
@@ -209,11 +209,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+    callback?: (item: MobileInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: MobileListInstanceEachOptions,
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+    callback?: (item: MobileInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams MobileInstance records from the API with HTTP metadata captured per page.
@@ -231,11 +231,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+    callback?: (item: MobileInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: MobileListInstanceEachOptions,
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+    callback?: (item: MobileInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of MobileInstance records from the API.
@@ -247,7 +247,7 @@ export interface MobileListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MobilePage) => any
+    callback?: (error: Error | null, items: MobilePage) => any,
   ): Promise<MobilePage>;
   /**
    * Retrieve a single target page of MobileInstance records from the API with HTTP metadata.
@@ -259,7 +259,7 @@ export interface MobileListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any,
   ): Promise<ApiResponse<MobilePage>>;
   /**
    * Lists MobileInstance records from the API as a list.
@@ -271,11 +271,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MobileInstance[]) => any
+    callback?: (error: Error | null, items: MobileInstance[]) => any,
   ): Promise<MobileInstance[]>;
   list(
     params: MobileListInstanceOptions,
-    callback?: (error: Error | null, items: MobileInstance[]) => any
+    callback?: (error: Error | null, items: MobileInstance[]) => any,
   ): Promise<MobileInstance[]>;
   /**
    * Lists MobileInstance records from the API as a list with HTTP metadata.
@@ -291,15 +291,15 @@ export interface MobileListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MobileInstance[]>
-    ) => any
+      items: ApiResponse<MobileInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MobileInstance[]>>;
   listWithHttpInfo(
     params: MobileListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MobileInstance[]>
-    ) => any
+      items: ApiResponse<MobileInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MobileInstance[]>>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
@@ -313,11 +313,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MobilePage) => any
+    callback?: (error: Error | null, items: MobilePage) => any,
   ): Promise<MobilePage>;
   page(
     params: MobileListInstancePageOptions,
-    callback?: (error: Error | null, items: MobilePage) => any
+    callback?: (error: Error | null, items: MobilePage) => any,
   ): Promise<MobilePage>;
   /**
    * Retrieve a single page of MobileInstance records from the API with HTTP metadata.
@@ -331,11 +331,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any,
   ): Promise<ApiResponse<MobilePage>>;
   pageWithHttpInfo(
     params: MobileListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any,
   ): Promise<ApiResponse<MobilePage>>;
 
   /**
@@ -347,7 +347,7 @@ export interface MobileListInstance {
 
 export function MobileListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): MobileListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -361,7 +361,7 @@ export function MobileListInstance(
 
   instance.create = function create(
     params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, items: MobileInstance) => any
+    callback?: (error: Error | null, items: MobileInstance) => any,
   ): Promise<MobileInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -395,7 +395,7 @@ export function MobileListInstance(
       data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["voiceFallbackMethod"] !== undefined)
       data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
@@ -435,20 +435,20 @@ export function MobileListInstance(
         new MobileInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<MobileInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<MobileInstance>) => any,
   ): Promise<ApiResponse<MobileInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -482,7 +482,7 @@ export function MobileListInstance(
       data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["voiceFallbackMethod"] !== undefined)
       data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
@@ -518,20 +518,18 @@ export function MobileListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MobileInstance> => ({
-          ...response,
-          body: new MobileInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MobileInstance> => ({
+        ...response,
+        body: new MobileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -540,7 +538,7 @@ export function MobileListInstance(
     params?:
       | MobileListInstancePageOptions
       | ((error: Error | null, items: MobilePage) => any),
-    callback?: (error: Error | null, items: MobilePage) => any
+    callback?: (error: Error | null, items: MobilePage) => any,
   ): Promise<MobilePage> {
     if (params instanceof Function) {
       callback = params;
@@ -575,12 +573,13 @@ export function MobileListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MobilePage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new MobilePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -590,7 +589,7 @@ export function MobileListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MobilePage) => any
+    callback?: (error: Error | null, items: MobilePage) => any,
   ): Promise<MobilePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -598,7 +597,7 @@ export function MobileListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MobilePage(instance._version, payload, instance._solution)
+        new MobilePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -608,7 +607,7 @@ export function MobileListInstance(
     params?:
       | MobileListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<MobilePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any,
   ): Promise<ApiResponse<MobilePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -640,17 +639,15 @@ export function MobileListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MobilePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MobilePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<MobilePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MobilePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -662,7 +659,7 @@ export function MobileListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MobilePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<MobilePage>) => any,
   ): Promise<ApiResponse<MobilePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -675,7 +672,7 @@ export function MobileListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new MobilePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -687,7 +684,7 @@ export function MobileListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -740,7 +737,7 @@ export class MobileInstance {
   constructor(
     protected _version: V2010,
     payload: MobileResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;
@@ -962,7 +959,7 @@ export class MobilePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MobileSolution
+    solution: MobileSolution,
   ) {
     super(version, response, solution);
   }
@@ -976,7 +973,7 @@ export class MobilePage extends Page<
     return new MobileInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

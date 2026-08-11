@@ -94,7 +94,7 @@ export interface BundleCopyListInstance {
    * @returns Resolves to processed BundleCopyInstance
    */
   create(
-    callback?: (error: Error | null, item?: BundleCopyInstance) => any
+    callback?: (error: Error | null, item?: BundleCopyInstance) => any,
   ): Promise<BundleCopyInstance>;
   /**
    * Create a BundleCopyInstance
@@ -106,7 +106,7 @@ export interface BundleCopyListInstance {
    */
   create(
     params: BundleCopyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BundleCopyInstance) => any
+    callback?: (error: Error | null, item?: BundleCopyInstance) => any,
   ): Promise<BundleCopyInstance>;
 
   /**
@@ -119,8 +119,8 @@ export interface BundleCopyListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BundleCopyInstance>
-    ) => any
+      item?: ApiResponse<BundleCopyInstance>,
+    ) => any,
   ): Promise<ApiResponse<BundleCopyInstance>>;
   /**
    * Create a BundleCopyInstance and return HTTP info
@@ -134,8 +134,8 @@ export interface BundleCopyListInstance {
     params: BundleCopyListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BundleCopyInstance>
-    ) => any
+      item?: ApiResponse<BundleCopyInstance>,
+    ) => any,
   ): Promise<ApiResponse<BundleCopyInstance>>;
 
   /**
@@ -154,11 +154,11 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: BundleCopyListInstanceEachOptions,
-    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams BundleCopyInstance records from the API with HTTP metadata captured per page.
@@ -176,11 +176,11 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: BundleCopyListInstanceEachOptions,
-    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of BundleCopyInstance records from the API.
@@ -192,7 +192,7 @@ export interface BundleCopyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BundleCopyPage) => any
+    callback?: (error: Error | null, items: BundleCopyPage) => any,
   ): Promise<BundleCopyPage>;
   /**
    * Retrieve a single target page of BundleCopyInstance records from the API with HTTP metadata.
@@ -204,7 +204,7 @@ export interface BundleCopyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any,
   ): Promise<ApiResponse<BundleCopyPage>>;
   /**
    * Lists BundleCopyInstance records from the API as a list.
@@ -216,11 +216,11 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: BundleCopyInstance[]) => any
+    callback?: (error: Error | null, items: BundleCopyInstance[]) => any,
   ): Promise<BundleCopyInstance[]>;
   list(
     params: BundleCopyListInstanceOptions,
-    callback?: (error: Error | null, items: BundleCopyInstance[]) => any
+    callback?: (error: Error | null, items: BundleCopyInstance[]) => any,
   ): Promise<BundleCopyInstance[]>;
   /**
    * Lists BundleCopyInstance records from the API as a list with HTTP metadata.
@@ -236,15 +236,15 @@ export interface BundleCopyListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<BundleCopyInstance[]>
-    ) => any
+      items: ApiResponse<BundleCopyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BundleCopyInstance[]>>;
   listWithHttpInfo(
     params: BundleCopyListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BundleCopyInstance[]>
-    ) => any
+      items: ApiResponse<BundleCopyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BundleCopyInstance[]>>;
   /**
    * Retrieve a single page of BundleCopyInstance records from the API.
@@ -258,11 +258,11 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: BundleCopyPage) => any
+    callback?: (error: Error | null, items: BundleCopyPage) => any,
   ): Promise<BundleCopyPage>;
   page(
     params: BundleCopyListInstancePageOptions,
-    callback?: (error: Error | null, items: BundleCopyPage) => any
+    callback?: (error: Error | null, items: BundleCopyPage) => any,
   ): Promise<BundleCopyPage>;
   /**
    * Retrieve a single page of BundleCopyInstance records from the API with HTTP metadata.
@@ -276,11 +276,11 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any,
   ): Promise<ApiResponse<BundleCopyPage>>;
   pageWithHttpInfo(
     params: BundleCopyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any,
   ): Promise<ApiResponse<BundleCopyPage>>;
 
   /**
@@ -292,7 +292,7 @@ export interface BundleCopyListInstance {
 
 export function BundleCopyListInstance(
   version: V2,
-  bundleSid: string
+  bundleSid: string,
 ): BundleCopyListInstance {
   if (!isValidPathParam(bundleSid)) {
     throw new Error("Parameter 'bundleSid' is not valid.");
@@ -308,13 +308,13 @@ export function BundleCopyListInstance(
     params?:
       | BundleCopyListInstanceCreateOptions
       | ((error: Error | null, items: BundleCopyInstance) => any),
-    callback?: (error: Error | null, items: BundleCopyInstance) => any
+    callback?: (error: Error | null, items: BundleCopyInstance) => any,
   ): Promise<BundleCopyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -339,13 +339,13 @@ export function BundleCopyListInstance(
         new BundleCopyInstance(
           operationVersion,
           payload,
-          instance._solution.bundleSid
-        )
+          instance._solution.bundleSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -356,14 +356,14 @@ export function BundleCopyListInstance(
       | ((error: Error | null, items: ApiResponse<BundleCopyInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<BundleCopyInstance>
-    ) => any
+      items: ApiResponse<BundleCopyInstance>,
+    ) => any,
   ): Promise<ApiResponse<BundleCopyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -384,20 +384,18 @@ export function BundleCopyListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleCopyInstance> => ({
-          ...response,
-          body: new BundleCopyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.bundleSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BundleCopyInstance> => ({
+        ...response,
+        body: new BundleCopyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.bundleSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -406,7 +404,7 @@ export function BundleCopyListInstance(
     params?:
       | BundleCopyListInstancePageOptions
       | ((error: Error | null, items: BundleCopyPage) => any),
-    callback?: (error: Error | null, items: BundleCopyPage) => any
+    callback?: (error: Error | null, items: BundleCopyPage) => any,
   ): Promise<BundleCopyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -435,12 +433,12 @@ export function BundleCopyListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BundleCopyPage(operationVersion, payload, instance._solution)
+        new BundleCopyPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -450,7 +448,7 @@ export function BundleCopyListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BundleCopyPage) => any
+    callback?: (error: Error | null, items: BundleCopyPage) => any,
   ): Promise<BundleCopyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -458,7 +456,7 @@ export function BundleCopyListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new BundleCopyPage(instance._version, payload, instance._solution)
+        new BundleCopyPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -468,7 +466,7 @@ export function BundleCopyListInstance(
     params?:
       | BundleCopyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<BundleCopyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundleCopyPage>) => any,
   ): Promise<ApiResponse<BundleCopyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -493,21 +491,19 @@ export function BundleCopyListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BundleCopyPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BundleCopyPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<BundleCopyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new BundleCopyPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -519,7 +515,10 @@ export function BundleCopyListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<BundleCopyPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<BundleCopyPage>,
+    ) => any,
   ): Promise<ApiResponse<BundleCopyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -534,9 +533,9 @@ export function BundleCopyListInstance(
         body: new BundleCopyPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -548,7 +547,7 @@ export function BundleCopyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -577,7 +576,7 @@ export class BundleCopyInstance {
   constructor(
     protected _version: V2,
     payload: BundleCopyResource,
-    bundleSid: string
+    bundleSid: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -670,7 +669,7 @@ export class BundleCopyPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: BundleCopySolution
+    solution: BundleCopySolution,
   ) {
     super(version, response, solution);
   }
@@ -684,7 +683,7 @@ export class BundleCopyPage extends Page<
     return new BundleCopyInstance(
       this._version,
       payload,
-      this._solution.bundleSid
+      this._solution.bundleSid,
     );
   }
 

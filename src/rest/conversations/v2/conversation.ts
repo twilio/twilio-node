@@ -22,10 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export class ConversationsV2Address {
-  /**
-   * The channel for Communication.
-   */
-  "channel": string;
+  "channel": ConversationsV2Channel;
   /**
    * The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
    */
@@ -41,6 +38,26 @@ export class ConversationsV2Address {
     this.channelId = payload["channelId"];
   }
 }
+
+/**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
+
+/**
+ * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+ */
+export type ConversationsV2ConversationGroupingType =
+  | "GROUP_BY_PROFILE"
+  | "GROUP_BY_PARTICIPANT_ADDRESSES"
+  | "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE";
+
+/**
+ * Lifecycle status of a Conversation.
+ */
+export type ConversationsV2ConversationStatus =
+  "ACTIVE" | "INACTIVE" | "CLOSED";
 
 /**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
@@ -73,10 +90,7 @@ export class ConversationsV2Participant {
    * Participant display name.
    */
   "name": string;
-  /**
-   * Type of Participant in the Conversation.
-   */
-  "type"?: string;
+  "type"?: ConversationsV2ParticipantType;
   /**
    * Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
    */
@@ -106,6 +120,12 @@ export class ConversationsV2Participant {
     this.updatedAt = payload["updatedAt"];
   }
 }
+
+/**
+ * Type of Participant in the Conversation.
+ */
+export type ConversationsV2ParticipantType =
+  "HUMAN_AGENT" | "CUSTOMER" | "AI_AGENT" | "AGENT" | "UNKNOWN";
 
 /**
  * Default webhook configuration for Conversation-level events under this Configuration.
@@ -190,6 +210,9 @@ export class CreateConversationWithConfigRequestParticipants {
 }
 
 export class CreateConversationWithConfigRequestParticipantsAddresses {
+  /**
+   * Channel type for a Communication address.
+   */
   "channel": string;
   "address": string;
   "channelId"?: string;
@@ -213,10 +236,7 @@ export class ListConversationByAccount200ResponseConversationsConfiguration {
    * Human-readable description for the Configuration.
    */
   "description"?: string;
-  /**
-   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
-   */
-  "conversationGroupingType"?: string;
+  "conversationGroupingType"?: ConversationsV2ConversationGroupingType;
   /**
    * Memory Store ID for Profile resolution.
    */
@@ -258,7 +278,7 @@ export class PatchConversationByIdRequest {
    */
   "name"?: string;
   /**
-   * The state of the Conversation.
+   * Lifecycle status of a Conversation.
    */
   "status"?: string;
   "configuration"?: PatchConversationByIdRequestConfiguration;
@@ -290,7 +310,7 @@ export class UpdateConversationByIdRequest {
    */
   "name"?: string;
   /**
-   * The state of the Conversation.
+   * Lifecycle status of a Conversation.
    */
   "status": string;
 
@@ -391,7 +411,7 @@ export interface ConversationContext {
    * @returns Resolves to processed ConversationInstance
    */
   remove(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Remove a ConversationInstance
@@ -403,7 +423,7 @@ export interface ConversationContext {
    */
   remove(
     params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   /**
@@ -416,8 +436,8 @@ export interface ConversationContext {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Remove a ConversationInstance and return HTTP info
@@ -431,8 +451,8 @@ export interface ConversationContext {
     params: ConversationContextRemoveOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -443,7 +463,7 @@ export interface ConversationContext {
    * @returns Resolves to processed ConversationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   /**
@@ -456,8 +476,8 @@ export interface ConversationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -468,7 +488,7 @@ export interface ConversationContext {
    * @returns Resolves to processed ConversationInstance
    */
   patch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Patch a ConversationInstance
@@ -482,7 +502,7 @@ export interface ConversationContext {
   patch(
     params: PatchConversationByIdRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   /**
@@ -495,8 +515,8 @@ export interface ConversationContext {
   patchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Patch a ConversationInstance and return HTTP info
@@ -512,8 +532,8 @@ export interface ConversationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -524,7 +544,7 @@ export interface ConversationContext {
    * @returns Resolves to processed ConversationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
@@ -538,7 +558,7 @@ export interface ConversationContext {
   update(
     params: UpdateConversationByIdRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   /**
@@ -551,8 +571,8 @@ export interface ConversationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Update a ConversationInstance and return HTTP info
@@ -568,8 +588,8 @@ export interface ConversationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -580,27 +600,30 @@ export interface ConversationContext {
 }
 
 export interface ConversationContextSolution {
-  sid: string;
+  id: string;
 }
 
 export class ConversationContextImpl implements ConversationContext {
   protected _solution: ConversationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+  constructor(
+    protected _version: V2,
+    id: string,
+  ) {
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { sid };
-    this._uri = `/Conversations/${sid}`;
+    this._solution = { id };
+    this._uri = `/Conversations/${id}`;
   }
 
   remove(
     params?:
       | ConversationContextRemoveOptions
       | ((error: Error | null, item?: ConversationInstance) => any),
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -630,13 +653,13 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -646,12 +669,12 @@ export class ConversationContextImpl implements ConversationContext {
       | ConversationContextRemoveOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConversationInstance>
+          item?: ApiResponse<ConversationInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -677,26 +700,24 @@ export class ConversationContextImpl implements ConversationContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationInstance> => ({
-          ...response,
-          body: new ConversationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationInstance> => ({
+        ...response,
+        body: new ConversationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -714,13 +735,13 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -728,8 +749,8 @@ export class ConversationContextImpl implements ConversationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -743,20 +764,18 @@ export class ConversationContextImpl implements ConversationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationInstance> => ({
-          ...response,
-          body: new ConversationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationInstance> => ({
+        ...response,
+        body: new ConversationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -766,7 +785,7 @@ export class ConversationContextImpl implements ConversationContext {
       | PatchConversationByIdRequest
       | ((error: Error | null, item?: ConversationInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -803,13 +822,13 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -819,13 +838,13 @@ export class ConversationContextImpl implements ConversationContext {
       | PatchConversationByIdRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<ConversationInstance>
+          item?: ApiResponse<ConversationInstance>,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -858,20 +877,18 @@ export class ConversationContextImpl implements ConversationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationInstance> => ({
-          ...response,
-          body: new ConversationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationInstance> => ({
+        ...response,
+        body: new ConversationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -881,7 +898,7 @@ export class ConversationContextImpl implements ConversationContext {
       | UpdateConversationByIdRequest
       | ((error: Error | null, item?: ConversationInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -918,13 +935,13 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -934,13 +951,13 @@ export class ConversationContextImpl implements ConversationContext {
       | UpdateConversationByIdRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<ConversationInstance>
+          item?: ApiResponse<ConversationInstance>,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -973,20 +990,18 @@ export class ConversationContextImpl implements ConversationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationInstance> => ({
-          ...response,
-          body: new ConversationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationInstance> => ({
+        ...response,
+        body: new ConversationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -1008,7 +1023,7 @@ export class ConversationContextImpl implements ConversationContext {
  * Nested model for ConversationsV2Address
  */
 export interface ConversationsV2Address {
-  channel: string;
+  channel: ConversationsV2Channel;
   address: string;
   channelId?: string;
 }
@@ -1028,7 +1043,7 @@ export interface ConversationsV2Participant {
   conversationId: string;
   accountId: string;
   name: string;
-  type?: string;
+  type?: ConversationsV2ParticipantType;
   profileId?: string;
   addresses?: Array<ConversationsV2Address>;
   createdAt?: Date;
@@ -1085,7 +1100,7 @@ export interface CreateConversationWithConfigRequestParticipantsAddresses {
 export interface ListConversationByAccount200ResponseConversationsConfiguration {
   displayName?: string;
   description?: string;
-  conversationGroupingType?: string;
+  conversationGroupingType?: ConversationsV2ConversationGroupingType;
   memoryStoreId?: string;
   channelSettings?: { [key: string]: any };
   statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
@@ -1137,7 +1152,7 @@ interface ListConversationByAccount200ResponseConversations_ResponseResource {
   id: string;
   accountId: string;
   configurationId: string;
-  status?: string;
+  status?: ConversationsV2ConversationStatus;
   name?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -1159,7 +1174,7 @@ export class ConversationInstance {
   constructor(
     protected _version: V2,
     _payload: ConversationResource,
-    sid?: string
+    id?: string,
   ) {
     const payload: any = _payload;
     this.statusUrl = payload.statusUrl;
@@ -1174,17 +1189,17 @@ export class ConversationInstance {
     this.configuration =
       payload.configuration !== null && payload.configuration !== undefined
         ? new ListConversationByAccount200ResponseConversationsConfiguration(
-            payload.configuration
+            payload.configuration,
           )
         : null;
     this.participants =
       payload.participants !== null && payload.participants !== undefined
         ? payload.participants.map(
-            (payload: any) => new ConversationsV2Participant(payload)
+            (payload: any) => new ConversationsV2Participant(payload),
           )
         : null;
 
-    this._solution = { sid: sid };
+    this._solution = { id: id };
   }
 
   /**
@@ -1207,10 +1222,7 @@ export class ConversationInstance {
    * Configuration ID.
    */
   configurationId?: string;
-  /**
-   * Conversation status.
-   */
-  status?: string;
+  status?: ConversationsV2ConversationStatus;
   /**
    * Conversation name.
    */
@@ -1232,7 +1244,7 @@ export class ConversationInstance {
   private get _proxy(): ConversationContext {
     this._context =
       this._context ||
-      new ConversationContextImpl(this._version, this._solution.sid);
+      new ConversationContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -1244,7 +1256,7 @@ export class ConversationInstance {
    * @returns Resolves to processed ConversationInstance
    */
   remove(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Remove a ConversationInstance
@@ -1256,12 +1268,12 @@ export class ConversationInstance {
    */
   remove(
     params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   remove(
     params?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     return this._proxy.remove(params, callback);
   }
@@ -1276,8 +1288,8 @@ export class ConversationInstance {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Remove a ConversationInstance and return HTTP info
@@ -1291,16 +1303,16 @@ export class ConversationInstance {
     params: ConversationContextRemoveOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   removeWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
@@ -1313,7 +1325,7 @@ export class ConversationInstance {
    * @returns Resolves to processed ConversationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -1328,8 +1340,8 @@ export class ConversationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -1342,7 +1354,7 @@ export class ConversationInstance {
    * @returns Resolves to processed ConversationInstance
    */
   patch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Patch a ConversationInstance
@@ -1356,12 +1368,12 @@ export class ConversationInstance {
   patch(
     params: PatchConversationByIdRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   patch(
     params?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     return this._proxy.patch(params, callback);
   }
@@ -1376,8 +1388,8 @@ export class ConversationInstance {
   patchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Patch a ConversationInstance and return HTTP info
@@ -1393,16 +1405,16 @@ export class ConversationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   patchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
@@ -1415,7 +1427,7 @@ export class ConversationInstance {
    * @returns Resolves to processed ConversationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
@@ -1429,12 +1441,12 @@ export class ConversationInstance {
   update(
     params: UpdateConversationByIdRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -1449,8 +1461,8 @@ export class ConversationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Update a ConversationInstance and return HTTP info
@@ -1466,16 +1478,16 @@ export class ConversationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -1513,8 +1525,8 @@ export interface ConversationListInstance {
   _solution: ConversationSolution;
   _uri: string;
 
-  (sid: string): ConversationContext;
-  get(sid: string): ConversationContext;
+  (id: string): ConversationContext;
+  get(id: string): ConversationContext;
 
   /**
    * Create a ConversationInstance
@@ -1524,7 +1536,7 @@ export interface ConversationListInstance {
    * @returns Resolves to processed ConversationInstance
    */
   create(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
   /**
    * Create a ConversationInstance
@@ -1538,7 +1550,7 @@ export interface ConversationListInstance {
   create(
     params: CreateConversationWithConfigRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+    callback?: (error: Error | null, item?: ConversationInstance) => any,
   ): Promise<ConversationInstance>;
 
   /**
@@ -1551,8 +1563,8 @@ export interface ConversationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Create a ConversationInstance and return HTTP info
@@ -1568,8 +1580,8 @@ export interface ConversationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>
-    ) => any
+      item?: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -1588,11 +1600,17 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: ConversationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: ConversationListInstanceEachOptions,
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: ConversationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams ConversationInstance records from the API with HTTP metadata captured per page.
@@ -1610,11 +1628,17 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: ConversationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: ConversationListInstanceEachOptions,
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: ConversationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of ConversationInstance records from the API.
@@ -1626,7 +1650,7 @@ export interface ConversationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConversationPage) => any
+    callback?: (error: Error | null, items: ConversationPage) => any,
   ): Promise<ConversationPage>;
   /**
    * Retrieve a single target page of ConversationInstance records from the API with HTTP metadata.
@@ -1640,8 +1664,8 @@ export interface ConversationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>
-    ) => any
+      items: ApiResponse<ConversationPage>,
+    ) => any,
   ): Promise<ApiResponse<ConversationPage>>;
   /**
    * Lists ConversationInstance records from the API as a list.
@@ -1653,11 +1677,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ConversationInstance[]) => any
+    callback?: (error: Error | null, items: ConversationInstance[]) => any,
   ): Promise<ConversationInstance[]>;
   list(
     params: ConversationListInstanceOptions,
-    callback?: (error: Error | null, items: ConversationInstance[]) => any
+    callback?: (error: Error | null, items: ConversationInstance[]) => any,
   ): Promise<ConversationInstance[]>;
   /**
    * Lists ConversationInstance records from the API as a list with HTTP metadata.
@@ -1673,15 +1697,15 @@ export interface ConversationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationInstance[]>
-    ) => any
+      items: ApiResponse<ConversationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance[]>>;
   listWithHttpInfo(
     params: ConversationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationInstance[]>
-    ) => any
+      items: ApiResponse<ConversationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance[]>>;
   /**
    * Retrieve a single page of ConversationInstance records from the API.
@@ -1695,11 +1719,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ConversationPage) => any
+    callback?: (error: Error | null, items: ConversationPage) => any,
   ): Promise<ConversationPage>;
   page(
     params: ConversationListInstancePageOptions,
-    callback?: (error: Error | null, items: ConversationPage) => any
+    callback?: (error: Error | null, items: ConversationPage) => any,
   ): Promise<ConversationPage>;
   /**
    * Retrieve a single page of ConversationInstance records from the API with HTTP metadata.
@@ -1715,15 +1739,15 @@ export interface ConversationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>
-    ) => any
+      items: ApiResponse<ConversationPage>,
+    ) => any,
   ): Promise<ApiResponse<ConversationPage>>;
   pageWithHttpInfo(
     params: ConversationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>
-    ) => any
+      items: ApiResponse<ConversationPage>,
+    ) => any,
   ): Promise<ApiResponse<ConversationPage>>;
 
   /**
@@ -1734,12 +1758,12 @@ export interface ConversationListInstance {
 }
 
 export function ConversationListInstance(
-  version: V2
+  version: V2,
 ): ConversationListInstance {
-  const instance = ((sid) => instance.get(sid)) as ConversationListInstance;
+  const instance = ((id) => instance.get(id)) as ConversationListInstance;
 
-  instance.get = function get(sid): ConversationContext {
-    return new ConversationContextImpl(version, sid);
+  instance.get = function get(id): ConversationContext {
+    return new ConversationContextImpl(version, id);
   };
 
   instance._version = version;
@@ -1751,7 +1775,7 @@ export function ConversationListInstance(
       | CreateConversationWithConfigRequest
       | ((error: Error | null, items: ConversationInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: ConversationInstance) => any
+    callback?: (error: Error | null, items: ConversationInstance) => any,
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1783,12 +1807,12 @@ export function ConversationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConversationInstance(operationVersion, payload)
+      (payload) => new ConversationInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1798,13 +1822,13 @@ export function ConversationListInstance(
       | CreateConversationWithConfigRequest
       | ((
           error: Error | null,
-          items: ApiResponse<ConversationInstance>
+          items: ApiResponse<ConversationInstance>,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationInstance>
-    ) => any
+      items: ApiResponse<ConversationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1836,16 +1860,14 @@ export function ConversationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationInstance> => ({
-          ...response,
-          body: new ConversationInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ConversationInstance> => ({
+        ...response,
+        body: new ConversationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1854,7 +1876,7 @@ export function ConversationListInstance(
     params?:
       | ConversationListInstancePageOptions
       | ((error: Error | null, items: ConversationPage) => any),
-    callback?: (error: Error | null, items: ConversationPage) => any
+    callback?: (error: Error | null, items: ConversationPage) => any,
   ): Promise<ConversationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1891,13 +1913,13 @@ export function ConversationListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1907,7 +1929,7 @@ export function ConversationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConversationPage) => any
+    callback?: (error: Error | null, items: ConversationPage) => any,
   ): Promise<ConversationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1920,8 +1942,8 @@ export function ConversationListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1933,8 +1955,8 @@ export function ConversationListInstance(
       | ((error: Error | null, items: ApiResponse<ConversationPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>
-    ) => any
+      items: ApiResponse<ConversationPage>,
+    ) => any,
   ): Promise<ApiResponse<ConversationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1962,23 +1984,21 @@ export function ConversationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConversationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConversationPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConversationPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1992,8 +2012,8 @@ export function ConversationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ConversationPage>
-    ) => any
+      items?: ApiResponse<ConversationPage>,
+    ) => any,
   ): Promise<ApiResponse<ConversationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -2010,9 +2030,9 @@ export function ConversationListInstance(
           response,
           instance._uri,
           {},
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -2024,7 +2044,7 @@ export function ConversationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -2052,7 +2072,7 @@ export class ConversationPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: ConversationSolution
+    solution: ConversationSolution,
   ) {
     super(version, response, uri, params, solution);
   }

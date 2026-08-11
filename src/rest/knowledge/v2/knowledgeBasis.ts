@@ -84,7 +84,7 @@ export interface KnowledgeBasisListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: KnowledgeBasisInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -127,7 +127,7 @@ export interface KnowledgeBasisContext {
    * @returns Resolves to processed KnowledgeBasisInstance
    */
   remove(
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance>;
 
   /**
@@ -140,8 +140,8 @@ export interface KnowledgeBasisContext {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>>;
 
   /**
@@ -152,7 +152,7 @@ export interface KnowledgeBasisContext {
    * @returns Resolves to processed KnowledgeBasisInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance>;
 
   /**
@@ -165,8 +165,8 @@ export interface KnowledgeBasisContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>>;
 
   /**
@@ -181,7 +181,7 @@ export interface KnowledgeBasisContext {
   update(
     params: UpdateKnowledgeBaseRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance>;
 
   /**
@@ -198,8 +198,8 @@ export interface KnowledgeBasisContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>>;
 
   /**
@@ -217,7 +217,10 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
   protected _solution: KnowledgeBasisContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, kbId: string) {
+  constructor(
+    protected _version: V2,
+    kbId: string,
+  ) {
     if (!isValidPathParam(kbId)) {
       throw new Error("Parameter 'kbId' is not valid.");
     }
@@ -227,7 +230,7 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -245,13 +248,13 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         new KnowledgeBasisInstance(
           operationVersion,
           payload,
-          instance._solution.kbId
-        )
+          instance._solution.kbId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -259,8 +262,8 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -274,26 +277,24 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         method: "delete",
         headers,
       })
-      .then(
-        (response): ApiResponse<KnowledgeBasisInstance> => ({
-          ...response,
-          body: new KnowledgeBasisInstance(
-            operationVersion,
-            response.body,
-            instance._solution.kbId
-          ),
-        })
-      );
+      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
+        ...response,
+        body: new KnowledgeBasisInstance(
+          operationVersion,
+          response.body,
+          instance._solution.kbId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -311,13 +312,13 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         new KnowledgeBasisInstance(
           operationVersion,
           payload,
-          instance._solution.kbId
-        )
+          instance._solution.kbId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -325,8 +326,8 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -340,20 +341,18 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<KnowledgeBasisInstance> => ({
-          ...response,
-          body: new KnowledgeBasisInstance(
-            operationVersion,
-            response.body,
-            instance._solution.kbId
-          ),
-        })
-      );
+      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
+        ...response,
+        body: new KnowledgeBasisInstance(
+          operationVersion,
+          response.body,
+          instance._solution.kbId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -361,7 +360,7 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
   update(
     params: UpdateKnowledgeBaseRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -392,13 +391,13 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         new KnowledgeBasisInstance(
           operationVersion,
           payload,
-          instance._solution.kbId
-        )
+          instance._solution.kbId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -408,8 +407,8 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -436,20 +435,18 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<KnowledgeBasisInstance> => ({
-          ...response,
-          body: new KnowledgeBasisInstance(
-            operationVersion,
-            response.body,
-            instance._solution.kbId
-          ),
-        })
-      );
+      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
+        ...response,
+        body: new KnowledgeBasisInstance(
+          operationVersion,
+          response.body,
+          instance._solution.kbId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -488,10 +485,27 @@ interface KnowledgeBasisPayload extends TokenPaginationPayload {
 }
 
 /**
+ * Response model for CreateKnowledgeBase202Response operations
+ */
+interface CreateKnowledgeBase202Response_ResponseResource {
+  message?: string;
+  statusUrl?: string;
+}
+
+/**
  * Response model for DeleteKnowledgeBase202Response operations
  */
 interface DeleteKnowledgeBase202Response_ResponseResource {
   message?: string;
+  statusUrl?: string;
+}
+
+/**
+ * Response model for UpdateKnowledgeBase202Response operations
+ */
+interface UpdateKnowledgeBase202Response_ResponseResource {
+  message?: string;
+  statusUrl?: string;
 }
 
 /**
@@ -508,29 +522,13 @@ interface KnowledgeBase_ResponseResource {
 }
 
 /**
- * Response model for CreateKnowledgeBase202Response operations
- */
-interface CreateKnowledgeBase202Response_ResponseResource {
-  message?: string;
-  statusUrl?: string;
-}
-
-/**
- * Response model for UpdateKnowledgeBase202Response operations
- */
-interface UpdateKnowledgeBase202Response_ResponseResource {
-  message?: string;
-  statusUrl?: string;
-}
-
-/**
  * Union type for all possible response models
  */
 type KnowledgeBasisResource =
-  | DeleteKnowledgeBase202Response_ResponseResource
-  | KnowledgeBase_ResponseResource
   | CreateKnowledgeBase202Response_ResponseResource
-  | UpdateKnowledgeBase202Response_ResponseResource;
+  | DeleteKnowledgeBase202Response_ResponseResource
+  | UpdateKnowledgeBase202Response_ResponseResource
+  | KnowledgeBase_ResponseResource;
 
 export class KnowledgeBasisInstance {
   protected _solution: KnowledgeBasisContextSolution;
@@ -539,10 +537,11 @@ export class KnowledgeBasisInstance {
   constructor(
     protected _version: V2,
     _payload: KnowledgeBasisResource,
-    kbId?: string
+    kbId?: string,
   ) {
     const payload: any = _payload;
     this.message = payload.message;
+    this.statusUrl = payload.statusUrl;
     this.displayName = payload.displayName;
     this.description = payload.description;
     this.id = payload.id;
@@ -550,12 +549,15 @@ export class KnowledgeBasisInstance {
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.version = deserialize.integer(payload.version);
-    this.statusUrl = payload.statusUrl;
 
     this._solution = { kbId: kbId };
   }
 
   message?: string;
+  /**
+   * URI to check operation status.
+   */
+  statusUrl?: string;
   /**
    * Provides a unique and addressable name to be assigned to this Knowledge Base. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.
    */
@@ -584,10 +586,6 @@ export class KnowledgeBasisInstance {
    * The current version number of the Knowledge Base. Incremented on each successful mutable update.
    */
   version?: number;
-  /**
-   * URI to check operation status.
-   */
-  statusUrl?: string;
 
   private get _proxy(): KnowledgeBasisContext {
     this._context =
@@ -604,7 +602,7 @@ export class KnowledgeBasisInstance {
    * @returns Resolves to processed KnowledgeBasisInstance
    */
   remove(
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     return this._proxy.remove(callback);
   }
@@ -619,8 +617,8 @@ export class KnowledgeBasisInstance {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -633,7 +631,7 @@ export class KnowledgeBasisInstance {
    * @returns Resolves to processed KnowledgeBasisInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     return this._proxy.fetch(callback);
   }
@@ -648,8 +646,8 @@ export class KnowledgeBasisInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -666,12 +664,12 @@ export class KnowledgeBasisInstance {
   update(
     params: UpdateKnowledgeBaseRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     return this._proxy.update(params, callback);
   }
@@ -690,16 +688,16 @@ export class KnowledgeBasisInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -712,6 +710,7 @@ export class KnowledgeBasisInstance {
   toJSON() {
     return {
       message: this.message,
+      statusUrl: this.statusUrl,
       displayName: this.displayName,
       description: this.description,
       id: this.id,
@@ -719,7 +718,6 @@ export class KnowledgeBasisInstance {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       version: this.version,
-      statusUrl: this.statusUrl,
     };
   }
 
@@ -750,7 +748,7 @@ export interface KnowledgeBasisListInstance {
   create(
     params: KnowledgeBaseCore,
     headers?: any,
-    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, item?: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance>;
 
   /**
@@ -767,8 +765,8 @@ export interface KnowledgeBasisListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      item?: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>>;
 
   /**
@@ -789,15 +787,15 @@ export interface KnowledgeBasisListInstance {
   each(
     callback?: (
       item: KnowledgeBasisInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: KnowledgeBasisListInstanceEachOptions,
     callback?: (
       item: KnowledgeBasisInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams KnowledgeBasisInstance records from the API with HTTP metadata captured per page.
@@ -817,15 +815,15 @@ export interface KnowledgeBasisListInstance {
   eachWithHttpInfo(
     callback?: (
       item: KnowledgeBasisInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: KnowledgeBasisListInstanceEachOptions,
     callback?: (
       item: KnowledgeBasisInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of KnowledgeBasisInstance records from the API.
@@ -837,7 +835,7 @@ export interface KnowledgeBasisListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: KnowledgeBasisPage) => any
+    callback?: (error: Error | null, items: KnowledgeBasisPage) => any,
   ): Promise<KnowledgeBasisPage>;
   /**
    * Retrieve a single target page of KnowledgeBasisInstance records from the API with HTTP metadata.
@@ -851,8 +849,8 @@ export interface KnowledgeBasisListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisPage>
-    ) => any
+      items: ApiResponse<KnowledgeBasisPage>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisPage>>;
   /**
    * Lists KnowledgeBasisInstance records from the API as a list.
@@ -864,11 +862,11 @@ export interface KnowledgeBasisListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: KnowledgeBasisInstance[]) => any
+    callback?: (error: Error | null, items: KnowledgeBasisInstance[]) => any,
   ): Promise<KnowledgeBasisInstance[]>;
   list(
     params: KnowledgeBasisListInstanceOptions,
-    callback?: (error: Error | null, items: KnowledgeBasisInstance[]) => any
+    callback?: (error: Error | null, items: KnowledgeBasisInstance[]) => any,
   ): Promise<KnowledgeBasisInstance[]>;
   /**
    * Lists KnowledgeBasisInstance records from the API as a list with HTTP metadata.
@@ -884,15 +882,15 @@ export interface KnowledgeBasisListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisInstance[]>
-    ) => any
+      items: ApiResponse<KnowledgeBasisInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance[]>>;
   listWithHttpInfo(
     params: KnowledgeBasisListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisInstance[]>
-    ) => any
+      items: ApiResponse<KnowledgeBasisInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance[]>>;
   /**
    * Retrieve a single page of KnowledgeBasisInstance records from the API.
@@ -906,11 +904,11 @@ export interface KnowledgeBasisListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: KnowledgeBasisPage) => any
+    callback?: (error: Error | null, items: KnowledgeBasisPage) => any,
   ): Promise<KnowledgeBasisPage>;
   page(
     params: KnowledgeBasisListInstancePageOptions,
-    callback?: (error: Error | null, items: KnowledgeBasisPage) => any
+    callback?: (error: Error | null, items: KnowledgeBasisPage) => any,
   ): Promise<KnowledgeBasisPage>;
   /**
    * Retrieve a single page of KnowledgeBasisInstance records from the API with HTTP metadata.
@@ -926,15 +924,15 @@ export interface KnowledgeBasisListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisPage>
-    ) => any
+      items: ApiResponse<KnowledgeBasisPage>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisPage>>;
   pageWithHttpInfo(
     params: KnowledgeBasisListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisPage>
-    ) => any
+      items: ApiResponse<KnowledgeBasisPage>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisPage>>;
 
   /**
@@ -945,7 +943,7 @@ export interface KnowledgeBasisListInstance {
 }
 
 export function KnowledgeBasisListInstance(
-  version: V2
+  version: V2,
 ): KnowledgeBasisListInstance {
   const instance = ((kbId) => instance.get(kbId)) as KnowledgeBasisListInstance;
 
@@ -960,7 +958,7 @@ export function KnowledgeBasisListInstance(
   instance.create = function create(
     params: KnowledgeBaseCore,
     headers?: any,
-    callback?: (error: Error | null, items: KnowledgeBasisInstance) => any
+    callback?: (error: Error | null, items: KnowledgeBasisInstance) => any,
   ): Promise<KnowledgeBasisInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -986,12 +984,12 @@ export function KnowledgeBasisListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new KnowledgeBasisInstance(operationVersion, payload)
+      (payload) => new KnowledgeBasisInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1001,8 +999,8 @@ export function KnowledgeBasisListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisInstance>
-    ) => any
+      items: ApiResponse<KnowledgeBasisInstance>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1028,16 +1026,14 @@ export function KnowledgeBasisListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<KnowledgeBasisInstance> => ({
-          ...response,
-          body: new KnowledgeBasisInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
+        ...response,
+        body: new KnowledgeBasisInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1046,7 +1042,7 @@ export function KnowledgeBasisListInstance(
     params?:
       | KnowledgeBasisListInstancePageOptions
       | ((error: Error | null, items: KnowledgeBasisPage) => any),
-    callback?: (error: Error | null, items: KnowledgeBasisPage) => any
+    callback?: (error: Error | null, items: KnowledgeBasisPage) => any,
   ): Promise<KnowledgeBasisPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1080,13 +1076,13 @@ export function KnowledgeBasisListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1096,7 +1092,7 @@ export function KnowledgeBasisListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: KnowledgeBasisPage) => any
+    callback?: (error: Error | null, items: KnowledgeBasisPage) => any,
   ): Promise<KnowledgeBasisPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1109,8 +1105,8 @@ export function KnowledgeBasisListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1122,8 +1118,8 @@ export function KnowledgeBasisListInstance(
       | ((error: Error | null, items: ApiResponse<KnowledgeBasisPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<KnowledgeBasisPage>
-    ) => any
+      items: ApiResponse<KnowledgeBasisPage>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1148,23 +1144,21 @@ export function KnowledgeBasisListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<KnowledgeBasisPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new KnowledgeBasisPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<KnowledgeBasisPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new KnowledgeBasisPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1178,8 +1172,8 @@ export function KnowledgeBasisListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<KnowledgeBasisPage>
-    ) => any
+      items?: ApiResponse<KnowledgeBasisPage>,
+    ) => any,
   ): Promise<ApiResponse<KnowledgeBasisPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1196,9 +1190,9 @@ export function KnowledgeBasisListInstance(
           response,
           instance._uri,
           {},
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1210,7 +1204,7 @@ export function KnowledgeBasisListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1238,7 +1232,7 @@ export class KnowledgeBasisPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: KnowledgeBasisSolution
+    solution: KnowledgeBasisSolution,
   ) {
     super(version, response, uri, params, solution);
   }

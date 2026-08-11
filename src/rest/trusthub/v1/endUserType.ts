@@ -67,7 +67,7 @@ export interface EndUserTypeContext {
    * @returns Resolves to processed EndUserTypeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any,
   ): Promise<EndUserTypeInstance>;
 
   /**
@@ -80,8 +80,8 @@ export interface EndUserTypeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EndUserTypeInstance>
-    ) => any
+      item?: ApiResponse<EndUserTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypeInstance>>;
 
   /**
@@ -99,7 +99,10 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   protected _solution: EndUserTypeContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -109,7 +112,7 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any,
   ): Promise<EndUserTypeInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -127,13 +130,13 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
         new EndUserTypeInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -141,8 +144,8 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EndUserTypeInstance>
-    ) => any
+      item?: ApiResponse<EndUserTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypeInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -156,20 +159,18 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<EndUserTypeInstance> => ({
-          ...response,
-          body: new EndUserTypeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<EndUserTypeInstance> => ({
+        ...response,
+        body: new EndUserTypeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -207,7 +208,7 @@ export class EndUserTypeInstance {
   constructor(
     protected _version: V1,
     payload: EndUserTypeResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -215,7 +216,7 @@ export class EndUserTypeInstance {
     this.fields = payload.fields;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -254,7 +255,7 @@ export class EndUserTypeInstance {
    * @returns Resolves to processed EndUserTypeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any,
   ): Promise<EndUserTypeInstance> {
     return this._proxy.fetch(callback);
   }
@@ -269,8 +270,8 @@ export class EndUserTypeInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EndUserTypeInstance>
-    ) => any
+      item?: ApiResponse<EndUserTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -321,11 +322,11 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: EndUserTypeListInstanceEachOptions,
-    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams EndUserTypeInstance records from the API with HTTP metadata captured per page.
@@ -343,11 +344,11 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: EndUserTypeListInstanceEachOptions,
-    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of EndUserTypeInstance records from the API.
@@ -359,7 +360,7 @@ export interface EndUserTypeListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EndUserTypePage) => any
+    callback?: (error: Error | null, items: EndUserTypePage) => any,
   ): Promise<EndUserTypePage>;
   /**
    * Retrieve a single target page of EndUserTypeInstance records from the API with HTTP metadata.
@@ -371,7 +372,10 @@ export interface EndUserTypeListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EndUserTypePage>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypePage>>;
   /**
    * Lists EndUserTypeInstance records from the API as a list.
@@ -383,11 +387,11 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
+    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any,
   ): Promise<EndUserTypeInstance[]>;
   list(
     params: EndUserTypeListInstanceOptions,
-    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
+    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any,
   ): Promise<EndUserTypeInstance[]>;
   /**
    * Lists EndUserTypeInstance records from the API as a list with HTTP metadata.
@@ -403,15 +407,15 @@ export interface EndUserTypeListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EndUserTypeInstance[]>
-    ) => any
+      items: ApiResponse<EndUserTypeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypeInstance[]>>;
   listWithHttpInfo(
     params: EndUserTypeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EndUserTypeInstance[]>
-    ) => any
+      items: ApiResponse<EndUserTypeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypeInstance[]>>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API.
@@ -425,11 +429,11 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EndUserTypePage) => any
+    callback?: (error: Error | null, items: EndUserTypePage) => any,
   ): Promise<EndUserTypePage>;
   page(
     params: EndUserTypeListInstancePageOptions,
-    callback?: (error: Error | null, items: EndUserTypePage) => any
+    callback?: (error: Error | null, items: EndUserTypePage) => any,
   ): Promise<EndUserTypePage>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API with HTTP metadata.
@@ -443,11 +447,17 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EndUserTypePage>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypePage>>;
   pageWithHttpInfo(
     params: EndUserTypeListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EndUserTypePage>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypePage>>;
 
   /**
@@ -472,7 +482,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     params?:
       | EndUserTypeListInstancePageOptions
       | ((error: Error | null, items: EndUserTypePage) => any),
-    callback?: (error: Error | null, items: EndUserTypePage) => any
+    callback?: (error: Error | null, items: EndUserTypePage) => any,
   ): Promise<EndUserTypePage> {
     if (params instanceof Function) {
       callback = params;
@@ -501,12 +511,12 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserTypePage(operationVersion, payload, instance._solution)
+        new EndUserTypePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -516,7 +526,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EndUserTypePage) => any
+    callback?: (error: Error | null, items: EndUserTypePage) => any,
   ): Promise<EndUserTypePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -524,7 +534,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EndUserTypePage(instance._version, payload, instance._solution)
+        new EndUserTypePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -534,7 +544,10 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     params?:
       | EndUserTypeListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EndUserTypePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EndUserTypePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EndUserTypePage>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -559,21 +572,19 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<EndUserTypePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new EndUserTypePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<EndUserTypePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EndUserTypePage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -587,8 +598,8 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<EndUserTypePage>
-    ) => any
+      items?: ApiResponse<EndUserTypePage>,
+    ) => any,
   ): Promise<ApiResponse<EndUserTypePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -603,9 +614,9 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
         body: new EndUserTypePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -617,7 +628,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -641,7 +652,7 @@ export class EndUserTypePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: EndUserTypeSolution
+    solution: EndUserTypeSolution,
   ) {
     super(version, response, solution);
   }

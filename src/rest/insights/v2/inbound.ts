@@ -198,7 +198,7 @@ export interface InboundContext {
    * @returns Resolves to processed InboundInstance
    */
   create(
-    callback?: (error: Error | null, item?: InboundInstance) => any
+    callback?: (error: Error | null, item?: InboundInstance) => any,
   ): Promise<InboundInstance>;
   /**
    * Create a InboundInstance
@@ -212,7 +212,7 @@ export interface InboundContext {
   create(
     params: InsightsV2CreatePhoneNumbersReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
+    callback?: (error: Error | null, item?: InboundInstance) => any,
   ): Promise<InboundInstance>;
 
   /**
@@ -223,7 +223,10 @@ export interface InboundContext {
    * @returns Resolves to processed InboundInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InboundInstance>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance>>;
   /**
    * Create a InboundInstance and return HTTP info
@@ -237,7 +240,10 @@ export interface InboundContext {
   createWithHttpInfo(
     params: InsightsV2CreatePhoneNumbersReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InboundInstance>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance>>;
 
   /**
@@ -255,7 +261,10 @@ export class InboundContextImpl implements InboundContext {
   protected _solution: InboundContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, reportId: string) {
+  constructor(
+    protected _version: V2,
+    reportId: string,
+  ) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -269,13 +278,16 @@ export class InboundContextImpl implements InboundContext {
       | InsightsV2CreatePhoneNumbersReportRequest
       | ((error: Error | null, item?: InboundInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
+    callback?: (error: Error | null, item?: InboundInstance) => any,
   ): Promise<InboundInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -303,13 +315,13 @@ export class InboundContextImpl implements InboundContext {
         new InboundInstance(
           operationVersion,
           payload,
-          instance._solution.reportId
-        )
+          instance._solution.reportId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -319,13 +331,19 @@ export class InboundContextImpl implements InboundContext {
       | InsightsV2CreatePhoneNumbersReportRequest
       | ((error: Error | null, item?: ApiResponse<InboundInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InboundInstance>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -349,20 +367,18 @@ export class InboundContextImpl implements InboundContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InboundInstance> => ({
-          ...response,
-          body: new InboundInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
+      .then((response): ApiResponse<InboundInstance> => ({
+        ...response,
+        body: new InboundInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -405,7 +421,7 @@ export class InboundInstance {
   constructor(
     protected _version: V2,
     payload: InboundResource,
-    reportId?: string
+    reportId?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.reportId = payload.report_id;
@@ -422,12 +438,12 @@ export class InboundInstance {
       payload.call_state_percentage !== null &&
       payload.call_state_percentage !== undefined
         ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(
-            payload.call_state_percentage
+            payload.call_state_percentage,
           )
         : null;
     this.silentCallsPercentage = payload.silent_calls_percentage;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**
@@ -477,7 +493,7 @@ export class InboundInstance {
    * @returns Resolves to processed InboundInstance
    */
   create(
-    callback?: (error: Error | null, item?: InboundInstance) => any
+    callback?: (error: Error | null, item?: InboundInstance) => any,
   ): Promise<InboundInstance>;
   /**
    * Create a InboundInstance
@@ -491,12 +507,12 @@ export class InboundInstance {
   create(
     params: InsightsV2CreatePhoneNumbersReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
+    callback?: (error: Error | null, item?: InboundInstance) => any,
   ): Promise<InboundInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
+    callback?: (error: Error | null, item?: InboundInstance) => any,
   ): Promise<InboundInstance> {
     return this._proxy.create(params, callback);
   }
@@ -509,7 +525,10 @@ export class InboundInstance {
    * @returns Resolves to processed InboundInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InboundInstance>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance>>;
   /**
    * Create a InboundInstance and return HTTP info
@@ -523,12 +542,18 @@ export class InboundInstance {
   createWithHttpInfo(
     params: InsightsV2CreatePhoneNumbersReportRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InboundInstance>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance>>;
 
   createWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<InboundInstance>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -586,11 +611,11 @@ export interface InboundListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: InboundInstance, done: (err?: Error) => void) => void
+    callback?: (item: InboundInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: InboundListInstanceEachOptions,
-    callback?: (item: InboundInstance, done: (err?: Error) => void) => void
+    callback?: (item: InboundInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams InboundInstance records from the API with HTTP metadata captured per page.
@@ -608,11 +633,11 @@ export interface InboundListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: InboundInstance, done: (err?: Error) => void) => void
+    callback?: (item: InboundInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: InboundListInstanceEachOptions,
-    callback?: (item: InboundInstance, done: (err?: Error) => void) => void
+    callback?: (item: InboundInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of InboundInstance records from the API.
@@ -624,7 +649,7 @@ export interface InboundListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InboundPage) => any
+    callback?: (error: Error | null, items: InboundPage) => any,
   ): Promise<InboundPage>;
   /**
    * Retrieve a single target page of InboundInstance records from the API with HTTP metadata.
@@ -636,7 +661,7 @@ export interface InboundListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any,
   ): Promise<ApiResponse<InboundPage>>;
   /**
    * Lists InboundInstance records from the API as a list.
@@ -648,11 +673,11 @@ export interface InboundListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: InboundInstance[]) => any
+    callback?: (error: Error | null, items: InboundInstance[]) => any,
   ): Promise<InboundInstance[]>;
   list(
     params: InboundListInstanceOptions,
-    callback?: (error: Error | null, items: InboundInstance[]) => any
+    callback?: (error: Error | null, items: InboundInstance[]) => any,
   ): Promise<InboundInstance[]>;
   /**
    * Lists InboundInstance records from the API as a list with HTTP metadata.
@@ -668,15 +693,15 @@ export interface InboundListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InboundInstance[]>
-    ) => any
+      items: ApiResponse<InboundInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance[]>>;
   listWithHttpInfo(
     params: InboundListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InboundInstance[]>
-    ) => any
+      items: ApiResponse<InboundInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<InboundInstance[]>>;
   /**
    * Retrieve a single page of InboundInstance records from the API.
@@ -690,11 +715,11 @@ export interface InboundListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: InboundPage) => any
+    callback?: (error: Error | null, items: InboundPage) => any,
   ): Promise<InboundPage>;
   page(
     params: InboundListInstancePageOptions,
-    callback?: (error: Error | null, items: InboundPage) => any
+    callback?: (error: Error | null, items: InboundPage) => any,
   ): Promise<InboundPage>;
   /**
    * Retrieve a single page of InboundInstance records from the API with HTTP metadata.
@@ -708,11 +733,11 @@ export interface InboundListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any,
   ): Promise<ApiResponse<InboundPage>>;
   pageWithHttpInfo(
     params: InboundListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any,
   ): Promise<ApiResponse<InboundPage>>;
 
   /**
@@ -724,7 +749,7 @@ export interface InboundListInstance {
 
 export function InboundListInstance(
   version: V2,
-  reportId: string
+  reportId: string,
 ): InboundListInstance {
   if (!isValidPathParam(reportId)) {
     throw new Error("Parameter 'reportId' is not valid.");
@@ -745,7 +770,7 @@ export function InboundListInstance(
     params?:
       | InboundListInstancePageOptions
       | ((error: Error | null, items: InboundPage) => any),
-    callback?: (error: Error | null, items: InboundPage) => any
+    callback?: (error: Error | null, items: InboundPage) => any,
   ): Promise<InboundPage> {
     if (params instanceof Function) {
       callback = params;
@@ -774,12 +799,12 @@ export function InboundListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InboundPage(operationVersion, payload, instance._solution)
+        new InboundPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -789,7 +814,7 @@ export function InboundListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InboundPage) => any
+    callback?: (error: Error | null, items: InboundPage) => any,
   ): Promise<InboundPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -797,7 +822,7 @@ export function InboundListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new InboundPage(instance._version, payload, instance._solution)
+        new InboundPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -807,7 +832,7 @@ export function InboundListInstance(
     params?:
       | InboundListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<InboundPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<InboundPage>) => any,
   ): Promise<ApiResponse<InboundPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -832,17 +857,15 @@ export function InboundListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InboundPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InboundPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<InboundPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InboundPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -854,7 +877,7 @@ export function InboundListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<InboundPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<InboundPage>) => any,
   ): Promise<ApiResponse<InboundPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -867,7 +890,7 @@ export function InboundListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new InboundPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -879,7 +902,7 @@ export function InboundListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -903,7 +926,7 @@ export class InboundPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: InboundSolution
+    solution: InboundSolution,
   ) {
     super(version, response, solution);
   }

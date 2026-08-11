@@ -38,8 +38,8 @@ export interface WorkersRealTimeStatisticsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
+      item?: WorkersRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
@@ -53,8 +53,8 @@ export interface WorkersRealTimeStatisticsContext {
     params: WorkersRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
+      item?: WorkersRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersRealTimeStatisticsInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface WorkersRealTimeStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance and return HTTP info
@@ -82,8 +82,8 @@ export interface WorkersRealTimeStatisticsContext {
     params: WorkersRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>>;
 
   /**
@@ -97,13 +97,14 @@ export interface WorkersRealTimeStatisticsContextSolution {
   workspaceSid: string;
 }
 
-export class WorkersRealTimeStatisticsContextImpl
-  implements WorkersRealTimeStatisticsContext
-{
+export class WorkersRealTimeStatisticsContextImpl implements WorkersRealTimeStatisticsContext {
   protected _solution: WorkersRealTimeStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -117,18 +118,18 @@ export class WorkersRealTimeStatisticsContextImpl
       | WorkersRealTimeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: WorkersRealTimeStatisticsInstance
+          item?: WorkersRealTimeStatisticsInstance,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
+      item?: WorkersRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -153,13 +154,13 @@ export class WorkersRealTimeStatisticsContextImpl
         new WorkersRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          instance._solution.workspaceSid
-        )
+          instance._solution.workspaceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -169,18 +170,18 @@ export class WorkersRealTimeStatisticsContextImpl
       | WorkersRealTimeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<WorkersRealTimeStatisticsInstance>
+          item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -201,20 +202,18 @@ export class WorkersRealTimeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkersRealTimeStatisticsInstance> => ({
-          ...response,
-          body: new WorkersRealTimeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkersRealTimeStatisticsInstance> => ({
+        ...response,
+        body: new WorkersRealTimeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -233,8 +232,7 @@ export class WorkersRealTimeStatisticsContextImpl
   }
 }
 
-interface WorkersRealTimeStatisticsPayload
-  extends WorkersRealTimeStatisticsResource {}
+interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource {}
 
 interface WorkersRealTimeStatisticsResource {
   account_sid: string;
@@ -251,7 +249,7 @@ export class WorkersRealTimeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkersRealTimeStatisticsResource,
-    workspaceSid: string
+    workspaceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.activityStatistics = payload.activity_statistics;
@@ -288,7 +286,7 @@ export class WorkersRealTimeStatisticsInstance {
       this._context ||
       new WorkersRealTimeStatisticsContextImpl(
         this._version,
-        this._solution.workspaceSid
+        this._solution.workspaceSid,
       );
     return this._context;
   }
@@ -303,8 +301,8 @@ export class WorkersRealTimeStatisticsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
+      item?: WorkersRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
@@ -318,16 +316,16 @@ export class WorkersRealTimeStatisticsInstance {
     params: WorkersRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
+      item?: WorkersRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersRealTimeStatisticsInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
+      item?: WorkersRealTimeStatisticsInstance,
+    ) => any,
   ): Promise<WorkersRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -342,8 +340,8 @@ export class WorkersRealTimeStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance and return HTTP info
@@ -357,16 +355,16 @@ export class WorkersRealTimeStatisticsInstance {
     params: WorkersRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersRealTimeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersRealTimeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -412,7 +410,7 @@ export interface WorkersRealTimeStatisticsListInstance {
 
 export function WorkersRealTimeStatisticsListInstance(
   version: V1,
-  workspaceSid: string
+  workspaceSid: string,
 ): WorkersRealTimeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -435,7 +433,7 @@ export function WorkersRealTimeStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

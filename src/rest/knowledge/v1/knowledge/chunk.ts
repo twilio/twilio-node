@@ -83,11 +83,11 @@ export interface ChunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ChunkListInstanceEachOptions,
-    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ChunkInstance records from the API with HTTP metadata captured per page.
@@ -105,11 +105,11 @@ export interface ChunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ChunkListInstanceEachOptions,
-    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChunkInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ChunkInstance records from the API.
@@ -121,7 +121,7 @@ export interface ChunkListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ChunkPage) => any
+    callback?: (error: Error | null, items: ChunkPage) => any,
   ): Promise<ChunkPage>;
   /**
    * Retrieve a single target page of ChunkInstance records from the API with HTTP metadata.
@@ -133,7 +133,7 @@ export interface ChunkListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any,
   ): Promise<ApiResponse<ChunkPage>>;
   /**
    * Lists ChunkInstance records from the API as a list.
@@ -145,11 +145,11 @@ export interface ChunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ChunkInstance[]) => any
+    callback?: (error: Error | null, items: ChunkInstance[]) => any,
   ): Promise<ChunkInstance[]>;
   list(
     params: ChunkListInstanceOptions,
-    callback?: (error: Error | null, items: ChunkInstance[]) => any
+    callback?: (error: Error | null, items: ChunkInstance[]) => any,
   ): Promise<ChunkInstance[]>;
   /**
    * Lists ChunkInstance records from the API as a list with HTTP metadata.
@@ -163,11 +163,17 @@ export interface ChunkListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ChunkInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChunkInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ChunkInstance[]>>;
   listWithHttpInfo(
     params: ChunkListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<ChunkInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChunkInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ChunkInstance[]>>;
   /**
    * Retrieve a single page of ChunkInstance records from the API.
@@ -181,11 +187,11 @@ export interface ChunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ChunkPage) => any
+    callback?: (error: Error | null, items: ChunkPage) => any,
   ): Promise<ChunkPage>;
   page(
     params: ChunkListInstancePageOptions,
-    callback?: (error: Error | null, items: ChunkPage) => any
+    callback?: (error: Error | null, items: ChunkPage) => any,
   ): Promise<ChunkPage>;
   /**
    * Retrieve a single page of ChunkInstance records from the API with HTTP metadata.
@@ -199,11 +205,11 @@ export interface ChunkListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any,
   ): Promise<ApiResponse<ChunkPage>>;
   pageWithHttpInfo(
     params: ChunkListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any,
   ): Promise<ApiResponse<ChunkPage>>;
 
   /**
@@ -228,7 +234,7 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
     params?:
       | ChunkListInstancePageOptions
       | ((error: Error | null, items: ChunkPage) => any),
-    callback?: (error: Error | null, items: ChunkPage) => any
+    callback?: (error: Error | null, items: ChunkPage) => any,
   ): Promise<ChunkPage> {
     if (params instanceof Function) {
       callback = params;
@@ -256,12 +262,12 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ChunkPage(operationVersion, payload, instance._solution)
+      (payload) => new ChunkPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -271,14 +277,15 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ChunkPage) => any
+    callback?: (error: Error | null, items: ChunkPage) => any,
   ): Promise<ChunkPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new ChunkPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new ChunkPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -288,7 +295,7 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
     params?:
       | ChunkListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ChunkPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChunkPage>) => any,
   ): Promise<ApiResponse<ChunkPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -313,17 +320,15 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ChunkPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ChunkPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<ChunkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChunkPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -335,7 +340,7 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ChunkPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ChunkPage>) => any,
   ): Promise<ApiResponse<ChunkPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -348,7 +353,7 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new ChunkPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -360,7 +365,7 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -381,7 +386,11 @@ interface ChunkResource {
 }
 
 export class ChunkInstance {
-  constructor(protected _version: V1, payload: ChunkResource, id: string) {
+  constructor(
+    protected _version: V1,
+    payload: ChunkResource,
+    id: string,
+  ) {
     this.accountSid = payload.account_sid;
     this.content = payload.content;
     this.metadata = payload.metadata;
@@ -446,7 +455,7 @@ export class ChunkPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ChunkSolution
+    solution: ChunkSolution,
   ) {
     super(version, response, solution);
   }

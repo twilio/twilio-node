@@ -31,7 +31,7 @@ export interface SchemaContext {
    * @returns Resolves to processed SchemaInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SchemaInstance) => any
+    callback?: (error: Error | null, item?: SchemaInstance) => any,
   ): Promise<SchemaInstance>;
 
   /**
@@ -42,7 +42,7 @@ export interface SchemaContext {
    * @returns Resolves to processed SchemaInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any,
   ): Promise<ApiResponse<SchemaInstance>>;
 
   /**
@@ -62,7 +62,10 @@ export class SchemaContextImpl implements SchemaContext {
 
   protected _versions?: SchemaVersionListInstance;
 
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -79,7 +82,7 @@ export class SchemaContextImpl implements SchemaContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SchemaInstance) => any
+    callback?: (error: Error | null, item?: SchemaInstance) => any,
   ): Promise<SchemaInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -94,18 +97,18 @@ export class SchemaContextImpl implements SchemaContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SchemaInstance(operationVersion, payload, instance._solution.id)
+        new SchemaInstance(operationVersion, payload, instance._solution.id),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any,
   ): Promise<ApiResponse<SchemaInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -119,20 +122,18 @@ export class SchemaContextImpl implements SchemaContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SchemaInstance> => ({
-          ...response,
-          body: new SchemaInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+      .then((response): ApiResponse<SchemaInstance> => ({
+        ...response,
+        body: new SchemaInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -165,16 +166,20 @@ export class SchemaInstance {
   protected _solution: SchemaContextSolution;
   protected _context?: SchemaContext;
 
-  constructor(protected _version: V1, payload: SchemaResource, id?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SchemaResource,
+    id?: string,
+  ) {
     this.id = payload.id;
     this.url = payload.url;
     this.links = payload.links;
     this.latestVersionDateCreated = deserialize.iso8601DateTime(
-      payload.latest_version_date_created
+      payload.latest_version_date_created,
     );
     this.latestVersion = deserialize.integer(payload.latest_version);
 
-    this._solution = { id: id || this.id };
+    this._solution = { id: id };
   }
 
   /**
@@ -212,7 +217,7 @@ export class SchemaInstance {
    * @returns Resolves to processed SchemaInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SchemaInstance) => any
+    callback?: (error: Error | null, item?: SchemaInstance) => any,
   ): Promise<SchemaInstance> {
     return this._proxy.fetch(callback);
   }
@@ -225,7 +230,7 @@ export class SchemaInstance {
    * @returns Resolves to processed SchemaInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SchemaInstance>) => any,
   ): Promise<ApiResponse<SchemaInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -291,7 +296,7 @@ export function SchemaListInstance(version: V1): SchemaListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

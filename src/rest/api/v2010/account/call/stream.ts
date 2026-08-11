@@ -462,7 +462,7 @@ export interface StreamContext {
    */
   update(
     params: StreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: StreamInstance) => any
+    callback?: (error: Error | null, item?: StreamInstance) => any,
   ): Promise<StreamInstance>;
 
   /**
@@ -475,7 +475,7 @@ export interface StreamContext {
    */
   updateWithHttpInfo(
     params: StreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any,
   ): Promise<ApiResponse<StreamInstance>>;
 
   /**
@@ -499,7 +499,7 @@ export class StreamContextImpl implements StreamContext {
     protected _version: V2010,
     accountSid: string,
     callSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -519,7 +519,7 @@ export class StreamContextImpl implements StreamContext {
 
   update(
     params: StreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: StreamInstance) => any
+    callback?: (error: Error | null, item?: StreamInstance) => any,
   ): Promise<StreamInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -553,20 +553,20 @@ export class StreamContextImpl implements StreamContext {
           payload,
           instance._solution.accountSid,
           instance._solution.callSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   updateWithHttpInfo(
     params: StreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any,
   ): Promise<ApiResponse<StreamInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -594,22 +594,20 @@ export class StreamContextImpl implements StreamContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<StreamInstance> => ({
-          ...response,
-          body: new StreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StreamInstance> => ({
+        ...response,
+        body: new StreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -649,7 +647,7 @@ export class StreamInstance {
     payload: StreamResource,
     accountSid: string,
     callSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -659,7 +657,7 @@ export class StreamInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -695,7 +693,7 @@ export class StreamInstance {
         this._version,
         this._solution.accountSid,
         this._solution.callSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -710,12 +708,12 @@ export class StreamInstance {
    */
   update(
     params: StreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: StreamInstance) => any
+    callback?: (error: Error | null, item?: StreamInstance) => any,
   ): Promise<StreamInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: StreamInstance) => any
+    callback?: (error: Error | null, item?: StreamInstance) => any,
   ): Promise<StreamInstance> {
     return this._proxy.update(params, callback);
   }
@@ -730,12 +728,12 @@ export class StreamInstance {
    */
   updateWithHttpInfo(
     params: StreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any,
   ): Promise<ApiResponse<StreamInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any,
   ): Promise<ApiResponse<StreamInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -785,7 +783,7 @@ export interface StreamListInstance {
    */
   create(
     params: StreamListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: StreamInstance) => any
+    callback?: (error: Error | null, item?: StreamInstance) => any,
   ): Promise<StreamInstance>;
 
   /**
@@ -798,7 +796,7 @@ export interface StreamListInstance {
    */
   createWithHttpInfo(
     params: StreamListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StreamInstance>) => any,
   ): Promise<ApiResponse<StreamInstance>>;
 
   /**
@@ -811,7 +809,7 @@ export interface StreamListInstance {
 export function StreamListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string
+  callSid: string,
 ): StreamListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -833,7 +831,7 @@ export function StreamListInstance(
 
   instance.create = function create(
     params: StreamListInstanceCreateOptions,
-    callback?: (error: Error | null, items: StreamInstance) => any
+    callback?: (error: Error | null, items: StreamInstance) => any,
   ): Promise<StreamInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1267,20 +1265,20 @@ export function StreamListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: StreamListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<StreamInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<StreamInstance>) => any,
   ): Promise<ApiResponse<StreamInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1709,21 +1707,19 @@ export function StreamListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<StreamInstance> => ({
-          ...response,
-          body: new StreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StreamInstance> => ({
+        ...response,
+        body: new StreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1734,7 +1730,7 @@ export function StreamListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

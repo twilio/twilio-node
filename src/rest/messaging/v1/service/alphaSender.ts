@@ -75,7 +75,7 @@ export interface AlphaSenderContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -86,7 +86,7 @@ export interface AlphaSenderContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -97,7 +97,7 @@ export interface AlphaSenderContext {
    * @returns Resolves to processed AlphaSenderInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any,
   ): Promise<AlphaSenderInstance>;
 
   /**
@@ -110,8 +110,8 @@ export interface AlphaSenderContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<AlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance>>;
 
   /**
@@ -130,7 +130,11 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   protected _solution: AlphaSenderContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -144,7 +148,7 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -158,13 +162,13 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -173,22 +177,20 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any,
   ): Promise<AlphaSenderInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -207,13 +209,13 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -221,8 +223,8 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<AlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -236,21 +238,19 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AlphaSenderInstance> => ({
-          ...response,
-          body: new AlphaSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AlphaSenderInstance> => ({
+        ...response,
+        body: new AlphaSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -292,7 +292,7 @@ export class AlphaSenderInstance {
     protected _version: V1,
     payload: AlphaSenderResource,
     serviceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -303,7 +303,7 @@ export class AlphaSenderInstance {
     this.capabilities = payload.capabilities;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -345,7 +345,7 @@ export class AlphaSenderInstance {
       new AlphaSenderContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -358,7 +358,7 @@ export class AlphaSenderInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -371,7 +371,7 @@ export class AlphaSenderInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -384,7 +384,7 @@ export class AlphaSenderInstance {
    * @returns Resolves to processed AlphaSenderInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any,
   ): Promise<AlphaSenderInstance> {
     return this._proxy.fetch(callback);
   }
@@ -399,8 +399,8 @@ export class AlphaSenderInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<AlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -450,7 +450,7 @@ export interface AlphaSenderListInstance {
    */
   create(
     params: AlphaSenderListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any,
   ): Promise<AlphaSenderInstance>;
 
   /**
@@ -465,8 +465,8 @@ export interface AlphaSenderListInstance {
     params: AlphaSenderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<AlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance>>;
 
   /**
@@ -485,11 +485,11 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
+    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: AlphaSenderListInstanceEachOptions,
-    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
+    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams AlphaSenderInstance records from the API with HTTP metadata captured per page.
@@ -507,11 +507,11 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
+    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: AlphaSenderListInstanceEachOptions,
-    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
+    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of AlphaSenderInstance records from the API.
@@ -523,7 +523,7 @@ export interface AlphaSenderListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
+    callback?: (error: Error | null, items: AlphaSenderPage) => any,
   ): Promise<AlphaSenderPage>;
   /**
    * Retrieve a single target page of AlphaSenderInstance records from the API with HTTP metadata.
@@ -535,7 +535,10 @@ export interface AlphaSenderListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AlphaSenderPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderPage>>;
   /**
    * Lists AlphaSenderInstance records from the API as a list.
@@ -547,11 +550,11 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
+    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any,
   ): Promise<AlphaSenderInstance[]>;
   list(
     params: AlphaSenderListInstanceOptions,
-    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
+    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any,
   ): Promise<AlphaSenderInstance[]>;
   /**
    * Lists AlphaSenderInstance records from the API as a list with HTTP metadata.
@@ -567,15 +570,15 @@ export interface AlphaSenderListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AlphaSenderInstance[]>
-    ) => any
+      items: ApiResponse<AlphaSenderInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance[]>>;
   listWithHttpInfo(
     params: AlphaSenderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AlphaSenderInstance[]>
-    ) => any
+      items: ApiResponse<AlphaSenderInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance[]>>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API.
@@ -589,11 +592,11 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
+    callback?: (error: Error | null, items: AlphaSenderPage) => any,
   ): Promise<AlphaSenderPage>;
   page(
     params: AlphaSenderListInstancePageOptions,
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
+    callback?: (error: Error | null, items: AlphaSenderPage) => any,
   ): Promise<AlphaSenderPage>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API with HTTP metadata.
@@ -607,11 +610,17 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AlphaSenderPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderPage>>;
   pageWithHttpInfo(
     params: AlphaSenderListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AlphaSenderPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderPage>>;
 
   /**
@@ -623,7 +632,7 @@ export interface AlphaSenderListInstance {
 
 export function AlphaSenderListInstance(
   version: V1,
-  serviceSid: string
+  serviceSid: string,
 ): AlphaSenderListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -641,7 +650,7 @@ export function AlphaSenderListInstance(
 
   instance.create = function create(
     params: AlphaSenderListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AlphaSenderInstance) => any
+    callback?: (error: Error | null, items: AlphaSenderInstance) => any,
   ): Promise<AlphaSenderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -672,13 +681,13 @@ export function AlphaSenderListInstance(
         new AlphaSenderInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -687,8 +696,8 @@ export function AlphaSenderListInstance(
     params: AlphaSenderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AlphaSenderInstance>
-    ) => any
+      items: ApiResponse<AlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -715,20 +724,18 @@ export function AlphaSenderListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AlphaSenderInstance> => ({
-          ...response,
-          body: new AlphaSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AlphaSenderInstance> => ({
+        ...response,
+        body: new AlphaSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -737,7 +744,7 @@ export function AlphaSenderListInstance(
     params?:
       | AlphaSenderListInstancePageOptions
       | ((error: Error | null, items: AlphaSenderPage) => any),
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
+    callback?: (error: Error | null, items: AlphaSenderPage) => any,
   ): Promise<AlphaSenderPage> {
     if (params instanceof Function) {
       callback = params;
@@ -766,12 +773,12 @@ export function AlphaSenderListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AlphaSenderPage(operationVersion, payload, instance._solution)
+        new AlphaSenderPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -781,7 +788,7 @@ export function AlphaSenderListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
+    callback?: (error: Error | null, items: AlphaSenderPage) => any,
   ): Promise<AlphaSenderPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -789,7 +796,7 @@ export function AlphaSenderListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AlphaSenderPage(instance._version, payload, instance._solution)
+        new AlphaSenderPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -799,7 +806,10 @@ export function AlphaSenderListInstance(
     params?:
       | AlphaSenderListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AlphaSenderPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AlphaSenderPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -824,21 +834,19 @@ export function AlphaSenderListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AlphaSenderPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AlphaSenderPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AlphaSenderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AlphaSenderPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -852,8 +860,8 @@ export function AlphaSenderListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AlphaSenderPage>
-    ) => any
+      items?: ApiResponse<AlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<AlphaSenderPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -868,9 +876,9 @@ export function AlphaSenderListInstance(
         body: new AlphaSenderPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -882,7 +890,7 @@ export function AlphaSenderListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -906,7 +914,7 @@ export class AlphaSenderPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: AlphaSenderSolution
+    solution: AlphaSenderSolution,
   ) {
     super(version, response, solution);
   }
@@ -920,7 +928,7 @@ export class AlphaSenderPage extends Page<
     return new AlphaSenderInstance(
       this._version,
       payload,
-      this._solution.serviceSid
+      this._solution.serviceSid,
     );
   }
 

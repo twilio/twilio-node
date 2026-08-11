@@ -456,7 +456,7 @@ export default class Version {
    */
   each<T>(
     params?: any,
-    callback?: (item: T, done: (err?: Error) => void) => void
+    callback?: (item: T, done: (err?: Error) => void) => void,
   ): Promise<void> {
     if (typeof params === "function") {
       callback = params;
@@ -552,7 +552,7 @@ export default class Version {
 
   list<T>(
     params?: any,
-    callback?: (error: Error | null, items: T) => any
+    callback?: (error: Error | null, items: T) => any,
   ): Promise<any> {
     if (typeof params === "function") {
       callback = params;
@@ -582,7 +582,7 @@ export default class Version {
     if (this._version instanceof Version) {
       operationPromise = this._version.setPromiseCallback(
         operationPromise,
-        callback
+        callback,
       );
     }
     this.each(params);
@@ -612,7 +612,7 @@ export default class Version {
    */
   eachWithHttpInfo<T>(
     params?: any,
-    callback?: (item: T, done: (err?: Error) => void) => void
+    callback?: (item: T, done: (err?: Error) => void) => void,
   ): Promise<ApiResponse<void>> {
     if (typeof params === "function") {
       callback = params;
@@ -779,7 +779,7 @@ export default class Version {
    */
   listWithHttpInfo<T>(
     params?: any,
-    callback?: (error: Error | null, items: ApiResponse<T[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<T[]>) => any,
   ): Promise<ApiResponse<T[]>> {
     if (typeof params === "function") {
       callback = params;
@@ -806,7 +806,7 @@ export default class Version {
     let operationPromise = new Promise<ApiResponse<T[]>>((resolve, reject) => {
       params.done = function (
         error: any,
-        metadata?: { statusCode: number; headers: Record<string, string> }
+        metadata?: { statusCode: number; headers: Record<string, string> },
       ) {
         if (metadata) {
           firstPageMetadata = metadata;
@@ -830,7 +830,7 @@ export default class Version {
     if (this._version instanceof Version) {
       operationPromise = this._version.setPromiseCallback(
         operationPromise,
-        callback
+        callback,
       );
     }
     this.eachWithHttpInfo(params);

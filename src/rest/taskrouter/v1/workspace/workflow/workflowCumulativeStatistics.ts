@@ -46,8 +46,8 @@ export interface WorkflowCumulativeStatisticsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
+      item?: WorkflowCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkflowCumulativeStatisticsInstance>;
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
@@ -61,8 +61,8 @@ export interface WorkflowCumulativeStatisticsContext {
     params: WorkflowCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
+      item?: WorkflowCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkflowCumulativeStatisticsInstance>;
 
   /**
@@ -75,8 +75,8 @@ export interface WorkflowCumulativeStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance and return HTTP info
@@ -90,8 +90,8 @@ export interface WorkflowCumulativeStatisticsContext {
     params: WorkflowCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
 
   /**
@@ -106,16 +106,14 @@ export interface WorkflowCumulativeStatisticsContextSolution {
   workflowSid: string;
 }
 
-export class WorkflowCumulativeStatisticsContextImpl
-  implements WorkflowCumulativeStatisticsContext
-{
+export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulativeStatisticsContext {
   protected _solution: WorkflowCumulativeStatisticsContextSolution;
   protected _uri: string;
 
   constructor(
     protected _version: V1,
     workspaceSid: string,
-    workflowSid: string
+    workflowSid: string,
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -134,18 +132,18 @@ export class WorkflowCumulativeStatisticsContextImpl
       | WorkflowCumulativeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: WorkflowCumulativeStatisticsInstance
+          item?: WorkflowCumulativeStatisticsInstance,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
+      item?: WorkflowCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -178,13 +176,13 @@ export class WorkflowCumulativeStatisticsContextImpl
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        )
+          instance._solution.workflowSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -194,18 +192,18 @@ export class WorkflowCumulativeStatisticsContextImpl
       | WorkflowCumulativeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
+          item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -233,21 +231,19 @@ export class WorkflowCumulativeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkflowCumulativeStatisticsInstance> => ({
-          ...response,
-          body: new WorkflowCumulativeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.workflowSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkflowCumulativeStatisticsInstance> => ({
+        ...response,
+        body: new WorkflowCumulativeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -266,8 +262,7 @@ export class WorkflowCumulativeStatisticsContextImpl
   }
 }
 
-interface WorkflowCumulativeStatisticsPayload
-  extends WorkflowCumulativeStatisticsResource {}
+interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource {}
 
 interface WorkflowCumulativeStatisticsResource {
   account_sid: string;
@@ -302,31 +297,31 @@ export class WorkflowCumulativeStatisticsInstance {
     protected _version: V1,
     payload: WorkflowCumulativeStatisticsResource,
     workspaceSid: string,
-    workflowSid: string
+    workflowSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.avgTaskAcceptanceTime = deserialize.integer(
-      payload.avg_task_acceptance_time
+      payload.avg_task_acceptance_time,
     );
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.reservationsCreated = deserialize.integer(
-      payload.reservations_created
+      payload.reservations_created,
     );
     this.reservationsAccepted = deserialize.integer(
-      payload.reservations_accepted
+      payload.reservations_accepted,
     );
     this.reservationsRejected = deserialize.integer(
-      payload.reservations_rejected
+      payload.reservations_rejected,
     );
     this.reservationsTimedOut = deserialize.integer(
-      payload.reservations_timed_out
+      payload.reservations_timed_out,
     );
     this.reservationsCanceled = deserialize.integer(
-      payload.reservations_canceled
+      payload.reservations_canceled,
     );
     this.reservationsRescinded = deserialize.integer(
-      payload.reservations_rescinded
+      payload.reservations_rescinded,
     );
     this.splitByWaitTime = payload.split_by_wait_time;
     this.waitDurationUntilAccepted = payload.wait_duration_until_accepted;
@@ -337,7 +332,7 @@ export class WorkflowCumulativeStatisticsInstance {
     this.tasksDeleted = deserialize.integer(payload.tasks_deleted);
     this.tasksMoved = deserialize.integer(payload.tasks_moved);
     this.tasksTimedOutInWorkflow = deserialize.integer(
-      payload.tasks_timed_out_in_workflow
+      payload.tasks_timed_out_in_workflow,
     );
     this.workflowSid = payload.workflow_sid;
     this.workspaceSid = payload.workspace_sid;
@@ -441,7 +436,7 @@ export class WorkflowCumulativeStatisticsInstance {
       new WorkflowCumulativeStatisticsContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.workflowSid
+        this._solution.workflowSid,
       );
     return this._context;
   }
@@ -456,8 +451,8 @@ export class WorkflowCumulativeStatisticsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
+      item?: WorkflowCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkflowCumulativeStatisticsInstance>;
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
@@ -471,16 +466,16 @@ export class WorkflowCumulativeStatisticsInstance {
     params: WorkflowCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
+      item?: WorkflowCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkflowCumulativeStatisticsInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
+      item?: WorkflowCumulativeStatisticsInstance,
+    ) => any,
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -495,8 +490,8 @@ export class WorkflowCumulativeStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance and return HTTP info
@@ -510,16 +505,16 @@ export class WorkflowCumulativeStatisticsInstance {
     params: WorkflowCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowCumulativeStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -584,7 +579,7 @@ export interface WorkflowCumulativeStatisticsListInstance {
 export function WorkflowCumulativeStatisticsListInstance(
   version: V1,
   workspaceSid: string,
-  workflowSid: string
+  workflowSid: string,
 ): WorkflowCumulativeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -601,7 +596,7 @@ export function WorkflowCumulativeStatisticsListInstance(
     return new WorkflowCumulativeStatisticsContextImpl(
       version,
       workspaceSid,
-      workflowSid
+      workflowSid,
     );
   };
 
@@ -615,7 +610,7 @@ export function WorkflowCumulativeStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

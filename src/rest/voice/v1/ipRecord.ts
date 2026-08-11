@@ -87,7 +87,7 @@ export interface IpRecordContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -98,7 +98,7 @@ export interface IpRecordContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -109,7 +109,7 @@ export interface IpRecordContext {
    * @returns Resolves to processed IpRecordInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance>;
 
   /**
@@ -122,8 +122,8 @@ export interface IpRecordContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>>;
 
   /**
@@ -134,7 +134,7 @@ export interface IpRecordContext {
    * @returns Resolves to processed IpRecordInstance
    */
   update(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance>;
   /**
    * Update a IpRecordInstance
@@ -146,7 +146,7 @@ export interface IpRecordContext {
    */
   update(
     params: IpRecordContextUpdateOptions,
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance>;
 
   /**
@@ -159,8 +159,8 @@ export interface IpRecordContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>>;
   /**
    * Update a IpRecordInstance and return HTTP info
@@ -174,8 +174,8 @@ export interface IpRecordContext {
     params: IpRecordContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>>;
 
   /**
@@ -193,7 +193,10 @@ export class IpRecordContextImpl implements IpRecordContext {
   protected _solution: IpRecordContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -203,7 +206,7 @@ export class IpRecordContextImpl implements IpRecordContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -217,13 +220,13 @@ export class IpRecordContextImpl implements IpRecordContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -232,22 +235,20 @@ export class IpRecordContextImpl implements IpRecordContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -262,12 +263,12 @@ export class IpRecordContextImpl implements IpRecordContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpRecordInstance(operationVersion, payload, instance._solution.sid)
+        new IpRecordInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -275,8 +276,8 @@ export class IpRecordContextImpl implements IpRecordContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -290,20 +291,18 @@ export class IpRecordContextImpl implements IpRecordContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<IpRecordInstance> => ({
-          ...response,
-          body: new IpRecordInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<IpRecordInstance> => ({
+        ...response,
+        body: new IpRecordInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -312,13 +311,13 @@ export class IpRecordContextImpl implements IpRecordContext {
     params?:
       | IpRecordContextUpdateOptions
       | ((error: Error | null, item?: IpRecordInstance) => any),
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -341,12 +340,12 @@ export class IpRecordContextImpl implements IpRecordContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpRecordInstance(operationVersion, payload, instance._solution.sid)
+        new IpRecordInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -357,14 +356,14 @@ export class IpRecordContextImpl implements IpRecordContext {
       | ((error: Error | null, item?: ApiResponse<IpRecordInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -386,20 +385,18 @@ export class IpRecordContextImpl implements IpRecordContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<IpRecordInstance> => ({
-          ...response,
-          body: new IpRecordInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<IpRecordInstance> => ({
+        ...response,
+        body: new IpRecordInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -437,7 +434,11 @@ export class IpRecordInstance {
   protected _solution: IpRecordContextSolution;
   protected _context?: IpRecordContext;
 
-  constructor(protected _version: V1, payload: IpRecordResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: IpRecordResource,
+    sid?: string,
+  ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -447,7 +448,7 @@ export class IpRecordInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -498,7 +499,7 @@ export class IpRecordInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -511,7 +512,7 @@ export class IpRecordInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -524,7 +525,7 @@ export class IpRecordInstance {
    * @returns Resolves to processed IpRecordInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance> {
     return this._proxy.fetch(callback);
   }
@@ -539,8 +540,8 @@ export class IpRecordInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -553,7 +554,7 @@ export class IpRecordInstance {
    * @returns Resolves to processed IpRecordInstance
    */
   update(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance>;
   /**
    * Update a IpRecordInstance
@@ -565,12 +566,12 @@ export class IpRecordInstance {
    */
   update(
     params: IpRecordContextUpdateOptions,
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance> {
     return this._proxy.update(params, callback);
   }
@@ -585,8 +586,8 @@ export class IpRecordInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>>;
   /**
    * Update a IpRecordInstance and return HTTP info
@@ -600,16 +601,16 @@ export class IpRecordInstance {
     params: IpRecordContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -657,7 +658,7 @@ export interface IpRecordListInstance {
    */
   create(
     params: IpRecordListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, item?: IpRecordInstance) => any,
   ): Promise<IpRecordInstance>;
 
   /**
@@ -672,8 +673,8 @@ export interface IpRecordListInstance {
     params: IpRecordListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpRecordInstance>
-    ) => any
+      item?: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>>;
 
   /**
@@ -692,11 +693,11 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: IpRecordListInstanceEachOptions,
-    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams IpRecordInstance records from the API with HTTP metadata captured per page.
@@ -714,11 +715,11 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: IpRecordListInstanceEachOptions,
-    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of IpRecordInstance records from the API.
@@ -730,7 +731,7 @@ export interface IpRecordListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpRecordPage) => any
+    callback?: (error: Error | null, items: IpRecordPage) => any,
   ): Promise<IpRecordPage>;
   /**
    * Retrieve a single target page of IpRecordInstance records from the API with HTTP metadata.
@@ -742,7 +743,7 @@ export interface IpRecordListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any,
   ): Promise<ApiResponse<IpRecordPage>>;
   /**
    * Lists IpRecordInstance records from the API as a list.
@@ -754,11 +755,11 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: IpRecordInstance[]) => any
+    callback?: (error: Error | null, items: IpRecordInstance[]) => any,
   ): Promise<IpRecordInstance[]>;
   list(
     params: IpRecordListInstanceOptions,
-    callback?: (error: Error | null, items: IpRecordInstance[]) => any
+    callback?: (error: Error | null, items: IpRecordInstance[]) => any,
   ): Promise<IpRecordInstance[]>;
   /**
    * Lists IpRecordInstance records from the API as a list with HTTP metadata.
@@ -774,15 +775,15 @@ export interface IpRecordListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpRecordInstance[]>
-    ) => any
+      items: ApiResponse<IpRecordInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance[]>>;
   listWithHttpInfo(
     params: IpRecordListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpRecordInstance[]>
-    ) => any
+      items: ApiResponse<IpRecordInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance[]>>;
   /**
    * Retrieve a single page of IpRecordInstance records from the API.
@@ -796,11 +797,11 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: IpRecordPage) => any
+    callback?: (error: Error | null, items: IpRecordPage) => any,
   ): Promise<IpRecordPage>;
   page(
     params: IpRecordListInstancePageOptions,
-    callback?: (error: Error | null, items: IpRecordPage) => any
+    callback?: (error: Error | null, items: IpRecordPage) => any,
   ): Promise<IpRecordPage>;
   /**
    * Retrieve a single page of IpRecordInstance records from the API with HTTP metadata.
@@ -814,11 +815,11 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any,
   ): Promise<ApiResponse<IpRecordPage>>;
   pageWithHttpInfo(
     params: IpRecordListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any,
   ): Promise<ApiResponse<IpRecordPage>>;
 
   /**
@@ -841,7 +842,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
   instance.create = function create(
     params: IpRecordListInstanceCreateOptions,
-    callback?: (error: Error | null, items: IpRecordInstance) => any
+    callback?: (error: Error | null, items: IpRecordInstance) => any,
   ): Promise<IpRecordInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -872,12 +873,12 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpRecordInstance(operationVersion, payload)
+      (payload) => new IpRecordInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -886,8 +887,8 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     params: IpRecordListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpRecordInstance>
-    ) => any
+      items: ApiResponse<IpRecordInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpRecordInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -918,16 +919,14 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<IpRecordInstance> => ({
-          ...response,
-          body: new IpRecordInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<IpRecordInstance> => ({
+        ...response,
+        body: new IpRecordInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -936,7 +935,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     params?:
       | IpRecordListInstancePageOptions
       | ((error: Error | null, items: IpRecordPage) => any),
-    callback?: (error: Error | null, items: IpRecordPage) => any
+    callback?: (error: Error | null, items: IpRecordPage) => any,
   ): Promise<IpRecordPage> {
     if (params instanceof Function) {
       callback = params;
@@ -965,12 +964,12 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpRecordPage(operationVersion, payload, instance._solution)
+        new IpRecordPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -980,7 +979,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpRecordPage) => any
+    callback?: (error: Error | null, items: IpRecordPage) => any,
   ): Promise<IpRecordPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -988,7 +987,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new IpRecordPage(instance._version, payload, instance._solution)
+        new IpRecordPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -998,7 +997,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     params?:
       | IpRecordListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<IpRecordPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpRecordPage>) => any,
   ): Promise<ApiResponse<IpRecordPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1023,21 +1022,15 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<IpRecordPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new IpRecordPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<IpRecordPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new IpRecordPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1049,7 +1042,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<IpRecordPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<IpRecordPage>) => any,
   ): Promise<ApiResponse<IpRecordPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1062,7 +1055,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new IpRecordPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1074,7 +1067,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1098,7 +1091,7 @@ export class IpRecordPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: IpRecordSolution
+    solution: IpRecordSolution,
   ) {
     super(version, response, solution);
   }

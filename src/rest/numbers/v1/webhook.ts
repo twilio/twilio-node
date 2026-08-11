@@ -34,7 +34,7 @@ export interface WebhookListInstance {
    * @returns Resolves to processed WebhookInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance>;
 
   /**
@@ -45,7 +45,10 @@ export interface WebhookListInstance {
    * @returns Resolves to processed WebhookInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>>;
 
   /**
@@ -63,7 +66,7 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
   instance._uri = `/Porting/Configuration/Webhook`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: WebhookInstance) => any
+    callback?: (error: Error | null, items: WebhookInstance) => any,
   ): Promise<WebhookInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -76,18 +79,21 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebhookInstance(operationVersion, payload)
+      (payload) => new WebhookInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -100,16 +106,14 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<WebhookInstance> => ({
-          ...response,
-          body: new WebhookInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<WebhookInstance> => ({
+        ...response,
+        body: new WebhookInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -120,7 +124,7 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -140,16 +144,19 @@ interface WebhookResource {
 }
 
 export class WebhookInstance {
-  constructor(protected _version: V1, payload: WebhookResource) {
+  constructor(
+    protected _version: V1,
+    payload: WebhookResource,
+  ) {
     this.url = payload.url;
     this.portInTargetUrl = payload.port_in_target_url;
     this.portOutTargetUrl = payload.port_out_target_url;
     this.notificationsOf = payload.notifications_of;
     this.portInTargetDateCreated = deserialize.iso8601DateTime(
-      payload.port_in_target_date_created
+      payload.port_in_target_date_created,
     );
     this.portOutTargetDateCreated = deserialize.iso8601DateTime(
-      payload.port_out_target_date_created
+      payload.port_out_target_date_created,
     );
   }
 

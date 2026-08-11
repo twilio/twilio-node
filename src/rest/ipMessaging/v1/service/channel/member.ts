@@ -93,7 +93,7 @@ export interface MemberContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -104,7 +104,7 @@ export interface MemberContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -115,7 +115,7 @@ export interface MemberContext {
    * @returns Resolves to processed MemberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   /**
@@ -126,7 +126,7 @@ export interface MemberContext {
    * @returns Resolves to processed MemberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   /**
@@ -137,7 +137,7 @@ export interface MemberContext {
    * @returns Resolves to processed MemberInstance
    */
   update(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
@@ -149,7 +149,7 @@ export interface MemberContext {
    */
   update(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   /**
@@ -160,7 +160,7 @@ export interface MemberContext {
    * @returns Resolves to processed MemberInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
   /**
    * Update a MemberInstance and return HTTP info
@@ -172,7 +172,7 @@ export interface MemberContext {
    */
   updateWithHttpInfo(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   /**
@@ -196,7 +196,7 @@ export class MemberContextImpl implements MemberContext {
     protected _version: V1,
     serviceSid: string,
     channelSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -215,7 +215,7 @@ export class MemberContextImpl implements MemberContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -229,13 +229,13 @@ export class MemberContextImpl implements MemberContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -244,22 +244,20 @@ export class MemberContextImpl implements MemberContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -279,19 +277,19 @@ export class MemberContextImpl implements MemberContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.channelSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -305,22 +303,20 @@ export class MemberContextImpl implements MemberContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<MemberInstance> => ({
-          ...response,
-          body: new MemberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.channelSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MemberInstance> => ({
+        ...response,
+        body: new MemberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -329,13 +325,13 @@ export class MemberContextImpl implements MemberContext {
     params?:
       | MemberContextUpdateOptions
       | ((error: Error | null, item?: MemberInstance) => any),
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -364,13 +360,13 @@ export class MemberContextImpl implements MemberContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.channelSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -379,13 +375,13 @@ export class MemberContextImpl implements MemberContext {
     params?:
       | MemberContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<MemberInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -408,22 +404,20 @@ export class MemberContextImpl implements MemberContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MemberInstance> => ({
-          ...response,
-          body: new MemberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.channelSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MemberInstance> => ({
+        ...response,
+        body: new MemberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -469,7 +463,7 @@ export class MemberInstance {
     payload: MemberResource,
     serviceSid: string,
     channelSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -480,14 +474,14 @@ export class MemberInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.roleSid = payload.role_sid;
     this.lastConsumedMessageIndex = deserialize.integer(
-      payload.last_consumed_message_index
+      payload.last_consumed_message_index,
     );
     this.lastConsumptionTimestamp = deserialize.iso8601DateTime(
-      payload.last_consumption_timestamp
+      payload.last_consumption_timestamp,
     );
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   sid: string;
@@ -509,7 +503,7 @@ export class MemberInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.channelSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -522,7 +516,7 @@ export class MemberInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -535,7 +529,7 @@ export class MemberInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -548,7 +542,7 @@ export class MemberInstance {
    * @returns Resolves to processed MemberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     return this._proxy.fetch(callback);
   }
@@ -561,7 +555,7 @@ export class MemberInstance {
    * @returns Resolves to processed MemberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -574,7 +568,7 @@ export class MemberInstance {
    * @returns Resolves to processed MemberInstance
    */
   update(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
@@ -586,12 +580,12 @@ export class MemberInstance {
    */
   update(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);
   }
@@ -604,7 +598,7 @@ export class MemberInstance {
    * @returns Resolves to processed MemberInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
   /**
    * Update a MemberInstance and return HTTP info
@@ -616,12 +610,12 @@ export class MemberInstance {
    */
   updateWithHttpInfo(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -675,7 +669,7 @@ export interface MemberListInstance {
    */
   create(
     params: MemberListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   /**
@@ -688,7 +682,7 @@ export interface MemberListInstance {
    */
   createWithHttpInfo(
     params: MemberListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   /**
@@ -707,11 +701,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: MemberListInstanceEachOptions,
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams MemberInstance records from the API with HTTP metadata captured per page.
@@ -729,11 +723,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: MemberListInstanceEachOptions,
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
@@ -745,7 +739,7 @@ export interface MemberListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage>;
   /**
    * Retrieve a single target page of MemberInstance records from the API with HTTP metadata.
@@ -757,7 +751,7 @@ export interface MemberListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>>;
   /**
    * Lists MemberInstance records from the API as a list.
@@ -769,11 +763,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MemberInstance[]) => any
+    callback?: (error: Error | null, items: MemberInstance[]) => any,
   ): Promise<MemberInstance[]>;
   list(
     params: MemberListInstanceOptions,
-    callback?: (error: Error | null, items: MemberInstance[]) => any
+    callback?: (error: Error | null, items: MemberInstance[]) => any,
   ): Promise<MemberInstance[]>;
   /**
    * Lists MemberInstance records from the API as a list with HTTP metadata.
@@ -789,15 +783,15 @@ export interface MemberListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MemberInstance[]>
-    ) => any
+      items: ApiResponse<MemberInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MemberInstance[]>>;
   listWithHttpInfo(
     params: MemberListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MemberInstance[]>
-    ) => any
+      items: ApiResponse<MemberInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MemberInstance[]>>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
@@ -811,11 +805,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage>;
   page(
     params: MemberListInstancePageOptions,
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage>;
   /**
    * Retrieve a single page of MemberInstance records from the API with HTTP metadata.
@@ -829,11 +823,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>>;
   pageWithHttpInfo(
     params: MemberListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>>;
 
   /**
@@ -846,7 +840,7 @@ export interface MemberListInstance {
 export function MemberListInstance(
   version: V1,
   serviceSid: string,
-  channelSid: string
+  channelSid: string,
 ): MemberListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -868,7 +862,7 @@ export function MemberListInstance(
 
   instance.create = function create(
     params: MemberListInstanceCreateOptions,
-    callback?: (error: Error | null, items: MemberInstance) => any
+    callback?: (error: Error | null, items: MemberInstance) => any,
   ): Promise<MemberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -901,20 +895,20 @@ export function MemberListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.channelSid
-        )
+          instance._solution.channelSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: MemberListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -942,21 +936,19 @@ export function MemberListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MemberInstance> => ({
-          ...response,
-          body: new MemberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.channelSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MemberInstance> => ({
+        ...response,
+        body: new MemberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -965,7 +957,7 @@ export function MemberListInstance(
     params?:
       | MemberListInstancePageOptions
       | ((error: Error | null, items: MemberPage) => any),
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage> {
     if (params instanceof Function) {
       callback = params;
@@ -995,12 +987,13 @@ export function MemberListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MemberPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new MemberPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1010,7 +1003,7 @@ export function MemberListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1018,7 +1011,7 @@ export function MemberListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MemberPage(instance._version, payload, instance._solution)
+        new MemberPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1028,7 +1021,7 @@ export function MemberListInstance(
     params?:
       | MemberListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<MemberPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1055,17 +1048,15 @@ export function MemberListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MemberPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MemberPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<MemberPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MemberPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1077,7 +1068,7 @@ export function MemberListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1090,7 +1081,7 @@ export function MemberListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new MemberPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1102,7 +1093,7 @@ export function MemberListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1126,7 +1117,7 @@ export class MemberPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: MemberSolution
+    solution: MemberSolution,
   ) {
     super(version, response, solution);
   }
@@ -1141,7 +1132,7 @@ export class MemberPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.channelSid
+      this._solution.channelSid,
     );
   }
 

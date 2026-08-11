@@ -43,7 +43,7 @@ export interface AuthTypeRegistrationsListInstance {
 export function AuthTypeRegistrationsListInstance(
   version: V2010,
   accountSid: string,
-  domainSid: string
+  domainSid: string,
 ): AuthTypeRegistrationsListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -66,7 +66,7 @@ export function AuthTypeRegistrationsListInstance(
           AuthRegistrationsCredentialListMappingListInstance(
             instance._version,
             instance._solution.accountSid,
-            instance._solution.domainSid
+            instance._solution.domainSid,
           );
       }
       return instance._credentialListMappings;
@@ -79,7 +79,7 @@ export function AuthTypeRegistrationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

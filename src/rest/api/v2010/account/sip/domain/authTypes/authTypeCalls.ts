@@ -46,7 +46,7 @@ export interface AuthTypeCallsListInstance {
 export function AuthTypeCallsListInstance(
   version: V2010,
   accountSid: string,
-  domainSid: string
+  domainSid: string,
 ): AuthTypeCallsListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -69,7 +69,7 @@ export function AuthTypeCallsListInstance(
           AuthCallsCredentialListMappingListInstance(
             instance._version,
             instance._solution.accountSid,
-            instance._solution.domainSid
+            instance._solution.domainSid,
           );
       }
       return instance._credentialListMappings;
@@ -83,7 +83,7 @@ export function AuthTypeCallsListInstance(
           AuthCallsIpAccessControlListMappingListInstance(
             instance._version,
             instance._solution.accountSid,
-            instance._solution.domainSid
+            instance._solution.domainSid,
           );
       }
       return instance._ipAccessControlListMappings;
@@ -96,7 +96,7 @@ export function AuthTypeCallsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

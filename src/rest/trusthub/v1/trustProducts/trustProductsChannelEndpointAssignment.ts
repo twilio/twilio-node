@@ -45,7 +45,7 @@ export interface TrustProductsChannelEndpointAssignmentListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TrustProductsChannelEndpointAssignmentInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -92,7 +92,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -103,7 +103,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -116,8 +116,8 @@ export interface TrustProductsChannelEndpointAssignmentContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
+      item?: TrustProductsChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance>;
 
   /**
@@ -130,8 +130,8 @@ export interface TrustProductsChannelEndpointAssignmentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>;
 
   /**
@@ -146,13 +146,15 @@ export interface TrustProductsChannelEndpointAssignmentContextSolution {
   sid: string;
 }
 
-export class TrustProductsChannelEndpointAssignmentContextImpl
-  implements TrustProductsChannelEndpointAssignmentContext
-{
+export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustProductsChannelEndpointAssignmentContext {
   protected _solution: TrustProductsChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, trustProductSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    trustProductSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(trustProductSid)) {
       throw new Error("Parameter 'trustProductSid' is not valid.");
     }
@@ -166,7 +168,7 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -180,13 +182,13 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -195,16 +197,14 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -212,8 +212,8 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
+      item?: TrustProductsChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -232,13 +232,13 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
           operationVersion,
           payload,
           instance._solution.trustProductSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -246,8 +246,8 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -263,21 +263,21 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
       })
       .then(
         (
-          response
+          response,
         ): ApiResponse<TrustProductsChannelEndpointAssignmentInstance> => ({
           ...response,
           body: new TrustProductsChannelEndpointAssignmentInstance(
             operationVersion,
             response.body,
             instance._solution.trustProductSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -296,8 +296,7 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   }
 }
 
-interface TrustProductsChannelEndpointAssignmentPayload
-  extends TwilioResponsePayload {
+interface TrustProductsChannelEndpointAssignmentPayload extends TwilioResponsePayload {
   results: TrustProductsChannelEndpointAssignmentResource[];
 }
 
@@ -319,7 +318,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
     protected _version: V1,
     payload: TrustProductsChannelEndpointAssignmentResource,
     trustProductSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.trustProductSid = payload.trust_product_sid;
@@ -329,7 +328,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { trustProductSid, sid: sid || this.sid };
+    this._solution = { trustProductSid, sid: sid };
   }
 
   /**
@@ -367,7 +366,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
       new TrustProductsChannelEndpointAssignmentContextImpl(
         this._version,
         this._solution.trustProductSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -380,7 +379,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -393,7 +392,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -408,8 +407,8 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
+      item?: TrustProductsChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -424,8 +423,8 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -476,8 +475,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
     params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
+      item?: TrustProductsChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance>;
 
   /**
@@ -492,8 +491,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
     params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>>;
 
   /**
@@ -514,15 +513,15 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   each(
     callback?: (
       item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams TrustProductsChannelEndpointAssignmentInstance records from the API with HTTP metadata captured per page.
@@ -542,15 +541,15 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   eachWithHttpInfo(
     callback?: (
       item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: TrustProductsChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of TrustProductsChannelEndpointAssignmentInstance records from the API.
@@ -564,8 +563,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single target page of TrustProductsChannelEndpointAssignmentInstance records from the API with HTTP metadata.
@@ -579,8 +578,8 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
   /**
    * Lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list.
@@ -594,15 +593,15 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentInstance[]
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentInstance[],
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
   list(
     params: TrustProductsChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentInstance[]
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentInstance[],
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
   /**
    * Lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list with HTTP metadata.
@@ -618,15 +617,15 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>>;
   listWithHttpInfo(
     params: TrustProductsChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance[]>>;
   /**
    * Retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
@@ -642,15 +641,15 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentPage>;
   page(
     params: TrustProductsChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API with HTTP metadata.
@@ -666,15 +665,15 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
   pageWithHttpInfo(
     params: TrustProductsChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>>;
 
   /**
@@ -686,7 +685,7 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
 
 export function TrustProductsChannelEndpointAssignmentListInstance(
   version: V1,
-  trustProductSid: string
+  trustProductSid: string,
 ): TrustProductsChannelEndpointAssignmentListInstance {
   if (!isValidPathParam(trustProductSid)) {
     throw new Error("Parameter 'trustProductSid' is not valid.");
@@ -696,12 +695,12 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     instance.get(sid)) as TrustProductsChannelEndpointAssignmentListInstance;
 
   instance.get = function get(
-    sid
+    sid,
   ): TrustProductsChannelEndpointAssignmentContext {
     return new TrustProductsChannelEndpointAssignmentContextImpl(
       version,
       trustProductSid,
-      sid
+      sid,
     );
   };
 
@@ -713,8 +712,8 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentInstance
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -725,7 +724,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       params["channelEndpointType"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointType']\" missing."
+        "Required parameter \"params['channelEndpointType']\" missing.",
       );
     }
 
@@ -734,7 +733,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       params["channelEndpointSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointSid']\" missing."
+        "Required parameter \"params['channelEndpointSid']\" missing.",
       );
     }
 
@@ -761,13 +760,13 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
         new TrustProductsChannelEndpointAssignmentInstance(
           operationVersion,
           payload,
-          instance._solution.trustProductSid
-        )
+          instance._solution.trustProductSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -776,8 +775,8 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -788,7 +787,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       params["channelEndpointType"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointType']\" missing."
+        "Required parameter \"params['channelEndpointType']\" missing.",
       );
     }
 
@@ -797,7 +796,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       params["channelEndpointSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointSid']\" missing."
+        "Required parameter \"params['channelEndpointSid']\" missing.",
       );
     }
 
@@ -822,20 +821,20 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       })
       .then(
         (
-          response
+          response,
         ): ApiResponse<TrustProductsChannelEndpointAssignmentInstance> => ({
           ...response,
           body: new TrustProductsChannelEndpointAssignmentInstance(
             operationVersion,
             response.body,
-            instance._solution.trustProductSid
+            instance._solution.trustProductSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -845,12 +844,12 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       | TrustProductsChannelEndpointAssignmentListInstancePageOptions
       | ((
           error: Error | null,
-          items: TrustProductsChannelEndpointAssignmentPage
+          items: TrustProductsChannelEndpointAssignmentPage,
         ) => any),
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -886,13 +885,13 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
         new TrustProductsChannelEndpointAssignmentPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -904,8 +903,8 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: TrustProductsChannelEndpointAssignmentPage
-    ) => any
+      items: TrustProductsChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<TrustProductsChannelEndpointAssignmentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -916,8 +915,8 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
         new TrustProductsChannelEndpointAssignmentPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -928,12 +927,12 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       | TrustProductsChannelEndpointAssignmentListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
+          items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<TrustProductsChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -964,21 +963,21 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       .page({ uri: instance._uri, method: "get", params: data, headers })
       .then(
         (
-          response
+          response,
         ): ApiResponse<TrustProductsChannelEndpointAssignmentPage> => ({
           statusCode: response.statusCode,
           headers: response.headers,
           body: new TrustProductsChannelEndpointAssignmentPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -992,8 +991,8 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<TrustProductsChannelEndpointAssignmentPage>
-    ) => any
+      items?: ApiResponse<TrustProductsChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsChannelEndpointAssignmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1008,9 +1007,9 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
         body: new TrustProductsChannelEndpointAssignmentPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1022,7 +1021,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1046,7 +1045,7 @@ export class TrustProductsChannelEndpointAssignmentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: TrustProductsChannelEndpointAssignmentSolution
+    solution: TrustProductsChannelEndpointAssignmentSolution,
   ) {
     super(version, response, solution);
   }
@@ -1057,12 +1056,12 @@ export class TrustProductsChannelEndpointAssignmentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TrustProductsChannelEndpointAssignmentResource
+    payload: TrustProductsChannelEndpointAssignmentResource,
   ): TrustProductsChannelEndpointAssignmentInstance {
     return new TrustProductsChannelEndpointAssignmentInstance(
       this._version,
       payload,
-      this._solution.trustProductSid
+      this._solution.trustProductSid,
     );
   }
 

@@ -89,7 +89,7 @@ export interface GetApiKeysListInstance {
 
   each(
     params: GetApiKeysListInstanceEachOptions,
-    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void
+    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams GetApiKeysInstance records from the API with HTTP metadata captured per page.
@@ -109,7 +109,7 @@ export interface GetApiKeysListInstance {
 
   eachWithHttpInfo(
     params: GetApiKeysListInstanceEachOptions,
-    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void
+    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of GetApiKeysInstance records from the API.
@@ -121,7 +121,7 @@ export interface GetApiKeysListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: GetApiKeysPage) => any
+    callback?: (error: Error | null, items: GetApiKeysPage) => any,
   ): Promise<GetApiKeysPage>;
   /**
    * Retrieve a single target page of GetApiKeysInstance records from the API with HTTP metadata.
@@ -133,7 +133,7 @@ export interface GetApiKeysListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any,
   ): Promise<ApiResponse<GetApiKeysPage>>;
   /**
    * Lists GetApiKeysInstance records from the API as a list.
@@ -147,7 +147,7 @@ export interface GetApiKeysListInstance {
 
   list(
     params: GetApiKeysListInstanceOptions,
-    callback?: (error: Error | null, items: GetApiKeysInstance[]) => any
+    callback?: (error: Error | null, items: GetApiKeysInstance[]) => any,
   ): Promise<GetApiKeysInstance[]>;
   /**
    * Lists GetApiKeysInstance records from the API as a list with HTTP metadata.
@@ -165,8 +165,8 @@ export interface GetApiKeysListInstance {
     params: GetApiKeysListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<GetApiKeysInstance[]>
-    ) => any
+      items: ApiResponse<GetApiKeysInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<GetApiKeysInstance[]>>;
   /**
    * Retrieve a single page of GetApiKeysInstance records from the API.
@@ -182,7 +182,7 @@ export interface GetApiKeysListInstance {
 
   page(
     params: GetApiKeysListInstancePageOptions,
-    callback?: (error: Error | null, items: GetApiKeysPage) => any
+    callback?: (error: Error | null, items: GetApiKeysPage) => any,
   ): Promise<GetApiKeysPage>;
   /**
    * Retrieve a single page of GetApiKeysInstance records from the API with HTTP metadata.
@@ -198,7 +198,7 @@ export interface GetApiKeysListInstance {
 
   pageWithHttpInfo(
     params: GetApiKeysListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any,
   ): Promise<ApiResponse<GetApiKeysPage>>;
 
   /**
@@ -217,7 +217,7 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
   instance.page = function page(
     params: GetApiKeysListInstancePageOptions,
-    callback?: (error: Error | null, items: GetApiKeysPage) => any
+    callback?: (error: Error | null, items: GetApiKeysPage) => any,
   ): Promise<GetApiKeysPage> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -248,12 +248,12 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new GetApiKeysPage(operationVersion, payload, instance._solution)
+        new GetApiKeysPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -263,7 +263,7 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: GetApiKeysPage) => any
+    callback?: (error: Error | null, items: GetApiKeysPage) => any,
   ): Promise<GetApiKeysPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -271,7 +271,7 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new GetApiKeysPage(instance._version, payload, instance._solution)
+        new GetApiKeysPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -279,7 +279,7 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
   instance.pageWithHttpInfo = function pageWithHttpInfo(
     params: GetApiKeysListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<GetApiKeysPage>) => any,
   ): Promise<ApiResponse<GetApiKeysPage>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -306,21 +306,19 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<GetApiKeysPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new GetApiKeysPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<GetApiKeysPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new GetApiKeysPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -332,7 +330,10 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<GetApiKeysPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<GetApiKeysPage>,
+    ) => any,
   ): Promise<ApiResponse<GetApiKeysPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -347,9 +348,9 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
         body: new GetApiKeysPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -361,7 +362,7 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -382,7 +383,10 @@ interface GetApiKeysResource {
 }
 
 export class GetApiKeysInstance {
-  constructor(protected _version: V1, payload: GetApiKeysResource) {
+  constructor(
+    protected _version: V1,
+    payload: GetApiKeysResource,
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -444,7 +448,7 @@ export class GetApiKeysPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: GetApiKeysSolution
+    solution: GetApiKeysSolution,
   ) {
     super(version, response, solution);
   }

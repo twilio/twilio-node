@@ -118,10 +118,7 @@ export class OperatorTrainingExample {
  * The lifecycle status of an Operator version.  Available values: - `PREVIEW`: Available but restricted to internal/testing visibility. Normal execution. - `ACTIVE`: Available for normal use. - `DEPRECATED`: Still executes normally, but a Warn event is emitted via the Watch product lifecycle system. Customers should migrate to a newer version. - `RETIRED`: Hard failure on execution. An Error is logged in Watch. Customers must manually update their Intelligence Configuration to a valid version.
  */
 export type OperatorVersionStatus =
-  | "PREVIEW"
-  | "ACTIVE"
-  | "DEPRECATED"
-  | "RETIRED";
+  "PREVIEW" | "ACTIVE" | "DEPRECATED" | "RETIRED";
 
 /**
  * Options to pass to each
@@ -170,7 +167,7 @@ export interface VersionContext {
    * @returns Resolves to processed VersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VersionInstance) => any
+    callback?: (error: Error | null, item?: VersionInstance) => any,
   ): Promise<VersionInstance>;
 
   /**
@@ -181,7 +178,10 @@ export interface VersionContext {
    * @returns Resolves to processed VersionInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<VersionInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<VersionInstance>>;
 
   /**
@@ -200,7 +200,11 @@ export class VersionContextImpl implements VersionContext {
   protected _solution: VersionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V3, id: string, versionParam: number) {
+  constructor(
+    protected _version: V3,
+    id: string,
+    versionParam: number,
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -214,7 +218,7 @@ export class VersionContextImpl implements VersionContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: VersionInstance) => any
+    callback?: (error: Error | null, item?: VersionInstance) => any,
   ): Promise<VersionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -233,19 +237,22 @@ export class VersionContextImpl implements VersionContext {
           operationVersion,
           payload,
           instance._solution.id,
-          instance._solution.versionParam
-        )
+          instance._solution.versionParam,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<VersionInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<VersionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -259,21 +266,19 @@ export class VersionContextImpl implements VersionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<VersionInstance> => ({
-          ...response,
-          body: new VersionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id,
-            instance._solution.versionParam
-          ),
-        })
-      );
+      .then((response): ApiResponse<VersionInstance> => ({
+        ...response,
+        body: new VersionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+          instance._solution.versionParam,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -318,7 +323,7 @@ export interface OperatorContextMemory {
  */
 export interface OperatorParameter {
   type: string;
-  default?: any;
+  default?: any | null;
   required?: boolean;
   description?: string;
 }
@@ -384,7 +389,7 @@ export class VersionInstance {
     protected _version: V3,
     _payload: VersionResource,
     id: string,
-    versionParam?: number
+    versionParam?: number,
   ) {
     const payload: any = _payload;
     this.id = payload.id;
@@ -399,7 +404,7 @@ export class VersionInstance {
       payload.trainingExamples !== null &&
       payload.trainingExamples !== undefined
         ? payload.trainingExamples.map(
-            (payload: any) => new OperatorTrainingExample(payload)
+            (payload: any) => new OperatorTrainingExample(payload),
           )
         : null;
     this.context =
@@ -475,7 +480,7 @@ export class VersionInstance {
       new VersionContextImpl(
         this._version,
         this._solution.id,
-        this._solution.versionParam
+        this._solution.versionParam,
       );
     return this._context;
   }
@@ -488,7 +493,7 @@ export class VersionInstance {
    * @returns Resolves to processed VersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VersionInstance) => any
+    callback?: (error: Error | null, item?: VersionInstance) => any,
   ): Promise<VersionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -501,7 +506,10 @@ export class VersionInstance {
    * @returns Resolves to processed VersionInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<VersionInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<VersionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -565,11 +573,11 @@ export interface VersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: VersionInstance, done: (err?: Error) => void) => void
+    callback?: (item: VersionInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: VersionListInstanceEachOptions,
-    callback?: (item: VersionInstance, done: (err?: Error) => void) => void
+    callback?: (item: VersionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams VersionInstance records from the API with HTTP metadata captured per page.
@@ -587,11 +595,11 @@ export interface VersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: VersionInstance, done: (err?: Error) => void) => void
+    callback?: (item: VersionInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: VersionListInstanceEachOptions,
-    callback?: (item: VersionInstance, done: (err?: Error) => void) => void
+    callback?: (item: VersionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of VersionInstance records from the API.
@@ -603,7 +611,7 @@ export interface VersionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VersionPage) => any
+    callback?: (error: Error | null, items: VersionPage) => any,
   ): Promise<VersionPage>;
   /**
    * Retrieve a single target page of VersionInstance records from the API with HTTP metadata.
@@ -615,7 +623,7 @@ export interface VersionListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any,
   ): Promise<ApiResponse<VersionPage>>;
   /**
    * Lists VersionInstance records from the API as a list.
@@ -627,11 +635,11 @@ export interface VersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: VersionInstance[]) => any
+    callback?: (error: Error | null, items: VersionInstance[]) => any,
   ): Promise<VersionInstance[]>;
   list(
     params: VersionListInstanceOptions,
-    callback?: (error: Error | null, items: VersionInstance[]) => any
+    callback?: (error: Error | null, items: VersionInstance[]) => any,
   ): Promise<VersionInstance[]>;
   /**
    * Lists VersionInstance records from the API as a list with HTTP metadata.
@@ -647,15 +655,15 @@ export interface VersionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<VersionInstance[]>
-    ) => any
+      items: ApiResponse<VersionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<VersionInstance[]>>;
   listWithHttpInfo(
     params: VersionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VersionInstance[]>
-    ) => any
+      items: ApiResponse<VersionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<VersionInstance[]>>;
   /**
    * Retrieve a single page of VersionInstance records from the API.
@@ -669,11 +677,11 @@ export interface VersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: VersionPage) => any
+    callback?: (error: Error | null, items: VersionPage) => any,
   ): Promise<VersionPage>;
   page(
     params: VersionListInstancePageOptions,
-    callback?: (error: Error | null, items: VersionPage) => any
+    callback?: (error: Error | null, items: VersionPage) => any,
   ): Promise<VersionPage>;
   /**
    * Retrieve a single page of VersionInstance records from the API with HTTP metadata.
@@ -687,11 +695,11 @@ export interface VersionListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any,
   ): Promise<ApiResponse<VersionPage>>;
   pageWithHttpInfo(
     params: VersionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any,
   ): Promise<ApiResponse<VersionPage>>;
 
   /**
@@ -703,7 +711,7 @@ export interface VersionListInstance {
 
 export function VersionListInstance(
   version: V3,
-  id: string
+  id: string,
 ): VersionListInstance {
   if (!isValidPathParam(id)) {
     throw new Error("Parameter 'id' is not valid.");
@@ -724,7 +732,7 @@ export function VersionListInstance(
     params?:
       | VersionListInstancePageOptions
       | ((error: Error | null, items: VersionPage) => any),
-    callback?: (error: Error | null, items: VersionPage) => any
+    callback?: (error: Error | null, items: VersionPage) => any,
   ): Promise<VersionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -757,13 +765,13 @@ export function VersionListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -773,7 +781,7 @@ export function VersionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VersionPage) => any
+    callback?: (error: Error | null, items: VersionPage) => any,
   ): Promise<VersionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -786,8 +794,8 @@ export function VersionListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -797,7 +805,7 @@ export function VersionListInstance(
     params?:
       | VersionListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<VersionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VersionPage>) => any,
   ): Promise<ApiResponse<VersionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -821,23 +829,21 @@ export function VersionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<VersionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new VersionPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<VersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new VersionPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -849,7 +855,7 @@ export function VersionListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<VersionPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<VersionPage>) => any,
   ): Promise<ApiResponse<VersionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -866,9 +872,9 @@ export function VersionListInstance(
           response,
           instance._uri,
           {},
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -880,7 +886,7 @@ export function VersionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -908,7 +914,7 @@ export class VersionPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: VersionSolution
+    solution: VersionSolution,
   ) {
     super(version, response, uri, params, solution);
   }

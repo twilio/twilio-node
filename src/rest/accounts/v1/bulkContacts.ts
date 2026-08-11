@@ -44,7 +44,7 @@ export interface BulkContactsListInstance {
    */
   create(
     params: BulkContactsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BulkContactsInstance) => any
+    callback?: (error: Error | null, item?: BulkContactsInstance) => any,
   ): Promise<BulkContactsInstance>;
 
   /**
@@ -59,8 +59,8 @@ export interface BulkContactsListInstance {
     params: BulkContactsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkContactsInstance>
-    ) => any
+      item?: ApiResponse<BulkContactsInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkContactsInstance>>;
 
   /**
@@ -71,7 +71,7 @@ export interface BulkContactsListInstance {
 }
 
 export function BulkContactsListInstance(
-  version: V1
+  version: V1,
 ): BulkContactsListInstance {
   const instance = {} as BulkContactsListInstance;
 
@@ -81,7 +81,7 @@ export function BulkContactsListInstance(
 
   instance.create = function create(
     params: BulkContactsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BulkContactsInstance) => any
+    callback?: (error: Error | null, items: BulkContactsInstance) => any,
   ): Promise<BulkContactsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -94,7 +94,7 @@ export function BulkContactsListInstance(
     let data: any = {};
 
     data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
+      serialize.object(e),
     );
 
     const headers: any = {};
@@ -110,12 +110,12 @@ export function BulkContactsListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BulkContactsInstance(operationVersion, payload)
+      (payload) => new BulkContactsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -124,8 +124,8 @@ export function BulkContactsListInstance(
     params: BulkContactsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BulkContactsInstance>
-    ) => any
+      items: ApiResponse<BulkContactsInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkContactsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -138,7 +138,7 @@ export function BulkContactsListInstance(
     let data: any = {};
 
     data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
+      serialize.object(e),
     );
 
     const headers: any = {};
@@ -154,16 +154,14 @@ export function BulkContactsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkContactsInstance> => ({
-          ...response,
-          body: new BulkContactsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BulkContactsInstance> => ({
+        ...response,
+        body: new BulkContactsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -174,7 +172,7 @@ export function BulkContactsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -189,7 +187,10 @@ interface BulkContactsResource {
 }
 
 export class BulkContactsInstance {
-  constructor(protected _version: V1, payload: BulkContactsResource) {
+  constructor(
+    protected _version: V1,
+    payload: BulkContactsResource,
+  ) {
     this.items = payload.items;
   }
 

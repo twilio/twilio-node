@@ -52,8 +52,8 @@ export interface MessagingGeopermissionsListInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: MessagingGeopermissionsInstance
-    ) => any
+      item?: MessagingGeopermissionsInstance,
+    ) => any,
   ): Promise<MessagingGeopermissionsInstance>;
   /**
    * Fetch a MessagingGeopermissionsInstance
@@ -67,8 +67,8 @@ export interface MessagingGeopermissionsListInstance {
     params: MessagingGeopermissionsListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: MessagingGeopermissionsInstance
-    ) => any
+      item?: MessagingGeopermissionsInstance,
+    ) => any,
   ): Promise<MessagingGeopermissionsInstance>;
 
   /**
@@ -81,8 +81,8 @@ export interface MessagingGeopermissionsListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<MessagingGeopermissionsInstance>
-    ) => any
+      item?: ApiResponse<MessagingGeopermissionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>>;
   /**
    * Fetch a MessagingGeopermissionsInstance and return HTTP info
@@ -96,8 +96,8 @@ export interface MessagingGeopermissionsListInstance {
     params: MessagingGeopermissionsListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<MessagingGeopermissionsInstance>
-    ) => any
+      item?: ApiResponse<MessagingGeopermissionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>>;
 
   /**
@@ -112,8 +112,8 @@ export interface MessagingGeopermissionsListInstance {
     params: MessagingGeopermissionsListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: MessagingGeopermissionsInstance
-    ) => any
+      item?: MessagingGeopermissionsInstance,
+    ) => any,
   ): Promise<MessagingGeopermissionsInstance>;
 
   /**
@@ -128,8 +128,8 @@ export interface MessagingGeopermissionsListInstance {
     params: MessagingGeopermissionsListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<MessagingGeopermissionsInstance>
-    ) => any
+      item?: ApiResponse<MessagingGeopermissionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>>;
 
   /**
@@ -140,7 +140,7 @@ export interface MessagingGeopermissionsListInstance {
 }
 
 export function MessagingGeopermissionsListInstance(
-  version: V1
+  version: V1,
 ): MessagingGeopermissionsListInstance {
   const instance = {} as MessagingGeopermissionsListInstance;
 
@@ -154,14 +154,14 @@ export function MessagingGeopermissionsListInstance(
       | ((error: Error | null, items: MessagingGeopermissionsInstance) => any),
     callback?: (
       error: Error | null,
-      items: MessagingGeopermissionsInstance
-    ) => any
+      items: MessagingGeopermissionsInstance,
+    ) => any,
   ): Promise<MessagingGeopermissionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -182,12 +182,12 @@ export function MessagingGeopermissionsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MessagingGeopermissionsInstance(operationVersion, payload)
+        new MessagingGeopermissionsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -197,18 +197,18 @@ export function MessagingGeopermissionsListInstance(
       | MessagingGeopermissionsListInstanceFetchOptions
       | ((
           error: Error | null,
-          items: ApiResponse<MessagingGeopermissionsInstance>
+          items: ApiResponse<MessagingGeopermissionsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<MessagingGeopermissionsInstance>
-    ) => any
+      items: ApiResponse<MessagingGeopermissionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -228,19 +228,17 @@ export function MessagingGeopermissionsListInstance(
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingGeopermissionsInstance> => ({
-          ...response,
-          body: new MessagingGeopermissionsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingGeopermissionsInstance> => ({
+        ...response,
+        body: new MessagingGeopermissionsInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -249,8 +247,8 @@ export function MessagingGeopermissionsListInstance(
     params: MessagingGeopermissionsListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      items: MessagingGeopermissionsInstance
-    ) => any
+      items: MessagingGeopermissionsInstance,
+    ) => any,
   ): Promise<MessagingGeopermissionsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -263,7 +261,7 @@ export function MessagingGeopermissionsListInstance(
     let data: any = {};
 
     data["Permissions"] = serialize.map(params["permissions"], (e: any) =>
-      serialize.object(e)
+      serialize.object(e),
     );
 
     const headers: any = {};
@@ -280,12 +278,12 @@ export function MessagingGeopermissionsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MessagingGeopermissionsInstance(operationVersion, payload)
+        new MessagingGeopermissionsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -294,8 +292,8 @@ export function MessagingGeopermissionsListInstance(
     params: MessagingGeopermissionsListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MessagingGeopermissionsInstance>
-    ) => any
+      items: ApiResponse<MessagingGeopermissionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -308,7 +306,7 @@ export function MessagingGeopermissionsListInstance(
     let data: any = {};
 
     data["Permissions"] = serialize.map(params["permissions"], (e: any) =>
-      serialize.object(e)
+      serialize.object(e),
     );
 
     const headers: any = {};
@@ -324,19 +322,17 @@ export function MessagingGeopermissionsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingGeopermissionsInstance> => ({
-          ...response,
-          body: new MessagingGeopermissionsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingGeopermissionsInstance> => ({
+        ...response,
+        body: new MessagingGeopermissionsInstance(
+          operationVersion,
+          response.body,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -347,7 +343,7 @@ export function MessagingGeopermissionsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -355,8 +351,7 @@ export function MessagingGeopermissionsListInstance(
   return instance;
 }
 
-interface MessagingGeopermissionsPayload
-  extends MessagingGeopermissionsResource {}
+interface MessagingGeopermissionsPayload extends MessagingGeopermissionsResource {}
 
 interface MessagingGeopermissionsResource {
   permissions: any;
@@ -365,7 +360,7 @@ interface MessagingGeopermissionsResource {
 export class MessagingGeopermissionsInstance {
   constructor(
     protected _version: V1,
-    payload: MessagingGeopermissionsResource
+    payload: MessagingGeopermissionsResource,
   ) {
     this.permissions = payload.permissions;
   }

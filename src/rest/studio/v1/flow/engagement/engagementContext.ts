@@ -28,7 +28,7 @@ export interface EngagementContextContext {
    * @returns Resolves to processed EngagementContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EngagementContextInstance) => any
+    callback?: (error: Error | null, item?: EngagementContextInstance) => any,
   ): Promise<EngagementContextInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface EngagementContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementContextInstance>
-    ) => any
+      item?: ApiResponse<EngagementContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementContextInstance>>;
 
   /**
@@ -61,7 +61,11 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   protected _solution: EngagementContextContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, flowSid: string, engagementSid: string) {
+  constructor(
+    protected _version: V1,
+    flowSid: string,
+    engagementSid: string,
+  ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
     }
@@ -75,7 +79,7 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EngagementContextInstance) => any
+    callback?: (error: Error | null, item?: EngagementContextInstance) => any,
   ): Promise<EngagementContextInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -94,13 +98,13 @@ export class EngagementContextContextImpl implements EngagementContextContext {
           operationVersion,
           payload,
           instance._solution.flowSid,
-          instance._solution.engagementSid
-        )
+          instance._solution.engagementSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -108,8 +112,8 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementContextInstance>
-    ) => any
+      item?: ApiResponse<EngagementContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementContextInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -123,21 +127,19 @@ export class EngagementContextContextImpl implements EngagementContextContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<EngagementContextInstance> => ({
-          ...response,
-          body: new EngagementContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.engagementSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<EngagementContextInstance> => ({
+        ...response,
+        body: new EngagementContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.engagementSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -174,7 +176,7 @@ export class EngagementContextInstance {
     protected _version: V1,
     payload: EngagementContextResource,
     flowSid: string,
-    engagementSid: string
+    engagementSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -212,7 +214,7 @@ export class EngagementContextInstance {
       new EngagementContextContextImpl(
         this._version,
         this._solution.flowSid,
-        this._solution.engagementSid
+        this._solution.engagementSid,
       );
     return this._context;
   }
@@ -225,7 +227,7 @@ export class EngagementContextInstance {
    * @returns Resolves to processed EngagementContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EngagementContextInstance) => any
+    callback?: (error: Error | null, item?: EngagementContextInstance) => any,
   ): Promise<EngagementContextInstance> {
     return this._proxy.fetch(callback);
   }
@@ -240,8 +242,8 @@ export class EngagementContextInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementContextInstance>
-    ) => any
+      item?: ApiResponse<EngagementContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementContextInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -289,7 +291,7 @@ export interface EngagementContextListInstance {
 export function EngagementContextListInstance(
   version: V1,
   flowSid: string,
-  engagementSid: string
+  engagementSid: string,
 ): EngagementContextListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -315,7 +317,7 @@ export function EngagementContextListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

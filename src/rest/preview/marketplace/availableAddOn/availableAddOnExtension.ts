@@ -31,7 +31,7 @@ export interface AvailableAddOnExtensionListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AvailableAddOnExtensionInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -72,8 +72,8 @@ export interface AvailableAddOnExtensionContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AvailableAddOnExtensionInstance
-    ) => any
+      item?: AvailableAddOnExtensionInstance,
+    ) => any,
   ): Promise<AvailableAddOnExtensionInstance>;
 
   /**
@@ -86,8 +86,8 @@ export interface AvailableAddOnExtensionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AvailableAddOnExtensionInstance>
-    ) => any
+      item?: ApiResponse<AvailableAddOnExtensionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionInstance>>;
 
   /**
@@ -102,16 +102,14 @@ export interface AvailableAddOnExtensionContextSolution {
   sid: string;
 }
 
-export class AvailableAddOnExtensionContextImpl
-  implements AvailableAddOnExtensionContext
-{
+export class AvailableAddOnExtensionContextImpl implements AvailableAddOnExtensionContext {
   protected _solution: AvailableAddOnExtensionContextSolution;
   protected _uri: string;
 
   constructor(
     protected _version: Marketplace,
     availableAddOnSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(availableAddOnSid)) {
       throw new Error("Parameter 'availableAddOnSid' is not valid.");
@@ -128,8 +126,8 @@ export class AvailableAddOnExtensionContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: AvailableAddOnExtensionInstance
-    ) => any
+      item?: AvailableAddOnExtensionInstance,
+    ) => any,
   ): Promise<AvailableAddOnExtensionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -148,13 +146,13 @@ export class AvailableAddOnExtensionContextImpl
           operationVersion,
           payload,
           instance._solution.availableAddOnSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -162,8 +160,8 @@ export class AvailableAddOnExtensionContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AvailableAddOnExtensionInstance>
-    ) => any
+      item?: ApiResponse<AvailableAddOnExtensionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -177,21 +175,19 @@ export class AvailableAddOnExtensionContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AvailableAddOnExtensionInstance> => ({
-          ...response,
-          body: new AvailableAddOnExtensionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.availableAddOnSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AvailableAddOnExtensionInstance> => ({
+        ...response,
+        body: new AvailableAddOnExtensionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.availableAddOnSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -231,7 +227,7 @@ export class AvailableAddOnExtensionInstance {
     protected _version: Marketplace,
     payload: AvailableAddOnExtensionResource,
     availableAddOnSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.availableAddOnSid = payload.available_add_on_sid;
@@ -240,7 +236,7 @@ export class AvailableAddOnExtensionInstance {
     this.uniqueName = payload.unique_name;
     this.url = payload.url;
 
-    this._solution = { availableAddOnSid, sid: sid || this.sid };
+    this._solution = { availableAddOnSid, sid: sid };
   }
 
   /**
@@ -274,7 +270,7 @@ export class AvailableAddOnExtensionInstance {
       new AvailableAddOnExtensionContextImpl(
         this._version,
         this._solution.availableAddOnSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -289,8 +285,8 @@ export class AvailableAddOnExtensionInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AvailableAddOnExtensionInstance
-    ) => any
+      item?: AvailableAddOnExtensionInstance,
+    ) => any,
   ): Promise<AvailableAddOnExtensionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -305,8 +301,8 @@ export class AvailableAddOnExtensionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AvailableAddOnExtensionInstance>
-    ) => any
+      item?: ApiResponse<AvailableAddOnExtensionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -362,15 +358,15 @@ export interface AvailableAddOnExtensionListInstance {
   each(
     callback?: (
       item: AvailableAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: AvailableAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AvailableAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams AvailableAddOnExtensionInstance records from the API with HTTP metadata captured per page.
@@ -390,15 +386,15 @@ export interface AvailableAddOnExtensionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: AvailableAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: AvailableAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AvailableAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of AvailableAddOnExtensionInstance records from the API.
@@ -410,7 +406,7 @@ export interface AvailableAddOnExtensionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any,
   ): Promise<AvailableAddOnExtensionPage>;
   /**
    * Retrieve a single target page of AvailableAddOnExtensionInstance records from the API with HTTP metadata.
@@ -424,8 +420,8 @@ export interface AvailableAddOnExtensionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AvailableAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AvailableAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionPage>>;
   /**
    * Lists AvailableAddOnExtensionInstance records from the API as a list.
@@ -439,15 +435,15 @@ export interface AvailableAddOnExtensionListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: AvailableAddOnExtensionInstance[]
-    ) => any
+      items: AvailableAddOnExtensionInstance[],
+    ) => any,
   ): Promise<AvailableAddOnExtensionInstance[]>;
   list(
     params: AvailableAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: AvailableAddOnExtensionInstance[]
-    ) => any
+      items: AvailableAddOnExtensionInstance[],
+    ) => any,
   ): Promise<AvailableAddOnExtensionInstance[]>;
   /**
    * Lists AvailableAddOnExtensionInstance records from the API as a list with HTTP metadata.
@@ -463,15 +459,15 @@ export interface AvailableAddOnExtensionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AvailableAddOnExtensionInstance[]>
-    ) => any
+      items: ApiResponse<AvailableAddOnExtensionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionInstance[]>>;
   listWithHttpInfo(
     params: AvailableAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AvailableAddOnExtensionInstance[]>
-    ) => any
+      items: ApiResponse<AvailableAddOnExtensionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionInstance[]>>;
   /**
    * Retrieve a single page of AvailableAddOnExtensionInstance records from the API.
@@ -485,11 +481,11 @@ export interface AvailableAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any,
   ): Promise<AvailableAddOnExtensionPage>;
   page(
     params: AvailableAddOnExtensionListInstancePageOptions,
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any,
   ): Promise<AvailableAddOnExtensionPage>;
   /**
    * Retrieve a single page of AvailableAddOnExtensionInstance records from the API with HTTP metadata.
@@ -505,15 +501,15 @@ export interface AvailableAddOnExtensionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AvailableAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AvailableAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionPage>>;
   pageWithHttpInfo(
     params: AvailableAddOnExtensionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AvailableAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AvailableAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionPage>>;
 
   /**
@@ -525,7 +521,7 @@ export interface AvailableAddOnExtensionListInstance {
 
 export function AvailableAddOnExtensionListInstance(
   version: Marketplace,
-  availableAddOnSid: string
+  availableAddOnSid: string,
 ): AvailableAddOnExtensionListInstance {
   if (!isValidPathParam(availableAddOnSid)) {
     throw new Error("Parameter 'availableAddOnSid' is not valid.");
@@ -538,7 +534,7 @@ export function AvailableAddOnExtensionListInstance(
     return new AvailableAddOnExtensionContextImpl(
       version,
       availableAddOnSid,
-      sid
+      sid,
     );
   };
 
@@ -550,7 +546,7 @@ export function AvailableAddOnExtensionListInstance(
     params?:
       | AvailableAddOnExtensionListInstancePageOptions
       | ((error: Error | null, items: AvailableAddOnExtensionPage) => any),
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any,
   ): Promise<AvailableAddOnExtensionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -582,13 +578,13 @@ export function AvailableAddOnExtensionListInstance(
         new AvailableAddOnExtensionPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -598,7 +594,7 @@ export function AvailableAddOnExtensionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any,
   ): Promise<AvailableAddOnExtensionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -609,8 +605,8 @@ export function AvailableAddOnExtensionListInstance(
         new AvailableAddOnExtensionPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -621,12 +617,12 @@ export function AvailableAddOnExtensionListInstance(
       | AvailableAddOnExtensionListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<AvailableAddOnExtensionPage>
+          items: ApiResponse<AvailableAddOnExtensionPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AvailableAddOnExtensionPage>
-    ) => any
+      items: ApiResponse<AvailableAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -651,21 +647,19 @@ export function AvailableAddOnExtensionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AvailableAddOnExtensionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AvailableAddOnExtensionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AvailableAddOnExtensionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AvailableAddOnExtensionPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -679,8 +673,8 @@ export function AvailableAddOnExtensionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AvailableAddOnExtensionPage>
-    ) => any
+      items?: ApiResponse<AvailableAddOnExtensionPage>,
+    ) => any,
   ): Promise<ApiResponse<AvailableAddOnExtensionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -695,9 +689,9 @@ export function AvailableAddOnExtensionListInstance(
         body: new AvailableAddOnExtensionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -709,7 +703,7 @@ export function AvailableAddOnExtensionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -733,7 +727,7 @@ export class AvailableAddOnExtensionPage extends Page<
   constructor(
     version: Marketplace,
     response: Response<string>,
-    solution: AvailableAddOnExtensionSolution
+    solution: AvailableAddOnExtensionSolution,
   ) {
     super(version, response, solution);
   }
@@ -744,12 +738,12 @@ export class AvailableAddOnExtensionPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AvailableAddOnExtensionResource
+    payload: AvailableAddOnExtensionResource,
   ): AvailableAddOnExtensionInstance {
     return new AvailableAddOnExtensionInstance(
       this._version,
       payload,
-      this._solution.availableAddOnSid
+      this._solution.availableAddOnSid,
     );
   }
 

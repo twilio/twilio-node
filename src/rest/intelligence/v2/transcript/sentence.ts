@@ -95,11 +95,11 @@ export interface SentenceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void
+    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: SentenceListInstanceEachOptions,
-    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void
+    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams SentenceInstance records from the API with HTTP metadata captured per page.
@@ -117,11 +117,11 @@ export interface SentenceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void
+    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: SentenceListInstanceEachOptions,
-    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void
+    callback?: (item: SentenceInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of SentenceInstance records from the API.
@@ -133,7 +133,7 @@ export interface SentenceListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SentencePage) => any
+    callback?: (error: Error | null, items: SentencePage) => any,
   ): Promise<SentencePage>;
   /**
    * Retrieve a single target page of SentenceInstance records from the API with HTTP metadata.
@@ -145,7 +145,7 @@ export interface SentenceListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any,
   ): Promise<ApiResponse<SentencePage>>;
   /**
    * Lists SentenceInstance records from the API as a list.
@@ -157,11 +157,11 @@ export interface SentenceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SentenceInstance[]) => any
+    callback?: (error: Error | null, items: SentenceInstance[]) => any,
   ): Promise<SentenceInstance[]>;
   list(
     params: SentenceListInstanceOptions,
-    callback?: (error: Error | null, items: SentenceInstance[]) => any
+    callback?: (error: Error | null, items: SentenceInstance[]) => any,
   ): Promise<SentenceInstance[]>;
   /**
    * Lists SentenceInstance records from the API as a list with HTTP metadata.
@@ -177,15 +177,15 @@ export interface SentenceListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SentenceInstance[]>
-    ) => any
+      items: ApiResponse<SentenceInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SentenceInstance[]>>;
   listWithHttpInfo(
     params: SentenceListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SentenceInstance[]>
-    ) => any
+      items: ApiResponse<SentenceInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SentenceInstance[]>>;
   /**
    * Retrieve a single page of SentenceInstance records from the API.
@@ -199,11 +199,11 @@ export interface SentenceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SentencePage) => any
+    callback?: (error: Error | null, items: SentencePage) => any,
   ): Promise<SentencePage>;
   page(
     params: SentenceListInstancePageOptions,
-    callback?: (error: Error | null, items: SentencePage) => any
+    callback?: (error: Error | null, items: SentencePage) => any,
   ): Promise<SentencePage>;
   /**
    * Retrieve a single page of SentenceInstance records from the API with HTTP metadata.
@@ -217,11 +217,11 @@ export interface SentenceListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any,
   ): Promise<ApiResponse<SentencePage>>;
   pageWithHttpInfo(
     params: SentenceListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any,
   ): Promise<ApiResponse<SentencePage>>;
 
   /**
@@ -233,7 +233,7 @@ export interface SentenceListInstance {
 
 export function SentenceListInstance(
   version: V2,
-  transcriptSid: string
+  transcriptSid: string,
 ): SentenceListInstance {
   if (!isValidPathParam(transcriptSid)) {
     throw new Error("Parameter 'transcriptSid' is not valid.");
@@ -249,7 +249,7 @@ export function SentenceListInstance(
     params?:
       | SentenceListInstancePageOptions
       | ((error: Error | null, items: SentencePage) => any),
-    callback?: (error: Error | null, items: SentencePage) => any
+    callback?: (error: Error | null, items: SentencePage) => any,
   ): Promise<SentencePage> {
     if (params instanceof Function) {
       callback = params;
@@ -282,12 +282,12 @@ export function SentenceListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SentencePage(operationVersion, payload, instance._solution)
+        new SentencePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -297,7 +297,7 @@ export function SentenceListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SentencePage) => any
+    callback?: (error: Error | null, items: SentencePage) => any,
   ): Promise<SentencePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -305,7 +305,7 @@ export function SentenceListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SentencePage(instance._version, payload, instance._solution)
+        new SentencePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -315,7 +315,7 @@ export function SentenceListInstance(
     params?:
       | SentenceListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<SentencePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SentencePage>) => any,
   ): Promise<ApiResponse<SentencePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -344,21 +344,15 @@ export function SentenceListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SentencePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SentencePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SentencePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SentencePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -370,7 +364,7 @@ export function SentenceListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<SentencePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<SentencePage>) => any,
   ): Promise<ApiResponse<SentencePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -383,7 +377,7 @@ export function SentenceListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new SentencePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -395,7 +389,7 @@ export function SentenceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -422,7 +416,7 @@ export class SentenceInstance {
   constructor(
     protected _version: V2,
     payload: SentenceResource,
-    transcriptSid: string
+    transcriptSid: string,
   ) {
     this.mediaChannel = deserialize.integer(payload.media_channel);
     this.sentenceIndex = deserialize.integer(payload.sentence_index);
@@ -503,7 +497,7 @@ export class SentencePage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: SentenceSolution
+    solution: SentenceSolution,
   ) {
     super(version, response, solution);
   }
@@ -517,7 +511,7 @@ export class SentencePage extends Page<
     return new SentenceInstance(
       this._version,
       payload,
-      this._solution.transcriptSid
+      this._solution.transcriptSid,
     );
   }
 

@@ -93,7 +93,7 @@ export interface ChannelContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -104,7 +104,7 @@ export interface ChannelContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -115,7 +115,7 @@ export interface ChannelContext {
    * @returns Resolves to processed ChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
+    callback?: (error: Error | null, item?: ChannelInstance) => any,
   ): Promise<ChannelInstance>;
 
   /**
@@ -126,7 +126,10 @@ export interface ChannelContext {
    * @returns Resolves to processed ChannelInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance>>;
 
   /**
@@ -144,7 +147,10 @@ export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -154,7 +160,7 @@ export class ChannelContextImpl implements ChannelContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -168,13 +174,13 @@ export class ChannelContextImpl implements ChannelContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -183,22 +189,20 @@ export class ChannelContextImpl implements ChannelContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
+    callback?: (error: Error | null, item?: ChannelInstance) => any,
   ): Promise<ChannelInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -213,18 +217,21 @@ export class ChannelContextImpl implements ChannelContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ChannelInstance(operationVersion, payload, instance._solution.sid)
+        new ChannelInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -238,20 +245,18 @@ export class ChannelContextImpl implements ChannelContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelInstance> => ({
-          ...response,
-          body: new ChannelInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelInstance> => ({
+        ...response,
+        body: new ChannelInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -289,7 +294,11 @@ export class ChannelInstance {
   protected _solution: ChannelContextSolution;
   protected _context?: ChannelContext;
 
-  constructor(protected _version: V1, payload: ChannelResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ChannelResource,
+    sid?: string,
+  ) {
     this.accountSid = payload.account_sid;
     this.flexFlowSid = payload.flex_flow_sid;
     this.sid = payload.sid;
@@ -299,7 +308,7 @@ export class ChannelInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -350,7 +359,7 @@ export class ChannelInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -363,7 +372,7 @@ export class ChannelInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -376,7 +385,7 @@ export class ChannelInstance {
    * @returns Resolves to processed ChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
+    callback?: (error: Error | null, item?: ChannelInstance) => any,
   ): Promise<ChannelInstance> {
     return this._proxy.fetch(callback);
   }
@@ -389,7 +398,10 @@ export class ChannelInstance {
    * @returns Resolves to processed ChannelInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -437,7 +449,7 @@ export interface ChannelListInstance {
    */
   create(
     params: ChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ChannelInstance) => any
+    callback?: (error: Error | null, item?: ChannelInstance) => any,
   ): Promise<ChannelInstance>;
 
   /**
@@ -450,7 +462,10 @@ export interface ChannelListInstance {
    */
   createWithHttpInfo(
     params: ChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ChannelInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance>>;
 
   /**
@@ -469,11 +484,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ChannelListInstanceEachOptions,
-    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ChannelInstance records from the API with HTTP metadata captured per page.
@@ -491,11 +506,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ChannelListInstanceEachOptions,
-    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
+    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ChannelInstance records from the API.
@@ -507,7 +522,7 @@ export interface ChannelListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ChannelPage) => any
+    callback?: (error: Error | null, items: ChannelPage) => any,
   ): Promise<ChannelPage>;
   /**
    * Retrieve a single target page of ChannelInstance records from the API with HTTP metadata.
@@ -519,7 +534,7 @@ export interface ChannelListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any,
   ): Promise<ApiResponse<ChannelPage>>;
   /**
    * Lists ChannelInstance records from the API as a list.
@@ -531,11 +546,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ChannelInstance[]) => any
+    callback?: (error: Error | null, items: ChannelInstance[]) => any,
   ): Promise<ChannelInstance[]>;
   list(
     params: ChannelListInstanceOptions,
-    callback?: (error: Error | null, items: ChannelInstance[]) => any
+    callback?: (error: Error | null, items: ChannelInstance[]) => any,
   ): Promise<ChannelInstance[]>;
   /**
    * Lists ChannelInstance records from the API as a list with HTTP metadata.
@@ -551,15 +566,15 @@ export interface ChannelListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ChannelInstance[]>
-    ) => any
+      items: ApiResponse<ChannelInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance[]>>;
   listWithHttpInfo(
     params: ChannelListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ChannelInstance[]>
-    ) => any
+      items: ApiResponse<ChannelInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance[]>>;
   /**
    * Retrieve a single page of ChannelInstance records from the API.
@@ -573,11 +588,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ChannelPage) => any
+    callback?: (error: Error | null, items: ChannelPage) => any,
   ): Promise<ChannelPage>;
   page(
     params: ChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: ChannelPage) => any
+    callback?: (error: Error | null, items: ChannelPage) => any,
   ): Promise<ChannelPage>;
   /**
    * Retrieve a single page of ChannelInstance records from the API with HTTP metadata.
@@ -591,11 +606,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any,
   ): Promise<ApiResponse<ChannelPage>>;
   pageWithHttpInfo(
     params: ChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any,
   ): Promise<ApiResponse<ChannelPage>>;
 
   /**
@@ -618,7 +633,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
   instance.create = function create(
     params: ChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ChannelInstance) => any
+    callback?: (error: Error | null, items: ChannelInstance) => any,
   ): Promise<ChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -637,7 +652,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       params["chatUserFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['chatUserFriendlyName']\" missing."
+        "Required parameter \"params['chatUserFriendlyName']\" missing.",
       );
     }
 
@@ -646,7 +661,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       params["chatFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['chatFriendlyName']\" missing."
+        "Required parameter \"params['chatFriendlyName']\" missing.",
       );
     }
 
@@ -683,19 +698,22 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ChannelInstance(operationVersion, payload)
+      (payload) => new ChannelInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: ChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<ChannelInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ChannelInstance>,
+    ) => any,
   ): Promise<ApiResponse<ChannelInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -714,7 +732,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       params["chatUserFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['chatUserFriendlyName']\" missing."
+        "Required parameter \"params['chatUserFriendlyName']\" missing.",
       );
     }
 
@@ -723,7 +741,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       params["chatFriendlyName"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['chatFriendlyName']\" missing."
+        "Required parameter \"params['chatFriendlyName']\" missing.",
       );
     }
 
@@ -760,16 +778,14 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelInstance> => ({
-          ...response,
-          body: new ChannelInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ChannelInstance> => ({
+        ...response,
+        body: new ChannelInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -778,7 +794,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
     params?:
       | ChannelListInstancePageOptions
       | ((error: Error | null, items: ChannelPage) => any),
-    callback?: (error: Error | null, items: ChannelPage) => any
+    callback?: (error: Error | null, items: ChannelPage) => any,
   ): Promise<ChannelPage> {
     if (params instanceof Function) {
       callback = params;
@@ -807,12 +823,12 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ChannelPage(operationVersion, payload, instance._solution)
+        new ChannelPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -822,7 +838,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ChannelPage) => any
+    callback?: (error: Error | null, items: ChannelPage) => any,
   ): Promise<ChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -830,7 +846,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ChannelPage(instance._version, payload, instance._solution)
+        new ChannelPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -840,7 +856,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
     params?:
       | ChannelListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ChannelPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ChannelPage>) => any,
   ): Promise<ApiResponse<ChannelPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -865,17 +881,15 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ChannelPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ChannelPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<ChannelPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChannelPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -887,7 +901,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ChannelPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ChannelPage>) => any,
   ): Promise<ApiResponse<ChannelPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -900,7 +914,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new ChannelPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -912,7 +926,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -936,7 +950,7 @@ export class ChannelPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ChannelSolution
+    solution: ChannelSolution,
   ) {
     super(version, response, solution);
   }

@@ -177,7 +177,7 @@ export interface TollFreeListInstance {
    */
   create(
     params: TollFreeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TollFreeInstance) => any
+    callback?: (error: Error | null, item?: TollFreeInstance) => any,
   ): Promise<TollFreeInstance>;
 
   /**
@@ -192,8 +192,8 @@ export interface TollFreeListInstance {
     params: TollFreeListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollFreeInstance>
-    ) => any
+      item?: ApiResponse<TollFreeInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollFreeInstance>>;
 
   /**
@@ -212,11 +212,11 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: TollFreeListInstanceEachOptions,
-    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams TollFreeInstance records from the API with HTTP metadata captured per page.
@@ -234,11 +234,11 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: TollFreeListInstanceEachOptions,
-    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of TollFreeInstance records from the API.
@@ -250,7 +250,7 @@ export interface TollFreeListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TollFreePage) => any
+    callback?: (error: Error | null, items: TollFreePage) => any,
   ): Promise<TollFreePage>;
   /**
    * Retrieve a single target page of TollFreeInstance records from the API with HTTP metadata.
@@ -262,7 +262,7 @@ export interface TollFreeListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any,
   ): Promise<ApiResponse<TollFreePage>>;
   /**
    * Lists TollFreeInstance records from the API as a list.
@@ -274,11 +274,11 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any,
   ): Promise<TollFreeInstance[]>;
   list(
     params: TollFreeListInstanceOptions,
-    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any,
   ): Promise<TollFreeInstance[]>;
   /**
    * Lists TollFreeInstance records from the API as a list with HTTP metadata.
@@ -294,15 +294,15 @@ export interface TollFreeListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollFreeInstance[]>
-    ) => any
+      items: ApiResponse<TollFreeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TollFreeInstance[]>>;
   listWithHttpInfo(
     params: TollFreeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollFreeInstance[]>
-    ) => any
+      items: ApiResponse<TollFreeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TollFreeInstance[]>>;
   /**
    * Retrieve a single page of TollFreeInstance records from the API.
@@ -316,11 +316,11 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TollFreePage) => any
+    callback?: (error: Error | null, items: TollFreePage) => any,
   ): Promise<TollFreePage>;
   page(
     params: TollFreeListInstancePageOptions,
-    callback?: (error: Error | null, items: TollFreePage) => any
+    callback?: (error: Error | null, items: TollFreePage) => any,
   ): Promise<TollFreePage>;
   /**
    * Retrieve a single page of TollFreeInstance records from the API with HTTP metadata.
@@ -334,11 +334,11 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any,
   ): Promise<ApiResponse<TollFreePage>>;
   pageWithHttpInfo(
     params: TollFreeListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any,
   ): Promise<ApiResponse<TollFreePage>>;
 
   /**
@@ -350,7 +350,7 @@ export interface TollFreeListInstance {
 
 export function TollFreeListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): TollFreeListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -364,7 +364,7 @@ export function TollFreeListInstance(
 
   instance.create = function create(
     params: TollFreeListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TollFreeInstance) => any
+    callback?: (error: Error | null, items: TollFreeInstance) => any,
   ): Promise<TollFreeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -398,7 +398,7 @@ export function TollFreeListInstance(
       data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["voiceFallbackMethod"] !== undefined)
       data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
@@ -438,13 +438,13 @@ export function TollFreeListInstance(
         new TollFreeInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -453,8 +453,8 @@ export function TollFreeListInstance(
     params: TollFreeListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollFreeInstance>
-    ) => any
+      items: ApiResponse<TollFreeInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollFreeInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -488,7 +488,7 @@ export function TollFreeListInstance(
       data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["voiceFallbackMethod"] !== undefined)
       data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
@@ -524,20 +524,18 @@ export function TollFreeListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TollFreeInstance> => ({
-          ...response,
-          body: new TollFreeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollFreeInstance> => ({
+        ...response,
+        body: new TollFreeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -546,7 +544,7 @@ export function TollFreeListInstance(
     params?:
       | TollFreeListInstancePageOptions
       | ((error: Error | null, items: TollFreePage) => any),
-    callback?: (error: Error | null, items: TollFreePage) => any
+    callback?: (error: Error | null, items: TollFreePage) => any,
   ): Promise<TollFreePage> {
     if (params instanceof Function) {
       callback = params;
@@ -582,12 +580,12 @@ export function TollFreeListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TollFreePage(operationVersion, payload, instance._solution)
+        new TollFreePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -597,7 +595,7 @@ export function TollFreeListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TollFreePage) => any
+    callback?: (error: Error | null, items: TollFreePage) => any,
   ): Promise<TollFreePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -605,7 +603,7 @@ export function TollFreeListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new TollFreePage(instance._version, payload, instance._solution)
+        new TollFreePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -615,7 +613,7 @@ export function TollFreeListInstance(
     params?:
       | TollFreeListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<TollFreePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TollFreePage>) => any,
   ): Promise<ApiResponse<TollFreePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -647,21 +645,15 @@ export function TollFreeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TollFreePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TollFreePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollFreePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TollFreePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -673,7 +665,7 @@ export function TollFreeListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<TollFreePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<TollFreePage>) => any,
   ): Promise<ApiResponse<TollFreePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -686,7 +678,7 @@ export function TollFreeListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new TollFreePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -698,7 +690,7 @@ export function TollFreeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -751,7 +743,7 @@ export class TollFreeInstance {
   constructor(
     protected _version: V2010,
     payload: TollFreeResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;
@@ -973,7 +965,7 @@ export class TollFreePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: TollFreeSolution
+    solution: TollFreeSolution,
   ) {
     super(version, response, solution);
   }
@@ -987,7 +979,7 @@ export class TollFreePage extends Page<
     return new TollFreeInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

@@ -47,7 +47,7 @@ export interface SipListInstance {
 
 export function SipListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): SipListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -64,7 +64,7 @@ export function SipListInstance(
       if (!instance._credentialLists) {
         instance._credentialLists = CredentialListListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._credentialLists;
@@ -76,7 +76,7 @@ export function SipListInstance(
       if (!instance._domains) {
         instance._domains = DomainListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._domains;
@@ -88,7 +88,7 @@ export function SipListInstance(
       if (!instance._ipAccessControlLists) {
         instance._ipAccessControlLists = IpAccessControlListListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._ipAccessControlLists;
@@ -101,7 +101,7 @@ export function SipListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

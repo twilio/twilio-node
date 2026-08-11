@@ -137,7 +137,7 @@ export interface WorkspaceContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -148,7 +148,7 @@ export interface WorkspaceContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -159,7 +159,7 @@ export interface WorkspaceContext {
    * @returns Resolves to processed WorkspaceInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance>;
 
   /**
@@ -172,8 +172,8 @@ export interface WorkspaceContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>>;
 
   /**
@@ -184,7 +184,7 @@ export interface WorkspaceContext {
    * @returns Resolves to processed WorkspaceInstance
    */
   update(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance>;
   /**
    * Update a WorkspaceInstance
@@ -196,7 +196,7 @@ export interface WorkspaceContext {
    */
   update(
     params: WorkspaceContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance>;
 
   /**
@@ -209,8 +209,8 @@ export interface WorkspaceContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>>;
   /**
    * Update a WorkspaceInstance and return HTTP info
@@ -224,8 +224,8 @@ export interface WorkspaceContext {
     params: WorkspaceContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>>;
 
   /**
@@ -254,7 +254,10 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   protected _realTimeStatistics?: WorkspaceRealTimeStatisticsListInstance;
   protected _statistics?: WorkspaceStatisticsListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -314,7 +317,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
       this._cumulativeStatistics ||
       WorkspaceCumulativeStatisticsListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._cumulativeStatistics;
   }
@@ -324,7 +327,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
       this._realTimeStatistics ||
       WorkspaceRealTimeStatisticsListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._realTimeStatistics;
   }
@@ -337,7 +340,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -351,13 +354,13 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -366,22 +369,20 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -396,12 +397,16 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspaceInstance(operationVersion, payload, instance._solution.sid)
+        new WorkspaceInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -409,8 +414,8 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -424,20 +429,18 @@ export class WorkspaceContextImpl implements WorkspaceContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkspaceInstance> => ({
-          ...response,
-          body: new WorkspaceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkspaceInstance> => ({
+        ...response,
+        body: new WorkspaceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -446,13 +449,13 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     params?:
       | WorkspaceContextUpdateOptions
       | ((error: Error | null, item?: WorkspaceInstance) => any),
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -487,12 +490,16 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspaceInstance(operationVersion, payload, instance._solution.sid)
+        new WorkspaceInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -503,14 +510,14 @@ export class WorkspaceContextImpl implements WorkspaceContext {
       | ((error: Error | null, item?: ApiResponse<WorkspaceInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -544,20 +551,18 @@ export class WorkspaceContextImpl implements WorkspaceContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkspaceInstance> => ({
-          ...response,
-          body: new WorkspaceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkspaceInstance> => ({
+        ...response,
+        body: new WorkspaceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -605,7 +610,7 @@ export class WorkspaceInstance {
   constructor(
     protected _version: V1,
     payload: WorkspaceResource,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -623,7 +628,7 @@ export class WorkspaceInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -699,7 +704,7 @@ export class WorkspaceInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -712,7 +717,7 @@ export class WorkspaceInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -725,7 +730,7 @@ export class WorkspaceInstance {
    * @returns Resolves to processed WorkspaceInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance> {
     return this._proxy.fetch(callback);
   }
@@ -740,8 +745,8 @@ export class WorkspaceInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -754,7 +759,7 @@ export class WorkspaceInstance {
    * @returns Resolves to processed WorkspaceInstance
    */
   update(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance>;
   /**
    * Update a WorkspaceInstance
@@ -766,12 +771,12 @@ export class WorkspaceInstance {
    */
   update(
     params: WorkspaceContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance> {
     return this._proxy.update(params, callback);
   }
@@ -786,8 +791,8 @@ export class WorkspaceInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>>;
   /**
    * Update a WorkspaceInstance and return HTTP info
@@ -801,16 +806,16 @@ export class WorkspaceInstance {
     params: WorkspaceContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -935,7 +940,7 @@ export interface WorkspaceListInstance {
    */
   create(
     params: WorkspaceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance>;
 
   /**
@@ -950,8 +955,8 @@ export interface WorkspaceListInstance {
     params: WorkspaceListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkspaceInstance>
-    ) => any
+      item?: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>>;
 
   /**
@@ -970,11 +975,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: WorkspaceListInstanceEachOptions,
-    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams WorkspaceInstance records from the API with HTTP metadata captured per page.
@@ -992,11 +997,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: WorkspaceListInstanceEachOptions,
-    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
@@ -1008,7 +1013,7 @@ export interface WorkspaceListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WorkspacePage) => any
+    callback?: (error: Error | null, items: WorkspacePage) => any,
   ): Promise<WorkspacePage>;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API with HTTP metadata.
@@ -1020,7 +1025,7 @@ export interface WorkspaceListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any,
   ): Promise<ApiResponse<WorkspacePage>>;
   /**
    * Lists WorkspaceInstance records from the API as a list.
@@ -1032,11 +1037,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
+    callback?: (error: Error | null, items: WorkspaceInstance[]) => any,
   ): Promise<WorkspaceInstance[]>;
   list(
     params: WorkspaceListInstanceOptions,
-    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
+    callback?: (error: Error | null, items: WorkspaceInstance[]) => any,
   ): Promise<WorkspaceInstance[]>;
   /**
    * Lists WorkspaceInstance records from the API as a list with HTTP metadata.
@@ -1052,15 +1057,15 @@ export interface WorkspaceListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkspaceInstance[]>
-    ) => any
+      items: ApiResponse<WorkspaceInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance[]>>;
   listWithHttpInfo(
     params: WorkspaceListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkspaceInstance[]>
-    ) => any
+      items: ApiResponse<WorkspaceInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance[]>>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
@@ -1074,11 +1079,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: WorkspacePage) => any
+    callback?: (error: Error | null, items: WorkspacePage) => any,
   ): Promise<WorkspacePage>;
   page(
     params: WorkspaceListInstancePageOptions,
-    callback?: (error: Error | null, items: WorkspacePage) => any
+    callback?: (error: Error | null, items: WorkspacePage) => any,
   ): Promise<WorkspacePage>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API with HTTP metadata.
@@ -1092,11 +1097,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any,
   ): Promise<ApiResponse<WorkspacePage>>;
   pageWithHttpInfo(
     params: WorkspaceListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any,
   ): Promise<ApiResponse<WorkspacePage>>;
 
   /**
@@ -1119,7 +1124,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
   instance.create = function create(
     params: WorkspaceListInstanceCreateOptions,
-    callback?: (error: Error | null, items: WorkspaceInstance) => any
+    callback?: (error: Error | null, items: WorkspaceInstance) => any,
   ): Promise<WorkspaceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1158,12 +1163,12 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkspaceInstance(operationVersion, payload)
+      (payload) => new WorkspaceInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1172,8 +1177,8 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     params: WorkspaceListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkspaceInstance>
-    ) => any
+      items: ApiResponse<WorkspaceInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkspaceInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1212,16 +1217,14 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkspaceInstance> => ({
-          ...response,
-          body: new WorkspaceInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<WorkspaceInstance> => ({
+        ...response,
+        body: new WorkspaceInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1230,7 +1233,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     params?:
       | WorkspaceListInstancePageOptions
       | ((error: Error | null, items: WorkspacePage) => any),
-    callback?: (error: Error | null, items: WorkspacePage) => any
+    callback?: (error: Error | null, items: WorkspacePage) => any,
   ): Promise<WorkspacePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1261,12 +1264,12 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspacePage(operationVersion, payload, instance._solution)
+        new WorkspacePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1276,7 +1279,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WorkspacePage) => any
+    callback?: (error: Error | null, items: WorkspacePage) => any,
   ): Promise<WorkspacePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1284,7 +1287,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new WorkspacePage(instance._version, payload, instance._solution)
+        new WorkspacePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1294,7 +1297,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     params?:
       | WorkspaceListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<WorkspacePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkspacePage>) => any,
   ): Promise<ApiResponse<WorkspacePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1321,21 +1324,15 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<WorkspacePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new WorkspacePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkspacePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new WorkspacePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1347,7 +1344,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<WorkspacePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<WorkspacePage>) => any,
   ): Promise<ApiResponse<WorkspacePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1362,9 +1359,9 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
         body: new WorkspacePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1376,7 +1373,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1400,7 +1397,7 @@ export class WorkspacePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: WorkspaceSolution
+    solution: WorkspaceSolution,
   ) {
     super(version, response, solution);
   }

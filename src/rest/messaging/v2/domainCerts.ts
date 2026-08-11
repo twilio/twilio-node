@@ -28,7 +28,7 @@ export interface DomainCertsContext {
    * @returns Resolves to processed DomainCertsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
   ): Promise<DomainCertsInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface DomainCertsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>
-    ) => any
+      item?: ApiResponse<DomainCertsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainCertsInstance>>;
 
   /**
@@ -60,7 +60,10 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   protected _solution: DomainCertsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, domainSid: string) {
+  constructor(
+    protected _version: V2,
+    domainSid: string,
+  ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -70,7 +73,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
   ): Promise<DomainCertsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -88,13 +91,13 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         new DomainCertsInstance(
           operationVersion,
           payload,
-          instance._solution.domainSid
-        )
+          instance._solution.domainSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -102,8 +105,8 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>
-    ) => any
+      item?: ApiResponse<DomainCertsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainCertsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -117,20 +120,18 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainCertsInstance> => ({
-          ...response,
-          body: new DomainCertsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainCertsInstance> => ({
+        ...response,
+        body: new DomainCertsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -171,7 +172,7 @@ export class DomainCertsInstance {
   constructor(
     protected _version: V2,
     payload: DomainCertsResource,
-    domainSid?: string
+    domainSid?: string,
   ) {
     this.domainSid = payload.domain_sid;
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -184,7 +185,7 @@ export class DomainCertsInstance {
     this.url = payload.url;
     this.certInValidation = payload.cert_in_validation;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**
@@ -240,7 +241,7 @@ export class DomainCertsInstance {
    * @returns Resolves to processed DomainCertsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
   ): Promise<DomainCertsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -255,8 +256,8 @@ export class DomainCertsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>
-    ) => any
+      item?: ApiResponse<DomainCertsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DomainCertsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -321,7 +322,7 @@ export function DomainCertsListInstance(version: V2): DomainCertsListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

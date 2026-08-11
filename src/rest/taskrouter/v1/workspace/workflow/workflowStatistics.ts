@@ -44,7 +44,7 @@ export interface WorkflowStatisticsContext {
    * @returns Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any,
   ): Promise<WorkflowStatisticsInstance>;
   /**
    * Fetch a WorkflowStatisticsInstance
@@ -56,7 +56,7 @@ export interface WorkflowStatisticsContext {
    */
   fetch(
     params: WorkflowStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any,
   ): Promise<WorkflowStatisticsInstance>;
 
   /**
@@ -69,8 +69,8 @@ export interface WorkflowStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowStatisticsInstance>>;
   /**
    * Fetch a WorkflowStatisticsInstance and return HTTP info
@@ -84,8 +84,8 @@ export interface WorkflowStatisticsContext {
     params: WorkflowStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowStatisticsInstance>>;
 
   /**
@@ -100,16 +100,14 @@ export interface WorkflowStatisticsContextSolution {
   workflowSid: string;
 }
 
-export class WorkflowStatisticsContextImpl
-  implements WorkflowStatisticsContext
-{
+export class WorkflowStatisticsContextImpl implements WorkflowStatisticsContext {
   protected _solution: WorkflowStatisticsContextSolution;
   protected _uri: string;
 
   constructor(
     protected _version: V1,
     workspaceSid: string,
-    workflowSid: string
+    workflowSid: string,
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -127,13 +125,13 @@ export class WorkflowStatisticsContextImpl
     params?:
       | WorkflowStatisticsContextFetchOptions
       | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any,
   ): Promise<WorkflowStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -166,13 +164,13 @@ export class WorkflowStatisticsContextImpl
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        )
+          instance._solution.workflowSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -182,18 +180,18 @@ export class WorkflowStatisticsContextImpl
       | WorkflowStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<WorkflowStatisticsInstance>
+          item?: ApiResponse<WorkflowStatisticsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -221,21 +219,19 @@ export class WorkflowStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkflowStatisticsInstance> => ({
-          ...response,
-          body: new WorkflowStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.workflowSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkflowStatisticsInstance> => ({
+        ...response,
+        body: new WorkflowStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -273,7 +269,7 @@ export class WorkflowStatisticsInstance {
     protected _version: V1,
     payload: WorkflowStatisticsResource,
     workspaceSid: string,
-    workflowSid: string
+    workflowSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;
@@ -316,7 +312,7 @@ export class WorkflowStatisticsInstance {
       new WorkflowStatisticsContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.workflowSid
+        this._solution.workflowSid,
       );
     return this._context;
   }
@@ -329,7 +325,7 @@ export class WorkflowStatisticsInstance {
    * @returns Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any,
   ): Promise<WorkflowStatisticsInstance>;
   /**
    * Fetch a WorkflowStatisticsInstance
@@ -341,12 +337,12 @@ export class WorkflowStatisticsInstance {
    */
   fetch(
     params: WorkflowStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any,
   ): Promise<WorkflowStatisticsInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any,
   ): Promise<WorkflowStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -361,8 +357,8 @@ export class WorkflowStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowStatisticsInstance>>;
   /**
    * Fetch a WorkflowStatisticsInstance and return HTTP info
@@ -376,16 +372,16 @@ export class WorkflowStatisticsInstance {
     params: WorkflowStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkflowStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -434,7 +430,7 @@ export interface WorkflowStatisticsListInstance {
 export function WorkflowStatisticsListInstance(
   version: V1,
   workspaceSid: string,
-  workflowSid: string
+  workflowSid: string,
 ): WorkflowStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -450,7 +446,7 @@ export function WorkflowStatisticsListInstance(
     return new WorkflowStatisticsContextImpl(
       version,
       workspaceSid,
-      workflowSid
+      workflowSid,
     );
   };
 
@@ -464,7 +460,7 @@ export function WorkflowStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -39,7 +39,7 @@ export interface InteractionChannelInviteListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InteractionChannelInviteInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -91,8 +91,8 @@ export interface InteractionChannelInviteListInstance {
     params: InteractionChannelInviteListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelInviteInstance
-    ) => any
+      item?: InteractionChannelInviteInstance,
+    ) => any,
   ): Promise<InteractionChannelInviteInstance>;
 
   /**
@@ -107,8 +107,8 @@ export interface InteractionChannelInviteListInstance {
     params: InteractionChannelInviteListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InteractionChannelInviteInstance>
-    ) => any
+      item?: ApiResponse<InteractionChannelInviteInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInviteInstance>>;
 
   /**
@@ -129,15 +129,15 @@ export interface InteractionChannelInviteListInstance {
   each(
     callback?: (
       item: InteractionChannelInviteInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: InteractionChannelInviteListInstanceEachOptions,
     callback?: (
       item: InteractionChannelInviteInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams InteractionChannelInviteInstance records from the API with HTTP metadata captured per page.
@@ -157,15 +157,15 @@ export interface InteractionChannelInviteListInstance {
   eachWithHttpInfo(
     callback?: (
       item: InteractionChannelInviteInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: InteractionChannelInviteListInstanceEachOptions,
     callback?: (
       item: InteractionChannelInviteInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of InteractionChannelInviteInstance records from the API.
@@ -177,7 +177,10 @@ export interface InteractionChannelInviteListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInvitePage,
+    ) => any,
   ): Promise<InteractionChannelInvitePage>;
   /**
    * Retrieve a single target page of InteractionChannelInviteInstance records from the API with HTTP metadata.
@@ -191,8 +194,8 @@ export interface InteractionChannelInviteListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInvitePage>
-    ) => any
+      items: ApiResponse<InteractionChannelInvitePage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInvitePage>>;
   /**
    * Lists InteractionChannelInviteInstance records from the API as a list.
@@ -206,15 +209,15 @@ export interface InteractionChannelInviteListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: InteractionChannelInviteInstance[]
-    ) => any
+      items: InteractionChannelInviteInstance[],
+    ) => any,
   ): Promise<InteractionChannelInviteInstance[]>;
   list(
     params: InteractionChannelInviteListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: InteractionChannelInviteInstance[]
-    ) => any
+      items: InteractionChannelInviteInstance[],
+    ) => any,
   ): Promise<InteractionChannelInviteInstance[]>;
   /**
    * Lists InteractionChannelInviteInstance records from the API as a list with HTTP metadata.
@@ -230,15 +233,15 @@ export interface InteractionChannelInviteListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInviteInstance[]>
-    ) => any
+      items: ApiResponse<InteractionChannelInviteInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInviteInstance[]>>;
   listWithHttpInfo(
     params: InteractionChannelInviteListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInviteInstance[]>
-    ) => any
+      items: ApiResponse<InteractionChannelInviteInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInviteInstance[]>>;
   /**
    * Retrieve a single page of InteractionChannelInviteInstance records from the API.
@@ -252,11 +255,17 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInvitePage,
+    ) => any,
   ): Promise<InteractionChannelInvitePage>;
   page(
     params: InteractionChannelInviteListInstancePageOptions,
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInvitePage,
+    ) => any,
   ): Promise<InteractionChannelInvitePage>;
   /**
    * Retrieve a single page of InteractionChannelInviteInstance records from the API with HTTP metadata.
@@ -272,15 +281,15 @@ export interface InteractionChannelInviteListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInvitePage>
-    ) => any
+      items: ApiResponse<InteractionChannelInvitePage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInvitePage>>;
   pageWithHttpInfo(
     params: InteractionChannelInviteListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInvitePage>
-    ) => any
+      items: ApiResponse<InteractionChannelInvitePage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInvitePage>>;
 
   /**
@@ -293,7 +302,7 @@ export interface InteractionChannelInviteListInstance {
 export function InteractionChannelInviteListInstance(
   version: V1,
   interactionSid: string,
-  channelSid: string
+  channelSid: string,
 ): InteractionChannelInviteListInstance {
   if (!isValidPathParam(interactionSid)) {
     throw new Error("Parameter 'interactionSid' is not valid.");
@@ -313,8 +322,8 @@ export function InteractionChannelInviteListInstance(
     params: InteractionChannelInviteListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: InteractionChannelInviteInstance
-    ) => any
+      items: InteractionChannelInviteInstance,
+    ) => any,
   ): Promise<InteractionChannelInviteInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -346,13 +355,13 @@ export function InteractionChannelInviteListInstance(
           operationVersion,
           payload,
           instance._solution.interactionSid,
-          instance._solution.channelSid
-        )
+          instance._solution.channelSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -361,8 +370,8 @@ export function InteractionChannelInviteListInstance(
     params: InteractionChannelInviteListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInviteInstance>
-    ) => any
+      items: ApiResponse<InteractionChannelInviteInstance>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInviteInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -389,21 +398,19 @@ export function InteractionChannelInviteListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionChannelInviteInstance> => ({
-          ...response,
-          body: new InteractionChannelInviteInstance(
-            operationVersion,
-            response.body,
-            instance._solution.interactionSid,
-            instance._solution.channelSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionChannelInviteInstance> => ({
+        ...response,
+        body: new InteractionChannelInviteInstance(
+          operationVersion,
+          response.body,
+          instance._solution.interactionSid,
+          instance._solution.channelSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -412,7 +419,10 @@ export function InteractionChannelInviteListInstance(
     params?:
       | InteractionChannelInviteListInstancePageOptions
       | ((error: Error | null, items: InteractionChannelInvitePage) => any),
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInvitePage,
+    ) => any,
   ): Promise<InteractionChannelInvitePage> {
     if (params instanceof Function) {
       callback = params;
@@ -444,13 +454,13 @@ export function InteractionChannelInviteListInstance(
         new InteractionChannelInvitePage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -460,7 +470,10 @@ export function InteractionChannelInviteListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInvitePage,
+    ) => any,
   ): Promise<InteractionChannelInvitePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -471,8 +484,8 @@ export function InteractionChannelInviteListInstance(
         new InteractionChannelInvitePage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -483,12 +496,12 @@ export function InteractionChannelInviteListInstance(
       | InteractionChannelInviteListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InteractionChannelInvitePage>
+          items: ApiResponse<InteractionChannelInvitePage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InteractionChannelInvitePage>
-    ) => any
+      items: ApiResponse<InteractionChannelInvitePage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInvitePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -513,21 +526,19 @@ export function InteractionChannelInviteListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InteractionChannelInvitePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InteractionChannelInvitePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionChannelInvitePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InteractionChannelInvitePage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -541,8 +552,8 @@ export function InteractionChannelInviteListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<InteractionChannelInvitePage>
-    ) => any
+      items?: ApiResponse<InteractionChannelInvitePage>,
+    ) => any,
   ): Promise<ApiResponse<InteractionChannelInvitePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -557,9 +568,9 @@ export function InteractionChannelInviteListInstance(
         body: new InteractionChannelInvitePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -571,7 +582,7 @@ export function InteractionChannelInviteListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -596,7 +607,7 @@ export class InteractionChannelInviteInstance {
     protected _version: V1,
     payload: InteractionChannelInviteResource,
     interactionSid: string,
-    channelSid: string
+    channelSid: string,
   ) {
     this.sid = payload.sid;
     this.interactionSid = payload.interaction_sid;
@@ -659,7 +670,7 @@ export class InteractionChannelInvitePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: InteractionChannelInviteSolution
+    solution: InteractionChannelInviteSolution,
   ) {
     super(version, response, solution);
   }
@@ -670,13 +681,13 @@ export class InteractionChannelInvitePage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InteractionChannelInviteResource
+    payload: InteractionChannelInviteResource,
   ): InteractionChannelInviteInstance {
     return new InteractionChannelInviteInstance(
       this._version,
       payload,
       this._solution.interactionSid,
-      this._solution.channelSid
+      this._solution.channelSid,
     );
   }
 

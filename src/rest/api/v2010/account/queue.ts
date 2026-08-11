@@ -90,7 +90,7 @@ export interface QueueContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -101,7 +101,7 @@ export interface QueueContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -112,7 +112,7 @@ export interface QueueContext {
    * @returns Resolves to processed QueueInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance>;
 
   /**
@@ -123,7 +123,7 @@ export interface QueueContext {
    * @returns Resolves to processed QueueInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>>;
 
   /**
@@ -134,7 +134,7 @@ export interface QueueContext {
    * @returns Resolves to processed QueueInstance
    */
   update(
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance>;
   /**
    * Update a QueueInstance
@@ -146,7 +146,7 @@ export interface QueueContext {
    */
   update(
     params: QueueContextUpdateOptions,
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance>;
 
   /**
@@ -157,7 +157,7 @@ export interface QueueContext {
    * @returns Resolves to processed QueueInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>>;
   /**
    * Update a QueueInstance and return HTTP info
@@ -169,7 +169,7 @@ export interface QueueContext {
    */
   updateWithHttpInfo(
     params: QueueContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>>;
 
   /**
@@ -190,7 +190,11 @@ export class QueueContextImpl implements QueueContext {
 
   protected _members?: MemberListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -209,13 +213,13 @@ export class QueueContextImpl implements QueueContext {
       MemberListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._members;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -229,13 +233,13 @@ export class QueueContextImpl implements QueueContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -244,22 +248,20 @@ export class QueueContextImpl implements QueueContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -278,19 +280,19 @@ export class QueueContextImpl implements QueueContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -304,21 +306,19 @@ export class QueueContextImpl implements QueueContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<QueueInstance> => ({
-          ...response,
-          body: new QueueInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<QueueInstance> => ({
+        ...response,
+        body: new QueueInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -327,13 +327,13 @@ export class QueueContextImpl implements QueueContext {
     params?:
       | QueueContextUpdateOptions
       | ((error: Error | null, item?: QueueInstance) => any),
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -361,13 +361,13 @@ export class QueueContextImpl implements QueueContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -376,13 +376,13 @@ export class QueueContextImpl implements QueueContext {
     params?:
       | QueueContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<QueueInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,21 +405,19 @@ export class QueueContextImpl implements QueueContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<QueueInstance> => ({
-          ...response,
-          body: new QueueInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<QueueInstance> => ({
+        ...response,
+        body: new QueueInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -462,7 +460,7 @@ export class QueueInstance {
     protected _version: V2010,
     payload: QueueResource,
     accountSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.currentSize = deserialize.integer(payload.current_size);
@@ -474,7 +472,7 @@ export class QueueInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.maxSize = deserialize.integer(payload.max_size);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -520,7 +518,7 @@ export class QueueInstance {
       new QueueContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -533,7 +531,7 @@ export class QueueInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -546,7 +544,7 @@ export class QueueInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -559,7 +557,7 @@ export class QueueInstance {
    * @returns Resolves to processed QueueInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance> {
     return this._proxy.fetch(callback);
   }
@@ -572,7 +570,7 @@ export class QueueInstance {
    * @returns Resolves to processed QueueInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -585,7 +583,7 @@ export class QueueInstance {
    * @returns Resolves to processed QueueInstance
    */
   update(
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance>;
   /**
    * Update a QueueInstance
@@ -597,12 +595,12 @@ export class QueueInstance {
    */
   update(
     params: QueueContextUpdateOptions,
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance> {
     return this._proxy.update(params, callback);
   }
@@ -615,7 +613,7 @@ export class QueueInstance {
    * @returns Resolves to processed QueueInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>>;
   /**
    * Update a QueueInstance and return HTTP info
@@ -627,12 +625,12 @@ export class QueueInstance {
    */
   updateWithHttpInfo(
     params: QueueContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -690,7 +688,7 @@ export interface QueueListInstance {
    */
   create(
     params: QueueListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, item?: QueueInstance) => any,
   ): Promise<QueueInstance>;
 
   /**
@@ -703,7 +701,7 @@ export interface QueueListInstance {
    */
   createWithHttpInfo(
     params: QueueListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>>;
 
   /**
@@ -722,11 +720,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: QueueListInstanceEachOptions,
-    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams QueueInstance records from the API with HTTP metadata captured per page.
@@ -744,11 +742,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: QueueListInstanceEachOptions,
-    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of QueueInstance records from the API.
@@ -760,7 +758,7 @@ export interface QueueListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: QueuePage) => any
+    callback?: (error: Error | null, items: QueuePage) => any,
   ): Promise<QueuePage>;
   /**
    * Retrieve a single target page of QueueInstance records from the API with HTTP metadata.
@@ -772,7 +770,7 @@ export interface QueueListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any,
   ): Promise<ApiResponse<QueuePage>>;
   /**
    * Lists QueueInstance records from the API as a list.
@@ -784,11 +782,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: QueueInstance[]) => any
+    callback?: (error: Error | null, items: QueueInstance[]) => any,
   ): Promise<QueueInstance[]>;
   list(
     params: QueueListInstanceOptions,
-    callback?: (error: Error | null, items: QueueInstance[]) => any
+    callback?: (error: Error | null, items: QueueInstance[]) => any,
   ): Promise<QueueInstance[]>;
   /**
    * Lists QueueInstance records from the API as a list with HTTP metadata.
@@ -802,11 +800,17 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<QueueInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<QueueInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<QueueInstance[]>>;
   listWithHttpInfo(
     params: QueueListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<QueueInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<QueueInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<QueueInstance[]>>;
   /**
    * Retrieve a single page of QueueInstance records from the API.
@@ -820,11 +824,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: QueuePage) => any
+    callback?: (error: Error | null, items: QueuePage) => any,
   ): Promise<QueuePage>;
   page(
     params: QueueListInstancePageOptions,
-    callback?: (error: Error | null, items: QueuePage) => any
+    callback?: (error: Error | null, items: QueuePage) => any,
   ): Promise<QueuePage>;
   /**
    * Retrieve a single page of QueueInstance records from the API with HTTP metadata.
@@ -838,11 +842,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any,
   ): Promise<ApiResponse<QueuePage>>;
   pageWithHttpInfo(
     params: QueueListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any,
   ): Promise<ApiResponse<QueuePage>>;
 
   /**
@@ -854,7 +858,7 @@ export interface QueueListInstance {
 
 export function QueueListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): QueueListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -872,7 +876,7 @@ export function QueueListInstance(
 
   instance.create = function create(
     params: QueueListInstanceCreateOptions,
-    callback?: (error: Error | null, items: QueueInstance) => any
+    callback?: (error: Error | null, items: QueueInstance) => any,
   ): Promise<QueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -907,20 +911,20 @@ export function QueueListInstance(
         new QueueInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: QueueListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<QueueInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<QueueInstance>) => any,
   ): Promise<ApiResponse<QueueInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -951,20 +955,18 @@ export function QueueListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<QueueInstance> => ({
-          ...response,
-          body: new QueueInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<QueueInstance> => ({
+        ...response,
+        body: new QueueInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -973,7 +975,7 @@ export function QueueListInstance(
     params?:
       | QueueListInstancePageOptions
       | ((error: Error | null, items: QueuePage) => any),
-    callback?: (error: Error | null, items: QueuePage) => any
+    callback?: (error: Error | null, items: QueuePage) => any,
   ): Promise<QueuePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1001,12 +1003,12 @@ export function QueueListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueuePage(operationVersion, payload, instance._solution)
+      (payload) => new QueuePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1016,14 +1018,15 @@ export function QueueListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: QueuePage) => any
+    callback?: (error: Error | null, items: QueuePage) => any,
   ): Promise<QueuePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new QueuePage(instance._version, payload, instance._solution)
+      (payload) =>
+        new QueuePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1033,7 +1036,7 @@ export function QueueListInstance(
     params?:
       | QueueListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<QueuePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<QueuePage>) => any,
   ): Promise<ApiResponse<QueuePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1058,17 +1061,15 @@ export function QueueListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<QueuePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new QueuePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<QueuePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new QueuePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1080,7 +1081,7 @@ export function QueueListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<QueuePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<QueuePage>) => any,
   ): Promise<ApiResponse<QueuePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1093,7 +1094,7 @@ export function QueueListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new QueuePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1105,7 +1106,7 @@ export function QueueListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1129,7 +1130,7 @@ export class QueuePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: QueueSolution
+    solution: QueueSolution,
   ) {
     super(version, response, solution);
   }

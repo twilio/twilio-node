@@ -87,7 +87,7 @@ export interface PublicKeyContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -98,7 +98,7 @@ export interface PublicKeyContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -109,7 +109,7 @@ export interface PublicKeyContext {
    * @returns Resolves to processed PublicKeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance>;
 
   /**
@@ -122,8 +122,8 @@ export interface PublicKeyContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>>;
 
   /**
@@ -134,7 +134,7 @@ export interface PublicKeyContext {
    * @returns Resolves to processed PublicKeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance>;
   /**
    * Update a PublicKeyInstance
@@ -146,7 +146,7 @@ export interface PublicKeyContext {
    */
   update(
     params: PublicKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance>;
 
   /**
@@ -159,8 +159,8 @@ export interface PublicKeyContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>>;
   /**
    * Update a PublicKeyInstance and return HTTP info
@@ -174,8 +174,8 @@ export interface PublicKeyContext {
     params: PublicKeyContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>>;
 
   /**
@@ -193,7 +193,10 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   protected _solution: PublicKeyContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -203,7 +206,7 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -217,13 +220,13 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -232,22 +235,20 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -262,12 +263,16 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PublicKeyInstance(operationVersion, payload, instance._solution.sid)
+        new PublicKeyInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -275,8 +280,8 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -290,20 +295,18 @@ export class PublicKeyContextImpl implements PublicKeyContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<PublicKeyInstance> => ({
-          ...response,
-          body: new PublicKeyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PublicKeyInstance> => ({
+        ...response,
+        body: new PublicKeyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -312,13 +315,13 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     params?:
       | PublicKeyContextUpdateOptions
       | ((error: Error | null, item?: PublicKeyInstance) => any),
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -341,12 +344,16 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PublicKeyInstance(operationVersion, payload, instance._solution.sid)
+        new PublicKeyInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -357,14 +364,14 @@ export class PublicKeyContextImpl implements PublicKeyContext {
       | ((error: Error | null, item?: ApiResponse<PublicKeyInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -386,20 +393,18 @@ export class PublicKeyContextImpl implements PublicKeyContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PublicKeyInstance> => ({
-          ...response,
-          body: new PublicKeyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PublicKeyInstance> => ({
+        ...response,
+        body: new PublicKeyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -438,7 +443,7 @@ export class PublicKeyInstance {
   constructor(
     protected _version: V1,
     payload: PublicKeyResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -447,7 +452,7 @@ export class PublicKeyInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -490,7 +495,7 @@ export class PublicKeyInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -503,7 +508,7 @@ export class PublicKeyInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -516,7 +521,7 @@ export class PublicKeyInstance {
    * @returns Resolves to processed PublicKeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance> {
     return this._proxy.fetch(callback);
   }
@@ -531,8 +536,8 @@ export class PublicKeyInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -545,7 +550,7 @@ export class PublicKeyInstance {
    * @returns Resolves to processed PublicKeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance>;
   /**
    * Update a PublicKeyInstance
@@ -557,12 +562,12 @@ export class PublicKeyInstance {
    */
   update(
     params: PublicKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance> {
     return this._proxy.update(params, callback);
   }
@@ -577,8 +582,8 @@ export class PublicKeyInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>>;
   /**
    * Update a PublicKeyInstance and return HTTP info
@@ -592,16 +597,16 @@ export class PublicKeyInstance {
     params: PublicKeyContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -647,7 +652,7 @@ export interface PublicKeyListInstance {
    */
   create(
     params: PublicKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance>;
 
   /**
@@ -662,8 +667,8 @@ export interface PublicKeyListInstance {
     params: PublicKeyListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PublicKeyInstance>
-    ) => any
+      item?: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>>;
 
   /**
@@ -682,11 +687,11 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: PublicKeyListInstanceEachOptions,
-    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams PublicKeyInstance records from the API with HTTP metadata captured per page.
@@ -704,11 +709,11 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: PublicKeyListInstanceEachOptions,
-    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of PublicKeyInstance records from the API.
@@ -720,7 +725,7 @@ export interface PublicKeyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PublicKeyPage) => any
+    callback?: (error: Error | null, items: PublicKeyPage) => any,
   ): Promise<PublicKeyPage>;
   /**
    * Retrieve a single target page of PublicKeyInstance records from the API with HTTP metadata.
@@ -732,7 +737,7 @@ export interface PublicKeyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any,
   ): Promise<ApiResponse<PublicKeyPage>>;
   /**
    * Lists PublicKeyInstance records from the API as a list.
@@ -744,11 +749,11 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: PublicKeyInstance[]) => any
+    callback?: (error: Error | null, items: PublicKeyInstance[]) => any,
   ): Promise<PublicKeyInstance[]>;
   list(
     params: PublicKeyListInstanceOptions,
-    callback?: (error: Error | null, items: PublicKeyInstance[]) => any
+    callback?: (error: Error | null, items: PublicKeyInstance[]) => any,
   ): Promise<PublicKeyInstance[]>;
   /**
    * Lists PublicKeyInstance records from the API as a list with HTTP metadata.
@@ -764,15 +769,15 @@ export interface PublicKeyListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<PublicKeyInstance[]>
-    ) => any
+      items: ApiResponse<PublicKeyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance[]>>;
   listWithHttpInfo(
     params: PublicKeyListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PublicKeyInstance[]>
-    ) => any
+      items: ApiResponse<PublicKeyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance[]>>;
   /**
    * Retrieve a single page of PublicKeyInstance records from the API.
@@ -786,11 +791,11 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: PublicKeyPage) => any
+    callback?: (error: Error | null, items: PublicKeyPage) => any,
   ): Promise<PublicKeyPage>;
   page(
     params: PublicKeyListInstancePageOptions,
-    callback?: (error: Error | null, items: PublicKeyPage) => any
+    callback?: (error: Error | null, items: PublicKeyPage) => any,
   ): Promise<PublicKeyPage>;
   /**
    * Retrieve a single page of PublicKeyInstance records from the API with HTTP metadata.
@@ -804,11 +809,11 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any,
   ): Promise<ApiResponse<PublicKeyPage>>;
   pageWithHttpInfo(
     params: PublicKeyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any,
   ): Promise<ApiResponse<PublicKeyPage>>;
 
   /**
@@ -831,7 +836,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
   instance.create = function create(
     params: PublicKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, items: PublicKeyInstance) => any
+    callback?: (error: Error | null, items: PublicKeyInstance) => any,
   ): Promise<PublicKeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -862,12 +867,12 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PublicKeyInstance(operationVersion, payload)
+      (payload) => new PublicKeyInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -876,8 +881,8 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     params: PublicKeyListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PublicKeyInstance>
-    ) => any
+      items: ApiResponse<PublicKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<PublicKeyInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -908,16 +913,14 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PublicKeyInstance> => ({
-          ...response,
-          body: new PublicKeyInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<PublicKeyInstance> => ({
+        ...response,
+        body: new PublicKeyInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -926,7 +929,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     params?:
       | PublicKeyListInstancePageOptions
       | ((error: Error | null, items: PublicKeyPage) => any),
-    callback?: (error: Error | null, items: PublicKeyPage) => any
+    callback?: (error: Error | null, items: PublicKeyPage) => any,
   ): Promise<PublicKeyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -955,12 +958,12 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PublicKeyPage(operationVersion, payload, instance._solution)
+        new PublicKeyPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -970,7 +973,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PublicKeyPage) => any
+    callback?: (error: Error | null, items: PublicKeyPage) => any,
   ): Promise<PublicKeyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -978,7 +981,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new PublicKeyPage(instance._version, payload, instance._solution)
+        new PublicKeyPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -988,7 +991,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     params?:
       | PublicKeyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<PublicKeyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PublicKeyPage>) => any,
   ): Promise<ApiResponse<PublicKeyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1013,21 +1016,15 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<PublicKeyPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new PublicKeyPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<PublicKeyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PublicKeyPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1039,7 +1036,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<PublicKeyPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<PublicKeyPage>) => any,
   ): Promise<ApiResponse<PublicKeyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1054,9 +1051,9 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
         body: new PublicKeyPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1068,7 +1065,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1092,7 +1089,7 @@ export class PublicKeyPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: PublicKeySolution
+    solution: PublicKeySolution,
   ) {
     super(version, response, solution);
   }

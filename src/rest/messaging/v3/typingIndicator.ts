@@ -24,7 +24,7 @@ import { ApiResponse } from "../../../base/ApiResponse";
  */
 export class TypingIndicatorRequest {
   /**
-   * The messaging channel. Must be \"APPLE\".
+   * The messaging channel. Must be \"RCS\".
    */
   "channel": string;
   /**
@@ -32,15 +32,15 @@ export class TypingIndicatorRequest {
    */
   "messageId": string;
   /**
-   * The Apple Messages for Business identifier of the sender (business).
+   * The RCS agent identifier of the sender (business).
    */
   "from": string;
   /**
-   * The Apple Messages for Business identifier of the recipient (customer).
+   * The RCS recipient identifier in E.164 format prefixed with \"rcs:\".
    */
   "to": string;
   /**
-   * The type of typing event. \"START\" indicates the agent began typing, \"END\" indicates the agent stopped typing. Defaults to \"START\".
+   * The type of typing event. Currently only \"START\" is supported for RCS, indicating the agent began typing. Defaults to \"START\".
    */
   "event"?: string;
 
@@ -80,7 +80,7 @@ export interface TypingIndicatorListInstance {
   create(
     params: TypingIndicatorRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: TypingIndicatorInstance) => any
+    callback?: (error: Error | null, item?: TypingIndicatorInstance) => any,
   ): Promise<TypingIndicatorInstance>;
 
   /**
@@ -97,8 +97,8 @@ export interface TypingIndicatorListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TypingIndicatorInstance>
-    ) => any
+      item?: ApiResponse<TypingIndicatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<TypingIndicatorInstance>>;
 
   /**
@@ -109,7 +109,7 @@ export interface TypingIndicatorListInstance {
 }
 
 export function TypingIndicatorListInstance(
-  version: V3
+  version: V3,
 ): TypingIndicatorListInstance {
   const instance = {} as TypingIndicatorListInstance;
 
@@ -120,7 +120,7 @@ export function TypingIndicatorListInstance(
   instance.create = function create(
     params: TypingIndicatorRequest,
     headers?: any,
-    callback?: (error: Error | null, items: TypingIndicatorInstance) => any
+    callback?: (error: Error | null, items: TypingIndicatorInstance) => any,
   ): Promise<TypingIndicatorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -146,12 +146,12 @@ export function TypingIndicatorListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TypingIndicatorInstance(operationVersion, payload)
+      (payload) => new TypingIndicatorInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -161,8 +161,8 @@ export function TypingIndicatorListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TypingIndicatorInstance>
-    ) => any
+      items: ApiResponse<TypingIndicatorInstance>,
+    ) => any,
   ): Promise<ApiResponse<TypingIndicatorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -188,16 +188,14 @@ export function TypingIndicatorListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TypingIndicatorInstance> => ({
-          ...response,
-          body: new TypingIndicatorInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<TypingIndicatorInstance> => ({
+        ...response,
+        body: new TypingIndicatorInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -208,7 +206,7 @@ export function TypingIndicatorListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -223,7 +221,10 @@ interface TypingIndicatorResource {
 }
 
 export class TypingIndicatorInstance {
-  constructor(protected _version: V3, payload: TypingIndicatorResource) {
+  constructor(
+    protected _version: V3,
+    payload: TypingIndicatorResource,
+  ) {
     this.success = payload.success;
   }
 

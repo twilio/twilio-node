@@ -22,10 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export class ConversationsV2Address {
-  /**
-   * The channel for Communication.
-   */
-  "channel": string;
+  "channel": ConversationsV2Channel;
   /**
    * The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
    */
@@ -42,21 +39,22 @@ export class ConversationsV2Address {
   }
 }
 
-export class CreateParticipantInConversationRequest {
-  "name"?: string;
-  "type"?: string;
-  "profileId"?: string;
-  "addresses": Array<CreateParticipantInConversationRequestAddresses>;
+/**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
 
-  constructor(payload) {
-    this.name = payload["name"];
-    this.type = payload["type"];
-    this.profileId = payload["profileId"];
-    this.addresses = payload["addresses"];
-  }
-}
+/**
+ * Type of Participant in the Conversation.
+ */
+export type ConversationsV2ParticipantType =
+  "HUMAN_AGENT" | "CUSTOMER" | "AI_AGENT" | "AGENT" | "UNKNOWN";
 
-export class CreateParticipantInConversationRequestAddresses {
+export class CreateConversationWithConfigRequestParticipantsAddresses {
+  /**
+   * Channel type for a Communication address.
+   */
   "channel": string;
   "address": string;
   "channelId"?: string;
@@ -68,11 +66,31 @@ export class CreateParticipantInConversationRequestAddresses {
   }
 }
 
-export class UpdateParticipantInConversationRequest {
+export class CreateParticipantInConversationRequest {
   "name"?: string;
+  /**
+   * Type of Participant in the Conversation.
+   */
   "type"?: string;
   "profileId"?: string;
-  "addresses"?: Array<CreateParticipantInConversationRequestAddresses>;
+  "addresses": Array<CreateConversationWithConfigRequestParticipantsAddresses>;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.type = payload["type"];
+    this.profileId = payload["profileId"];
+    this.addresses = payload["addresses"];
+  }
+}
+
+export class UpdateParticipantInConversationRequest {
+  "name"?: string;
+  /**
+   * Type of Participant in the Conversation.
+   */
+  "type"?: string;
+  "profileId"?: string;
+  "addresses"?: Array<CreateConversationWithConfigRequestParticipantsAddresses>;
 
   constructor(payload) {
     this.name = payload["name"];
@@ -145,7 +163,7 @@ export interface ParticipantContext {
    * @returns Resolves to processed ParticipantInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
 
   /**
@@ -158,8 +176,8 @@ export interface ParticipantContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
@@ -170,7 +188,7 @@ export interface ParticipantContext {
    * @returns Resolves to processed ParticipantInstance
    */
   update(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
@@ -184,7 +202,7 @@ export interface ParticipantContext {
   update(
     params: UpdateParticipantInConversationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
 
   /**
@@ -197,8 +215,8 @@ export interface ParticipantContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
   /**
    * Update a ParticipantInstance and return HTTP info
@@ -214,8 +232,8 @@ export interface ParticipantContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
@@ -226,29 +244,33 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  conversationSid: string;
-  sid: string;
+  conversationId: string;
+  id: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, conversationSid: string, sid: string) {
-    if (!isValidPathParam(conversationSid)) {
-      throw new Error("Parameter 'conversationSid' is not valid.");
+  constructor(
+    protected _version: V2,
+    conversationId: string,
+    id: string,
+  ) {
+    if (!isValidPathParam(conversationId)) {
+      throw new Error("Parameter 'conversationId' is not valid.");
     }
 
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { conversationSid, sid };
-    this._uri = `/Conversations/${conversationSid}/Participants/${sid}`;
+    this._solution = { conversationId, id };
+    this._uri = `/Conversations/${conversationId}/Participants/${id}`;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -266,14 +288,14 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        )
+          instance._solution.conversationId,
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -281,8 +303,8 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -296,21 +318,19 @@ export class ParticipantContextImpl implements ParticipantContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -320,7 +340,7 @@ export class ParticipantContextImpl implements ParticipantContext {
       | UpdateParticipantInConversationRequest
       | ((error: Error | null, item?: ParticipantInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -357,14 +377,14 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        )
+          instance._solution.conversationId,
+          instance._solution.id,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -376,8 +396,8 @@ export class ParticipantContextImpl implements ParticipantContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -410,21 +430,19 @@ export class ParticipantContextImpl implements ParticipantContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+          instance._solution.id,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -452,7 +470,7 @@ interface ParticipantResource {
   conversationId: string;
   accountId: string;
   name: string;
-  type: string;
+  type: ConversationsV2ParticipantType;
   profileId: string;
   addresses: Array<ConversationsV2Address>;
   createdAt: Date;
@@ -466,8 +484,8 @@ export class ParticipantInstance {
   constructor(
     protected _version: V2,
     _payload: ParticipantResource,
-    conversationSid: string,
-    sid?: string
+    conversationId: string,
+    id?: string,
   ) {
     const payload = _payload;
     this.id = payload.id;
@@ -479,13 +497,13 @@ export class ParticipantInstance {
     this.addresses =
       payload.addresses !== null && payload.addresses !== undefined
         ? payload.addresses.map(
-            (payload: any) => new ConversationsV2Address(payload)
+            (payload: any) => new ConversationsV2Address(payload),
           )
         : null;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
 
-    this._solution = { conversationSid, sid: sid };
+    this._solution = { conversationId, id: id };
   }
 
   /**
@@ -504,10 +522,7 @@ export class ParticipantInstance {
    * Participant display name.
    */
   name: string;
-  /**
-   * Type of Participant in the Conversation.
-   */
-  type: string;
+  type: ConversationsV2ParticipantType;
   /**
    * Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
    */
@@ -530,8 +545,8 @@ export class ParticipantInstance {
       this._context ||
       new ParticipantContextImpl(
         this._version,
-        this._solution.conversationSid,
-        this._solution.sid
+        this._solution.conversationId,
+        this._solution.id,
       );
     return this._context;
   }
@@ -544,7 +559,7 @@ export class ParticipantInstance {
    * @returns Resolves to processed ParticipantInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance> {
     return this._proxy.fetch(callback);
   }
@@ -559,8 +574,8 @@ export class ParticipantInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -573,7 +588,7 @@ export class ParticipantInstance {
    * @returns Resolves to processed ParticipantInstance
    */
   update(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
@@ -587,12 +602,12 @@ export class ParticipantInstance {
   update(
     params: UpdateParticipantInConversationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);
   }
@@ -607,8 +622,8 @@ export class ParticipantInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
   /**
    * Update a ParticipantInstance and return HTTP info
@@ -624,16 +639,16 @@ export class ParticipantInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -663,7 +678,7 @@ export class ParticipantInstance {
 }
 
 export interface ParticipantSolution {
-  conversationSid: string;
+  conversationId: string;
 }
 
 export interface ParticipantListInstance {
@@ -671,8 +686,8 @@ export interface ParticipantListInstance {
   _solution: ParticipantSolution;
   _uri: string;
 
-  (sid: string): ParticipantContext;
-  get(sid: string): ParticipantContext;
+  (id: string): ParticipantContext;
+  get(id: string): ParticipantContext;
 
   /**
    * Create a ParticipantInstance
@@ -682,7 +697,7 @@ export interface ParticipantListInstance {
    * @returns Resolves to processed ParticipantInstance
    */
   create(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
   /**
    * Create a ParticipantInstance
@@ -696,7 +711,7 @@ export interface ParticipantListInstance {
   create(
     params: CreateParticipantInConversationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, item?: ParticipantInstance) => any,
   ): Promise<ParticipantInstance>;
 
   /**
@@ -709,8 +724,8 @@ export interface ParticipantListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
   /**
    * Create a ParticipantInstance and return HTTP info
@@ -726,8 +741,8 @@ export interface ParticipantListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ParticipantInstance>
-    ) => any
+      item?: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>>;
 
   /**
@@ -746,11 +761,11 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ParticipantInstance records from the API with HTTP metadata captured per page.
@@ -768,11 +783,11 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
@@ -784,7 +799,7 @@ export interface ParticipantListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
+    callback?: (error: Error | null, items: ParticipantPage) => any,
   ): Promise<ParticipantPage>;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API with HTTP metadata.
@@ -796,7 +811,10 @@ export interface ParticipantListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantPage>>;
   /**
    * Lists ParticipantInstance records from the API as a list.
@@ -808,11 +826,11 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any,
   ): Promise<ParticipantInstance[]>;
   list(
     params: ParticipantListInstanceOptions,
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any,
   ): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list with HTTP metadata.
@@ -828,15 +846,15 @@ export interface ParticipantListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ParticipantInstance[]>
-    ) => any
+      items: ApiResponse<ParticipantInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance[]>>;
   listWithHttpInfo(
     params: ParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ParticipantInstance[]>
-    ) => any
+      items: ApiResponse<ParticipantInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance[]>>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
@@ -850,11 +868,11 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ParticipantPage) => any
+    callback?: (error: Error | null, items: ParticipantPage) => any,
   ): Promise<ParticipantPage>;
   page(
     params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ParticipantPage) => any
+    callback?: (error: Error | null, items: ParticipantPage) => any,
   ): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API with HTTP metadata.
@@ -868,11 +886,17 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantPage>>;
   pageWithHttpInfo(
     params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantPage>>;
 
   /**
@@ -884,28 +908,28 @@ export interface ParticipantListInstance {
 
 export function ParticipantListInstance(
   version: V2,
-  conversationSid: string
+  conversationId: string,
 ): ParticipantListInstance {
-  if (!isValidPathParam(conversationSid)) {
-    throw new Error("Parameter 'conversationSid' is not valid.");
+  if (!isValidPathParam(conversationId)) {
+    throw new Error("Parameter 'conversationId' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstance;
+  const instance = ((id) => instance.get(id)) as ParticipantListInstance;
 
-  instance.get = function get(sid): ParticipantContext {
-    return new ParticipantContextImpl(version, conversationSid, sid);
+  instance.get = function get(id): ParticipantContext {
+    return new ParticipantContextImpl(version, conversationId, id);
   };
 
   instance._version = version;
-  instance._solution = { conversationSid };
-  instance._uri = `/Conversations/${conversationSid}/Participants`;
+  instance._solution = { conversationId };
+  instance._uri = `/Conversations/${conversationId}/Participants`;
 
   instance.create = function create(
     params?:
       | CreateParticipantInConversationRequest
       | ((error: Error | null, items: ParticipantInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: ParticipantInstance) => any
+    callback?: (error: Error | null, items: ParticipantInstance) => any,
   ): Promise<ParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -941,13 +965,13 @@ export function ParticipantListInstance(
         new ParticipantInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid
-        )
+          instance._solution.conversationId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -959,8 +983,8 @@ export function ParticipantListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ParticipantInstance>
-    ) => any
+      items: ApiResponse<ParticipantInstance>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -992,20 +1016,18 @@ export function ParticipantListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1014,7 +1036,7 @@ export function ParticipantListInstance(
     params?:
       | ParticipantListInstancePageOptions
       | ((error: Error | null, items: ParticipantPage) => any),
-    callback?: (error: Error | null, items: ParticipantPage) => any
+    callback?: (error: Error | null, items: ParticipantPage) => any,
   ): Promise<ParticipantPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1047,13 +1069,13 @@ export function ParticipantListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1063,7 +1085,7 @@ export function ParticipantListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
+    callback?: (error: Error | null, items: ParticipantPage) => any,
   ): Promise<ParticipantPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1076,8 +1098,8 @@ export function ParticipantListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1087,7 +1109,10 @@ export function ParticipantListInstance(
     params?:
       | ParticipantListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ParticipantPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ParticipantPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1111,23 +1136,21 @@ export function ParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1141,8 +1164,8 @@ export function ParticipantListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ParticipantPage>
-    ) => any
+      items?: ApiResponse<ParticipantPage>,
+    ) => any,
   ): Promise<ApiResponse<ParticipantPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1159,9 +1182,9 @@ export function ParticipantListInstance(
           response,
           instance._uri,
           {},
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1173,7 +1196,7 @@ export function ParticipantListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1201,7 +1224,7 @@ export class ParticipantPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: ParticipantSolution
+    solution: ParticipantSolution,
   ) {
     super(version, response, uri, params, solution);
   }
@@ -1215,7 +1238,7 @@ export class ParticipantPage extends TokenPage<
     return new ParticipantInstance(
       this._version,
       payload,
-      this._solution.conversationSid
+      this._solution.conversationId,
     );
   }
 

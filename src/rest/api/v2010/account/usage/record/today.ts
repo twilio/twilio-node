@@ -107,11 +107,11 @@ export interface TodayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: TodayInstance, done: (err?: Error) => void) => void
+    callback?: (item: TodayInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: TodayListInstanceEachOptions,
-    callback?: (item: TodayInstance, done: (err?: Error) => void) => void
+    callback?: (item: TodayInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams TodayInstance records from the API with HTTP metadata captured per page.
@@ -129,11 +129,11 @@ export interface TodayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: TodayInstance, done: (err?: Error) => void) => void
+    callback?: (item: TodayInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: TodayListInstanceEachOptions,
-    callback?: (item: TodayInstance, done: (err?: Error) => void) => void
+    callback?: (item: TodayInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of TodayInstance records from the API.
@@ -145,7 +145,7 @@ export interface TodayListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TodayPage) => any
+    callback?: (error: Error | null, items: TodayPage) => any,
   ): Promise<TodayPage>;
   /**
    * Retrieve a single target page of TodayInstance records from the API with HTTP metadata.
@@ -157,7 +157,7 @@ export interface TodayListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any,
   ): Promise<ApiResponse<TodayPage>>;
   /**
    * Lists TodayInstance records from the API as a list.
@@ -169,11 +169,11 @@ export interface TodayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TodayInstance[]) => any
+    callback?: (error: Error | null, items: TodayInstance[]) => any,
   ): Promise<TodayInstance[]>;
   list(
     params: TodayListInstanceOptions,
-    callback?: (error: Error | null, items: TodayInstance[]) => any
+    callback?: (error: Error | null, items: TodayInstance[]) => any,
   ): Promise<TodayInstance[]>;
   /**
    * Lists TodayInstance records from the API as a list with HTTP metadata.
@@ -187,11 +187,17 @@ export interface TodayListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<TodayInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TodayInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TodayInstance[]>>;
   listWithHttpInfo(
     params: TodayListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<TodayInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<TodayInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TodayInstance[]>>;
   /**
    * Retrieve a single page of TodayInstance records from the API.
@@ -205,11 +211,11 @@ export interface TodayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TodayPage) => any
+    callback?: (error: Error | null, items: TodayPage) => any,
   ): Promise<TodayPage>;
   page(
     params: TodayListInstancePageOptions,
-    callback?: (error: Error | null, items: TodayPage) => any
+    callback?: (error: Error | null, items: TodayPage) => any,
   ): Promise<TodayPage>;
   /**
    * Retrieve a single page of TodayInstance records from the API with HTTP metadata.
@@ -223,11 +229,11 @@ export interface TodayListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any,
   ): Promise<ApiResponse<TodayPage>>;
   pageWithHttpInfo(
     params: TodayListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any,
   ): Promise<ApiResponse<TodayPage>>;
 
   /**
@@ -239,7 +245,7 @@ export interface TodayListInstance {
 
 export function TodayListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): TodayListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -255,7 +261,7 @@ export function TodayListInstance(
     params?:
       | TodayListInstancePageOptions
       | ((error: Error | null, items: TodayPage) => any),
-    callback?: (error: Error | null, items: TodayPage) => any
+    callback?: (error: Error | null, items: TodayPage) => any,
   ): Promise<TodayPage> {
     if (params instanceof Function) {
       callback = params;
@@ -290,12 +296,12 @@ export function TodayListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TodayPage(operationVersion, payload, instance._solution)
+      (payload) => new TodayPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -305,14 +311,15 @@ export function TodayListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TodayPage) => any
+    callback?: (error: Error | null, items: TodayPage) => any,
   ): Promise<TodayPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new TodayPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new TodayPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -322,7 +329,7 @@ export function TodayListInstance(
     params?:
       | TodayListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<TodayPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<TodayPage>) => any,
   ): Promise<ApiResponse<TodayPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -354,17 +361,15 @@ export function TodayListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TodayPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TodayPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<TodayPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TodayPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -376,7 +381,7 @@ export function TodayListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<TodayPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<TodayPage>) => any,
   ): Promise<ApiResponse<TodayPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -389,7 +394,7 @@ export function TodayListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new TodayPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -401,7 +406,7 @@ export function TodayListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -435,7 +440,7 @@ export class TodayInstance {
   constructor(
     protected _version: V2010,
     payload: TodayResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -561,7 +566,7 @@ export class TodayPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: TodaySolution
+    solution: TodaySolution,
   ) {
     super(version, response, solution);
   }

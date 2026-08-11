@@ -42,21 +42,87 @@ export type CallSummariesCallState =
   | "undialed";
 
 export type CallSummariesCallType =
-  | "carrier"
-  | "sip"
-  | "trunking"
-  | "client"
-  | "whatsapp";
+  "carrier" | "sip" | "trunking" | "client" | "whatsapp";
 
 export type CallSummariesProcessingState = "complete" | "partial";
 
 export type CallSummariesProcessingStateRequest =
-  | "completed"
-  | "started"
-  | "partial"
-  | "all";
+  "completed" | "started" | "partial" | "all";
 
 export type CallSummariesSortBy = "start_time" | "end_time";
+
+export class CallSummaryAgentSessionSummary {
+  "sessionId"?: string;
+  "ttsLatencyMs"?: CallSummaryCrelayRateStats;
+  "sttLatencyMs"?: CallSummaryCrelayRateStats;
+  "networkLatencyMs"?: CallSummaryCrelayRateStats;
+  "timeToFirstAudioMs"?: CallSummaryCrelayRateStats;
+  "applicationLatencyMs"?: CallSummaryCrelayRateStats;
+  "tokens"?: CallSummaryCrelayTokenStats;
+  "words"?: CallSummaryCrelayWordStats;
+  "turns"?: number;
+  "interruptions"?: CallSummaryCrelayInterruptions;
+  "sessionState"?: CallSummaryCrelaySessionState;
+
+  constructor(payload) {
+    this.sessionId = payload["session_id"];
+    this.ttsLatencyMs = payload["tts_latency_ms"];
+    this.sttLatencyMs = payload["stt_latency_ms"];
+    this.networkLatencyMs = payload["network_latency_ms"];
+    this.timeToFirstAudioMs = payload["time_to_first_audio_ms"];
+    this.applicationLatencyMs = payload["application_latency_ms"];
+    this.tokens = payload["tokens"];
+    this.words = payload["words"];
+    this.turns = payload["turns"];
+    this.interruptions = payload["interruptions"];
+    this.sessionState = payload["session_state"];
+  }
+}
+
+export class CallSummaryCrelayInterruptions {
+  "customerToAgent"?: number;
+  "agentToCustomer"?: number;
+
+  constructor(payload) {
+    this.customerToAgent = payload["customer_to_agent"];
+    this.agentToCustomer = payload["agent_to_customer"];
+  }
+}
+
+export class CallSummaryCrelayRateStats {
+  "min"?: number;
+  "max"?: number;
+  "avg"?: number;
+
+  constructor(payload) {
+    this.min = payload["min"];
+    this.max = payload["max"];
+    this.avg = payload["avg"];
+  }
+}
+
+export type CallSummaryCrelaySessionState =
+  "unknown" | "failure" | "ended" | "hung_up";
+
+export class CallSummaryCrelayTokenStats {
+  "total"?: number;
+  "tokensPerSecond"?: CallSummaryCrelayRateStats;
+
+  constructor(payload) {
+    this.total = payload["total"];
+    this.tokensPerSecond = payload["tokens_per_second"];
+  }
+}
+
+export class CallSummaryCrelayWordStats {
+  "total"?: number;
+  "wordsPerMinute"?: CallSummaryCrelayRateStats;
+
+  constructor(payload) {
+    this.total = payload["total"];
+    this.wordsPerMinute = payload["words_per_minute"];
+  }
+}
 
 /**
  * Options to pass to each
@@ -134,7 +200,7 @@ export interface CallSummariesListInstanceEachOptions {
   businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
   businessProfileType?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
@@ -220,7 +286,7 @@ export interface CallSummariesListInstanceOptions {
   businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
   businessProfileType?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -302,7 +368,7 @@ export interface CallSummariesListInstancePageOptions {
   businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
   businessProfileType?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -335,15 +401,15 @@ export interface CallSummariesListInstance {
   each(
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CallSummariesListInstanceEachOptions,
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CallSummariesInstance records from the API with HTTP metadata captured per page.
@@ -363,15 +429,15 @@ export interface CallSummariesListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CallSummariesListInstanceEachOptions,
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CallSummariesInstance records from the API.
@@ -383,7 +449,7 @@ export interface CallSummariesListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage>;
   /**
    * Retrieve a single target page of CallSummariesInstance records from the API with HTTP metadata.
@@ -397,8 +463,8 @@ export interface CallSummariesListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>>;
   /**
    * Lists CallSummariesInstance records from the API as a list.
@@ -410,11 +476,11 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CallSummariesInstance[]) => any
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any,
   ): Promise<CallSummariesInstance[]>;
   list(
     params: CallSummariesListInstanceOptions,
-    callback?: (error: Error | null, items: CallSummariesInstance[]) => any
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any,
   ): Promise<CallSummariesInstance[]>;
   /**
    * Lists CallSummariesInstance records from the API as a list with HTTP metadata.
@@ -430,15 +496,15 @@ export interface CallSummariesListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesInstance[]>
-    ) => any
+      items: ApiResponse<CallSummariesInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesInstance[]>>;
   listWithHttpInfo(
     params: CallSummariesListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesInstance[]>
-    ) => any
+      items: ApiResponse<CallSummariesInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesInstance[]>>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API.
@@ -452,11 +518,11 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage>;
   page(
     params: CallSummariesListInstancePageOptions,
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API with HTTP metadata.
@@ -472,15 +538,15 @@ export interface CallSummariesListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>>;
   pageWithHttpInfo(
     params: CallSummariesListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>>;
 
   /**
@@ -491,7 +557,7 @@ export interface CallSummariesListInstance {
 }
 
 export function CallSummariesListInstance(
-  version: V1
+  version: V1,
 ): CallSummariesListInstance {
   const instance = {} as CallSummariesListInstance;
 
@@ -503,7 +569,7 @@ export function CallSummariesListInstance(
     params?:
       | CallSummariesListInstancePageOptions
       | ((error: Error | null, items: CallSummariesPage) => any),
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage> {
     if (params instanceof Function) {
       callback = params;
@@ -560,7 +626,7 @@ export function CallSummariesListInstance(
       data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
     if (params["voiceIntegrityEnabled"] !== undefined)
       data["VoiceIntegrityEnabled"] = serialize.bool(
-        params["voiceIntegrityEnabled"]
+        params["voiceIntegrityEnabled"],
       );
     if (params["brandedBundleSid"] !== undefined)
       data["BrandedBundleSid"] = params["brandedBundleSid"];
@@ -602,12 +668,12 @@ export function CallSummariesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CallSummariesPage(operationVersion, payload, instance._solution)
+        new CallSummariesPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -617,7 +683,7 @@ export function CallSummariesListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -625,7 +691,7 @@ export function CallSummariesListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new CallSummariesPage(instance._version, payload, instance._solution)
+        new CallSummariesPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -637,8 +703,8 @@ export function CallSummariesListInstance(
       | ((error: Error | null, items: ApiResponse<CallSummariesPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -695,7 +761,7 @@ export function CallSummariesListInstance(
       data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
     if (params["voiceIntegrityEnabled"] !== undefined)
       data["VoiceIntegrityEnabled"] = serialize.bool(
-        params["voiceIntegrityEnabled"]
+        params["voiceIntegrityEnabled"],
       );
     if (params["brandedBundleSid"] !== undefined)
       data["BrandedBundleSid"] = params["brandedBundleSid"];
@@ -733,21 +799,19 @@ export function CallSummariesListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CallSummariesPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CallSummariesPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CallSummariesPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CallSummariesPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -761,8 +825,8 @@ export function CallSummariesListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CallSummariesPage>
-    ) => any
+      items?: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -777,9 +841,9 @@ export function CallSummariesListInstance(
         body: new CallSummariesPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -791,7 +855,7 @@ export function CallSummariesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -827,10 +891,14 @@ interface CallSummariesResource {
   properties: any;
   trust: any;
   annotation: any;
+  agent_session_summaries: Array<CallSummaryAgentSessionSummary>;
 }
 
 export class CallSummariesInstance {
-  constructor(protected _version: V1, payload: CallSummariesResource) {
+  constructor(
+    protected _version: V1,
+    payload: CallSummariesResource,
+  ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.answeredBy = payload.answered_by;
@@ -854,6 +922,13 @@ export class CallSummariesInstance {
     this.properties = payload.properties;
     this.trust = payload.trust;
     this.annotation = payload.annotation;
+    this.agentSessionSummaries =
+      payload.agent_session_summaries !== null &&
+      payload.agent_session_summaries !== undefined
+        ? payload.agent_session_summaries.map(
+            (payload: any) => new CallSummaryAgentSessionSummary(payload),
+          )
+        : null;
   }
 
   /**
@@ -936,6 +1011,10 @@ export class CallSummariesInstance {
    * `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
    */
   annotation: any;
+  /**
+   * `array[object]` List of agent session summaries for conversation relay. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#conversation-relay-object) for the object properties.
+   */
+  agentSessionSummaries: Array<CallSummaryAgentSessionSummary>;
 
   /**
    * Provide a user-friendly representation
@@ -967,6 +1046,7 @@ export class CallSummariesInstance {
       properties: this.properties,
       trust: this.trust,
       annotation: this.annotation,
+      agentSessionSummaries: this.agentSessionSummaries,
     };
   }
 
@@ -991,7 +1071,7 @@ export class CallSummariesPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CallSummariesSolution
+    solution: CallSummariesSolution,
   ) {
     super(version, response, solution);
   }

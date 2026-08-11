@@ -28,7 +28,7 @@ export interface StepContextContext {
    * @returns Resolves to processed StepContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: StepContextInstance) => any
+    callback?: (error: Error | null, item?: StepContextInstance) => any,
   ): Promise<StepContextInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface StepContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<StepContextInstance>
-    ) => any
+      item?: ApiResponse<StepContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<StepContextInstance>>;
 
   /**
@@ -66,7 +66,7 @@ export class StepContextContextImpl implements StepContextContext {
     protected _version: V1,
     flowSid: string,
     engagementSid: string,
-    stepSid: string
+    stepSid: string,
   ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
@@ -85,7 +85,7 @@ export class StepContextContextImpl implements StepContextContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: StepContextInstance) => any
+    callback?: (error: Error | null, item?: StepContextInstance) => any,
   ): Promise<StepContextInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -105,13 +105,13 @@ export class StepContextContextImpl implements StepContextContext {
           payload,
           instance._solution.flowSid,
           instance._solution.engagementSid,
-          instance._solution.stepSid
-        )
+          instance._solution.stepSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -119,8 +119,8 @@ export class StepContextContextImpl implements StepContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<StepContextInstance>
-    ) => any
+      item?: ApiResponse<StepContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<StepContextInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -134,22 +134,20 @@ export class StepContextContextImpl implements StepContextContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<StepContextInstance> => ({
-          ...response,
-          body: new StepContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.engagementSid,
-            instance._solution.stepSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StepContextInstance> => ({
+        ...response,
+        body: new StepContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.engagementSid,
+          instance._solution.stepSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -188,7 +186,7 @@ export class StepContextInstance {
     payload: StepContextResource,
     flowSid: string,
     engagementSid: string,
-    stepSid: string
+    stepSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -232,7 +230,7 @@ export class StepContextInstance {
         this._version,
         this._solution.flowSid,
         this._solution.engagementSid,
-        this._solution.stepSid
+        this._solution.stepSid,
       );
     return this._context;
   }
@@ -245,7 +243,7 @@ export class StepContextInstance {
    * @returns Resolves to processed StepContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: StepContextInstance) => any
+    callback?: (error: Error | null, item?: StepContextInstance) => any,
   ): Promise<StepContextInstance> {
     return this._proxy.fetch(callback);
   }
@@ -260,8 +258,8 @@ export class StepContextInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<StepContextInstance>
-    ) => any
+      item?: ApiResponse<StepContextInstance>,
+    ) => any,
   ): Promise<ApiResponse<StepContextInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -312,7 +310,7 @@ export function StepContextListInstance(
   version: V1,
   flowSid: string,
   engagementSid: string,
-  stepSid: string
+  stepSid: string,
 ): StepContextListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -342,7 +340,7 @@ export function StepContextListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

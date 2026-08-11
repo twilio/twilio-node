@@ -70,7 +70,7 @@ export interface ExecutionStepContext {
    * @returns Resolves to processed ExecutionStepInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
+    callback?: (error: Error | null, item?: ExecutionStepInstance) => any,
   ): Promise<ExecutionStepInstance>;
 
   /**
@@ -83,8 +83,8 @@ export interface ExecutionStepContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionStepInstance>
-    ) => any
+      item?: ApiResponse<ExecutionStepInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepInstance>>;
 
   /**
@@ -110,7 +110,7 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
     protected _version: V1,
     flowSid: string,
     executionSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
@@ -135,13 +135,13 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
         this._version,
         this._solution.flowSid,
         this._solution.executionSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._stepContext;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
+    callback?: (error: Error | null, item?: ExecutionStepInstance) => any,
   ): Promise<ExecutionStepInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -161,13 +161,13 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
           payload,
           instance._solution.flowSid,
           instance._solution.executionSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -175,8 +175,8 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionStepInstance>
-    ) => any
+      item?: ApiResponse<ExecutionStepInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -190,22 +190,20 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionStepInstance> => ({
-          ...response,
-          body: new ExecutionStepInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.executionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionStepInstance> => ({
+        ...response,
+        body: new ExecutionStepInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.executionSid,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -254,7 +252,7 @@ export class ExecutionStepInstance {
     payload: ExecutionStepResource,
     flowSid: string,
     executionSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -271,7 +269,7 @@ export class ExecutionStepInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { flowSid, executionSid, sid: sid || this.sid };
+    this._solution = { flowSid, executionSid, sid: sid };
   }
 
   /**
@@ -338,7 +336,7 @@ export class ExecutionStepInstance {
         this._version,
         this._solution.flowSid,
         this._solution.executionSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -351,7 +349,7 @@ export class ExecutionStepInstance {
    * @returns Resolves to processed ExecutionStepInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
+    callback?: (error: Error | null, item?: ExecutionStepInstance) => any,
   ): Promise<ExecutionStepInstance> {
     return this._proxy.fetch(callback);
   }
@@ -366,8 +364,8 @@ export class ExecutionStepInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionStepInstance>
-    ) => any
+      item?: ApiResponse<ExecutionStepInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -439,15 +437,15 @@ export interface ExecutionStepListInstance {
   each(
     callback?: (
       item: ExecutionStepInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: ExecutionStepListInstanceEachOptions,
     callback?: (
       item: ExecutionStepInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams ExecutionStepInstance records from the API with HTTP metadata captured per page.
@@ -467,15 +465,15 @@ export interface ExecutionStepListInstance {
   eachWithHttpInfo(
     callback?: (
       item: ExecutionStepInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: ExecutionStepListInstanceEachOptions,
     callback?: (
       item: ExecutionStepInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of ExecutionStepInstance records from the API.
@@ -487,7 +485,7 @@ export interface ExecutionStepListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
+    callback?: (error: Error | null, items: ExecutionStepPage) => any,
   ): Promise<ExecutionStepPage>;
   /**
    * Retrieve a single target page of ExecutionStepInstance records from the API with HTTP metadata.
@@ -501,8 +499,8 @@ export interface ExecutionStepListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionStepPage>
-    ) => any
+      items: ApiResponse<ExecutionStepPage>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepPage>>;
   /**
    * Lists ExecutionStepInstance records from the API as a list.
@@ -514,11 +512,11 @@ export interface ExecutionStepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any
+    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any,
   ): Promise<ExecutionStepInstance[]>;
   list(
     params: ExecutionStepListInstanceOptions,
-    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any
+    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any,
   ): Promise<ExecutionStepInstance[]>;
   /**
    * Lists ExecutionStepInstance records from the API as a list with HTTP metadata.
@@ -534,15 +532,15 @@ export interface ExecutionStepListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionStepInstance[]>
-    ) => any
+      items: ApiResponse<ExecutionStepInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepInstance[]>>;
   listWithHttpInfo(
     params: ExecutionStepListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionStepInstance[]>
-    ) => any
+      items: ApiResponse<ExecutionStepInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepInstance[]>>;
   /**
    * Retrieve a single page of ExecutionStepInstance records from the API.
@@ -556,11 +554,11 @@ export interface ExecutionStepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
+    callback?: (error: Error | null, items: ExecutionStepPage) => any,
   ): Promise<ExecutionStepPage>;
   page(
     params: ExecutionStepListInstancePageOptions,
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
+    callback?: (error: Error | null, items: ExecutionStepPage) => any,
   ): Promise<ExecutionStepPage>;
   /**
    * Retrieve a single page of ExecutionStepInstance records from the API with HTTP metadata.
@@ -576,15 +574,15 @@ export interface ExecutionStepListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionStepPage>
-    ) => any
+      items: ApiResponse<ExecutionStepPage>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepPage>>;
   pageWithHttpInfo(
     params: ExecutionStepListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionStepPage>
-    ) => any
+      items: ApiResponse<ExecutionStepPage>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepPage>>;
 
   /**
@@ -597,7 +595,7 @@ export interface ExecutionStepListInstance {
 export function ExecutionStepListInstance(
   version: V1,
   flowSid: string,
-  executionSid: string
+  executionSid: string,
 ): ExecutionStepListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -621,7 +619,7 @@ export function ExecutionStepListInstance(
     params?:
       | ExecutionStepListInstancePageOptions
       | ((error: Error | null, items: ExecutionStepPage) => any),
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
+    callback?: (error: Error | null, items: ExecutionStepPage) => any,
   ): Promise<ExecutionStepPage> {
     if (params instanceof Function) {
       callback = params;
@@ -650,12 +648,12 @@ export function ExecutionStepListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExecutionStepPage(operationVersion, payload, instance._solution)
+        new ExecutionStepPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -665,7 +663,7 @@ export function ExecutionStepListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
+    callback?: (error: Error | null, items: ExecutionStepPage) => any,
   ): Promise<ExecutionStepPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -673,7 +671,7 @@ export function ExecutionStepListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ExecutionStepPage(instance._version, payload, instance._solution)
+        new ExecutionStepPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -685,8 +683,8 @@ export function ExecutionStepListInstance(
       | ((error: Error | null, items: ApiResponse<ExecutionStepPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExecutionStepPage>
-    ) => any
+      items: ApiResponse<ExecutionStepPage>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -711,21 +709,19 @@ export function ExecutionStepListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ExecutionStepPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ExecutionStepPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionStepPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ExecutionStepPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -739,8 +735,8 @@ export function ExecutionStepListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ExecutionStepPage>
-    ) => any
+      items?: ApiResponse<ExecutionStepPage>,
+    ) => any,
   ): Promise<ApiResponse<ExecutionStepPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -755,9 +751,9 @@ export function ExecutionStepListInstance(
         body: new ExecutionStepPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -769,7 +765,7 @@ export function ExecutionStepListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -793,7 +789,7 @@ export class ExecutionStepPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ExecutionStepSolution
+    solution: ExecutionStepSolution,
   ) {
     super(version, response, solution);
   }
@@ -808,7 +804,7 @@ export class ExecutionStepPage extends Page<
       this._version,
       payload,
       this._solution.flowSid,
-      this._solution.executionSid
+      this._solution.executionSid,
     );
   }
 

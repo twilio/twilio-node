@@ -104,7 +104,7 @@ export interface RegulationContext {
    * @returns Resolves to processed RegulationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RegulationInstance) => any
+    callback?: (error: Error | null, item?: RegulationInstance) => any,
   ): Promise<RegulationInstance>;
   /**
    * Fetch a RegulationInstance
@@ -116,7 +116,7 @@ export interface RegulationContext {
    */
   fetch(
     params: RegulationContextFetchOptions,
-    callback?: (error: Error | null, item?: RegulationInstance) => any
+    callback?: (error: Error | null, item?: RegulationInstance) => any,
   ): Promise<RegulationInstance>;
 
   /**
@@ -129,8 +129,8 @@ export interface RegulationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RegulationInstance>
-    ) => any
+      item?: ApiResponse<RegulationInstance>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance>>;
   /**
    * Fetch a RegulationInstance and return HTTP info
@@ -144,8 +144,8 @@ export interface RegulationContext {
     params: RegulationContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RegulationInstance>
-    ) => any
+      item?: ApiResponse<RegulationInstance>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance>>;
 
   /**
@@ -163,7 +163,10 @@ export class RegulationContextImpl implements RegulationContext {
   protected _solution: RegulationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -176,13 +179,13 @@ export class RegulationContextImpl implements RegulationContext {
     params?:
       | RegulationContextFetchOptions
       | ((error: Error | null, item?: RegulationInstance) => any),
-    callback?: (error: Error | null, item?: RegulationInstance) => any
+    callback?: (error: Error | null, item?: RegulationInstance) => any,
   ): Promise<RegulationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -207,13 +210,13 @@ export class RegulationContextImpl implements RegulationContext {
         new RegulationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -224,14 +227,14 @@ export class RegulationContextImpl implements RegulationContext {
       | ((error: Error | null, item?: ApiResponse<RegulationInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RegulationInstance>
-    ) => any
+      item?: ApiResponse<RegulationInstance>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -252,20 +255,18 @@ export class RegulationContextImpl implements RegulationContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RegulationInstance> => ({
-          ...response,
-          body: new RegulationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RegulationInstance> => ({
+        ...response,
+        body: new RegulationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -305,7 +306,7 @@ export class RegulationInstance {
   constructor(
     protected _version: V2,
     payload: RegulationResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -315,7 +316,7 @@ export class RegulationInstance {
     this.requirements = payload.requirements;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -359,7 +360,7 @@ export class RegulationInstance {
    * @returns Resolves to processed RegulationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RegulationInstance) => any
+    callback?: (error: Error | null, item?: RegulationInstance) => any,
   ): Promise<RegulationInstance>;
   /**
    * Fetch a RegulationInstance
@@ -371,12 +372,12 @@ export class RegulationInstance {
    */
   fetch(
     params: RegulationContextFetchOptions,
-    callback?: (error: Error | null, item?: RegulationInstance) => any
+    callback?: (error: Error | null, item?: RegulationInstance) => any,
   ): Promise<RegulationInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: RegulationInstance) => any
+    callback?: (error: Error | null, item?: RegulationInstance) => any,
   ): Promise<RegulationInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -391,8 +392,8 @@ export class RegulationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RegulationInstance>
-    ) => any
+      item?: ApiResponse<RegulationInstance>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance>>;
   /**
    * Fetch a RegulationInstance and return HTTP info
@@ -406,16 +407,16 @@ export class RegulationInstance {
     params: RegulationContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RegulationInstance>
-    ) => any
+      item?: ApiResponse<RegulationInstance>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RegulationInstance>
-    ) => any
+      item?: ApiResponse<RegulationInstance>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -468,11 +469,11 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: RegulationListInstanceEachOptions,
-    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams RegulationInstance records from the API with HTTP metadata captured per page.
@@ -490,11 +491,11 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: RegulationListInstanceEachOptions,
-    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of RegulationInstance records from the API.
@@ -506,7 +507,7 @@ export interface RegulationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RegulationPage) => any
+    callback?: (error: Error | null, items: RegulationPage) => any,
   ): Promise<RegulationPage>;
   /**
    * Retrieve a single target page of RegulationInstance records from the API with HTTP metadata.
@@ -518,7 +519,7 @@ export interface RegulationListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any,
   ): Promise<ApiResponse<RegulationPage>>;
   /**
    * Lists RegulationInstance records from the API as a list.
@@ -530,11 +531,11 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: RegulationInstance[]) => any
+    callback?: (error: Error | null, items: RegulationInstance[]) => any,
   ): Promise<RegulationInstance[]>;
   list(
     params: RegulationListInstanceOptions,
-    callback?: (error: Error | null, items: RegulationInstance[]) => any
+    callback?: (error: Error | null, items: RegulationInstance[]) => any,
   ): Promise<RegulationInstance[]>;
   /**
    * Lists RegulationInstance records from the API as a list with HTTP metadata.
@@ -550,15 +551,15 @@ export interface RegulationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<RegulationInstance[]>
-    ) => any
+      items: ApiResponse<RegulationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance[]>>;
   listWithHttpInfo(
     params: RegulationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<RegulationInstance[]>
-    ) => any
+      items: ApiResponse<RegulationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<RegulationInstance[]>>;
   /**
    * Retrieve a single page of RegulationInstance records from the API.
@@ -572,11 +573,11 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: RegulationPage) => any
+    callback?: (error: Error | null, items: RegulationPage) => any,
   ): Promise<RegulationPage>;
   page(
     params: RegulationListInstancePageOptions,
-    callback?: (error: Error | null, items: RegulationPage) => any
+    callback?: (error: Error | null, items: RegulationPage) => any,
   ): Promise<RegulationPage>;
   /**
    * Retrieve a single page of RegulationInstance records from the API with HTTP metadata.
@@ -590,11 +591,11 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any,
   ): Promise<ApiResponse<RegulationPage>>;
   pageWithHttpInfo(
     params: RegulationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any,
   ): Promise<ApiResponse<RegulationPage>>;
 
   /**
@@ -619,7 +620,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     params?:
       | RegulationListInstancePageOptions
       | ((error: Error | null, items: RegulationPage) => any),
-    callback?: (error: Error | null, items: RegulationPage) => any
+    callback?: (error: Error | null, items: RegulationPage) => any,
   ): Promise<RegulationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -656,12 +657,12 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RegulationPage(operationVersion, payload, instance._solution)
+        new RegulationPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -671,7 +672,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RegulationPage) => any
+    callback?: (error: Error | null, items: RegulationPage) => any,
   ): Promise<RegulationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -679,7 +680,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new RegulationPage(instance._version, payload, instance._solution)
+        new RegulationPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -689,7 +690,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     params?:
       | RegulationListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<RegulationPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RegulationPage>) => any,
   ): Promise<ApiResponse<RegulationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -722,21 +723,19 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RegulationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RegulationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<RegulationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RegulationPage(
+          operationVersion,
+          response,
+          instance._solution,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -748,7 +747,10 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RegulationPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<RegulationPage>,
+    ) => any,
   ): Promise<ApiResponse<RegulationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -763,9 +765,9 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
         body: new RegulationPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -777,7 +779,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -801,7 +803,7 @@ export class RegulationPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: RegulationSolution
+    solution: RegulationSolution,
   ) {
     super(version, response, solution);
   }

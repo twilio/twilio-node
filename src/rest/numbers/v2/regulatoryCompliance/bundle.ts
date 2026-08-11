@@ -207,7 +207,7 @@ export interface BundleContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -218,7 +218,7 @@ export interface BundleContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -229,7 +229,7 @@ export interface BundleContext {
    * @returns Resolves to processed BundleInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance>;
 
   /**
@@ -240,7 +240,7 @@ export interface BundleContext {
    * @returns Resolves to processed BundleInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>>;
 
   /**
@@ -251,7 +251,7 @@ export interface BundleContext {
    * @returns Resolves to processed BundleInstance
    */
   update(
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance>;
   /**
    * Update a BundleInstance
@@ -263,7 +263,7 @@ export interface BundleContext {
    */
   update(
     params: BundleContextUpdateOptions,
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance>;
 
   /**
@@ -274,7 +274,7 @@ export interface BundleContext {
    * @returns Resolves to processed BundleInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>>;
   /**
    * Update a BundleInstance and return HTTP info
@@ -286,7 +286,7 @@ export interface BundleContext {
    */
   updateWithHttpInfo(
     params: BundleContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>>;
 
   /**
@@ -309,7 +309,10 @@ export class BundleContextImpl implements BundleContext {
   protected _itemAssignments?: ItemAssignmentListInstance;
   protected _replaceItems?: ReplaceItemsListInstance;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -347,7 +350,7 @@ export class BundleContextImpl implements BundleContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -361,13 +364,13 @@ export class BundleContextImpl implements BundleContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -376,22 +379,20 @@ export class BundleContextImpl implements BundleContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -406,18 +407,18 @@ export class BundleContextImpl implements BundleContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BundleInstance(operationVersion, payload, instance._solution.sid)
+        new BundleInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -431,20 +432,18 @@ export class BundleContextImpl implements BundleContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleInstance> => ({
-          ...response,
-          body: new BundleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BundleInstance> => ({
+        ...response,
+        body: new BundleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -453,13 +452,13 @@ export class BundleContextImpl implements BundleContext {
     params?:
       | BundleContextUpdateOptions
       | ((error: Error | null, item?: BundleInstance) => any),
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -486,12 +485,12 @@ export class BundleContextImpl implements BundleContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BundleInstance(operationVersion, payload, instance._solution.sid)
+        new BundleInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -500,13 +499,13 @@ export class BundleContextImpl implements BundleContext {
     params?:
       | BundleContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<BundleInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -532,20 +531,18 @@ export class BundleContextImpl implements BundleContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleInstance> => ({
-          ...response,
-          body: new BundleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BundleInstance> => ({
+        ...response,
+        body: new BundleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -587,7 +584,11 @@ export class BundleInstance {
   protected _solution: BundleContextSolution;
   protected _context?: BundleContext;
 
-  constructor(protected _version: V2, payload: BundleResource, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: BundleResource,
+    sid?: string,
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
@@ -601,7 +602,7 @@ export class BundleInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -664,7 +665,7 @@ export class BundleInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -677,7 +678,7 @@ export class BundleInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -690,7 +691,7 @@ export class BundleInstance {
    * @returns Resolves to processed BundleInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance> {
     return this._proxy.fetch(callback);
   }
@@ -703,7 +704,7 @@ export class BundleInstance {
    * @returns Resolves to processed BundleInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -716,7 +717,7 @@ export class BundleInstance {
    * @returns Resolves to processed BundleInstance
    */
   update(
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance>;
   /**
    * Update a BundleInstance
@@ -728,12 +729,12 @@ export class BundleInstance {
    */
   update(
     params: BundleContextUpdateOptions,
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance> {
     return this._proxy.update(params, callback);
   }
@@ -746,7 +747,7 @@ export class BundleInstance {
    * @returns Resolves to processed BundleInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>>;
   /**
    * Update a BundleInstance and return HTTP info
@@ -758,12 +759,12 @@ export class BundleInstance {
    */
   updateWithHttpInfo(
     params: BundleContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -843,7 +844,7 @@ export interface BundleListInstance {
    */
   create(
     params: BundleListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, item?: BundleInstance) => any,
   ): Promise<BundleInstance>;
 
   /**
@@ -856,7 +857,7 @@ export interface BundleListInstance {
    */
   createWithHttpInfo(
     params: BundleListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>>;
 
   /**
@@ -875,11 +876,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: BundleListInstanceEachOptions,
-    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams BundleInstance records from the API with HTTP metadata captured per page.
@@ -897,11 +898,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: BundleListInstanceEachOptions,
-    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of BundleInstance records from the API.
@@ -913,7 +914,7 @@ export interface BundleListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BundlePage) => any
+    callback?: (error: Error | null, items: BundlePage) => any,
   ): Promise<BundlePage>;
   /**
    * Retrieve a single target page of BundleInstance records from the API with HTTP metadata.
@@ -925,7 +926,7 @@ export interface BundleListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any,
   ): Promise<ApiResponse<BundlePage>>;
   /**
    * Lists BundleInstance records from the API as a list.
@@ -937,11 +938,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: BundleInstance[]) => any
+    callback?: (error: Error | null, items: BundleInstance[]) => any,
   ): Promise<BundleInstance[]>;
   list(
     params: BundleListInstanceOptions,
-    callback?: (error: Error | null, items: BundleInstance[]) => any
+    callback?: (error: Error | null, items: BundleInstance[]) => any,
   ): Promise<BundleInstance[]>;
   /**
    * Lists BundleInstance records from the API as a list with HTTP metadata.
@@ -957,15 +958,15 @@ export interface BundleListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<BundleInstance[]>
-    ) => any
+      items: ApiResponse<BundleInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BundleInstance[]>>;
   listWithHttpInfo(
     params: BundleListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BundleInstance[]>
-    ) => any
+      items: ApiResponse<BundleInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BundleInstance[]>>;
   /**
    * Retrieve a single page of BundleInstance records from the API.
@@ -979,11 +980,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: BundlePage) => any
+    callback?: (error: Error | null, items: BundlePage) => any,
   ): Promise<BundlePage>;
   page(
     params: BundleListInstancePageOptions,
-    callback?: (error: Error | null, items: BundlePage) => any
+    callback?: (error: Error | null, items: BundlePage) => any,
   ): Promise<BundlePage>;
   /**
    * Retrieve a single page of BundleInstance records from the API with HTTP metadata.
@@ -997,11 +998,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any,
   ): Promise<ApiResponse<BundlePage>>;
   pageWithHttpInfo(
     params: BundleListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any,
   ): Promise<ApiResponse<BundlePage>>;
 
   /**
@@ -1024,7 +1025,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
   instance.create = function create(
     params: BundleListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BundleInstance) => any
+    callback?: (error: Error | null, items: BundleInstance) => any,
   ): Promise<BundleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1072,19 +1073,19 @@ export function BundleListInstance(version: V2): BundleListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BundleInstance(operationVersion, payload)
+      (payload) => new BundleInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: BundleListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<BundleInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundleInstance>) => any,
   ): Promise<ApiResponse<BundleInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1132,16 +1133,14 @@ export function BundleListInstance(version: V2): BundleListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleInstance> => ({
-          ...response,
-          body: new BundleInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BundleInstance> => ({
+        ...response,
+        body: new BundleInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1150,7 +1149,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
     params?:
       | BundleListInstancePageOptions
       | ((error: Error | null, items: BundlePage) => any),
-    callback?: (error: Error | null, items: BundlePage) => any
+    callback?: (error: Error | null, items: BundlePage) => any,
   ): Promise<BundlePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1181,15 +1180,15 @@ export function BundleListInstance(version: V2): BundleListInstance {
       data["SortDirection"] = params["sortDirection"];
     if (params["validUntilDate"] !== undefined)
       data["ValidUntilDate"] = serialize.iso8601DateTime(
-        params["validUntilDate"]
+        params["validUntilDate"],
       );
     if (params["validUntilDateBefore"] !== undefined)
       data["ValidUntilDate<"] = serialize.iso8601DateTime(
-        params["validUntilDateBefore"]
+        params["validUntilDateBefore"],
       );
     if (params["validUntilDateAfter"] !== undefined)
       data["ValidUntilDate>"] = serialize.iso8601DateTime(
-        params["validUntilDateAfter"]
+        params["validUntilDateAfter"],
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -1208,12 +1207,13 @@ export function BundleListInstance(version: V2): BundleListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BundlePage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new BundlePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1223,7 +1223,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BundlePage) => any
+    callback?: (error: Error | null, items: BundlePage) => any,
   ): Promise<BundlePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1231,7 +1231,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new BundlePage(instance._version, payload, instance._solution)
+        new BundlePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1241,7 +1241,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
     params?:
       | BundleListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<BundlePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BundlePage>) => any,
   ): Promise<ApiResponse<BundlePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1272,15 +1272,15 @@ export function BundleListInstance(version: V2): BundleListInstance {
       data["SortDirection"] = params["sortDirection"];
     if (params["validUntilDate"] !== undefined)
       data["ValidUntilDate"] = serialize.iso8601DateTime(
-        params["validUntilDate"]
+        params["validUntilDate"],
       );
     if (params["validUntilDateBefore"] !== undefined)
       data["ValidUntilDate<"] = serialize.iso8601DateTime(
-        params["validUntilDateBefore"]
+        params["validUntilDateBefore"],
       );
     if (params["validUntilDateAfter"] !== undefined)
       data["ValidUntilDate>"] = serialize.iso8601DateTime(
-        params["validUntilDateAfter"]
+        params["validUntilDateAfter"],
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -1296,17 +1296,15 @@ export function BundleListInstance(version: V2): BundleListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BundlePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BundlePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<BundlePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new BundlePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1318,7 +1316,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<BundlePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<BundlePage>) => any,
   ): Promise<ApiResponse<BundlePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1331,7 +1329,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new BundlePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1343,7 +1341,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1367,7 +1365,7 @@ export class BundlePage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: BundleSolution
+    solution: BundleSolution,
   ) {
     super(version, response, solution);
   }

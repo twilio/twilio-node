@@ -60,7 +60,7 @@ export interface NotificationContext {
    * @returns Resolves to processed NotificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
 
   /**
@@ -73,8 +73,8 @@ export interface NotificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
@@ -85,7 +85,7 @@ export interface NotificationContext {
    * @returns Resolves to processed NotificationInstance
    */
   update(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
   /**
    * Update a NotificationInstance
@@ -97,7 +97,7 @@ export interface NotificationContext {
    */
   update(
     params: NotificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
 
   /**
@@ -110,8 +110,8 @@ export interface NotificationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
   /**
    * Update a NotificationInstance and return HTTP info
@@ -125,8 +125,8 @@ export interface NotificationContext {
     params: NotificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
@@ -144,7 +144,10 @@ export class NotificationContextImpl implements NotificationContext {
   protected _solution: NotificationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, chatServiceSid: string) {
+  constructor(
+    protected _version: V1,
+    chatServiceSid: string,
+  ) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -154,7 +157,7 @@ export class NotificationContextImpl implements NotificationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -172,13 +175,13 @@ export class NotificationContextImpl implements NotificationContext {
         new NotificationInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -186,8 +189,8 @@ export class NotificationContextImpl implements NotificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -201,20 +204,18 @@ export class NotificationContextImpl implements NotificationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<NotificationInstance> => ({
-          ...response,
-          body: new NotificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NotificationInstance> => ({
+        ...response,
+        body: new NotificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -223,13 +224,13 @@ export class NotificationContextImpl implements NotificationContext {
     params?:
       | NotificationContextUpdateOptions
       | ((error: Error | null, item?: NotificationInstance) => any),
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -244,11 +245,11 @@ export class NotificationContextImpl implements NotificationContext {
       data["NewMessage.Sound"] = params["newMessage.sound"];
     if (params["newMessage.badgeCountEnabled"] !== undefined)
       data["NewMessage.BadgeCountEnabled"] = serialize.bool(
-        params["newMessage.badgeCountEnabled"]
+        params["newMessage.badgeCountEnabled"],
       );
     if (params["addedToConversation.enabled"] !== undefined)
       data["AddedToConversation.Enabled"] = serialize.bool(
-        params["addedToConversation.enabled"]
+        params["addedToConversation.enabled"],
       );
     if (params["addedToConversation.template"] !== undefined)
       data["AddedToConversation.Template"] =
@@ -257,7 +258,7 @@ export class NotificationContextImpl implements NotificationContext {
       data["AddedToConversation.Sound"] = params["addedToConversation.sound"];
     if (params["removedFromConversation.enabled"] !== undefined)
       data["RemovedFromConversation.Enabled"] = serialize.bool(
-        params["removedFromConversation.enabled"]
+        params["removedFromConversation.enabled"],
       );
     if (params["removedFromConversation.template"] !== undefined)
       data["RemovedFromConversation.Template"] =
@@ -267,7 +268,7 @@ export class NotificationContextImpl implements NotificationContext {
         params["removedFromConversation.sound"];
     if (params["newMessage.withMedia.enabled"] !== undefined)
       data["NewMessage.WithMedia.Enabled"] = serialize.bool(
-        params["newMessage.withMedia.enabled"]
+        params["newMessage.withMedia.enabled"],
       );
     if (params["newMessage.withMedia.template"] !== undefined)
       data["NewMessage.WithMedia.Template"] =
@@ -291,13 +292,13 @@ export class NotificationContextImpl implements NotificationContext {
         new NotificationInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -307,18 +308,18 @@ export class NotificationContextImpl implements NotificationContext {
       | NotificationContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<NotificationInstance>
+          item?: ApiResponse<NotificationInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -333,11 +334,11 @@ export class NotificationContextImpl implements NotificationContext {
       data["NewMessage.Sound"] = params["newMessage.sound"];
     if (params["newMessage.badgeCountEnabled"] !== undefined)
       data["NewMessage.BadgeCountEnabled"] = serialize.bool(
-        params["newMessage.badgeCountEnabled"]
+        params["newMessage.badgeCountEnabled"],
       );
     if (params["addedToConversation.enabled"] !== undefined)
       data["AddedToConversation.Enabled"] = serialize.bool(
-        params["addedToConversation.enabled"]
+        params["addedToConversation.enabled"],
       );
     if (params["addedToConversation.template"] !== undefined)
       data["AddedToConversation.Template"] =
@@ -346,7 +347,7 @@ export class NotificationContextImpl implements NotificationContext {
       data["AddedToConversation.Sound"] = params["addedToConversation.sound"];
     if (params["removedFromConversation.enabled"] !== undefined)
       data["RemovedFromConversation.Enabled"] = serialize.bool(
-        params["removedFromConversation.enabled"]
+        params["removedFromConversation.enabled"],
       );
     if (params["removedFromConversation.template"] !== undefined)
       data["RemovedFromConversation.Template"] =
@@ -356,7 +357,7 @@ export class NotificationContextImpl implements NotificationContext {
         params["removedFromConversation.sound"];
     if (params["newMessage.withMedia.enabled"] !== undefined)
       data["NewMessage.WithMedia.Enabled"] = serialize.bool(
-        params["newMessage.withMedia.enabled"]
+        params["newMessage.withMedia.enabled"],
       );
     if (params["newMessage.withMedia.template"] !== undefined)
       data["NewMessage.WithMedia.Template"] =
@@ -376,20 +377,18 @@ export class NotificationContextImpl implements NotificationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NotificationInstance> => ({
-          ...response,
-          body: new NotificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NotificationInstance> => ({
+        ...response,
+        body: new NotificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -427,7 +426,7 @@ export class NotificationInstance {
   constructor(
     protected _version: V1,
     payload: NotificationResource,
-    chatServiceSid: string
+    chatServiceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -484,7 +483,7 @@ export class NotificationInstance {
    * @returns Resolves to processed NotificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -499,8 +498,8 @@ export class NotificationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -513,7 +512,7 @@ export class NotificationInstance {
    * @returns Resolves to processed NotificationInstance
    */
   update(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
   /**
    * Update a NotificationInstance
@@ -525,12 +524,12 @@ export class NotificationInstance {
    */
   update(
     params: NotificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -545,8 +544,8 @@ export class NotificationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
   /**
    * Update a NotificationInstance and return HTTP info
@@ -560,16 +559,16 @@ export class NotificationInstance {
     params: NotificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -617,7 +616,7 @@ export interface NotificationListInstance {
 
 export function NotificationListInstance(
   version: V1,
-  chatServiceSid: string
+  chatServiceSid: string,
 ): NotificationListInstance {
   if (!isValidPathParam(chatServiceSid)) {
     throw new Error("Parameter 'chatServiceSid' is not valid.");
@@ -639,7 +638,7 @@ export function NotificationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
