@@ -290,11 +290,7 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   protected _solution: KnowledgeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    kbId: string,
-    knowledgeId: string
-  ) {
+  constructor(protected _version: V2, kbId: string, knowledgeId: string) {
     if (!isValidPathParam(kbId)) {
       throw new Error("Parameter 'kbId' is not valid.");
     }
@@ -337,10 +333,12 @@ export class KnowledgeContextImpl implements KnowledgeContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -398,15 +396,17 @@ export class KnowledgeContextImpl implements KnowledgeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<KnowledgeInstance> => ({
-        ...response,
-        body: new KnowledgeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId,
-          instance._solution.knowledgeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeInstance> => ({
+          ...response,
+          body: new KnowledgeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId,
+            instance._solution.knowledgeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -417,7 +417,8 @@ export class KnowledgeContextImpl implements KnowledgeContext {
 
   update(
     params?:
-      KnowledgeCore | ((error: Error | null, item?: KnowledgeInstance) => any),
+      | KnowledgeCore
+      | ((error: Error | null, item?: KnowledgeInstance) => any),
     headers?: any,
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance> {
@@ -509,15 +510,17 @@ export class KnowledgeContextImpl implements KnowledgeContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<KnowledgeInstance> => ({
-        ...response,
-        body: new KnowledgeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId,
-          instance._solution.knowledgeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeInstance> => ({
+          ...response,
+          body: new KnowledgeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId,
+            instance._solution.knowledgeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1058,14 +1061,16 @@ export function KnowledgeListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<KnowledgeInstance> => ({
-        ...response,
-        body: new KnowledgeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeInstance> => ({
+          ...response,
+          body: new KnowledgeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1177,17 +1182,19 @@ export function KnowledgeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<KnowledgePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new KnowledgePage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new KnowledgePage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

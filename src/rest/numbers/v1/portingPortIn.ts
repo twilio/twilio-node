@@ -319,10 +319,7 @@ export class PortingPortInContextImpl implements PortingPortInContext {
   protected _solution: PortingPortInContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    portInRequestSid: string
-  ) {
+  constructor(protected _version: V1, portInRequestSid: string) {
     if (!isValidPathParam(portInRequestSid)) {
       throw new Error("Parameter 'portInRequestSid' is not valid.");
     }
@@ -361,10 +358,12 @@ export class PortingPortInContextImpl implements PortingPortInContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -421,14 +420,16 @@ export class PortingPortInContextImpl implements PortingPortInContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<PortingPortInInstance> => ({
-        ...response,
-        body: new PortingPortInInstance(
-          operationVersion,
-          response.body,
-          instance._solution.portInRequestSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PortingPortInInstance> => ({
+          ...response,
+          body: new PortingPortInInstance(
+            operationVersion,
+            response.body,
+            instance._solution.portInRequestSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -813,10 +814,12 @@ export function PortingPortInListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<PortingPortInInstance> => ({
-        ...response,
-        body: new PortingPortInInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<PortingPortInInstance> => ({
+          ...response,
+          body: new PortingPortInInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -92,15 +92,13 @@ export interface PluginVersionArchiveContextSolution {
   sid: string;
 }
 
-export class PluginVersionArchiveContextImpl implements PluginVersionArchiveContext {
+export class PluginVersionArchiveContextImpl
+  implements PluginVersionArchiveContext
+{
   protected _solution: PluginVersionArchiveContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    pluginSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, pluginSid: string, sid: string) {
     if (!isValidPathParam(pluginSid)) {
       throw new Error("Parameter 'pluginSid' is not valid.");
     }
@@ -195,15 +193,17 @@ export class PluginVersionArchiveContextImpl implements PluginVersionArchiveCont
         data,
         headers,
       })
-      .then((response): ApiResponse<PluginVersionArchiveInstance> => ({
-        ...response,
-        body: new PluginVersionArchiveInstance(
-          operationVersion,
-          response.body,
-          instance._solution.pluginSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginVersionArchiveInstance> => ({
+          ...response,
+          body: new PluginVersionArchiveInstance(
+            operationVersion,
+            response.body,
+            instance._solution.pluginSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

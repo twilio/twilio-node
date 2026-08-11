@@ -197,11 +197,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   protected _solution: OutgoingCallerIdContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -244,10 +240,12 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -305,15 +303,17 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OutgoingCallerIdInstance> => ({
-        ...response,
-        body: new OutgoingCallerIdInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OutgoingCallerIdInstance> => ({
+          ...response,
+          body: new OutgoingCallerIdInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -408,15 +408,17 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<OutgoingCallerIdInstance> => ({
-        ...response,
-        body: new OutgoingCallerIdInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OutgoingCallerIdInstance> => ({
+          ...response,
+          body: new OutgoingCallerIdInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -968,15 +970,17 @@ export function OutgoingCallerIdListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<OutgoingCallerIdPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new OutgoingCallerIdPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OutgoingCallerIdPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OutgoingCallerIdPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

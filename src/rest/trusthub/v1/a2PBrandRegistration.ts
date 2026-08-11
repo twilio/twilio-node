@@ -303,10 +303,15 @@ export function A2PBrandRegistrationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<A2PBrandRegistrationInstance> => ({
-        ...response,
-        body: new A2PBrandRegistrationInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<A2PBrandRegistrationInstance> => ({
+          ...response,
+          body: new A2PBrandRegistrationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -338,10 +343,7 @@ interface A2PBrandRegistrationResource {
 }
 
 export class A2PBrandRegistrationInstance {
-  constructor(
-    protected _version: V1,
-    payload: A2PBrandRegistrationResource
-  ) {
+  constructor(protected _version: V1, payload: A2PBrandRegistrationResource) {
     this.id = payload.id;
     this.sessionId = payload.sessionId;
     this.sessionToken = payload.sessionToken;

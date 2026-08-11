@@ -266,11 +266,7 @@ export class ChannelContextImpl implements ChannelContext {
   protected _messages?: MessageListInstance;
   protected _webhooks?: WebhookListInstance;
 
-  constructor(
-    protected _version: V2,
-    serviceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -391,10 +387,12 @@ export class ChannelContextImpl implements ChannelContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -449,15 +447,17 @@ export class ChannelContextImpl implements ChannelContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ChannelInstance> => ({
-        ...response,
-        body: new ChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChannelInstance> => ({
+          ...response,
+          body: new ChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -570,15 +570,17 @@ export class ChannelContextImpl implements ChannelContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ChannelInstance> => ({
-        ...response,
-        body: new ChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChannelInstance> => ({
+          ...response,
+          body: new ChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1249,14 +1251,16 @@ export function ChannelListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ChannelInstance> => ({
-        ...response,
-        body: new ChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChannelInstance> => ({
+          ...response,
+          body: new ChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1366,11 +1370,13 @@ export function ChannelListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ChannelPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ChannelPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<ChannelPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ChannelPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

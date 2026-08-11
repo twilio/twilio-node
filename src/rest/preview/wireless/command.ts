@@ -140,10 +140,7 @@ export class CommandContextImpl implements CommandContext {
   protected _solution: CommandContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: Wireless,
-    sid: string
-  ) {
+  constructor(protected _version: Wireless, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -193,14 +190,16 @@ export class CommandContextImpl implements CommandContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CommandInstance> => ({
-        ...response,
-        body: new CommandInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CommandInstance> => ({
+          ...response,
+          body: new CommandInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -623,10 +622,12 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<CommandInstance> => ({
-        ...response,
-        body: new CommandInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<CommandInstance> => ({
+          ...response,
+          body: new CommandInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -736,11 +737,13 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CommandPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CommandPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<CommandPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CommandPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -223,14 +223,16 @@ export function ApproveChallengeListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ApproveChallengeInstance> => ({
-        ...response,
-        body: new ApproveChallengeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ApproveChallengeInstance> => ({
+          ...response,
+          body: new ApproveChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

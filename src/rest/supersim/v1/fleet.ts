@@ -197,10 +197,7 @@ export class FleetContextImpl implements FleetContext {
   protected _solution: FleetContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -250,14 +247,16 @@ export class FleetContextImpl implements FleetContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<FleetInstance> => ({
-        ...response,
-        body: new FleetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FleetInstance> => ({
+          ...response,
+          body: new FleetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -365,14 +364,16 @@ export class FleetContextImpl implements FleetContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<FleetInstance> => ({
-        ...response,
-        body: new FleetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FleetInstance> => ({
+          ...response,
+          body: new FleetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -421,11 +422,7 @@ export class FleetInstance {
   protected _solution: FleetContextSolution;
   protected _context?: FleetContext;
 
-  constructor(
-    protected _version: V1,
-    payload: FleetResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: FleetResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
@@ -928,10 +925,12 @@ export function FleetListInstance(version: V1): FleetListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<FleetInstance> => ({
-        ...response,
-        body: new FleetInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<FleetInstance> => ({
+          ...response,
+          body: new FleetInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1033,11 +1032,13 @@ export function FleetListInstance(version: V1): FleetListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<FleetPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new FleetPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<FleetPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FleetPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

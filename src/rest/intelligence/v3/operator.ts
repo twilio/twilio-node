@@ -321,10 +321,7 @@ export class OperatorContextImpl implements OperatorContext {
   protected _solution: OperatorContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V3,
-    id: string
-  ) {
+  constructor(protected _version: V3, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -363,10 +360,12 @@ export class OperatorContextImpl implements OperatorContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -419,14 +418,16 @@ export class OperatorContextImpl implements OperatorContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OperatorInstance> => ({
-        ...response,
-        body: new OperatorInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorInstance> => ({
+          ...response,
+          body: new OperatorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -509,14 +510,16 @@ export class OperatorContextImpl implements OperatorContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<OperatorInstance> => ({
-        ...response,
-        body: new OperatorInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorInstance> => ({
+          ...response,
+          body: new OperatorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -647,11 +650,7 @@ export class OperatorInstance {
   protected _solution: OperatorContextSolution;
   protected _context?: OperatorContext;
 
-  constructor(
-    protected _version: V3,
-    _payload: OperatorResource,
-    id?: string
-  ) {
+  constructor(protected _version: V3, _payload: OperatorResource, id?: string) {
     const payload: any = _payload;
     this.id = payload.id;
     this.displayName = payload.displayName;
@@ -1128,10 +1127,12 @@ export function OperatorListInstance(version: V3): OperatorListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<OperatorInstance> => ({
-        ...response,
-        body: new OperatorInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<OperatorInstance> => ({
+          ...response,
+          body: new OperatorInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1241,17 +1242,19 @@ export function OperatorListInstance(version: V3): OperatorListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<OperatorPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new OperatorPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OperatorPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

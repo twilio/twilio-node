@@ -174,10 +174,12 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<InsightsSessionInstance> => ({
-        ...response,
-        body: new InsightsSessionInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<InsightsSessionInstance> => ({
+          ...response,
+          body: new InsightsSessionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -214,10 +216,7 @@ export class InsightsSessionInstance {
   protected _solution: InsightsSessionContextSolution;
   protected _context?: InsightsSessionContext;
 
-  constructor(
-    protected _version: V1,
-    payload: InsightsSessionResource
-  ) {
+  constructor(protected _version: V1, payload: InsightsSessionResource) {
     this.workspaceId = payload.workspace_id;
     this.sessionExpiry = payload.session_expiry;
     this.sessionId = payload.session_id;

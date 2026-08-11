@@ -98,7 +98,9 @@ export interface TaskQueueRealTimeStatisticsContextSolution {
   taskQueueSid: string;
 }
 
-export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTimeStatisticsContext {
+export class TaskQueueRealTimeStatisticsContextImpl
+  implements TaskQueueRealTimeStatisticsContext
+{
   protected _solution: TaskQueueRealTimeStatisticsContextSolution;
   protected _uri: string;
 
@@ -209,15 +211,17 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
         params: data,
         headers,
       })
-      .then((response): ApiResponse<TaskQueueRealTimeStatisticsInstance> => ({
-        ...response,
-        body: new TaskQueueRealTimeStatisticsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.taskQueueSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TaskQueueRealTimeStatisticsInstance> => ({
+          ...response,
+          body: new TaskQueueRealTimeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.taskQueueSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -240,7 +244,8 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
   }
 }
 
-interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource {}
+interface TaskQueueRealTimeStatisticsPayload
+  extends TaskQueueRealTimeStatisticsResource {}
 
 interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;

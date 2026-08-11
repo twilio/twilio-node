@@ -143,7 +143,9 @@ export interface SecondaryAuthTokenContext {
 
 export interface SecondaryAuthTokenContextSolution {}
 
-export class SecondaryAuthTokenContextImpl implements SecondaryAuthTokenContext {
+export class SecondaryAuthTokenContextImpl
+  implements SecondaryAuthTokenContext
+{
   protected _solution: SecondaryAuthTokenContextSolution;
   protected _uri: string;
 
@@ -236,10 +238,12 @@ export class SecondaryAuthTokenContextImpl implements SecondaryAuthTokenContext 
         data,
         headers,
       })
-      .then((response): ApiResponse<SecondaryAuthTokenInstance> => ({
-        ...response,
-        body: new SecondaryAuthTokenInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<SecondaryAuthTokenInstance> => ({
+          ...response,
+          body: new SecondaryAuthTokenInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -318,10 +322,12 @@ export class SecondaryAuthTokenContextImpl implements SecondaryAuthTokenContext 
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -358,10 +364,7 @@ export class SecondaryAuthTokenInstance {
   protected _solution: SecondaryAuthTokenContextSolution;
   protected _context?: SecondaryAuthTokenContext;
 
-  constructor(
-    protected _version: V1,
-    payload: SecondaryAuthTokenResource
-  ) {
+  constructor(protected _version: V1, payload: SecondaryAuthTokenResource) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

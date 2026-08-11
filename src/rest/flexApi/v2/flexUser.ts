@@ -191,15 +191,17 @@ export class FlexUserContextImpl implements FlexUserContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<FlexUserInstance> => ({
-        ...response,
-        body: new FlexUserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.instanceSid,
-          instance._solution.flexUserSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FlexUserInstance> => ({
+          ...response,
+          body: new FlexUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.instanceSid,
+            instance._solution.flexUserSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,15 +295,17 @@ export class FlexUserContextImpl implements FlexUserContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<FlexUserInstance> => ({
-        ...response,
-        body: new FlexUserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.instanceSid,
-          instance._solution.flexUserSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FlexUserInstance> => ({
+          ...response,
+          body: new FlexUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.instanceSid,
+            instance._solution.flexUserSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

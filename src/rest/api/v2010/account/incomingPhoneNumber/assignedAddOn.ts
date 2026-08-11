@@ -200,10 +200,12 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -262,16 +264,18 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AssignedAddOnInstance> => ({
-        ...response,
-        body: new AssignedAddOnInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.resourceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssignedAddOnInstance> => ({
+          ...response,
+          body: new AssignedAddOnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.resourceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -808,15 +812,17 @@ export function AssignedAddOnListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<AssignedAddOnInstance> => ({
-        ...response,
-        body: new AssignedAddOnInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.resourceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssignedAddOnInstance> => ({
+          ...response,
+          body: new AssignedAddOnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.resourceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -919,15 +925,17 @@ export function AssignedAddOnListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AssignedAddOnPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AssignedAddOnPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssignedAddOnPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AssignedAddOnPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

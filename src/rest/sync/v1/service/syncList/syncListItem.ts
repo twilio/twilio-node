@@ -345,10 +345,12 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -407,16 +409,18 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SyncListItemInstance> => ({
-        ...response,
-        body: new SyncListItemInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.listSid,
-          instance._solution.index
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncListItemInstance> => ({
+          ...response,
+          body: new SyncListItemInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.listSid,
+            instance._solution.index
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -524,16 +528,18 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SyncListItemInstance> => ({
-        ...response,
-        body: new SyncListItemInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.listSid,
-          instance._solution.index
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncListItemInstance> => ({
+          ...response,
+          body: new SyncListItemInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.listSid,
+            instance._solution.index
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1152,15 +1158,17 @@ export function SyncListItemListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SyncListItemInstance> => ({
-        ...response,
-        body: new SyncListItemInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.listSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncListItemInstance> => ({
+          ...response,
+          body: new SyncListItemInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.listSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1269,15 +1277,17 @@ export function SyncListItemListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SyncListItemPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SyncListItemPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncListItemPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SyncListItemPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

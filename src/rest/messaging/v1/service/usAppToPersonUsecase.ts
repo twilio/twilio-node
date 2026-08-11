@@ -190,14 +190,16 @@ export function UsAppToPersonUsecaseListInstance(
         params: data,
         headers,
       })
-      .then((response): ApiResponse<UsAppToPersonUsecaseInstance> => ({
-        ...response,
-        body: new UsAppToPersonUsecaseInstance(
-          operationVersion,
-          response.body,
-          instance._solution.messagingServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsAppToPersonUsecaseInstance> => ({
+          ...response,
+          body: new UsAppToPersonUsecaseInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -235,16 +235,18 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<WorkerChannelInstance> => ({
-        ...response,
-        body: new WorkerChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkerChannelInstance> => ({
+          ...response,
+          body: new WorkerChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workerSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -342,16 +344,18 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<WorkerChannelInstance> => ({
-        ...response,
-        body: new WorkerChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkerChannelInstance> => ({
+          ...response,
+          body: new WorkerChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workerSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -918,15 +922,17 @@ export function WorkerChannelListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<WorkerChannelPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new WorkerChannelPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkerChannelPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new WorkerChannelPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

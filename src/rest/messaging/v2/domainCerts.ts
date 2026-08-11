@@ -60,10 +60,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   protected _solution: DomainCertsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    domainSid: string
-  ) {
+  constructor(protected _version: V2, domainSid: string) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -120,14 +117,16 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<DomainCertsInstance> => ({
-        ...response,
-        body: new DomainCertsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.domainSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DomainCertsInstance> => ({
+          ...response,
+          body: new DomainCertsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -166,11 +166,7 @@ export class AssetContextImpl implements AssetContext {
 
   protected _assetVersions?: AssetVersionListInstance;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -224,10 +220,12 @@ export class AssetContextImpl implements AssetContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -282,15 +280,17 @@ export class AssetContextImpl implements AssetContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AssetInstance> => ({
-        ...response,
-        body: new AssetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssetInstance> => ({
+          ...response,
+          body: new AssetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -381,15 +381,17 @@ export class AssetContextImpl implements AssetContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<AssetInstance> => ({
-        ...response,
-        body: new AssetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssetInstance> => ({
+          ...response,
+          body: new AssetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -896,14 +898,16 @@ export function AssetListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<AssetInstance> => ({
-        ...response,
-        body: new AssetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssetInstance> => ({
+          ...response,
+          body: new AssetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1001,11 +1005,13 @@ export function AssetListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AssetPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AssetPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<AssetPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AssetPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

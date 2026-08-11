@@ -122,10 +122,7 @@ export class OperatorContextImpl implements OperatorContext {
   protected _solution: OperatorContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -178,14 +175,16 @@ export class OperatorContextImpl implements OperatorContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OperatorInstance> => ({
-        ...response,
-        body: new OperatorInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorInstance> => ({
+          ...response,
+          body: new OperatorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -231,11 +230,7 @@ export class OperatorInstance {
   protected _solution: OperatorContextSolution;
   protected _context?: OperatorContext;
 
-  constructor(
-    protected _version: V2,
-    payload: OperatorResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V2, payload: OperatorResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -633,11 +628,17 @@ export function OperatorListInstance(version: V2): OperatorListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<OperatorPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new OperatorPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<OperatorPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OperatorPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

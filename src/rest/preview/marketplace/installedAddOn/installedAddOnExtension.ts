@@ -142,7 +142,9 @@ export interface InstalledAddOnExtensionContextSolution {
   sid: string;
 }
 
-export class InstalledAddOnExtensionContextImpl implements InstalledAddOnExtensionContext {
+export class InstalledAddOnExtensionContextImpl
+  implements InstalledAddOnExtensionContext
+{
   protected _solution: InstalledAddOnExtensionContextSolution;
   protected _uri: string;
 
@@ -215,15 +217,17 @@ export class InstalledAddOnExtensionContextImpl implements InstalledAddOnExtensi
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<InstalledAddOnExtensionInstance> => ({
-        ...response,
-        body: new InstalledAddOnExtensionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.installedAddOnSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InstalledAddOnExtensionInstance> => ({
+          ...response,
+          body: new InstalledAddOnExtensionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.installedAddOnSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -314,15 +318,17 @@ export class InstalledAddOnExtensionContextImpl implements InstalledAddOnExtensi
         data,
         headers,
       })
-      .then((response): ApiResponse<InstalledAddOnExtensionInstance> => ({
-        ...response,
-        body: new InstalledAddOnExtensionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.installedAddOnSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InstalledAddOnExtensionInstance> => ({
+          ...response,
+          body: new InstalledAddOnExtensionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.installedAddOnSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -845,15 +851,17 @@ export function InstalledAddOnExtensionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InstalledAddOnExtensionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InstalledAddOnExtensionPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InstalledAddOnExtensionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InstalledAddOnExtensionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

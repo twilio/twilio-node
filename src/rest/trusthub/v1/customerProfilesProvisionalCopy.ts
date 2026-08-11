@@ -87,14 +87,13 @@ export interface CustomerProfilesProvisionalCopyContextSolution {
   customerProfileSid: string;
 }
 
-export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfilesProvisionalCopyContext {
+export class CustomerProfilesProvisionalCopyContextImpl
+  implements CustomerProfilesProvisionalCopyContext
+{
   protected _solution: CustomerProfilesProvisionalCopyContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    customerProfileSid: string
-  ) {
+  constructor(protected _version: V1, customerProfileSid: string) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
@@ -255,7 +254,8 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
   }
 }
 
-interface CustomerProfilesProvisionalCopyPayload extends CustomerProfilesProvisionalCopyResource {}
+interface CustomerProfilesProvisionalCopyPayload
+  extends CustomerProfilesProvisionalCopyResource {}
 
 interface CustomerProfilesProvisionalCopyResource {
   customer_profile_sid: string;

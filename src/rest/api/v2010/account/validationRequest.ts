@@ -192,14 +192,16 @@ export function ValidationRequestListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ValidationRequestInstance> => ({
-        ...response,
-        body: new ValidationRequestInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ValidationRequestInstance> => ({
+          ...response,
+          body: new ValidationRequestInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

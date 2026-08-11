@@ -207,14 +207,13 @@ export interface InsightsQuestionnairesQuestionContextSolution {
   questionSid: string;
 }
 
-export class InsightsQuestionnairesQuestionContextImpl implements InsightsQuestionnairesQuestionContext {
+export class InsightsQuestionnairesQuestionContextImpl
+  implements InsightsQuestionnairesQuestionContext
+{
   protected _solution: InsightsQuestionnairesQuestionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    questionSid: string
-  ) {
+  constructor(protected _version: V1, questionSid: string) {
     if (!isValidPathParam(questionSid)) {
       throw new Error("Parameter 'questionSid' is not valid.");
     }
@@ -287,10 +286,12 @@ export class InsightsQuestionnairesQuestionContextImpl implements InsightsQuesti
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1165,15 +1166,17 @@ export function InsightsQuestionnairesQuestionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InsightsQuestionnairesQuestionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InsightsQuestionnairesQuestionPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsQuestionnairesQuestionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InsightsQuestionnairesQuestionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -160,7 +160,8 @@ export function A2PBrandRegistrationEmbeddedSessionListInstance(
   return instance;
 }
 
-interface A2PBrandRegistrationEmbeddedSessionPayload extends A2PBrandRegistrationEmbeddedSessionResource {}
+interface A2PBrandRegistrationEmbeddedSessionPayload
+  extends A2PBrandRegistrationEmbeddedSessionResource {}
 
 interface A2PBrandRegistrationEmbeddedSessionResource {
   id: string;

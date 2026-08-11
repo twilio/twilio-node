@@ -338,11 +338,7 @@ export class DataMappingContextImpl implements DataMappingContext {
   protected _solution: DataMappingContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    storeId: string,
-    dataMappingId: string
-  ) {
+  constructor(protected _version: V1, storeId: string, dataMappingId: string) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
     }
@@ -404,15 +400,17 @@ export class DataMappingContextImpl implements DataMappingContext {
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<DataMappingInstance> => ({
-        ...response,
-        body: new DataMappingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.dataMappingId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DataMappingInstance> => ({
+          ...response,
+          body: new DataMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.dataMappingId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -470,15 +468,17 @@ export class DataMappingContextImpl implements DataMappingContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<DataMappingInstance> => ({
-        ...response,
-        body: new DataMappingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.dataMappingId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DataMappingInstance> => ({
+          ...response,
+          body: new DataMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.dataMappingId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -576,15 +576,17 @@ export class DataMappingContextImpl implements DataMappingContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<DataMappingInstance> => ({
-        ...response,
-        body: new DataMappingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.dataMappingId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DataMappingInstance> => ({
+          ...response,
+          body: new DataMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.dataMappingId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1233,14 +1235,16 @@ export function DataMappingListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<DataMappingInstance> => ({
-        ...response,
-        body: new DataMappingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DataMappingInstance> => ({
+          ...response,
+          body: new DataMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1354,17 +1358,19 @@ export function DataMappingListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<DataMappingPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new DataMappingPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DataMappingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new DataMappingPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

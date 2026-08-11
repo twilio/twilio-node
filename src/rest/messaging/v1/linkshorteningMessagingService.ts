@@ -82,7 +82,9 @@ export interface LinkshorteningMessagingServiceContextSolution {
   messagingServiceSid: string;
 }
 
-export class LinkshorteningMessagingServiceContextImpl implements LinkshorteningMessagingServiceContext {
+export class LinkshorteningMessagingServiceContextImpl
+  implements LinkshorteningMessagingServiceContext
+{
   protected _solution: LinkshorteningMessagingServiceContextSolution;
   protected _uri: string;
 
@@ -204,10 +206,12 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -230,7 +234,8 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
   }
 }
 
-interface LinkshorteningMessagingServicePayload extends LinkshorteningMessagingServiceResource {}
+interface LinkshorteningMessagingServicePayload
+  extends LinkshorteningMessagingServiceResource {}
 
 interface LinkshorteningMessagingServiceResource {
   domain_sid: string;

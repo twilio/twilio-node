@@ -25,7 +25,14 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * Communication channel type.
  */
 export type Channel =
-  "VOICE" | "SMS" | "RCS" | "EMAIL" | "WHATSAPP" | "CHAT" | "API" | "SYSTEM";
+  | "VOICE"
+  | "SMS"
+  | "RCS"
+  | "EMAIL"
+  | "WHATSAPP"
+  | "CHAT"
+  | "API"
+  | "SYSTEM";
 
 export class Communication {
   /**
@@ -228,10 +235,7 @@ export class ConversationContextImpl implements ConversationContext {
   protected _solution: ConversationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V3,
-    id: string
-  ) {
+  constructor(protected _version: V3, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -288,14 +292,16 @@ export class ConversationContextImpl implements ConversationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -881,17 +887,19 @@ export function ConversationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConversationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConversationPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConversationPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

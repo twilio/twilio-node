@@ -209,10 +209,7 @@ export class RatePlanContextImpl implements RatePlanContext {
   protected _solution: RatePlanContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: Wireless,
-    sid: string
-  ) {
+  constructor(protected _version: Wireless, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -251,10 +248,12 @@ export class RatePlanContextImpl implements RatePlanContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -307,14 +306,16 @@ export class RatePlanContextImpl implements RatePlanContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RatePlanInstance> => ({
-        ...response,
-        body: new RatePlanInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RatePlanInstance> => ({
+          ...response,
+          body: new RatePlanInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -405,14 +406,16 @@ export class RatePlanContextImpl implements RatePlanContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<RatePlanInstance> => ({
-        ...response,
-        body: new RatePlanInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RatePlanInstance> => ({
+          ...response,
+          body: new RatePlanInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1004,10 +1007,12 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<RatePlanInstance> => ({
-        ...response,
-        body: new RatePlanInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<RatePlanInstance> => ({
+          ...response,
+          body: new RatePlanInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1107,11 +1112,17 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<RatePlanPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RatePlanPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<RatePlanPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RatePlanPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

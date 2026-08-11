@@ -549,10 +549,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    id: string
-  ) {
+  constructor(protected _version: V2, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -642,14 +639,16 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -706,14 +705,16 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -819,14 +820,16 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1681,10 +1684,12 @@ export function ConfigurationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1801,17 +1806,19 @@ export function ConfigurationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConfigurationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConfigurationPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConfigurationPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

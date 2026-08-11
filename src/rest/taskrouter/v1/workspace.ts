@@ -254,10 +254,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   protected _realTimeStatistics?: WorkspaceRealTimeStatisticsListInstance;
   protected _statistics?: WorkspaceStatisticsListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -369,10 +366,12 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -425,14 +424,16 @@ export class WorkspaceContextImpl implements WorkspaceContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<WorkspaceInstance> => ({
-        ...response,
-        body: new WorkspaceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkspaceInstance> => ({
+          ...response,
+          body: new WorkspaceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -543,14 +544,16 @@ export class WorkspaceContextImpl implements WorkspaceContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<WorkspaceInstance> => ({
-        ...response,
-        body: new WorkspaceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkspaceInstance> => ({
+          ...response,
+          body: new WorkspaceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1209,10 +1212,12 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<WorkspaceInstance> => ({
-        ...response,
-        body: new WorkspaceInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<WorkspaceInstance> => ({
+          ...response,
+          body: new WorkspaceInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1316,11 +1321,17 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<WorkspacePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new WorkspacePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<WorkspacePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new WorkspacePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

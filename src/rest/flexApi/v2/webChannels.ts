@@ -176,10 +176,12 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<WebChannelsInstance> => ({
-        ...response,
-        body: new WebChannelsInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<WebChannelsInstance> => ({
+          ...response,
+          body: new WebChannelsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -210,10 +212,7 @@ interface WebChannelsResource {
 }
 
 export class WebChannelsInstance {
-  constructor(
-    protected _version: V2,
-    payload: WebChannelsResource
-  ) {
+  constructor(protected _version: V2, payload: WebChannelsResource) {
     this.conversationSid = payload.conversation_sid;
     this.identity = payload.identity;
   }

@@ -258,11 +258,7 @@ export class MessageContextImpl implements MessageContext {
 
   protected _deliveryReceipts?: DeliveryReceiptListInstance;
 
-  constructor(
-    protected _version: V1,
-    conversationSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, conversationSid: string, sid: string) {
     if (!isValidPathParam(conversationSid)) {
       throw new Error("Parameter 'conversationSid' is not valid.");
     }
@@ -350,10 +346,12 @@ export class MessageContextImpl implements MessageContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -408,15 +406,17 @@ export class MessageContextImpl implements MessageContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<MessageInstance> => ({
-        ...response,
-        body: new MessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -523,15 +523,17 @@ export class MessageContextImpl implements MessageContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<MessageInstance> => ({
-        ...response,
-        body: new MessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1193,14 +1195,16 @@ export function MessageListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<MessageInstance> => ({
-        ...response,
-        body: new MessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1302,11 +1306,13 @@ export function MessageListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<MessagePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MessagePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<MessagePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MessagePage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

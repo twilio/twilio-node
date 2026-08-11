@@ -214,7 +214,9 @@ export interface ConnectionPolicyTargetContextSolution {
   sid: string;
 }
 
-export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTargetContext {
+export class ConnectionPolicyTargetContextImpl
+  implements ConnectionPolicyTargetContext
+{
   protected _solution: ConnectionPolicyTargetContextSolution;
   protected _uri: string;
 
@@ -265,10 +267,12 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -329,15 +333,17 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConnectionPolicyTargetInstance> => ({
-        ...response,
-        body: new ConnectionPolicyTargetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.connectionPolicySid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConnectionPolicyTargetInstance> => ({
+          ...response,
+          body: new ConnectionPolicyTargetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.connectionPolicySid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -445,15 +451,17 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
         data,
         headers,
       })
-      .then((response): ApiResponse<ConnectionPolicyTargetInstance> => ({
-        ...response,
-        body: new ConnectionPolicyTargetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.connectionPolicySid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConnectionPolicyTargetInstance> => ({
+          ...response,
+          body: new ConnectionPolicyTargetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.connectionPolicySid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1074,14 +1082,16 @@ export function ConnectionPolicyTargetListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ConnectionPolicyTargetInstance> => ({
-        ...response,
-        body: new ConnectionPolicyTargetInstance(
-          operationVersion,
-          response.body,
-          instance._solution.connectionPolicySid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConnectionPolicyTargetInstance> => ({
+          ...response,
+          body: new ConnectionPolicyTargetInstance(
+            operationVersion,
+            response.body,
+            instance._solution.connectionPolicySid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1195,15 +1205,17 @@ export function ConnectionPolicyTargetListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConnectionPolicyTargetPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConnectionPolicyTargetPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConnectionPolicyTargetPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConnectionPolicyTargetPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -28,7 +28,11 @@ export type ConversationsV2ActionStatus = "PENDING" | "COMPLETED" | "FAILED";
  * Channel type for a Communication address.
  */
 export type ConversationsV2Channel =
-  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
+  | "VOICE"
+  | "SMS"
+  | "RCS"
+  | "WHATSAPP"
+  | "CHAT";
 
 /**
  * Content for a SEND_MESSAGE action.
@@ -223,15 +227,17 @@ export class ActionContextImpl implements ActionContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ActionInstance> => ({
-        ...response,
-        body: new ActionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationId,
-          instance._solution.actionId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ActionInstance> => ({
+          ...response,
+          body: new ActionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationId,
+            instance._solution.actionId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -518,14 +524,16 @@ export function ActionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ActionInstance> => ({
-        ...response,
-        body: new ActionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ActionInstance> => ({
+          ...response,
+          body: new ActionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -105,11 +105,7 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
   protected _solution: FlowRevisionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string,
-    revision: string
-  ) {
+  constructor(protected _version: V2, sid: string, revision: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -171,15 +167,17 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<FlowRevisionInstance> => ({
-        ...response,
-        body: new FlowRevisionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid,
-          instance._solution.revision
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FlowRevisionInstance> => ({
+          ...response,
+          body: new FlowRevisionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid,
+            instance._solution.revision
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -653,15 +651,17 @@ export function FlowRevisionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<FlowRevisionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new FlowRevisionPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FlowRevisionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FlowRevisionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

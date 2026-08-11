@@ -32,7 +32,10 @@ export type ChallengeChallengeReasons = "none" | "not_needed" | "not_requested";
  * The Status of this Challenge. One of `pending`, `expired`, `approved` or `denied`.
  */
 export type ChallengeChallengeStatuses =
-  "pending" | "expired" | "approved" | "denied";
+  | "pending"
+  | "expired"
+  | "approved"
+  | "denied";
 
 /**
  * The Factor Type of this Challenge. Currently `push` and `totp` are supported.
@@ -306,16 +309,18 @@ export class ChallengeContextImpl implements ChallengeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ChallengeInstance> => ({
-        ...response,
-        body: new ChallengeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChallengeInstance> => ({
+          ...response,
+          body: new ChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.identity,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -412,16 +417,18 @@ export class ChallengeContextImpl implements ChallengeContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ChallengeInstance> => ({
-        ...response,
-        body: new ChallengeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChallengeInstance> => ({
+          ...response,
+          body: new ChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.identity,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1040,15 +1047,17 @@ export function ChallengeListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ChallengeInstance> => ({
-        ...response,
-        body: new ChallengeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.identity
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChallengeInstance> => ({
+          ...response,
+          body: new ChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.identity
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1156,11 +1165,17 @@ export function ChallengeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ChallengePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ChallengePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<ChallengePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ChallengePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

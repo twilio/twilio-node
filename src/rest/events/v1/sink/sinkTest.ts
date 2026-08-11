@@ -116,14 +116,16 @@ export function SinkTestListInstance(
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<SinkTestInstance> => ({
-        ...response,
-        body: new SinkTestInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SinkTestInstance> => ({
+          ...response,
+          body: new SinkTestInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -153,11 +155,7 @@ interface SinkTestResource {
 }
 
 export class SinkTestInstance {
-  constructor(
-    protected _version: V1,
-    payload: SinkTestResource,
-    sid: string
-  ) {
+  constructor(protected _version: V1, payload: SinkTestResource, sid: string) {
     this.result = payload.result;
   }
 

@@ -142,7 +142,9 @@ export interface MessageInteractionContextSolution {
   sid: string;
 }
 
-export class MessageInteractionContextImpl implements MessageInteractionContext {
+export class MessageInteractionContextImpl
+  implements MessageInteractionContext
+{
   protected _solution: MessageInteractionContextSolution;
   protected _uri: string;
 
@@ -224,17 +226,19 @@ export class MessageInteractionContextImpl implements MessageInteractionContext 
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<MessageInteractionInstance> => ({
-        ...response,
-        body: new MessageInteractionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInteractionInstance> => ({
+          ...response,
+          body: new MessageInteractionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sessionSid,
+            instance._solution.participantSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -830,16 +834,18 @@ export function MessageInteractionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<MessageInteractionInstance> => ({
-        ...response,
-        body: new MessageInteractionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.participantSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInteractionInstance> => ({
+          ...response,
+          body: new MessageInteractionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sessionSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -953,15 +959,17 @@ export function MessageInteractionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<MessageInteractionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MessageInteractionPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInteractionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MessageInteractionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

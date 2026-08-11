@@ -263,7 +263,9 @@ export interface ConversationSummaryContextSolution {
   summaryId: string;
 }
 
-export class ConversationSummaryContextImpl implements ConversationSummaryContext {
+export class ConversationSummaryContextImpl
+  implements ConversationSummaryContext
+{
   protected _solution: ConversationSummaryContextSolution;
   protected _uri: string;
 
@@ -339,16 +341,18 @@ export class ConversationSummaryContextImpl implements ConversationSummaryContex
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<ConversationSummaryInstance> => ({
-        ...response,
-        body: new ConversationSummaryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.summaryId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationSummaryInstance> => ({
+          ...response,
+          body: new ConversationSummaryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.summaryId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -407,16 +411,18 @@ export class ConversationSummaryContextImpl implements ConversationSummaryContex
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConversationSummaryInstance> => ({
-        ...response,
-        body: new ConversationSummaryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.summaryId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationSummaryInstance> => ({
+          ...response,
+          body: new ConversationSummaryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.summaryId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -505,16 +511,18 @@ export class ConversationSummaryContextImpl implements ConversationSummaryContex
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationSummaryInstance> => ({
-        ...response,
-        body: new ConversationSummaryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.summaryId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationSummaryInstance> => ({
+          ...response,
+          body: new ConversationSummaryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.summaryId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1144,15 +1152,17 @@ export function ConversationSummaryListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationSummaryInstance> => ({
-        ...response,
-        body: new ConversationSummaryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationSummaryInstance> => ({
+          ...response,
+          body: new ConversationSummaryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1276,17 +1286,19 @@ export function ConversationSummaryListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConversationSummaryPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConversationSummaryPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationSummaryPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConversationSummaryPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

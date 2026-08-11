@@ -184,10 +184,7 @@ export class AwsContextImpl implements AwsContext {
   protected _solution: AwsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -226,10 +223,12 @@ export class AwsContextImpl implements AwsContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -279,14 +278,16 @@ export class AwsContextImpl implements AwsContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AwsInstance> => ({
-        ...response,
-        body: new AwsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AwsInstance> => ({
+          ...response,
+          body: new AwsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -370,14 +371,16 @@ export class AwsContextImpl implements AwsContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<AwsInstance> => ({
-        ...response,
-        body: new AwsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AwsInstance> => ({
+          ...response,
+          body: new AwsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -417,11 +420,7 @@ export class AwsInstance {
   protected _solution: AwsContextSolution;
   protected _context?: AwsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AwsResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: AwsResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -865,10 +864,12 @@ export function AwsListInstance(version: V1): AwsListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<AwsInstance> => ({
-        ...response,
-        body: new AwsInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<AwsInstance> => ({
+          ...response,
+          body: new AwsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -966,11 +967,13 @@ export function AwsListInstance(version: V1): AwsListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AwsPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AwsPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<AwsPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AwsPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

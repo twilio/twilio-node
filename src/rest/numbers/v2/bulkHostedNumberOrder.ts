@@ -23,7 +23,9 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * A string that shows the status of the current Bulk Hosting request, it can vary between these values: \'QUEUED\',\'IN_PROGRESS\',\'PROCESSED\'
  */
 export type BulkHostedNumberOrderRequestStatus =
-  "QUEUED" | "IN_PROGRESS" | "PROCESSED";
+  | "QUEUED"
+  | "IN_PROGRESS"
+  | "PROCESSED";
 
 /**
  * Options to pass to fetch a BulkHostedNumberOrderInstance
@@ -111,14 +113,13 @@ export interface BulkHostedNumberOrderContextSolution {
   bulkHostingSid: string;
 }
 
-export class BulkHostedNumberOrderContextImpl implements BulkHostedNumberOrderContext {
+export class BulkHostedNumberOrderContextImpl
+  implements BulkHostedNumberOrderContext
+{
   protected _solution: BulkHostedNumberOrderContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    bulkHostingSid: string
-  ) {
+  constructor(protected _version: V2, bulkHostingSid: string) {
     if (!isValidPathParam(bulkHostingSid)) {
       throw new Error("Parameter 'bulkHostingSid' is not valid.");
     }
@@ -213,14 +214,16 @@ export class BulkHostedNumberOrderContextImpl implements BulkHostedNumberOrderCo
         params: data,
         headers,
       })
-      .then((response): ApiResponse<BulkHostedNumberOrderInstance> => ({
-        ...response,
-        body: new BulkHostedNumberOrderInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bulkHostingSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BulkHostedNumberOrderInstance> => ({
+          ...response,
+          body: new BulkHostedNumberOrderInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bulkHostingSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -605,13 +608,15 @@ export function BulkHostedNumberOrderListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<BulkHostedNumberOrderInstance> => ({
-        ...response,
-        body: new BulkHostedNumberOrderInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BulkHostedNumberOrderInstance> => ({
+          ...response,
+          body: new BulkHostedNumberOrderInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

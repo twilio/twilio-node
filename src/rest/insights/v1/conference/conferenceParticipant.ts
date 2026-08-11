@@ -36,13 +36,26 @@ export type ConferenceParticipantCallStatus =
 export type ConferenceParticipantCallType = "carrier" | "client" | "sip";
 
 export type ConferenceParticipantJitterBufferSize =
-  "large" | "small" | "medium" | "off";
+  | "large"
+  | "small"
+  | "medium"
+  | "off";
 
 export type ConferenceParticipantProcessingState =
-  "complete" | "in_progress" | "timeout";
+  | "complete"
+  | "in_progress"
+  | "timeout";
 
 export type ConferenceParticipantRegion =
-  "us1" | "us2" | "au1" | "br1" | "ie1" | "jp1" | "sg1" | "de1" | "in1";
+  | "us1"
+  | "us2"
+  | "au1"
+  | "br1"
+  | "ie1"
+  | "jp1"
+  | "sg1"
+  | "de1"
+  | "in1";
 
 /**
  * Options to pass to fetch a ConferenceParticipantInstance
@@ -182,7 +195,9 @@ export interface ConferenceParticipantContextSolution {
   participantSid: string;
 }
 
-export class ConferenceParticipantContextImpl implements ConferenceParticipantContext {
+export class ConferenceParticipantContextImpl
+  implements ConferenceParticipantContext
+{
   protected _solution: ConferenceParticipantContextSolution;
   protected _uri: string;
 
@@ -290,15 +305,17 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
         params: data,
         headers,
       })
-      .then((response): ApiResponse<ConferenceParticipantInstance> => ({
-        ...response,
-        body: new ConferenceParticipantInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conferenceSid,
-          instance._solution.participantSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConferenceParticipantInstance> => ({
+          ...response,
+          body: new ConferenceParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conferenceSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -946,15 +963,17 @@ export function ConferenceParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConferenceParticipantPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConferenceParticipantPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConferenceParticipantPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConferenceParticipantPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

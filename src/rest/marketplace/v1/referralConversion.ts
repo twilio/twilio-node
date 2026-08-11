@@ -162,10 +162,12 @@ export function ReferralConversionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ReferralConversionInstance> => ({
-        ...response,
-        body: new ReferralConversionInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<ReferralConversionInstance> => ({
+          ...response,
+          body: new ReferralConversionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -195,10 +197,7 @@ interface ReferralConversionResource {
 }
 
 export class ReferralConversionInstance {
-  constructor(
-    protected _version: V1,
-    payload: ReferralConversionResource
-  ) {
+  constructor(protected _version: V1, payload: ReferralConversionResource) {
     this.convertedAccountSid = payload.converted_account_sid;
   }
 

@@ -26,7 +26,12 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If `channelType` is `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task Channel to Programmable Chat.
  */
 export type FlexFlowChannelType =
-  "web" | "sms" | "facebook" | "whatsapp" | "line" | "custom";
+  | "web"
+  | "sms"
+  | "facebook"
+  | "whatsapp"
+  | "line"
+  | "custom";
 
 /**
  * The software that will handle inbound messages. [Integration Type](https://www.twilio.com/docs/flex/developer/messaging/manage-flows#integration-types) can be: `studio`, `external`,  or `task`.
@@ -270,10 +275,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   protected _solution: FlexFlowContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -312,10 +314,12 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -368,14 +372,16 @@ export class FlexFlowContextImpl implements FlexFlowContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<FlexFlowInstance> => ({
-        ...response,
-        body: new FlexFlowInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FlexFlowInstance> => ({
+          ...response,
+          body: new FlexFlowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -530,14 +536,16 @@ export class FlexFlowContextImpl implements FlexFlowContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<FlexFlowInstance> => ({
-        ...response,
-        body: new FlexFlowInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FlexFlowInstance> => ({
+          ...response,
+          body: new FlexFlowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -585,11 +593,7 @@ export class FlexFlowInstance {
   protected _solution: FlexFlowContextSolution;
   protected _context?: FlexFlowContext;
 
-  constructor(
-    protected _version: V1,
-    payload: FlexFlowResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: FlexFlowResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -1192,10 +1196,12 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<FlexFlowInstance> => ({
-        ...response,
-        body: new FlexFlowInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<FlexFlowInstance> => ({
+          ...response,
+          body: new FlexFlowInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1299,11 +1305,17 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<FlexFlowPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new FlexFlowPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<FlexFlowPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new FlexFlowPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

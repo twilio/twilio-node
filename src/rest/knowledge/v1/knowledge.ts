@@ -301,10 +301,7 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   protected _chunks?: ChunkListInstance;
   protected _knowledgeStatus?: KnowledgeStatusListInstance;
 
-  constructor(
-    protected _version: V1,
-    id: string
-  ) {
+  constructor(protected _version: V1, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -356,10 +353,12 @@ export class KnowledgeContextImpl implements KnowledgeContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -412,14 +411,16 @@ export class KnowledgeContextImpl implements KnowledgeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<KnowledgeInstance> => ({
-        ...response,
-        body: new KnowledgeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeInstance> => ({
+          ...response,
+          body: new KnowledgeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -518,14 +519,16 @@ export class KnowledgeContextImpl implements KnowledgeContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<KnowledgeInstance> => ({
-        ...response,
-        body: new KnowledgeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeInstance> => ({
+          ...response,
+          body: new KnowledgeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -570,11 +573,7 @@ export class KnowledgeInstance {
   protected _solution: KnowledgeContextSolution;
   protected _context?: KnowledgeContext;
 
-  constructor(
-    protected _version: V1,
-    payload: KnowledgeResource,
-    id?: string
-  ) {
+  constructor(protected _version: V1, payload: KnowledgeResource, id?: string) {
     this.description = payload.description;
     this.id = payload.id;
     this.accountSid = payload.account_sid;
@@ -1087,10 +1086,12 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<KnowledgeInstance> => ({
-        ...response,
-        body: new KnowledgeInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeInstance> => ({
+          ...response,
+          body: new KnowledgeInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1192,11 +1193,17 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<KnowledgePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new KnowledgePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new KnowledgePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -23,7 +23,9 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * Lifecycle status of a long-running operation.
  */
 export type ConversationsV2OperationStatusValue =
-  "PENDING" | "COMPLETED" | "FAILED";
+  | "PENDING"
+  | "COMPLETED"
+  | "FAILED";
 
 /**
  * Error details if the operation failed. Follows RFC 9457 Problem Details.
@@ -100,10 +102,7 @@ export class OperationContextImpl implements OperationContext {
   protected _solution: OperationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    id: string
-  ) {
+  constructor(protected _version: V2, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -156,14 +155,16 @@ export class OperationContextImpl implements OperationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OperationInstance> => ({
-        ...response,
-        body: new OperationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperationInstance> => ({
+          ...response,
+          body: new OperationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

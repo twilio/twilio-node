@@ -179,10 +179,7 @@ export class OAuthAppContextImpl implements OAuthAppContext {
   protected _solution: OAuthAppContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -221,10 +218,12 @@ export class OAuthAppContextImpl implements OAuthAppContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -307,14 +306,16 @@ export class OAuthAppContextImpl implements OAuthAppContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<OAuthAppInstance> => ({
-        ...response,
-        body: new OAuthAppInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OAuthAppInstance> => ({
+          ...response,
+          body: new OAuthAppInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -360,11 +361,7 @@ export class OAuthAppInstance {
   protected _solution: OAuthAppContextSolution;
   protected _context?: OAuthAppContext;
 
-  constructor(
-    protected _version: V1,
-    payload: OAuthAppResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: OAuthAppResource, sid?: string) {
     this.type = payload.type;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -657,10 +654,12 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<OAuthAppInstance> => ({
-        ...response,
-        body: new OAuthAppInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<OAuthAppInstance> => ({
+          ...response,
+          body: new OAuthAppInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

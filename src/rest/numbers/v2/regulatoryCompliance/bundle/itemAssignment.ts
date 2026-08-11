@@ -133,11 +133,7 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
   protected _solution: ItemAssignmentContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    bundleSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2, bundleSid: string, sid: string) {
     if (!isValidPathParam(bundleSid)) {
       throw new Error("Parameter 'bundleSid' is not valid.");
     }
@@ -180,10 +176,12 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -241,15 +239,17 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ItemAssignmentInstance> => ({
-        ...response,
-        body: new ItemAssignmentInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ItemAssignmentInstance> => ({
+          ...response,
+          body: new ItemAssignmentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -725,14 +725,16 @@ export function ItemAssignmentListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ItemAssignmentInstance> => ({
-        ...response,
-        body: new ItemAssignmentInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ItemAssignmentInstance> => ({
+          ...response,
+          body: new ItemAssignmentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -835,15 +837,17 @@ export function ItemAssignmentListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ItemAssignmentPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ItemAssignmentPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ItemAssignmentPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ItemAssignmentPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

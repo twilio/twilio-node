@@ -203,16 +203,18 @@ export class MemberContextImpl implements MemberContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<MemberInstance> => ({
-        ...response,
-        body: new MemberInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.queueSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MemberInstance> => ({
+          ...response,
+          body: new MemberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.queueSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -300,16 +302,18 @@ export class MemberContextImpl implements MemberContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<MemberInstance> => ({
-        ...response,
-        body: new MemberInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.queueSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MemberInstance> => ({
+          ...response,
+          body: new MemberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.queueSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -768,11 +772,13 @@ export function MemberListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<MemberPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MemberPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<MemberPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MemberPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

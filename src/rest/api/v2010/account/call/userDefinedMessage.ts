@@ -175,15 +175,17 @@ export function UserDefinedMessageListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<UserDefinedMessageInstance> => ({
-        ...response,
-        body: new UserDefinedMessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserDefinedMessageInstance> => ({
+          ...response,
+          body: new UserDefinedMessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -71,10 +71,7 @@ export class CallContextImpl implements CallContext {
   protected _events?: EventListInstance;
   protected _metrics?: MetricListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -150,14 +147,16 @@ export class CallContextImpl implements CallContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CallInstance> => ({
-        ...response,
-        body: new CallInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CallInstance> => ({
+          ...response,
+          body: new CallInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -192,11 +191,7 @@ export class CallInstance {
   protected _solution: CallContextSolution;
   protected _context?: CallContext;
 
-  constructor(
-    protected _version: V1,
-    payload: CallResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: CallResource, sid?: string) {
     this.sid = payload.sid;
     this.url = payload.url;
     this.links = payload.links;

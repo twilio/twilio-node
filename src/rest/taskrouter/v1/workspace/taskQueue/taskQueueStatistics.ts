@@ -100,7 +100,9 @@ export interface TaskQueueStatisticsContextSolution {
   taskQueueSid: string;
 }
 
-export class TaskQueueStatisticsContextImpl implements TaskQueueStatisticsContext {
+export class TaskQueueStatisticsContextImpl
+  implements TaskQueueStatisticsContext
+{
   protected _solution: TaskQueueStatisticsContextSolution;
   protected _uri: string;
 
@@ -219,15 +221,17 @@ export class TaskQueueStatisticsContextImpl implements TaskQueueStatisticsContex
         params: data,
         headers,
       })
-      .then((response): ApiResponse<TaskQueueStatisticsInstance> => ({
-        ...response,
-        body: new TaskQueueStatisticsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.taskQueueSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TaskQueueStatisticsInstance> => ({
+          ...response,
+          body: new TaskQueueStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.taskQueueSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

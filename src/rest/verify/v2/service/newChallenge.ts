@@ -86,10 +86,7 @@ export class NewChallengeContextImpl implements NewChallengeContext {
   protected _solution: NewChallengeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    serviceSid: string
-  ) {
+  constructor(protected _version: V2, serviceSid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -176,14 +173,16 @@ export class NewChallengeContextImpl implements NewChallengeContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<NewChallengeInstance> => ({
-        ...response,
-        body: new NewChallengeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NewChallengeInstance> => ({
+          ...response,
+          body: new NewChallengeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

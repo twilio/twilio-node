@@ -182,11 +182,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   protected _solution: SigningKeyContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -229,10 +225,12 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -290,15 +288,17 @@ export class SigningKeyContextImpl implements SigningKeyContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SigningKeyInstance> => ({
-        ...response,
-        body: new SigningKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SigningKeyInstance> => ({
+          ...response,
+          body: new SigningKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -390,15 +390,17 @@ export class SigningKeyContextImpl implements SigningKeyContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SigningKeyInstance> => ({
-        ...response,
-        body: new SigningKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SigningKeyInstance> => ({
+          ...response,
+          body: new SigningKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -882,15 +884,17 @@ export function SigningKeyListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SigningKeyPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SigningKeyPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SigningKeyPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SigningKeyPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

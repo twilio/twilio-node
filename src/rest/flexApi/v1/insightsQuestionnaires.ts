@@ -269,14 +269,13 @@ export interface InsightsQuestionnairesContextSolution {
   questionnaireSid: string;
 }
 
-export class InsightsQuestionnairesContextImpl implements InsightsQuestionnairesContext {
+export class InsightsQuestionnairesContextImpl
+  implements InsightsQuestionnairesContext
+{
   protected _solution: InsightsQuestionnairesContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    questionnaireSid: string
-  ) {
+  constructor(protected _version: V1, questionnaireSid: string) {
     if (!isValidPathParam(questionnaireSid)) {
       throw new Error("Parameter 'questionnaireSid' is not valid.");
     }
@@ -349,10 +348,12 @@ export class InsightsQuestionnairesContextImpl implements InsightsQuestionnaires
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -445,14 +446,16 @@ export class InsightsQuestionnairesContextImpl implements InsightsQuestionnaires
         params: data,
         headers,
       })
-      .then((response): ApiResponse<InsightsQuestionnairesInstance> => ({
-        ...response,
-        body: new InsightsQuestionnairesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.questionnaireSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsQuestionnairesInstance> => ({
+          ...response,
+          body: new InsightsQuestionnairesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.questionnaireSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -562,14 +565,16 @@ export class InsightsQuestionnairesContextImpl implements InsightsQuestionnaires
         data,
         headers,
       })
-      .then((response): ApiResponse<InsightsQuestionnairesInstance> => ({
-        ...response,
-        body: new InsightsQuestionnairesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.questionnaireSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsQuestionnairesInstance> => ({
+          ...response,
+          body: new InsightsQuestionnairesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.questionnaireSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1205,13 +1210,15 @@ export function InsightsQuestionnairesListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<InsightsQuestionnairesInstance> => ({
-        ...response,
-        body: new InsightsQuestionnairesInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsQuestionnairesInstance> => ({
+          ...response,
+          body: new InsightsQuestionnairesInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1333,15 +1340,17 @@ export function InsightsQuestionnairesListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InsightsQuestionnairesPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InsightsQuestionnairesPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsQuestionnairesPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InsightsQuestionnairesPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -33,7 +33,11 @@ export type ComplianceTollfreeInquiriesBusinessType =
  * Describe how a user opts-in to text messages.
  */
 export type ComplianceTollfreeInquiriesOptInType =
-  "VERBAL" | "WEB_FORM" | "PAPER_FORM" | "VIA_TEXT" | "MOBILE_QR_CODE";
+  | "VERBAL"
+  | "WEB_FORM"
+  | "PAPER_FORM"
+  | "VIA_TEXT"
+  | "MOBILE_QR_CODE";
 
 /**
  * Options to pass to create a ComplianceTollfreeInquiriesInstance
@@ -451,13 +455,15 @@ export function ComplianceTollfreeInquiriesListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ComplianceTollfreeInquiriesInstance> => ({
-        ...response,
-        body: new ComplianceTollfreeInquiriesInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ComplianceTollfreeInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceTollfreeInquiriesInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -480,7 +486,8 @@ export function ComplianceTollfreeInquiriesListInstance(
   return instance;
 }
 
-interface ComplianceTollfreeInquiriesPayload extends ComplianceTollfreeInquiriesResource {}
+interface ComplianceTollfreeInquiriesPayload
+  extends ComplianceTollfreeInquiriesResource {}
 
 interface ComplianceTollfreeInquiriesResource {
   inquiry_id: string;

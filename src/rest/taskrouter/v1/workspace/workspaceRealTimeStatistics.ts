@@ -97,14 +97,13 @@ export interface WorkspaceRealTimeStatisticsContextSolution {
   workspaceSid: string;
 }
 
-export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTimeStatisticsContext {
+export class WorkspaceRealTimeStatisticsContextImpl
+  implements WorkspaceRealTimeStatisticsContext
+{
   protected _solution: WorkspaceRealTimeStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    workspaceSid: string
-  ) {
+  constructor(protected _version: V1, workspaceSid: string) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -202,14 +201,16 @@ export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTime
         params: data,
         headers,
       })
-      .then((response): ApiResponse<WorkspaceRealTimeStatisticsInstance> => ({
-        ...response,
-        body: new WorkspaceRealTimeStatisticsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkspaceRealTimeStatisticsInstance> => ({
+          ...response,
+          body: new WorkspaceRealTimeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -232,7 +233,8 @@ export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTime
   }
 }
 
-interface WorkspaceRealTimeStatisticsPayload extends WorkspaceRealTimeStatisticsResource {}
+interface WorkspaceRealTimeStatisticsPayload
+  extends WorkspaceRealTimeStatisticsResource {}
 
 interface WorkspaceRealTimeStatisticsResource {
   account_sid: string;

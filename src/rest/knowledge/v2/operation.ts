@@ -99,10 +99,7 @@ export class OperationContextImpl implements OperationContext {
   protected _solution: OperationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    operationId: string
-  ) {
+  constructor(protected _version: V2, operationId: string) {
     if (!isValidPathParam(operationId)) {
       throw new Error("Parameter 'operationId' is not valid.");
     }
@@ -159,14 +156,16 @@ export class OperationContextImpl implements OperationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OperationInstance> => ({
-        ...response,
-        body: new OperationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.operationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperationInstance> => ({
+          ...response,
+          body: new OperationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.operationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -179,14 +179,16 @@ export function LookupListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<LookupInstance> => ({
-        ...response,
-        body: new LookupInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<LookupInstance> => ({
+          ...response,
+          body: new LookupInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -120,14 +120,16 @@ export function BrandRegistrationOtpListInstance(
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<BrandRegistrationOtpInstance> => ({
-        ...response,
-        body: new BrandRegistrationOtpInstance(
-          operationVersion,
-          response.body,
-          instance._solution.brandRegistrationSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BrandRegistrationOtpInstance> => ({
+          ...response,
+          body: new BrandRegistrationOtpInstance(
+            operationVersion,
+            response.body,
+            instance._solution.brandRegistrationSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

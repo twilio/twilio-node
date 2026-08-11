@@ -233,10 +233,7 @@ export class UserContextImpl implements UserContext {
 
   protected _userConversations?: UserConversationListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -254,7 +251,8 @@ export class UserContextImpl implements UserContext {
 
   remove(
     params?:
-      UserContextRemoveOptions | ((error: Error | null, item?: boolean) => any),
+      | UserContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (params instanceof Function) {
@@ -315,10 +313,12 @@ export class UserContextImpl implements UserContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -368,14 +368,16 @@ export class UserContextImpl implements UserContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -469,14 +471,16 @@ export class UserContextImpl implements UserContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -523,11 +527,7 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(
-    protected _version: V1,
-    payload: UserResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: UserResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -1057,10 +1057,12 @@ export function UserListInstance(version: V1): UserListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1158,11 +1160,13 @@ export function UserListInstance(version: V1): UserListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<UserPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new UserPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<UserPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UserPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

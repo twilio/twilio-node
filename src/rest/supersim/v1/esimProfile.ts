@@ -26,7 +26,12 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The status of the eSIM Profile. Can be: `new`, `reserving`, `available`, `downloaded`, `installed` or `failed`. See the [eSIM Profile Status Values](https://www.twilio.com/docs/iot/supersim/api/esimprofile-resource#status-values) for a description of each.
  */
 export type EsimProfileStatus =
-  "new" | "reserving" | "available" | "downloaded" | "installed" | "failed";
+  | "new"
+  | "reserving"
+  | "available"
+  | "downloaded"
+  | "installed"
+  | "failed";
 
 /**
  * Options to pass to create a EsimProfileInstance
@@ -137,10 +142,7 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   protected _solution: EsimProfileContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -197,14 +199,16 @@ export class EsimProfileContextImpl implements EsimProfileContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<EsimProfileInstance> => ({
-        ...response,
-        body: new EsimProfileInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EsimProfileInstance> => ({
+          ...response,
+          body: new EsimProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -704,10 +708,12 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<EsimProfileInstance> => ({
-        ...response,
-        body: new EsimProfileInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<EsimProfileInstance> => ({
+          ...response,
+          body: new EsimProfileInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -813,15 +819,17 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EsimProfilePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EsimProfilePage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EsimProfilePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EsimProfilePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

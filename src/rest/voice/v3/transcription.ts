@@ -275,10 +275,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V3,
-    transcriptionId: string
-  ) {
+  constructor(protected _version: V3, transcriptionId: string) {
     if (!isValidPathParam(transcriptionId)) {
       throw new Error("Parameter 'transcriptionId' is not valid.");
     }
@@ -335,14 +332,16 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.transcriptionId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.transcriptionId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -692,10 +691,12 @@ export function TranscriptionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

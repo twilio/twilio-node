@@ -238,10 +238,12 @@ export class BucketContextImpl implements BucketContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -297,16 +299,18 @@ export class BucketContextImpl implements BucketContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<BucketInstance> => ({
-        ...response,
-        body: new BucketInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BucketInstance> => ({
+          ...response,
+          body: new BucketInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.rateLimitSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -396,16 +400,18 @@ export class BucketContextImpl implements BucketContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<BucketInstance> => ({
-        ...response,
-        body: new BucketInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BucketInstance> => ({
+          ...response,
+          body: new BucketInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.rateLimitSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -953,15 +959,17 @@ export function BucketListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<BucketInstance> => ({
-        ...response,
-        body: new BucketInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BucketInstance> => ({
+          ...response,
+          body: new BucketInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.rateLimitSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1060,11 +1068,13 @@ export function BucketListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<BucketPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new BucketPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<BucketPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new BucketPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

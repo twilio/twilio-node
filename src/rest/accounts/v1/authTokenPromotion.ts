@@ -89,7 +89,9 @@ export interface AuthTokenPromotionContext {
 
 export interface AuthTokenPromotionContextSolution {}
 
-export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext {
+export class AuthTokenPromotionContextImpl
+  implements AuthTokenPromotionContext
+{
   protected _solution: AuthTokenPromotionContextSolution;
   protected _uri: string;
 
@@ -182,10 +184,12 @@ export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext 
         data,
         headers,
       })
-      .then((response): ApiResponse<AuthTokenPromotionInstance> => ({
-        ...response,
-        body: new AuthTokenPromotionInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<AuthTokenPromotionInstance> => ({
+          ...response,
+          body: new AuthTokenPromotionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -222,10 +226,7 @@ export class AuthTokenPromotionInstance {
   protected _solution: AuthTokenPromotionContextSolution;
   protected _context?: AuthTokenPromotionContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AuthTokenPromotionResource
-  ) {
+  constructor(protected _version: V1, payload: AuthTokenPromotionResource) {
     this.accountSid = payload.account_sid;
     this.authToken = payload.auth_token;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

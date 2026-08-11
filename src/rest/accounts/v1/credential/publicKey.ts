@@ -193,10 +193,7 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   protected _solution: PublicKeyContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -235,10 +232,12 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -291,14 +290,16 @@ export class PublicKeyContextImpl implements PublicKeyContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<PublicKeyInstance> => ({
-        ...response,
-        body: new PublicKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PublicKeyInstance> => ({
+          ...response,
+          body: new PublicKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -385,14 +386,16 @@ export class PublicKeyContextImpl implements PublicKeyContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<PublicKeyInstance> => ({
-        ...response,
-        body: new PublicKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PublicKeyInstance> => ({
+          ...response,
+          body: new PublicKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -905,10 +908,12 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<PublicKeyInstance> => ({
-        ...response,
-        body: new PublicKeyInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<PublicKeyInstance> => ({
+          ...response,
+          body: new PublicKeyInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1008,11 +1013,17 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<PublicKeyPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new PublicKeyPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<PublicKeyPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PublicKeyPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

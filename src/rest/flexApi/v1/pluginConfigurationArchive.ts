@@ -97,14 +97,13 @@ export interface PluginConfigurationArchiveContextSolution {
   sid: string;
 }
 
-export class PluginConfigurationArchiveContextImpl implements PluginConfigurationArchiveContext {
+export class PluginConfigurationArchiveContextImpl
+  implements PluginConfigurationArchiveContext
+{
   protected _solution: PluginConfigurationArchiveContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -200,14 +199,16 @@ export class PluginConfigurationArchiveContextImpl implements PluginConfiguratio
         data,
         headers,
       })
-      .then((response): ApiResponse<PluginConfigurationArchiveInstance> => ({
-        ...response,
-        body: new PluginConfigurationArchiveInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginConfigurationArchiveInstance> => ({
+          ...response,
+          body: new PluginConfigurationArchiveInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -230,7 +231,8 @@ export class PluginConfigurationArchiveContextImpl implements PluginConfiguratio
   }
 }
 
-interface PluginConfigurationArchivePayload extends PluginConfigurationArchiveResource {}
+interface PluginConfigurationArchivePayload
+  extends PluginConfigurationArchiveResource {}
 
 interface PluginConfigurationArchiveResource {
   sid: string;

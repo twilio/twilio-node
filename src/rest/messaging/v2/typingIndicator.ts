@@ -164,10 +164,12 @@ export function TypingIndicatorListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TypingIndicatorInstance> => ({
-        ...response,
-        body: new TypingIndicatorInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<TypingIndicatorInstance> => ({
+          ...response,
+          body: new TypingIndicatorInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -197,10 +199,7 @@ interface TypingIndicatorResource {
 }
 
 export class TypingIndicatorInstance {
-  constructor(
-    protected _version: V2,
-    payload: TypingIndicatorResource
-  ) {
+  constructor(protected _version: V2, payload: TypingIndicatorResource) {
     this.success = payload.success;
   }
 

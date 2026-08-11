@@ -115,13 +115,15 @@ export function OauthAuthorizationServerListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OauthAuthorizationServerInstance> => ({
-        ...response,
-        body: new OauthAuthorizationServerInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OauthAuthorizationServerInstance> => ({
+          ...response,
+          body: new OauthAuthorizationServerInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -144,7 +146,8 @@ export function OauthAuthorizationServerListInstance(
   return instance;
 }
 
-interface OauthAuthorizationServerPayload extends OauthAuthorizationServerResource {}
+interface OauthAuthorizationServerPayload
+  extends OauthAuthorizationServerResource {}
 
 interface OauthAuthorizationServerResource {
   issuer: string;

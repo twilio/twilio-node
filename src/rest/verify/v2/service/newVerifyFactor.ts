@@ -218,14 +218,16 @@ export function NewVerifyFactorListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<NewVerifyFactorInstance> => ({
-        ...response,
-        body: new NewVerifyFactorInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NewVerifyFactorInstance> => ({
+          ...response,
+          body: new NewVerifyFactorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -594,16 +594,18 @@ export class StreamContextImpl implements StreamContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<StreamInstance> => ({
-        ...response,
-        body: new StreamInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StreamInstance> => ({
+          ...response,
+          body: new StreamInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1707,15 +1709,17 @@ export function StreamListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<StreamInstance> => ({
-        ...response,
-        body: new StreamInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StreamInstance> => ({
+          ...response,
+          body: new StreamInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

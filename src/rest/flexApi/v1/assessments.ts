@@ -157,10 +157,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
   protected _solution: AssessmentsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    assessmentSid: string
-  ) {
+  constructor(protected _version: V1, assessmentSid: string) {
     if (!isValidPathParam(assessmentSid)) {
       throw new Error("Parameter 'assessmentSid' is not valid.");
     }
@@ -275,14 +272,16 @@ export class AssessmentsContextImpl implements AssessmentsContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<AssessmentsInstance> => ({
-        ...response,
-        body: new AssessmentsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.assessmentSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssessmentsInstance> => ({
+          ...response,
+          body: new AssessmentsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.assessmentSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -888,10 +887,12 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<AssessmentsInstance> => ({
-        ...response,
-        body: new AssessmentsInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<AssessmentsInstance> => ({
+          ...response,
+          body: new AssessmentsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -999,15 +1000,17 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AssessmentsPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AssessmentsPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AssessmentsPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AssessmentsPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

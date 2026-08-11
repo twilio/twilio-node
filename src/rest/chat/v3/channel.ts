@@ -101,11 +101,7 @@ export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V3,
-    serviceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V3, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -204,15 +200,17 @@ export class ChannelContextImpl implements ChannelContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ChannelInstance> => ({
-        ...response,
-        body: new ChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChannelInstance> => ({
+          ...response,
+          body: new ChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

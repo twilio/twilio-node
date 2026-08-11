@@ -42,7 +42,7 @@ export default class TokenPage<
   TVersion extends Version,
   TPayload extends TokenPaginationPayload,
   TResource,
-  TInstance,
+  TInstance
 > {
   instances: TInstance[];
   protected _version: TVersion;
@@ -249,7 +249,8 @@ export default class TokenPage<
    * or undefined if there isn't a nextToken.
    */
   nextPage():
-    Promise<TokenPage<TVersion, TPayload, TResource, TInstance>> | undefined {
+    | Promise<TokenPage<TVersion, TPayload, TResource, TInstance>>
+    | undefined {
     return this._getPage(this.nextToken);
   }
 
@@ -261,7 +262,8 @@ export default class TokenPage<
    * or undefined if there isn't a previousToken.
    */
   previousPage():
-    Promise<TokenPage<TVersion, TPayload, TResource, TInstance>> | undefined {
+    | Promise<TokenPage<TVersion, TPayload, TResource, TInstance>>
+    | undefined {
     return this._getPage(this.previousToken);
   }
 }

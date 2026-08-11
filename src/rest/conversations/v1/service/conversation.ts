@@ -29,7 +29,10 @@ import { WebhookListInstance } from "./conversation/webhook";
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
  */
 export type ConversationState =
-  "inactive" | "active" | "closed" | "initializing";
+  | "inactive"
+  | "active"
+  | "closed"
+  | "initializing";
 
 export type ConversationWebhookEnabledType = "true" | "false";
 
@@ -303,11 +306,7 @@ export class ConversationContextImpl implements ConversationContext {
   protected _participants?: ParticipantListInstance;
   protected _webhooks?: WebhookListInstance;
 
-  constructor(
-    protected _version: V1,
-    chatServiceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, chatServiceSid: string, sid: string) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -417,10 +416,12 @@ export class ConversationContextImpl implements ConversationContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -478,15 +479,17 @@ export class ConversationContextImpl implements ConversationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -623,15 +626,17 @@ export class ConversationContextImpl implements ConversationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1341,14 +1346,16 @@ export function ConversationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1459,15 +1466,17 @@ export function ConversationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConversationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConversationPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConversationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

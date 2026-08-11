@@ -23,7 +23,11 @@ import { ApiResponse } from "../../../../base/ApiResponse";
  * The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`.
  */
 export type VerificationCheckChannel =
-  "sms" | "call" | "email" | "whatsapp" | "sna";
+  | "sms"
+  | "call"
+  | "email"
+  | "whatsapp"
+  | "sna";
 
 /**
  * Options to pass to create a VerificationCheckInstance
@@ -220,14 +224,16 @@ export function VerificationCheckListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<VerificationCheckInstance> => ({
-        ...response,
-        body: new VerificationCheckInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<VerificationCheckInstance> => ({
+          ...response,
+          body: new VerificationCheckInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

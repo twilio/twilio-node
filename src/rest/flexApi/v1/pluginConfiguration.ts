@@ -156,16 +156,15 @@ export interface PluginConfigurationContextSolution {
   sid: string;
 }
 
-export class PluginConfigurationContextImpl implements PluginConfigurationContext {
+export class PluginConfigurationContextImpl
+  implements PluginConfigurationContext
+{
   protected _solution: PluginConfigurationContextSolution;
   protected _uri: string;
 
   protected _plugins?: ConfiguredPluginListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -262,14 +261,16 @@ export class PluginConfigurationContextImpl implements PluginConfigurationContex
         params: data,
         headers,
       })
-      .then((response): ApiResponse<PluginConfigurationInstance> => ({
-        ...response,
-        body: new PluginConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginConfigurationInstance> => ({
+          ...response,
+          body: new PluginConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -783,10 +784,15 @@ export function PluginConfigurationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<PluginConfigurationInstance> => ({
-        ...response,
-        body: new PluginConfigurationInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<PluginConfigurationInstance> => ({
+          ...response,
+          body: new PluginConfigurationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -904,15 +910,17 @@ export function PluginConfigurationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<PluginConfigurationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new PluginConfigurationPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginConfigurationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PluginConfigurationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

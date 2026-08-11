@@ -120,14 +120,13 @@ export interface ExportConfigurationContextSolution {
   resourceType: string;
 }
 
-export class ExportConfigurationContextImpl implements ExportConfigurationContext {
+export class ExportConfigurationContextImpl
+  implements ExportConfigurationContext
+{
   protected _solution: ExportConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    resourceType: string
-  ) {
+  constructor(protected _version: V1, resourceType: string) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -184,14 +183,16 @@ export class ExportConfigurationContextImpl implements ExportConfigurationContex
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ExportConfigurationInstance> => ({
-        ...response,
-        body: new ExportConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.resourceType
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ExportConfigurationInstance> => ({
+          ...response,
+          body: new ExportConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.resourceType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,14 +294,16 @@ export class ExportConfigurationContextImpl implements ExportConfigurationContex
         data,
         headers,
       })
-      .then((response): ApiResponse<ExportConfigurationInstance> => ({
-        ...response,
-        body: new ExportConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.resourceType
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ExportConfigurationInstance> => ({
+          ...response,
+          body: new ExportConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.resourceType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

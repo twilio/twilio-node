@@ -27,7 +27,12 @@ import { ReservationListInstance } from "./task/reservation";
  * The current status of the Task\'s assignment. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`.
  */
 export type TaskStatus =
-  "pending" | "reserved" | "assigned" | "canceled" | "completed" | "wrapping";
+  | "pending"
+  | "reserved"
+  | "assigned"
+  | "canceled"
+  | "completed"
+  | "wrapping";
 
 /**
  * Options to pass to remove a TaskInstance
@@ -312,11 +317,7 @@ export class TaskContextImpl implements TaskContext {
 
   protected _reservations?: ReservationListInstance;
 
-  constructor(
-    protected _version: V1,
-    workspaceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, workspaceSid: string, sid: string) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -342,7 +343,8 @@ export class TaskContextImpl implements TaskContext {
 
   remove(
     params?:
-      TaskContextRemoveOptions | ((error: Error | null, item?: boolean) => any),
+      | TaskContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (params instanceof Function) {
@@ -403,10 +405,12 @@ export class TaskContextImpl implements TaskContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -461,15 +465,17 @@ export class TaskContextImpl implements TaskContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<TaskInstance> => ({
-        ...response,
-        body: new TaskInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TaskInstance> => ({
+          ...response,
+          body: new TaskInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -582,15 +588,17 @@ export class TaskContextImpl implements TaskContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<TaskInstance> => ({
-        ...response,
-        body: new TaskInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TaskInstance> => ({
+          ...response,
+          body: new TaskInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1314,14 +1322,16 @@ export function TaskListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TaskInstance> => ({
-        ...response,
-        body: new TaskInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TaskInstance> => ({
+          ...response,
+          body: new TaskInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1461,11 +1471,13 @@ export function TaskListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<TaskPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new TaskPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<TaskPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TaskPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

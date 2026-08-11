@@ -25,7 +25,11 @@ import { ApiResponse } from "../../../../base/ApiResponse";
 export type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
 
 export type MetricTwilioEdge =
-  "unknown_edge" | "carrier_edge" | "sip_edge" | "sdk_edge" | "client_edge";
+  | "unknown_edge"
+  | "carrier_edge"
+  | "sip_edge"
+  | "sdk_edge"
+  | "client_edge";
 
 /**
  * Options to pass to each
@@ -346,11 +350,13 @@ export function MetricListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<MetricPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MetricPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<MetricPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MetricPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

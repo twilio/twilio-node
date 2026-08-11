@@ -181,16 +181,18 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<PublishedTrackInstance> => ({
-        ...response,
-        body: new PublishedTrackInstance(
-          operationVersion,
-          response.body,
-          instance._solution.roomSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PublishedTrackInstance> => ({
+          ...response,
+          body: new PublishedTrackInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -655,15 +657,17 @@ export function PublishedTrackListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<PublishedTrackPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new PublishedTrackPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PublishedTrackPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PublishedTrackPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

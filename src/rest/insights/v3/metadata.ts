@@ -179,10 +179,12 @@ export function MetadataListInstance(version: V3): MetadataListInstance {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<MetadataInstance> => ({
-        ...response,
-        body: new MetadataInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<MetadataInstance> => ({
+          ...response,
+          body: new MetadataInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -214,10 +216,7 @@ interface MetadataResource {
  * Response containing metadata about available cubes, measures, and dimensions for a domain
  */
 export class MetadataInstance {
-  constructor(
-    protected _version: V3,
-    _payload: MetadataResource
-  ) {
+  constructor(protected _version: V3, _payload: MetadataResource) {
     const payload = _payload;
     this.domain = payload.domain;
     this.cubes =

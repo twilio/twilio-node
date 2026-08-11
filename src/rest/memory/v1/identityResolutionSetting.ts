@@ -232,14 +232,16 @@ export function IdentityResolutionSettingListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<IdentityResolutionSettingInstance> => ({
-        ...response,
-        body: new IdentityResolutionSettingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentityResolutionSettingInstance> => ({
+          ...response,
+          body: new IdentityResolutionSettingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -327,14 +329,16 @@ export function IdentityResolutionSettingListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<IdentityResolutionSettingInstance> => ({
-        ...response,
-        body: new IdentityResolutionSettingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentityResolutionSettingInstance> => ({
+          ...response,
+          body: new IdentityResolutionSettingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

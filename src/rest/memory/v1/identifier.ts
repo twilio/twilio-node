@@ -323,16 +323,18 @@ export class IdentifierContextImpl implements IdentifierContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<IdentifierInstance> => ({
-        ...response,
-        body: new IdentifierInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.idType
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentifierInstance> => ({
+          ...response,
+          body: new IdentifierInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.idType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -391,16 +393,18 @@ export class IdentifierContextImpl implements IdentifierContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<IdentifierInstance> => ({
-        ...response,
-        body: new IdentifierInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.idType
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentifierInstance> => ({
+          ...response,
+          body: new IdentifierInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.idType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -489,16 +493,18 @@ export class IdentifierContextImpl implements IdentifierContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<IdentifierInstance> => ({
-        ...response,
-        body: new IdentifierInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.idType
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentifierInstance> => ({
+          ...response,
+          body: new IdentifierInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.idType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -966,15 +972,17 @@ export function IdentifierListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<IdentifierInstance> => ({
-        ...response,
-        body: new IdentifierInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentifierInstance> => ({
+          ...response,
+          body: new IdentifierInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1034,19 +1042,21 @@ export function IdentifierListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<IdentifierInstance[]> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: ((response.body as any)["identifiers"] || []).map(
-          (item: any) =>
-            new IdentifierInstance(
-              operationVersion,
-              item,
-              instance._solution.storeId,
-              instance._solution.profileId
-            )
-        ),
-      }));
+      .then(
+        (response): ApiResponse<IdentifierInstance[]> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: ((response.body as any)["identifiers"] || []).map(
+            (item: any) =>
+              new IdentifierInstance(
+                operationVersion,
+                item,
+                instance._solution.storeId,
+                instance._solution.profileId
+              )
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

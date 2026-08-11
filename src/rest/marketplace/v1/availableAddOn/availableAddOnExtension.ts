@@ -102,15 +102,13 @@ export interface AvailableAddOnExtensionContextSolution {
   sid: string;
 }
 
-export class AvailableAddOnExtensionContextImpl implements AvailableAddOnExtensionContext {
+export class AvailableAddOnExtensionContextImpl
+  implements AvailableAddOnExtensionContext
+{
   protected _solution: AvailableAddOnExtensionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    availableAddOnSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, availableAddOnSid: string, sid: string) {
     if (!isValidPathParam(availableAddOnSid)) {
       throw new Error("Parameter 'availableAddOnSid' is not valid.");
     }
@@ -175,15 +173,17 @@ export class AvailableAddOnExtensionContextImpl implements AvailableAddOnExtensi
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AvailableAddOnExtensionInstance> => ({
-        ...response,
-        body: new AvailableAddOnExtensionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.availableAddOnSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AvailableAddOnExtensionInstance> => ({
+          ...response,
+          body: new AvailableAddOnExtensionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.availableAddOnSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -647,15 +647,17 @@ export function AvailableAddOnExtensionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AvailableAddOnExtensionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AvailableAddOnExtensionPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AvailableAddOnExtensionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AvailableAddOnExtensionPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

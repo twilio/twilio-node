@@ -295,10 +295,12 @@ export function QueryListInstance(version: V3): QueryListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<QueryInstance> => ({
-        ...response,
-        body: new QueryInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<QueryInstance> => ({
+          ...response,
+          body: new QueryInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -373,10 +375,12 @@ export function QueryListInstance(version: V3): QueryListInstance {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<QueryInstance> => ({
-        ...response,
-        body: new QueryInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<QueryInstance> => ({
+          ...response,
+          body: new QueryInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -406,10 +410,7 @@ interface QueryResource {
 }
 
 export class QueryInstance {
-  constructor(
-    protected _version: V3,
-    _payload: QueryResource
-  ) {
+  constructor(protected _version: V3, _payload: QueryResource) {
     const payload = _payload;
     this.domain = payload.domain;
     this.items = payload.items;

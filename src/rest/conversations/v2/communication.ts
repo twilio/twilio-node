@@ -37,7 +37,11 @@ export class ContentTranscriptionTranscription {
  * Channel type for a Communication address.
  */
 export type ConversationsV2Channel =
-  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
+  | "VOICE"
+  | "SMS"
+  | "RCS"
+  | "WHATSAPP"
+  | "CHAT";
 
 /**
  * Transcription metadata.
@@ -111,7 +115,11 @@ export class ConversationsV2ParticipantAddress {
  * Delivery status of a Communication to a recipient.
  */
 export type ConversationsV2RecipientDeliveryStatus =
-  "INITIATED" | "IN_PROGRESS" | "DELIVERED" | "COMPLETED" | "FAILED";
+  | "INITIATED"
+  | "IN_PROGRESS"
+  | "DELIVERED"
+  | "COMPLETED"
+  | "FAILED";
 
 export class CreateCommunicationInConversationRequest {
   "author": CreateCommunicationInConversationRequestAuthor;
@@ -312,11 +320,7 @@ export class CommunicationContextImpl implements CommunicationContext {
   protected _solution: CommunicationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    conversationId: string,
-    id: string
-  ) {
+  constructor(protected _version: V2, conversationId: string, id: string) {
     if (!isValidPathParam(conversationId)) {
       throw new Error("Parameter 'conversationId' is not valid.");
     }
@@ -378,15 +382,17 @@ export class CommunicationContextImpl implements CommunicationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CommunicationInstance> => ({
-        ...response,
-        body: new CommunicationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationId,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CommunicationInstance> => ({
+          ...response,
+          body: new CommunicationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationId,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -928,14 +934,16 @@ export function CommunicationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<CommunicationInstance> => ({
-        ...response,
-        body: new CommunicationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CommunicationInstance> => ({
+          ...response,
+          body: new CommunicationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1052,17 +1060,19 @@ export function CommunicationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CommunicationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CommunicationPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CommunicationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CommunicationPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

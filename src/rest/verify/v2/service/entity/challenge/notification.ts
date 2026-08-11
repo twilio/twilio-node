@@ -204,16 +204,18 @@ export function NotificationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<NotificationInstance> => ({
-        ...response,
-        body: new NotificationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.challengeSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.identity,
+            instance._solution.challengeSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

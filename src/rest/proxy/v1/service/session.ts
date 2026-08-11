@@ -33,7 +33,11 @@ export type SessionMode = "message-only" | "voice-only" | "voice-and-message";
  * The status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`.
  */
 export type SessionStatus =
-  "open" | "in-progress" | "closed" | "failed" | "unknown";
+  | "open"
+  | "in-progress"
+  | "closed"
+  | "failed"
+  | "unknown";
 
 /**
  * Options to pass to update a SessionInstance
@@ -214,11 +218,7 @@ export class SessionContextImpl implements SessionContext {
   protected _interactions?: InteractionListInstance;
   protected _participants?: ParticipantListInstance;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -283,10 +283,12 @@ export class SessionContextImpl implements SessionContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -341,15 +343,17 @@ export class SessionContextImpl implements SessionContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SessionInstance> => ({
-        ...response,
-        body: new SessionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SessionInstance> => ({
+          ...response,
+          body: new SessionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -442,15 +446,17 @@ export class SessionContextImpl implements SessionContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SessionInstance> => ({
-        ...response,
-        body: new SessionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SessionInstance> => ({
+          ...response,
+          body: new SessionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1078,14 +1084,16 @@ export function SessionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SessionInstance> => ({
-        ...response,
-        body: new SessionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SessionInstance> => ({
+          ...response,
+          body: new SessionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1185,11 +1193,13 @@ export function SessionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SessionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SessionPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<SessionPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SessionPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

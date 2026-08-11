@@ -99,10 +99,7 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   protected _solution: EndUserTypeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -159,14 +156,16 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<EndUserTypeInstance> => ({
-        ...response,
-        body: new EndUserTypeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EndUserTypeInstance> => ({
+          ...response,
+          body: new EndUserTypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -560,15 +559,17 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EndUserTypePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EndUserTypePage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EndUserTypePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EndUserTypePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

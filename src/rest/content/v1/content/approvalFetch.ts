@@ -60,10 +60,7 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   protected _solution: ApprovalFetchContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -120,14 +117,16 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ApprovalFetchInstance> => ({
-        ...response,
-        body: new ApprovalFetchInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ApprovalFetchInstance> => ({
+          ...response,
+          body: new ApprovalFetchInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -26,7 +26,11 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * Operator Type availability status. Possible values: internal, beta, general-availability, retired, deprecated.
  */
 export type OperatorTypeAvailability =
-  "internal" | "beta" | "general-availability" | "retired" | "deprecated";
+  | "internal"
+  | "beta"
+  | "general-availability"
+  | "retired"
+  | "deprecated";
 
 /**
  * Operator Results for this Operator Type will follow this format. Possible values: text-classification, text-extraction, text-extraction-normalized, text-generation.
@@ -126,10 +130,7 @@ export class OperatorTypeContextImpl implements OperatorTypeContext {
   protected _solution: OperatorTypeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -186,14 +187,16 @@ export class OperatorTypeContextImpl implements OperatorTypeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<OperatorTypeInstance> => ({
-        ...response,
-        body: new OperatorTypeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorTypeInstance> => ({
+          ...response,
+          body: new OperatorTypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -659,15 +662,17 @@ export function OperatorTypeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<OperatorTypePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new OperatorTypePage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorTypePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OperatorTypePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

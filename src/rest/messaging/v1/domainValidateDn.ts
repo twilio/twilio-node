@@ -60,10 +60,7 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
   protected _solution: DomainValidateDnContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    domainSid: string
-  ) {
+  constructor(protected _version: V1, domainSid: string) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -120,14 +117,16 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<DomainValidateDnInstance> => ({
-        ...response,
-        body: new DomainValidateDnInstance(
-          operationVersion,
-          response.body,
-          instance._solution.domainSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DomainValidateDnInstance> => ({
+          ...response,
+          body: new DomainValidateDnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

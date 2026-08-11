@@ -43,7 +43,11 @@ export class ConversationsV2Address {
  * Channel type for a Communication address.
  */
 export type ConversationsV2Channel =
-  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
+  | "VOICE"
+  | "SMS"
+  | "RCS"
+  | "WHATSAPP"
+  | "CHAT";
 
 /**
  * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
@@ -57,7 +61,9 @@ export type ConversationsV2ConversationGroupingType =
  * Lifecycle status of a Conversation.
  */
 export type ConversationsV2ConversationStatus =
-  "ACTIVE" | "INACTIVE" | "CLOSED";
+  | "ACTIVE"
+  | "INACTIVE"
+  | "CLOSED";
 
 /**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
@@ -125,7 +131,11 @@ export class ConversationsV2Participant {
  * Type of Participant in the Conversation.
  */
 export type ConversationsV2ParticipantType =
-  "HUMAN_AGENT" | "CUSTOMER" | "AI_AGENT" | "AGENT" | "UNKNOWN";
+  | "HUMAN_AGENT"
+  | "CUSTOMER"
+  | "AI_AGENT"
+  | "AGENT"
+  | "UNKNOWN";
 
 /**
  * Default webhook configuration for Conversation-level events under this Configuration.
@@ -607,10 +617,7 @@ export class ConversationContextImpl implements ConversationContext {
   protected _solution: ConversationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    id: string
-  ) {
+  constructor(protected _version: V2, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -700,14 +707,16 @@ export class ConversationContextImpl implements ConversationContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -764,14 +773,16 @@ export class ConversationContextImpl implements ConversationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -877,14 +888,16 @@ export class ConversationContextImpl implements ConversationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -990,14 +1003,16 @@ export class ConversationContextImpl implements ConversationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1848,10 +1863,12 @@ export function ConversationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ConversationInstance> => ({
-        ...response,
-        body: new ConversationInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<ConversationInstance> => ({
+          ...response,
+          body: new ConversationInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1972,17 +1989,19 @@ export function ConversationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConversationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConversationPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConversationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConversationPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

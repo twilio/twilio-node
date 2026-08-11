@@ -23,7 +23,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
 export type UserChannelChannelStatus =
-  "joined" | "invited" | "not_participating";
+  | "joined"
+  | "invited"
+  | "not_participating";
 
 export type UserChannelNotificationLevel = "default" | "muted";
 
@@ -244,10 +246,12 @@ export class UserChannelContextImpl implements UserChannelContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -306,16 +310,18 @@ export class UserChannelContextImpl implements UserChannelContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<UserChannelInstance> => ({
-        ...response,
-        body: new UserChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.userSid,
-          instance._solution.channelSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserChannelInstance> => ({
+          ...response,
+          body: new UserChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.userSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -420,16 +426,18 @@ export class UserChannelContextImpl implements UserChannelContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<UserChannelInstance> => ({
-        ...response,
-        body: new UserChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.userSid,
-          instance._solution.channelSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserChannelInstance> => ({
+          ...response,
+          body: new UserChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.userSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -954,15 +962,17 @@ export function UserChannelListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<UserChannelPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new UserChannelPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserChannelPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UserChannelPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

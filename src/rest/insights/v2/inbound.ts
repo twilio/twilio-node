@@ -255,10 +255,7 @@ export class InboundContextImpl implements InboundContext {
   protected _solution: InboundContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    reportId: string
-  ) {
+  constructor(protected _version: V2, reportId: string) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -358,14 +355,16 @@ export class InboundContextImpl implements InboundContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<InboundInstance> => ({
-        ...response,
-        body: new InboundInstance(
-          operationVersion,
-          response.body,
-          instance._solution.reportId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InboundInstance> => ({
+          ...response,
+          body: new InboundInstance(
+            operationVersion,
+            response.body,
+            instance._solution.reportId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -839,11 +838,13 @@ export function InboundListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InboundPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InboundPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<InboundPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InboundPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

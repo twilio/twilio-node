@@ -194,10 +194,7 @@ export class SinkContextImpl implements SinkContext {
   protected _sinkTest?: SinkTestListInstance;
   protected _sinkValidate?: SinkValidateListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -249,10 +246,12 @@ export class SinkContextImpl implements SinkContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -302,14 +301,16 @@ export class SinkContextImpl implements SinkContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SinkInstance> => ({
-        ...response,
-        body: new SinkInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SinkInstance> => ({
+          ...response,
+          body: new SinkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -389,14 +390,16 @@ export class SinkContextImpl implements SinkContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SinkInstance> => ({
-        ...response,
-        body: new SinkInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SinkInstance> => ({
+          ...response,
+          body: new SinkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -439,11 +442,7 @@ export class SinkInstance {
   protected _solution: SinkContextSolution;
   protected _context?: SinkContext;
 
-  constructor(
-    protected _version: V1,
-    payload: SinkResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: SinkResource, sid?: string) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.description = payload.description;
@@ -919,10 +918,12 @@ export function SinkListInstance(version: V1): SinkListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<SinkInstance> => ({
-        ...response,
-        body: new SinkInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<SinkInstance> => ({
+          ...response,
+          body: new SinkInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1026,11 +1027,13 @@ export function SinkListInstance(version: V1): SinkListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SinkPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SinkPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<SinkPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SinkPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

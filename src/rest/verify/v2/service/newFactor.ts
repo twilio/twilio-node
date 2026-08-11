@@ -207,14 +207,16 @@ export function NewFactorListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<NewFactorInstance> => ({
-        ...response,
-        body: new NewFactorInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NewFactorInstance> => ({
+          ...response,
+          body: new NewFactorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

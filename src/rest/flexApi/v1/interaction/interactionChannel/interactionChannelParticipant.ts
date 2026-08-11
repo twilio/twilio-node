@@ -28,7 +28,11 @@ export type InteractionChannelParticipantStatus = "closed" | "wrapup";
  * Participant type. Can be: `agent`, `customer`, `supervisor`, `external`, `unknown`
  */
 export type InteractionChannelParticipantType =
-  "supervisor" | "customer" | "external" | "agent" | "unknown";
+  | "supervisor"
+  | "customer"
+  | "external"
+  | "agent"
+  | "unknown";
 
 /**
  * Options to pass to update a InteractionChannelParticipantInstance
@@ -135,7 +139,9 @@ export interface InteractionChannelParticipantContextSolution {
   sid: string;
 }
 
-export class InteractionChannelParticipantContextImpl implements InteractionChannelParticipantContext {
+export class InteractionChannelParticipantContextImpl
+  implements InteractionChannelParticipantContext
+{
   protected _solution: InteractionChannelParticipantContextSolution;
   protected _uri: string;
 
@@ -244,16 +250,18 @@ export class InteractionChannelParticipantContextImpl implements InteractionChan
         data,
         headers,
       })
-      .then((response): ApiResponse<InteractionChannelParticipantInstance> => ({
-        ...response,
-        body: new InteractionChannelParticipantInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelParticipantInstance> => ({
+          ...response,
+          body: new InteractionChannelParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -782,15 +790,17 @@ export function InteractionChannelParticipantListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<InteractionChannelParticipantInstance> => ({
-        ...response,
-        body: new InteractionChannelParticipantInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.channelSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelParticipantInstance> => ({
+          ...response,
+          body: new InteractionChannelParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -913,15 +923,17 @@ export function InteractionChannelParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InteractionChannelParticipantPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InteractionChannelParticipantPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelParticipantPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InteractionChannelParticipantPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

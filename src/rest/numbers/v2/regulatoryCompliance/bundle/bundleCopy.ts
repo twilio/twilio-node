@@ -384,14 +384,16 @@ export function BundleCopyListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<BundleCopyInstance> => ({
-        ...response,
-        body: new BundleCopyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BundleCopyInstance> => ({
+          ...response,
+          body: new BundleCopyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -491,15 +493,17 @@ export function BundleCopyListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<BundleCopyPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new BundleCopyPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BundleCopyPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new BundleCopyPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

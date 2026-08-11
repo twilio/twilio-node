@@ -87,7 +87,11 @@ export class ErrorEvent {
 export type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
 export type EventTwilioEdge =
-  "unknown_edge" | "carrier_edge" | "sip_edge" | "sdk_edge" | "client_edge";
+  | "unknown_edge"
+  | "carrier_edge"
+  | "sip_edge"
+  | "sdk_edge"
+  | "client_edge";
 
 /**
  * Contains information about the Conversation Relay (CRelay) connection used in calls.
@@ -474,11 +478,13 @@ export function EventListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EventPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EventPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<EventPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EventPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -547,11 +553,7 @@ interface EventResource {
 }
 
 export class EventInstance {
-  constructor(
-    protected _version: V1,
-    payload: EventResource,
-    callSid: string
-  ) {
+  constructor(protected _version: V1, payload: EventResource, callSid: string) {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;

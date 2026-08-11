@@ -38,7 +38,11 @@ export class InsightsQueryRequest {
  * Valid status values for long-running operations.
  */
 export type LongRunningOperationStatus =
-  "PENDING" | "RUNNING" | "CANCELLED" | "COMPLETED" | "FAILED";
+  | "PENDING"
+  | "RUNNING"
+  | "CANCELLED"
+  | "COMPLETED"
+  | "FAILED";
 
 /**
  * Error details for a failed operation, embedded inside a 200 OK operation envelope.
@@ -231,10 +235,7 @@ export class QueryJobContextImpl implements QueryJobContext {
   protected _solution: QueryJobContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V3,
-    operationId: string
-  ) {
+  constructor(protected _version: V3, operationId: string) {
     if (!isValidPathParam(operationId)) {
       throw new Error("Parameter 'operationId' is not valid.");
     }
@@ -291,14 +292,16 @@ export class QueryJobContextImpl implements QueryJobContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<QueryJobInstance> => ({
-        ...response,
-        body: new QueryJobInstance(
-          operationVersion,
-          response.body,
-          instance._solution.operationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<QueryJobInstance> => ({
+          ...response,
+          body: new QueryJobInstance(
+            operationVersion,
+            response.body,
+            instance._solution.operationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -803,10 +806,12 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<QueryJobInstance> => ({
-        ...response,
-        body: new QueryJobInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<QueryJobInstance> => ({
+          ...response,
+          body: new QueryJobInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -918,17 +923,19 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<QueryJobPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new QueryJobPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<QueryJobPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new QueryJobPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

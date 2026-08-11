@@ -234,14 +234,13 @@ export interface AccountDefaultConfigurationContextSolution {
   type: string;
 }
 
-export class AccountDefaultConfigurationContextImpl implements AccountDefaultConfigurationContext {
+export class AccountDefaultConfigurationContextImpl
+  implements AccountDefaultConfigurationContext
+{
   protected _solution: AccountDefaultConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    type: string
-  ) {
+  constructor(protected _version: V2, type: string) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
     }
@@ -353,14 +352,16 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         data,
         headers,
       })
-      .then((response): ApiResponse<AccountDefaultConfigurationInstance> => ({
-        ...response,
-        body: new AccountDefaultConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AccountDefaultConfigurationInstance> => ({
+          ...response,
+          body: new AccountDefaultConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -399,10 +400,12 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -462,14 +465,16 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AccountDefaultConfigurationInstance> => ({
-        ...response,
-        body: new AccountDefaultConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AccountDefaultConfigurationInstance> => ({
+          ...response,
+          body: new AccountDefaultConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -581,14 +586,16 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         data,
         headers,
       })
-      .then((response): ApiResponse<AccountDefaultConfigurationInstance> => ({
-        ...response,
-        body: new AccountDefaultConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AccountDefaultConfigurationInstance> => ({
+          ...response,
+          body: new AccountDefaultConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -611,7 +618,8 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
   }
 }
 
-interface AccountDefaultConfigurationPayload extends AccountDefaultConfigurationResource {}
+interface AccountDefaultConfigurationPayload
+  extends AccountDefaultConfigurationResource {}
 
 interface AccountDefaultConfigurationResource {
   account_sid: string;

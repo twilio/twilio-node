@@ -258,11 +258,7 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    conversationSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, conversationSid: string, sid: string) {
     if (!isValidPathParam(conversationSid)) {
       throw new Error("Parameter 'conversationSid' is not valid.");
     }
@@ -339,10 +335,12 @@ export class ParticipantContextImpl implements ParticipantContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -400,15 +398,17 @@ export class ParticipantContextImpl implements ParticipantContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ParticipantInstance> => ({
-        ...response,
-        body: new ParticipantInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -536,15 +536,17 @@ export class ParticipantContextImpl implements ParticipantContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ParticipantInstance> => ({
-        ...response,
-        body: new ParticipantInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1205,14 +1207,16 @@ export function ParticipantListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ParticipantInstance> => ({
-        ...response,
-        body: new ParticipantInstance(
-          operationVersion,
-          response.body,
-          instance._solution.conversationSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ParticipantInstance> => ({
+          ...response,
+          body: new ParticipantInstance(
+            operationVersion,
+            response.body,
+            instance._solution.conversationSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1312,15 +1316,17 @@ export function ParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ParticipantPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ParticipantPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ParticipantPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ParticipantPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

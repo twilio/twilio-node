@@ -95,10 +95,7 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
   protected _solution: PluginArchiveContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -188,14 +185,16 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<PluginArchiveInstance> => ({
-        ...response,
-        body: new PluginArchiveInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginArchiveInstance> => ({
+          ...response,
+          body: new PluginArchiveInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

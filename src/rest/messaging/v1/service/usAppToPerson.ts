@@ -309,10 +309,12 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -403,15 +405,17 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<UsAppToPersonInstance> => ({
-        ...response,
-        body: new UsAppToPersonInstance(
-          operationVersion,
-          response.body,
-          instance._solution.messagingServiceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsAppToPersonInstance> => ({
+          ...response,
+          body: new UsAppToPersonInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -629,15 +633,17 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<UsAppToPersonInstance> => ({
-        ...response,
-        body: new UsAppToPersonInstance(
-          operationVersion,
-          response.body,
-          instance._solution.messagingServiceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsAppToPersonInstance> => ({
+          ...response,
+          body: new UsAppToPersonInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1561,14 +1567,16 @@ export function UsAppToPersonListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<UsAppToPersonInstance> => ({
-        ...response,
-        body: new UsAppToPersonInstance(
-          operationVersion,
-          response.body,
-          instance._solution.messagingServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsAppToPersonInstance> => ({
+          ...response,
+          body: new UsAppToPersonInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1675,15 +1683,17 @@ export function UsAppToPersonListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<UsAppToPersonPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new UsAppToPersonPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsAppToPersonPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UsAppToPersonPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

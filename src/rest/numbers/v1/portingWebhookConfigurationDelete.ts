@@ -23,7 +23,8 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The of the webhook type of the configuration to be deleted
  */
 export type PortingWebhookConfigurationDeleteWebhookType =
-  "PORT_IN" | "PORT_OUT";
+  | "PORT_IN"
+  | "PORT_OUT";
 
 export interface PortingWebhookConfigurationDeleteContext {
   /**
@@ -59,7 +60,9 @@ export interface PortingWebhookConfigurationDeleteContextSolution {
   webhookType: PortingWebhookConfigurationDeleteWebhookType;
 }
 
-export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebhookConfigurationDeleteContext {
+export class PortingWebhookConfigurationDeleteContextImpl
+  implements PortingWebhookConfigurationDeleteContext
+{
   protected _solution: PortingWebhookConfigurationDeleteContextSolution;
   protected _uri: string;
 
@@ -105,10 +108,12 @@ export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebh
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

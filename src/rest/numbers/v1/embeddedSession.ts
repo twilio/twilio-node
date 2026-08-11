@@ -177,14 +177,16 @@ export function EmbeddedSessionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<EmbeddedSessionInstance> => ({
-        ...response,
-        body: new EmbeddedSessionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EmbeddedSessionInstance> => ({
+          ...response,
+          body: new EmbeddedSessionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

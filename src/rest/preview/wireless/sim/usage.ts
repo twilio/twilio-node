@@ -91,10 +91,7 @@ export class UsageContextImpl implements UsageContext {
   protected _solution: UsageContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: Wireless,
-    simSid: string
-  ) {
+  constructor(protected _version: Wireless, simSid: string) {
     if (!isValidPathParam(simSid)) {
       throw new Error("Parameter 'simSid' is not valid.");
     }
@@ -176,14 +173,16 @@ export class UsageContextImpl implements UsageContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<UsageInstance> => ({
-        ...response,
-        body: new UsageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.simSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsageInstance> => ({
+          ...response,
+          body: new UsageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.simSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

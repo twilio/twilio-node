@@ -196,14 +196,16 @@ export function RecordingRulesListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RecordingRulesInstance> => ({
-        ...response,
-        body: new RecordingRulesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.roomSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingRulesInstance> => ({
+          ...response,
+          body: new RecordingRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -295,14 +297,16 @@ export function RecordingRulesListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<RecordingRulesInstance> => ({
-        ...response,
-        body: new RecordingRulesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.roomSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingRulesInstance> => ({
+          ...response,
+          body: new RecordingRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

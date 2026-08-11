@@ -182,11 +182,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   protected _solution: ShortCodeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -248,15 +244,17 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ShortCodeInstance> => ({
-        ...response,
-        body: new ShortCodeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ShortCodeInstance> => ({
+          ...response,
+          body: new ShortCodeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -366,15 +364,17 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ShortCodeInstance> => ({
-        ...response,
-        body: new ShortCodeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ShortCodeInstance> => ({
+          ...response,
+          body: new ShortCodeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -908,11 +908,17 @@ export function ShortCodeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ShortCodePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ShortCodePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<ShortCodePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ShortCodePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -28,13 +28,20 @@ import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
  * DEPRECATED. Feedback on how to improve brand score
  */
 export type BrandRegistrationBrandFeedback =
-  "TAX_ID" | "STOCK_SYMBOL" | "NONPROFIT" | "GOVERNMENT_ENTITY" | "OTHERS";
+  | "TAX_ID"
+  | "STOCK_SYMBOL"
+  | "NONPROFIT"
+  | "GOVERNMENT_ENTITY"
+  | "OTHERS";
 
 /**
  * When a brand is registered, TCR will attempt to verify the identity of the brand based on the supplied information.
  */
 export type BrandRegistrationIdentityStatus =
-  "SELF_DECLARED" | "UNVERIFIED" | "VERIFIED" | "VETTED_VERIFIED";
+  | "SELF_DECLARED"
+  | "UNVERIFIED"
+  | "VERIFIED"
+  | "VETTED_VERIFIED";
 
 /**
  * Brand Registration status. One of \"PENDING\", \"APPROVED\", \"FAILED\", \"IN_REVIEW\", \"DELETION_PENDING\", \"DELETION_FAILED\", \"SUSPENDED\".
@@ -175,10 +182,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   protected _brandRegistrationOtps?: BrandRegistrationOtpListInstance;
   protected _brandVettings?: BrandVettingListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -249,14 +253,16 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<BrandRegistrationInstance> => ({
-        ...response,
-        body: new BrandRegistrationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BrandRegistrationInstance> => ({
+          ...response,
+          body: new BrandRegistrationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -313,14 +319,16 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<BrandRegistrationInstance> => ({
-        ...response,
-        body: new BrandRegistrationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BrandRegistrationInstance> => ({
+          ...response,
+          body: new BrandRegistrationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -941,10 +949,12 @@ export function BrandRegistrationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<BrandRegistrationInstance> => ({
-        ...response,
-        body: new BrandRegistrationInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<BrandRegistrationInstance> => ({
+          ...response,
+          body: new BrandRegistrationInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1054,15 +1064,17 @@ export function BrandRegistrationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<BrandRegistrationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new BrandRegistrationPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BrandRegistrationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new BrandRegistrationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

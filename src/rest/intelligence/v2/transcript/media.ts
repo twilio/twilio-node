@@ -89,10 +89,7 @@ export class MediaContextImpl implements MediaContext {
   protected _solution: MediaContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -174,14 +171,16 @@ export class MediaContextImpl implements MediaContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<MediaInstance> => ({
-        ...response,
-        body: new MediaInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MediaInstance> => ({
+          ...response,
+          body: new MediaInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -218,11 +217,7 @@ export class MediaInstance {
   protected _solution: MediaContextSolution;
   protected _context?: MediaContext;
 
-  constructor(
-    protected _version: V2,
-    payload: MediaResource,
-    sid: string
-  ) {
+  constructor(protected _version: V2, payload: MediaResource, sid: string) {
     this.accountSid = payload.account_sid;
     this.mediaUrl = payload.media_url;
     this.serviceSid = payload.service_sid;

@@ -101,10 +101,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   protected _solution: PhoneNumberContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    phoneNumber: string
-  ) {
+  constructor(protected _version: V1, phoneNumber: string) {
     if (!isValidPathParam(phoneNumber)) {
       throw new Error("Parameter 'phoneNumber' is not valid.");
     }
@@ -211,14 +208,16 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<PhoneNumberInstance> => ({
-        ...response,
-        body: new PhoneNumberInstance(
-          operationVersion,
-          response.body,
-          instance._solution.phoneNumber
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PhoneNumberInstance> => ({
+          ...response,
+          body: new PhoneNumberInstance(
+            operationVersion,
+            response.body,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

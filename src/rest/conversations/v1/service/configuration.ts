@@ -128,10 +128,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    chatServiceSid: string
-  ) {
+  constructor(protected _version: V1, chatServiceSid: string) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -188,14 +185,16 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -307,14 +306,16 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

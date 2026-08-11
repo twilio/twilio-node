@@ -128,14 +128,13 @@ export interface ModuleDataManagementContextSolution {
   sid: string;
 }
 
-export class ModuleDataManagementContextImpl implements ModuleDataManagementContext {
+export class ModuleDataManagementContextImpl
+  implements ModuleDataManagementContext
+{
   protected _solution: ModuleDataManagementContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -192,14 +191,16 @@ export class ModuleDataManagementContextImpl implements ModuleDataManagementCont
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ModuleDataManagementInstance> => ({
-        ...response,
-        body: new ModuleDataManagementInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ModuleDataManagementInstance> => ({
+          ...response,
+          body: new ModuleDataManagementInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -311,14 +312,16 @@ export class ModuleDataManagementContextImpl implements ModuleDataManagementCont
         data,
         headers,
       })
-      .then((response): ApiResponse<ModuleDataManagementInstance> => ({
-        ...response,
-        body: new ModuleDataManagementInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ModuleDataManagementInstance> => ({
+          ...response,
+          body: new ModuleDataManagementInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
